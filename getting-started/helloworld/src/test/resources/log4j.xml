@@ -15,8 +15,8 @@
 		<level value="warn" />
 	</logger>
 
-	<logger name="org.springframework.integration">
-		<level value="warn" />
+	<logger name="org.springframework.integration.samples">
+		<level value="debug" />
 	</logger>
 
 	<!-- Root Logger -->

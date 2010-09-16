@@ -16,6 +16,8 @@
 
 package org.springframework.integration.samples.helloworld;
 
+import org.apache.log4j.Logger;
+import org.junit.Test;
 import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.integration.MessageChannel;
@@ -36,14 +38,17 @@ import org.springframework.integration.message.GenericMessage;
  * @author Mark Fisher
  * @author Oleg Zhurakousky
  */
-public class HelloWorldDemo {
+public class HelloWorldDemoTest {
 
-	public static void main(String[] args) {
-		AbstractApplicationContext context = new ClassPathXmlApplicationContext("helloWorldDemo.xml", HelloWorldDemo.class);
+	private static Logger logger = Logger.getLogger(HelloWorldDemoTest.class);
+	
+	@Test
+	public void testHelloWorld(){
+		AbstractApplicationContext context = new ClassPathXmlApplicationContext("/META-INF/spring/integration/helloWorldDemo.xml", HelloWorldDemoTest.class);
 		MessageChannel inputChannel = context.getBean("inputChannel", MessageChannel.class);
 		PollableChannel outputChannel = context.getBean("outputChannel", PollableChannel.class);
 		inputChannel.send(new GenericMessage<String>("World"));
-		System.out.println("==> HelloWorldDemo: " + outputChannel.receive(0).getPayload());		
+		logger.info("==> HelloWorldDemo: " + outputChannel.receive(0).getPayload());		
 	}
 
 }
