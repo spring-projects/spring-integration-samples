@@ -1,0 +1,35 @@
+<jsp:root xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:spring="http://www.springframework.org/tags" xmlns:form="http://www.springframework.org/tags/form" xmlns:jsp="http://java.sun.com/JSP/Page" version="2.0">
+  <jsp:output omit-xml-declaration="yes" />
+
+  <jsp:directive.attribute name="id" type="java.lang.String" required="true" description="The identifier for this tag (do not change!)" />
+  <jsp:directive.attribute name="field" type="java.lang.String" required="true" description="The field exposed from the form backing object" />
+  <jsp:directive.attribute name="text" type="java.lang.String" required="false" description="The text to be presented" />
+  <jsp:directive.attribute name="messageCode" type="java.lang.String" required="false" description="The code for the message to be presented" />
+  <jsp:directive.attribute name="messageCodeAttribute" type="java.lang.String" required="false" description="The attribute for the message code sto be presented" />
+  <jsp:directive.attribute name="label" type="java.lang.String" required="false" description="The label used for this field, will default to a message bundle if not supplied" />
+  <jsp:directive.attribute name="render" type="java.lang.Boolean" required="false" description="Indicate if the contents of this tag and all enclosed tags should be rendered (default 'true')" />
+  <jsp:directive.attribute name="z" type="java.lang.String" required="false" description="Used for checking if element has been modified (to recalculate simply provide empty string value)" />
+
+  <c:if test="${empty render or render}">
+
+    <c:if test="${empty label}">
+      <spring:message code="label_${fn:toLowerCase(fn:substringAfter(id,'_'))}" var="label" />
+    </c:if>
+
+    <div id="_${fn:escapeXml(id)}_id">
+      <label for="_${fn:escapeXml(field)}_id">
+        <c:out value="${label}" />
+        :
+      </label>
+      <c:choose>
+        <c:when test="${not empty messageCode}">
+          <spring:message code="${messageCode}" arguments="${messageCodeAttribute}" />
+        </c:when>
+        <c:otherwise>
+          <spring:eval expression="text" />
+        </c:otherwise>
+      </c:choose>
+    </div>
+    <br />
+  </c:if>
+</jsp:root>

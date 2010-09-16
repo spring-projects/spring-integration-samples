@@ -1,0 +1,1 @@
+Demonstrates stream channel adapter and poller

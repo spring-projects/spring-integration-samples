@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<div xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:spring="http://www.springframework.org/tags" xmlns:util="urn:jsptagdir:/WEB-INF/tags/util" id="footer" version="2.0">
+  <jsp:output omit-xml-declaration="yes"/>
+
+  <spring:url value="/" var="home"/>
+  <span>
+    <a href="${home}">
+      <spring:message code="button_home"/>
+    </a>
+  </span>
+  <c:if test="${pageContext['request'].userPrincipal != null}">
+    <c:out value=" | "/>
+    <span>
+      <spring:url value="/resources/j_spring_security_logout" var="logout"/>
+      <a href="${logout}">
+        <spring:message code="security_logout"/>
+      </a>
+    </span>
+  </c:if>
+
+  <span id="language">
+    <c:out value=" | "/>
+    <spring:message code="global_language"/>
+    <c:out value=": "/>
+  <util:language label="English" locale="en"/>
+    </span>
+  <util:theme/>
+
+  <spring:url value="/resources/images/springsource-logo.png" var="logo"/>
+  <spring:message code="global_sponsored" var="sponsored"/>
+  <span>
+    <a href="http://springsource.com" title="${fn:escapeXml(sponsored)}">
+      <img align="right" alt="${fn:escapeXml(sponsored)}" src="${logo}"/>
+    </a>
+  </span>
+</div>

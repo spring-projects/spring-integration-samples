@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<div xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:menu="urn:jsptagdir:/WEB-INF/tags/menu" id="menu" version="2.0">
+	<jsp:output omit-xml-declaration="yes"/>
+
+<menu:menu id="_menu" z="nZaf43BjUg1iM0v70HJVEsXDopc=">
+        <menu:category id="c_loanshark" z="8WhvO4BkJx0liJrPcVuP2MdHid0=">
+            <menu:item id="i_loanshark_new" messageCode="global_menu_new" url="/loansharks?form" z="cljPwN6n9eTQzC6NQ3Xi2zVo/xA="/>
+        <menu:item id="i_loanshark_list" messageCode="global_menu_list" url="/loansharks?page=${empty param.page ? 1 : param.page}&amp;size=${empty param.size ? 10 : param.size}" z="VD7u9XTs1kINHz9TpYe/mckdgOo="/>
+        <menu:item id="fi_loanshark_name" messageCode="global_menu_find" url="/loansharks?find=ByName&amp;form" z="yOgcsk0sqfq0Xcy6NTnL6c8kJ74="/>
+        </menu:category>
+    </menu:menu>
+</div>

@@ -1,0 +1,87 @@
+<jsp:root xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:spring="http://www.springframework.org/tags" xmlns:jsp="http://java.sun.com/JSP/Page" version="2.0">
+  <jsp:output omit-xml-declaration="yes" />
+
+  <jsp:directive.attribute name="maxPages" type="java.lang.Integer" required="true" description="The maximum number of pages available (ie tableRecordCount / size)" />
+  <jsp:directive.attribute name="page" type="java.lang.Integer" required="false" description="The current page (not required, defaults to 1)" />
+  <jsp:directive.attribute name="size" type="java.lang.Integer" required="false" description="The number of records per page (not required, defaults to 10)" />
+  <jsp:directive.attribute name="render" type="java.lang.Boolean" required="false" description="Indicate if the contents of this tag and all enclosed tags should be rendered (default 'true')" />
+
+  <c:if test="${empty render or render}">
+
+    <c:if test="${empty page || page lt 1}">
+      <c:set var="page" value="1" />
+    </c:if>
+
+    <c:if test="${empty size || size lt 1}">
+      <c:set var="size" value="10" />
+    </c:if>
+
+    <spring:message code="list_size" var="list_size" />
+    <c:out value="${list_size} " />
+
+    <c:forEach var="i" begin="5" end="25" step="5">
+      <c:choose>
+        <c:when test="${size == i}">
+          <c:out value="${i}" />
+        </c:when>
+        <c:otherwise>
+          <spring:url value="" var="sizeUrl">
+            <spring:param name="page" value="1" />
+            <spring:param name="size" value="${i}" />
+          </spring:url>
+          <a href="${sizeUrl}">${i}</a>
+        </c:otherwise>
+      </c:choose>
+      <c:out value=" " />
+    </c:forEach>
+    <c:out value="| " />
+
+    <c:if test="${page ne 1}">
+      <spring:url value="" var="first">
+        <spring:param name="page" value="1" />
+        <spring:param name="size" value="${size}" />
+      </spring:url>
+      <spring:url value="/resources/images/resultset_first.png" var="first_image_url" />
+      <spring:message code="list_first" var="first_label" />
+      <a class="image" href="${first}" title="${first_label}">
+        <img alt="${first_label}" src="${first_image_url}" />
+      </a>
+    </c:if>
+    <c:if test="${page gt 1}">
+      <spring:url value="" var="previous">
+        <spring:param name="page" value="${page - 1}" />
+        <spring:param name="size" value="${size}" />
+      </spring:url>
+      <spring:url value="/resources/images/resultset_previous.png" var="previous_image_url" />
+      <spring:message code="list_previous" var="previous_label" />
+      <a class="image" href="${previous}" title="${previous_label}">
+        <img alt="${previous_label}" src="${previous_image_url}" />
+      </a>
+    </c:if>
+    <c:out value=" " />
+    <spring:message code="list_page" arguments="${page},${maxPages}" argumentSeparator="," />
+    <c:out value=" " />
+    <c:if test="${page lt maxPages}">
+      <spring:url value="" var="next">
+        <spring:param name="page" value="${page + 1}" />
+        <spring:param name="size" value="${size}" />
+      </spring:url>
+      <spring:url value="/resources/images/resultset_next.png" var="next_image_url" />
+      <spring:message code="list_next" var="next_label" />
+      <a class="image" href="${next}" title="${next_label}">
+        <img alt="${next_label}" src="${next_image_url}" />
+      </a>
+    </c:if>
+    <c:if test="${page ne maxPages}">
+      <spring:url value="" var="last">
+        <spring:param name="page" value="${maxPages}" />
+        <spring:param name="size" value="${size}" />
+      </spring:url>
+      <spring:url value="/resources/images/resultset_last.png" var="last_image_url" />
+      <spring:message code="list_last" var="last_label" />
+      <a class="image" href="${last}" title="${last_label}">
+        <img alt="${last_label}" src="${last_image_url}" />
+      </a>
+    </c:if>
+  </c:if>
+</jsp:root>

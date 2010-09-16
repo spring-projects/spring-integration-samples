@@ -1,0 +1,12 @@
+project --topLevelPackage org.springframework.samples.integration.loanbroker.loanshark3
+persistence setup --provider HIBERNATE --database HYPERSONIC_IN_MEMORY
+entity --class ~.domain.LoanShark
+field string --fieldName name
+field number --type java.lang.Long --fieldName counter
+field number --type java.lang.Double --fieldName averageRate 
+finder add --finderName findLoanSharksByName
+controller scaffold --class ~.web.SharkController
+logging setup --level DEBUG
+dependency add --artifactId org.springframework.integration.ip --groupId org.springframework.integration --version 2.0.0.M5
+//change spring version in pom.xml to 3.0.0.RELEASE-A before perform eclipse
+//perform eclipse

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE tiles-definitions PUBLIC "-//Apache Software Foundation//DTD Tiles Configuration 2.1//EN" "http://tiles.apache.org/dtds/tiles-config_2_1.dtd">
+<tiles-definitions>
+    <definition extends="default" name="loansharks/list">
+        <put-attribute name="body" value="/WEB-INF/views/loansharks/list.jspx"/>
+    </definition>
+<definition extends="default" name="loansharks/show">
+        <put-attribute name="body" value="/WEB-INF/views/loansharks/show.jspx"/>
+    </definition>
+<definition extends="default" name="loansharks/create">
+        <put-attribute name="body" value="/WEB-INF/views/loansharks/create.jspx"/>
+    </definition>
+<definition extends="default" name="loansharks/update">
+        <put-attribute name="body" value="/WEB-INF/views/loansharks/update.jspx"/>
+    </definition>
+<definition extends="default" name="loansharks/findLoanSharksByName">
+        <put-attribute name="body" value="/WEB-INF/views/loansharks/findLoanSharksByName.jspx"/>
+    </definition>
+</tiles-definitions>

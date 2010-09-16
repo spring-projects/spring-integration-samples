@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:int="http://www.springframework.org/schema/integration"
+	xmlns:int-ip="http://www.springframework.org/schema/integration/ip"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+		http://www.springframework.org/schema/integration http://www.springframework.org/schema/integration/spring-integration.xsd
+		http://www.springframework.org/schema/integration/ip http://www.springframework.org/schema/integration/ip/spring-integration-ip.xsd">
+
+	<int-ip:udp-inbound-channel-adapter id="udpIn"
+		channel="channel"
+		multicast="true"
+		multicast-address="225.6.7.8"
+		port="11111"/>
+		
+	<int:channel id="channel" />
+	<int:transformer ref="transformer" 
+		input-channel="channel"
+		output-channel="transformedChannel"/>
+	<int:channel id="transformedChannel" />		
+	<int:service-activator 
+		id="activator" 
+		input-channel="transformedChannel"
+		ref="accumulator" />
+		
+	<bean id="accumulator" class="org.springframework.integration.samples.loanbroker.loanshark.biz.Accumulator" />
+	<bean id="transformer" class="org.springframework.integration.samples.loanbroker.loanshark.biz.SharkTransformer" />
+		
+</beans>

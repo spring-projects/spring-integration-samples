@@ -1,0 +1,31 @@
+<jsp:root xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:util="urn:jsptagdir:/WEB-INF/tags/util" xmlns:form="http://www.springframework.org/tags/form" xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:spring="http://www.springframework.org/tags" version="2.0">
+  <jsp:output omit-xml-declaration="yes" />
+
+  <jsp:directive.attribute name="id" type="java.lang.String" required="true" description="The identifier for this tag (do not change!)" />
+  <jsp:directive.attribute name="items" type="java.util.Collection" required="true" description="The form backing object name" />
+  <jsp:directive.attribute name="label" type="java.lang.String" required="false" description="The label used for this object, will default to a message bundle if not supplied" />
+  <jsp:directive.attribute name="labelPlural" type="java.lang.String" required="false" description="The label used for this object, will default to a message bundle if not supplied" />
+  <jsp:directive.attribute name="render" type="java.lang.Boolean" required="false" description="Indicate if the contents of this tag and all enclosed tags should be rendered (default 'true')" />
+  <jsp:directive.attribute name="openPane" type="java.lang.Boolean" required="false" description="Control if the title pane is opened or closed by default (default: true)" />
+  <jsp:directive.attribute name="z" type="java.lang.String" required="false" description="Used for checking if element has been modified (to recalculate simply provide empty string value)" />
+
+  <c:if test="${empty render or render}">
+    <c:if test="${empty label}">
+      <spring:message code="label_${fn:toLowerCase(fn:substringAfter(id,'_'))}" var="label" />
+    </c:if>
+    <c:if test="${empty labelPlural}">
+      <spring:message code="label_${fn:toLowerCase(fn:substringAfter(id,'_'))}_plural" var="labelPlural" />
+    </c:if>
+    <spring:message arguments="${labelPlural}" code="entity_list_all" var="title_msg" />
+    <util:panel id="${id}" title="${title_msg}" openPane="${openPane}">
+      <c:choose>
+        <c:when test="${not empty items}">
+          <jsp:doBody />
+        </c:when>
+        <c:otherwise>
+          <spring:message arguments="${label}" code="entity_not_found" />
+        </c:otherwise>
+      </c:choose>
+    </util:panel>
+  </c:if>
+</jsp:root>

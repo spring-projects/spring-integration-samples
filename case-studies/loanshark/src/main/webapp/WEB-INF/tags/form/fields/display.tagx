@@ -1,0 +1,51 @@
+<jsp:root xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:fmt="http://java.sun.com/jsp/jstl/fmt" xmlns:spring="http://www.springframework.org/tags" xmlns:form="http://www.springframework.org/tags/form" xmlns:jsp="http://java.sun.com/JSP/Page" version="2.0">
+  <jsp:output omit-xml-declaration="yes" />
+
+  <jsp:directive.attribute name="id" type="java.lang.String" required="true" description="The identifier for this tag (do not change!)" />
+  <jsp:directive.attribute name="object" type="java.lang.Object" required="true" description="The form backing object" />
+  <jsp:directive.attribute name="field" type="java.lang.String" required="true" description="The field name" />
+  <jsp:directive.attribute name="label" type="java.lang.String" required="false" description="The label used for this field, will default to a message bundle if not supplied" />
+  <jsp:directive.attribute name="date" type="java.lang.Boolean" required="false" description="Indicate that this field is of type java.util.Date" />
+  <jsp:directive.attribute name="calendar" type="java.lang.Boolean" required="false" description="Indicate that this field is of type java.util.Calendar" />
+  <jsp:directive.attribute name="dateTimePattern" type="java.lang.String" required="false" description="The date / time pattern to use if the field is a date or calendar type" />
+  <jsp:directive.attribute name="render" type="java.lang.Boolean" required="false" description="Indicate if the contents of this tag and all enclosed tags should be rendered (default 'true')" />
+  <jsp:directive.attribute name="z" type="java.lang.String" required="false" description="Used for checking if element has been modified (to recalculate simply provide empty string value)" />
+
+  <c:if test="${empty render or render}">
+    <c:if test="${not empty object and empty label}">
+      <spring:message code="label_${fn:toLowerCase(fn:substringAfter(id,'_'))}" var="label" />
+    </c:if>
+
+    <c:if test="${empty dateTimePattern}">
+      <c:set value="MM/dd/yyyy" var="dateTimePattern" />
+    </c:if>
+    
+    <c:set var="sec_object" value="${fn:escapeXml(object)}" />
+    <c:set var="sec_field" value="${fn:escapeXml(field)}" />
+
+    <div id="_${fn:escapeXml(id)}_id">
+      <label for="_${fn:escapeXml(field)}_id">
+        <c:out value="${label}" />
+        :
+      </label>
+      <div class="box" id="_${fn:escapeXml(id)}_${fn:escapeXml(field)}_id">
+        <c:choose>
+          <c:when test="${date}">
+            <spring:escapeBody>
+              <fmt:formatDate value="${object[field]}" pattern="${fn:escapeXml(dateTimePattern)}" />
+            </spring:escapeBody>
+          </c:when>
+          <c:when test="${calendar}">
+            <spring:escapeBody>
+              <fmt:formatDate value="${object[field].time}" pattern="${fn:escapeXml(dateTimePattern)}" />
+            </spring:escapeBody>
+          </c:when>
+          <c:otherwise>
+            <spring:eval expression="object[field]" />
+          </c:otherwise>
+        </c:choose>
+      </div>
+    </div>
+    <br />
+  </c:if>
+</jsp:root>

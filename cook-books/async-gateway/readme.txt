@@ -1,4 +1,10 @@
-However when you invoke a method you expect the method to return. And since gateway's method call represents a contract with the messaging system which states that for each request there will always be a reply you must always guarantee that your message flow is in compliance with such contract. And in a lot of cases you can based on how your flow is structured. But what about the cases where you can't (e.g, message was filtered out and discarded or routed into a unidirectional sub-flow)?
+Gateway provides a convenient way to expose a Proxy over a service-interface thus giving you a POJO-based access 
+to a messaging system (based on objects in your own domain, or primitives/Strings, etc).
+However when you invoke a method you expect the method to return. And since gateway's method call represents a 
+contract with the messaging system which states that for each request there will always be a reply you must always 
+guarantee that your message flow is in compliance with such contract. And in a lot of cases you can based on how your 
+flow is structured. But what about the cases where you can't (e.g, message was filtered out and discarded or routed into 
+a unidirectional sub-flow)?
 With Spring Integration 2.0 we are introducing support for an Asynchronous Gateway which is
 a convenient way to initiate flows where you may not know if a reply is expected or how long will it take for it
 to arrive.

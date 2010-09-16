@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<div xmlns:field="urn:jsptagdir:/WEB-INF/tags/form/fields" xmlns:form="urn:jsptagdir:/WEB-INF/tags/form" xmlns:jsp="http://java.sun.com/JSP/Page" version="2.0">
+    <jsp:output omit-xml-declaration="yes"/>
+    <form:update id="fu_org_springframework_integration_samples_loanbroker_loanshark_domain_LoanShark" modelAttribute="loanShark" path="/loansharks" z="mNB5KsJAJotLrVjasE3cKWnITEk=">
+        <field:input field="name" id="c_org_springframework_integration_samples_loanbroker_loanshark_domain_LoanShark_name" z="bIEr/x7djyVFCXx8FZFe7Y6hZAw="/>
+        <field:input field="counter" id="c_org_springframework_integration_samples_loanbroker_loanshark_domain_LoanShark_counter" validationMessageCode="field_invalid_integer" z="aGxodKJeAQkoD0u6NHf9KIYbXwM="/>
+        <field:input field="averageRate" id="c_org_springframework_integration_samples_loanbroker_loanshark_domain_LoanShark_averageRate" validationMessageCode="field_invalid_number" z="y3sxODtPtAzxO4JNFPfZDcqtHhw="/>
+    </form:update>
+</div>

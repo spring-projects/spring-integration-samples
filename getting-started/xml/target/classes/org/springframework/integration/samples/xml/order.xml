@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<order xmlns="http://www.example.org/orders">
+	<orderItem>
+		<isbn>0321200683</isbn>
+		<quantity>2</quantity>
+	</orderItem>
+	<orderItem>
+		<isbn>1590596439</isbn>
+		<quantity>1</quantity>
+	</orderItem>
+</order>

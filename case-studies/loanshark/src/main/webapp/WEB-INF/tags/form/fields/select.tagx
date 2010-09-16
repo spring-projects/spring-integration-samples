@@ -1,0 +1,99 @@
+<jsp:root xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:field="urn:jsptagdir:/WEB-INF/tags/form/fields" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:spring="http://www.springframework.org/tags" xmlns:form="http://www.springframework.org/tags/form" xmlns:jsp="http://java.sun.com/JSP/Page" version="2.0">
+  <jsp:output omit-xml-declaration="yes" />
+
+  <jsp:directive.attribute name="id" type="java.lang.String" required="true" description="The identifier for this tag (do not change!)" />
+  <jsp:directive.attribute name="field" type="java.lang.String" required="true" description="The field exposed from the form backing object" />
+  <jsp:directive.attribute name="path" type="java.lang.String" required="true" description="The relative path to the referenced resource" />
+  <jsp:directive.attribute name="items" type="java.util.Collection" required="true" description="The name of the collection displayed in the select box" />
+  <jsp:directive.attribute name="label" type="java.lang.String" required="false" description="The label used for this field, will default to a message bundle if not supplied" />
+  <jsp:directive.attribute name="itemValue" type="java.lang.String" required="false" description="The identifier used as value in the select box (defaults to 'id' for non enum types)" />
+  <jsp:directive.attribute name="required" type="java.lang.Boolean" required="false" description="Indicates if this field is required (default false)" />
+  <jsp:directive.attribute name="disabled" type="java.lang.Boolean" required="false" description="Specify if this field should be enabled" />
+  <jsp:directive.attribute name="multiple" type="java.lang.Boolean" required="false" description="Specify if the select box should allow multiple selections" />
+  <jsp:directive.attribute name="disableFormBinding" type="java.lang.Boolean" required="false" description="Set to true to disable Spring form binding" />
+  <jsp:directive.attribute name="render" type="java.lang.Boolean" required="false" description="Indicate if the contents of this tag and all enclosed tags should be rendered (default 'true')" />
+  <jsp:directive.attribute name="z" type="java.lang.String" required="false" description="Used for checking if element has been modified (to recalculate simply provide empty string value)" />
+
+  <c:if test="${empty render or render}">
+
+    <c:if test="${empty disabled}">
+      <c:set value="false" var="disabled" />
+    </c:if>
+
+    <c:if test="${empty label}">
+      <spring:message code="label_${fn:toLowerCase(fn:substringAfter(id,'_'))}" var="label" />
+    </c:if>
+
+    <c:if test="${empty required}">
+      <c:set value="false" var="required" />
+    </c:if>
+
+    <c:if test="${empty multiple}">
+      <c:set value="false" var="multiple" />
+    </c:if>
+    
+    <c:set var="sec_field">
+      <spring:escapeBody javaScriptEscape="true" >${field}</spring:escapeBody>
+    </c:set>
+
+    <div id="_${fn:escapeXml(id)}_id">
+      <c:choose>
+        <c:when test="${not empty items}">
+          <label for="_${sec_field}_id">
+            <c:out value="${fn:escapeXml(label)}" />
+            :
+          </label>
+          <c:choose>
+            <c:when test="${empty itemValue}">
+              <c:choose>
+                <c:when test="${disableFormBinding}">
+                  <select id="_${sec_field}_id" name="${sec_field}" multiple="${multiple}">
+                    <c:forEach items="${items}" var="item">
+                      <option value="${item}">
+                        <spring:eval expression="item" />
+                      </option>
+                    </c:forEach>
+                  </select>
+                </c:when>
+                <c:otherwise>
+                  <form:select id="_${sec_field}_id" items="${items}" path="${sec_field}" disabled="${disabled}" multiple="${multiple}" />
+                  <br />
+                  <form:errors cssClass="errors" id="_${sec_field}_error_id" path="${sec_field}" />
+                </c:otherwise>
+              </c:choose>
+            </c:when>
+            <c:otherwise>
+              <c:choose>
+                <c:when test="${disableFormBinding}">
+                  <select id="_${sec_field}_id" name="${sec_field}" multiple="${multiple}">
+                    <c:forEach items="${items}" var="item">
+                      <option value="${item[fn:escapeXml(itemValue)]}">
+                        <spring:eval expression="item" />
+                      </option>
+                    </c:forEach>
+                  </select>
+                </c:when>
+                <c:otherwise>
+                  <form:select id="_${sec_field}_id" items="${items}" path="${sec_field}" disabled="${disabled}" multiple="${multiple}" itemValue="${fn:escapeXml(itemValue)}" />
+                  <br />
+                  <form:errors cssClass="errors" id="_${sec_field}_error_id" path="${sec_field}" />
+                </c:otherwise>
+              </c:choose>
+            </c:otherwise>
+          </c:choose>
+          <c:choose>
+            <c:when test="${multiple == false}">
+              <script type="text/javascript">Spring.addDecoration(new Spring.ElementDecoration({elementId : '_${sec_field}_id', widgetType: 'dijit.form.FilteringSelect', widgetAttrs : {hasDownArrow : true}})); </script>
+            </c:when>
+            <!-- disabled due to http://jira.springframework.org/browse/ROO-909 <c:otherwise> <script type="text/javascript">Spring.addDecoration(new Spring.ElementDecoration({elementId : '_${field}_id', widgetType: 'dijit.form.MultiSelect', widgetAttrs : {}})); </script> </c:otherwise> -->
+          </c:choose>
+        </c:when>
+        <c:otherwise>
+          <field:reference field="${label}" id="${id}" path="${path}" required="${required}" />
+        </c:otherwise>
+      </c:choose>
+    </div>
+    <br />
+
+  </c:if>
+</jsp:root>

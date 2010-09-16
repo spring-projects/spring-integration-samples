@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns="http://www.springframework.org/schema/integration"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:beans="http://www.springframework.org/schema/beans"
+	xmlns:stream="http://www.springframework.org/schema/integration/stream"
+	xmlns:ws="http://www.springframework.org/schema/integration/ws"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+			http://www.springframework.org/schema/beans/spring-beans.xsd
+			http://www.springframework.org/schema/integration
+			http://www.springframework.org/schema/integration/spring-integration.xsd
+			http://www.springframework.org/schema/integration/stream
+			http://www.springframework.org/schema/integration/stream/spring-integration-stream.xsd
+			http://www.springframework.org/schema/integration/ws
+			http://www.springframework.org/schema/integration/ws/spring-integration-ws.xsd">
+
+	<!-- This chain receives from the 'fahrenheitChannel' and enriches the request Message by adding
+	     the "soap-action" header value. Then, the Web Service outbound Messaging Gateway invokes the
+	     Web Service for the given URI, and the reply Message is sent to the 'celsiusChannel'. -->
+	<chain input-channel="fahrenheitChannel" output-channel="celsiusChannel">
+		<ws:header-enricher>
+			<ws:soap-action value="http://tempuri.org/FahrenheitToCelsius"/>
+		</ws:header-enricher>
+		<ws:outbound-gateway uri="http://www.w3schools.com/webservices/tempconvert.asmx"/>
+	</chain>
+
+	<!-- The response from the service is logged to the console. -->
+	<stream:stdout-channel-adapter id="celsiusChannel"/>
+
+</beans:beans>

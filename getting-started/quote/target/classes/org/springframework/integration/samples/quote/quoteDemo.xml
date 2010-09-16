@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns="http://www.springframework.org/schema/integration"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:beans="http://www.springframework.org/schema/beans"
+	xmlns:stream="http://www.springframework.org/schema/integration/stream"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+			http://www.springframework.org/schema/beans/spring-beans.xsd
+			http://www.springframework.org/schema/integration
+			http://www.springframework.org/schema/integration/spring-integration.xsd
+			http://www.springframework.org/schema/integration/stream
+			http://www.springframework.org/schema/integration/stream/spring-integration-stream.xsd">
+
+	<annotation-config/>
+
+	<inbound-channel-adapter ref="tickerStream" method="nextTicker" channel="tickers">
+		<poller fixed-delay="300" max-messages-per-poll="1"/>
+	</inbound-channel-adapter>
+
+	<channel id="tickers"/>
+
+	<stream:stdout-channel-adapter id="quotes" append-newline="true"/>
+
+	<beans:bean id="tickerStream" class="org.springframework.integration.samples.quote.TickerStream"/>
+
+	<beans:bean id="quoteService" class="org.springframework.integration.samples.quote.QuoteService"/>
+
+</beans:beans>

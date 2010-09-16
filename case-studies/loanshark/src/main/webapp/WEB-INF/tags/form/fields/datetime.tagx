@@ -1,0 +1,75 @@
+<jsp:root xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:spring="http://www.springframework.org/tags" xmlns:form="http://www.springframework.org/tags/form" xmlns:jsp="http://java.sun.com/JSP/Page" version="2.0">
+  <jsp:output omit-xml-declaration="yes" />
+
+  <jsp:directive.attribute name="id" type="java.lang.String" required="true" description="The identifier for this tag (do not change!)" />
+  <jsp:directive.attribute name="field" type="java.lang.String" required="true" description="The field exposed from the form backing object" />
+  <jsp:directive.attribute name="dateTimePattern" type="java.lang.String" required="true" description="The format accepted in this field" />
+  <jsp:directive.attribute name="label" type="java.lang.String" required="false" description="The label used for this field, will default to a message bundle if not supplied" />
+  <jsp:directive.attribute name="required" type="java.lang.Boolean" required="false" description="Indicates if this field is required (default false)" />
+  <jsp:directive.attribute name="disabled" type="java.lang.Boolean" required="false" description="Specify if this field should be enabled" />
+  <jsp:directive.attribute name="validationRegex" type="java.lang.String" required="false" description="Specify regular expression to be used for the validation of the input contents" />
+  <jsp:directive.attribute name="validationMessageCode" type="java.lang.String" required="false" description="Specify the message (message property code) to be displayed if the regular expression validation fails" />
+  <jsp:directive.attribute name="validationMessage" type="java.lang.String" required="false" description="Specify the message to be displayed if the regular expression validation fails" />
+  <jsp:directive.attribute name="future" type="java.lang.Boolean" required="false" description="Specify if the date / time should be in the future" />
+  <jsp:directive.attribute name="past" type="java.lang.Boolean" required="false" description="Specify if the date / time should be in the past" />
+  <jsp:directive.attribute name="disableFormBinding" type="java.lang.Boolean" required="false" description="Set to true to disable Spring form binding" />
+  <jsp:directive.attribute name="render" type="java.lang.Boolean" required="false" description="Indicate if the contents of this tag and all enclosed tags should be rendered (default 'true')" />
+  <jsp:directive.attribute name="z" type="java.lang.String" required="false" description="Used for checking if element has been modified (to recalculate simply provide empty string value)" />
+
+  <c:if test="${empty render or render}">
+
+    <c:if test="${empty disabled}">
+      <c:set value="false" var="disabled" />
+    </c:if>
+    <c:if test="${empty label}">
+      <spring:message code="label_${fn:toLowerCase(fn:substringAfter(id,'_'))}" var="label" />
+    </c:if>
+    <c:set var="sec_field">
+      <spring:escapeBody javaScriptEscape="true" >${field}</spring:escapeBody>
+    </c:set>
+    
+    <c:if test="${empty required}">
+      <c:set value="false" var="required" />
+    </c:if>
+
+    <script type="text/javascript">dojo.require('dijit.form.DateTextBox')</script>
+    <div id="_${sec_id}_id">
+      <label for="_${sec_field}_id">
+        <c:out value="${label}" />
+        :
+      </label>
+      <c:choose>
+        <c:when test="${disableFormBinding}">
+          <input id="_${sec_field}_id" name="${sec_field}" />
+        </c:when>
+        <c:otherwise>
+          <form:input id="_${sec_field}_id" path="${sec_field}" disabled="${disabled}" />
+          <br />
+          <form:errors cssClass="errors" id="_${sec_field}_error_id" path="${sec_field}" />
+        </c:otherwise>
+      </c:choose>
+      <spring:message arguments="${fn:escapeXml(label)}" code="field_invalid" var="field_invalid" />
+      <c:choose>
+        <c:when test="${required}">
+          <spring:message code="field_required" var="field_required" />
+          <spring:message argumentSeparator="," arguments="${label},(${field_required})" code="field_simple_validation" var="field_validation" />
+        </c:when>
+        <c:otherwise>
+          <spring:message argumentSeparator="," arguments="${label}, " code="field_simple_validation" var="field_validation" />
+        </c:otherwise>
+      </c:choose>
+      <script type="text/javascript">
+        <c:set var="sec_field_validation">
+          <spring:escapeBody javaScriptEscape="true">${field_validation}</spring:escapeBody>
+        </c:set>
+        <c:set var="sec_field_invalid">
+          <spring:escapeBody javaScriptEscape="true">${field_invalid}</spring:escapeBody>
+        </c:set>
+        <c:set var="sec_dateTimePattern">
+          <spring:escapeBody javaScriptEscape="true">${dateTimePattern}</spring:escapeBody>
+        </c:set>
+        Spring.addDecoration(new Spring.ElementDecoration({elementId : '_${sec_field}_id', widgetType : 'dijit.form.DateTextBox', widgetAttrs : {promptMessage: '${sec_field_validation}', invalidMessage: '${sec_field_invalid}', required: ${required}, constraints: {datePattern : '${sec_dateTimePattern}', required : ${required}}, datePattern : '${sec_dateTimePattern}'}})); </script>
+    </div>
+    <br />
+  </c:if>
+</jsp:root>

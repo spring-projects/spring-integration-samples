@@ -1,0 +1,25 @@
+<jsp:root xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:util="urn:jsptagdir:/WEB-INF/tags/util" xmlns:field="urn:jsptagdir:/WEB-INF/tags/form/fields" xmlns:form="http://www.springframework.org/tags/form" xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:spring="http://www.springframework.org/tags" version="2.0">
+  <jsp:output omit-xml-declaration="yes"/>
+
+  <jsp:directive.attribute name="id" type="java.lang.String" required="true" description="The identifier for this tag (do not change!)"/>
+  <jsp:directive.attribute name="dependencies" type="java.util.Collection" required="true" description="The collection of dependencies which need to be listed"/>
+  <jsp:directive.attribute name="label" type="java.lang.String" required="false" description="The label used for this object, will default to a message bundle if not supplied"/>
+  <jsp:directive.attribute name="render" type="java.lang.Boolean" required="false" description="Indicate if the contents of this tag and all enclosed tags should be rendered (default 'true')" />
+  <jsp:directive.attribute name="openPane" type="java.lang.Boolean" required="false" description="Control if the title pane is opened or closed by default (default: true)"/>
+  <jsp:directive.attribute name="z" type="java.lang.String" required="false" description="Used for checking if element has been modified (to recalculate simply provide empty string value)"/>
+
+  <c:if test="${empty render or render}">
+    <c:if test="${empty label}">
+      <spring:message code="label_${fn:toLowerCase(fn:substringAfter(id,'_'))}" var="label"/>
+    </c:if>
+    <spring:message arguments="${label}" code="entity_create" var="title_msg"/>
+    <util:panel id="${fn:escapeXml(id)}" title="${fn:escapeXml(title_msg)}" openPane="${openPane}">
+    <spring:message code="entity_dependency_required"/>
+    <c:forEach items="${dependencies}" var="dependency" >
+      <p>
+        <field:reference field="${dependency[0]}" id="${fn:escapeXml(id)}_${dependency[0]}" path="/${dependency[1]}"/>
+      </p>
+	</c:forEach>
+    </util:panel>
+  </c:if>
+</jsp:root>

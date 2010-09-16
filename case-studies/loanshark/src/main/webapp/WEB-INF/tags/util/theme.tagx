@@ -1,0 +1,36 @@
+<jsp:root xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:spring="http://www.springframework.org/tags" xmlns:jsp="http://java.sun.com/JSP/Page" version="2.0">
+  <jsp:output omit-xml-declaration="yes" />
+
+  <jsp:directive.attribute name="render" type="java.lang.Boolean" required="false" description="Indicate if the contents of this tag and all enclosed tags should be rendered (default 'true')" />
+
+  <c:if test="${empty render or render}">
+    <span>
+      <c:out value=" | " />
+      <spring:message code="global_theme" />
+      <c:out value=": " />
+      <spring:url var="url_theme1" value="">
+        <spring:param name="theme" value="standard" />
+        <c:if test="${not empty param.page}">
+          <spring:param name="page" value="${param.page}" />
+        </c:if>
+        <c:if test="${not empty param.size}">
+          <spring:param name="size" value="${param.size}" />
+        </c:if>
+      </spring:url>
+      <spring:message code="global_theme_standard" var="theme_standard" />
+      <a href="${url_theme1}" title="${theme_standard}">${theme_standard}</a>
+      <c:out value=" | " />
+      <spring:url var="url_theme2" value="">
+        <spring:param name="theme" value="alt" />
+        <c:if test="${not empty param.page}">
+          <spring:param name="page" value="${param.page}" />
+        </c:if>
+        <c:if test="${not empty param.size}">
+          <spring:param name="size" value="${param.size}" />
+        </c:if>
+      </spring:url>
+      <spring:message code="global_theme_alt" var="theme_alt" />
+      <a href="${url_theme2}" title="${theme_alt}">${theme_alt}</a>
+    </span>
+  </c:if>
+</jsp:root>

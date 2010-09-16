@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<div xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:page="urn:jsptagdir:/WEB-INF/tags/form" xmlns:table="urn:jsptagdir:/WEB-INF/tags/form/fields" version="2.0">
+    <jsp:output omit-xml-declaration="yes"/>
+    <page:list id="pl_org_springframework_integration_samples_loanbroker_loanshark_domain_LoanShark" items="${loansharks}" z="WGtRh8RDFNMOqm7ZR3sYpdytL8g=">
+        <table:table data="${loansharks}" id="l_org_springframework_integration_samples_loanbroker_loanshark_domain_LoanShark" path="/loansharks" z="VSxTSbzuQSK29x6/yuWTZX93PT4=">
+            <table:column id="c_org_springframework_integration_samples_loanbroker_loanshark_domain_LoanShark_name" property="name" z="jwBosQRlFEVQgr/SVFGsNnqbmlE="/>
+            <table:column id="c_org_springframework_integration_samples_loanbroker_loanshark_domain_LoanShark_counter" property="counter" z="mvwK+T3kofhmBM1mMzos71NdB84="/>
+            <table:column id="c_org_springframework_integration_samples_loanbroker_loanshark_domain_LoanShark_averageRate" property="averageRate" z="xbRLQN/1BJZqfz5t6Z5fRd7VUbE="/>
+        </table:table>
+    </page:list>
+</div>

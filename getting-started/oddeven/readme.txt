@@ -1,0 +1,1 @@
+Demonstrates Inbound channel adapter and Poller configuration with Cron and Interval triggers

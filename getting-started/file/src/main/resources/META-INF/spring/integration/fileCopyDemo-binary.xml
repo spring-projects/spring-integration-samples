@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:integration="http://www.springframework.org/schema/integration"
+	xmlns:file="http://www.springframework.org/schema/integration/file"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+			http://www.springframework.org/schema/beans/spring-beans.xsd
+			http://www.springframework.org/schema/integration
+			http://www.springframework.org/schema/integration/spring-integration.xsd
+			http://www.springframework.org/schema/integration/file
+			http://www.springframework.org/schema/integration/file/spring-integration-file.xsd">
+
+	<bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer"/>
+
+	<file:inbound-channel-adapter id="filesIn"
+	                              directory="file:${java.io.tmpdir}/spring-integration-samples/input"/>
+
+	<file:file-to-bytes-transformer input-channel="filesIn" output-channel="bytes" delete-files="true"/> 
+
+	<integration:channel id="bytes"/>
+
+	<integration:service-activator input-channel="bytes"
+	                               output-channel="filesOut"
+                                   ref="handler"/>
+
+	<file:outbound-channel-adapter id="filesOut" directory="file:${java.io.tmpdir}/spring-integration-samples/output"/>
+
+	<bean id="handler" class="org.springframework.integration.samples.filecopy.Handler"/>
+
+	<integration:poller id="poller" default="true" fixed-delay="5000"/>
+
+</beans>

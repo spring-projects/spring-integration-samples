@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns="http://www.springframework.org/schema/integration"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:beans="http://www.springframework.org/schema/beans"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+			http://www.springframework.org/schema/beans/spring-beans.xsd
+			http://www.springframework.org/schema/integration
+			http://www.springframework.org/schema/integration/spring-integration.xsd">
+
+	<annotation-config/>
+
+	<channel id="even"/>
+	<channel id="odd"/>
+
+	<inbound-channel-adapter id="numbers" ref="counter" method="next">
+		<poller max-messages-per-poll="1" cron="1,2,3,5,8,13,21,34,55 * * * * ?"/>
+	</inbound-channel-adapter>
+
+	<filter input-channel="numbers" output-channel="positives"
+			expression="payload > 0"
+			discard-channel="nullChannel"/>
+
+	<router input-channel="positives" expression="payload % 2 == 0 ? 'even' : 'odd'"/>
+
+	<service-activator input-channel="odd" ref="oddLogger"/>
+
+	<service-activator input-channel="even" ref="evenLogger"/>
+
+	<beans:bean id="counter" class="org.springframework.integration.samples.oddeven.Counter"/>
+
+	<beans:bean id="oddLogger" class="org.springframework.integration.samples.oddeven.OddLogger"/>
+
+	<beans:bean id="evenLogger" class="org.springframework.integration.samples.oddeven.EvenLogger"/>
+
+</beans:beans>
