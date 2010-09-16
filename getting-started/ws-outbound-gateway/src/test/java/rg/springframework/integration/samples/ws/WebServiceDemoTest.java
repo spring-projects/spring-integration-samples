@@ -14,8 +14,9 @@
  * limitations under the License.
  */
 
-package org.springframework.integration.samples.ws;
+package rg.springframework.integration.samples.ws;
 
+import org.junit.Test;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.integration.Message;
 import org.springframework.integration.MessageChannel;
@@ -30,10 +31,12 @@ import org.springframework.integration.support.channel.ChannelResolver;
  * 
  * @author Marius Bogoevici
  */
-public class WebServiceDemo {
+public class WebServiceDemoTest {
 
-	public static void main(String[] args) {
-		ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("temperatureConversion.xml", WebServiceDemo.class);
+	@Test
+	public void testWsOutboundGateway() {
+		ClassPathXmlApplicationContext context = 
+			new ClassPathXmlApplicationContext("/META-INF/spring/integration/temperatureConversion.xml", WebServiceDemoTest.class);
 		ChannelResolver channelResolver = new BeanFactoryChannelResolver(context);
 
 		// Compose the XML message according to the server's schema
@@ -49,5 +52,4 @@ public class WebServiceDemo {
 		MessageChannel channel = channelResolver.resolveChannelName("fahrenheitChannel");
 		channel.send(message);
 	}
-
 }

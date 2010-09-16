@@ -21,6 +21,7 @@ import static org.junit.Assert.assertThat;
 
 import javax.xml.transform.Source;
 
+import org.apache.log4j.Logger;
 import org.junit.Test;
 
 import org.springframework.ws.client.core.WebServiceTemplate;
@@ -38,6 +39,7 @@ import org.springframework.xml.transform.StringSource;
  */
 public class InContainerTests {
 
+	private static Logger logger = Logger.getLogger(InContainerTests.class);
 	private static final String WS_URI = "http://localhost:8080/ws-inbound-gateway/echoservice";
 	private final WebServiceTemplate template = new WebServiceTemplate();
 
@@ -49,7 +51,7 @@ public class InContainerTests {
 				"<echoRequest xmlns=\"http://www.springframework.org/spring-ws/samples/echo\">hello</echoRequest>");
 
 		template.sendSourceAndReceiveToResult(WS_URI, payload, result);
-		System.out.println("RESULT: " + result.toString());
+		logger.info("RESULT: " + result.toString());
 		assertThat(result.toString(), equalTo(
 				"<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
 				"<echoResponse xmlns=\"http://www.springframework.org/spring-ws/samples/echo\">hello</echoResponse>"));
