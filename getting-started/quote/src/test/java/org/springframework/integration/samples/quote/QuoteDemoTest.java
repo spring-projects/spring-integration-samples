@@ -16,6 +16,7 @@
 
 package org.springframework.integration.samples.quote;
 
+import org.junit.Test;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 /**
@@ -26,9 +27,13 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
  * 
  * @author Mark Fisher
  */
-public class QuoteDemo {
+public class QuoteDemoTest {
 
-	public static void main(String[] args) {
-		new ClassPathXmlApplicationContext("quoteDemo.xml", QuoteDemo.class);
+	@Test
+	public  void testDemo()  throws Exception{
+		ClassPathXmlApplicationContext context = 
+			new ClassPathXmlApplicationContext("/META-INF/spring/integration/quoteDemo.xml", QuoteDemoTest.class);
+		Thread.sleep(5000);
+		context.close();
 	}
 }
