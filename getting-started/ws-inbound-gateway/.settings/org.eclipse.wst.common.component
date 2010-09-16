@@ -3,6 +3,8 @@
     <wb-module deploy-name="ws-inbound-gateway">
         <wb-resource deploy-path="/" source-path="/src/main/webapp"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/java"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/test/resources"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/resources"/>
         <property name="context-root" value="ws-inbound-gateway"/>
         <property name="java-output-path" value="/ws-inbound-gateway/target/classes"/>
     </wb-module>

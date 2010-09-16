@@ -49,7 +49,7 @@ public class InContainerTests {
 				"<echoRequest xmlns=\"http://www.springframework.org/spring-ws/samples/echo\">hello</echoRequest>");
 
 		template.sendSourceAndReceiveToResult(WS_URI, payload, result);
-
+		System.out.println("RESULT: " + result.toString());
 		assertThat(result.toString(), equalTo(
 				"<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
 				"<echoResponse xmlns=\"http://www.springframework.org/spring-ws/samples/echo\">hello</echoResponse>"));

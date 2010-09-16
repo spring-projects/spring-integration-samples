@@ -49,7 +49,7 @@ import org.springframework.ws.pox.dom.DomPoxMessageFactory;
  * @author Chris Beams
  * @author Mark Fisher
  */
-@ContextConfiguration("inbound-gateway-config.xml")
+@ContextConfiguration("/META-INF/spring/integration/inbound-gateway-config.xml")
 @RunWith(SpringJUnit4ClassRunner.class)
 public class InboundGatewayTests {
 

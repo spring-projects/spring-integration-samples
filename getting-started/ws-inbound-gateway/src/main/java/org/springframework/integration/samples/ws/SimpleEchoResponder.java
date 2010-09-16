@@ -20,7 +20,9 @@ import javax.xml.transform.Source;
 import javax.xml.transform.dom.DOMSource;
 
 import org.springframework.integration.xml.source.DomSourceFactory;
-
+/**
+ * @author Chris Beams
+ */
 public class SimpleEchoResponder {
 
 	public Source issueResponseFor(DOMSource request) {
