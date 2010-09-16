@@ -16,17 +16,21 @@
 
 package org.springframework.integration.samples.jmx;
 
+import org.junit.Test;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 /**
  * @author Mark Fisher
  * @since 2.0
  */
-public class JmxAdapterDemo {
+public class JmxAdapterDemoTest {
 
-	public static void main(String[] args) {
-		new ClassPathXmlApplicationContext(
-				"JmxAdapterDemo-context.xml", JmxAdapterDemo.class);
+	@Test
+	public void testJmxAdapterDemo() throws Exception{
+		ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(
+				"/META-INF/spring/integration/JmxAdapterDemo-context.xml", JmxAdapterDemoTest.class);
+		Thread.sleep(20000);
+		context.stop();
 	}
 
 }
