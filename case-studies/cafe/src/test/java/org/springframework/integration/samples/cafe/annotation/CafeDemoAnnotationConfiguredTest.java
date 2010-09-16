@@ -14,11 +14,12 @@
  * limitations under the License.
  */
 
-package org.springframework.integration.samples.cafe.xml;
+package org.springframework.integration.samples.cafe.annotation;
 
 import org.junit.Test;
 import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.context.support.FileSystemXmlApplicationContext;
 import org.springframework.integration.samples.cafe.Cafe;
 import org.springframework.integration.samples.cafe.DrinkType;
 import org.springframework.integration.samples.cafe.Order;
@@ -26,23 +27,20 @@ import org.springframework.integration.samples.cafe.Order;
 /**
  * Provides the 'main' method for running the Cafe Demo application. When an
  * order is placed, the Cafe will send that order to the "orders" channel.
- * The relevant components are defined within the configuration file
- * ("cafeDemo.xml").
- * <p/>
- * If deploying in SpringSource dmServer, the relevant ApplicationContext
- * configuration is in the META-INF/spring directory instead.
+ * The channels are defined within the configuration file ("cafeDemo.xml"),
+ * and the relevant components are configured with annotations (such as the
+ * OrderSplitter, DrinkRouter, and Barista classes).
  * 
  * @author Mark Fisher
  * @author Marius Bogoevici
- * @author Oleg Zhurakousky
  */
-public class CafeDemoTestXml {
+public class CafeDemoAnnotationConfiguredTest {
 
 	@Test
-	public void testCafeDemoWithXmlSupport() {
+	public void testCafeDemoWithAnnotationSupport() {
 		AbstractApplicationContext context = 
-			new ClassPathXmlApplicationContext("/META-INF/spring/integration/cafeDemo-xml.xml", CafeDemoTestXml.class);
-	
+			new ClassPathXmlApplicationContext("/META-INF/spring/integration/cafeDemo-annotation.xml", CafeDemoAnnotationConfiguredTest.class);
+		
 		Cafe cafe = (Cafe) context.getBean("cafe");
 		for (int i = 1; i <= 100; i++) {
 			Order order = new Order(i);
