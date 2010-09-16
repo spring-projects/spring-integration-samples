@@ -18,4 +18,28 @@ Maven (command line):
 	
 Eclipse/STS (with m2eclipse plug-in)
 1. Import project into Eclipse/STS. If the m2eclipse plugin is installed, the dependencies will be downloaded automatically.
-2. Run the 'org.springframework.integration.samples.loanbroker.demo.LoanBrokerDemo' class located in 'src/test/java'.
+2. Run the 'org.springframework.integration.sample.loanbroker.demo.LoanBrokerDemo' class located in 'src/test/java'.
+
+
+Loan Shark Extension
+====================
+
+This extension to the loan broker sample shows how to exchange messages between Spring Integration 
+applications (and other technologies) using UDP. 
+
+Any loan quotes over 5.2% will be sent to the loanshark application.
+
+Deploy the loanshark sample in a web container (e.g. mvn tomcat:run); or run the perl (udps.pl)
+or groovy (udps.groovy) scripts from the command line.
+
+Run the LoanBrokerSharkDetectorDemo test case. 
+
+You can see the banks that were detected as loan sharks in the loanshark web UI.
+
+If you use multicast (the default), messages will be received by the Roo UI war, the perl script,
+and the groovy script. If not using multicast, only one of the receivers can be used.
+
+To change from multicast to unicast, change the udpOut adapter in shark-detector-config.xml to set 
+'host' to "localhost" and multicast to "false". Refer to the ReadMe in loanshark to change it
+from multicast to unicast for either the Roo application or the groovy script.
+
