@@ -35,13 +35,15 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 public class GatewayDemo {
 
 	private final static String[] configFiles = {
-		"common.xml", "inboundGateway.xml", "outboundGateway.xml"
+		"/META-INF/spring/integration/common.xml", 
+		"/META-INF/spring/integration/inboundGateway.xml", 
+		"/META-INF/spring/integration/outboundGateway.xml"
 	};
-
 
 	public static void main(String[] args) {
 		ActiveMqTestUtils.prepare();
 		new ClassPathXmlApplicationContext(configFiles, GatewayDemo.class);
+		System.out.println("Please type something and hit return");
 	}
 
 }

@@ -27,7 +27,6 @@ public class DemoBean {
 
 	@ServiceActivator
 	public String upperCase(String input) {
-		return input.toUpperCase();
+		return "JMS response: " + input.toUpperCase();
 	}
-
 }

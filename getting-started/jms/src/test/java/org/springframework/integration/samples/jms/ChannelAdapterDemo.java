@@ -32,13 +32,16 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 public class ChannelAdapterDemo {
 
 	private final static String[] configFiles = {
-		"common.xml", "inboundChannelAdapter.xml", "outboundChannelAdapter.xml"
+		"/META-INF/spring/integration/common.xml", 
+		"/META-INF/spring/integration/inboundChannelAdapter.xml", 
+		"/META-INF/spring/integration/outboundChannelAdapter.xml"
 	};
 
 
 	public static void main(String[] args) {
 		ActiveMqTestUtils.prepare();
 		new ClassPathXmlApplicationContext(configFiles, ChannelAdapterDemo.class);
+		System.out.println("Please type something and hit return");
 	}
 
 }
