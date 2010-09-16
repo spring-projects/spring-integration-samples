@@ -16,12 +16,17 @@
 
 package org.springframework.integration.samples.xml;
 
+import org.apache.log4j.Logger;
 import org.w3c.dom.Document;
-
+/**
+ * 
+ * @author Jonas Partner
+ */
 public class ExternalResupply {
+	private static Logger logger = Logger.getLogger(ExternalResupply.class);
 
 	public void orderResupply(Document resupplyOrder) {
-		System.out.println("Placing resupply order: " + XmlUtil.docAsString(resupplyOrder));
+		logger.info("Placing resupply order: \n" + XmlUtil.docAsString(resupplyOrder));
 	}
 
 }

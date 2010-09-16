@@ -61,7 +61,7 @@
 
 	<!--  convert the order item to a format that can be understood by BigBooks the wholesaler -->
 	<si-xml:xslt-transformer input-channel="outOfStockChannel" output-channel="resupplyOrderChannel" 
-			xsl-resource="classpath:org/springframework/integration/samples/xml/bigBooksSupplierTransformer.xsl"/>
+			xsl-resource="classpath:/META-INF/spring/integration/bigBooksSupplierTransformer.xsl"/>
 
 	<!-- send the resupply order -->
 	<si:outbound-channel-adapter method="orderResupply" channel="resupplyOrderChannel">

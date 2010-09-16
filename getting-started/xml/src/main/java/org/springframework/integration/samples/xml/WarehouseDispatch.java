@@ -16,12 +16,17 @@
 
 package org.springframework.integration.samples.xml;
 
+import org.apache.log4j.Logger;
 import org.w3c.dom.Document;
-
+/**
+ * 
+ * @author Jonas Partner
+ */
 public class WarehouseDispatch {
-
+	private static Logger logger = Logger.getLogger(WarehouseDispatch.class);
+	
 	public void dispatch(Document orderItem){
-		System.out.println("Warehouse dispatching orderItem: " + XmlUtil.docAsString(orderItem));
+		logger.info("Warehouse dispatching orderItem: \n" + XmlUtil.docAsString(orderItem));
 	}
 
 }

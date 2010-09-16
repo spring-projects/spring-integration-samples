@@ -49,13 +49,15 @@ import org.springframework.integration.message.GenericMessage;
  *
  * @author Jonas Partner
  */
-public class BookOrderProcessingSample {
+public class BookOrderProcessingTest {
 
 	public static void main(String[] args) throws Exception {
-		AbstractApplicationContext applicationContext = new ClassPathXmlApplicationContext("orderProcessingSample.xml",
-				BookOrderProcessingSample.class);
+		AbstractApplicationContext applicationContext = 
+			new ClassPathXmlApplicationContext("/META-INF/spring/integration/orderProcessingSample.xml",
+				BookOrderProcessingTest.class);
 		MessageChannel messageChannel = (MessageChannel) applicationContext.getBean("ordersChannel");
-		GenericMessage<Document> orderMessage = createXmlMessageFromResource("org/springframework/integration/samples/xml/order.xml");
+		GenericMessage<Document> orderMessage = 
+			createXmlMessageFromResource("META-INF/spring/integration/order.xml");
 		messageChannel.send(orderMessage);
 		applicationContext.close();
 	}
