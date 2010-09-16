@@ -19,6 +19,7 @@ package org.springframework.integration.samples.oddeven;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import org.apache.log4j.Logger;
 import org.springframework.integration.annotation.MessageEndpoint;
 import org.springframework.integration.annotation.ServiceActivator;
 
@@ -30,10 +31,11 @@ import org.springframework.integration.annotation.ServiceActivator;
  */
 @MessageEndpoint
 public class OddLogger {
+	private static Logger logger = Logger.getLogger(OddLogger.class);
 
 	@ServiceActivator
 	public void log(int i) {
-		System.out.println("odd:  " + i  + " at " + new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").format(new Date()));
+		logger.info("odd:  " + i  + " at " + new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").format(new Date()));
 	}
 
 }

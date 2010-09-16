@@ -16,11 +16,7 @@
 		<poller max-messages-per-poll="1" fixed-delay="3000"/>
 	</inbound-channel-adapter>
 
-	<filter input-channel="numbers" output-channel="positives"
-			expression="payload > 0"
-			discard-channel="nullChannel"/>
-
-	<router input-channel="positives" expression="payload % 2 == 0 ? 'even' : 'odd'"/>
+	<router input-channel="numbers" expression="payload % 2 == 0 ? 'even' : 'odd'"/>
 
 	<service-activator input-channel="odd" ref="oddLogger"/>
 
