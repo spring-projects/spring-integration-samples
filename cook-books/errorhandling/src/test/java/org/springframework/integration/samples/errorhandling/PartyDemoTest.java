@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright 2002-2010 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -16,8 +16,7 @@
 
 package org.springframework.integration.samples.errorhandling;
 
-import java.io.IOException;
-
+import org.junit.Test;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 /**
@@ -29,18 +28,10 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
  *
  * @author Iwein Fuld
  */
-public class PartyDemo {
-
-	public static void main(String[] args) {
-		new ClassPathXmlApplicationContext("errorHandlingDemo.xml", PartyDemo.class);
-		System.out.println("### Hit ENTER to stop ###");
-		try {
-			System.in.read();
-		}
-		catch (IOException e) {
- 			throw new RuntimeException(e);
-		}
-		System.exit(0);
+public class PartyDemoTest {
+	@Test
+	public void runPartyDemoTest() throws Exception{
+		new ClassPathXmlApplicationContext("/META-INF/spring/integration/errorHandlingDemo.xml", PartyDemoTest.class);
+		Thread.sleep(5000);
 	}
-
 }

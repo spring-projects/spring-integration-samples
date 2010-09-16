@@ -15,6 +15,7 @@
 
 package org.springframework.integration.samples.errorhandling;
 
+import org.apache.log4j.Logger;
 import org.springframework.integration.annotation.MessageEndpoint;
 
 /**
@@ -25,9 +26,10 @@ import org.springframework.integration.annotation.MessageEndpoint;
  */
 @MessageEndpoint
 public class PartyGuest {
-
+	private Logger logger = Logger.getLogger(PartyGuest.class);
+	
 	public void onInvitation(Invitation invitation) {
-		System.out.println("Guest is throwing exception");
+		logger.info("Guest is throwing exception");
 		throw new RuntimeException("Wrong address");
 	}
 

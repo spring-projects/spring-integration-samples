@@ -17,6 +17,7 @@ package org.springframework.integration.samples.errorhandling;
 
 import java.util.concurrent.atomic.AtomicInteger;
 
+import org.apache.log4j.Logger;
 import org.springframework.integration.annotation.MessageEndpoint;
 
 /**
@@ -27,7 +28,7 @@ import org.springframework.integration.annotation.MessageEndpoint;
  */
 @MessageEndpoint
 public class PartyHost {
-
+	private Logger logger = Logger.getLogger(PartyHost.class);
 	private final AtomicInteger counter = new AtomicInteger(0);
 
 	public Invitation nextInvitation() {
@@ -35,7 +36,6 @@ public class PartyHost {
 	}
 
 	public void onInvitationFailed(Invitation inv) {
-		System.out.println("Host received failure notification for: " + inv);
+		logger.info("Host received failure notification for: " + inv);
 	}
-
 }
