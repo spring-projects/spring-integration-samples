@@ -38,7 +38,7 @@ public class LoanBrokerSharkDetectorDemo {
 	@Test
 	public void testUdpMulticast() {
 		ConfigurableApplicationContext context = 
-				new ClassPathXmlApplicationContext("bootstrap-config/stubbed-loan-broker-multicast.xml");
+				new ClassPathXmlApplicationContext("META-INF/spring/integration/bootstrap-config/stubbed-loan-broker-multicast.xml");
 		LoanBrokerGateway broker = context.getBean("loanBrokerGateway", LoanBrokerGateway.class);
 		LoanRequest loanRequest = new LoanRequest();
 		loanRequest.setCustomer(new Customer());

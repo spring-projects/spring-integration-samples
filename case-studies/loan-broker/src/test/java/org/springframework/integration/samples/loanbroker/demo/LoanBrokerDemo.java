@@ -41,7 +41,7 @@ public class LoanBrokerDemo {
 
 	@Test
 	public void runDemo() {
-		ApplicationContext context =  new ClassPathXmlApplicationContext("bootstrap-config/stubbed-loan-broker.xml");
+		ApplicationContext context =  new ClassPathXmlApplicationContext("META-INF/spring/integration/bootstrap-config/stubbed-loan-broker.xml");
 		LoanBrokerGateway broker = context.getBean("loanBrokerGateway", LoanBrokerGateway.class);
 		LoanRequest loanRequest = new LoanRequest();
 		loanRequest.setCustomer(new Customer());

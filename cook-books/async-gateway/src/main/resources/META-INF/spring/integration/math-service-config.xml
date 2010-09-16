@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd
+		http://www.springframework.org/schema/integration http://www.springframework.org/schema/integration/spring-integration-2.0.xsd
+		http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task-3.0.xsd"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:int="http://www.springframework.org/schema/integration"
+	xmlns:task="http://www.springframework.org/schema/task">
+
+	<int:gateway id="mathService" 
+	             service-interface="org.springframework.integration.samples.async.gateway.MathServiceGateway"
+	             default-request-channel="requestChannel"/>
+	             
+	<int:channel id="requestChannel">
+		<int:queue/>
+	</int:channel>
+	
+	<int:filter input-channel="requestChannel" output-channel="calculatingChannel" expression="payload &gt; 100">
+		<int:poller fixed-rate="100" max-messages-per-poll="10" task-executor="executor"/>
+	</int:filter>
+	
+	<int:channel id="calculatingChannel" >
+		<int:dispatcher task-executor="executor"/>
+	</int:channel>
+	
+	<int:service-activator input-channel="calculatingChannel">
+		<bean class="org.springframework.integration.samples.async.gateway.MathService"/>
+	</int:service-activator>
+	
+	<task:executor id="executor" pool-size="10"/>
+</beans>
