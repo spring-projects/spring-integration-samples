@@ -9,7 +9,7 @@
 	<properties>
 		<spring.integration.version>2.0.0.M7</spring.integration.version>
 		<commons-logging.version>1.1.1</commons-logging.version>
-		<log4j.version>1.2.15</log4j.version>
+		<log4j.version>1.2.16</log4j.version>
 		<junit.version>4.7</junit.version>
 	</properties>
 	<dependencies>

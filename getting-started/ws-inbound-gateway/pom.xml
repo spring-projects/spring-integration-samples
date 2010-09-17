@@ -10,7 +10,7 @@
 	<properties>
 		<spring.integration.version>2.0.0.M7</spring.integration.version>
 		<spring.version>3.0.3.RELEASE</spring.version>
-		<log4j.version>1.2.15</log4j.version>
+		<log4j.version>1.2.16</log4j.version>
 		<junit.version>4.7</junit.version>
 	</properties>
 	<dependencies>
@@ -56,4 +56,21 @@
 			</plugin>
 		</plugins>
 	</build>
+		<repositories>
+		<repository>
+			<id>repository.springframework.maven.release</id>
+			<name>Spring Framework Maven Release Repository</name>
+			<url>http://maven.springframework.org/release</url>
+		</repository>
+		<repository>
+			<id>repository.springframework.maven.milestone</id>
+			<name>Spring Framework Maven Milestone Repository</name>
+			<url>http://maven.springframework.org/milestone</url>
+		</repository>
+		<repository>
+			<id>repository.springframework.maven.snapshot</id>
+			<name>Spring Framework Maven Snapshot Repository</name>
+			<url>http://maven.springframework.org/snapshot</url>
+		</repository>
+	</repositories>
 </project>

@@ -1,11 +1,10 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.springframework.integration.samples</groupId>
-	<artifactId>cafe</artifactId>
+	<artifactId>mail</artifactId>
+	<name>Spring Integration IMAP IDLE Sample</name>
 	<version>2.0.0</version>
-	<name>Spring Integration Cafe Sample</name>
 	<properties>
 		<spring.integration.version>2.0.0.M7</spring.integration.version>
 		<log4j.version>1.2.16</log4j.version>
@@ -14,13 +13,19 @@
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.integration</groupId>
-			<artifactId>spring-integration-core</artifactId>
+			<artifactId>spring-integration-mail</artifactId>
 			<version>${spring.integration.version}</version>
 		</dependency>
 		<dependency>
-			<groupId>org.springframework.integration</groupId>
-			<artifactId>spring-integration-stream</artifactId>
-			<version>${spring.integration.version}</version>
+			<groupId>javax.activation</groupId>
+			<artifactId>activation</artifactId>
+			<version>1.1.1</version>
+			<optional>true</optional>
+		</dependency>
+		<dependency>
+			<groupId>javax.mail</groupId>
+			<artifactId>mail</artifactId>
+			<version>1.4.1</version>
 		</dependency>
 		<dependency>
 			<groupId>log4j</groupId>
