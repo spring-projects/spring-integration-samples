@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+		http://www.springframework.org/schema/integration http://www.springframework.org/schema/integration/spring-integration-2.0.xsd
+		http://www.springframework.org/schema/integration/file http://www.springframework.org/schema/integration/file/spring-integration-file-2.0.xsd
+		http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task-3.0.xsd"
+	xmlns:int="http://www.springframework.org/schema/integration"
+	xmlns:int-file="http://www.springframework.org/schema/integration/file"
+	xmlns:task="http://www.springframework.org/schema/task">
+
+	
+	<int-file:inbound-channel-adapter id="filesInChannel"
+	                              directory="file:input">
+	    <int:poller id="poller" fixed-rate="10"/>
+	</int-file:inbound-channel-adapter>
+	
+	<int:service-activator input-channel="filesInChannel" output-channel="filesOutChannel">
+		<bean class="org.springframework.integration.samples.fileprocessing.FileProcessor"/>
+	</int:service-activator>
+	
+	<int:channel id="filesOutChannel">
+		<int:queue/>
+	</int:channel>
+	
+</beans>
