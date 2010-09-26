@@ -15,12 +15,12 @@ import org.springframework.integration.core.MessageHandler;
  * @author Oleg Zhurakousky
  *
  */
-public class GmailImapIdleAdapterTest {
-	private static Logger logger = Logger.getLogger(GmailImapIdleAdapterTest.class);
+public class GmailInboundPop3AdapterTest {
+	private static Logger logger = Logger.getLogger(GmailInboundPop3AdapterTest.class);
 
 	
 	public static void main (String[] args) throws Exception {
-		ApplicationContext ac = new ClassPathXmlApplicationContext("/META-INF/spring/integration/mail-imap-idle-config.xml");
+		ApplicationContext ac = new ClassPathXmlApplicationContext("/META-INF/spring/integration/gmail-pop3-config.xml");
 		DirectChannel inputChannel = ac.getBean("recieveChannel", DirectChannel.class);
 		inputChannel.subscribe(new MessageHandler() {
 			public void handleMessage(Message<?> message) throws MessagingException {

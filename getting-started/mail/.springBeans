@@ -7,7 +7,7 @@
 	</configSuffixes>
 	<enableImports><![CDATA[false]]></enableImports>
 	<configs>
-		<config>src/main/resources/META-INF/spring/integration/mail-imap-idle-config.xml</config>
+		<config>src/main/resources/META-INF/spring/integration/gmail-imap-idle-config.xml</config>
 	</configs>
 	<configSets>
 	</configSets>

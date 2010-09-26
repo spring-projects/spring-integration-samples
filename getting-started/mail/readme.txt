@@ -1,8 +1,15 @@
 This example demonstrates the following aspects of the Mail support available with Spring Integration:
-1. IMAP IDLE Channel Adapter (with sample GMail configuration)
+1. IMAP IDLE Inbound Channel Adapter (with sample GMail configuration)
+2. POP3 Inbound Channel Adapter (with sample GMail configuration) 
 
-Simply change configuration file (src/main/resources/META-INF/spring/integration/mail-imap-idle-config.xml) 
-to point to your existing GMail account (replace userid and password) and run the GmailImapIdleAdapterTest.
+Simply change configuration file (src/main/resources/META-INF/spring/integration/gmail-imap-idle-config.xml or gmail-pop3-config.xml) 
+to point to your existing GMail account (replace userid and password) and run:
+
+	GmailInboundImapIdleAdapterTest.java - for IMAP IDLE sample
+	GmailInboundPop3AdapterTest - for POP3 sample
+
+IMPORTANT: You must enable POP3/IMAP access for your google account (follow "Settings" link on your GMail page). 
+
 Once started start sending emails to your account. You'll see that adapter will receive messages and will
 publish them to a channel specified by 'channel' attribute.
 

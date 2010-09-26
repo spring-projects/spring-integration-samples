@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/integration http://www.springframework.org/schema/integration/spring-integration-2.0.xsd
+		http://www.springframework.org/schema/integration/mail http://www.springframework.org/schema/integration/mail/spring-integration-mail-2.0.xsd
+		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.0.xsd"
+	xmlns:int="http://www.springframework.org/schema/integration"
+	xmlns:int-mail="http://www.springframework.org/schema/integration/mail"
+	xmlns:util="http://www.springframework.org/schema/util">
+
+	<int:channel id="recieveChannel" />
+	<!-- replace 'userid and 'password' wit the real values -->
+	<int-mail:inbound-channel-adapter id="pop3ShouldDeleteTrue" 
+	                    store-uri="pop3://[userid]:[password]@pop.gmail.com/INBOX" 
+			            channel="recieveChannel" 
+			            should-delete-messages="true" 
+			            auto-startup="true" 
+			            java-mail-properties="javaMailProperties">
+			<!-- Will poll every 20 seconds -->            
+			<int:poller fixed-rate="20000"/>
+			
+	</int-mail:inbound-channel-adapter>
+
+	<util:properties id="javaMailProperties">
+		<prop key="mail.pop3.socketFactory.fallback">false</prop>
+		<prop key="mail.debug">true</prop>
+		<prop key="mail.pop3.port">995</prop>
+		<prop key="mail.pop3.socketFactory.class">javax.net.ssl.SSLSocketFactory</prop>
+		<prop key="mail.pop3.socketFactory.port">995</prop>
+	</util:properties>
+</beans>
