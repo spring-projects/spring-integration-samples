@@ -1,7 +1,15 @@
-This sample demonstrates how you can send a multipart request to a Spring Integration's HTTP service using Spring's RestTemplate
+This sample demonstrates how you can send a multipart request to a Spring Integration's HTTP service using 2 scenarios;
+1. Spring's RestTemplate
+2. Spring Integration Http Outbound Gateway
+
 It consists of two parts - Client and Server.
 
-Client uses Spring's RestTemplate to assemble and send multipart request
+There are two client programs.
+
+1. MultipartRestClient. It uses Spring's RestTemplate to assemble and send multipart request
+
+2. MultipartClientForHttpOutboundClient. It uses Spring Integration Http Outbound Gateway to send multipart request.
+   The interesting part about this client is the way it assembles Multipart request using a plain old Map.
 
 Server is Spring Integration's HTTP endpoint configuration.
 
