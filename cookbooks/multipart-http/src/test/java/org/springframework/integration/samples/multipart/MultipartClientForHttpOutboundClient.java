@@ -15,45 +15,38 @@
  */
 package org.springframework.integration.samples.multipart;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.apache.log4j.Logger;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
-import org.springframework.web.client.RestTemplate;
 /**
  * @author Oleg Zhurakousky
  *
  */
-public class MultipartClient {
+public class MultipartClientForHttpOutboundClient {
 	
-	private static Logger logger = Logger.getLogger(MultipartClient.class);
-	private static String uri = "http://localhost:8080/multipart-http/inboundAdapter.htm";
+	private static Logger logger = Logger.getLogger(MultipartClientForHttpOutboundClient.class);
 	private static String resourcePath = "org/springframework/integration/samples/multipart/spring09_logo.png";
 
 	/**
 	 * @param args
 	 */
 	public static void main(String[] args) throws Exception{
-		RestTemplate template = new RestTemplate();
+		ApplicationContext context = new ClassPathXmlApplicationContext("/META-INF/spring/integration/http-outbound-config.xml");
 		Resource s2logo = new ClassPathResource(resourcePath);
-		MultiValueMap<String, Object> multipartMap = new LinkedMultiValueMap<String, Object>();
-		multipartMap.add("company", "SpringSource");
-		multipartMap.add("company-logo", s2logo);
+		Map<String, Object> multipartMap = new HashMap<String, Object>();
+		multipartMap.put("company", new String[]{"SpringSource", "VMWare"});
+		multipartMap.put("company-logo", s2logo);
 		logger.info("Created multipart request: " + multipartMap);
-		HttpHeaders headers = new HttpHeaders();
-		headers.setContentType(new MediaType("multipart", "form-data"));
-		HttpEntity<Object> request = new HttpEntity<Object>(multipartMap, headers);
-		logger.info("Posting request to: " + uri);
-		ResponseEntity<?> httpResponse = template.exchange(uri, HttpMethod.POST, request, null);
-		if (!httpResponse.getStatusCode().equals(HttpStatus.OK)){
-			logger.error("Problems with the request. Http status: " + httpResponse.getStatusCode());
-		}
+		MultipartRequestGateway requestGateway = context.getBean("requestGateway", MultipartRequestGateway.class);
+		HttpStatus reply = requestGateway.postMultipartRequest(multipartMap);
+		System.out.println("Replied with HttpStatus code: " + reply);
 	}
 }

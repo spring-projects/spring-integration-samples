@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:int="http://www.springframework.org/schema/integration"
+	xmlns:int-http="http://www.springframework.org/schema/integration/http"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+		http://www.springframework.org/schema/integration http://www.springframework.org/schema/integration/spring-integration-2.0.xsd
+		http://www.springframework.org/schema/integration/http http://www.springframework.org/schema/integration/http/spring-integration-http-2.0.xsd">
+
+	<int:gateway id="requestGateway" 
+	             service-interface="org.springframework.integration.samples.multipart.MultipartRequestGateway"
+	             default-request-channel="requestChannel">
+<!--		<int:method name="postMultipartRequest">-->
+<!--			<int:header name="Content-Type" value="multipart/form-data"/>-->
+<!--		</int:method>-->
+	</int:gateway>
+	
+	<int:channel id="requestChannel"/>
+
+	<int-http:outbound-gateway request-channel="requestChannel" 
+					           url="http://localhost:8080/multipart-http/inboundAdapter.htm"
+					           http-method="POST"
+					           extract-request-payload="true"/>
+	
+	<bean id="headerMapper" class="org.springframework.integration.http.DefaultHttpHeaderMapper">
+		<property name="outboundHeaderNames" value="Content-Type"/>
+	</bean>
+</beans>

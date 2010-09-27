@@ -15,6 +15,8 @@
  */
 package org.springframework.integration.samples.multipart;
 
+import java.util.LinkedList;
+
 import org.apache.log4j.Logger;
 import org.springframework.integration.http.UploadedMultipartFile;
 import org.springframework.util.LinkedMultiValueMap;
@@ -23,13 +25,18 @@ import org.springframework.util.LinkedMultiValueMap;
  *
  */
 public class MultipartReceiever {
-	private static Logger logger = Logger.getLogger(MultipartClient.class);
+	private static Logger logger = Logger.getLogger(MultipartReceiever.class);
 
+	@SuppressWarnings("rawtypes")
 	public void recieve(LinkedMultiValueMap<String, Object> multipartRequest){	
 		logger.info("Successfully recieved multipart request: " + multipartRequest);
 		for (String elementName : multipartRequest.keySet()) {
 			if (elementName.equals("company")){
-				logger.info(elementName + " - " + ((String[]) multipartRequest.getFirst("company"))[0]);
+				LinkedList value =  (LinkedList)multipartRequest.get("company");
+				String[] multiValues = (String[]) value.get(0);
+				for (String companyName : multiValues) {
+					logger.info(elementName + " - " + companyName);
+				}
 			} else if (elementName.equals("company-logo")){
 				logger.info(elementName + " - as UploadedMultipartFile: " 
 						+ ((UploadedMultipartFile) multipartRequest.getFirst("company-logo")).getOriginalFilename());
