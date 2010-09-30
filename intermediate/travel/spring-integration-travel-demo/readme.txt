@@ -34,6 +34,8 @@ We do it via <uri-variable> element of http:outbound-gateway.
 
 Here you see we are using Spring Expression Language to bind the value of the payload (zipCode) to this variable.
 
+To run sample execute TravelDemo.class
+
 
 
 
