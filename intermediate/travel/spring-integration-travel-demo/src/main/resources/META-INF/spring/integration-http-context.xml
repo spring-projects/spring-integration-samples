@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns="http://www.springframework.org/schema/integration/http"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:beans="http://www.springframework.org/schema/beans"
+	xmlns:int="http://www.springframework.org/schema/integration"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/integration/http http://www.springframework.org/schema/integration/http/spring-integration-http-2.0.xsd
+		http://www.springframework.org/schema/integration http://www.springframework.org/schema/integration/spring-integration-2.0.xsd">
+	
+	<outbound-gateway id="trafficGateway" 
+	                  url="http://local.yahooapis.com/MapsService/V1/trafficData?appid=YdnDemo&amp;zip={zipCode}" 
+		              request-channel="trafficChannel" 
+		              http-method="GET" 
+		              expected-response-type="java.lang.String">
+		<uri-variable name="zipCode" expression="payload"/>
+	</outbound-gateway>
+	
+</beans:beans>

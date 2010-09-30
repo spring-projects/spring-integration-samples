@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns="http://www.springframework.org/schema/integration"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:beans="http://www.springframework.org/schema/beans"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/integration http://www.springframework.org/schema/integration/spring-integration-2.0.xsd">
+	
+	<gateway id="travelGateway" 
+	             service-interface="org.springframework.integration.samples.travel.TravelGateway" 
+	             default-request-channel="routingChannel">
+	 	<method name="getWeatherByZip">
+	 		<header name="REQUEST_TYPE" value="weather"/>
+	 	</method>
+	 	<method name="getTrafficByZip">
+	 		<header name="REQUEST_TYPE" value="traffic"/>
+	 	</method>
+    </gateway>
+ 
+    <publish-subscribe-channel id="routingChannel"/>
+
+	<header-value-router input-channel="routingChannel" header-name="REQUEST_TYPE">
+		<mapping value="weather" channel="weatherPreProcessChannel"/>
+		<mapping value="traffic" channel="trafficChannel"/>
+	</header-value-router>
+	
+	<channel id="weatherPreProcessChannel"/>
+	
+	<transformer input-channel="weatherPreProcessChannel" output-channel="weatherChannel">
+    	<beans:bean class="org.springframework.integration.samples.travel.WeatherRequestTransformer"/>
+    </transformer>
+    
+    <channel id="weatherChannel"/>
+	
+	<channel id="trafficChannel"/>
+	
+</beans:beans>
