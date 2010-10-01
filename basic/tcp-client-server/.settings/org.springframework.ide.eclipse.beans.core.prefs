@@ -1,0 +1,23 @@
+#Fri Oct 01 15:50:57 EDT 2010
+//org.springframework.ide.eclipse.beans.core.default.version.http\://www.springframework.org/schema/aop=
+//org.springframework.ide.eclipse.beans.core.default.version.http\://www.springframework.org/schema/beans=
+//org.springframework.ide.eclipse.beans.core.default.version.http\://www.springframework.org/schema/context=
+//org.springframework.ide.eclipse.beans.core.default.version.http\://www.springframework.org/schema/integration=
+//org.springframework.ide.eclipse.beans.core.default.version.http\://www.springframework.org/schema/jee=
+//org.springframework.ide.eclipse.beans.core.default.version.http\://www.springframework.org/schema/lang=
+//org.springframework.ide.eclipse.beans.core.default.version.http\://www.springframework.org/schema/task=
+//org.springframework.ide.eclipse.beans.core.default.version.http\://www.springframework.org/schema/tx=
+//org.springframework.ide.eclipse.beans.core.default.version.http\://www.springframework.org/schema/util=
+//org.springframework.ide.eclipse.beans.core.prefix.http\://www.springframework.org/schema/aop=aop
+//org.springframework.ide.eclipse.beans.core.prefix.http\://www.springframework.org/schema/beans=beans
+//org.springframework.ide.eclipse.beans.core.prefix.http\://www.springframework.org/schema/context=context
+//org.springframework.ide.eclipse.beans.core.prefix.http\://www.springframework.org/schema/integration=int
+//org.springframework.ide.eclipse.beans.core.prefix.http\://www.springframework.org/schema/jee=jee
+//org.springframework.ide.eclipse.beans.core.prefix.http\://www.springframework.org/schema/lang=lang
+//org.springframework.ide.eclipse.beans.core.prefix.http\://www.springframework.org/schema/task=task
+//org.springframework.ide.eclipse.beans.core.prefix.http\://www.springframework.org/schema/tx=tx
+//org.springframework.ide.eclipse.beans.core.prefix.http\://www.springframework.org/schema/util=util
+eclipse.preferences.version=1
+org.springframework.ide.eclipse.beans.core.default.version.check.classpath=true
+org.springframework.ide.eclipse.beans.core.enable.project.preferences=true
+org.springframework.ide.eclipse.beans.core.loadNamespaceHandlerFromClasspath=true

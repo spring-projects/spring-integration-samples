@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns:beans="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://www.springframework.org/schema/integration"
+	xmlns:ip="http://www.springframework.org/schema/integration/ip"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/integration http://www.springframework.org/schema/integration/spring-integration.xsd
+		http://www.springframework.org/schema/integration/ip http://www.springframework.org/schema/integration/ip/spring-integration-ip.xsd">
+
+	<!-- Client side -->
+	
+	<gateway id="gw" 
+        service-interface="org.springframework.integration.samples.tcpclientserver.SimpleGateway"
+        default-request-channel="input"/>
+
+	<ip:tcp-connection-factory id="client"
+		type="client"
+		host="localhost"
+		port="11111"
+		single-use="true"
+		so-timeout="10000"
+        />
+	
+	<channel id="input" />
+	
+	<ip:tcp-outbound-gateway id="outGateway"
+		request-channel="input"
+		connection-factory="client"
+		request-timeout="10000"
+		reply-timeout="10000"
+		/>
+		
+	<!-- Server side -->
+	
+	<ip:tcp-connection-factory id="crLfServer"
+		type="server"
+		port="11111"/>
+			
+	<ip:tcp-inbound-gateway id="gatewayCrLf"
+		connection-factory="crLfServer"
+		request-channel="toSA" />
+		
+	<channel id="toSA" />
+
+	<service-activator input-channel="toSA"
+					   ref="echoService"
+					   method="test"
+	/>
+
+	<beans:bean id="echoService" 
+		  class="org.springframework.integration.samples.tcpclientserver.EchoService" />
+		  
+</beans:beans>
