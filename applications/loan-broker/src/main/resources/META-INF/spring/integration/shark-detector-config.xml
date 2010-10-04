@@ -7,7 +7,7 @@
 		http://www.springframework.org/schema/integration http://www.springframework.org/schema/integration/spring-integration-2.0.xsd
 		http://www.springframework.org/schema/integration/ip http://www.springframework.org/schema/integration/ip/spring-integration-ip-2.0.xsd">
 
-	<channel id="quotesAggregationChannel">
+	<channel id="loanQuotesChannel">
 		<interceptors>
 			<wire-tap channel="loanSharkDetectorChannel"/>
 		</interceptors>

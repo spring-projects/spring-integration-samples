@@ -16,11 +16,10 @@
 
 package org.springframework.integration.samples.loanbroker;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import org.springframework.integration.Message;
+import org.springframework.integration.annotation.Header;
 import org.springframework.integration.samples.loanbroker.domain.LoanQuote;
 
 /**
@@ -37,17 +36,13 @@ public class LoanQuoteAggregator {
 	/**
 	 * Aggregates LoanQuote Messages to return a single reply Message.
 	 * 
-	 * @param messages Messages received from upstream lenders.
+	 * @param quotes list of loan quotes received from upstream lenders
+	 * @param responseType header that indicates the response type
 	 * @return the best {@link LoanQuote} if the 'RESPONSE_TYPE' header value is 'BEST' else all quotes
 	 */
-	public Object aggregateQuotes(List<Message<LoanQuote>> messages) {
-		ArrayList<LoanQuote> payloads = new ArrayList<LoanQuote>(messages.size());
-		for (Message<LoanQuote> message : messages) {
-			payloads.add(message.getPayload());
-		}
-		Collections.sort(payloads);
-		String responseType = messages.get(0).getHeaders().get("RESPONSE_TYPE", String.class);
-		return ("BEST".equals(responseType)) ? payloads.get(0) : payloads;
+	public Object aggregateQuotes(List<LoanQuote> quotes, @Header("RESPONSE_TYPE") String responseType) {
+		Collections.sort(quotes);
+		return ("BEST".equals(responseType)) ? quotes.get(0) : quotes;
 	}
 
 }

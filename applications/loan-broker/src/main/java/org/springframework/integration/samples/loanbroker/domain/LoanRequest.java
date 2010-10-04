@@ -24,20 +24,20 @@ public class LoanRequest {
 	private Customer customer;
 	private float loanAmount;
 
-	public Customer getCustomer() {
-		return customer;
-	}
-	
 	public void setCustomer(Customer customer) {
 		this.customer = customer;
 	}
-	
-	public float getLoanAmount() {
-		return loanAmount;
+
+	public Customer getCustomer() {
+		return customer;
 	}
 
 	public void setLoanAmount(float loanAmount) {
 		this.loanAmount = loanAmount;
+	}
+
+	public float getLoanAmount() {
+		return loanAmount;
 	}
 
 }

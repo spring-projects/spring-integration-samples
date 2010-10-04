@@ -19,25 +19,25 @@ package org.springframework.integration.samples.loanbroker.domain;
 /**
  * @author Oleg Zhurakousky
  */
-public class CreditScore {
+public class CreditReport {
 
 	private final int score;
-	private String creditHistory;
-	
-	public CreditScore(int score){
-		this.score = score;
-	}
-	
-	public String getCreditHistory() {
-		return creditHistory;
-	}
+	private volatile String history;
 
-	public void setCreditHistory(String creditHistory) {
-		this.creditHistory = creditHistory;
+	public CreditReport(int score) {
+		this.score = score;
 	}
 
 	public int getScore() {
-		return score;
+		return this.score;
+	}
+
+	public void setHistory(String history) {
+		this.history = history;
+	}
+
+	public String getHistory() {
+		return this.history;
 	}
 
 }

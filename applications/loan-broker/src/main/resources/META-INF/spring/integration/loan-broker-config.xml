@@ -11,26 +11,29 @@
 			http://www.springframework.org/schema/integration/spring-integration.xsd">
 
 	<gateway id="loanBrokerGateway"
-			default-request-channel="loanBrokerPreProcessingChannel"
+			default-request-channel="loanRequestsChannel"
 			service-interface="org.springframework.integration.samples.loanbroker.LoanBrokerGateway">
 		<method name="getBestLoanQuote">
 			<header name="RESPONSE_TYPE" value="BEST"/>
 		</method>
 	</gateway>
 
-	<chain input-channel="loanBrokerPreProcessingChannel">
+	<chain input-channel="loanRequestsChannel">
 		<header-enricher>
-			<header name="CREDIT_SCORE" ref="creditBureau" method="getCreditScore"/>
+			<header name="creditScore" expression="@creditBureau.getCreditReport(payload).score"/>
 		</header-enricher>
-		<router expression="headers['CREDIT_SCORE'].score > 780
-				? @banks.?[value.equals('premier')].keySet()
-				: @banks.?[value.equals('secondary')].keySet()"
-				apply-sequence="true"/>
+		<recipient-list-router apply-sequence="true">
+			<recipient selector-expression="headers.creditScore > 800" channel="exclusiveBankChannel"/>
+			<recipient selector-expression="headers.creditScore > 750" channel="premiereBankChannel"/>
+			<recipient selector-expression="headers.creditScore > 700" channel="qualityBankChannel"/>
+			<recipient selector-expression="headers.creditScore > 650" channel="friendlyBankChannel"/>
+			<recipient channel="easyBankChannel"/>
+		</recipient-list-router>
 	</chain>
 
 	<!-- Messages are sent to the banks via bank channels and will be received and processed by an aggregator -->
 	
-	<aggregator input-channel="quotesAggregationChannel" method="aggregateQuotes">
+	<aggregator input-channel="loanQuotesChannel" method="aggregateQuotes">
 		<beans:bean class="org.springframework.integration.samples.loanbroker.LoanQuoteAggregator"/>
 	</aggregator>
 	

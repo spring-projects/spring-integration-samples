@@ -20,7 +20,7 @@ import java.util.Random;
 
 import org.apache.log4j.Logger;
 
-import org.springframework.integration.samples.loanbroker.domain.CreditScore;
+import org.springframework.integration.samples.loanbroker.domain.CreditReport;
 import org.springframework.integration.samples.loanbroker.domain.LoanRequest;
 
 /**
@@ -32,13 +32,12 @@ public class CreditBureauStub {
 
 	/**
 	 * @param loanRequest the loan request
-	 * @return the CreditScore for the given loan request
+	 * @return the CreditReport for the given loan request
 	 */
-	public CreditScore getCreditScore(LoanRequest loanRequest){
-		Random random =  new Random();
-		int creditScore = 700 + random.nextInt(150);
+	public CreditReport getCreditReport(LoanRequest loanRequest) {
+		int creditScore = 600 + new Random().nextInt(250);
 		logger.info("Credit Score: " + creditScore);
-		return new CreditScore(creditScore);
+		return new CreditReport(creditScore);
 	}
 
 }

@@ -27,6 +27,18 @@ import org.springframework.integration.samples.loanbroker.domain.LoanRequest;
  */
 public class BankStub {
 
+	private volatile String name;
+
+	private float baseRate = 6.0f;
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public void setBaseRate(float baseRate) {
+		this.baseRate = baseRate;
+	}
+
 	/**
 	 * @param loanRequest the loan request
 	 * @return a LoanQuote for the given request
@@ -38,10 +50,10 @@ public class BankStub {
 		loanQuote.setQuoteDate(calendar.getTime());
 		calendar.add(Calendar.DAY_OF_YEAR, random.nextInt(25));
 		loanQuote.setExpirationDate(calendar.getTime());
-		loanQuote.setRate(random.nextFloat() + 5);
+		loanQuote.setRate(random.nextFloat() + this.baseRate);
 		loanQuote.setTerm(10 + random.nextInt(10));
 		loanQuote.setAmount(250000 + random.nextInt(40000));
-		loanQuote.setLender("StubBank-" + random.nextInt(30));
+		loanQuote.setLender(this.name);
 		return loanQuote;
 	}
 

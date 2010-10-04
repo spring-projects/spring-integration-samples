@@ -16,7 +16,6 @@
 
 package org.springframework.integration.samples.loanbroker.domain;
 
-import java.text.DecimalFormat;
 import java.util.Date;
 
 /**
@@ -79,17 +78,6 @@ public class LoanQuote implements Comparable<LoanQuote>{
 		this.rate = rate;
 	}
 
-	public String toString(){
-		return "\n====== Loan Quote =====\n" +
-			   "Lender: " + this.lender + "\n" +
-			   "Loan amount: " + new DecimalFormat("$###,###.###").format(this.amount) + "\n" + 
-			   "Quote Date: " + this.quoteDate + "\n" +
-			   "Expiration Date: " + this.expirationDate + "\n" + 
-			   "Term: " + this.term + " years" + "\n" +
-			   "Rate: " + this.rate + "%\n" + 
-			   "=======================\n";
-	}
-
 	public int compareTo(LoanQuote other) {
 		if (this.rate > other.rate) {
 			return 1;
@@ -98,6 +86,10 @@ public class LoanQuote implements Comparable<LoanQuote>{
 			return -1;
 		}
 		return 0;
+	}
+
+	public String toString() {
+		return this.lender + ":\t" + this.rate; 
 	}
 
 }
