@@ -40,7 +40,7 @@ public class LoanQuoteAggregator {
 	 * @param responseType header that indicates the response type
 	 * @return the best {@link LoanQuote} if the 'RESPONSE_TYPE' header value is 'BEST' else all quotes
 	 */
-	public Object aggregateQuotes(List<LoanQuote> quotes, @Header("RESPONSE_TYPE") String responseType) {
+	public Object aggregateQuotes(List<LoanQuote> quotes, @Header(value="RESPONSE_TYPE", required=false) String responseType) {
 		Collections.sort(quotes);
 		return ("BEST".equals(responseType)) ? quotes.get(0) : quotes;
 	}
