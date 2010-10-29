@@ -19,7 +19,6 @@ package org.springframework.integration.samples.cafe.annotation;
 import org.junit.Test;
 import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
-import org.springframework.context.support.FileSystemXmlApplicationContext;
 import org.springframework.integration.samples.cafe.Cafe;
 import org.springframework.integration.samples.cafe.DrinkType;
 import org.springframework.integration.samples.cafe.Order;

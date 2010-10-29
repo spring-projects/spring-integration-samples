@@ -8,7 +8,7 @@
 	<name>Spring Integration File Copy Sample</name>
 	<packaging>jar</packaging>
 	<properties>
-		<spring.integration.version>2.0.0.M7</spring.integration.version>
+		<spring.integration.version>2.0.0.RC1</spring.integration.version>
 		<log4j.version>1.2.16</log4j.version>
 		<junit.version>4.7</junit.version>
 	</properties>

@@ -8,8 +8,8 @@
 	<packaging>war</packaging>
 	<properties>
 		<roo.version>1.1.0.M3</roo.version>
-		<spring.version>3.0.4.RELEASE</spring.version>
-		<aspectj.version>1.6.10.M1</aspectj.version>
+		<spring.version>3.0.5.RELEASE</spring.version>
+		<aspectj.version>1.6.10</aspectj.version>
 		<slf4j.version>1.6.1</slf4j.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
@@ -361,7 +361,7 @@
     <dependency>
             <groupId>org.springframework.integration</groupId>
             <artifactId>spring-integration-ip</artifactId>
-            <version>2.0.0.M7</version>
+            <version>2.0.0.RC1</version>
         </dependency>
     </dependencies>
 	<build>
