@@ -8,7 +8,7 @@
 	<name>Spring Integration JMS Sample</name>
 	<packaging>jar</packaging>
 	<properties>
-		<spring.integration.version>2.0.0.RC1</spring.integration.version>
+		<spring.integration.version>2.0.0.BUILD-SNAPSHOT</spring.integration.version>
 		<activemq.version>5.2.0</activemq.version>
 	</properties>
 	<dependencies>
