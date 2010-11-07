@@ -18,7 +18,7 @@ package org.springframework.integration.samples.multipart;
 import java.util.LinkedList;
 
 import org.apache.log4j.Logger;
-import org.springframework.integration.http.UploadedMultipartFile;
+import org.springframework.integration.http.multipart.UploadedMultipartFile;
 import org.springframework.util.LinkedMultiValueMap;
 /**
  * @author Oleg Zhurakousky

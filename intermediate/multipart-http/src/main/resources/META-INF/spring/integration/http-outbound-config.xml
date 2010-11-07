@@ -22,7 +22,7 @@
 					           http-method="POST"
 					           extract-request-payload="true"/>
 	
-	<bean id="headerMapper" class="org.springframework.integration.http.DefaultHttpHeaderMapper">
+	<bean id="headerMapper" class="org.springframework.integration.http.support.DefaultHttpHeaderMapper">
 		<property name="outboundHeaderNames" value="Content-Type"/>
 	</bean>
 </beans>
