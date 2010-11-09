@@ -6,9 +6,9 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/beans
 			http://www.springframework.org/schema/beans/spring-beans.xsd
 			http://www.springframework.org/schema/integration
-			http://www.springframework.org/schema/integration/spring-integration.xsd
+			http://www.springframework.org/schema/integration/spring-integration-2.0.xsd
 			http://www.springframework.org/schema/integration/xml
-			http://www.springframework.org/schema/integration/xml/spring-integration-xml.xsd
+			http://www.springframework.org/schema/integration/xml/spring-integration-xml-2.0.xsd
 			http://www.springframework.org/schema/util
 			http://www.springframework.org/schema/util/spring-util.xsd">
 
@@ -40,20 +40,12 @@
 	<si-xml:xpath-expression id="selectIsbnXpath" namespace-map="orderNamespaceMap" expression="/orderNs:orderItem/orderNs:isbn/text()" />
 
 	<!-- if in stock route to the warehouse else route to the out of stock channel -->
-	<si-xml:xpath-router id="instockRouter" channel-resolver="mapChannelResolver" 
-		input-channel="orderRoutingChannel" resolution-required="true">
+	<si-xml:xpath-router id="instockRouter" input-channel="orderRoutingChannel" resolution-required="true">
 		<si-xml:xpath-expression expression="/orderNs:orderItem/@in-stock" namespace-map="orderNamespaceMap"  />
+		<si-xml:mapping value="true" channel="warehouseDispatchChannel"/>
+		<si-xml:mapping value="false" channel="outOfStockChannel"/>
 	</si-xml:xpath-router>
 	
-	<bean id="mapChannelResolver" class="org.springframework.integration.channel.MapBasedChannelResolver">
-		<property name="channelMap">
-			<map>
-				<entry key="true" value-ref="warehouseDispatchChannel" />
-				<entry key="false" value-ref="outOfStockChannel" />
-			</map>
-		</property>
-	</bean>
-
 	<!--  dispatch order if in stock -->
 	<si:outbound-channel-adapter method="dispatch" channel="warehouseDispatchChannel">
 		<bean class="org.springframework.integration.samples.xml.WarehouseDispatch" />
