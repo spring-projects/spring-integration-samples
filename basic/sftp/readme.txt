@@ -30,7 +30,7 @@ The output should look like this:
 Successfully transfered 'readme.txt' file to a remote location under the name 'readme.txt_foo'
 =====
 
-NOTE: You can see that we are using SpEL via 'remote-file-expression' attribute to define the remote file name by
+NOTE: You can see that we are using SpEL via 'remote-filename-expression' attribute to define the remote file name by
 simply appending '_foo' to the original file name.
 
 	

@@ -24,7 +24,7 @@
 	<int-sftp:outbound-channel-adapter id="sftpOutboundAdapter"
 				session-factory="sftpSessionFactory"
 				channel="inputChannel"
-				remote-file-expression="payload.getName() + '_foo'"
+				remote-filename-expression="payload.getName() + '_foo'"
 				remote-directory="/Users/ozhurakousky/workspace-sts-2.3.3.M2/si/samples/basic/sftp/remote-target-dir"/>
 	
 </beans>
