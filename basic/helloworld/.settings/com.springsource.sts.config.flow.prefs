@@ -1,0 +1,3 @@
+#Thu Nov 18 09:56:50 EST 2010
+//com.springsource.sts.config.flow.coordinates\:http\://www.springframework.org/schema/integration\:/helloworld/src/main/resources/META-INF/spring/integration/delay.xml=<?xml version\="1.0" encoding\="UTF-8"?>\n<graph>\n<element clazz\="InboundChannelAdapterModelElement" type\="inbound-channel-adapter">\n<structure end\="839" endstart\="809" start\="645" startend\="744"/>\n<bounds height\="112" width\="116" x\="19" y\="17"/>\n</element>\n<element clazz\="LoggingChannelAdapterModelElement" type\="logging-channel-adapter">\n<structure end\="885" endstart\="885" start\="843" startend\="885"/>\n<bounds height\="112" width\="116" x\="19" y\="149"/>\n</element>\n</graph>
+eclipse.preferences.version=1
