@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:int="http://www.springframework.org/schema/integration"
+	xmlns:int-sftp="http://www.springframework.org/schema/integration/sftp"
+	xmlns:task="http://www.springframework.org/schema/task"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+		http://www.springframework.org/schema/integration http://www.springframework.org/schema/integration/spring-integration-2.0.xsd
+		http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task-3.0.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd
+		http://www.springframework.org/schema/integration/sftp http://www.springframework.org/schema/integration/sftp/spring-integration-sftp-2.0.xsd">
+
+	<context:property-placeholder location="classpath:user.properties"/>
+
+	<bean id="sftpSessionFactory" class="org.springframework.integration.sftp.session.SftpSessionFactory">
+		<property name="host" value="localhost"/>
+		<property name="privateKey" value="classpath:META-INF/keys/sftp_rsa"/>
+		<property name="privateKeyPassphrase" value="${passphrase}"/>
+		<property name="port" value="22"/>
+		<property name="user" value="${user}"/>
+	</bean>
+	
+	<int-sftp:inbound-channel-adapter id="sftpInbondAdapter"
+			channel="receiveChannel" 
+			session-factory="sftpSessionFactory" 
+			local-directory="file:local-dir"
+			remote-directory="/Users/ozhurakousky/workspace-sts-2.3.3.M2/si/samples/basic/sftp/remote-source-dir"
+			auto-create-directories="true"
+			auto-delete-remote-files-on-sync="false"
+			filename-pattern=".*\.txt$">
+		<int:poller fixed-rate="1000" max-messages-per-poll="1"/>
+	</int-sftp:inbound-channel-adapter>
+	
+	<int:channel id="receiveChannel">
+		<int:queue/>
+	</int:channel>
+	
+</beans>
