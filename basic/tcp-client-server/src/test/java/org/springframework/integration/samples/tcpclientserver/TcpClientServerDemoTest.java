@@ -42,10 +42,17 @@ public class TcpClientServerDemoTest {
 	SimpleGateway gw;
 	
 	@Test
-	public void test() {
-		byte[] echo = gw.send("Hello world!");
-		String result = new String(echo);
+	public void testHappyDay() {
+		String result = gw.send("Hello world!");
 		System.out.println(result);
 		assertEquals("echo:Hello world!", result);
 	}
+	
+	@Test
+	public void testFail() {
+		String result = gw.send("FAIL");
+		System.out.println(result);
+		assertEquals("FAIL:Failure Demonstration", result);
+	}
+
 }

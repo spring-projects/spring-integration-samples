@@ -26,3 +26,29 @@ echo:Test
 
 telnet> quit
 Connection closed.
+
+
+Note that the test case also demonstrates error handling on an inbound gateway using direct channels.
+If the payload is 'FAIL', the EchoService throws an exception. The gateway is configured
+with an error-channel attribute. Messages sent to that channel are consumed by a transformer
+that concatenates the inbound message payload with the message text from the thrown 
+exception, returning 'FAIL:Failure Demonstration' over the TCP socket.
+
+This can also be demonstrated with the telnet client thus...
+
+$ telnet localhost 11111
+Trying 127.0.0.1...
+Connected to localhost.
+Escape character is '^]'.
+Hello world!
+echo:Hello world!
+FAIL
+FAIL:Failure Demonstration
+Hello
+echo:Hello
+^]
+
+telnet> quit
+Connection closed.
+
+

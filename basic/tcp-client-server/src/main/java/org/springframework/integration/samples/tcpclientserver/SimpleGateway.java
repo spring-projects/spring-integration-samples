@@ -21,6 +21,6 @@ package org.springframework.integration.samples.tcpclientserver;
  */
 public interface SimpleGateway {
 
-	public byte[] send(String text);
+	public String send(String text);
 	
 }
