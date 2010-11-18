@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd
+		http://www.springframework.org/schema/integration http://www.springframework.org/schema/integration/spring-integration-2.0.xsd
+		http://www.springframework.org/schema/integration/twitter http://www.springframework.org/schema/integration/twitter/spring-integration-twitter-2.0.xsd"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:int="http://www.springframework.org/schema/integration"
+	xmlns:int-twitter="http://www.springframework.org/schema/integration/twitter">
+	
+	<context:property-placeholder location="classpath:oauth.properties"/>
+
+	<bean id="twitterTemplate"
+		class="org.springframework.integration.twitter.core.Twitter4jTemplate">
+		<constructor-arg value="${twitter.oauth.consumerKey}" />
+		<constructor-arg value="${twitter.oauth.consumerSecret}" />
+		<constructor-arg value="${twitter.oauth.accessToken}" />
+		<constructor-arg value="${twitter.oauth.accessTokenSecret}" />
+	</bean>
+	
+	<int-twitter:inbound-channel-adapter id="twitterInbound"
+		twitter-template="twitterTemplate" channel="sourceExtractor">
+		<int:poller fixed-rate="1000" max-messages-per-poll="3" />
+	</int-twitter:inbound-channel-adapter>
+	
+	<int:transformer input-channel="sourceExtractor" output-channel="twitterOut" expression="payload.getText()"/>
+	
+	<int:logging-channel-adapter id="twitterOut"/>
+</beans>
