@@ -1,0 +1,3 @@
+#Thu Nov 18 11:26:44 EST 2010
+//com.springsource.sts.config.flow.coordinates\:http\://www.springframework.org/schema/integration\:/feed/src/test/resources/META-INF/spring/integration/FeedInboundChannelAdapterSample-context.xml=<?xml version\="1.0" encoding\="UTF-8"?>\n<graph>\n<element clazz\="ChannelModelElement" type\="channel">\n<structure end\="1026" endstart\="1012" start\="965" startend\="995"/>\n<bounds height\="112" width\="116" x\="19" y\="17"/>\n</element>\n</graph>
+eclipse.preferences.version=1
