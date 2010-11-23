@@ -11,17 +11,17 @@
 
 	<context:property-placeholder location="classpath:user.properties"/>
 
-	<bean id="ftpClientFactory" class="org.springframework.integration.ftp.client.DefaultFtpClientFactory">
+	<bean id="ftpClientFactory" class="org.springframework.integration.ftp.session.DefaultFtpSessionFactory">
 		<property name="host" value="localhost"/>
 		<property name="username" value="${user}"/>
 		<property name="password" value="${password}"/>
-		<property name="remoteWorkingDirectory" value="<SPECIFY REMOTE DIRECTORY (e.g., /{workspace}/samples/basic/ftp/remote-target-dir)"/>
 	</bean>
 	
 	<int:channel id="ftpChannel"/>
 
 	<int-ftp:outbound-channel-adapter id="ftpOutbound"
 				channel="ftpChannel" 
+				remote-directory="<SPECIFY REMOTE DIRECTORY (e.g., /{workspace}/samples/basic/ftp/remote-target-dir)"
 				client-factory="ftpClientFactory"/>
 	
 </beans>

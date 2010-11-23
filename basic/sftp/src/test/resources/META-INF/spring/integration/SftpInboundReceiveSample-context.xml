@@ -13,7 +13,7 @@
 
 	<context:property-placeholder location="classpath:user.properties"/>
 
-	<bean id="sftpSessionFactory" class="org.springframework.integration.sftp.session.SftpSessionFactory">
+	<bean id="sftpSessionFactory" class="org.springframework.integration.sftp.session.DefaultSftpSessionFactory">
 		<property name="host" value="localhost"/>
 		<property name="privateKey" value="classpath:META-INF/keys/sftp_rsa"/>
 		<property name="privateKeyPassphrase" value="${passphrase}"/>
@@ -26,9 +26,9 @@
 			session-factory="sftpSessionFactory" 
 			local-directory="file:local-dir"
 			remote-directory="<<SPECIFY REMOTE DIRECTORY (e.g., /{workspace}/samples/basic/sftp/remote-target-dir)>>"
-			auto-create-directories="true"
-			auto-delete-remote-files-on-sync="false"
-			filename-pattern=".*\.txt$">
+			auto-create-local-directory="true"
+			delete-remote-files="false"
+			filename-regex=".*\.txt$">
 		<int:poller fixed-rate="1000" max-messages-per-poll="1"/>
 	</int-sftp:inbound-channel-adapter>
 	

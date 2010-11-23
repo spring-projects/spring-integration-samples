@@ -11,7 +11,7 @@
 
 	<context:property-placeholder location="classpath:user.properties"/>
 	
-	<bean id="sftpSessionFactory" class="org.springframework.integration.sftp.session.SftpSessionFactory">
+	<bean id="sftpSessionFactory" class="org.springframework.integration.sftp.session.DefaultSftpSessionFactory">
 		<property name="host" value="localhost"/>
 		<property name="privateKey" value="classpath:META-INF/keys/sftp_rsa"/>
 		<property name="privateKeyPassphrase" value="${passphrase}"/>
