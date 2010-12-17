@@ -1,13 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beansProjectDescription>
 	<version>1</version>
-	<pluginVersion><![CDATA[2.3.3.201007151000-M2]]></pluginVersion>
+	<pluginVersion><![CDATA[2.5.1.201011101000-RELEASE]]></pluginVersion>
 	<configSuffixes>
 		<configSuffix><![CDATA[xml]]></configSuffix>
 	</configSuffixes>
-	<enableImports><![CDATA[false]]></enableImports>
+	<enableImports><![CDATA[true]]></enableImports>
 	<configs>
-		<config>src/test/java/org/springframework/integration/samples/jms/config.xml</config>
+		<config>src/main/resources/META-INF/spring/integration/common.xml</config>
+		<config>src/main/resources/META-INF/spring/integration/inboundChannelAdapter.xml</config>
+		<config>src/main/resources/META-INF/spring/integration/inboundGateway.xml</config>
+		<config>src/main/resources/META-INF/spring/integration/outboundChannelAdapter.xml</config>
+		<config>src/main/resources/META-INF/spring/integration/outboundGateway.xml</config>
 	</configs>
 	<configSets>
 	</configSets>
