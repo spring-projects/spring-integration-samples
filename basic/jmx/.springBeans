@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beansProjectDescription>
 	<version>1</version>
-	<pluginVersion><![CDATA[2.3.3.201007151000-M2]]></pluginVersion>
+	<pluginVersion><![CDATA[2.5.2.201101121000-SR1]]></pluginVersion>
 	<configSuffixes>
 		<configSuffix><![CDATA[xml]]></configSuffix>
 	</configSuffixes>
 	<enableImports><![CDATA[false]]></enableImports>
 	<configs>
+		<config>src/main/resources/META-INF/spring/integration/ControlBusDemo-context.xml</config>
 	</configs>
 	<configSets>
 	</configSets>
