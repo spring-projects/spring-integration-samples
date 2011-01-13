@@ -13,4 +13,4 @@ To run this sample
    
    You should see the following output from the server:
    
-INFO : org.springframework.integration.samples.multipart.DemoHttpClient - Replied with: Hello from the other side
+INFO : org.springframework.integration.samples.http.HttpClientDemo - Replied with: Hello from the other side
