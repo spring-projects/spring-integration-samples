@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.springframework.integration.samples.jmx;
+package org.springframework.integration.samples.controlbus;
 
 import org.apache.log4j.Logger;
 import org.junit.Test;
