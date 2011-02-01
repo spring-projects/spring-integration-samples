@@ -49,6 +49,13 @@ public class TcpClientServerDemoTest {
 	}
 	
 	@Test
+	public void testZeroLength() {
+		String result = gw.send("");
+		System.out.println(result);
+		assertEquals("echo:", result);
+	}
+
+	@Test
 	public void testFail() {
 		String result = gw.send("FAIL");
 		System.out.println(result);
