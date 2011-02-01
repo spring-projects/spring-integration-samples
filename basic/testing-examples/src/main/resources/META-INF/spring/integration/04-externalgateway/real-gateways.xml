@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:int="http://www.springframework.org/schema/integration"
+	xmlns:int-http="http://www.springframework.org/schema/integration/http"
+	xmlns:int-mail="http://www.springframework.org/schema/integration/mail"
+	xmlns:int-ws="http://www.springframework.org/schema/integration/ws"
+	xsi:schemaLocation="http://www.springframework.org/schema/integration/http http://www.springframework.org/schema/integration/http/spring-integration-http-2.0.xsd
+		http://www.springframework.org/schema/integration/ws http://www.springframework.org/schema/integration/ws/spring-integration-ws-2.0.xsd
+		http://www.springframework.org/schema/integration/mail http://www.springframework.org/schema/integration/mail/spring-integration-mail-2.0.xsd
+		http://www.springframework.org/schema/integration http://www.springframework.org/schema/integration/spring-integration-2.0.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+	
+    <int-http:outbound-gateway id="trafficService" 
+	                  url="http://local.yahooapis.com/MapsService/V1/trafficData?appid=YdnDemo&amp;zip={zipCode}" 
+		              request-channel="trafficRequestChannel"
+		              reply-channel="trafficResponseChannel" 
+		              http-method="GET" 
+		              message-converters="trafficConverter"
+		              expected-response-type="org.springframework.integration.samples.testing.externalgateway.Traffic">
+		<int-http:uri-variable name="zipCode" expression="payload"/>
+	</int-http:outbound-gateway>
+	
+	<int-ws:header-enricher id="soapHeaderEnricher"
+						    input-channel="weatherRequestChannel"
+		                    output-channel="weatherServiceChannel">
+		<int-ws:soap-action value="http://ws.cdyne.com/WeatherWS/GetCityWeatherByZIP" />
+	</int-ws:header-enricher>
+
+	<int:channel id="weatherServiceChannel" />
+	
+	<int-ws:outbound-gateway id="weatherService" 
+							 request-channel="weatherServiceChannel"
+					  		 reply-channel="weatherResponseChannel" 			 
+					  		 marshaller="marshaller"
+					  		 unmarshaller="marshaller"
+					  		 uri="http://ws.cdyne.com/WeatherWS/Weather.asmx"/> 
+
+	<int:channel id="weatherResponseChannel"/>
+
+	<bean id="trafficConverter" class="org.springframework.integration.samples.testing.externalgateway.TrafficHttpConverter"/>
+	
+	<bean id="marshaller" class="org.springframework.integration.samples.testing.externalgateway.WeatherMarshaller"/>			    
+
+</beans>

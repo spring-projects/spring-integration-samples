@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns="http://www.springframework.org/schema/integration"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:beans="http://www.springframework.org/schema/beans"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+			http://www.springframework.org/schema/beans/spring-beans.xsd
+			http://www.springframework.org/schema/integration
+			http://www.springframework.org/schema/integration/spring-integration.xsd">
+
+	<channel id="inputChannel"/>
+
+	<splitter input-channel="inputChannel"
+		output-channel="upperChannel">
+		<beans:bean class="org.springframework.integration.samples.testing.splitter.CommaDelimitedSplitter"/>
+	</splitter>
+	
+	<channel id="upperChannel"/>
+	
+	<transformer input-channel="upperChannel"
+		output-channel="aggregationChannel"
+		expression="payload.toUpperCase()"/>
+	
+	<channel id="aggregationChannel"/>
+	
+	<aggregator input-channel="aggregationChannel"
+		output-channel="outputChannel">
+		<beans:bean class="org.springframework.integration.samples.testing.aggregator.CommaDelimitedAggregator"/>
+	</aggregator>
+	
+	<channel id="outputChannel"/>
+	
+</beans:beans>
