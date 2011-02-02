@@ -74,7 +74,7 @@ public class SpelChainTests {
 		assertNotNull("Expected an output message", outMessage);
 		Object myHeader = outMessage.getHeaders().get("myHeader");
 		assertNotNull("Expecter myHeader header", myHeader);
-		assertEquals("Expected myHeader==true", Boolean.FALSE, myHeader);
+		assertEquals("Expected myHeader==false", Boolean.FALSE, myHeader);
 		assertEquals("Expected lower case message", payload.toLowerCase(), outMessage.getPayload());
 	}
 
