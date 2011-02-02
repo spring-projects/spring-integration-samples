@@ -16,4 +16,15 @@
 
 	<channel id="outputChannel"/>
 	
+	<channel id="inputChannel2"/>
+
+	<filter input-channel="inputChannel2"
+		output-channel="outputChannel"
+		discard-channel="discardChannel2">
+		<beans:bean class="org.springframework.integration.samples.testing.filter.PetFilter"/>
+	</filter>
+
+	<channel id="outputChannel2"/>
+	<channel id="discardChannel2"/>
+	
 </beans:beans>

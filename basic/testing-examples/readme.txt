@@ -4,7 +4,7 @@ A series of test cases that show techniques to test Spring Integration applicati
 Examples
 ========
 
-...spelchain.SpelChainTests.java
+...chain.SpelChainTests.java
 
 This test case shows how to test a fragment of a larger integration flow.
 In this example, we have a simple chain containing a header enricher and
@@ -52,6 +52,9 @@ application can be tested with local versions.
 
 This test case shows both unit testing a custom router class as well
 as testing it within a Spring Integration flow fragment.
+
+A second filter is defined, that uses a discard channel for filtered
+messages.
 
 
 ...filter.PetFilterTests.java

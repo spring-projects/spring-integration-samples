@@ -16,4 +16,18 @@
 		<queue/>
 	</channel>
 	
+	<bridge input-channel="outputChannel2"
+		output-channel="testChannel2"/>
+		
+	<channel id="testChannel2">
+		<queue/>
+	</channel>
+
+	<bridge input-channel="discardChannel2"
+		output-channel="testDiscardChannel2"/>
+		
+	<channel id="testDiscardChannel2">
+		<queue/>
+	</channel>
+
 </beans:beans>

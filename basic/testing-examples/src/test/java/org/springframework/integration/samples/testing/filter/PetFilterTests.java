@@ -41,6 +41,9 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
  * in this test case, we bridge it to a {@link QueueChannel} to
  * facilitate easy testing.
  * 
+ * Similarly, we bridge the discard channel which is configured on the second
+ * filter instance.
+ * 
  * @author Gary Russell
  * @since 2.0.2
  */
@@ -52,7 +55,16 @@ public class PetFilterTests {
 	MessageChannel inputChannel;
 	
 	@Autowired
+	MessageChannel inputChannel2;
+	
+	@Autowired
 	QueueChannel testChannel;
+
+	@Autowired
+	QueueChannel testChannel2;
+
+	@Autowired
+	QueueChannel testDiscardChannel2;
 
 	@Test
 	public void unitTestClassCat() {
@@ -100,4 +112,39 @@ public class PetFilterTests {
 		assertNull("Expected no output message", outMessage);
 	}
 	
+	@Test
+	public void testCatDiscard() {
+		String payload = "CAT:Fluffy";
+		Message<String> message = MessageBuilder.withPayload(payload).build();
+		inputChannel2.send(message);
+		Message<?> outMessage = testChannel2.receive(0);
+		assertNull("Expected no output message", outMessage);
+		outMessage = testDiscardChannel2.receive(0);
+		assertNotNull("Expected discard message", outMessage);
+		assertEquals(payload, message.getPayload());
+	}
+
+	@Test
+	public void testDogDiscard() {
+		String payload = "DOG:Fido";
+		Message<String> message = MessageBuilder.withPayload(payload).build();
+		inputChannel2.send(message);
+		Message<?> outMessage = testChannel.receive(0);
+		assertNotNull("Expected an output message", outMessage);
+		assertEquals(payload, outMessage.getPayload());
+		outMessage = testDiscardChannel2.receive(0);
+		assertNull("Expected no discard message", outMessage);
+	}
+
+	@Test
+	public void testLizardDiscard() {
+		String payload = "LIZARD:Scaly";
+		Message<String> message = MessageBuilder.withPayload(payload).build();
+		inputChannel2.send(message);
+		Message<?> outMessage = testChannel.receive(0);
+		assertNull("Expected no output message", outMessage);
+		outMessage = testDiscardChannel2.receive(0);
+		assertNotNull("Expected discard message", outMessage);
+		assertEquals(payload, message.getPayload());
+	}
 }
