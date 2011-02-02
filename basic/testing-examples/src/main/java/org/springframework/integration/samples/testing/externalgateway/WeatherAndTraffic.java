@@ -15,6 +15,8 @@
  */
 package org.springframework.integration.samples.testing.externalgateway;
 
+import java.util.List;
+
 /**
  * @author Gary Russell
  * @since 2.0.2
@@ -22,6 +24,6 @@ package org.springframework.integration.samples.testing.externalgateway;
  */
 public interface WeatherAndTraffic {
 
-	public String[] getByZip(String zip);
+	public List<String> getByZip(String zip);
 	
 }

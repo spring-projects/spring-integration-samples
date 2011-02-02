@@ -17,8 +17,8 @@ package org.springframework.integration.samples.testing.externalgateway;
 
 import static org.junit.Assert.assertEquals;
 
-import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
 
 import org.junit.Test;
@@ -45,14 +45,12 @@ public class ExternalGatewaySubstitutionTests {
 	
 	@Test
 	public void doTest() {
-		String[] results = weatherAndTraffic.getByZip("12345");
-		assertEquals(2, results.length);
-		List<String> list = new ArrayList<String>();
-		list.add(results[0]);
-		list.add(results[1]);
-		Collections.sort(list);
-		assertEquals("Dummy traffic for zip:12345", list.get(0));
-		assertEquals("Dummy weather for zip:12345", list.get(1));
+		List<String> results = weatherAndTraffic.getByZip("12345");
+		assertEquals(2, results.size());
+		Collections.sort(results);
+		Iterator<String> result = results.iterator();
+		assertEquals("Dummy traffic for zip:12345", result.next());
+		assertEquals("Dummy weather for zip:12345", result.next());
 	}
 
 }

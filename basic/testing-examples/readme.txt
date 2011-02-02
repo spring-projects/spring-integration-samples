@@ -28,13 +28,13 @@ as testing it within a Spring Integration flow fragment.
 
 ...aggregator.ExternalGatewaySubstitutionTests.java
 
-This example is a little more complex. The application is based on a 
+This example is a little more complex. The application is simplified version of a 
 travel demo presented at SpringOne in 2010. You do not need to fully understand
 the application for the purposes of this demonstration. Suffice it to 
 say that a zip code is sent to two outbound gateways (one web service, one http) and
 the weather and traffic for that zip code are aggregated together. You 
 can run the "real" application by executing the Main class in src/main/java
-and entering a valid zip code.
+and entering a valid zip code in the console.
 
 In many cases, when integrating with external services, we can't rely on 
 those services being available while we test. Consequently, we need a 
@@ -42,3 +42,7 @@ mechanism to stub out those services so we can run the remainder of the
 flow in a repeatable manner without need for connectivity to the services.
 This example uses dummy service activators in place of the real outbound
 gateways.
+
+This separation of 'infrastructure' from application beans is similar to 
+the way we separate DataSource, ConnectionFactory beans etc so that the
+application can be tested with local versions.

@@ -17,6 +17,7 @@ package org.springframework.integration.samples.testing.externalgateway;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.util.List;
 
 import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -36,8 +37,8 @@ public class Main {
 		BufferedReader console = new BufferedReader(new InputStreamReader(System.in));
 		String zip = console.readLine().trim();
 		WeatherAndTraffic weatherAndTraffic = context.getBean("wat", WeatherAndTraffic.class);
-		String[] result = weatherAndTraffic.getByZip(zip);
-		System.out.println(result[0] + "\r\n" + result[1] + "\r\n");
+		List<String> result = weatherAndTraffic.getByZip(zip);
+		System.out.println(result.get(0) + "\r\n" + result.get(1) + "\r\n");
 		context.close();
 		System.exit(0);
 	}

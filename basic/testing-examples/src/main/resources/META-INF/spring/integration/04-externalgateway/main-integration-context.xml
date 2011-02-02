@@ -38,7 +38,7 @@
 	<channel id="aggregatorChannel" />
 	
 	<aggregator input-channel="aggregatorChannel" 
-		expression="#this.![payload].toArray()"/>
+		expression="#this.![payload]"/>
 	
 	<task:executor id="executor" pool-size="10"/>
 	
