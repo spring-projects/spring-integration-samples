@@ -54,3 +54,10 @@ This test case shows both unit testing a custom router class as well
 as testing it within a Spring Integration flow fragment.
 
 
+...filter.PetFilterTests.java
+
+This test case shows both unit testing a custom filter class as well
+as testing it within a Spring Integration flow fragment.
+
+
+
