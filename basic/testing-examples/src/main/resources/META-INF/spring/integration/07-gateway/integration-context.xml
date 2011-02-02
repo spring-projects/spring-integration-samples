@@ -7,13 +7,14 @@
 			http://www.springframework.org/schema/integration
 			http://www.springframework.org/schema/integration/spring-integration.xsd">
 
-	<channel id="inputChannel"/>
-
-	<filter input-channel="inputChannel"
-		output-channel="outputChannel">
-		<beans:bean class="org.springframework.integration.samples.testing.filter.PetFilter"/>
-	</filter>
-
-	<channel id="outputChannel"/>
+	<gateway id="voidGateway" 
+		default-request-channel="inputChannel"
+		service-interface="org.springframework.integration.samples.testing.gateway.VoidGateway">
+		<method name="process">
+			<header name="configuredHeader" value="abc"/>
+		</method>
+	</gateway>
+	
+	<channel id="inputChannel" />
 	
 </beans:beans>

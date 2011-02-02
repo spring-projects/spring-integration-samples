@@ -7,13 +7,13 @@
 			http://www.springframework.org/schema/integration
 			http://www.springframework.org/schema/integration/spring-integration.xsd">
 
-	<channel id="inputChannel"/>
-
-	<filter input-channel="inputChannel"
-		output-channel="outputChannel">
-		<beans:bean class="org.springframework.integration.samples.testing.filter.PetFilter"/>
-	</filter>
-
-	<channel id="outputChannel"/>
+	<beans:import resource="classpath:META-INF/spring/integration/07-gateway/integration-context.xml" />
+	
+	<bridge input-channel="inputChannel"
+		output-channel="testChannel"/>
+		
+	<channel id="testChannel">
+		<queue/>
+	</channel>
 	
 </beans:beans>

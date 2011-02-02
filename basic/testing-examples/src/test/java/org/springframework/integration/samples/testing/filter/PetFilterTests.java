@@ -34,11 +34,11 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 /**
  * 
- * Shows how to test a router; the router is configured to route to direct
- * channel names. The configuration would
- * be a fragment of a larger flow. Since the output channels are direct,
- * they have no subscribers outside the context of a larger flow. So, 
- * in this test case, we bridge them to {@link QueueChannel}s to
+ * Shows how to test a filter. 
+ * The filter has direct input and output channels. The filter configuration would
+ * be a fragment of a larger flow. Since the output channel is direct,
+ * it has no subscribers outside the context of a larger flow. So, 
+ * in this test case, we bridge it to a {@link QueueChannel} to
  * facilitate easy testing.
  * 
  * @author Gary Russell

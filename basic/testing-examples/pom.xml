@@ -16,7 +16,7 @@
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.integration</groupId>
-			<artifactId>spring-integration-core</artifactId>
+			<artifactId>spring-integration-file</artifactId>
 			<version>${spring.integration.version}</version>
 		</dependency>
 		<dependency>

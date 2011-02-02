@@ -60,4 +60,9 @@ This test case shows both unit testing a custom filter class as well
 as testing it within a Spring Integration flow fragment.
 
 
+...gateway.GatewayTests.java
+
+This test case shows how to verify that a <gateway/> has been configured
+to work as expected, including @Header parameters on the gateway method
+and <method/> elements in the configuration.
 
