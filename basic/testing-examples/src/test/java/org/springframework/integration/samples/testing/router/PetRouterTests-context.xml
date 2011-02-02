@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns="http://www.springframework.org/schema/integration"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:beans="http://www.springframework.org/schema/beans"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+			http://www.springframework.org/schema/beans/spring-beans.xsd
+			http://www.springframework.org/schema/integration
+			http://www.springframework.org/schema/integration/spring-integration.xsd">
+
+	<beans:import resource="classpath:META-INF/spring/integration/05-router/integration-context.xml" />
+	
+	<bridge input-channel="felineChannel"
+		output-channel="testFelineChannel"/>
+	<bridge input-channel="canineChannel"
+		output-channel="testCanineChannel"/>
+	<bridge input-channel="unknownPetTypeChannel"
+		output-channel="testUnknownPetTypeChannel"/>
+		
+	<channel id="testFelineChannel">
+		<queue/>
+	</channel>
+	<channel id="testCanineChannel">
+		<queue/>
+	</channel>
+	<channel id="testUnknownPetTypeChannel">
+		<queue/>
+	</channel>
+	
+</beans:beans>
