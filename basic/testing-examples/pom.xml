@@ -44,6 +44,7 @@
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-test</artifactId>
 			<version>${spring.version}</version>
+			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework</groupId>
@@ -52,6 +53,23 @@
 		</dependency>
 	</dependencies>
 	<build>
+		<testResources>
+		  <testResource>
+		    <directory>src/test/java</directory>
+		    <includes>
+		      <include>**/*</include>
+		    </includes>
+		    <excludes>
+		      <exclude>**/*.java</exclude>
+		    </excludes>
+		  </testResource>
+		  <testResource>
+		    <directory>src/test/resources</directory>
+		    <includes>
+		      <include>**/*</include>
+		    </includes>
+		  </testResource>
+		</testResources>
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -64,9 +82,17 @@
 					<showDeprecation>false</showDeprecation>
 				</configuration>
 			</plugin>
+			<plugin>
+			  <artifactId>maven-surefire-plugin</artifactId>
+			  <configuration>
+			    <includes>
+			      <include>**/*Tests.java</include>
+			    </includes>
+			  </configuration>
+			</plugin>
 		</plugins>
 	</build>
-		<repositories>
+	<repositories>
 		<repository>
 			<id>repository.springframework.maven.release</id>
 			<name>Spring Framework Maven Release Repository</name>
