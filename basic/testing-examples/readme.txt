@@ -26,7 +26,7 @@ This test case shows both unit testing a custom aggregator class as well
 as testing it within a Spring Integration flow fragment.
 
 
-...aggregator.ExternalGatewaySubstitutionTests.java
+...externalgateway.ExternalGatewaySubstitutionTests.java
 
 This example is a little more complex. The application is simplified version of a 
 travel demo presented at SpringOne in 2010. You do not need to fully understand
@@ -46,3 +46,11 @@ gateways.
 This separation of 'infrastructure' from application beans is similar to 
 the way we separate DataSource, ConnectionFactory beans etc so that the
 application can be tested with local versions.
+
+
+...router.PetRouterTests.java
+
+This test case shows both unit testing a custom router class as well
+as testing it within a Spring Integration flow fragment.
+
+
