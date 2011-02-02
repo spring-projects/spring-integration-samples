@@ -69,3 +69,9 @@ This test case shows how to verify that a <gateway/> has been configured
 to work as expected, including @Header parameters on the gateway method
 and <method/> elements in the configuration.
 
+
+...errorhandling.GatewayTests.java
+
+This test case shows how to verify that gateway error-channel configuration
+is correct, and show how to extract the cause and failed message from
+the MessagingException.
