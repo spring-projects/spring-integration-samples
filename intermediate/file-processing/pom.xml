@@ -4,7 +4,7 @@
   <artifactId>file-processing</artifactId>
   <version>2.0.0</version>
 <properties>
-		<spring.integration.version>2.0.2.BUILD-SNAPSHOT</spring.integration.version>
+		<spring.integration.version>2.0.5.RELEASE</spring.integration.version>
 		<log4j.version>1.2.16</log4j.version>
 		<junit.version>4.7</junit.version>
 	</properties>

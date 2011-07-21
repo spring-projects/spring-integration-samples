@@ -57,7 +57,6 @@ public class TrafficHttpConverter implements HttpMessageConverter<Traffic> {
 		return supportedMediaTypes;
 	}
 
-	@SuppressWarnings("unchecked")
 	@Override
 	public Traffic read(Class<? extends Traffic> clazz, HttpInputMessage inputMessage) throws IOException,
 																	HttpMessageNotReadableException {

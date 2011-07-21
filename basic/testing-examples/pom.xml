@@ -8,7 +8,7 @@
 	<name>Spring Integration Testing Examples</name>
 	<packaging>jar</packaging>
 	<properties>
-		<spring.integration.version>2.0.2.BUILD-SNAPSHOT</spring.integration.version>
+		<spring.integration.version>2.0.5.RELEASE</spring.integration.version>
 		<spring.version>3.0.5.RELEASE</spring.version>
 		<log4j.version>1.2.16</log4j.version>
 		<junit.version>4.7</junit.version>

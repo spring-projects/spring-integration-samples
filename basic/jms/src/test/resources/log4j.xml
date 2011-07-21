@@ -24,7 +24,7 @@
 	</logger>
 
 	<logger name="org.apache.activemq">
-		<level value="warn" />
+		<level value="error" />
 	</logger>
 	
 	<!-- Root Logger -->

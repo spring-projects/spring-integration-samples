@@ -8,7 +8,7 @@
 	<name>Spring Integration JMS Sample</name>
 	<packaging>jar</packaging>
 	<properties>
-		<spring.integration.version>2.0.2.BUILD-SNAPSHOT</spring.integration.version>
+		<spring.integration.version>2.0.5.RELEASE</spring.integration.version>
 		<activemq.version>5.2.0</activemq.version>
 	</properties>
 	<dependencies>
@@ -17,9 +17,20 @@
 			<artifactId>activemq-core</artifactId>
 			<version>${activemq.version}</version>
 		</dependency>
+<!-- 		<dependency> -->
+<!-- 			<groupId>org.springframework.integration</groupId> -->
+<!-- 			<artifactId>spring-integration-jms</artifactId> -->
+<!-- 			<version>${spring.integration.version}</version> -->
+<!-- 		</dependency> -->
+ <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-jms</artifactId>
+      <version>3.0.5.RELEASE</version>
+      <scope>compile</scope>
+    </dependency>
 		<dependency>
 			<groupId>org.springframework.integration</groupId>
-			<artifactId>spring-integration-jms</artifactId>
+			<artifactId>spring-integration-core</artifactId>
 			<version>${spring.integration.version}</version>
 		</dependency>
 		<dependency>

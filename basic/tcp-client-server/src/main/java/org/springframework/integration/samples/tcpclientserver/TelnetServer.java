@@ -15,7 +15,6 @@
  */
 package org.springframework.integration.samples.tcpclientserver;
 
-import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 /**
