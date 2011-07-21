@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:int="http://www.springframework.org/schema/integration"
+	xmlns:int-jms="http://www.springframework.org/schema/integration/jms"
+	xsi:schemaLocation="http://www.springframework.org/schema/integration http://www.springframework.org/schema/integration/spring-integration-2.0.xsd
+		http://www.springframework.org/schema/integration/jms http://www.springframework.org/schema/integration/jms/spring-integration-jms-2.0.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+	
+	<!--
+	This is a test context that injects a Mock JMS template into a JMS 
+	inbound channel adapter. The inbound-channel-adapter provides or overrides the 'real'
+	adapter for testing purposes. 
+	
+	If the flow imported flow throws an exception, an ErrorMessage containg the exception will be sent
+	to the error channel for additional handling. 
+	-->
+	
+	<import resource="classpath:integration-config.xml"/>
+	
+    <int-jms:inbound-channel-adapter jms-template="jmsTemplate"
+                channel="inputChannel">
+            <int:poller fixed-rate="500" max-messages-per-poll="1" error-channel="errorChannel"/>
+     </int-jms:inbound-channel-adapter>
+       
+    <bean id="jmsTemplate" class="org.mockito.Mockito" factory-method="mock">
+        <constructor-arg value="org.springframework.jms.core.JmsTemplate"/>
+    </bean>    
+    
+ 
+</beans>

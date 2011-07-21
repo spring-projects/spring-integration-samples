@@ -1,1 +1,6 @@
 application.log
+target/
+.settings/
+log.roo
+.project
+.classpath

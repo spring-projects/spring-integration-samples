@@ -1,11 +1,11 @@
 
 									$$ ADVANCED Samples $$
 
-This category targets advanced develoopers who are well familiar with Spring Integration framework but looking to 
+This category targets advanced developers who are well familiar with Spring Integration framework but looking to 
 extend it to address a specific custom need by extending from Spring Integration public API. 
 For example; if you are looking for samples showing you how to implement a custom Channel or 
 Consumer (event-based or polling-based), or you trying to figure out what is the most appropriate way to implement 
-custom BeanParser on top of Spring IntegrationÊBeanParserÊhierarchy when implementing custom name space, 
+custom BeanParser on top of Spring Integrationï¿½BeanParserï¿½hierarchy when implementing custom name space, 
 this would be the right place to look.
 Here you can also find samples that will help you with adapter development. Spring Integration comes with an extensive 
 library of adapters that allow you to connect remote systems with Spring Integration messaging framework. 
