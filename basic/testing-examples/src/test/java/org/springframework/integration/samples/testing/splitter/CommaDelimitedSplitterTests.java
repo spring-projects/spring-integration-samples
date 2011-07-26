@@ -18,6 +18,8 @@ package org.springframework.integration.samples.testing.splitter;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertThat;
+import static org.springframework.integration.test.matcher.PayloadMatcher.hasPayload;
 
 import java.util.List;
 
@@ -84,7 +86,7 @@ public class CommaDelimitedSplitterTests {
 		inputChannel.send(MessageBuilder.withPayload("   a   ").build());
 		Message<?> outMessage = testChannel.receive(0);
 		assertNotNull(outMessage);
-		assertEquals("a", outMessage.getPayload());
+		assertThat(outMessage, hasPayload("a"));
 		outMessage = testChannel.receive(0);
 		assertNull("Only one message expected", outMessage);
 	}
@@ -94,10 +96,10 @@ public class CommaDelimitedSplitterTests {
 		inputChannel.send(MessageBuilder.withPayload("   a ,z  ").build());
 		Message<?> outMessage = testChannel.receive(0);
 		assertNotNull(outMessage);
-		assertEquals("a", outMessage.getPayload());
+		assertThat(outMessage, hasPayload("a"));
 		outMessage = testChannel.receive(0);
 		assertNotNull(outMessage);
-		assertEquals("z", outMessage.getPayload());		
+		assertThat(outMessage, hasPayload("z"));
 		outMessage = testChannel.receive(0);
 		assertNull("Only two messages expected", outMessage);
 	}
@@ -107,10 +109,10 @@ public class CommaDelimitedSplitterTests {
 		inputChannel.send(MessageBuilder.withPayload("   a ,,z  ").build());
 		Message<?> outMessage = testChannel.receive(0);
 		assertNotNull(outMessage);
-		assertEquals("a", outMessage.getPayload());
+		assertThat(outMessage, hasPayload("a"));
 		outMessage = testChannel.receive(0);
 		assertNotNull(outMessage);
-		assertEquals("z", outMessage.getPayload());		
+		assertThat(outMessage, hasPayload("z"));
 		outMessage = testChannel.receive(0);
 		assertNull("Only two messages expected", outMessage);
 	}

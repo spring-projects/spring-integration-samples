@@ -42,22 +42,18 @@ import org.w3c.dom.Node;
 public class TrafficHttpConverter implements HttpMessageConverter<Traffic> {
 	private List<MediaType> supportedMediaTypes = Collections.emptyList();
 	
-	@Override
 	public boolean canRead(Class<?> clazz, MediaType mediaType) {
 		return Traffic.class.equals(clazz);
 	}
 
-	@Override
 	public boolean canWrite(Class<?> clazz, MediaType mediaType) {
 		return false;
 	}
 
-	@Override
 	public List<MediaType> getSupportedMediaTypes() {
 		return supportedMediaTypes;
 	}
 
-	@Override
 	public Traffic read(Class<? extends Traffic> clazz, HttpInputMessage inputMessage) throws IOException,
 																	HttpMessageNotReadableException {
 		Traffic traffic = new Traffic();
@@ -79,7 +75,6 @@ public class TrafficHttpConverter implements HttpMessageConverter<Traffic> {
 		return traffic;
 	}
 
-	@Override
 	public void write(Traffic t, MediaType contentType,
 			HttpOutputMessage outputMessage) throws IOException,
 			HttpMessageNotWritableException {

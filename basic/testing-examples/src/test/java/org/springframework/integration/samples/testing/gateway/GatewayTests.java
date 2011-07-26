@@ -15,14 +15,15 @@
  */
 package org.springframework.integration.samples.testing.gateway;
 
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertThat;
+import static org.springframework.integration.test.matcher.HeaderMatcher.hasHeader;
+import static org.springframework.integration.test.matcher.PayloadMatcher.hasPayload;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.integration.Message;
-import org.springframework.integration.MessageHeaders;
 import org.springframework.integration.channel.QueueChannel;
 import org.springframework.integration.file.FileHeaders;
 import org.springframework.test.context.ContextConfiguration;
@@ -60,9 +61,8 @@ public class GatewayTests {
 		gateway.process(payload, fileName);
 		Message<?> inMessage = testChannel.receive(0);
 		assertNotNull("Expected a message", inMessage);
-		assertEquals(payload, inMessage.getPayload());
-		MessageHeaders headers = inMessage.getHeaders();
-		assertEquals(fileName, headers.get(FileHeaders.FILENAME));
-		assertEquals("abc", headers.get("configuredHeader"));
+		assertThat(inMessage, hasPayload(payload));
+		assertThat(inMessage, hasHeader("configuredHeader", "abc"));
+		assertThat(inMessage, hasHeader(FileHeaders.FILENAME, fileName));
 	}
 }

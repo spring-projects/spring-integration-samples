@@ -17,6 +17,8 @@ package org.springframework.integration.samples.testing.router;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertThat;
+import static org.springframework.integration.test.matcher.PayloadMatcher.hasPayload;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -82,7 +84,7 @@ public class PetRouterTests {
 		inputChannel.send(message);
 		Message<?> outMessage = testFelineChannel.receive(0);
 		assertNotNull("Expected an output message", outMessage);
-		assertEquals(payload, outMessage.getPayload());
+		assertThat(outMessage, hasPayload(payload));
 	}
 
 	@Test
@@ -92,7 +94,7 @@ public class PetRouterTests {
 		inputChannel.send(message);
 		Message<?> outMessage = testCanineChannel.receive(0);
 		assertNotNull("Expected an output message", outMessage);
-		assertEquals(payload, outMessage.getPayload());
+		assertThat(outMessage, hasPayload(payload));
 	}
 
 	@Test
@@ -102,6 +104,6 @@ public class PetRouterTests {
 		inputChannel.send(message);
 		Message<?> outMessage = testUnknownPetTypeChannel.receive(0);
 		assertNotNull("Expected an output message", outMessage);
-		assertEquals(payload, outMessage.getPayload());
+		assertThat(outMessage, hasPayload(payload));
 	}
 }

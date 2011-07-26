@@ -15,11 +15,12 @@
  */
 package org.springframework.integration.samples.testing.filter;
 
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
+import static org.springframework.integration.test.matcher.PayloadMatcher.hasPayload;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -100,7 +101,7 @@ public class PetFilterTests {
 		inputChannel.send(message);
 		Message<?> outMessage = testChannel.receive(0);
 		assertNotNull("Expected an output message", outMessage);
-		assertEquals(payload, outMessage.getPayload());
+		assertThat(outMessage, hasPayload(payload));
 	}
 
 	@Test
@@ -121,7 +122,7 @@ public class PetFilterTests {
 		assertNull("Expected no output message", outMessage);
 		outMessage = testDiscardChannel2.receive(0);
 		assertNotNull("Expected discard message", outMessage);
-		assertEquals(payload, message.getPayload());
+		assertThat(outMessage, hasPayload(payload));
 	}
 
 	@Test
@@ -131,7 +132,7 @@ public class PetFilterTests {
 		inputChannel2.send(message);
 		Message<?> outMessage = testChannel.receive(0);
 		assertNotNull("Expected an output message", outMessage);
-		assertEquals(payload, outMessage.getPayload());
+		assertThat(outMessage, hasPayload(payload));
 		outMessage = testDiscardChannel2.receive(0);
 		assertNull("Expected no discard message", outMessage);
 	}
@@ -145,6 +146,6 @@ public class PetFilterTests {
 		assertNull("Expected no output message", outMessage);
 		outMessage = testDiscardChannel2.receive(0);
 		assertNotNull("Expected discard message", outMessage);
-		assertEquals(payload, message.getPayload());
+		assertThat(outMessage, hasPayload(payload));
 	}
 }

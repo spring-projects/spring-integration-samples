@@ -48,7 +48,6 @@ public class WeatherMarshaller implements Marshaller, Unmarshaller, Initializing
 	private Map<String, String> namespacePrefixes = new HashMap<String, String>();	
 	private String xpathPrefix = "/p:GetCityWeatherByZIPResponse/p:GetCityWeatherByZIPResult/";
 
-	@Override
 	public Object unmarshal(Source source) throws IOException, XmlMappingException {
 		
 		//this.writeXml(((DOMSource)source).getNode().getOwnerDocument());
@@ -76,13 +75,11 @@ public class WeatherMarshaller implements Marshaller, Unmarshaller, Initializing
 		return weather;
 	}
 
-	@Override
 	public boolean supports(Class<?> clazz) {
 		System.out.println("Suppors");
 		return false;
 	}
 
-	@Override
 	public void marshal(Object zip, Result result) throws IOException,
 			XmlMappingException {
 		String xmlString = "<weat:GetCityWeatherByZIP xmlns:weat=\"http://ws.cdyne.com/WeatherWS/\">" +
@@ -124,7 +121,6 @@ public class WeatherMarshaller implements Marshaller, Unmarshaller, Initializing
 		return xformer;
 	}
 
-	@Override
 	public void afterPropertiesSet() throws Exception {
 		namespacePrefixes.put("p", "http://ws.cdyne.com/WeatherWS/");	
 	}
