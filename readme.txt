@@ -1,5 +1,5 @@
                     ===============================================================
-					$$$			Welcome to Spring Integration Samples			$$$
+					$$$	      Welcome to the Spring Integration Samples			$$$
 					===============================================================
 					
 To simplify your experience, Spring Integration Samples were split into 4 distinct categories.  
