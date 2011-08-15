@@ -1,4 +1,5 @@
 application.log
+application.log*
 target/
 .settings/
 log.roo
