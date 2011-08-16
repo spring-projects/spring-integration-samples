@@ -3,7 +3,14 @@ Spring Integration Samples
 
 # Introduction
 
-Welcome to the Spring Integration Samples. To simplify your experience, Spring Integration Samples were split into 4 distinct categories. Inside of each category you'll find a 'README.md' which will contain a more detailed description of that category's specifics. Each sample also comes with its own 'readme.txt' file explaining details.
+Welcome to the Spring Integration Samples. To simplify your experience, Spring Integration Samples were split into 4 distinct categories:
+
+* Basic
+* Intermediate
+* Advanced
+* Applications
+
+ Inside of each category you'll find a 'README.md' which will contain a more detailed description of that category's specifics. Each sample also comes with its own 'readme.txt' file explaining details.
 
 *Happy Integration!*
 
