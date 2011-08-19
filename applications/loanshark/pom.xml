@@ -7,7 +7,6 @@
 	<name>Spring Integration Loan Shark Sample</name>
 	<packaging>war</packaging>
 	<properties>
-		<roo.version>1.1.0.M3</roo.version>
 		<spring.version>3.0.5.RELEASE</spring.version>
 		<aspectj.version>1.6.10</aspectj.version>
 		<slf4j.version>1.6.1</slf4j.version>
@@ -24,12 +23,7 @@
             <name>Spring Maven Milestone Repository</name>
             <url>http://maven.springframework.org/milestone</url>
         </repository>
-        <repository>
-            <id>spring-roo-repository</id>
-            <name>Spring Roo Repository</name>
-            <url>http://spring-roo-repository.springsource.org/release</url>
-        </repository>
-	<repository>
+		<repository>
             <id>JBoss Repo</id>
             <url>https://repository.jboss.org/nexus/content/repositories/releases</url>
             <name>JBoss Repo</name>
@@ -45,11 +39,6 @@
             <id>spring-maven-milestone</id>
             <name>Spring Maven Milestone Repository</name>
             <url>http://maven.springframework.org/milestone</url>
-        </pluginRepository>
-        <pluginRepository>
-            <id>spring-roo-repository</id>
-            <name>Spring Roo Repository</name>
-            <url>http://spring-roo-repository.springsource.org/release</url>
         </pluginRepository>
     </pluginRepositories>
 	<dependencies>
@@ -95,13 +84,6 @@
 			<groupId>net.sf.flexjson</groupId>
 			<artifactId>flexjson</artifactId>
 			<version>2.0</version>
-		</dependency>
-		<!-- ROO dependencies -->
-		<dependency>
-			<groupId>org.springframework.roo</groupId>
-			<artifactId>org.springframework.roo.annotations</artifactId>
-			<version>${roo.version}</version>
-			<scope>provided</scope>
 		</dependency>
 		<!-- Spring dependencies -->
 		<dependency>
@@ -474,8 +456,6 @@
 						</buildCommand>
 					</additionalBuildcommands>
 					<additionalProjectnatures>
-						<projectnature>org.eclipse.ajdt.ui.ajnature</projectnature>
-						<projectnature>com.springsource.sts.roo.core.nature</projectnature>
 						<projectnature>org.springframework.ide.eclipse.core.springnature</projectnature>
 					</additionalProjectnatures>
 				</configuration>
