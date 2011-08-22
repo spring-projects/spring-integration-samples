@@ -5,3 +5,4 @@ target/
 log.roo
 .project
 .classpath
+.DS_Store

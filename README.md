@@ -22,6 +22,7 @@ Below is a short description of each category.
 
 This is a good place to get started. The samples here are technically motivated and demonstrate the bare minimum with regard to configuration and code to help you to get introduced to the basic concepts, API and configuration of Spring Integration. For example, if you are looking for an answer on how to wire a **Service Activator**  to a **Channel** or how to apply a **Gateway** to your message exchange or how to get started with using the **MAIL** or **XML** module, this would be the right place to find a relevant sample. The bottom line is that this is a good starting point.
 
+* **amqp** - demonstrates the functionality of the various **AMQP Adapters**
 * **control-bus** - demonstrates the functionality of the **Control Bus**
 * **feed** - demonstrates the functionality of the **Feed Adapter** (RSS/ATOM)
 * **file** - demonstrates aspects of the various File Adapters (e.g. **File Inbound/Outbound Channel Adapters**, file **polling**)
