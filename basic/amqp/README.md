@@ -9,10 +9,6 @@ Once the application is started, you enter some texts on the command prompt and 
 
 > In order to run the example you will need a running  instance of RabbitMQ. A local installation with just the basic defaults will be sufficient. Please visit: [http://www.rabbitmq.com/install.html](http://www.rabbitmq.com/install.html) for detailed installation procedures.
 
-The following graph illustrates the executed steps:
-
-![Image of the Spring Integration process](src/images/spring-integration-graph.png "The Spring Integration graph")
-
 # How to Run the Sample
 
 If you imported the example into your IDE, you can just run class **org.springframework.integration.samples.amqp.Main**. For example in [SpringSource Tool Suite](http://www.springsource.com/developer/sts) (STS) do:
