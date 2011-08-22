@@ -20,15 +20,15 @@ Alternatively, you can start the sample from the command line ([Maven](http://ma
 * mvn package
 * mvn exec:java
 
-# Used Spring Integration components:
+# Used Spring Integration components
 
-## Spring Integration Modules (Maven dependencies)
+### Spring Integration Modules (Maven dependencies)
 
 * spring-integration-core
 * spring-integration-amqp
 * spring-integration-stream
 
-## Spring Integration Adapters
+### Spring Integration Adapters
 
 * int-stream:stdin-channel-adapter
 * **int-amqp:outbound-channel-adapter**
