@@ -19,11 +19,6 @@
 
     <int:channel id="toRabbit" />
 
-    <int-amqp:outbound-channel-adapter channel="toRabbit" 
-                                       exchange-name="si.test.exchange"
-                                       routing-key="si.test.binding" 
-                                       amqp-template="amqpTemplate" />
-
     <!-- From RabbitMQ To STDOUT -->
 
     <int-amqp:inbound-channel-adapter channel="fromRabbit" 
