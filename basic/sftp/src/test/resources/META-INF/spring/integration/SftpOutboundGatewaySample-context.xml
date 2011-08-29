@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:int="http://www.springframework.org/schema/integration"
+	xmlns:int-sftp="http://www.springframework.org/schema/integration/sftp"
+	xsi:schemaLocation="http://www.springframework.org/schema/integration http://www.springframework.org/schema/integration/spring-integration.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/integration/sftp http://www.springframework.org/schema/integration/sftp/spring-integration-sftp-2.1.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+
+	<context:property-placeholder location="classpath:user.properties"/>
+
+	<int:gateway id="gw" service-interface="org.springframework.integration.samples.sftp.ToSftpFlowGateway"
+		default-request-channel="inbound"/>
+
+	<bean id="sftpSessionFactory"
+		class="org.springframework.integration.sftp.session.DefaultSftpSessionFactory">
+		<property name="host" value="localhost"/>
+		<property name="privateKey" value="${private.keyfile}"/>
+		<property name="privateKeyPassphrase" value="${passphrase}"/>
+		<property name="port" value="22"/>
+		<property name="user" value="${user}"/>
+	</bean>
+
+	<int-sftp:outbound-gateway id="gatewayLS"
+		session-factory="sftpSessionFactory"
+		request-channel="inbound"
+		command="ls"
+		command-options=""
+		expression="payload"
+		reply-channel="toSplitter1"/>
+
+	<int:splitter input-channel="toSplitter1" output-channel="toGet"/>
+
+	<int-sftp:outbound-gateway id="gatewayGET"
+		local-directory="#{ T(System).getProperty('java.io.tmpdir')}"
+		session-factory="sftpSessionFactory"
+		request-channel="toGet"
+		reply-channel="toRm"
+		command="get"
+		command-options="-P"
+		expression="payload.remoteDir + '/' + payload.filename"/>
+
+	<int-sftp:outbound-gateway id="gatewayRM" reply-channel="aggregateResultsChannel"
+		session-factory="sftpSessionFactory"
+		expression="headers['file_remote_dir'] + '/' + headers['file_remote_file']"
+		request-channel="toRm"
+		command="rm"/>
+		
+	<int:aggregator input-channel="aggregateResultsChannel"/>
+			
+</beans>
