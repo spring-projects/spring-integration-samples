@@ -29,9 +29,9 @@
 		command="ls"
 		command-options=""
 		expression="payload"
-		reply-channel="toSplitter1"/>
+		reply-channel="toSplitter"/>
 
-	<int:splitter input-channel="toSplitter1" output-channel="toGet"/>
+	<int:splitter input-channel="toSplitter" output-channel="toGet"/>
 
 	<int-sftp:outbound-gateway id="gatewayGET"
 		local-directory="#{ T(System).getProperty('java.io.tmpdir')}"
