@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.springframework.integration.samples.sftp;
+package org.springframework.integration.samples.ftp;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -33,13 +33,13 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
  * @since 2.1
  *
  */
-public class SftpOutboundGatrewaySample {
+public class FtpOutboundGatewaySample {
 
 	@Test
 	public void testLsGetRm() throws Exception {
 		ConfigurableApplicationContext ctx = new ClassPathXmlApplicationContext(
-				"classpath:/META-INF/spring/integration/SftpOutboundGatewaySample-context.xml");
-		ToSftpFlowGateway toFtpFlow = ctx.getBean(ToSftpFlowGateway.class);
+				"classpath:/META-INF/spring/integration/FtpOutboundGatewaySample-context.xml");
+		ToFtpFlowGateway toFtpFlow = ctx.getBean(ToFtpFlowGateway.class);
 		try {
 			String tmpDir = System.getProperty("java.io.tmpdir");
 
@@ -72,7 +72,5 @@ public class SftpOutboundGatrewaySample {
 			ctx.close();
 		}
 	}
+
 }
-
-
-

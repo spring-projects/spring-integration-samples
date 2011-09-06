@@ -7,7 +7,7 @@
 	<name>SFTP Demo</name>
 	<packaging>jar</packaging>
 	<properties>
-		<spring.integration.version>2.1.0.BUILD-SNAPSHOT</spring.integration.version>
+		<spring.integration.version>2.1.0.M1</spring.integration.version>
 		<log4j.version>1.2.16</log4j.version>
 		<junit.version>4.7</junit.version>
 	</properties>
