@@ -33,6 +33,17 @@ Successfully transfered 'readme.txt' file to a remote location under the name 'r
 NOTE: You can see that we are using SpEL via 'remote-filename-generator-expression' attribute to define the remote file name by
 simply appending '_foo' to the original file name.
 
+
+
+#### OUTBOUND GATEWAY ####
+
+Run the FtpOutoundGateway sample as a JUnit test; it creates 2 files, retrieves and removes them over ftp. It cleans up
+by removing the retrieved files. Test assumes full access to the filesystem via /tmp where the test files are created.
+Requires sshd to be running on localhost.
+
+This sample uses a property 'private.keyfile' to point to the location of your private key.
+
+Requires setting of user, private.keyfile and, optionally, passphrase in user.properties.
 	
 ====== HOW TO GENERATE KEYS ======
 

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:int="http://www.springframework.org/schema/integration"
+	xmlns:int-ftp="http://www.springframework.org/schema/integration/ftp"
+	xsi:schemaLocation="http://www.springframework.org/schema/integration/ftp http://www.springframework.org/schema/integration/ftp/spring-integration-ftp-2.1.xsd
+		http://www.springframework.org/schema/integration http://www.springframework.org/schema/integration/spring-integration.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+
+	<context:property-placeholder location="classpath:user.properties"/>
+
+	<int:gateway id="gw" service-interface="org.springframework.integration.samples.ftp.ToFtpFlowGateway"
+		default-request-channel="inbound"/>
+
+	<bean id="ftpSessionFactory"
+		class="org.springframework.integration.ftp.session.DefaultFtpSessionFactory">
+		<property name="host" value="localhost"/>
+		<property name="username" value="${user}"/>
+		<property name="password" value="${password}"/>
+	</bean>
+
+	<int-ftp:outbound-gateway id="gatewayLS"
+		session-factory="ftpSessionFactory"
+		request-channel="inbound"
+		command="ls"
+		command-options=""
+		expression="payload"
+		reply-channel="toSplitter"/>
+
+	<int:splitter input-channel="toSplitter" output-channel="toGet"/>
+
+	<int-ftp:outbound-gateway id="gatewayGET"
+		local-directory="#{ T(System).getProperty('java.io.tmpdir')}"
+		session-factory="ftpSessionFactory"
+		request-channel="toGet"
+		reply-channel="toRm"
+		command="get"
+		command-options="-P"
+		expression="payload.remoteDirectory + '/' + payload.filename"/>
+
+	<int-ftp:outbound-gateway id="gatewayRM" reply-channel="aggregateResultsChannel"
+		session-factory="ftpSessionFactory"
+		expression="headers['file_remoteDirectory'] + '/' + headers['file_remoteFile']"
+		request-channel="toRm"
+		command="rm"/>
+
+	<int:aggregator input-channel="aggregateResultsChannel"/>
+
+</beans>
