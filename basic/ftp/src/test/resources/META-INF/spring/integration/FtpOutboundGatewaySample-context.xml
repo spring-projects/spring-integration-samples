@@ -38,11 +38,11 @@
 		reply-channel="toRm"
 		command="get"
 		command-options="-P"
-		expression="payload.remoteDir + '/' + payload.filename"/>
+		expression="payload.remoteDirectory + '/' + payload.filename"/>
 
 	<int-ftp:outbound-gateway id="gatewayRM" reply-channel="aggregateResultsChannel"
 		session-factory="ftpSessionFactory"
-		expression="headers['file_remote_dir'] + '/' + headers['file_remote_file']"
+		expression="headers['file_remoteDirectory'] + '/' + headers['file_remoteFile']"
 		request-channel="toRm"
 		command="rm"/>
 
