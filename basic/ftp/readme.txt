@@ -24,3 +24,12 @@ The output should look like this:
 =====
 Successfully transfered 'readme.txt' file to a remote location under the name 'readme.txt'
 =====
+
+
+#### OUTBOUND GATEWAY ####
+
+Run the FtpOutoundGateway sample as a JUnit test; it creates 2 files, retrieves and removes them over ftp. It cleans up
+by removing the retrieved files. Test assumes full access to the filesystem via /tmp where the test files are created. 
+Requires an ftp server running on localhost.
+
+Requires setting of user and password properties in user.properties.
