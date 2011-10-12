@@ -6,3 +6,6 @@ log.roo
 .project
 .classpath
 .DS_Store
+*.iml
+*.ipr
+*.iws
