@@ -27,7 +27,9 @@ import org.springframework.stereotype.Component;
 /**
  * @author Mark Fisher
  * @author Marius Bogoevici
+ * @author Tom McCuch
  */
+
 @Component
 public class Barista {
 	private static Logger logger = Logger.getLogger(Barista.class);
@@ -54,8 +56,8 @@ public class Barista {
 			Thread.sleep(this.hotDrinkDelay);
 			logger.info(Thread.currentThread().getName()
 					+ " prepared hot drink #" + hotDrinkCounter.incrementAndGet() + " for order #"
-					+ orderItem.getOrder().getNumber() + ": " + orderItem);
-			return new Drink(orderItem.getOrder().getNumber(), orderItem.getDrinkType(), orderItem.isIced(),
+					+ orderItem.getOrderNumber() + ": " + orderItem);
+			return new Drink(orderItem.getOrderNumber(), orderItem.getDrinkType(), orderItem.isIced(),
 					orderItem.getShots());
 		} catch (InterruptedException e) {
 			Thread.currentThread().interrupt();
@@ -69,8 +71,8 @@ public class Barista {
 			Thread.sleep(this.coldDrinkDelay);
 			logger.info(Thread.currentThread().getName()
 					+ " prepared cold drink #" + coldDrinkCounter.incrementAndGet() + " for order #"
-					+ orderItem.getOrder().getNumber() + ": " + orderItem);
-			return new Drink(orderItem.getOrder().getNumber(), orderItem.getDrinkType(), orderItem.isIced(),
+					+ orderItem.getOrderNumber() + ": " + orderItem);
+			return new Drink(orderItem.getOrderNumber(), orderItem.getDrinkType(), orderItem.isIced(),
 					orderItem.getShots());
 		} catch (InterruptedException e) {
 			Thread.currentThread().interrupt();

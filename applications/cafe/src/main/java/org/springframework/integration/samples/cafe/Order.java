@@ -22,6 +22,7 @@ import java.util.List;
 /**
  * @author Mark Fisher
  * @author Marius Bogoevici
+ * @author Tom McCuch
  */
 public class Order {
 
@@ -29,20 +30,30 @@ public class Order {
 
 	private int number;
 
+	// Default constructor required by Jackson Java JSON-processor
+	public Order() {}
+
 	public Order(int number) {
 		this.number = number;
 	}
 
 	public void addItem(DrinkType drinkType, int shots, boolean iced) {
-		this.orderItems.add(new OrderItem(this, drinkType, shots, iced));
+		this.orderItems.add(new OrderItem(this.number, drinkType, shots, iced));
 	}
 
 	public int getNumber() {
 		return number;
 	}
 
+	public void setNumber(int number) {
+		this.number = number;
+	}
+	
 	public List<OrderItem> getItems() {
 		return this.orderItems;
 	}
 
+	public void setItems(List<OrderItem> orderItems) {
+		this.orderItems = orderItems;
+	}
 }

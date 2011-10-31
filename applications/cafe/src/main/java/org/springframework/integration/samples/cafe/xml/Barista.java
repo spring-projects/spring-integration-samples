@@ -1,5 +1,5 @@
 /*
- * Copyright 2002-2010 the original author or authors.
+ * Copyright 2002-2011 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -25,7 +25,9 @@ import org.springframework.integration.samples.cafe.OrderItem;
 /**
  * @author Mark Fisher
  * @author Marius Bogoevici
+ * @author Tom McCuch
  */
+
 public class Barista {
 	private static Logger logger = Logger.getLogger(Barista.class);
 	private long hotDrinkDelay = 5000;
@@ -50,8 +52,8 @@ public class Barista {
 			Thread.sleep(this.hotDrinkDelay);
 			logger.info(Thread.currentThread().getName()
 					+ " prepared hot drink #" + hotDrinkCounter.incrementAndGet() + " for order #"
-					+ orderItem.getOrder().getNumber() + ": " + orderItem);
-			return new Drink(orderItem.getOrder().getNumber(), orderItem.getDrinkType(), orderItem.isIced(),
+					+ orderItem.getOrderNumber() + ": " + orderItem);
+			return new Drink(orderItem.getOrderNumber(), orderItem.getDrinkType(), orderItem.isIced(),
 					orderItem.getShots());
 		} catch (InterruptedException e) {
 			Thread.currentThread().interrupt();
@@ -64,8 +66,8 @@ public class Barista {
 			Thread.sleep(this.coldDrinkDelay);
 			logger.info(Thread.currentThread().getName()
 					+ " prepared cold drink #" + coldDrinkCounter.incrementAndGet() + " for order #"
-					+ orderItem.getOrder().getNumber() + ": " + orderItem);
-			return new Drink(orderItem.getOrder().getNumber(), orderItem.getDrinkType(), orderItem.isIced(),
+					+ orderItem.getOrderNumber() + ": " + orderItem);
+			return new Drink(orderItem.getOrderNumber(), orderItem.getDrinkType(), orderItem.isIced(),
 					orderItem.getShots());
 		} catch (InterruptedException e) {
 			Thread.currentThread().interrupt();

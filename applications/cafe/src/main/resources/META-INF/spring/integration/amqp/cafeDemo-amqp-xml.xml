@@ -22,9 +22,8 @@
 	    <int:wire-tap channel="logger" pattern="orders,coldDrinks,hotDrinks,preparedDrinks,deliveries"/>
 		<int:logging-channel-adapter id="logger" log-full-message="true" level="INFO"/>
 	    
-		<int-amqp:inbound-channel-adapter queue-names="new-orders" channel="jsonOrders" connection-factory="rabbitConnectionFactory" acknowledge-mode="AUTO" />
-
-		<int:json-to-object-transformer id="json-to-order" input-channel="jsonOrders" output-channel="orders" type="org.springframework.integration.samples.cafe.Order" />
+		<int:gateway id="cafe" service-interface="org.springframework.integration.samples.cafe.Cafe"
+					 default-request-channel="orders"/>
 
 		<int:splitter input-channel="orders" expression="payload.items" output-channel="preDrinks" apply-sequence="true"/>
 	
