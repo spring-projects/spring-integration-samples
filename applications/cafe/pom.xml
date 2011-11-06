@@ -22,6 +22,17 @@
 			<artifactId>spring-integration-stream</artifactId>
 			<version>${spring.integration.version}</version>
 		</dependency>
+		<!-- Jackson JSON Mapper -->
+		<dependency>
+		    <groupId>org.codehaus.jackson</groupId>
+		    <artifactId>jackson-core-asl</artifactId>
+		    <version>1.8.3</version>
+		</dependency>
+		<dependency>
+		    <groupId>org.codehaus.jackson</groupId>
+		    <artifactId>jackson-mapper-asl</artifactId>
+		    <version>1.8.3</version>
+		</dependency>
 		<dependency>
 			<groupId>log4j</groupId>
 			<artifactId>log4j</artifactId>

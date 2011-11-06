@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:rabbit="http://www.springframework.org/schema/rabbit"
+	xmlns:cloud="http://schema.cloudfoundry.org/spring"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+			http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+			http://schema.cloudfoundry.org/spring
+			http://schema.cloudfoundry.org/spring/cloudfoundry-spring-0.8.xsd
+			http://www.springframework.org/schema/rabbit 
+			http://www.springframework.org/schema/rabbit/spring-rabbit-1.0.xsd">
+
+	<bean id="rabbitConnectionFactory" class="org.springframework.amqp.rabbit.connection.CachingConnectionFactory">
+   		<constructor-arg value="localhost"/>
+   		<property name="username" value="guest"/>
+   		<property name="password" value="guest"/>
+   	</bean>
+
+	<rabbit:template id="amqpTemplate" connection-factory="rabbitConnectionFactory" reply-timeout="10000"/>
+
+	<rabbit:admin connection-factory="rabbitConnectionFactory" />
+
+</beans>

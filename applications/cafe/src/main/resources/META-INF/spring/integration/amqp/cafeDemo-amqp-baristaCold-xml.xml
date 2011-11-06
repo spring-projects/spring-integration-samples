@@ -20,6 +20,9 @@
 			http://www.springframework.org/schema/integration/stream/spring-integration-stream.xsd">
 
 
+	<!-- rabbit connection factory, rabbit template, and rabbit admin -->
+	<import resource="classpath:META-INF/spring/integration/amqp/cafeDemo-amqp-config-xml.xml" />
+
 	<int-amqp:inbound-gateway 
 		id="coldDrinksBarista"
 		request-channel="coldJsonDrinks"
@@ -34,20 +37,7 @@
 		<int:object-to-json-transformer />
 	</int:chain>
 
-	<!-- Use this when running locally -->
-	<bean id="rabbitConnectionFactory" class="org.springframework.amqp.rabbit.connection.CachingConnectionFactory">
-   		<constructor-arg value="localhost"/>
-   		<property name="username" value="guest"/>
-   		<property name="password" value="guest"/>
-   	</bean>
-
-	<!-- Use this when running in Cloud Foundry  -->
-<!-- 	<cloud:rabbit-connection-factory id="rabbitConnectionFactory" service-name="cafe-rabbit"/> -->
-
-	<rabbit:template id="amqpTemplate" connection-factory="rabbitConnectionFactory" />
-
-	<rabbit:admin connection-factory="rabbitConnectionFactory" />
-	
+	<!-- rabbit exchanges, queues, and bindings used by this app -->	
 	<rabbit:topic-exchange name="cafe-drinks" auto-delete="true" durable="true">
 		<rabbit:bindings>
 			<rabbit:binding queue="cold-drinks" pattern="drink.cold"/>

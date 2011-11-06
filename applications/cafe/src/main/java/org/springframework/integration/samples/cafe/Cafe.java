@@ -30,7 +30,7 @@ import org.springframework.integration.annotation.Gateway;
  */
 public interface Cafe { 
 
-	@Gateway(requestChannel="orders")
+	@Gateway(requestChannel="preOrders")
 	void placeOrder(Order order);
 
 }

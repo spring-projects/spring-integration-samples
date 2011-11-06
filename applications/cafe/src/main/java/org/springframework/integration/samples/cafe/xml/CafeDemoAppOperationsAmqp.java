@@ -16,6 +16,8 @@
 
 package org.springframework.integration.samples.cafe.xml;
 
+import java.io.IOException;
+
 import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.integration.samples.cafe.Cafe;
@@ -23,35 +25,41 @@ import org.springframework.integration.samples.cafe.DrinkType;
 import org.springframework.integration.samples.cafe.Order;
 
 /**
- * Provides the 'main' method for running the Cafe Demo store front 
- * application using AMQP. Before running, be sure to have a 
- * RabbitMQ broker started on localhost:5672 configured with the default 
+ * Provides the 'main' method for running the Cafe Demo Operations 
+ * application using AMQP. Before running, be sure to have a RabbitMQ 
+ * broker started on localhost:5672 configured with the default 
  * guest | guest client credentials on the / vHost. When an order is 
- * placed, the Cafe store front will publish that order on the cafe-orders
- * exchange to be processed.
+ * placed on the new-orders queue, the Cafe Operations app will split
+ * the order into order line items, route them to either the coldDrink
+ * or hotDrink Barista, aggregate the prepared drinks returned from the
+ * Barista using a Waiter, and publish the delivered order on the
+ * cafe-deliveries exchange.
  * <p/>
  * The relevant components are defined within the configuration files:
- * ("cafeDemo-amqp-xml.xml", "cafeDemo-amqp-config-xml.xml"). 
+ * ("cafeDemo-amqp-operations-xml.xml", "cafeDemo-amqp-config-xml.xml"). 
  * <p/>
+ * Before starting this app, be sure to start the CafeDemoAppBaristaCold
+ * and CafeDemoAppBaristaHot apps first.
+ * 
  * If deploying in SpringSource dmServer, the relevant ApplicationContext
  * configuration is in the META-INF/spring directory instead.
  * 
  * @author Tom McCuch
  */
-public class CafeDemoAppAmqp {
+public class CafeDemoAppOperationsAmqp {
 
 	public static void main(String[] args) {
 		AbstractApplicationContext context = 
-			new ClassPathXmlApplicationContext("/META-INF/spring/integration/amqp/cafeDemo-amqp-xml.xml", CafeDemoAppAmqp.class);
+			new ClassPathXmlApplicationContext(
+					"/META-INF/spring/integration/amqp/cafeDemo-amqp-operations-xml.xml",
+					CafeDemoAppOperationsAmqp.class);
 			
-		Cafe cafe = (Cafe) context.getBean("cafe");
-		for (int i = 1; i <= 100; i++) {
-			Order order = new Order(i);
-			order.addItem(DrinkType.LATTE, 2, false);
-			order.addItem(DrinkType.MOCHA, 3, true);
-			cafe.placeOrder(order);
+		System.out.println("Press Enter/Return in the console to exit the Cafe Operations App");
+		try {
+			System.in.read();
+		} catch (IOException e) {
+			context.close();
 		}
-		
 		context.close();
 	}
 }
