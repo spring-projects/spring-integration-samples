@@ -7,9 +7,7 @@
 
     <int:channel id="findUserEnricherChannel"/>
     <int:channel id="findUserByUsernameEnricherChannel"/>
-
-    <int:channel id="findUserInputChannel"/>
-    <int:channel id="findUserByUsernameInputChannel"/>
+    <int:channel id="findUserWithMapEnricherChannel"/>
 
     <int:channel id="findUserServiceChannel"/>
     <int:channel id="findUserByUsernameServiceChannel"/>
@@ -20,8 +18,9 @@
     <int:gateway id="userGateway" default-request-timeout="5000"
                  default-reply-timeout="5000"
                  service-interface="org.springframework.integration.samples.enricher.service.UserService">
-        <int:method name="findUser"           request-channel="findUserEnricherChannel"/>
-        <int:method name="findUserByUsername" request-channel="findUserByUsernameEnricherChannel"/>
+        <int:method name="findUser"                  request-channel="findUserEnricherChannel"/>
+        <int:method name="findUserByUsername"        request-channel="findUserByUsernameEnricherChannel"/>
+        <int:method name="findUserWithUsernameInMap" request-channel="findUserWithMapEnricherChannel"/>
     </int:gateway>
 
     <int:enricher id="findUserEnricher"
@@ -39,6 +38,12 @@
         <int:property name="password" expression="payload.password"/>
     </int:enricher>
 
+    <int:enricher id="findUserWithMapEnricher"
+                  input-channel="findUserWithMapEnricherChannel"
+                  request-channel="findUserByUsernameServiceChannel"
+                  request-payload-expression="payload.username">
+        <int:property name="user"    expression="payload"/>
+    </int:enricher>
 
     <int:service-activator id="findUserServiceActivator"
                            ref="systemService" method="findUser"

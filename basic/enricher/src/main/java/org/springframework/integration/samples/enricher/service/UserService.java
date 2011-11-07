@@ -15,6 +15,8 @@
  */
 package org.springframework.integration.samples.enricher.service;
 
+import java.util.Map;
+
 import org.springframework.integration.samples.enricher.User;
 
 /**
@@ -33,5 +35,12 @@ public interface UserService {
      * "findUserByUsernameEnricherChannel" channel.
      */
 	User findUserByUsername(User user);
+
+    /**
+     * Retrieves a user based on the provided username that is provided as a Map
+     * entry using the mapkey 'username'. Map object is routed to the
+     * "findUserWithMapChannel" channel.
+     */
+	Map<String, Object> findUserWithUsernameInMap(Map<String, Object> userdata);
 
 }
