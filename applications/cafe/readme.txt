@@ -37,8 +37,8 @@ Instructions for running the CafeDemo sample
    
    1. cafeDemoAppBaristaColdAmqp - starts the Cold Drink Barista
    2. cafeDemoAppBaristaHotAmqp- starts the Hot Drink Barista
-   3. cafeDemoAppOperationsAmqp - starts the Cafe Operations (OrderSplitter, DrinkRouter, PreparedDrinkAggregator)
-   4. cafeDemoAppAmqp - starts the Cafe Storefront (Places 100 orders on the orders queue)
+   3. cafeDemoAppAmqp - starts the Cafe Storefront (Places 100 orders on the orders queue)
+   4. cafeDemoAppOperationsAmqp - starts the Cafe Operations (OrderSplitter, DrinkRouter, PreparedDrinkAggregator)
    
    * Note: All AMQP exchanges, queues, and bindings needed for this sample are defined within the different xml 
    config files that support the above test classes.
