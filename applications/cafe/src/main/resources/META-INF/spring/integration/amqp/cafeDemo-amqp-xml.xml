@@ -25,9 +25,9 @@
 	<!-- spring integration flow -->
 	<int:gateway id="cafe" service-interface="org.springframework.integration.samples.cafe.Cafe" />
 	
-	<int:channel id="preOrders"/>
+	<int:channel id="orders"/>
 
-	<int:header-enricher input-channel="preOrders" output-channel="newOrders">
+	<int:header-enricher input-channel="orders" output-channel="newOrders">
 		<int:header name="NUMBER" expression="payload.getNumber()"/>
 	</int:header-enricher>
 

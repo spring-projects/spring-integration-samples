@@ -27,9 +27,9 @@
     
 	<int-amqp:inbound-channel-adapter queue-names="new-orders" channel="jsonOrders" connection-factory="rabbitConnectionFactory" acknowledge-mode="AUTO" />
 	
-	<int:json-to-object-transformer id="json-to-order" input-channel="jsonOrders" output-channel="orders" type="org.springframework.integration.samples.cafe.Order" />
+	<int:json-to-object-transformer id="json-to-order" input-channel="jsonOrders" output-channel="preOrders" type="org.springframework.integration.samples.cafe.Order" />
 
-	<int:splitter input-channel="orders" expression="payload.items" output-channel="preDrinks" apply-sequence="true"/>
+	<int:splitter input-channel="preOrders" expression="payload.items" output-channel="preDrinks" apply-sequence="true"/>
 
 	<int:header-enricher input-channel="preDrinks" output-channel="drinks">
 		<int:header name="ICED" expression="payload.isIced()"/>
