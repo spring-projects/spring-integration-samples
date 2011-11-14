@@ -15,6 +15,7 @@
         <module>file-processing</module>
         <module>multipart-http</module>
         <module>travel</module>
+        <module>stored-procedures-derby</module>
 	</modules>
 
 </project>
