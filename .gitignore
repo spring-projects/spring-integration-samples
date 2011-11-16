@@ -1,7 +1,6 @@
 application.log
 application.log*
 target/
-.settings/
 log.roo
 .project
 .classpath
@@ -13,3 +12,4 @@ log.roo
 derby.log
 .idea
 activemq-data
+.settings/

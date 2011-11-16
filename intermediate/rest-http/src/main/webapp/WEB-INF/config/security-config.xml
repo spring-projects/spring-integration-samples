@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:security="http://www.springframework.org/schema/security"
+	xsi:schemaLocation="
+           http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+           http://www.springframework.org/schema/security
+           http://www.springframework.org/schema/security/spring-security-3.1.xsd">
+
+	<security:global-method-security
+		secured-annotations="enabled" />
+
+	<!-- Configure Spring Security -->
+	<security:http auto-config="true" use-expressions="true" realm="REST HTTP Web Service" create-session="never">
+		<security:http-basic />		
+		<security:intercept-url pattern='/services/employee/*' access="hasRole('ROLE_REST_HTTP_USER')"  />		
+	</security:http>
+	
+	<!--  In this example, we are using in memory authentication. The password encoder depends on 
+					Jasypt's String Digester to digest the password stored in users.properties -->
+	<security:authentication-manager alias="authenticationManager">
+		<security:authentication-provider>
+			<security:password-encoder ref="passwordEncoder"/>
+			<security:user-service properties="classpath:users.properties" />
+		</security:authentication-provider>
+	</security:authentication-manager>
+
+	<!--
+        Use the StringDigester to create uni-directional password encryption.
+        All uni-directional encryption methods supported in jasypt is integrated into
+        Spring Security
+    -->
+    <bean id="jasyptStringDigester" class="org.jasypt.digest.StandardStringDigester" >
+        <property name="algorithm" value="SHA-1" />
+        <property name="iterations" value="100000" />
+        <property name="saltGenerator">
+            <bean id="zeroSaltGenerator" class="org.jasypt.salt.ZeroSaltGenerator"/>
+        </property>
+        <property name="saltSizeBytes" value="10"/>
+    </bean>
+
+    <!--
+         This Spring Security-friendly PasswordEncoder implementation will
+           wrap the StringDigester instance so that it can be used from
+           the security framework.
+       -->
+    <bean id="passwordEncoder" class="org.jasypt.spring.security3.PasswordEncoder">
+        <property name="stringDigester" ref="jasyptStringDigester"/>
+    </bean>
+</beans>
