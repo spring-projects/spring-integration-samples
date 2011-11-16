@@ -124,11 +124,11 @@ public class RestHttpClientTest {
 		jaxbJacksonObjectMapper.writeValue(System.out, httpResponse.getBody());
 	}
 	 
-	public HttpHeaders getHttpHeadersWithUserCredentials(ClientHttpRequest request){
+	private HttpHeaders getHttpHeadersWithUserCredentials(ClientHttpRequest request){
 		return (getHttpHeadersWithUserCredentials(request.getHeaders()));
 	}
 
-	public HttpHeaders getHttpHeadersWithUserCredentials(HttpHeaders headers){
+	private HttpHeaders getHttpHeadersWithUserCredentials(HttpHeaders headers){
 		
 		String username = "SPRING";
 		String password = "spring";
