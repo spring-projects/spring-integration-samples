@@ -44,9 +44,9 @@ public class CafeDemoAppBaristaColdAmqp {
 
 	public static void main(String[] args) {
 		AbstractApplicationContext context = 
-			new ClassPathXmlApplicationContext(
+			CafeDemoAppUtilities.loadProfileContext(
 					"/META-INF/spring/integration/amqp/cafeDemo-amqp-baristaCold-xml.xml", 
-					CafeDemoAppBaristaColdAmqp.class);
+					CafeDemoAppBaristaColdAmqp.class,CafeDemoAppUtilities.DEV);
 			
 		System.out.println("Press Enter/Return in the console to exit the Barista Cold App");
 		try {

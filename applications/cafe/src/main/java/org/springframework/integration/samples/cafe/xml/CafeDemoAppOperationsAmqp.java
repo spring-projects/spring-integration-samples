@@ -50,9 +50,9 @@ public class CafeDemoAppOperationsAmqp {
 
 	public static void main(String[] args) {
 		AbstractApplicationContext context = 
-			new ClassPathXmlApplicationContext(
+				CafeDemoAppUtilities.loadProfileContext(
 					"/META-INF/spring/integration/amqp/cafeDemo-amqp-operations-xml.xml",
-					CafeDemoAppOperationsAmqp.class);
+					CafeDemoAppOperationsAmqp.class,CafeDemoAppUtilities.DEV);
 			
 		System.out.println("Press Enter/Return in the console to exit the Cafe Operations App");
 		try {

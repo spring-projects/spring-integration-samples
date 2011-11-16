@@ -38,12 +38,14 @@ import org.springframework.integration.samples.cafe.Order;
  * 
  * @author Tom McCuch
  */
-public class CafeDemoAppAmqp {
-
-	public static void main(String[] args) {
-		AbstractApplicationContext context = 
-			new ClassPathXmlApplicationContext("/META-INF/spring/integration/amqp/cafeDemo-amqp-xml.xml", CafeDemoAppAmqp.class);
-			
+public class CafeDemoAppAmqp {		
+	
+	/**
+	 * place some orders
+	 * @param context spring context
+	 * @param count the number of standard orders
+	 */
+	public static void order(AbstractApplicationContext context, int count){
 		Cafe cafe = (Cafe) context.getBean("cafe");
 		for (int i = 1; i <= 100; i++) {
 			Order order = new Order(i);
@@ -51,7 +53,14 @@ public class CafeDemoAppAmqp {
 			order.addItem(DrinkType.MOCHA, 3, true);
 			cafe.placeOrder(order);
 		}
-		
+	}
+
+	public static void main(String[] args) {
+		AbstractApplicationContext context = 
+			CafeDemoAppUtilities.loadProfileContext(
+					"/META-INF/spring/integration/amqp/cafeDemo-amqp-xml.xml", 
+					CafeDemoAppAmqp.class,CafeDemoAppUtilities.DEV);
+		order(context, 100);
 		context.close();
 	}
 }
