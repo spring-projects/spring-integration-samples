@@ -23,6 +23,7 @@
 	<!-- rabbit connection factory, rabbit template, and rabbit admin -->
 	<import resource="classpath:META-INF/spring/integration/amqp/cafeDemo-amqp-config-xml.xml" />
 
+	<!-- To receive an AMQP Message from a Queue, and respond to its reply-to address, configure an inbound-gateway. -->
 	<int-amqp:inbound-gateway 
 		id="hotDrinksBarista"
 		request-channel="hotJsonDrinks"

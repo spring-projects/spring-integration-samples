@@ -28,6 +28,7 @@ public class Order {
 
 	private List<OrderItem> orderItems = new ArrayList<OrderItem>();
 
+	/** the order number used for tracking */
 	private int number;
 
 	// Default constructor required by Jackson Java JSON-processor

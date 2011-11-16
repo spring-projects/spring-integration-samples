@@ -29,6 +29,7 @@ public class OrderItem {
 
     private boolean iced = false;
 
+    /** the order this item is tied to */
 	private int orderNumber;
 
 	// Default constructor required by Jackson Java JSON-processor

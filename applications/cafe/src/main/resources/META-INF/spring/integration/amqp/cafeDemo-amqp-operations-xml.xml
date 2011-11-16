@@ -22,9 +22,11 @@
 	<!-- rabbit connection factory, rabbit template, and rabbit admin -->
 	<import resource="classpath:META-INF/spring/integration/amqp/cafeDemo-amqp-config-xml.xml" />
 
+	<!--  intercept messages on these channels while still allowing them to continue -->
     <int:wire-tap channel="logger" pattern="orders,coldDrinks,hotDrinks,preparedDrinks,deliveries"/>
 	<int:logging-channel-adapter id="logger" log-full-message="true" level="INFO"/>
     
+    <!--  To receive AMQP Messages from a Queue, configure an inbound-channel-adapter  -->
 	<int-amqp:inbound-channel-adapter queue-names="new-orders" channel="jsonOrders" connection-factory="rabbitConnectionFactory" acknowledge-mode="AUTO" />
 	
 	<int:json-to-object-transformer id="json-to-order" input-channel="jsonOrders" output-channel="preOrders" type="org.springframework.integration.samples.cafe.Order" />
@@ -49,7 +51,8 @@
 	<int:channel id="hotDrinks">
 		<int:queue/>
 	</int:channel>
-	
+
+    <!-- To send AMQP Messages to an Exchange and receive back a response from a remote client, configure an outbound-gateway -->	
 	<int-amqp:outbound-gateway 
 		id="coldDrinksBarista" 
 		request-channel="coldDrinks"
@@ -58,6 +61,7 @@
 		routing-key="drink.cold"
 		amqp-template="amqpTemplate" />
 
+    <!-- To send AMQP Messages to an Exchange and receive back a response from a remote client, configure an outbound-gateway -->	
 	<int-amqp:outbound-gateway 
 		id="hotDrinksBarista" 
 		request-channel="hotDrinks"
@@ -84,6 +88,7 @@
 
 	<int:channel id="jsonDeliveries" />
 	
+	<!--  To send AMQP Messages to an Exchange, configure an outbound-channel-adapter. -->
 	<int-amqp:outbound-channel-adapter
 		id="deliveredOrders"
 		channel="jsonDeliveries"

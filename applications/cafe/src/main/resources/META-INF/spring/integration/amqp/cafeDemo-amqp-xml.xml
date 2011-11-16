@@ -35,6 +35,7 @@
 	
 	<int:channel id="jsonNewOrders" />
 	
+	<!--  To send AMQP Messages to an Exchange, configure an outbound-channel-adapter. -->
 	<int-amqp:outbound-channel-adapter 
 		channel="jsonNewOrders"
 		exchange-name="cafe-orders"	
