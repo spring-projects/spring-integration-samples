@@ -16,6 +16,7 @@
         <module>ftp</module>
         <module>helloworld</module>
         <module>jms</module>
+        <module>jdbc</module>
         <module>jmx</module>
         <module>mail</module>
         <module>oddeven</module>
@@ -27,6 +28,7 @@
         <module>ws-outbound-gateway</module>
         <module>xml</module>
         <module>xmpp</module>
+
 	</modules>
 
 </project>
