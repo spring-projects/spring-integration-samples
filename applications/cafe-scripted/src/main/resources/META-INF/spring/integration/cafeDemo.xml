@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns="http://www.springframework.org/schema/integration"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:groovy="http://www.springframework.org/schema/integration/groovy"
+	xmlns:beans="http://www.springframework.org/schema/beans" xmlns:rmi="http://www.springframework.org/schema/integration/rmi"
+	xmlns:stream="http://www.springframework.org/schema/integration/stream"
+	xsi:schemaLocation="http://www.springframework.org/schema/integration http://www.springframework.org/schema/integration/spring-integration.xsd
+		http://www.springframework.org/schema/integration/rmi http://www.springframework.org/schema/integration/rmi/spring-integration-rmi.xsd
+		http://www.springframework.org/schema/integration/stream http://www.springframework.org/schema/integration/stream/spring-integration-stream.xsd
+		http://www.springframework.org/schema/integration/groovy http://www.springframework.org/schema/integration/groovy/spring-integration-groovy.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+	
+	 <beans:description>
+   This is the application context for the scripted implementation of CafeDemoApp. The functionality is basically 
+   identical to the original CafeDemoApp. 
+   
+   In order to demonstrate the Groovy control bus, the original cafe Gateway is replaced with an 
+   inbound-channel-adapter (which supports the SmartLifeCycle interface). 
+   
+   The inbound-channel-adapter is backed by a Customer bean which provides the orders. 
+   
+   This configuration also uses Spring 3.1 environment profiles to inject a configuration specific to the 
+   selected scripting language. 
+   </beans:description>
+	
+	<beans:beans>
+		<rmi:inbound-gateway request-channel="controlBusInput"
+			reply-channel="controlBusOutput" />
+
+		<groovy:control-bus input-channel="controlBusInput"
+			output-channel="controlBusOutput" />
+
+		<channel id="controlBusOutput" />
+		
+		<inbound-channel-adapter id="cafe" channel="orders"
+			ref="customer" method="getOrder" />
+
+		<beans:bean id="customer"
+			class="org.springframework.integration.samples.cafe.Customer" />
+
+		<channel id="orders" />
+
+		<channel id="coldDrinks">
+			<queue capacity="10" />
+		</channel>
+
+		<channel id="hotDrinks">
+			<queue capacity="10" />
+		</channel>
+
+		<!-- Aggregator does not currently support scripting -->
+		<aggregator input-channel="preparedDrinks" method="prepareDelivery"
+			output-channel="deliveries" ref="waiter" />
+
+		<beans:bean id="waiter"
+			class="org.springframework.integration.samples.cafe.Waiter" />
+
+		<stream:stdout-channel-adapter id="deliveries" />
+
+		<poller id="poller" default="true" fixed-delay="1000" />
+
+	</beans:beans>
+
+	<beans:beans profile="groovy">
+		<beans:import
+			resource="classpath:META-INF/spring/integration/cafeDemo-groovy.xml" />
+	</beans:beans>
+
+	<beans:beans profile="ruby">
+		<beans:import
+			resource="classpath:META-INF/spring/integration/cafeDemo-ruby.xml" />
+	</beans:beans>
+
+	<beans:beans profile="javascript">
+		<beans:import
+			resource="classpath:META-INF/spring/integration/cafeDemo-javascript.xml" />
+	</beans:beans>
+
+	<beans:beans profile="python">
+		<beans:import
+			resource="classpath:META-INF/spring/integration/cafeDemo-python.xml" />
+	</beans:beans>
+
+</beans:beans>
