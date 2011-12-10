@@ -7,6 +7,10 @@ and the result is returned to the client that invoked the original SimpleGateway
 
 To run sample simply execute a test case in org.springframework.integration.samples.tcpclientservice package.
 
+Note that the test case includes an alternative configuration that uses the in-built conversion service
+and the channel dataType attribute, instead of explicit transformers, to convert from byte arrays to Strings.
+
+Simply change the @ContextConfiguration to switch between the two techniques.
 
 In addition, a simple telnet server is provided; see TelnetServer in src/main/java. Run this class as a
 java application and then use telnet to connect to the service ('telnet localhost 11111'). 
