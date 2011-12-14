@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns="http://www.springframework.org/schema/integration"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:beans="http://www.springframework.org/schema/beans"
+	xmlns:stream="http://www.springframework.org/schema/integration/stream"
+	xmlns:script="http://www.springframework.org/schema/integration/scripting"
+	xsi:schemaLocation="http://www.springframework.org/schema/integration http://www.springframework.org/schema/integration/spring-integration.xsd
+		http://www.springframework.org/schema/integration/script http://www.springframework.org/schema/integration/script.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/integration/scripting http://www.springframework.org/schema/integration/scripting/spring-integration-scripting.xsd">
+
+	<splitter input-channel="orders" output-channel="drinks">
+	    <!-- Note an explicit variable assignment is required here. This is a limitation of the Jython script engine -->
+		<script:script lang="python">items=payload.items</script:script>
+	</splitter>
+
+	<router input-channel="drinks">
+		<script:script lang="python">'coldDrinks' if payload.iced else 'hotDrinks'
+		</script:script>
+	</router>
+	
+	<service-activator input-channel="coldDrinks"
+		output-channel="preparedDrinks">
+		<script:script lang="python" location="file:scripts/python/barista.py">
+			<script:variable name="timeToPrepare" value="1" />
+		</script:script>
+	</service-activator>
+ 
+	<service-activator input-channel="hotDrinks"
+		output-channel="preparedDrinks">
+		<script:script lang="python" location="file:scripts/python/barista.py">
+			<script:variable name="timeToPrepare" value="5" />
+		</script:script>
+	</service-activator>
+	 
+</beans:beans>
