@@ -1,5 +1,5 @@
 /*
- * Copyright 2002-2010 the original author or authors.
+ * Copyright 2002-2011 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,16 +20,18 @@ import java.util.List;
 
 /**
  * @author Marius Bogoevici
+ * @author Tom McCuch
  */
 public class Delivery {
 
 	private static final String SEPARATOR = "-----------------------";
 
-
     private List<Drink> deliveredDrinks;
 
 	private int orderNumber;
 
+	// Default constructor required by Jackson Java JSON-processor
+	public Delivery() {}
 
 	public Delivery(List<Drink> deliveredDrinks) {
 		assert(deliveredDrinks.size() > 0);
@@ -42,10 +44,18 @@ public class Delivery {
 		return orderNumber;
 	}
 
+    public void setOrderNumber(int orderNumber) {
+    	this.orderNumber = orderNumber;
+    }
+    
 	public List<Drink> getDeliveredDrinks() {
         return deliveredDrinks;
     }
 
+	public void setDeliveredDrinks(List<Drink> deliveredDrinks) {
+		this.deliveredDrinks = deliveredDrinks;
+	}
+	
 	@Override
 	public String toString() {
 		StringBuffer buffer = new StringBuffer(SEPARATOR + "\n");

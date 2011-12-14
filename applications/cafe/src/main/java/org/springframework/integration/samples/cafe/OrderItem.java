@@ -1,5 +1,5 @@
 /*
- * Copyright 2002-2010 the original author or authors.
+ * Copyright 2002-2011 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,6 +19,7 @@ package org.springframework.integration.samples.cafe;
 /**
  * @author Mark Fisher
  * @author Marius Bogoevici
+ * @author Tom McCuch
  */
 public class OrderItem {
 
@@ -28,34 +29,52 @@ public class OrderItem {
 
     private boolean iced = false;
 
-	private final Order order;
+    /** the order this item is tied to */
+	private int orderNumber;
 
+	// Default constructor required by Jackson Java JSON-processor
+	public OrderItem() {}
 
-	public OrderItem(Order order, DrinkType type, int shots, boolean iced) {
-        this.order = order;
+	public OrderItem(int orderNumber, DrinkType type, int shots, boolean iced) {
+        this.orderNumber = orderNumber;
 		this.type = type;
         this.shots = shots;
         this.iced = iced;
     }
 
-
-	public Order getOrder() {
-		return this.order;
+	public int getOrderNumber() {
+		return this.orderNumber;
 	}
 
+	public void setOrderNumber(int orderNumber) {
+		this.orderNumber = orderNumber;
+	}
+	
 	public boolean isIced() {
         return this.iced;
     }
 
-    public int getShots() {
+	public void setIced(boolean iced) {
+		this.iced = iced;
+	}
+	
+	public int getShots() {
         return shots;
     }
 
-    public DrinkType getDrinkType() {
+	public void setShots(int shots) {
+		this.shots = shots;
+	}
+
+	public DrinkType getDrinkType() {
         return this.type;
     }
 
-    public String toString() {
+	public void setDrinkType(DrinkType type) {
+		this.type = type;
+	}
+
+	public String toString() {
         return ((this.iced) ? "iced " : "hot ") + this.shots + " shot " + this.type;
     }
 

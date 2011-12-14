@@ -12,22 +12,27 @@
 
 	<gateway id="cafe" service-interface="org.springframework.integration.samples.cafe.Cafe"/>
 
+	<!-- each order has a collection of order items that is split apart to be processed -->
 	<channel id="orders"/>
 	<splitter input-channel="orders" expression="payload.items" output-channel="drinks"/>
 
+	<!-- The router sends different drink orders on different paths -->
 	<channel id="drinks"/>
 	<router input-channel="drinks"  expression="payload.iced ? 'coldDrinks' : 'hotDrinks'"/>
 
+	<!-- individual order items are processed by the barista -->
 	<channel id="coldDrinks">
 		<queue capacity="10"/>
 	</channel>
 	<service-activator input-channel="coldDrinks" ref="barista" method="prepareColdDrink" output-channel="preparedDrinks"/>
 
+	<!-- individual order items are processed by the barista -->
 	<channel id="hotDrinks">
 		<queue capacity="10"/>
 	</channel>
 	<service-activator input-channel="hotDrinks" ref="barista" method="prepareHotDrink" output-channel="preparedDrinks"/>
 
+	<!-- drink order items are aggregated in a call to the waiter -->
     <channel id="preparedDrinks"/>
     <aggregator input-channel="preparedDrinks"  method="prepareDelivery" output-channel="deliveries">
     	<beans:bean class="org.springframework.integration.samples.cafe.xml.Waiter"/>
