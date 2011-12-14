@@ -30,24 +30,31 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
  * to the inbound gateway. In turn the inbound gateway sends the message to an 
  * echo service and the echoed response comes back over tcp and is returned to
  * the test case for verification.
- *  
+ *
+ * The alternate configuration shows how the conversion service can be used
+ * instead of explicit transformers to convert the byte array payloads to
+ * Strings.
+ *
  * @author Gary Russell
  *
  */
+// This one uses transformers
 @ContextConfiguration("/META-INF/spring/integration/tcpClientServerDemo-context.xml")
+// This one uses the conversion service
+//@ContextConfiguration("/META-INF/spring/integration/tcpClientServerDemo-conversion-context.xml")
 @RunWith(SpringJUnit4ClassRunner.class)
 public class TcpClientServerDemoTest {
 
 	@Autowired 
 	SimpleGateway gw;
-	
+
 	@Test
 	public void testHappyDay() {
 		String result = gw.send("Hello world!");
 		System.out.println(result);
 		assertEquals("echo:Hello world!", result);
 	}
-	
+
 	@Test
 	public void testZeroLength() {
 		String result = gw.send("");
