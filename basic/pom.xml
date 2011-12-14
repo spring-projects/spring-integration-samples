@@ -15,6 +15,7 @@
         <module>file</module>
         <module>ftp</module>
         <module>helloworld</module>
+        <module>jdbc</module>
         <module>jms</module>
         <module>jmx</module>
         <module>mail</module>
