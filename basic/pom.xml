@@ -11,10 +11,12 @@
 
 	<modules>
         <module>amqp</module>
+        <module>enricher</module>
         <module>feed</module>
         <module>file</module>
         <module>ftp</module>
         <module>helloworld</module>
+        <module>jdbc</module>
         <module>jms</module>
         <module>jdbc</module>
         <module>jmx</module>

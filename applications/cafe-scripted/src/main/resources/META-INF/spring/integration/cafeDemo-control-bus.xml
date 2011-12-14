@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://www.springframework.org/schema/integration"
+	xmlns:beans="http://www.springframework.org/schema/beans"
+	xmlns:groovy="http://www.springframework.org/schema/integration/groovy"
+	xmlns:rmi="http://www.springframework.org/schema/integration/rmi"
+	xsi:schemaLocation="http://www.springframework.org/schema/integration http://www.springframework.org/schema/integration/spring-integration.xsd
+		http://www.springframework.org/schema/integration/rmi http://www.springframework.org/schema/integration/rmi/spring-integration-rmi.xsd
+		http://www.springframework.org/schema/integration/groovy http://www.springframework.org/schema/integration/groovy/spring-integration-groovy.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+   <beans:description>
+   This is the application context for ControlBusMain. It configures a Gateway tied to an RMI outbound gateway to communicate 
+   remotely with the CafeDemoApp.
+   </beans:description>
+   
+   
+   <gateway id="waiterMonitor"
+         service-interface="org.springframework.integration.samples.cafe.WaiterMonitor">
+           <method name="sendControlScript" request-channel="controlBusInput" request-timeout="1000" reply-timeout="1000"/>
+   </gateway>
+    
+   <rmi:outbound-gateway 
+                       request-channel="controlBusInput"                
+                       remote-channel="controlBusInput"
+                       reply-timeout="1000"   
+                       request-timeout="1000"           
+                       host="localhost"/>
+	
+</beans:beans>

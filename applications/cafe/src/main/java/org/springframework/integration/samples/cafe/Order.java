@@ -1,5 +1,5 @@
 /*
- * Copyright 2002-2010 the original author or authors.
+ * Copyright 2002-2011 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,27 +22,39 @@ import java.util.List;
 /**
  * @author Mark Fisher
  * @author Marius Bogoevici
+ * @author Tom McCuch
  */
 public class Order {
 
 	private List<OrderItem> orderItems = new ArrayList<OrderItem>();
 
+	/** the order number used for tracking */
 	private int number;
+
+	// Default constructor required by Jackson Java JSON-processor
+	public Order() {}
 
 	public Order(int number) {
 		this.number = number;
 	}
 
 	public void addItem(DrinkType drinkType, int shots, boolean iced) {
-		this.orderItems.add(new OrderItem(this, drinkType, shots, iced));
+		this.orderItems.add(new OrderItem(this.number, drinkType, shots, iced));
 	}
 
 	public int getNumber() {
 		return number;
 	}
 
+	public void setNumber(int number) {
+		this.number = number;
+	}
+	
 	public List<OrderItem> getItems() {
 		return this.orderItems;
 	}
 
+	public void setItems(List<OrderItem> orderItems) {
+		this.orderItems = orderItems;
+	}
 }
