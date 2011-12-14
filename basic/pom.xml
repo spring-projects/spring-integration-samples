@@ -11,6 +11,7 @@
 
 	<modules>
         <module>amqp</module>
+        <module>enricher</module>
         <module>feed</module>
         <module>file</module>
         <module>ftp</module>
