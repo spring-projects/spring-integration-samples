@@ -18,7 +18,6 @@
         <module>helloworld</module>
         <module>jdbc</module>
         <module>jms</module>
-        <module>jdbc</module>
         <module>jmx</module>
         <module>mail</module>
         <module>oddeven</module>
