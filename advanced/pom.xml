@@ -11,6 +11,7 @@
 
 	<modules>
         <module>advanced-testing-examples</module> 
+        <module>dynamic-ftp</module> 
 	</modules>
 
 </project>
