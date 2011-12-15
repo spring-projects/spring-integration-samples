@@ -13,7 +13,7 @@
     <int:channel id="replyChannel"/>
 
     <jdbc:embedded-database id="datasource" type="H2">
-        <jdbc:script location="classpath:setup-tables.sql"/>
+        <jdbc:script location="classpath:setup-tables.sql"/>        
     </jdbc:embedded-database>
 
     <!-- See also:
@@ -34,5 +34,49 @@
     </int-jdbc:outbound-gateway>
 
     <bean id="rowMapper" class="org.springframework.integration.samples.jdbc.UserMapper"/>
+    
+    <!-- ====================Config for Person Service ========================= -->
+    
+    <int:channel id="outboundJdbcRequestChannel"/>
+    <int:channel id="outboundJdbcResponseChannel"/>			
+    
+    <int:gateway id="personService" service-interface="org.springframework.integration.samples.jdbc.service.PersonService">
+    	<int:method name="createPerson" 
+    				request-channel="outboundJdbcRequestChannel"
+    				request-timeout="5000"
+    				reply-channel="outboundJdbcResponseChannel"
+    				reply-timeout="5000"/>
+    </int:gateway>
+	
+	<bean id="personResultMapper" class="org.springframework.integration.samples.jdbc.PersonMapper"/>
+	<int-jdbc:outbound-gateway data-source="datasource" 
+								request-channel="outboundJdbcRequestChannel"
+								reply-channel="outboundJdbcResponseChannel"
+								update="insert into Person (name,gender,dateOfBirth) 
+										values
+										(:name,:gender,:dateOfBirth)"
+								query="select * from Person where id = :id"		
+								request-sql-parameter-source-factory="requestSource"
+								reply-sql-parameter-source-factory="replySource"
+								row-mapper="personResultMapper"
+								keys-generated="true"/>
+	
+	<bean id="replySource" class="org.springframework.integration.jdbc.ExpressionEvaluatingSqlParameterSourceFactory">
+		<property name="parameterExpressions">
+			<map>
+				<entry key="id" value="#this['SCOPE_IDENTITY()']"/>				
+			</map>
+		</property>
+	</bean>	
+
+	<bean id="requestSource" class="org.springframework.integration.jdbc.ExpressionEvaluatingSqlParameterSourceFactory">
+		<property name="parameterExpressions">
+			<map>
+				<entry key="name" value="payload.name.toUpperCase()"/>
+				<entry key="gender" value="payload.gender.identifier"/>
+				<entry key="dateOfBirth" value="payload.dateOfBirth"/>
+			</map>
+		</property>
+	</bean>	
 
 </beans>

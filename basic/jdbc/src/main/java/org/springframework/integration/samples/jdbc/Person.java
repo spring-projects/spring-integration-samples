@@ -24,10 +24,27 @@ import java.util.Date;
  */
 public class Person {
 
+	private int personId;
 	private String name;
 	private Gender gender;
 	private Date dateOfBirth;
 	
+	
+	
+	/**
+	 * Sets the person id
+	 * @return
+	 */
+	public int getPersonId() {
+		return personId;
+	}
+	/**
+	 * Get the person Id
+	 * @param personId
+	 */
+	public void setPersonId(int personId) {
+		this.personId = personId;
+	}
 	
 	/**
 	 * Gets the name of the person
