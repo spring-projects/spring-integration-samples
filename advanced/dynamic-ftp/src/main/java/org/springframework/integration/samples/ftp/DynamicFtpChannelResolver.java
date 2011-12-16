@@ -48,6 +48,14 @@ public class DynamicFtpChannelResolver {
 	public MessageChannel resolve(String customer) {
 		MessageChannel channel = this.channels.get(customer);
 		if (channel == null) {
+			channel = createNewCustomerChannel(customer);
+		}
+		return channel;
+	}
+
+	private synchronized MessageChannel createNewCustomerChannel(String customer) {
+		MessageChannel channel = this.channels.get(customer);
+		if (channel == null) {
 			ConfigurableApplicationContext ctx = new ClassPathXmlApplicationContext(
 					new String[] { "/META-INF/spring/integration/dynamic-ftp-outbound-adapter-context.xml" },
 					false);
