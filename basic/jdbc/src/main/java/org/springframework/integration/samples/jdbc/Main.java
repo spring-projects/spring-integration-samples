@@ -15,12 +15,16 @@
  */
 package org.springframework.integration.samples.jdbc;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Scanner;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.integration.samples.jdbc.service.PersonService;
 import org.springframework.integration.samples.jdbc.service.UserService;
 
 
@@ -28,6 +32,7 @@ import org.springframework.integration.samples.jdbc.service.UserService;
  * Starts the Spring Context and will initialize the Spring Integration routes.
  *
  * @author Gunnar Hillert
+ * @author Amol Nayak
  * @version 1.0
  *
  */
@@ -60,7 +65,8 @@ public final class Main {
 
         final Scanner scanner = new Scanner(System.in);
 
-        final UserService service = context.getBean(UserService.class);
+        final UserService userService = context.getBean(UserService.class);
+        final PersonService personService = context.getBean(PersonService.class);
 
         LOGGER.info("\n========================================================="
                   + "\n                                                         "
@@ -68,25 +74,27 @@ public final class Main {
                   + "\n                                                         "
                   + "\n=========================================================" );
 
-        System.out.print("Please enter a string and press <enter>: ");
-        while (!scanner.hasNext("q")) {
-
+        System.out.println("Please enter a choice and press <enter>: ");
+        System.out.println("\t1. Find user details");
+        System.out.println("\t2. Create a new person detail");
+        System.out.println("\tq. Quit the application");
+        System.out.print("Enter you choice: ");
+        while (true) {
         	final String input = scanner.nextLine();
-        	final User user = service.findUser(input);
+        	if("1".equals(input.trim()))
+        		getUserDetails(scanner,userService);
+        	else if("2".equals(input.trim()))
+        		createPersonDetails(scanner,personService);
+        	else if("q".equals(input.trim()))
+        		break;
+        	else 
+        		System.out.println("Invalid choice\n\n");
 
-        	if (user != null) {
-
-	        	System.out.println(
-	        			String.format("User found - Username: '%s',  Email: '%s', Password: '%s'",
-	        			              user.getUsername(), user.getEmail(), user.getPassword()));
-
-        	} else {
-	        	System.out.println(
-	        			String.format("No User found for username: '%s'.", input));
-        	}
-
-            System.out.print("Please enter a string and press <enter>:");
-
+        	System.out.println("Please enter your choice and press <enter>: ");
+            System.out.println("\t1. Find user details");
+            System.out.println("\t2. Create a new person detail");
+            System.out.println("\tq. Quit the application");
+            System.out.print("Enter you choice: ");
         }
 
         LOGGER.info("Exiting application...bye.");
@@ -94,4 +102,69 @@ public final class Main {
         System.exit(0);
 
     }
+
+    private static void createPersonDetails(final Scanner scanner,PersonService service) {
+    	while(true) {
+    		System.out.print("\nEnter the Person's name:");
+    		String name = scanner.nextLine();
+    		Gender gender;
+    		while(true) {
+    			System.out.print("Enter the Person's gender(M/F):");
+        		String genderStr = scanner.nextLine();
+        		if("m".equalsIgnoreCase(genderStr) || "f".equalsIgnoreCase(genderStr)) {
+        			gender = Gender.getGenderByIdentifier(genderStr.toUpperCase());
+        			break;
+        		}        			
+    		}
+    		Date dateOfBirth;
+    		SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+    		while(true) {
+    			System.out.print("Enter the Person's Date of birth in DD/MM/YYYY format:");
+        		String dobStr = scanner.nextLine();
+        		try {
+					dateOfBirth = format.parse(dobStr);
+					break;
+				} catch (ParseException e) {
+					//Silently suppress and ask to enter details again
+				}        		        			
+    		}
+    		
+    		Person person = new Person();
+    		person.setDateOfBirth(dateOfBirth);
+    		person.setGender(gender);
+    		person.setName(name);
+    		person = service.createPerson(person);
+    		System.out.println("Created person record with id: " + person.getPersonId());
+    		System.out.print("Do you want to create another person? (y/n)");
+			String choice  = scanner.nextLine();
+			if(!"y".equalsIgnoreCase(choice))
+				break;
+    	}
+    }
+	/**
+	 * @param service
+	 * @param input
+	 */
+	private static void getUserDetails(final Scanner scanner,final UserService service) {
+		while(true) {
+			System.out.print("Please enter a string and press <enter>: ");
+			String input = scanner.nextLine();
+			final User user = service.findUser(input);
+			if (user != null) {
+
+				System.out.println(
+						String.format("User found - Username: '%s',  Email: '%s', Password: '%s'",
+						              user.getUsername(), user.getEmail(), user.getPassword()));
+
+			} else {
+				System.out.println(
+						String.format("No User found for username: '%s'.", input));
+			}
+			System.out.print("Do you want to find another user? (y/n)");
+			String choice  = scanner.nextLine();
+			if(!"y".equalsIgnoreCase(choice))
+				break;			
+		}
+		
+	}
 }
