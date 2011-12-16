@@ -29,6 +29,7 @@
         <module>ws-outbound-gateway</module>
         <module>xml</module>
         <module>xmpp</module>
+
 	</modules>
 
 </project>
