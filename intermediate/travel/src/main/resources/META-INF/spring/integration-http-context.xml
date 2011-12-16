@@ -4,8 +4,8 @@
 	xmlns:beans="http://www.springframework.org/schema/beans"
 	xmlns:int="http://www.springframework.org/schema/integration"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
-		http://www.springframework.org/schema/integration/http http://www.springframework.org/schema/integration/http/spring-integration-http-2.0.xsd
-		http://www.springframework.org/schema/integration http://www.springframework.org/schema/integration/spring-integration-2.0.xsd">
+		http://www.springframework.org/schema/integration/http http://www.springframework.org/schema/integration/http/spring-integration-http.xsd
+		http://www.springframework.org/schema/integration http://www.springframework.org/schema/integration/spring-integration.xsd">
 	
 	<outbound-gateway id="trafficGateway" 
 	                  url="http://local.yahooapis.com/MapsService/V1/trafficData?appid=YdnDemo&amp;zip={zipCode}" 

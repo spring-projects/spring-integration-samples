@@ -4,18 +4,24 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.springframework.integration.samples</groupId>
 	<artifactId>jms</artifactId>
-	<version>2.0.0</version>	
-	<name>Spring Integration JMS Sample</name>
+	<version>2.1.0.BUILD-SNAPSHOT</version>	
+	<name>Samples (Basic) - JMS</name>
 	<packaging>jar</packaging>
 	<properties>
-		<spring.integration.version>2.0.5.RELEASE</spring.integration.version>
-		<activemq.version>5.2.0</activemq.version>
+		<spring.integration.version>2.1.0.RC1</spring.integration.version>
+		<activemq.version>5.5.1</activemq.version>
 	</properties>
 	<dependencies>
 		<dependency>
 			<groupId>org.apache.activemq</groupId>
 			<artifactId>activemq-core</artifactId>
 			<version>${activemq.version}</version>
+			<exclusions>
+				<exclusion>
+					<artifactId>spring-context</artifactId>
+					<groupId>org.springframework</groupId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 <!-- 		<dependency> -->
 <!-- 			<groupId>org.springframework.integration</groupId> -->
@@ -25,12 +31,22 @@
  <dependency>
       <groupId>org.springframework</groupId>
       <artifactId>spring-jms</artifactId>
-      <version>3.0.5.RELEASE</version>
+      <version>3.1.0.RELEASE</version>
       <scope>compile</scope>
     </dependency>
 		<dependency>
 			<groupId>org.springframework.integration</groupId>
 			<artifactId>spring-integration-core</artifactId>
+			<version>${spring.integration.version}</version>
+        </dependency>
+		<dependency>
+			<groupId>org.springframework.integration</groupId>
+			<artifactId>spring-integration-core</artifactId>
+			<version>${spring.integration.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.integration</groupId>
+			<artifactId>spring-integration-stream</artifactId>
 			<version>${spring.integration.version}</version>
 		</dependency>
 		<dependency>

@@ -2,14 +2,14 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.springframework.integration.samples</groupId>
  <artifactId>dynamic-ftp</artifactId>
-	<version>2.1.0</version>
-	<name>Dynamic FTP Demo</name>
+	<version>2.1.0.BUILD-SNAPSHOT</version>
+	<name>Samples (Advanced) - Dynamic FTP Demo</name>
 	<packaging>jar</packaging>
 	<properties>
 		<spring.framework.version>3.1.0.RELEASE</spring.framework.version>
 		<spring.integration.version>2.1.0.RC1</spring.integration.version>
 		<log4j.version>1.2.16</log4j.version>
-		<junit.version>4.7</junit.version>
+		<junit.version>4.10</junit.version>
 	</properties>
 	<dependencies>
 		<dependency>
