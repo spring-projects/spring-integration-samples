@@ -7,6 +7,7 @@
 	<artifactId>samples-root</artifactId>
 	<version>2.1.0.BUILD-SNAPSHOT</version>
 	<name>Spring Integration Samples Root</name>
+	<url>http://www.springsource.org/spring-integration</url>
 	<packaging>pom</packaging>
 
 	<modules>
@@ -15,4 +16,20 @@
 		<module>applications</module>
 	</modules>
 
+	<ciManagement>
+        <system>Bamboo</system>
+        <url>https://build.springsource.org/browse/INTSAMPLES</url>
+    </ciManagement>
+
+    <issueManagement>
+        <system>JIRA</system>
+        <url>https://jira.springsource.org/browse/INTSAMPLES</url>
+    </issueManagement>
+
+    <scm>
+        <url>https://github.com/SpringSource/spring-integration-samples</url>
+        <connection>scm:git:git://github.com/SpringSource/spring-integration-samples.git</connection>
+        <developerConnection>scm:git:ssh://git@github.com:SpringSource/spring-integration-samples.git</developerConnection>
+    </scm>
+    
 </project>
