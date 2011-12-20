@@ -4,13 +4,13 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.springframework.integration.samples</groupId>
 	<artifactId>xml</artifactId>
-	<name>Spring Integration XML Sample</name>
-	<version>2.0.0</version>
+	<name>Samples (Basic) - XML Sample</name>
+	<version>2.1.0.BUILD-SNAPSHOT</version>
 	<packaging>jar</packaging>
 	<properties>
-		<spring.integration.version>2.0.5.RELEASE</spring.integration.version>
+		<spring.integration.version>2.1.0.RC1</spring.integration.version>
 		<log4j.version>1.2.16</log4j.version>
-		<junit.version>4.7</junit.version>
+		<junit.version>4.10</junit.version>
 	</properties>
 	<dependencies>
 		<dependency>

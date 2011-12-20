@@ -5,8 +5,8 @@
 	<modelVersion>4.0.0</modelVersion>
     <groupId>org.springframework.integration.samples</groupId>
 	<artifactId>advanced-samples</artifactId>
-	<version>2.0.0</version>
-	<name>Advanced Spring Integration Samples</name>
+	<version>2.1.0.BUILD-SNAPSHOT</version>
+	<name>Spring Integration Samples - Advanced</name>
 	<packaging>pom</packaging>
 
 	<modules>

@@ -4,13 +4,13 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.springframework.integration.samples</groupId>
 	<artifactId>cafe-scripted</artifactId>
-	<version>2.1.0</version>
-	<name>Spring Integration Cafe Sample</name>
+	<version>2.1.0.BUILD-SNAPSHOT</version>
+	<name>Samples (Applications) - Cafe Sample (Scripted Implementation)</name>
 	<properties>
 		<spring.integration.version>2.1.0.RC1</spring.integration.version>
-		<spring.version>3.1.0.RC1</spring.version>
+		<spring.version>3.1.0.RELEASE</spring.version>
 		<log4j.version>1.2.16</log4j.version>
-		<junit.version>4.7</junit.version>
+		<junit.version>4.10</junit.version>
 	</properties>
 
 	<dependencies>
