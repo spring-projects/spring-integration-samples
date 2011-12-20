@@ -19,10 +19,6 @@ package org.springframework.integration.samples.cafe.xml;
 import java.io.IOException;
 
 import org.springframework.context.support.AbstractApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
-import org.springframework.integration.samples.cafe.Cafe;
-import org.springframework.integration.samples.cafe.DrinkType;
-import org.springframework.integration.samples.cafe.Order;
 
 /**
  * Provides the 'main' method for running the Cafe Demo Hot Drink 

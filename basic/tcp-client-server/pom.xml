@@ -4,14 +4,14 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.springframework.integration.samples</groupId>
 	<artifactId>tcp-client-server</artifactId>
-	<version>2.0.0</version>	
-	<name>Spring Integration TCP Client Server Sample</name>
+	<version>2.1.0.BUILD-SNAPSHOT</version>	
+	<name>Samples (Basic) - TCP Client Server Sample</name>
 	<packaging>jar</packaging>
 	<properties>
-		<spring.version>3.0.5.RELEASE</spring.version>
-		<spring.integration.version>2.0.4.BUILD-SNAPSHOT</spring.integration.version>
+		<spring.version>3.0.6.RELEASE</spring.version>
+		<spring.integration.version>2.1.0.RC1</spring.integration.version>
 		<log4j.version>1.2.16</log4j.version>
-		<junit.version>4.7</junit.version>
+		<junit.version>4.10</junit.version>
 	</properties>
 	<dependencies>
 		<dependency>

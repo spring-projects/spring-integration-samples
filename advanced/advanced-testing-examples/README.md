@@ -1,9 +1,12 @@
-Example test cases that show advanced techniques to test Spring Integration applications. 
+Advanced Testing Examples
+=========================
 
-For basic testing examples see basic/testing-examples
+Example test cases that show advanced techniques to test Spring Integration based applications. 
 
-Examples
-========
+For basic testing examples see: *basic/testing-examples*
+
+## Examples
+
 ...jms.JmsMockTests.java
 
 This test case shows how to test an integration flow that uses JMS inbound channel adapter

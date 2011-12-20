@@ -2,12 +2,12 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.springframework.integration.samples</groupId>
-	<version>2.0.0.BUILD-SNAPSHOT</version>
+	<version>2.1.0.BUILD-SNAPSHOT</version>
 	<artifactId>loanshark</artifactId>
-	<name>Spring Integration Loan Shark Sample</name>
+	<name>Samples (Applications) - Loan Shark</name>
 	<packaging>war</packaging>
 	<properties>
-		<spring.version>3.0.5.RELEASE</spring.version>
+		<spring.version>3.1.0.RELEASE</spring.version>
 		<aspectj.version>1.6.10</aspectj.version>
 		<slf4j.version>1.6.1</slf4j.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -343,7 +343,7 @@
     <dependency>
             <groupId>org.springframework.integration</groupId>
             <artifactId>spring-integration-ip</artifactId>
-            <version>2.0.5.RELEASE</version>
+            <version>2.1.0.RC1</version>
         </dependency>
     </dependencies>
 	<build>

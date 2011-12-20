@@ -3,13 +3,13 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.springframework.integration.samples</groupId>
 	<artifactId>travel</artifactId>
-	<name>Spring Integration Travel Services Sample</name>
-	<version>2.0.0</version>
+	<name>Samples (Intermediate) - Travel Services</name>
+	<version>2.1.0.BUILD-SNAPSHOT</version>
 	<properties>
-		<spring.integration.version>2.0.5.RELEASE</spring.integration.version>
+		<spring.integration.version>2.1.0.RC1</spring.integration.version>
 		<log4j.version>1.2.16</log4j.version>
-		<junit.version>4.7</junit.version>
-		<spring.version>3.0.5.RELEASE</spring.version>
+		<junit.version>4.10</junit.version>
+		<spring.version>3.1.0.RELEASE</spring.version>
 	</properties>
 	<dependencies>
 		<dependency>
