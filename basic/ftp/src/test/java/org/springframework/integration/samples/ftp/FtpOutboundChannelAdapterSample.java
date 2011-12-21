@@ -1,5 +1,5 @@
 /*
- * Copyright 2002-2010 the original author or authors.
+ * Copyright 2002-2011 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,35 +15,74 @@
  */
 package org.springframework.integration.samples.ftp;
 
+import static org.junit.Assert.assertTrue;
+
 import java.io.File;
+import java.io.InputStream;
 
+import org.apache.commons.io.FileUtils;
+import org.junit.After;
 import org.junit.Test;
-
-import org.springframework.context.ApplicationContext;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.integration.Message;
 import org.springframework.integration.MessageChannel;
 import org.springframework.integration.support.MessageBuilder;
 
 /**
+ * 
  * @author Oleg Zhurakousky
+ * @author Gunnar Hillert
  *
  */
 public class FtpOutboundChannelAdapterSample {
 
+	private static final Logger LOGGER = LoggerFactory.getLogger(FtpOutboundChannelAdapterSample.class);
+	
+	private final File baseFolder = new File("target" + File.separator + "toSend");
+	
 	@Test
 	public void runDemo() throws Exception{
-		ApplicationContext ac = 
+		
+		ConfigurableApplicationContext ctx = 
 			new ClassPathXmlApplicationContext("META-INF/spring/integration/FtpOutboundChannelAdapterSample-context.xml");
-		MessageChannel ftpChannel = ac.getBean("ftpChannel", MessageChannel.class);
-		File file = new File("readme.txt");
-		if (file.exists()){
-			Message<File> message = MessageBuilder.withPayload(file).build();
-			ftpChannel.send(message);
-			Thread.sleep(2000);
-		}
-		if (new File("remote-target-dir/readme.txt").exists()){
-			System.out.println("Successfully transfered 'readme.txt' file to a remote location under the name 'readme.txt'");
-		}
+
+		MessageChannel ftpChannel = ctx.getBean("ftpChannel", MessageChannel.class);
+
+		baseFolder.mkdirs();
+		
+		final File fileToSendA = new File(baseFolder, "a.txt");
+		final File fileToSendB = new File(baseFolder, "b.txt"); 
+		
+		final InputStream inputStreamA = FtpOutboundChannelAdapterSample.class.getResourceAsStream("/test-files/a.txt");
+		final InputStream inputStreamB = FtpOutboundChannelAdapterSample.class.getResourceAsStream("/test-files/b.txt");
+		
+		FileUtils.copyInputStreamToFile(inputStreamA, fileToSendA);
+		FileUtils.copyInputStreamToFile(inputStreamB, fileToSendB);
+	    
+		assertTrue(fileToSendA.exists());
+		assertTrue(fileToSendB.exists());
+		
+		final Message<File> messageA = MessageBuilder.withPayload(fileToSendA).build();
+		final Message<File> messageB = MessageBuilder.withPayload(fileToSendB).build();
+		
+		ftpChannel.send(messageA);
+		ftpChannel.send(messageB);
+		
+		Thread.sleep(2000);
+
+		assertTrue(new File(TestSuite.FTP_ROOT_DIR + File.separator + "a.txt").exists());
+		assertTrue(new File(TestSuite.FTP_ROOT_DIR + File.separator + "b.txt").exists());
+		
+		LOGGER.info("Successfully transfered file 'a.txt' and 'b.txt' to a remote FTP location.");
+			
 	}
+	
+	@After
+	public void cleanup() {
+		FileUtils.deleteQuietly(baseFolder);
+	}
+   
 }
