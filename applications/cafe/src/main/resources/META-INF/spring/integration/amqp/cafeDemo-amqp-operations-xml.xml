@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:int="http://www.springframework.org/schema/integration"
+	xmlns:int-amqp="http://www.springframework.org/schema/integration/amqp"
+	xmlns:rabbit="http://www.springframework.org/schema/rabbit"
+	xmlns:stream="http://www.springframework.org/schema/integration/stream"
+	xmlns:cloud="http://schema.cloudfoundry.org/spring"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+			http://www.springframework.org/schema/beans/spring-beans.xsd
+			http://schema.cloudfoundry.org/spring
+			http://schema.cloudfoundry.org/spring/cloudfoundry-spring-0.8.xsd
+			http://www.springframework.org/schema/integration
+			http://www.springframework.org/schema/integration/spring-integration.xsd
+			http://www.springframework.org/schema/integration/amqp 
+			http://www.springframework.org/schema/integration/amqp/spring-integration-amqp.xsd
+			http://www.springframework.org/schema/rabbit 
+			http://www.springframework.org/schema/rabbit/spring-rabbit.xsd
+			http://www.springframework.org/schema/integration/stream
+			http://www.springframework.org/schema/integration/stream/spring-integration-stream.xsd">
+
+	<!-- rabbit connection factory, rabbit template, and rabbit admin -->
+	<import resource="classpath:META-INF/spring/integration/amqp/cafeDemo-amqp-config-xml.xml" />
+
+	<!--  intercept messages on these channels while still allowing them to continue -->
+    <int:wire-tap channel="logger" pattern="orders,coldDrinks,hotDrinks,preparedDrinks,deliveries"/>
+	<int:logging-channel-adapter id="logger" log-full-message="true" level="INFO"/>
+    
+    <!--  To receive AMQP Messages from a Queue, configure an inbound-channel-adapter  -->
+	<int-amqp:inbound-channel-adapter queue-names="new-orders" channel="jsonOrders" connection-factory="rabbitConnectionFactory" acknowledge-mode="AUTO" />
+	
+	<int:json-to-object-transformer id="json-to-order" input-channel="jsonOrders" output-channel="preOrders" type="org.springframework.integration.samples.cafe.Order" />
+
+	<int:splitter input-channel="preOrders" expression="payload.items" output-channel="preDrinks" apply-sequence="true"/>
+
+	<int:header-enricher input-channel="preDrinks" output-channel="drinks">
+		<int:header name="ICED" expression="payload.isIced()"/>
+	</int:header-enricher>
+
+	<int:object-to-json-transformer id="drink-to-json" input-channel="drinks" output-channel="jsonDrinks" />
+
+	<int:router input-channel="jsonDrinks"  expression="headers.ICED ? 'coldDrinks' : 'hotDrinks'"/>
+
+	<int:channel id="coldDrinks">
+		<int:queue/>
+	</int:channel>
+
+	<!-- Default poller -->
+	<int:poller default="true" fixed-rate="100"/>
+	
+	<int:channel id="hotDrinks">
+		<int:queue/>
+	</int:channel>
+
+    <!-- To send AMQP Messages to an Exchange and receive back a response from a remote client, configure an outbound-gateway -->	
+	<int-amqp:outbound-gateway 
+		id="coldDrinksBarista" 
+		request-channel="coldDrinks"
+		reply-channel="preparedJsonDrinks"
+		exchange-name="cafe-drinks"
+		routing-key="drink.cold"
+		amqp-template="amqpTemplate" />
+
+    <!-- To send AMQP Messages to an Exchange and receive back a response from a remote client, configure an outbound-gateway -->	
+	<int-amqp:outbound-gateway 
+		id="hotDrinksBarista" 
+		request-channel="hotDrinks"
+		reply-channel="preparedJsonDrinks" 
+		exchange-name="cafe-drinks"
+		routing-key="drink.hot"
+		amqp-template="amqpTemplate" />
+
+    <int:channel id="preparedJsonDrinks"/>
+
+	<int:json-to-object-transformer id="json-to-drink" input-channel="preparedJsonDrinks" output-channel="preparedDrinks" type="org.springframework.integration.samples.cafe.Drink"/>
+
+    <int:aggregator input-channel="preparedDrinks"  method="prepareDelivery" output-channel="preDeliveries">
+    	<bean class="org.springframework.integration.samples.cafe.xml.Waiter"/>
+    </int:aggregator>
+
+	<int:channel id="preDeliveries" />
+
+	<int:header-enricher input-channel="preDeliveries" output-channel="deliveries">
+		<int:header name="NUMBER" expression="payload.getOrderNumber()" />
+	</int:header-enricher>
+
+	<int:object-to-json-transformer id="delivery-to-json" input-channel="deliveries" output-channel="jsonDeliveries"/>
+
+	<int:channel id="jsonDeliveries" />
+	
+	<!--  To send AMQP Messages to an Exchange, configure an outbound-channel-adapter. -->
+	<int-amqp:outbound-channel-adapter
+		id="deliveredOrders"
+		channel="jsonDeliveries"
+		amqp-template="amqpTemplate"
+		exchange-name="cafe-deliveries"
+		routing-key-expression="'delivery.'+headers.NUMBER" />
+
+	<bean id="waiter" class="org.springframework.integration.samples.cafe.xml.Waiter"/>
+	
+	<!-- rabbit exchanges, queues, and bindings used by this app -->
+	<rabbit:topic-exchange name="cafe-drinks" auto-delete="true" durable="true">
+		<rabbit:bindings>
+			<rabbit:binding queue="all-drinks" pattern="drink.*"/>
+		</rabbit:bindings>
+	</rabbit:topic-exchange>
+	
+	<rabbit:queue name="all-drinks" auto-delete="true" durable="true"/>	
+
+	<rabbit:fanout-exchange name="cafe-deliveries" auto-delete="false" durable="true">
+		<rabbit:bindings>
+			<rabbit:binding queue="all-deliveries" />
+		</rabbit:bindings>
+	</rabbit:fanout-exchange>
+	
+	<rabbit:queue name="all-deliveries" auto-delete="false" durable="true"/>	
+
+</beans>

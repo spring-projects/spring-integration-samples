@@ -5,16 +5,20 @@
 	<modelVersion>4.0.0</modelVersion>
     <groupId>org.springframework.integration.samples</groupId>
 	<artifactId>basic-samples</artifactId>
-	<version>2.0.0</version>
-	<name>Basic Spring Integration Samples</name>
+	<version>2.1.0.BUILD-SNAPSHOT</version>
+	<name>Spring Integration Samples - Basic</name>
 	<packaging>pom</packaging>
 
 	<modules>
         <module>amqp</module>
+        <module>control-bus</module>
+        <module>enricher</module>
         <module>feed</module>
         <module>file</module>
-        <module>ftp</module>
+        <!-- <module>ftp</module> -->
         <module>helloworld</module>
+        <module>http</module>
+        <module>jdbc</module>
         <module>jms</module>
         <module>jmx</module>
         <module>mail</module>
@@ -22,11 +26,13 @@
         <module>quote</module>
         <module>sftp</module>
         <module>tcp-client-server</module>
+        <module>testing-examples</module>
         <module>twitter</module>
         <module>ws-inbound-gateway</module>
         <module>ws-outbound-gateway</module>
         <module>xml</module>
         <module>xmpp</module>
+
 	</modules>
 
 </project>

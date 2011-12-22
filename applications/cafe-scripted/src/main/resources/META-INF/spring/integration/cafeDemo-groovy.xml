@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns="http://www.springframework.org/schema/integration"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:beans="http://www.springframework.org/schema/beans"
+	xmlns:stream="http://www.springframework.org/schema/integration/stream"
+	xmlns:script="http://www.springframework.org/schema/integration/scripting"
+	xsi:schemaLocation="http://www.springframework.org/schema/integration http://www.springframework.org/schema/integration/spring-integration.xsd
+		http://www.springframework.org/schema/integration/script http://www.springframework.org/schema/integration/script.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/integration/scripting http://www.springframework.org/schema/integration/scripting/spring-integration-scripting.xsd">
+	
+	<splitter input-channel="orders" output-channel="drinks">
+		<script:script lang="groovy">payload.items</script:script>	 
+    </splitter>
+		
+	<router id="orderRouter" input-channel="drinks">
+		<script:script lang="groovy">payload.iced  ? "coldDrinks" : "hotDrinks"</script:script>
+	</router>
+   	
+	<service-activator id="coldDrinkBarista" input-channel="coldDrinks" output-channel="preparedDrinks">
+		<script:script lang="groovy" location="file:scripts/groovy/barista.groovy">
+			<script:variable name="timeToPrepare" value="1000"/>
+		</script:script> 
+	</service-activator>	
+	
+	<service-activator id="hotDrinkBarista" input-channel="hotDrinks" output-channel="preparedDrinks">
+		<script:script lang="groovy" location="file:scripts/groovy/barista.groovy">
+			<script:variable name="timeToPrepare" value="5000"/>
+		</script:script> 
+	</service-activator>
+	
+
+</beans:beans>

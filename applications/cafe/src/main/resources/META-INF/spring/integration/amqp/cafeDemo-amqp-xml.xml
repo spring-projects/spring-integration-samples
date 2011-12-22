@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:int="http://www.springframework.org/schema/integration"
+	xmlns:int-amqp="http://www.springframework.org/schema/integration/amqp"
+	xmlns:rabbit="http://www.springframework.org/schema/rabbit"
+	xmlns:stream="http://www.springframework.org/schema/integration/stream"
+	xmlns:cloud="http://schema.cloudfoundry.org/spring"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+			http://www.springframework.org/schema/beans/spring-beans.xsd
+			http://schema.cloudfoundry.org/spring
+			http://schema.cloudfoundry.org/spring/cloudfoundry-spring-0.8.xsd
+			http://www.springframework.org/schema/integration
+			http://www.springframework.org/schema/integration/spring-integration.xsd
+			http://www.springframework.org/schema/integration/amqp 
+			http://www.springframework.org/schema/integration/amqp/spring-integration-amqp.xsd
+			http://www.springframework.org/schema/rabbit 
+			http://www.springframework.org/schema/rabbit/spring-rabbit.xsd
+			http://www.springframework.org/schema/integration/stream
+			http://www.springframework.org/schema/integration/stream/spring-integration-stream.xsd">
+
+	<!-- rabbit connection factory, rabbit template, and rabbit admin -->
+	<import resource="classpath:META-INF/spring/integration/amqp/cafeDemo-amqp-config-xml.xml" />
+
+	<!-- spring integration flow -->
+	<int:gateway id="cafe" service-interface="org.springframework.integration.samples.cafe.Cafe" />
+	
+	<int:channel id="orders"/>
+
+	<int:header-enricher input-channel="orders" output-channel="newOrders">
+		<int:header name="NUMBER" expression="payload.getNumber()"/>
+	</int:header-enricher>
+
+	<int:object-to-json-transformer input-channel="newOrders" output-channel="jsonNewOrders" />
+	
+	<int:channel id="jsonNewOrders" />
+	
+	<!--  To send AMQP Messages to an Exchange, configure an outbound-channel-adapter. -->
+	<int-amqp:outbound-channel-adapter 
+		channel="jsonNewOrders"
+		exchange-name="cafe-orders"	
+		routing-key-expression="'order.'+headers.NUMBER" 
+		amqp-template="amqpTemplate" />		
+	
+	<!-- rabbit exchanges, queues, and bindings used by this app -->
+	<rabbit:topic-exchange name="cafe-orders" auto-delete="false" durable="true">
+		<rabbit:bindings>
+			<rabbit:binding queue="new-orders" pattern="order.*"/>
+			<rabbit:binding queue="all-orders" pattern="order.*"/>
+		</rabbit:bindings>
+	</rabbit:topic-exchange>
+	
+	<rabbit:queue name="new-orders" auto-delete="false" durable="true"/>	
+	<rabbit:queue name="all-orders" auto-delete="false" durable="true"/>	
+
+</beans>

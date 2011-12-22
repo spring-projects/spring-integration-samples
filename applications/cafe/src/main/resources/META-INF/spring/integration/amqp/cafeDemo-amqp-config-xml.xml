@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+    xmlns:rabbit="http://www.springframework.org/schema/rabbit"
+    xmlns:cloud="http://schema.cloudfoundry.org/spring"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+			http://www.springframework.org/schema/beans/spring-beans.xsd
+			http://schema.cloudfoundry.org/spring
+			http://schema.cloudfoundry.org/spring/cloudfoundry-spring-0.8.xsd
+			http://www.springframework.org/schema/rabbit 
+			http://www.springframework.org/schema/rabbit/spring-rabbit.xsd">
+
+    <!-- Set up the AmqpTemplate/RabbitTemplate: -->
+    <rabbit:template id="amqpTemplate"
+        connection-factory="rabbitConnectionFactory" reply-timeout="10000" />
+
+    <!-- Request that queues, exchanges and bindings be automatically declared 
+        on the broker: -->
+    <rabbit:admin connection-factory="rabbitConnectionFactory" />
+
+    <!--  profiles must be the last element sin the file -->
+    
+    <!-- Obtain a connection to the RabbitMQ via cloudfoundry-runtime: -->
+    <beans profile="cloud">
+        <cloud:rabbit-connection-factory
+            id="rabbitConnectionFactory" />
+    </beans>
+
+    <!-- connect to the local broker using the default user name and password -->
+    <beans profile="dev">
+        <bean id="rabbitConnectionFactory"
+            class="org.springframework.amqp.rabbit.connection.CachingConnectionFactory">
+            <constructor-arg value="localhost" />
+            <property name="username" value="guest" />
+            <property name="password" value="guest" />
+        </bean>
+    </beans>
+
+</beans>

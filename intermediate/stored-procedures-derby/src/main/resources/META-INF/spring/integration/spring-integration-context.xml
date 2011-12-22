@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:int="http://www.springframework.org/schema/integration"
+	xmlns:int-jdbc="http://www.springframework.org/schema/integration/jdbc"
+	xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+	xsi:schemaLocation="http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc.xsd
+		http://www.springframework.org/schema/integration http://www.springframework.org/schema/integration/spring-integration.xsd
+		http://www.springframework.org/schema/integration/jdbc http://www.springframework.org/schema/integration/jdbc/spring-integration-jdbc.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <jdbc:embedded-database id="dataSource" type="DERBY"/>
+
+	<jdbc:initialize-database data-source="dataSource" ignore-failures="DROPS">
+	    <jdbc:script location="classpath:derby-stored-procedures.sql"/>
+	</jdbc:initialize-database>
+
+    <int:channel id="findCoffeeProcedureRequestChannel"/>
+    <int:channel id="findAllProcedureRequestChannel"/>
+
+    <int:gateway id="gateway" default-request-timeout="5000"
+                 default-reply-timeout="5000"
+                 service-interface="org.springframework.integration.service.CoffeeService">
+        <int:method name="findCoffeeBeverage"     request-channel="findCoffeeProcedureRequestChannel" />
+        <int:method name="findAllCoffeeBeverages" request-channel="findAllProcedureRequestChannel" />
+    </int:gateway>
+
+    <int-jdbc:stored-proc-outbound-gateway id="outbound-gateway-storedproc-find-coffee" data-source="dataSource"
+                                           request-channel="findCoffeeProcedureRequestChannel" skip-undeclared-results="true"
+                                           stored-procedure-name="FIND_COFFEE"
+                                           expect-single-result="true">
+        <int-jdbc:parameter name="COFFEE_NAME"         expression="payload" />
+    </int-jdbc:stored-proc-outbound-gateway>
+
+    <int-jdbc:stored-proc-outbound-gateway id="outbound-gateway-storedproc-find-all" data-source="dataSource"
+                                           request-channel="findAllProcedureRequestChannel" expect-single-result="true"
+                                           stored-procedure-name="FIND_ALL_COFFEE_BEVERAGES">
+        <int-jdbc:returning-resultset name="coffeeBeverages" row-mapper="org.springframework.integration.support.CoffeBeverageMapper"/>
+    </int-jdbc:stored-proc-outbound-gateway>
+
+</beans>

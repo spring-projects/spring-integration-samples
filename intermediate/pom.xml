@@ -5,8 +5,8 @@
 	<modelVersion>4.0.0</modelVersion>
     <groupId>org.springframework.integration.samples</groupId>
 	<artifactId>intermediate-samples</artifactId>
-	<version>2.0.0</version>
-	<name>Intermediate Spring Integration Samples</name>
+	<version>2.1.0.BUILD-SNAPSHOT</version>
+	<name>Spring Integration Samples - Intermediate</name>
 	<packaging>pom</packaging>
 
 	<modules>
@@ -15,6 +15,7 @@
         <module>file-processing</module>
         <module>multipart-http</module>
         <module>travel</module>
+        <module>stored-procedures-derby</module>
 	</modules>
 
 </project>
