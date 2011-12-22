@@ -14,8 +14,9 @@
         <module>errorhandling</module>
         <module>file-processing</module>
         <module>multipart-http</module>
-        <module>travel</module>
         <module>stored-procedures-derby</module>
+        <module>tcp-client-server-multiplex</module>
+        <module>travel</module>
 	</modules>
 
 </project>

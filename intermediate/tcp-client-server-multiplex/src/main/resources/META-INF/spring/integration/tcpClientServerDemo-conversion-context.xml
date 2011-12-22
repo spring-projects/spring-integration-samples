@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns:beans="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://www.springframework.org/schema/integration"
+	xmlns:ip="http://www.springframework.org/schema/integration/ip"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/integration http://www.springframework.org/schema/integration/spring-integration.xsd
+		http://www.springframework.org/schema/integration/ip http://www.springframework.org/schema/integration/ip/spring-integration-ip.xsd">
+
+	<beans:description>
+		Uses conversion service and collaborating channel adapters.
+	</beans:description>
+
+	<converter>
+		<beans:bean class="org.springframework.integration.samples.tcpclientserver.ByteArrayToStringConverter" />
+	</converter>
+
+	<!-- Given we are looking for performance, let's use
+		 the most performant wire protocol. -->
+
+	<beans:bean id="fastestWireFormatSerializer" class="org.springframework.integration.ip.tcp.serializer.ByteArrayLengthHeaderSerializer">
+		<beans:constructor-arg value="1" />
+	</beans:bean>
+
+	<!-- Client side -->
+
+	<gateway id="gw"
+        service-interface="org.springframework.integration.samples.tcpclientserver.SimpleGateway"
+        default-request-channel="input" />
+
+	<ip:tcp-connection-factory id="client"
+		type="client"
+		host="localhost"
+		port="11111"
+		single-use="false"
+		serializer="fastestWireFormatSerializer"
+		deserializer="fastestWireFormatSerializer"
+		so-timeout="10000" />
+
+	<publish-subscribe-channel id="input" />
+
+	<ip:tcp-outbound-channel-adapter id="outAdapter.client"
+		order="2"
+		channel="input"
+		connection-factory="client" /> <!-- Collaborator -->
+
+	<!-- Also send a copy to the custom aggregator for correlation and
+	     so this message's replyChannel will be transferred to the
+	     aggregated message.
+	     The order ensures this gets to the aggregator first -->
+	<bridge input-channel="input" output-channel="toAggregator.client"
+			order="1"/>
+
+	<!-- Asynch receive reply -->
+	<ip:tcp-inbound-channel-adapter id="inAdapter.client"
+		channel="toAggregator.client"
+		connection-factory="client" /> <!-- Collaborator -->
+
+	<!-- dataType attribute invokes the conversion service, if necessary -->
+	<channel id="toAggregator.client" datatype="java.lang.String" />
+
+	<aggregator input-channel="toAggregator.client"
+		output-channel="toTransformer.client"
+		correlation-strategy-expression="payload.substring(0,3)"
+		release-strategy-expression="size() == 2" />
+
+	<transformer input-channel="toTransformer.client"
+		expression="payload.get(1)"/> <!-- The response is always second -->
+
+	<!-- Server side -->
+
+	<ip:tcp-connection-factory id="server"
+		type="server"
+		port="11111"
+		using-nio="true"
+		serializer="fastestWireFormatSerializer"
+		deserializer="fastestWireFormatSerializer" />
+
+	<ip:tcp-inbound-channel-adapter id="inAdapter.server"
+		channel="toSA"
+		connection-factory="server" />
+
+	<!-- dataType attribute invokes the conversion service -->
+	<channel id="toSA" datatype="java.lang.String" />
+
+	<service-activator input-channel="toSA"
+					   output-channel="toObAdapter"
+					   ref="echoService"
+					   method="test" />
+
+	<beans:bean id="echoService"
+		  class="org.springframework.integration.samples.tcpclientserver.EchoService" />
+
+	<channel id="toObAdapter" />
+
+	<ip:tcp-outbound-channel-adapter id="outAdapter.server"
+		channel="toObAdapter"
+		connection-factory="server" />
+
+</beans:beans>
