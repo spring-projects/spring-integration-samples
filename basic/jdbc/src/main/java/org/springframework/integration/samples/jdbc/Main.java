@@ -18,6 +18,7 @@ package org.springframework.integration.samples.jdbc;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 import java.util.Scanner;
 
 import org.slf4j.Logger;
@@ -25,7 +26,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.integration.samples.jdbc.service.PersonService;
-import org.springframework.integration.samples.jdbc.service.UserService;
 
 
 /**
@@ -65,7 +65,7 @@ public final class Main {
 
         final Scanner scanner = new Scanner(System.in);
 
-        final UserService userService = context.getBean(UserService.class);
+        
         final PersonService personService = context.getBean(PersonService.class);
 
         LOGGER.info("\n========================================================="
@@ -75,14 +75,14 @@ public final class Main {
                   + "\n=========================================================" );
 
         System.out.println("Please enter a choice and press <enter>: ");
-        System.out.println("\t1. Find user details");
+        System.out.println("\t1. Find person details");
         System.out.println("\t2. Create a new person detail");
         System.out.println("\tq. Quit the application");
         System.out.print("Enter you choice: ");
         while (true) {
         	final String input = scanner.nextLine();
         	if("1".equals(input.trim()))
-        		getUserDetails(scanner,userService);
+        		getPersonDetails(scanner, personService);
         	else if("2".equals(input.trim()))
         		createPersonDetails(scanner,personService);
         	else if("q".equals(input.trim()))
@@ -90,8 +90,8 @@ public final class Main {
         	else 
         		System.out.println("Invalid choice\n\n");
 
-        	System.out.println("Please enter your choice and press <enter>: ");
-            System.out.println("\t1. Find user details");
+        	System.out.println("Please enter a choice and press <enter>: ");
+            System.out.println("\t1. Find person details");
             System.out.println("\t2. Create a new person detail");
             System.out.println("\tq. Quit the application");
             System.out.print("Enter you choice: ");
@@ -145,22 +145,23 @@ public final class Main {
 	 * @param service
 	 * @param input
 	 */
-	private static void getUserDetails(final Scanner scanner,final UserService service) {
+	private static void getPersonDetails(final Scanner scanner,final PersonService service) {
 		while(true) {
-			System.out.print("Please enter a string and press <enter>: ");
+			System.out.print("Please enter the name of the person and press<enter>: ");
 			String input = scanner.nextLine();
-			final User user = service.findUser(input);
-			if (user != null) {
-
-				System.out.println(
-						String.format("User found - Username: '%s',  Email: '%s', Password: '%s'",
-						              user.getUsername(), user.getEmail(), user.getPassword()));
-
+			final List<Person> personList = service.findPersonByName(input);
+			if(personList != null && !personList.isEmpty()) {
+				for(Person person:personList) {
+					System.out.print(
+							String.format("Person found - Person Id: '%d', Person Name is: '%s',  Gender: '%s'",
+							              person.getPersonId(),person.getName(), person.getGender()));
+					System.out.println(String.format(", Date of birth: '%1$td/%1$tm/%1$tC%1$ty'", person.getDateOfBirth()));
+				}
 			} else {
 				System.out.println(
-						String.format("No User found for username: '%s'.", input));
-			}
-			System.out.print("Do you want to find another user? (y/n)");
+						String.format("No Person record found for name: '%s'.", input));
+			}			 
+			System.out.print("Do you want to find another person? (y/n)");
 			String choice  = scanner.nextLine();
 			if(!"y".equalsIgnoreCase(choice))
 				break;			

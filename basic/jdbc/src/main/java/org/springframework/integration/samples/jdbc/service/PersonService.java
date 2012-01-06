@@ -15,6 +15,8 @@
  */
 package org.springframework.integration.samples.jdbc.service;
 
+import java.util.List;
+
 import org.springframework.integration.samples.jdbc.Person;
 
 /**
@@ -31,5 +33,14 @@ public interface PersonService {
 	 * @return
 	 */
 	Person createPerson(Person person);
+	
+	/**
+	 * Find the person by the person name, the name search is case insensitive, however the 
+	 * spaces are not ignored
+	 *  
+	 * @param name
+	 * @return the matching {@link Person} record
+	 */
+	List<Person> findPersonByName(String name);
 
 }
