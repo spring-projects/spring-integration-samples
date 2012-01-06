@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
-	<modelVersion>4.0.0</modelVersion>
-	<groupId>org.springframework.integration.samples</groupId>
-	<artifactId>samples-root</artifactId>
-	<version>2.1.0.BUILD-SNAPSHOT</version>
-	<name>Spring Integration Samples Root</name>
-	<url>http://www.springsource.org/spring-integration</url>
-	<packaging>pom</packaging>
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>org.springframework.integration.samples</groupId>
+    <artifactId>samples-root</artifactId>
+    <version>2.1.0.BUILD-SNAPSHOT</version>
+    <name>Spring Integration Samples Root</name>
+    <url>http://www.springsource.org/spring-integration</url>
+    <packaging>pom</packaging>
 
-	<modules>
-		<module>basic</module>
-		<module>intermediate</module>
-		<module>applications</module>
-	</modules>
+    <modules>
+        <module>basic</module>
+        <module>intermediate</module>
+        <module>applications</module>
+    </modules>
 
-	<ciManagement>
+    <ciManagement>
         <system>Bamboo</system>
         <url>https://build.springsource.org/browse/INTSAMPLES</url>
     </ciManagement>
@@ -31,5 +31,5 @@
         <connection>scm:git:git://github.com/SpringSource/spring-integration-samples.git</connection>
         <developerConnection>scm:git:ssh://git@github.com:SpringSource/spring-integration-samples.git</developerConnection>
     </scm>
-    
+
 </project>
