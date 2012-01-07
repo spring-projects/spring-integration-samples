@@ -5,6 +5,7 @@ target/
 log.roo
 .project
 .classpath
+.springBeans
 .DS_Store
 *.iml
 *.ipr
