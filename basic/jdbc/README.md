@@ -4,12 +4,12 @@ Spring Integration - JDBC Sample
 # Overview
 
 This sample provides example of how the Jdbc Adapters can be used.
-The example presented covers the following two use cases
+The example presented covers the following use cases
 
-* Find a User detail from the database based on the name provided
+* Find a Person detail from the database based on the name provided
 * Create a new Person record in the table
 
-The first example demonstrates the use of outbound gateway to search for a user record using the
+The first example demonstrates the use of outbound gateway to search for a person record using the
 spring integration's jdbc outbound gateway
 
 The second example on other hand demonstrates how the jdbc outbound gateway be used to create a new 
@@ -26,15 +26,11 @@ You can run the application by either
     - mvn package
     - mvn exec:java
 
-Make an appropriate choice for searching a User or creating a Person
-
-For selecting the User, on the command prompt you can enter the following valid values and get a response back:
-
-* 'a'
-* 'b'
-* 'foo'
+Make an appropriate choice for searching a Person or creating a Person
 
 For creating the person record, select the appropriate steps as prompted by the application
+
+On creation of Person records, you may choose the option of selecting the created person records and view their details
 
 #Some details about the sample "Person Outbound Gateway"
 

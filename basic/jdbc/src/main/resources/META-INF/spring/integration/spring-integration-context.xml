@@ -8,10 +8,7 @@
 		http://www.springframework.org/schema/integration http://www.springframework.org/schema/integration/spring-integration.xsd
 		http://www.springframework.org/schema/integration/jdbc http://www.springframework.org/schema/integration/jdbc/spring-integration-jdbc.xsd
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
-
-    <int:channel id="requestChannel"/>
-    <int:channel id="replyChannel"/>
-
+    
     <jdbc:embedded-database id="datasource" type="H2">
         <jdbc:script location="classpath:setup-tables.sql"/>        
     </jdbc:embedded-database>
@@ -19,39 +16,40 @@
     <!-- See also:
         http://static.springsource.org/spring-integration/reference/htmlsingle/#gateway-proxy
         http://www.eaipatterns.com/MessagingGateway.html -->
-    <int:gateway default-request-timeout="5000"
-                 default-reply-timeout="5000"
-                 default-request-channel="requestChannel"
-                 default-reply-channel="replyChannel"
-                 service-interface="org.springframework.integration.samples.jdbc.service.UserService">
-        <int:method name="convertToUpperCase"/>
+        
+    <int:channel id="createPersonRequestChannel"/>
+    <int:channel id="createPersonReplyChannel"/>
+    <int:channel id="findPersonRequestChannel"/>
+    <int:channel id="findPersonReplyChannel"/>
+    
+        
+    <int:gateway id="personService" service-interface="org.springframework.integration.samples.jdbc.service.PersonService">
+    	<int:method name="createPerson" 
+    				request-channel="createPersonRequestChannel"
+    				request-timeout="5000"
+    				reply-channel="createPersonReplyChannel"
+    				reply-timeout="5000"/>
+    	<int:method name="findPersonByName"
+    				request-channel="findPersonRequestChannel"
+    				request-timeout="5000"
+    				reply-channel="findPersonReplyChannel"
+    				reply-timeout="5000"/>			
     </int:gateway>
 
     <int-jdbc:outbound-gateway data-source="datasource"
         update="UPDATE DUMMY SET DUMMY_VALUE='test'"
-                               request-channel="requestChannel" query="select * from users where username=:payload"
-                               reply-channel="replyChannel" row-mapper="rowMapper">
+                               request-channel="findPersonRequestChannel" 
+                               query="select * from Person where lower(name)=lower(:payload)"
+                               reply-channel="findPersonReplyChannel" row-mapper="personResultMapper"
+                               max-rows-per-poll="100">
     </int-jdbc:outbound-gateway>
-
-    <bean id="rowMapper" class="org.springframework.integration.samples.jdbc.UserMapper"/>
-    
-    <!-- ====================Config for Person Service ========================= -->
-    
-    <int:channel id="outboundJdbcRequestChannel"/>
-    <int:channel id="outboundJdbcResponseChannel"/>			
-    
-    <int:gateway id="personService" service-interface="org.springframework.integration.samples.jdbc.service.PersonService">
-    	<int:method name="createPerson" 
-    				request-channel="outboundJdbcRequestChannel"
-    				request-timeout="5000"
-    				reply-channel="outboundJdbcResponseChannel"
-    				reply-timeout="5000"/>
-    </int:gateway>
+        
+       
 	
 	<bean id="personResultMapper" class="org.springframework.integration.samples.jdbc.PersonMapper"/>
 	<int-jdbc:outbound-gateway data-source="datasource" 
-								request-channel="outboundJdbcRequestChannel"
-								reply-channel="outboundJdbcResponseChannel"
+								request-channel="createPersonRequestChannel"
+								reply-channel="createPersonReplyChannel"
 								update="insert into Person (name,gender,dateOfBirth) 
 										values
 										(:name,:gender,:dateOfBirth)"
