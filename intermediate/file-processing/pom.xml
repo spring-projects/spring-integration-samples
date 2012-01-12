@@ -1,10 +1,11 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
-  <groupId>orf.springframework.integration.samples</groupId>
+  <groupId>org.springframework.integration.samples</groupId>
   <artifactId>file-processing</artifactId>
   <version>2.1.0.BUILD-SNAPSHOT</version>
-<properties>
-		<spring.integration.version>2.1.0.RC1</spring.integration.version>
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<spring.integration.version>2.1.0.RELEASE</spring.integration.version>
 		<log4j.version>1.2.16</log4j.version>
 		<junit.version>4.10</junit.version>
 	</properties>
@@ -31,6 +32,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
+				<version>2.3.2</version>
 				<configuration>
 					<source>1.5</source>
 					<target>1.5</target>
@@ -41,22 +43,12 @@
 			</plugin>
 		</plugins>
 	</build>
-	<repositories>
-		<repository>
-			<id>repository.springframework.maven.release</id>
-			<name>Spring Framework Maven Release Repository</name>
-			<url>http://maven.springframework.org/release</url>
-		</repository>
-		<repository>
-			<id>repository.springframework.maven.milestone</id>
-			<name>Spring Framework Maven Milestone Repository</name>
-			<url>http://maven.springframework.org/milestone</url>
-		</repository>
-		<repository>
-			<id>repository.springframework.maven.snapshot</id>
-			<name>Spring Framework Maven Snapshot Repository</name>
-			<url>http://maven.springframework.org/snapshot</url>
-		</repository>
-	</repositories>
+    <repositories>
+        <repository>
+            <id>repo.springsource.org.milestone</id>
+            <name>Spring Framework Maven Milestone Repository</name>
+            <url>https://repo.springsource.org/milestone</url>
+        </repository>
+    </repositories>
 	<name>Samples (Intermediate) - File Processing</name>
 </project>
