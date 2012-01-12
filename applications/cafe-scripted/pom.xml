@@ -87,7 +87,7 @@
 		</dependency>
 
 		<!-- This is an older release. 1.6 and above cause stdout to mysteriously
-			dissappear -->
+			disappear -->
 
 		<dependency>
 			<groupId>org.jruby</groupId>
