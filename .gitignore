@@ -7,3 +7,16 @@ log.roo
 *.ipr
 *.iws
 derby.log
+
+/intermediate/rest-http/.project
+/intermediate/rest-http/.classpath
+/intermediate/rest-http/.settings
+/intermediate/rest-http/.settings/org.maven.ide.eclipse.prefs
+/intermediate/rest-http/.settings/.jsdtscope
+/intermediate/rest-http/.settings/com.springsource.sts.config.flow.prefs
+/intermediate/rest-http/.settings/org.eclipse.jdt.core.prefs
+/intermediate/rest-http/.settings/org.eclipse.jdt.ui.prefs
+/intermediate/rest-http/.settings/org.eclipse.wst.common.component
+/intermediate/rest-http/.settings/org.eclipse.wst.common.project.facet.core.xml
+/intermediate/rest-http/.settings/org.eclipse.wst.jsdt.ui.superType.container
+/intermediate/rest-http/.settings/org.eclipse.wst.jsdt.ui.superType.name

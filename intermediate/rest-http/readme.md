@@ -1,3 +1,5 @@
+# Introduction
+
 This sample demonstrates how you can send an HTTP request to a Spring Integration's HTTP service while utilizing Spring Integration's new HTTP Path usage;
 This sample also uses Spring Security for HTTP Basic authentication. With HTTP Path facility, the client program can send requests with URL Variables.
 
