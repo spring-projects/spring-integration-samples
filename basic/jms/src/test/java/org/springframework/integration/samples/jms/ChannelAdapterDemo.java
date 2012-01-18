@@ -16,7 +16,18 @@
 
 package org.springframework.integration.samples.jms;
 
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
+
+import junit.framework.Assert;
+
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.integration.MessageChannel;
+import org.springframework.integration.support.MessageBuilder;
 
 /**
  * A simple bootstrap main() method for starting a pair of JMS Channel
@@ -26,17 +37,16 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
  * Destination and will echo the result in the console.
  * <p>
  * See the configuration in the three XML files that are referenced below.
- * 
+ *
  * @author Mark Fisher
  */
 public class ChannelAdapterDemo {
 
 	private final static String[] configFiles = {
-		"/META-INF/spring/integration/common.xml", 
-		"/META-INF/spring/integration/inboundChannelAdapter.xml", 
+		"/META-INF/spring/integration/common.xml",
+		"/META-INF/spring/integration/inboundChannelAdapter.xml",
 		"/META-INF/spring/integration/outboundChannelAdapter.xml"
 	};
-
 
 	public static void main(String[] args) {
 		ActiveMqTestUtils.prepare();
