@@ -1,5 +1,5 @@
 Spring Integration - Enricher Sample
-================================
+====================================
 
 # Overview
 
