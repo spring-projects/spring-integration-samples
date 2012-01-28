@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <artifactId>cafe</artifactId>
+        <groupId>org.springframework.integration.samples</groupId>
+        <version>2.1.0.BUILD-SNAPSHOT</version>
+    </parent>
+
+    <artifactId>cafe-si</artifactId>
+    <packaging>jar</packaging>
+
+    <name>Cafe - Pure Spring Integration</name>
+    <description>
+        This module implements the cafe sample using spring-integration components.
+        The channels that are used are in-memory channels and there is no distribution of
+        the processes (i.e., all of the processing happens within the same JVM and there
+        is no message broker). To see the cafe sample with a message broker to help distribute
+        the components, see the AMQP or the JMS sample.
+    </description>
+
+</project>
