@@ -16,6 +16,7 @@
 
 package org.springframework.integration.samples.cafe;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,7 +25,7 @@ import java.util.List;
  * @author Marius Bogoevici
  * @author Tom McCuch
  */
-public class Order {
+public class Order implements Serializable{
 
 	private List<OrderItem> orderItems = new ArrayList<OrderItem>();
 

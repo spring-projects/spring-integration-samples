@@ -16,12 +16,14 @@
 
 package org.springframework.integration.samples.cafe;
 
+import java.io.Serializable;
+
 /**
  * @author Mark Fisher
  * @author Marius Bogoevici
  * @author Tom McCuch
  */
-public class OrderItem {
+public class OrderItem implements Serializable {
 
     private DrinkType type;
 
