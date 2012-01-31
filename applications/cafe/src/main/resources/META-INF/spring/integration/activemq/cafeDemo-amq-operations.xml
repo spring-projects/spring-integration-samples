@@ -2,8 +2,12 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:int="http://www.springframework.org/schema/integration"
+       xmlns:stream="http://www.springframework.org/schema/integration/stream"
        xmlns:int-jms="http://www.springframework.org/schema/integration/jms"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/integration http://www.springframework.org/schema/integration/spring-integration.xsd http://www.springframework.org/schema/integration/jms http://www.springframework.org/schema/integration/jms/spring-integration-jms.xsd">
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/integration http://www.springframework.org/schema/integration/spring-integration.xsd
+       http://www.springframework.org/schema/integration/stream http://www.springframework.org/schema/integration/stream/spring-integration-stream.xsd
+       http://www.springframework.org/schema/integration/jms http://www.springframework.org/schema/integration/jms/spring-integration-jms.xsd">
 
     <!--Create a reference to the queue on the broker that has the new orders. Note, just because
     we create a new bean with the cafe.orders destination name does not mean we actually create a new
@@ -17,7 +21,7 @@
     <int:channel id="jsonNewOrders"/>
 
     <int:chain input-channel="jsonNewOrders">
-        <int:json-to-object-transformer />
+        <int:json-to-object-transformer type="org.springframework.integration.samples.cafe.Order"/>
         <int:splitter expression="payload.items" apply-sequence="true" />
         <int:header-enricher>
             <int:header name="ICED" expression="payload.isIced()" />
@@ -39,7 +43,9 @@
     <int-jms:outbound-gateway id="coldDrinksBarista"
                               request-channel="coldDrinks"
                               reply-channel="preparedJsonDrinks"
-                              reply-destination="coldDrinksQueue"/>
+                              request-destination="coldDrinksQueue"
+                              receive-timeout="30000"
+                              reply-timeout="30000"/>
 
 
 	<int:channel id="hotDrinks">
@@ -51,9 +57,23 @@
     <int-jms:outbound-gateway id="hotDrinksBarista"
                               request-channel="hotDrinks"
                               reply-channel="preparedJsonDrinks"
-                              request-destination="hotDrinksQueue"/>
+                              request-destination="hotDrinksQueue"
+                              receive-timeout="30000"
+                              reply-timeout="30000"/>
 
     <int:channel id="preparedJsonDrinks"/>
+
+    <int:chain input-channel="preparedJsonDrinks" output-channel="deliverDrinks">
+        <int:aggregator method="prepareDelivery">
+            <bean class="org.springframework.integration.samples.cafe.xml.Waiter"/>
+        </int:aggregator>
+        <int:header-enricher>
+            <int:header name="NUMBER" expression="payload.getOrderNumber()"/>
+        </int:header-enricher>
+    </int:chain>
+
+    <int:channel id="deliverDrinks"/>
+    <stream:stdout-channel-adapter id="deliveriesStdout" channel="deliverDrinks"/>
 
 
 </beans>
