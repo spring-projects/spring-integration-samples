@@ -9,7 +9,11 @@
        http://www.springframework.org/schema/integration/stream http://www.springframework.org/schema/integration/stream/spring-integration-stream-2.1.xsd
        http://www.springframework.org/schema/integration/jms http://www.springframework.org/schema/integration/jms/spring-integration-jms.xsd">
 
- 	<!--Define an error channel that is backed by ActiveMQ-->
+ 	<!--Define an error channel that is backed by ActiveMQ. Note, by design, the error channel that's
+ 	created by default by SI if you don't declare one specifically will use the pub/sub messaging domain. Because
+ 	of that, i've chosen to keep the same messaging domain when defining the error channel explicitly. Note,
+ 	you can leave out this declaration, but then your error channel won't be backed by jms and can't participate
+ 	in the same advantages as those that are backed by JMS -->
     <int-jms:publish-subscribe-channel id="errorChannel" topic-name="cafe.errors"/>
 
     <int:gateway id="cafe" service-interface="org.springframework.integration.samples.cafe.Cafe"/>
@@ -23,10 +27,14 @@
 	<int:router input-channel="drinks"  expression="payload.iced ? 'coldDrinks' : 'hotDrinks'"/>
 
 	<!-- individual order items are processed by the barista -->
+    <!-- Note, these channels were defined as "pollable" in the original SI config files. To achieve the
+    same thing with a JMS-backed channel, set the "message-driven" property to "false"-->
     <int-jms:channel id="coldDrinks" queue-name="cafe.drinks.cold" message-driven="false"/>
 	<int:service-activator input-channel="coldDrinks" ref="barista" method="prepareColdDrink" output-channel="preparedDrinks"/>
 
 	<!-- individual order items are processed by the barista -->
+    <!-- Note, these channels were defined as "pollable" in the original SI config files. To achieve the
+    same thing with a JMS-backed channel, set the "message-driven" property to "false"-->
     <int-jms:channel id="hotDrinks" queue-name="cafe.drinks.hot" message-driven="false"/>
 	<int:service-activator input-channel="hotDrinks" ref="barista" method="prepareHotDrink" output-channel="preparedDrinks"/>
 

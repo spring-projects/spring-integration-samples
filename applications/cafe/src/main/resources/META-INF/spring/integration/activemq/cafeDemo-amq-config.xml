@@ -8,13 +8,21 @@
        http://www.springframework.org/schema/integration http://www.springframework.org/schema/integration/spring-integration.xsd
        http://activemq.apache.org/schema/core http://activemq.apache.org/schema/core/activemq-core-5.4.2.xsd">
 
-    <!-- Set up a live broker with a transport connector at port 61616 (default amq port)-->
+    <!-- Set up a live broker with a transport connector at port 61616 (default amq port)
+    We imported the ActiveMQ schema so we can use the schema support. When this application shuts down,
+    so does the broker. You can omit the embedded declaration here and set up the broker stand alone and
+    use the standard ActiveMQ HighAvailability mechanism. You can also use the peer:// scheme to link up
+    multiple embedded brokers. See the docs for more: http://activemq.apache.org/peer-transport-reference.html
+    -->
     <amq:broker brokerName="cafe-broker" useJmx="true">
         <amq:transportConnectors>
             <amq:transportConnector name="openwire" uri="tcp://localhost:61616"/>
         </amq:transportConnectors>
     </amq:broker>
 
+    <!-- Set up the connection factory. You must name the bean "connectionFactory" for the JMS-backed
+    channels to automatically find it. Otherwise, you must specify the connection when you declare the
+    channel -->
     <bean id="connectionFactory" class="org.springframework.jms.connection.CachingConnectionFactory">
         <property name="targetConnectionFactory">
             <bean class="org.apache.activemq.ActiveMQConnectionFactory">
