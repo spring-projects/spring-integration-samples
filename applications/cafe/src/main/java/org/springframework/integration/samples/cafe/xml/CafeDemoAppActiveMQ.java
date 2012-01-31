@@ -15,7 +15,7 @@ import java.io.IOException;
  * Time: 7:57 AM
  * To change this template use File | Settings | File Templates.
  */
-public class CafeDemoActiveMQBackedChannels {
+public class CafeDemoAppActiveMQ {
 
 	/**
 	 * place some orders
@@ -34,7 +34,7 @@ public class CafeDemoActiveMQBackedChannels {
 
 	public static void main(String[] args) throws InterruptedException, IOException {
         AbstractApplicationContext context = new ClassPathXmlApplicationContext("/META-INF/spring/integration/activemq/cafeDemo-amq-config.xml",
-                "/META-INF/spring/integration/activemq/cafeDemo-amq-jms-backed.xml");
+                                                                                "/META-INF/spring/integration/activemq/cafeDemo-amq-xml.xml");
         order(context, 25);
 
         System.in.read();

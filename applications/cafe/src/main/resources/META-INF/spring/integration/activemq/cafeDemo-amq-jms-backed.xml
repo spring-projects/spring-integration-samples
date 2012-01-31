@@ -4,10 +4,23 @@
        xmlns:int="http://www.springframework.org/schema/integration"
        xmlns:stream="http://www.springframework.org/schema/integration/stream"
        xmlns:int-jms="http://www.springframework.org/schema/integration/jms"
+       xmlns:amq="http://activemq.apache.org/schema/core"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
        http://www.springframework.org/schema/integration http://www.springframework.org/schema/integration/spring-integration.xsd
        http://www.springframework.org/schema/integration/stream http://www.springframework.org/schema/integration/stream/spring-integration-stream-2.1.xsd
-       http://www.springframework.org/schema/integration/jms http://www.springframework.org/schema/integration/jms/spring-integration-jms.xsd">
+       http://www.springframework.org/schema/integration/jms http://www.springframework.org/schema/integration/jms/spring-integration-jms.xsd http://activemq.apache.org/schema/core http://activemq.apache.org/schema/core/activemq-core-5.4.2.xsd">
+
+    <!-- Set up a live broker with a transport connector at port 61616 (default amq port)
+    We imported the ActiveMQ schema so we can use the schema support. When this application shuts down,
+    so does the broker. You can omit the embedded declaration here and set up the broker stand alone and
+    use the standard ActiveMQ HighAvailability mechanism. You can also use the peer:// scheme to link up
+    multiple embedded brokers. See the docs for more: http://activemq.apache.org/peer-transport-reference.html
+    -->
+    <amq:broker brokerName="cafe-broker">
+        <amq:transportConnectors>
+            <amq:transportConnector name="openwire" uri="tcp://localhost:61616"/>
+        </amq:transportConnectors>
+    </amq:broker>
 
  	<!--Define an error channel that is backed by ActiveMQ. Note, by design, the error channel that's
  	created by default by SI if you don't declare one specifically will use the pub/sub messaging domain. Because
