@@ -18,7 +18,7 @@
     <bean id="connectionFactory" class="org.springframework.jms.connection.CachingConnectionFactory">
         <property name="targetConnectionFactory">
             <bean class="org.apache.activemq.ActiveMQConnectionFactory">
-                <property name="brokerURL" value="tcp://localhost:61616"/>
+                <property name="brokerURL" value="tcp://localhost:61616?jms.prefetchPolicy.queuePrefetch=1"/>
             </bean>
         </property>
         <property name="sessionCacheSize" value="10"/>

@@ -16,7 +16,7 @@ import java.io.IOException;
  * Time: 7:57 AM
  * To change this template use File | Settings | File Templates.
  */
-public class CafeDemoAppAmq {
+public class CafeDemoActiveMQBackedChannels {
 
 	/**
 	 * place some orders

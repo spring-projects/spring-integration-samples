@@ -9,36 +9,35 @@
        http://www.springframework.org/schema/integration/stream http://www.springframework.org/schema/integration/stream/spring-integration-stream-2.1.xsd
        http://www.springframework.org/schema/integration/jms http://www.springframework.org/schema/integration/jms/spring-integration-jms.xsd">
 
- 	<int:gateway id="cafe" service-interface="org.springframework.integration.samples.cafe.Cafe"/>
+ 	<!--Define an error channel that is backed by ActiveMQ-->
+    <int-jms:publish-subscribe-channel id="errorChannel" topic-name="cafe.errors"/>
+
+    <int:gateway id="cafe" service-interface="org.springframework.integration.samples.cafe.Cafe"/>
 
 	<!-- each order has a collection of order items that is split apart to be processed -->
 	<int-jms:channel id="orders" queue-name="cafe.orders" />
-    <!--<int:channel id="orders" />-->
 	<int:splitter input-channel="orders" expression="payload.items" output-channel="drinks"/>
 
 	<!-- The router sends different drink orders on different paths -->
-	<int:channel id="drinks"/>
+    <int-jms:channel id="drinks" queue-name="cafe.drinks"/>
 	<int:router input-channel="drinks"  expression="payload.iced ? 'coldDrinks' : 'hotDrinks'"/>
 
 	<!-- individual order items are processed by the barista -->
-	<int:channel id="coldDrinks">
-		<int:queue capacity="10"/>
-	</int:channel>
+    <int-jms:channel id="coldDrinks" queue-name="cafe.drinks.cold" message-driven="false"/>
 	<int:service-activator input-channel="coldDrinks" ref="barista" method="prepareColdDrink" output-channel="preparedDrinks"/>
 
 	<!-- individual order items are processed by the barista -->
-	<int:channel id="hotDrinks">
-		<int:queue capacity="10"/>
-	</int:channel>
+    <int-jms:channel id="hotDrinks" queue-name="cafe.drinks.hot" message-driven="false"/>
 	<int:service-activator input-channel="hotDrinks" ref="barista" method="prepareHotDrink" output-channel="preparedDrinks"/>
 
 	<!-- drink order items are aggregated in a call to the waiter -->
-    <int:channel id="preparedDrinks"/>
-    <int:aggregator input-channel="preparedDrinks"  method="prepareDelivery" output-channel="deliveries">
+    <int-jms:channel id="preparedDrinks" queue-name="cafe.drinks.prepared"/>
+    <int-jms:channel id="deliveriesChannel" queue-name="cafe.deliveres"/>
+    <int:aggregator input-channel="preparedDrinks"  method="prepareDelivery" output-channel="deliveriesChannel">
     	<bean class="org.springframework.integration.samples.cafe.xml.Waiter"/>
     </int:aggregator>
 
-	<stream:stdout-channel-adapter id="deliveries"/>
+	<stream:stdout-channel-adapter id="deliveries" channel="deliveriesChannel"/>
 
 	<bean id="barista" class="org.springframework.integration.samples.cafe.xml.Barista"/>
 

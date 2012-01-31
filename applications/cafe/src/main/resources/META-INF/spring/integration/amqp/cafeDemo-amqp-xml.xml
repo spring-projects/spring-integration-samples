@@ -5,7 +5,7 @@
 	xmlns:int-amqp="http://www.springframework.org/schema/integration/amqp"
 	xmlns:rabbit="http://www.springframework.org/schema/rabbit"
 	xmlns:stream="http://www.springframework.org/schema/integration/stream"
-	xmlns:cloud="http://schema.cloudfoundry.org/spring"
+	xmlns:cloud="http://schema.cloudfoundry.org /spring"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans
 			http://www.springframework.org/schema/beans/spring-beans.xsd
 			http://schema.cloudfoundry.org/spring
