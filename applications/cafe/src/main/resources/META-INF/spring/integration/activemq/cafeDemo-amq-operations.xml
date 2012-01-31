@@ -64,6 +64,7 @@
     <int:channel id="preparedJsonDrinks"/>
 
     <int:chain input-channel="preparedJsonDrinks" output-channel="deliverDrinks">
+        <int:json-to-object-transformer type="org.springframework.integration.samples.cafe.Drink"/>
         <int:aggregator method="prepareDelivery">
             <bean class="org.springframework.integration.samples.cafe.xml.Waiter"/>
         </int:aggregator>
