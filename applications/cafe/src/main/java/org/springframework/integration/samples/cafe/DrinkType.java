@@ -16,10 +16,12 @@
 
 package org.springframework.integration.samples.cafe;
 
+import java.io.Serializable;
+
 /**
  * @author Mark Fisher
  */
-public enum DrinkType {
+public enum DrinkType implements Serializable{
 
 	ESPRESSO,
 	LATTE,

@@ -16,11 +16,13 @@
 
 package org.springframework.integration.samples.cafe;
 
+import java.io.Serializable;
+
 /**
  * @author Marius Bogoevici
  * @author Tom McCuch
  */
-public class Drink {
+public class Drink implements Serializable{
 
     private boolean iced;
 

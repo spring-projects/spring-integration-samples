@@ -11,7 +11,7 @@
     use the standard ActiveMQ HighAvailability mechanism. You can also use the peer:// scheme to link up
     multiple embedded brokers. See the docs for more: http://activemq.apache.org/peer-transport-reference.html
     -->
-    <amq:broker brokerName="cafe-broker" useJmx="true">
+    <amq:broker brokerName="cafe-broker">
         <amq:transportConnectors>
             <amq:transportConnector name="openwire" uri="tcp://localhost:61616"/>
         </amq:transportConnectors>

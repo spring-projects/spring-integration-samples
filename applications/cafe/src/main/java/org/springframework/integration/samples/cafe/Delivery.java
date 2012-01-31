@@ -16,13 +16,14 @@
 
 package org.springframework.integration.samples.cafe;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * @author Marius Bogoevici
  * @author Tom McCuch
  */
-public class Delivery {
+public class Delivery implements Serializable{
 
 	private static final String SEPARATOR = "-----------------------";
 
