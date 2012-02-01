@@ -13,7 +13,7 @@ To use OAuth authentication/authorization with Twitter you must create new Appli
 Follow the directions below to create a new application and obtain consumer keys and access token:
 
 * Go to http://dev.twitter.com/
-* Click on 'Register an app' link and fill out all required fields on the form provided; 
+* Click on 'Create an app' link and fill out all required fields on the form provided; 
 * Set 'Application Type' to 'Client' and depending on the nature of your application 
 * Select 'Default Access Type' as 'Read & Write' or 'Read-only'
 * Submit the form. 
