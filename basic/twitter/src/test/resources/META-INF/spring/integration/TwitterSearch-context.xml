@@ -12,14 +12,15 @@
 	<context:property-placeholder location="classpath:oauth.properties"/>
 
 	<bean id="twitterTemplate"
-		class="org.springframework.integration.twitter.core.Twitter4jTemplate">
+		class="org.springframework.social.twitter.api.impl.TwitterTemplate">
 		<constructor-arg value="${twitter.oauth.consumerKey}" />
 		<constructor-arg value="${twitter.oauth.consumerSecret}" />
 		<constructor-arg value="${twitter.oauth.accessToken}" />
 		<constructor-arg value="${twitter.oauth.accessTokenSecret}" />
 	</bean>
 	
-	<int-twitter:search-inbound-channel-adapter id="searchAdapter" channel="sourceExtractor" query="#springintegration">
+	<int-twitter:search-inbound-channel-adapter id="searchAdapter" channel="sourceExtractor" 
+	                                            query="#springintegration" twitter-template="twitterTemplate">
     	<int:poller fixed-rate="3000" max-messages-per-poll="5" />
     </int-twitter:search-inbound-channel-adapter>
    
