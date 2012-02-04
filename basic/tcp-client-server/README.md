@@ -47,3 +47,8 @@ This can also be demonstrated with the telnet client thus...
 	telnet> quit
 	Connection closed.
 
+A third option exists for converting a stream of bytes to a domain object or message payload. You can hook up different serializers/deserializers at the connection factory which will apply the conversions right when the stream comes in to the gateway and right when it goes out.
+
+See **TcpServerConnectionDeserializeTest** for using a simple (comes with spring) Stx/Etx serializer.
+
+See **TcpServerCustomSerializerTest** for creating and using your own serializers
