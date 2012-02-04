@@ -18,6 +18,11 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
 /**
+ * Some use cases may dictate you needing to create your own stream handling serializers
+ * and deserializers. This sample shows a custom serializer/deserializer being used with
+ * the Java socket API on the front end (client) and the Spring Integration TCP inbound
+ * gateway with the custom serializer/deserializers.
+ *
  * @author: ceposta
  */
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -54,6 +59,7 @@ public class TcpServerCustomSerializerTest {
         String sourceMessage = "123PINGPONG02000019You got it to work!";
 
 
+        // use the java socket API to make the connection to the server
         Socket socket = null;
         Writer out = null;
         BufferedReader in = null;

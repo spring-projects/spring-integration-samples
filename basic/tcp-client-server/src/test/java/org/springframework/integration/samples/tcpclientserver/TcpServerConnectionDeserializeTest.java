@@ -17,6 +17,13 @@ import java.io.StringWriter;
 import static org.junit.Assert.assertEquals;
 
 /**
+ * Shows an example of using the Stx/Etx stream framing serializers that are included with
+ * Spring Integration. We can be confident that the streams are properly handled because we
+ * explicitly send a stream with the Stx/Etx frame and the beginning and end of the actual
+ * content and the Server is configured to be able to handle the frame. In the asserts, we
+ * assert that the payload, once it reaches a component (in this case, the message listener
+ * we create and attach to the incomingServerChannel), does not have any of the Stx/Etx bytes.
+ *
  * @author: ceposta
  */
 @RunWith(SpringJUnit4ClassRunner.class)
