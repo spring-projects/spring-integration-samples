@@ -100,7 +100,7 @@ public class CustomSerializerDeserializer implements Serializer<CustomOrder>, De
         for (int i = 0; i < length; ++i) {
             c = inputStream.read();
             checkClosure(c);
-            builder.append(c);
+            builder.append((char)c);
         }
 
         return builder.toString();

@@ -5,39 +5,6 @@
        xmlns:int-ip="http://www.springframework.org/schema/integration/ip"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/integration http://www.springframework.org/schema/integration/spring-integration.xsd http://www.springframework.org/schema/integration/ip http://www.springframework.org/schema/integration/ip/spring-integration-ip-2.0.xsd">
 
-    <!-- Client side -->
-	<int:gateway id="gw"
-        service-interface="org.springframework.integration.samples.tcpclientserver.CustomSimpleGateway"
-        default-request-channel="input"/>
-
-    <!-- Create a connection for the client gateway that uses the same Stx-Etx deserializer to turn the stream
-    into the appropriate content (it looks for the Stx byte, extracts anything between it and the Etx byte). We
-    don't specify the serializer (although we could) because the unit test explicitly shows how the content
-    to be sent is wrapped by the Stx and Etx bytes. -->
-	<int-ip:tcp-connection-factory id="client"
-		type="client"
-		host="localhost"
-		port="11111"
-		single-use="true"
-		so-timeout="60000"
-        deserializer="connectionSerializeDeserialize"
-        />
-
-	<int:channel id="input" />
-
-	<int-ip:tcp-outbound-gateway id="outGateway"
-		request-channel="input"
-		reply-channel="clientBytes2StringChannel"
-		connection-factory="client"
-		request-timeout="60000"
-		reply-timeout="60000"
-		/>
-
-    <int:channel id="clientBytes2StringChannel"/>
-
-    <int:transformer id="clientBytes2String"
-		input-channel="clientBytes2StringChannel"
-		expression="new String(payload)"/>
 
     <!-- Server side -->
     <!-- When creating the socket factory on the server side, we specify both the serializer and deserializer
@@ -46,6 +13,8 @@
 	<int-ip:tcp-connection-factory id="serverConnectionFactory"
 		type="server"
 		port="11111"
+        single-use="true"
+        so-linger="60000"
         serializer="connectionSerializeDeserialize"
         deserializer="connectionSerializeDeserialize"/>
 

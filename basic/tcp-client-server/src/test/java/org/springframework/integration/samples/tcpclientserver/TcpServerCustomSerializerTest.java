@@ -11,7 +11,11 @@ import org.springframework.integration.handler.AbstractReplyProducingMessageHand
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import java.io.*;
+import java.net.Socket;
+
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 
 /**
  * @author: ceposta
@@ -19,9 +23,6 @@ import static org.junit.Assert.assertEquals;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {"/META-INF/spring/integration/tcpServerCustomSerialize-context.xml"})
 public class TcpServerCustomSerializerTest {
-
-    @Autowired
-	CustomSimpleGateway gw;
 
     @Autowired
     @Qualifier("incomingServerChannel")
@@ -50,10 +51,44 @@ public class TcpServerCustomSerializerTest {
             }
         });
 
-        String sourceMessage = "123PINGPONG02000019You got it to work!";
-        CustomOrder result = gw.send(sourceMessage);
-        System.out.println(result);
-        assertEquals(sourceMessage, result);
+        String sourceMessage = "123PINGPONG02000019You got it to work!\r\n";
+
+
+        Socket socket = null;
+        Writer out = null;
+        BufferedReader in = null;
+        try {
+            socket = new Socket("localhost", 11111);
+            out = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
+            out.write(sourceMessage);
+            out.flush();
+
+            in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+            StringBuffer str = new StringBuffer();
+
+            int c;
+            while ((c = in.read()) != -1) {
+                str.append((char) c);
+            }
+
+            String response = str.toString();
+            assertEquals(sourceMessage, response);
+
+        } catch (IOException e) {
+            fail("Test ended with an exception " + e.getMessage());
+        }
+        finally {
+            try {
+                socket.close();
+                out.close();
+                in.close();
+
+            } catch (Exception e) {
+                // swallow exception
+            }
+
+        }
+
 
 
     }
