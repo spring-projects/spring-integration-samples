@@ -14,15 +14,12 @@
 		type="server"
 		port="11111"
         single-use="true"
-        so-linger="60000"
+        so-linger="10000"
         serializer="connectionSerializeDeserialize"
         deserializer="connectionSerializeDeserialize"/>
 
 
     <bean id="connectionSerializeDeserialize" class="org.springframework.integration.samples.tcpclientserver.CustomSerializerDeserializer"/>
-    <!--<bean id="connectionSerializeDeserialize" class="org.springframework.integration.ip.tcp.serializer.ByteArrayCrLfSerializer"/>-->
-
-
 
 	<int-ip:tcp-inbound-gateway id="gatewayCrLf"
 		connection-factory="serverConnectionFactory"

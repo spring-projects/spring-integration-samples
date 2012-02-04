@@ -51,7 +51,7 @@ public class TcpServerCustomSerializerTest {
             }
         });
 
-        String sourceMessage = "123PINGPONG02000019You got it to work!\r\n";
+        String sourceMessage = "123PINGPONG02000019You got it to work!";
 
 
         Socket socket = null;
