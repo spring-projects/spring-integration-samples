@@ -6,8 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.integration.Message;
 import org.springframework.integration.MessageChannel;
-import org.springframework.integration.MessagingException;
-import org.springframework.integration.core.MessageHandler;
 import org.springframework.integration.core.SubscribableChannel;
 import org.springframework.integration.handler.AbstractReplyProducingMessageHandler;
 import org.springframework.integration.ip.tcp.serializer.ByteArrayStxEtxSerializer;
@@ -34,27 +32,44 @@ public class TcpServerConnectionDeserializeTest {
 
     @Test
     public void testHappyPath() {
+
+        // add a listener to this channel, otherwise there is not one defined
+        // the reason we use a listener here is so we can assert truths on the
+        // message and/or payload
         SubscribableChannel channel = (SubscribableChannel) incomingServerChannel;
         channel.subscribe(new AbstractReplyProducingMessageHandler(){
 
             @Override
             protected Object handleRequestMessage(Message<?> requestMessage) {
-                System.out.println("hello!");
+                byte[] payload = (byte[]) requestMessage.getPayload();
+
+                // we assert during the processing of the messaging that the
+                // payload is just the content we wanted to send without the
+                // framing bytes (STX/ETX)
+                assertEquals("Hello World!", new String(payload));
                 return requestMessage;
             }
         });
 
-        String sourceMessage = wrapWithStxEtx("Hello World");
-
+        String sourceMessage = wrapWithStxEtx("Hello World!");
         String result = gw.send(sourceMessage);
         System.out.println(result);
-        assertEquals("echo:Hello world!", result);
+        assertEquals("Hello World!", result);
     }
 
-    private String wrapWithStxEtx(String s) {
+    /**
+     * Show, explicitly, how the stream would look if you had to manually create it.
+     *
+     * See more about TCP synchronous communication for more about framing the stream
+     * with STX/ETX:  http://en.wikipedia.org/wiki/Binary_Synchronous_Communications
+     *
+     * @param content
+     * @return a string that is wrapped with the STX/ETX framing bytes
+     */
+    private String wrapWithStxEtx(String content) {
         StringWriter writer = new StringWriter();
         writer.write(ByteArrayStxEtxSerializer.STX);
-        writer.write(s);
+        writer.write(content);
         writer.write(ByteArrayStxEtxSerializer.ETX);
         return writer.toString();
     }
