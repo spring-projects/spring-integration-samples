@@ -50,7 +50,7 @@ public class CustomSerializerDeserializer implements Serializer<CustomOrder>, De
      * @throws IOException
      */
     public void serialize(CustomOrder object, OutputStream outputStream) throws IOException {
-        byte[] number = Integer.toBinaryString(object.getNumber()).getBytes();
+        byte[] number = Integer.toString(object.getNumber()).getBytes();
         outputStream.write(number);
 
         byte[] senderName = object.getSender().getBytes();
