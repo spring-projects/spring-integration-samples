@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:int="http://www.springframework.org/schema/integration"
+       xmlns:int-ip="http://www.springframework.org/schema/integration/ip"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/integration http://www.springframework.org/schema/integration/spring-integration.xsd http://www.springframework.org/schema/integration/ip http://www.springframework.org/schema/integration/ip/spring-integration-ip-2.0.xsd">
+
+    <!-- Client side -->
+	<int:gateway id="gw"
+        service-interface="org.springframework.integration.samples.tcpclientserver.SimpleGateway"
+        default-request-channel="input"/>
+
+	<int-ip:tcp-connection-factory id="client"
+		type="client"
+		host="localhost"
+		port="11111"
+		single-use="true"
+		so-timeout="10000"
+        />
+
+	<int:channel id="input" />
+
+	<int-ip:tcp-outbound-gateway id="outGateway"
+		request-channel="input"
+		reply-channel="clientBytes2StringChannel"
+		connection-factory="client"
+		request-timeout="10000"
+		reply-timeout="10000"
+		/>
+
+    <int:channel id="clientBytes2StringChannel"/>
+
+    <int:transformer id="clientBytes2String"
+		input-channel="clientBytes2StringChannel"
+		expression="new String(payload)"/>
+
+    <!-- Server side -->
+	<int-ip:tcp-connection-factory id="serverConnectionFactory"
+		type="server"
+		port="11111"
+        serializer="connectionSerializeDeserialize"
+        deserializer="connectionSerializeDeserialize"/>
+
+
+    <bean id="connectionSerializeDeserialize" class="org.springframework.integration.ip.tcp.serializer.ByteArrayStxEtxSerializer"/>
+
+
+	<int-ip:tcp-inbound-gateway id="gatewayCrLf"
+		connection-factory="serverConnectionFactory"
+		request-channel="incomingServerChannel"
+		error-channel="errorChannel"/>
+
+	<int:channel id="incomingServerChannel" />
+
+</beans>
