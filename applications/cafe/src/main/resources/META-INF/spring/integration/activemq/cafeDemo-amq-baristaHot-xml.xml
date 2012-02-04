@@ -6,12 +6,16 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/integration http://www.springframework.org/schema/integration/spring-integration.xsd http://www.springframework.org/schema/integration/jms http://www.springframework.org/schema/integration/jms/spring-integration-jms.xsd">
 
 
+    <!-- The name of the queue to which to connect to receive cold drink orders-->
     <bean id="hotDrinksQueue" class="org.apache.activemq.command.ActiveMQQueue">
 		<constructor-arg value="cafe.drinks.hot"/>
 	</bean>
+
+    <!-- The gateway responsible for request/reply semantics -->
     <int-jms:inbound-gateway request-channel="hotJsonDrinks" request-destination="hotDrinksQueue"/>
     <int:channel id="hotJsonDrinks" />
     
+    <!-- The chain of processing for this barista -->
     <int:chain input-channel="hotJsonDrinks">
         <int:json-to-object-transformer type="org.springframework.integration.samples.cafe.OrderItem"/>
         <int:service-activator method="prepareHotDrink">

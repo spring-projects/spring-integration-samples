@@ -5,13 +5,16 @@
        xmlns:int-jms="http://www.springframework.org/schema/integration/jms"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/integration http://www.springframework.org/schema/integration/spring-integration.xsd http://www.springframework.org/schema/integration/jms http://www.springframework.org/schema/integration/jms/spring-integration-jms.xsd">
 
-
+    <!-- The name of the queue to which to connect to receive cold drink orders-->
     <bean id="coldDrinksQueue" class="org.apache.activemq.command.ActiveMQQueue">
 		<constructor-arg value="cafe.drinks.cold"/>
 	</bean>
+
+    <!-- The gateway responsible for request/reply semantics -->
     <int-jms:inbound-gateway request-channel="coldJsonDrinks" request-destination="coldDrinksQueue"/>
     <int:channel id="coldJsonDrinks" />
 
+    <!-- The chain of processing for this barista -->
     <int:chain input-channel="coldJsonDrinks">
         <int:json-to-object-transformer type="org.springframework.integration.samples.cafe.OrderItem"/>
         <int:service-activator method="prepareColdDrink">
