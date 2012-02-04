@@ -37,7 +37,14 @@ The prepared drinks are then sent to the Waiter where they are aggregated into a
    4. **cafeDemoAppOperationsAmqp**  - starts the Cafe Operations (OrderSplitter, DrinkRouter, PreparedDrinkAggregator)
    
 **Note**: All AMQP exchanges, queues, and bindings needed for this sample are defined within the different xml config files that support the above test classes.
-   
+
+4. You can also find an example of using JMS with Active MQ to distribute the components in the **CafeDemo** sample. To run this configuration, start an instance of ActiveMQ with the openwire/TCP connector available on the default port (61616). There are no credentials of which to be aware. Please execute the following classes in order:
+   1. **CafeDemoAppBaristaColdActiveMQ - starts the ColdDrink Barista
+   2. **CafeDemoAppBaristaHotActiveMQ  - starts the HotDrink Barista
+   3. **CafeDemoAppOperationsActiveMQ  - starts the Cafe Operations (order splitter, drink router, etc).
+   4. **CafeDemoAppAcitveMQ            - places the orders
+
+5. See **CafeDemoActiveMQBackedChannels** for an example of how to use the JMS-backed channels. No need to start an external ActiveMQ because one is started internally
 Upon running any of the alternatives, you should see the output similar to this:
 
 	INFO : org.springframework.integration.samples.cafe.annotation.Barista - task-scheduler-1 prepared cold drink #1 for order #1: iced 3 shot MOCHA

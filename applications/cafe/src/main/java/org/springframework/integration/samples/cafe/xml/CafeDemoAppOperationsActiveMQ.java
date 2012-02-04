@@ -6,11 +6,14 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 import java.io.IOException;
 
 /**
- * Created by IntelliJ IDEA.
- * User: ceposta
- * Date: 1/27/12
- * Time: 7:57 AM
- * To change this template use File | Settings | File Templates.
+ * Main class for starting up the distributed task of processing orders including
+ * splitting the orders, sending them to the hot/cold baristas, aggregating the orders
+ * and delivering them to the waiters.
+ *
+ * See the README.md file for more information on the order in which
+ * to start the processes
+ *
+ * @author ceposta
  */
 public class CafeDemoAppOperationsActiveMQ {
 

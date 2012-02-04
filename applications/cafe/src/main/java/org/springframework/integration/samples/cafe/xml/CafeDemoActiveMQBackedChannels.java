@@ -9,11 +9,13 @@ import org.springframework.integration.samples.cafe.Order;
 import java.io.IOException;
 
 /**
- * Created by IntelliJ IDEA.
- * User: ceposta
- * Date: 1/27/12
- * Time: 7:57 AM
- * To change this template use File | Settings | File Templates.
+ * Main class for running the Cafe sample with JMS-backed (ActiveMQ) channels. Once the application
+ * is running, simply press <return> or any other key to end the application. To fully experience the
+ * benefits of this solution, try halting/exiting the program in the middle of running it, comment out the
+ * call to place new orders (the order() function call) and watch that the processing still continues
+ * where it left off when you halted it. This is because the messages are persisted in the ActiveMQ queues
+ *
+ * @author ceposta
  */
 public class CafeDemoActiveMQBackedChannels {
 
@@ -35,6 +37,8 @@ public class CafeDemoActiveMQBackedChannels {
 	public static void main(String[] args) throws InterruptedException, IOException {
         AbstractApplicationContext context = new ClassPathXmlApplicationContext("/META-INF/spring/integration/activemq/cafeDemo-amq-config.xml",
                 "/META-INF/spring/integration/activemq/cafeDemo-amq-jms-backed.xml");
+
+        // comment this out to run the sample without placing any new orders on the queue
         order(context, 25);
 
         System.in.read();
