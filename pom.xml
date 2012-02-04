@@ -13,6 +13,7 @@
     <modules>
         <module>basic</module>
         <module>intermediate</module>
+        <module>advanced</module>
         <module>applications</module>
     </modules>
 

@@ -1,5 +1,5 @@
 /*
- * Copyright 2002-2011 the original author or authors.
+ * Copyright 2002-2012 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,7 +16,9 @@
 package org.springframework.integration.samples.ftp;
 
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Properties;
 
 import org.springframework.context.ConfigurableApplicationContext;
@@ -30,12 +32,46 @@ import org.springframework.integration.MessageChannel;
  * to send files to dynamic destinations.
  *
  * @author Gary Russell
+ * @author Amol Nayak
  * @since 2.1
  *
  */
 public class DynamicFtpChannelResolver {
 
-	private final Map<String, MessageChannel> channels = new HashMap<String, MessageChannel>();
+	//In production environment this value will be significantly higher
+	//This is just to demonstrate the concept of limiting the max number of
+	//Dynamically created application contexts we'll hold in memory when we execute
+	//the code from a junit
+	public static final int MAX_CACHE_SIZE = 2;
+
+	private final LinkedHashMap<String, MessageChannel> channels =
+				new LinkedHashMap<String, MessageChannel>() {
+					
+					private static final long serialVersionUID = 1L;
+
+					@Override
+					protected boolean removeEldestEntry(
+							Entry<String, MessageChannel> eldest) {
+						//This returning true means the least recently used
+						//channel and its application context will be closed and removed
+						boolean remove = size() > MAX_CACHE_SIZE;
+						if(remove) {
+							MessageChannel channel = eldest.getValue();
+							ConfigurableApplicationContext ctx = contexts.get(channel);
+							if(ctx != null) { //shouldn't be null ideally
+								ctx.close();
+								contexts.remove(channel);
+							}
+						}
+						return remove;
+					}
+					
+				};
+
+	private final Map<MessageChannel, ConfigurableApplicationContext> contexts =
+				new HashMap<MessageChannel, ConfigurableApplicationContext>();
+
+
 
 	/**
 	 * Resolve a customer to a channel, where each customer gets a private
@@ -63,6 +99,8 @@ public class DynamicFtpChannelResolver {
 			ctx.refresh();
 			channel = ctx.getBean("toFtpChannel", MessageChannel.class);
 			this.channels.put(customer, channel);
+			//Will works as the same reference is presented always
+			this.contexts.put(channel, ctx);
 		}
 		return channel;
 	}
