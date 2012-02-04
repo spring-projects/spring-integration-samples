@@ -11,3 +11,5 @@ log.roo
 *.ipr
 *.iws
 derby.log
+.idea
+activemq-data
