@@ -8,7 +8,11 @@ This example demonstrates the following aspects of the XML support available wit
 3. XPath Expression - which tests to see if the order item is in stock
 3. XSLT Transformer - to transform the payload of the order message into a resupply message where the order item is found to be out of stock.
 
-To run sample simply execute **BookOrderProcessingTest**. You should see the following output:
+To run the sample execute class **org.springframework.integration.samples.xml.BookOrderProcessingTestApp**. With Maven you can run the sample by executing:
+
+    $ mvn clean package exec:java
+
+You should see the following output:
 
 	INFO : org.springframework.integration.samples.xml.WarehouseDispatch - Warehouse dispatching orderItem: 
 	<?xml version="1.0" encoding="UTF-8" standalone="no"?>
