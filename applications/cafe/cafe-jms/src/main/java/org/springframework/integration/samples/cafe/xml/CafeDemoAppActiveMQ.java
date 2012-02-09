@@ -36,8 +36,6 @@ public class CafeDemoAppActiveMQ {
         AbstractApplicationContext context = new ClassPathXmlApplicationContext("/META-INF/spring/integration/activemq/cafeDemo-amq-config.xml",
                                                                                 "/META-INF/spring/integration/activemq/cafeDemo-amq-xml.xml");
         order(context, 25);
-
-        System.in.read();
         context.close();
     }
 }

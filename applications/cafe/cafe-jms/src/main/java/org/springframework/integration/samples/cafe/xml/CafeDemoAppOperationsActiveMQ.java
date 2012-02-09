@@ -22,6 +22,7 @@ public class CafeDemoAppOperationsActiveMQ {
         AbstractApplicationContext context = new ClassPathXmlApplicationContext("/META-INF/spring/integration/activemq/cafeDemo-amq-config.xml",
                                                                                 "/META-INF/spring/integration/activemq/cafeDemo-amq-operations.xml");
 
+        System.out.println("Press Enter/Return to exit");
         System.in.read();
         context.close();
     }
