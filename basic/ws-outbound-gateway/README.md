@@ -14,4 +14,7 @@ A very simple example that show you how easy it is to invoke a SOAP based servic
 * The *WS Outbound Gateway* converts the Message to a SOAP request and sends it to a remote service, which converts a temperature from 
 Fahrenheit to Celsius and the result is printed to the console.
 
-To run sample simply execute **WebServicesDemoTest**
+To run the sample simply execute **WebServiceDemoTestApp** in package *org.springframework.integration.samples.ws*. You can also execute that class using the [Exec Maven Plugin](http://mojo.codehaus.org/exec-maven-plugin/):
+
+    $ mvn clean package exec:java
+
