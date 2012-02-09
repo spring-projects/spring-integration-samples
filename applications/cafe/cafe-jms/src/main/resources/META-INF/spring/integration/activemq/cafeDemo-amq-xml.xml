@@ -9,7 +9,7 @@
        http://www.springframework.org/schema/integration/stream http://www.springframework.org/schema/integration/stream/spring-integration-stream-2.1.xsd
        http://www.springframework.org/schema/integration/jms http://www.springframework.org/schema/integration/jms/spring-integration-jms.xsd">
 
-    <int:gateway id="cafe" service-interface="Cafe"/>
+    <int:gateway id="cafe" service-interface="org.springframework.integration.samples.cafe.Cafe"/>
     <int:channel id="orders"/>
 
     <int:chain input-channel="orders" output-channel="jsonNewOrders">

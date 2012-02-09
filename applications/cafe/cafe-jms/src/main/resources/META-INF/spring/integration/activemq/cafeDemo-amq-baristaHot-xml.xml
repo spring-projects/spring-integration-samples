@@ -17,9 +17,9 @@
     
     <!-- The chain of processing for this barista -->
     <int:chain input-channel="hotJsonDrinks">
-        <int:json-to-object-transformer type="OrderItem"/>
+        <int:json-to-object-transformer type="org.springframework.integration.samples.cafe.OrderItem"/>
         <int:service-activator method="prepareHotDrink">
-            <bean class="Barista" />
+            <bean class="org.springframework.integration.samples.cafe.xml.Barista" />
         </int:service-activator>
         <int:object-to-json-transformer />
     </int:chain>

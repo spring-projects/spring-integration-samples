@@ -30,7 +30,7 @@
  	in the same advantages as those that are backed by JMS -->
     <int-jms:publish-subscribe-channel id="errorChannel" topic-name="org.springframework.integration.samples.cafe.errors"/>
 
-    <int:gateway id="cafe" service-interface="Cafe"/>
+    <int:gateway id="cafe" service-interface="org.springframework.integration.samples.cafe.Cafe"/>
 
 	<!-- each order has a collection of order items that is split apart to be processed -->
 	<int-jms:channel id="orders" queue-name="org.springframework.integration.samples.cafe.orders" />
@@ -56,12 +56,12 @@
     <int-jms:channel id="preparedDrinks" queue-name="org.springframework.integration.samples.cafe.drinks.prepared"/>
     <int-jms:channel id="deliveriesChannel" queue-name="org.springframework.integration.samples.cafe.deliveres"/>
     <int:aggregator input-channel="preparedDrinks"  method="prepareDelivery" output-channel="deliveriesChannel">
-    	<bean class="Waiter"/>
+    	<bean class="org.springframework.integration.samples.cafe.xml.Waiter"/>
     </int:aggregator>
 
 	<stream:stdout-channel-adapter id="deliveries" channel="deliveriesChannel"/>
 
-	<bean id="barista" class="Barista"/>
+	<bean id="barista" class="org.springframework.integration.samples.cafe.xml.Barista"/>
 
 	<int:poller id="poller" default="true" fixed-delay="1000"/>
 

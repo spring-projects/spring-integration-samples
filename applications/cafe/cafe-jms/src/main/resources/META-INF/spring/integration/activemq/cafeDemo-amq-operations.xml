@@ -21,7 +21,7 @@
     <int:channel id="jsonNewOrders"/>
 
     <int:chain input-channel="jsonNewOrders">
-        <int:json-to-object-transformer type="Order"/>
+        <int:json-to-object-transformer type="org.springframework.integration.samples.cafe.Order"/>
         <int:splitter expression="payload.items" apply-sequence="true" />
         <int:header-enricher>
             <int:header name="ICED" expression="payload.isIced()" />
@@ -64,9 +64,9 @@
     <int:channel id="preparedJsonDrinks"/>
 
     <int:chain input-channel="preparedJsonDrinks" output-channel="deliverDrinks">
-        <int:json-to-object-transformer type="Drink"/>
+        <int:json-to-object-transformer type="org.springframework.integration.samples.cafe.Drink"/>
         <int:aggregator method="prepareDelivery">
-            <bean class="Waiter"/>
+            <bean class="org.springframework.integration.samples.cafe.xml.Waiter"/>
         </int:aggregator>
         <int:header-enricher>
             <int:header name="NUMBER" expression="payload.getOrderNumber()"/>
