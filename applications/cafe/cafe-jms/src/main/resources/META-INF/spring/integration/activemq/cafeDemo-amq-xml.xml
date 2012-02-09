@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:int="http://www.springframework.org/schema/integration"
+       xmlns:stream="http://www.springframework.org/schema/integration/stream"
+       xmlns:int-jms="http://www.springframework.org/schema/integration/jms"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/integration http://www.springframework.org/schema/integration/spring-integration.xsd
+       http://www.springframework.org/schema/integration/stream http://www.springframework.org/schema/integration/stream/spring-integration-stream-2.1.xsd
+       http://www.springframework.org/schema/integration/jms http://www.springframework.org/schema/integration/jms/spring-integration-jms.xsd">
+
+    <int:gateway id="cafe" service-interface="Cafe"/>
+    <int:channel id="orders"/>
+
+    <int:chain input-channel="orders" output-channel="jsonNewOrders">
+        <int:header-enricher>
+            <int:header name="NUMBER" expression="payload.getNumber()" />
+        </int:header-enricher>
+        <int:object-to-json-transformer />
+    </int:chain>
+
+    <int:channel id="jsonNewOrders"/>
+
+    <!--After we've converted the orders to json, we send it on its way through a JMS outbound
+    channel adapter. This is a one-way fire and forget approach. The processing will continue
+    on the otherside of the JMS queue to which the channel adapter is connected -->
+    <bean id="cafeOrdersQueue" class="org.apache.activemq.command.ActiveMQQueue">
+		<constructor-arg value="org.springframework.integration.samples.cafe.orders"/>
+	</bean>
+
+    <int-jms:outbound-channel-adapter id="jmsOrdersOutChannelAdapter" channel="jsonNewOrders" destination="cafeOrdersQueue"/>
+
+</beans>

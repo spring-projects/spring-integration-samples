@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:int="http://www.springframework.org/schema/integration"
+       xmlns:stream="http://www.springframework.org/schema/integration/stream"
+       xmlns:int-jms="http://www.springframework.org/schema/integration/jms"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/integration http://www.springframework.org/schema/integration/spring-integration.xsd
+       http://www.springframework.org/schema/integration/stream http://www.springframework.org/schema/integration/stream/spring-integration-stream.xsd
+       http://www.springframework.org/schema/integration/jms http://www.springframework.org/schema/integration/jms/spring-integration-jms.xsd">
+
+    <!--Create a reference to the queue on the broker that has the new orders. Note, just because
+    we create a new bean with the cafe.orders destination name does not mean we actually create a new
+    queue on the broker. The queue will only be created if it doesn't exist. It will be pointed to
+    if it does exist. Don't need to "check whether a queue exists" before creating it -->
+    <bean id="cafeOrdersQueue" class="org.apache.activemq.command.ActiveMQQueue">
+		<constructor-arg value="org.springframework.integration.samples.cafe.orders"/>
+	</bean>
+
+    <int-jms:inbound-channel-adapter id="newOrdersInChannelAdapter" destination="cafeOrdersQueue" channel="jsonNewOrders"/>
+    <int:channel id="jsonNewOrders"/>
+
+    <int:chain input-channel="jsonNewOrders">
+        <int:json-to-object-transformer type="Order"/>
+        <int:splitter expression="payload.items" apply-sequence="true" />
+        <int:header-enricher>
+            <int:header name="ICED" expression="payload.isIced()" />
+        </int:header-enricher>
+        <int:object-to-json-transformer />
+        <int:router expression="headers.ICED ? 'coldDrinks' : 'hotDrinks'" />
+    </int:chain>
+
+    <!-- Default poller -->
+    <int:poller default="true" fixed-rate="100"/>
+
+    <int:channel id="coldDrinks">
+        <int:queue/>
+    </int:channel>
+
+    <bean id="coldDrinksQueue" class="org.apache.activemq.command.ActiveMQQueue">
+		<constructor-arg value="org.springframework.integration.samples.cafe.drinks.cold"/>
+	</bean>
+    <int-jms:outbound-gateway id="coldDrinksBarista"
+                              request-channel="coldDrinks"
+                              reply-channel="preparedJsonDrinks"
+                              request-destination="coldDrinksQueue"
+                              receive-timeout="30000"
+                              reply-timeout="30000"/>
+
+
+	<int:channel id="hotDrinks">
+		<int:queue/>
+	</int:channel>
+    <bean id="hotDrinksQueue" class="org.apache.activemq.command.ActiveMQQueue">
+		<constructor-arg value="org.springframework.integration.samples.cafe.drinks.hot"/>
+	</bean>
+    <int-jms:outbound-gateway id="hotDrinksBarista"
+                              request-channel="hotDrinks"
+                              reply-channel="preparedJsonDrinks"
+                              request-destination="hotDrinksQueue"
+                              receive-timeout="30000"
+                              reply-timeout="30000"/>
+
+    <int:channel id="preparedJsonDrinks"/>
+
+    <int:chain input-channel="preparedJsonDrinks" output-channel="deliverDrinks">
+        <int:json-to-object-transformer type="Drink"/>
+        <int:aggregator method="prepareDelivery">
+            <bean class="Waiter"/>
+        </int:aggregator>
+        <int:header-enricher>
+            <int:header name="NUMBER" expression="payload.getOrderNumber()"/>
+        </int:header-enricher>
+    </int:chain>
+
+    <int:channel id="deliverDrinks"/>
+    <stream:stdout-channel-adapter id="deliveriesStdout" channel="deliverDrinks"/>
+
+
+</beans>

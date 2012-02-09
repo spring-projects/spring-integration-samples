@@ -4,8 +4,14 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.springframework.integration.samples</groupId>
 	<artifactId>cafe</artifactId>
-	<version>2.1.0.BUILD-SNAPSHOT</version>
-	<name>Samples (Applications) - Cafe Sample</name>
+    <packaging>pom</packaging>
+    <version>2.1.0.BUILD-SNAPSHOT</version>
+    <modules>
+        <module>cafe-jms</module>
+        <module>cafe-si</module>
+        <module>cafe-amqp</module>
+    </modules>
+    <name>Samples (Applications) - Cafe Sample</name>
 	<properties>
 	    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<spring.integration.version>2.1.0.RELEASE</spring.integration.version>
