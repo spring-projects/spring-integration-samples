@@ -1,5 +1,5 @@
 /*
- * Copyright 2002-2010 the original author or authors.
+ * Copyright 2002-2012 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package rg.springframework.integration.samples.ws;
+package org.springframework.integration.samples.ws;
 
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.integration.Message;
@@ -27,13 +27,13 @@ import org.springframework.integration.support.channel.ChannelResolver;
  * Demonstrates a web service invocation through a Web Service outbound Gateway.
  * A header-enricher provides the Soap Action prior to invocation. See the
  * 'temperatureConversion.xml' configuration file for more detail.
- * 
+ *
  * @author Marius Bogoevici
  */
 public class WebServiceDemoTestApp {
 
 	public static void main(String[] args) {
-		ClassPathXmlApplicationContext context = 
+		ClassPathXmlApplicationContext context =
 			new ClassPathXmlApplicationContext("/META-INF/spring/integration/temperatureConversion.xml");
 		ChannelResolver channelResolver = new BeanFactoryChannelResolver(context);
 
@@ -50,5 +50,5 @@ public class WebServiceDemoTestApp {
 		MessageChannel channel = channelResolver.resolveChannelName("fahrenheitChannel");
 		channel.send(message);
 	}
-	
+
 }
