@@ -62,6 +62,14 @@
 					<showDeprecation>false</showDeprecation>
 				</configuration>
 			</plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>exec-maven-plugin</artifactId>
+                <version>1.2</version>
+                <configuration>
+                    <mainClass>org.springframework.integration.samples.ws.WebServiceDemoTestApp</mainClass>
+                </configuration>
+            </plugin>
 		</plugins>
 	</build>
     <repositories>
