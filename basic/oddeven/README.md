@@ -1,21 +1,53 @@
 Odd Even Sample
 ===============
 
-This example demonstrates the following aspects of the CORE EIP support available with Spring Integration:
+This project contains the following 2 sample applications:
 
-1. Inbound Channel Adapter
-2. Filter
-3. Router (SpEL based)
-4. Poller with Cron and Interval Trigers
+* CronOddEvenDemo
+* IntervalOddEvenDemoTestApp
 
-Messages are simply being emitted by the Poller (interval based or cron) triggering '**next()**' method of Counter class and sent to a '**numbers**' channel - Inbound Channel Adapter. From the '**numbers**' channel Messages are sent to an expression-based router (Spring Expression Language). All that the router does is simply routing messages to *OddLogger* and *EvenLogger* service
+## CronOddEvenDemo
 
-To execute the Interval-based sample simply run **IntervalOddEvenDemoTest** class and for Cron-based sample simply 
-run CronOddEvenDemo class, You should see the output similar to this:
+This example demonstrates the following aspects of the core Enterprise Integration Patterns (EIP) support available with Spring Integration:
 
-INFO : org.springframework.integration.samples.oddeven.OddLogger - odd:  1 at 2010-09-16 05:55:46
-INFO : org.springframework.integration.samples.oddeven.EvenLogger - even: 2 at 2010-09-16 05:55:49
-INFO : org.springframework.integration.samples.oddeven.OddLogger - odd:  3 at 2010-09-16 05:55:52
-INFO : org.springframework.integration.samples.oddeven.EvenLogger - even: 4 at 2010-09-16 05:55:55 
+* Inbound Channel Adapter
+* Poller with Cron Trigger
+* Filter
+* Router (SpEL based)
+* Service Activator
 
+Messages are simply being emitted by the **Poller** (**Cron-based**) through triggering the **next()** method of the *org.springframework.integration.samples.oddeven.Counter* class. The messages are sent via the **numbers** channel to a *Spring Expression Language* (SpEL) based **Message Filter**. The filter discards any messages that contain a payload whose value is less than the number one (1).  
+
+Via the **positives** channel messages are sent to the a SpEL expression-based router. All that the router does is to simply route messages to one of the following two  **Service Activators**:
+
+* OddLogger
+* EvenLogger 
+
+## IntervalOddEvenDemoTestApp
+
+Demonstrates a method-invoking **Inbound Channel Adapter** acting as a **Polling Consumer** with an **Interval-based trigger**. That adapter is followed, downstream, by a Content Based **Router**. The router sends to one of two channels based on whether the payload number is odd or even. Each of those two channels has an **Event Driven Consumer** ready to log the number and the current time.
+
+The following Spring Integration components are being used: 
+
+* Inbound Channel Adapter
+* Poller with Fixed Delay Trigger
+* Router (SpEL based)
+* Service Activator
+
+## Running the Samples
+
+To run the two samples, simply execute either **CronOddEvenDemo** or **IntervalOddEvenDemoTestApp** in package **org.springframework.integration.samples.oddeven**. You can also execute those two samples using the [Exec Maven Plugin](http://mojo.codehaus.org/exec-maven-plugin/):
+
+    $ mvn clean package exec:java -P cron
+
+which will execute **CronOddEvenDemo**. In order to run **IntervalOddEvenDemoTestApp**, execute:
+
+    $ mvn clean package exec:java -P interval
+
+For both samples you should see the output similar to this:
+
+	INFO : org.springframework.integration.samples.oddeven.OddLogger - odd:  1 at 2012-02-10 03:29:32
+	INFO : org.springframework.integration.samples.oddeven.EvenLogger - even: 2 at 2012-02-10 03:29:35
+	INFO : org.springframework.integration.samples.oddeven.OddLogger - odd:  3 at 2012-02-10 03:29:38
+	INFO : org.springframework.integration.samples.oddeven.EvenLogger - even: 4 at 2012-02-10 03:29:41
 
