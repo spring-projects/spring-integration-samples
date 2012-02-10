@@ -12,7 +12,24 @@
 		<spring.integration.version>2.1.0.RELEASE</spring.integration.version>
 		<log4j.version>1.2.16</log4j.version>
 		<junit.version>4.10</junit.version>
+		<java.main.class>org.springframework.integration.samples.helloworld.HelloWorldApp</java.main.class>
 	</properties>
+
+	<profiles>
+	    <profile>
+	        <id>hello</id>
+	        <properties>
+	            <java.main.class>org.springframework.integration.samples.helloworld.HelloWorldApp</java.main.class>
+	        </properties>
+	    </profile>
+        <profile>
+            <id>delayer</id>
+            <properties>
+                <java.main.class>org.springframework.integration.samples.helloworld.DelayerApp</java.main.class>
+            </properties>
+        </profile>
+	</profiles>
+
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.integration</groupId>
@@ -45,6 +62,14 @@
 					<showDeprecation>false</showDeprecation>
 				</configuration>
 			</plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>exec-maven-plugin</artifactId>
+                <version>1.2</version>
+                <configuration>
+                    <mainClass>${java.main.class}</mainClass>
+                </configuration>
+            </plugin>
 		</plugins>
 	</build>
     <repositories>
