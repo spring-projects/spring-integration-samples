@@ -23,9 +23,9 @@
 	        </properties>
 	    </profile>
         <profile>
-            <id>delayer</id>
+            <id>poller</id>
             <properties>
-                <java.main.class>org.springframework.integration.samples.helloworld.DelayerApp</java.main.class>
+                <java.main.class>org.springframework.integration.samples.helloworld.PollerApp</java.main.class>
             </properties>
         </profile>
 	</profiles>

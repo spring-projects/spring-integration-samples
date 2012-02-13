@@ -2,7 +2,7 @@ package org.springframework.integration.samples.helloworld;
 
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-public class DelayerApp {
+public class PollerApp {
 
 	/**
 	 * Simple application that polls the current system time 2 times every

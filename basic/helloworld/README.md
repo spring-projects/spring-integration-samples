@@ -4,7 +4,7 @@ Hello World Sample
 This is an obvious place to get started. This sample project contains 2 basic sample applications:
 
 * Hello World
-* Delayer Application
+* Poller Application
 
 ## Hello World
 
@@ -20,15 +20,15 @@ You should see the following output:
 
     INFO : org.springframework.integration.samples.helloworld.HelloWorldApp - ==> HelloWorldDemo: Hello World
 
-## Delayer Application
+## Poller Application
 
 This simple application will print out the current system time twice every 20 seconds.
 
 More specifically, an **Inbound Channel Adapter** polls for the current system time 2 times every 20 seconds (20000 milliseconds). The resulting message contains as payload the time in milliseconds and the message is sent to a **Logging Channel Adapter**, which will print the time to the command prompt.
 
-To run the sample simply execute **DelayerApp** in package **org.springframework.integration.samples.helloworld**. You can also execute that class using the [Exec Maven Plugin](http://mojo.codehaus.org/exec-maven-plugin/):
+To run the sample simply execute **PollerApp** in package **org.springframework.integration.samples.helloworld**. You can also execute that class using the [Exec Maven Plugin](http://mojo.codehaus.org/exec-maven-plugin/):
 
-    $ mvn clean package exec:java -P delayer
+    $ mvn clean package exec:java -P poller
 
 You should see output like the following:
 
