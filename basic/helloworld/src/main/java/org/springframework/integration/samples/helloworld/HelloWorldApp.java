@@ -1,5 +1,5 @@
 /*
- * Copyright 2002-2010 the original author or authors.
+ * Copyright 2002-2012 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -33,20 +33,20 @@ import org.springframework.integration.message.GenericMessage;
  * <p>
  * View the configuration of the channels and the endpoint (a &lt;service-activator/&gt;
  * element) in 'helloWorldDemo.xml' within this same package.
- * 
+ *
  * @author Mark Fisher
  * @author Oleg Zhurakousky
  */
 public class HelloWorldApp {
 
 	private static Logger logger = Logger.getLogger(HelloWorldApp.class);
-	
+
 	public static void main(String[] args) {
 		AbstractApplicationContext context = new ClassPathXmlApplicationContext("/META-INF/spring/integration/helloWorldDemo.xml", HelloWorldApp.class);
 		MessageChannel inputChannel = context.getBean("inputChannel", MessageChannel.class);
 		PollableChannel outputChannel = context.getBean("outputChannel", PollableChannel.class);
 		inputChannel.send(new GenericMessage<String>("World"));
-		logger.info("==> HelloWorldDemo: " + outputChannel.receive(0).getPayload());		
+		logger.info("==> HelloWorldDemo: " + outputChannel.receive(0).getPayload());
 	}
 
 }

@@ -13,18 +13,24 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.springframework.integration.samples.helloworld;
 
-/**
- * Simple POJO to be referenced from a Service Activator.
- *
- * @author Mark Fisher
- */
-public class HelloService {
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-	public String sayHello(String name) {
-		return "Hello " + name;
+public class PollerApp {
+
+	/**
+	 * Simple application that polls the current system time 2 times every
+	 * 20 seconds (20000 milliseconds).
+	 *
+	 * The resulting message contains the time in milliseconds and the message
+	 * is routed to a Logging Channel Adapter which will print the time to the
+	 * command prompt.
+	 *
+	 * @param args Not used.
+	 */
+	public static void main(String[] args) throws Exception{
+		new ClassPathXmlApplicationContext("META-INF/spring/integration/delay.xml");
 	}
 
 }
