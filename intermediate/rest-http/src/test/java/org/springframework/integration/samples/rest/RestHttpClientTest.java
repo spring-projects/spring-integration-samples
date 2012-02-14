@@ -138,7 +138,7 @@ public class RestHttpClientTest {
 		String base64EncodedToken = new String (base64Token);
 		//adding Authorization header for HTTP Basic authentication
 		headers.add("Authorization","Basic  "+base64EncodedToken);		
-		
+		 
 		return headers;
 	}
 }
