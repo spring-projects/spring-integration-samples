@@ -1,0 +1,50 @@
+Http Sample
+===========
+
+This example demonstrates simple request/reply communication when using a pair of **HTTP Inbound/Outbound Gateways**.
+
+The sample consists of two parts:
+
+* Client - Basic command-line application
+* Server - Web application (War-file)
+
+## Running the sample
+
+### Server
+
+#### Command Line Using Maven
+
+The easiest way to run the **server** is to use the [Maven Jetty Plugin](http://docs.codehaus.org/display/JETTY/Maven+Jetty+Plugin). Simply execute:
+
+    $ mvn jetty:run
+
+This command starts a Jetty servlet container running on port 8080 serving the application. Alternatively you can also package the war-file and deploy it manually to a servlet container of your choosing. For that to happen execute:
+
+    $ mvn clean package
+
+The resulting war-file will be located in the **target** folder.
+
+#### Using an IDE such as SpringSource Tool Suite™ (STS)
+
+If you are using [STS](http://www.springsource.com/developer/sts) and the project is imported as an Eclipse project into your workspace, you can just execute **Run on Server**. This will start the **server** application. 
+
+### Client
+
+#### Command Line Using Maven
+
+In order to run the **client** using Maven, execute:
+
+    $ mvn clean package exec:java
+
+This will package the application and run it using the [Exec Maven Plugin](http://mojo.codehaus.org/exec-maven-plugin/)
+
+#### Using an IDE such as SpringSource Tool Suite™ (STS)
+
+In STS (Eclipse), go to package **org.springframework.integration.samples.http**, right-click **HttpClientDemo** and select **Run as** --> **Java Application**. This will run the **client** application.
+
+### Output
+  
+The gateway (**client**) initiates a simple request posting "Hello" to the **server** and the **server** responds by appending **from the other side** to the message payload and returns. You should see the following output from the server:
+   
+    INFO : org.springframework.integration.samples.http.HttpClientDemo - Replied with: Hello from the other side
+

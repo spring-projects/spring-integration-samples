@@ -2,8 +2,13 @@ application.log
 application.log*
 target/
 log.roo
+.project
+.classpath
+.springBeans
 .DS_Store
 *.iml
 *.ipr
 *.iws
 derby.log
+.idea
+activemq-data

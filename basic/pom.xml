@@ -15,7 +15,7 @@
         <module>enricher</module>
         <module>feed</module>
         <module>file</module>
-        <!-- <module>ftp</module> -->
+        <module>ftp</module>
         <module>helloworld</module>
         <module>http</module>
         <module>jdbc</module>
@@ -32,7 +32,6 @@
         <module>ws-outbound-gateway</module>
         <module>xml</module>
         <module>xmpp</module>
-
 	</modules>
 
 </project>
