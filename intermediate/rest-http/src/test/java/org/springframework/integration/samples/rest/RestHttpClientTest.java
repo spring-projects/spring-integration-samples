@@ -38,7 +38,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.http.client.ClientHttpRequest;
 import org.springframework.integration.samples.rest.domain.EmployeeList;
 import org.springframework.oxm.jaxb.Jaxb2Marshaller;
-import org.springframework.security.core.codec.Base64;
+import org.springframework.security.crypto.codec.Base64;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.web.client.HttpMessageConverterExtractor;
@@ -49,7 +49,7 @@ import org.springframework.web.client.RestTemplate;
  * RestHttpClientTest.java: Functional Test to test the REST HTTP Path usage. This test requires
  * rest-http application running in HTTP environment. 
  * @author Vigil Bose
- */
+ */ 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations={"classpath*:META-INF/spring/integration/http-outbound-config.xml"})
 public class RestHttpClientTest {
@@ -61,7 +61,7 @@ public class RestHttpClientTest {
 	@Autowired
 	private Jaxb2Marshaller marshaller;
 	@Autowired
-	private ObjectMapper jaxbJacksonObjectMapper;
+	private ObjectMapper jaxbJacksonObjectMapper; 
 
 	@Before
 	public void setUp() {
