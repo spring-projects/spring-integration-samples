@@ -49,7 +49,7 @@ import org.springframework.web.client.RestTemplate;
  * RestHttpClientTest.java: Functional Test to test the REST HTTP Path usage. This test requires
  * rest-http application running in HTTP environment. 
  * @author Vigil Bose
- */
+ */ 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations={"classpath*:META-INF/spring/integration/http-outbound-config.xml"})
 public class RestHttpClientTest {
@@ -61,7 +61,7 @@ public class RestHttpClientTest {
 	@Autowired
 	private Jaxb2Marshaller marshaller;
 	@Autowired
-	private ObjectMapper jaxbJacksonObjectMapper;
+	private ObjectMapper jaxbJacksonObjectMapper; 
 
 	@Before
 	public void setUp() {
@@ -138,7 +138,7 @@ public class RestHttpClientTest {
 		String base64EncodedToken = new String (base64Token);
 		//adding Authorization header for HTTP Basic authentication
 		headers.add("Authorization","Basic  "+base64EncodedToken);		
-		
+		 
 		return headers;
 	}
 }

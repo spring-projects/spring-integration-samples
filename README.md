@@ -56,6 +56,9 @@ This category targets developers who are already more familiar with the Spring I
 * **tcp-client-server-multiplex** - Demonstrates the use of *Collaborating Channel Adapters*
 * **stored-procedures-derby**  Provides an example of the stored procedure Outbound Gateway using *[Apache Derby](http://db.apache.org/derby/)*
 * **stored-procedures-oracle** Provides an example of the stored procedure Outbound Gateway using *ORACLE XE*
+* **rest-http** - This sample demonstrates how to send an HTTP request to a Spring Integration's HTTP service while utilizing Spring Integration's new HTTP Path usage. This sample also uses Spring Security for HTTP Basic authentication. With HTTP Path facility, the client program can send requests with URL Variables.
+* **stored-procedures-derby**  Provides an example of the stored procedure Outbound Gateway using *[Apache Derby](http://db.apache.org/derby/)*
+* **stored-procedures-oracle** Provides an example of the stored procedure Outbound Gateway using *ORACLE XE*
 
 ## Advanced
 
