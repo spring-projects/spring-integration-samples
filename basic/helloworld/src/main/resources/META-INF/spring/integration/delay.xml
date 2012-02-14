@@ -11,8 +11,8 @@
 	<int:inbound-channel-adapter expression="T(java.lang.System).currentTimeMillis()" channel="logger">
 		<int:poller fixed-delay="20000" max-messages-per-poll="2" />
 	</int:inbound-channel-adapter>
-	
-	<int:logging-channel-adapter id="logger"/>
-	
+
+	<int:logging-channel-adapter id="logger" logger-name="org.springframework.integration.samples.helloworld"/>
+
 	<task:executor id="executor" queue-capacity="20" pool-size="5-20"/>
 </beans>

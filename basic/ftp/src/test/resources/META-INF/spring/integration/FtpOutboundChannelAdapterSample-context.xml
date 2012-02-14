@@ -2,26 +2,27 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns:int="http://www.springframework.org/schema/integration"
-	xmlns:int-ftp="http://www.springframework.org/schema/integration/ftp"
 	xmlns:context="http://www.springframework.org/schema/context"
-	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+	xmlns:int-ftp="http://www.springframework.org/schema/integration/ftp"
+	xsi:schemaLocation="http://www.springframework.org/schema/integration/ftp http://www.springframework.org/schema/integration/ftp/spring-integration-ftp.xsd
 		http://www.springframework.org/schema/integration http://www.springframework.org/schema/integration/spring-integration.xsd
-		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
-		http://www.springframework.org/schema/integration/ftp http://www.springframework.org/schema/integration/ftp/spring-integration-ftp.xsd">
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
 
 	<context:property-placeholder location="classpath:user.properties"/>
 
 	<bean id="ftpClientFactory" class="org.springframework.integration.ftp.session.DefaultFtpSessionFactory">
-		<property name="host" value="localhost"/>
+		<property name="host" value="${host}"/>
+		<property name="port" value="${port}"/>
 		<property name="username" value="${user}"/>
 		<property name="password" value="${password}"/>
 	</bean>
 	
 	<int:channel id="ftpChannel"/>
 
-	<int-ftp:outbound-channel-adapter id="ftpOutbound"
+	<int-ftp:outbound-channel-adapter  id="ftpOutbound" cache-sessions="false"
 				channel="ftpChannel" 
-				remote-directory="<SPECIFY REMOTE DIRECTORY (e.g., /{workspace}/samples/basic/ftp/remote-target-dir)"
-				client-factory="ftpClientFactory"/>
+				remote-directory="/"
+				session-factory="ftpClientFactory" />
 	
 </beans>

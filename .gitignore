@@ -2,12 +2,14 @@ application.log
 application.log*
 target/
 log.roo
+.project
+.classpath
+.springBeans
 .DS_Store
 *.iml
 *.ipr
 *.iws
 derby.log
-
 /intermediate/rest-http/.project
 /intermediate/rest-http/.classpath
 /intermediate/rest-http/.settings
@@ -20,3 +22,6 @@ derby.log
 /intermediate/rest-http/.settings/org.eclipse.wst.common.project.facet.core.xml
 /intermediate/rest-http/.settings/org.eclipse.wst.jsdt.ui.superType.container
 /intermediate/rest-http/.settings/org.eclipse.wst.jsdt.ui.superType.name
+.idea
+activemq-data
+

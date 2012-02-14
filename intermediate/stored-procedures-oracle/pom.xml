@@ -12,16 +12,16 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <spring.integration.version>2.1.0.RC1</spring.integration.version>
+        <spring.integration.version>2.1.0.RELEASE</spring.integration.version>
         <slf4j.version>1.6.4</slf4j.version>
         <junit.version>4.10</junit.version>
     </properties>
 
     <repositories>
         <repository>
-            <id>repository.springframework.maven.release</id>
-            <name>Spring Framework Maven Release Repository</name>
-            <url>http://maven.springframework.org/release</url>
+            <id>repo.springsource.org.milestone</id>
+            <name>Spring Framework Maven Milestone Repository</name>
+            <url>https://repo.springsource.org/milestone</url>
         </repository>
     </repositories>
 
@@ -82,13 +82,13 @@
             <artifactId>spring-integration-core</artifactId>
             <version>${spring.integration.version}</version>
         </dependency>
-        
+
         <dependency>
             <groupId>org.springframework.integration</groupId>
             <artifactId>spring-integration-jdbc</artifactId>
             <version>${spring.integration.version}</version>
         </dependency>
-        
+
         <!-- Logging -->
 
         <dependency>
