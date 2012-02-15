@@ -7,7 +7,7 @@
     xmlns:int="http://www.springframework.org/schema/integration"
     xmlns:task="http://www.springframework.org/schema/task">
 
-    <int:inbound-channel-adapter expression="T(java.lang.System).currentTimeMillis()" channel="logger">
+    <int:inbound-channel-adapter expression="new java.text.SimpleDateFormat('yyyy-MM-dd HH:mm:ss.SSS').format(new java.util.Date())" channel="logger">
         <int:poller max-messages-per-poll="1" trigger="dynamicTrigger" />
     </int:inbound-channel-adapter>
 

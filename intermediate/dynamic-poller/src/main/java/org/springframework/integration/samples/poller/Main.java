@@ -66,16 +66,29 @@ public final class Main {
                   + "\n=========================================================" );
 
         System.out.print("Please enter a non-negative numeric value and press <enter>: ");
-        
-        while (!scanner.hasNext("q")) {
+
+        while (true) {
         	
-        	int triggerPeriod = scanner.nextInt();
+        	final String input = scanner.nextLine();
         	
-        	System.out.println(String.format("Setting trigger period to '%s' ms", triggerPeriod));
+        	if("q".equals(input.trim())) {
+        		break;
+        	}
         	
-        	trigger.setPeriod(triggerPeriod);
-            
+        	try {
+            	
+	        	int triggerPeriod = Integer.valueOf(input);
+	        	
+	        	System.out.println(String.format("Setting trigger period to '%s' ms", triggerPeriod));
+	        	
+	        	trigger.setPeriod(triggerPeriod);
+        	
+        	} catch (Exception e) {
+        		LOGGER.error("An exception was caught: " + e);
+        	}
+
         	System.out.print("Please enter a non-negative numeric value and press <enter>: ");
+            
         }
 
         LOGGER.info("Exiting application...bye.");

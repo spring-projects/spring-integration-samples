@@ -67,6 +67,7 @@ public class DynamicPeriodicTrigger implements Trigger {
 	 * provided upon instantiation, the default is milliseconds. 
 	 */
 	public void setInitialDelay(long initialDelay) {
+		Assert.isTrue(initialDelay >= 0, "initialDelay must not be negative");
 		this.initialDelay = this.timeUnit.toMillis(initialDelay);
 	}
 
@@ -97,6 +98,7 @@ public class DynamicPeriodicTrigger implements Trigger {
 	}
 
 	public void setPeriod(long period) {
+		Assert.isTrue(period >= 0, "period must not be negative");
 		this.period = period;
 	}
 
@@ -105,6 +107,7 @@ public class DynamicPeriodicTrigger implements Trigger {
 	}
 
 	public void setTimeUnit(TimeUnit timeUnit) {
+		Assert.notNull(timeUnit, "timeUnit must not be null");
 		this.timeUnit = timeUnit;
 	}
 
