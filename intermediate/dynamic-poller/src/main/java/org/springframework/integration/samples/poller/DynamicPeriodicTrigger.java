@@ -44,23 +44,32 @@ public class DynamicPeriodicTrigger implements Trigger {
 	private volatile boolean fixedRate = false;
 
 	/**
-	 * Create a trigger with the given period in milliseconds.
+	 * Create a trigger with the given period in milliseconds. The underlying
+	 * {@link TimeUnit} will be initialized to TimeUnit.MILLISECONDS.
+	 * 
+	 * @param period Must not be negative
 	 */
 	public DynamicPeriodicTrigger(long period) {
-		this(period, null);
+		this(period, TimeUnit.MILLISECONDS);
 	}
 
 	/**
 	 * Create a trigger with the given period and time unit. The time unit will
 	 * apply not only to the period but also to any 'initialDelay' value, if
 	 * configured on this Trigger later via {@link #setInitialDelay(long)}.
+	 * 
+	 * @param period Must not be negative
+	 * @param timeUnit Must not be null
+	 * 
 	 */
 	public DynamicPeriodicTrigger(long period, TimeUnit timeUnit) {
 		Assert.isTrue(period >= 0, "period must not be negative");
-		this.timeUnit = (timeUnit != null) ? timeUnit : TimeUnit.MILLISECONDS;
+		Assert.notNull(timeUnit, "timeUnit must not be null");
+		
+		this.timeUnit = timeUnit;
 		this.period = this.timeUnit.toMillis(period);
 	}
-
+	
 	/**
 	 * Specify the delay for the initial execution. It will be evaluated in
 	 * terms of this trigger's {@link TimeUnit}. If no time unit was explicitly
@@ -97,9 +106,16 @@ public class DynamicPeriodicTrigger implements Trigger {
 		return period;
 	}
 
+	/**
+	 * Specify the period of the trigger. It will be evaluated in
+	 * terms of this trigger's {@link TimeUnit}. If no time unit was explicitly
+	 * provided upon instantiation, the default is milliseconds. 
+	 * 
+	 * @param period Must not be negative
+	 */
 	public void setPeriod(long period) {
 		Assert.isTrue(period >= 0, "period must not be negative");
-		this.period = period;
+		this.period = this.timeUnit.toMillis(period);
 	}
 
 	public TimeUnit getTimeUnit() {
