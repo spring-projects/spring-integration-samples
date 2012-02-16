@@ -1,5 +1,5 @@
 /*
- * Copyright 2002-2011 the original author or authors.
+ * Copyright 2002-2012 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -31,6 +31,7 @@ import org.springframework.integration.support.MessageBuilder;
 
 /**
  * @author Gary Russell
+ * @author Amol Nayak
  *
  */
 public class FtpOutboundChannelAdapterSample {
@@ -65,6 +66,28 @@ public class FtpOutboundChannelAdapterSample {
 		} catch (MessageHandlingException e) {
 			assertTrue(e.getCause().getCause() instanceof UnknownHostException);
 			assertEquals("host.for.cust2", e.getCause().getCause().getMessage());
+		}
+		
+		// send to a different customer; again, check the log to see a new ac is built 
+		//and the first one created (cust1) should be closed and removed as per the max cache size restriction
+		message = MessageBuilder.withPayload(file)
+				.setHeader("customer", "cust3").build();
+		try {
+			channel.send(message);
+		} catch (MessageHandlingException e) {
+			assertTrue(e.getCause().getCause() instanceof UnknownHostException);
+			assertEquals("host.for.cust3", e.getCause().getCause().getMessage());
+		}
+		
+		//send to cust1 again, since this one has been invalidated before, we should 
+		//see a new ac created (with ac of cust2 destroyed and removed)
+		message = MessageBuilder.withPayload(file)
+				.setHeader("customer", "cust1").build();
+		try {
+			channel.send(message);
+		} catch (MessageHandlingException e) {
+			assertTrue(e.getCause().getCause() instanceof UnknownHostException);
+			assertEquals("host.for.cust1", e.getCause().getCause().getMessage());
 		}
 	}
 }
