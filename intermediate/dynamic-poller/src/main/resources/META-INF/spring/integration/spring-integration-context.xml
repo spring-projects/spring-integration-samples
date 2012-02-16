@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/integration http://www.springframework.org/schema/integration/spring-integration-2.1.xsd
+        http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task.xsd"
+    xmlns:int="http://www.springframework.org/schema/integration"
+    xmlns:task="http://www.springframework.org/schema/task">
+
+    <int:inbound-channel-adapter expression="new java.text.SimpleDateFormat('yyyy-MM-dd HH:mm:ss.SSS').format(new java.util.Date())" channel="logger">
+        <int:poller max-messages-per-poll="1" trigger="dynamicTrigger" />
+    </int:inbound-channel-adapter>
+
+    <bean id="dynamicTrigger" class="org.springframework.integration.samples.poller.DynamicPeriodicTrigger">
+        <constructor-arg name="period" value="5000"/>
+    </bean>
+
+    <int:logging-channel-adapter id="logger" logger-name="org.springframework.integration.samples.poller"/>
+
+    <task:executor id="executor" queue-capacity="20" pool-size="5-20"/>
+</beans>
