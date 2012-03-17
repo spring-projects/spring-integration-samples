@@ -16,7 +16,7 @@ You can run the sample application by either
 
 This example illustrates the usage of the Content Enricher.           
                                                                           
-Once the application has started, lease execute the various Content Enricher examples by                               
+Once the application has started, please execute the various Content Enricher examples by                               
      
 * entering 1 + Enter
 * entering 2 + Enter
