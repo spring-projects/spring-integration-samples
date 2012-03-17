@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+		http://www.springframework.org/schema/integration http://www.springframework.org/schema/integration/spring-integration.xsd		
+		http://www.springframework.org/schema/integration/http http://www.springframework.org/schema/integration/http/spring-integration-http.xsd	
+        http://www.springframework.org/schema/oxm http://www.springframework.org/schema/oxm/spring-oxm-3.0.xsd"
+	xmlns:int="http://www.springframework.org/schema/integration"
+	xmlns:oxm="http://www.springframework.org/schema/oxm" 
+	xmlns:int-http="http://www.springframework.org/schema/integration/http">
+	
+	<int:annotation-config/>
+	
+	<!-- handler mapping implementation that is aware of inbound Spring Integration 
+			http inbound gateway's and inbound adapter's with "path" attributes -->
+	<bean class="org.springframework.integration.http.inbound.UriPathHandlerMapping"/>
+	
+	<!-- Inbound/Outbound Channels -->
+	<int:channel id="employeeSearchRequest" />
+	<int:channel id="employeeSearchResponse" />
+	
+	
+	<int-http:inbound-gateway id="inboundEmployeeSearchRequestGateway"		
+		supported-methods="GET, POST" 
+		request-channel="employeeSearchRequest"
+		reply-channel="employeeSearchResponse"		
+		mapped-response-headers="Return-Status, Return-Status-Msg, HTTP_RESPONSE_HEADERS"		
+		view-name="/employee" 
+		path="/services/employee/{id}/search"
+		reply-timeout="50000">
+				
+		<int-http:header name="employeeId" expression="#pathVariables.id"/>
+		
+	</int-http:inbound-gateway>
+	
+ 
+	<!-- Note: The default parameter name for favorParameter is 'format'. For instance, when this flag is true, a request for /services/employee/{id}/search?format=json will result 
+			in an MappingJacksonJsonView being resolved, while the Accept header can be the browser-defined text/html,application/xhtml+xml  -->
+			
+	<bean class="org.springframework.web.servlet.view.ContentNegotiatingViewResolver">
+		<property name="order" value="1" />	
+		<property name="defaultContentType" value="application/xml"/>
+		<property name="favorParameter" value="true"/>	
+		<property name="ignoreAcceptHeader" value="true" />		
+		<property name="mediaTypes">
+			<map>
+				<entry key="json" value="application/json" />
+				<entry key="xml" value="application/xml" />				
+			</map>
+		</property>
+		<property name="defaultViews">
+			<list>
+				<bean
+					class="org.springframework.integration.samples.rest.json.view.ExtendedMappingJacksonJsonView" >
+					<property name="objectMapper" ref="jaxbJacksonObjectMapper"/>
+				</bean>	
+				<bean class="org.springframework.web.servlet.view.xml.MarshallingView">
+					<constructor-arg ref="marshaller"/>					
+				</bean>				
+			</list>
+		</property>				
+	</bean>
+	
+	<oxm:jaxb2-marshaller id="marshaller" contextPath="org.springframework.integration.samples.rest.domain" />
+	
+	<int:service-activator id="employeeServiceActivator" 
+					input-channel="employeeSearchRequest"
+					output-channel="employeeSearchResponse" 
+					ref="employeeSearchService" 
+					method="getEmployee" 
+					requires-reply="true"  
+					send-timeout="60000"/>
+	
+	<bean id="jaxbJacksonObjectMapper" class="org.springframework.integration.samples.rest.json.JaxbJacksonObjectMapper"/>				
+
+</beans>	
