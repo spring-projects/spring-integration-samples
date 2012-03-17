@@ -116,7 +116,7 @@ public final class Main {
         		printUserInformation(fullUser);
 
             } else {
-            	LOGGER.info("\n\n    Please enter '1' or '2' <enter>:\n\n");
+            	LOGGER.info("\n\n    Please enter '1', '2', or '3' <enter>:\n\n");
             }
 
         }
