@@ -3,11 +3,14 @@ Spring Integration - TCP-AMQP Sample
 
 # Overview
 
-This sample demonstrates basic functionality of briding **Spring Integration TCP Adapters** with **Spring Integration AMQP Adapters**.
+This sample demonstrates basic functionality of bridging **Spring Integration TCP Adapters** with **Spring Integration AMQP Adapters**.
 
 Once the application is started, you enter some text in a telnet session and the data is written to an AMQP queue, which is then consumed and the result echoed to a netcat session.
 
     telnet->tcp-inbound-adapter->rabbit->tcp-outbound-adapter->netcat
+
+telnet: http://en.wikipedia.org/wiki/Telnet
+netcat: http://en.wikipedia.org/wiki/Netcat
 
 > In order to run the example you will need a running  instance of RabbitMQ. A local installation with just the basic defaults will be sufficient. Please visit: [http://www.rabbitmq.com/install.html](http://www.rabbitmq.com/install.html) for detailed installation procedures.
 
