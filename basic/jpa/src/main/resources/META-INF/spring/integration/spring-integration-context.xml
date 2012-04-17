@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:int="http://www.springframework.org/schema/integration"
+	xmlns:int-jpa="http://www.springframework.org/schema/integration/jpa"
+	xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc.xsd
+		http://www.springframework.org/schema/integration http://www.springframework.org/schema/integration/spring-integration.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
+		http://www.springframework.org/schema/integration/jpa http://www.springframework.org/schema/integration/jpa/spring-integration-jpa.xsd">
+
+	<int:channel id="createPersonRequestChannel"/>
+	<int:channel id="createPersonReplyChannel"/>
+	<int:channel id="listPeopleRequestChannel"/>
+	<int:channel id="listPeopleReplyChannel"/>
+
+	<int:gateway id="personService"
+		service-interface="org.springframework.integration.samples.jpa.service.PersonService"
+		default-request-timeout="5000" default-reply-timeout="5000">
+		<int:method name="createPerson" request-channel="createPersonRequestChannel"/>
+		<int:method name="findPeople"   request-channel="listPeopleRequestChannel"/>
+	</int:gateway>
+
+	<int-jpa:retrieving-outbound-gateway entity-manager-factory="entityManagerFactory"
+		request-channel="listPeopleRequestChannel"
+		jpa-query="select p from Person p order by p.name asc">
+	</int-jpa:retrieving-outbound-gateway>
+
+	<int-jpa:updating-outbound-gateway entity-manager-factory="entityManagerFactory"
+		request-channel="createPersonRequestChannel">
+		<int-jpa:transactional transaction-manager="transactionManager"/>
+	</int-jpa:updating-outbound-gateway>
+
+	<!-- Depending on the selected profile, user can use different JPA Providers -->
+
+	<beans profile="default, hibernate">
+		<import resource="classpath:/META-INF/spring/integration/hibernate-context.xml"/>
+	</beans>
+	<beans profile="openjpa">
+		<import resource="classpath:/META-INF/spring/integration/openjpa-context.xml"/>
+	</beans>
+	<beans profile="eclipselink">
+		<import resource="classpath:/META-INF/spring/integration/eclipselink-context.xml"/>
+	</beans>
+</beans>

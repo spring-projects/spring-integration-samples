@@ -1,0 +1,149 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>org.springframework.integration.samples</groupId>
+	<artifactId>jpa</artifactId>
+	<version>2.2.0.BUILD-SNAPSHOT</version>
+	<packaging>jar</packaging>
+
+	<name>Samples (Basic) - JPA</name>
+	<url>http://www.springsource.org/spring-integration</url>
+
+	<prerequisites>
+		<maven>2.2.0</maven>
+	</prerequisites>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<spring.integration.version>2.2.0.M2</spring.integration.version>
+		<log4j.version>1.2.16</log4j.version>
+		<junit.version>4.10</junit.version>
+		<openjpa.version>2.2.0</openjpa.version>
+		<eclipselink.version>2.3.2</eclipselink.version>
+		<hibernate.version>4.0.1.Final</hibernate.version>
+		<spring-instrument.version>3.1.1.RELEASE</spring-instrument.version>
+	</properties>
+
+	<repositories>
+		<repository>
+			<id>repo.springsource.org.milestone</id>
+			<name>Spring Framework Maven Milestone Repository</name>
+			<url>https://repo.springsource.org/milestone</url>
+		</repository>
+		<repository>
+			<id>repo.eclipse</id>
+			<name>Spring Framework Maven Milestone Repository</name>
+			<url> http://download.eclipse.org/rt/eclipselink/maven.repo/</url>
+			<snapshots><enabled></enabled></snapshots>
+		</repository>
+		<repository>
+			<id>central</id>
+			<name>Maven Central</name>
+			<url>http://repo1.maven.org/maven2</url>
+		</repository>
+	</repositories>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>2.3.2</version>
+				<configuration>
+					<source>1.6</source>
+					<target>1.6</target>
+					<compilerArgument>-Xlint:all</compilerArgument>
+					<showWarnings>true</showWarnings>
+					<showDeprecation>true</showDeprecation>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>exec-maven-plugin</artifactId>
+				<version>1.2.1</version>
+				<configuration>
+					<executable>java</executable>
+					<arguments>
+						<argument>-javaagent:${settings.localRepository}/org/springframework/spring-instrument/${spring-instrument.version}/spring-instrument-${spring-instrument.version}.jar</argument>
+						<argument>-javaagent:${settings.localRepository}/org/apache/openjpa/openjpa/${openjpa.version}/openjpa-${openjpa.version}.jar</argument>
+						<argument>-classpath</argument>
+						<classpath></classpath>
+						<argument>org.springframework.integration.samples.jpa.Main</argument>
+					</arguments>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+
+	<dependencies>
+
+		<!-- Testing -->
+
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>${junit.version}</version>
+			<scope>test</scope>
+		</dependency>
+
+		<!-- Spring Integration -->
+
+		<dependency>
+			<groupId>org.springframework.integration</groupId>
+			<artifactId>spring-integration-core</artifactId>
+			<version>${spring.integration.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.integration</groupId>
+			<artifactId>spring-integration-jpa</artifactId>
+			<version>${spring.integration.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-instrument</artifactId>
+			<version>${spring-instrument.version}</version>
+		</dependency>
+
+		<!-- Logging -->
+
+		<dependency>
+			<groupId>log4j</groupId>
+			<artifactId>log4j</artifactId>
+			<version>${log4j.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-log4j12</artifactId>
+			<version>1.6.4</version>
+		</dependency>
+
+		<!-- Embedded Database -->
+
+		<dependency>
+			<groupId>com.h2database</groupId>
+			<artifactId>h2</artifactId>
+			<version>1.3.162</version>
+		</dependency>
+
+		<!-- Persistence Provider -->
+
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-entitymanager</artifactId>
+			<version>${hibernate.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.eclipse.persistence</groupId>
+			<artifactId>org.eclipse.persistence.jpa</artifactId>
+			<version>${eclipselink.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.openjpa</groupId>
+			<artifactId>openjpa</artifactId>
+			<version>${openjpa.version}</version>
+		</dependency>
+	</dependencies>
+</project>
