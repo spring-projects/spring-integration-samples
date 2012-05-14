@@ -18,8 +18,7 @@ package org.springframework.integration;
 import java.util.List;
 import java.util.Scanner;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.log4j.Logger;
 import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
@@ -36,7 +35,7 @@ import org.springframework.integration.service.CoffeeService;
  */
 public final class Main {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(Main.class);
+    private static final Logger LOGGER = Logger.getLogger(Main.class);
 
     private static final String LINE    = "\n=========================================================";
     private static final String NEWLINE = "\n                                                         ";

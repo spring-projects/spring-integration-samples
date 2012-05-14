@@ -1,14 +1,15 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <modelVersion>4.0.0</modelVersion>
-  <groupId>org.springframework.integration.samples</groupId>
- <artifactId>ftp</artifactId>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>org.springframework.integration.samples</groupId>
+	<artifactId>ftp</artifactId>
 	<version>2.1.0.BUILD-SNAPSHOT</version>
 	<name>Samples (Basic) - FTP Demo</name>
 	<packaging>jar</packaging>
 	<properties>
-	    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<spring.integration.version>2.2.0.M1</spring.integration.version>
-        <slf4j.version>1.6.4</slf4j.version>
+		<log4j.version>1.2.16</log4j.version>
 		<junit.version>4.10</junit.version>
 	</properties>
 	<dependencies>
@@ -31,33 +32,25 @@
 			<version>${junit.version}</version>
 		</dependency>
 		<dependency>
-		  <groupId>org.apache.ftpserver</groupId>
-		  <artifactId>ftpserver-core</artifactId>
-		  <version>1.0.6</version>
+			<groupId>org.apache.ftpserver</groupId>
+			<artifactId>ftpserver-core</artifactId>
+			<version>1.0.6</version>
 		</dependency>
 
-        <!-- Logging -->
+		<!-- Logging -->
 
-        <dependency>
-            <groupId>ch.qos.logback</groupId>
-            <artifactId>logback-classic</artifactId>
-            <version>1.0.0</version>
-        </dependency>
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-api</artifactId>
-            <version>${slf4j.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>log4j-over-slf4j</artifactId>
-            <version>${slf4j.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>jcl-over-slf4j</artifactId>
-            <version>${slf4j.version}</version>
-        </dependency>
+		<dependency>
+			<groupId>log4j</groupId>
+			<artifactId>log4j</artifactId>
+			<version>${log4j.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-log4j12</artifactId>
+			<version>1.5.2</version>
+		</dependency>
+
 	</dependencies>
 	<build>
 		<plugins>
@@ -85,11 +78,11 @@
 			</plugin>
 		</plugins>
 	</build>
-    <repositories>
-        <repository>
-            <id>repo.springsource.org.milestone</id>
-            <name>Spring Framework Maven Milestone Repository</name>
-            <url>https://repo.springsource.org/milestone</url>
-        </repository>
-    </repositories>
+	<repositories>
+		<repository>
+			<id>repo.springsource.org.milestone</id>
+			<name>Spring Framework Maven Milestone Repository</name>
+			<url>https://repo.springsource.org/milestone</url>
+		</repository>
+	</repositories>
 </project>

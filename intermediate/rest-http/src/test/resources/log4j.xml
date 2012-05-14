@@ -11,25 +11,25 @@
 	</appender>
 
 	<!-- Loggers -->
-	<logger name="org.springframework">
-		<level value="warn" />
-	</logger>
-
 	<logger name="org.springframework.integration">
 		<level value="warn" />
 	</logger>
-
-	<logger name="loggingInterceptor">
-		<level value="debug" />
-	</logger>
-
 	<logger name="org.springframework.integration.samples">
+		<level value="info" />
+	</logger>
+	<logger name="org.springframework.ws.client.MessageTracing.sent">
+		<level value="trace" />
+	</logger>
+	<logger name="org.springframework.ws.client.MessageTracing.received">
+		<level value="trace" />
+	</logger>
+	<logger name="org.springframework.ws.server.MessageTracing">
 		<level value="debug" />
 	</logger>
 
 	<!-- Root Logger -->
 	<root>
-		<priority value="info" />
+		<priority value="warn" />
 		<appender-ref ref="console" />
 	</root>
 
