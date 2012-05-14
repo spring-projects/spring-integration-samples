@@ -21,8 +21,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.log4j.Logger;
 import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.integration.samples.jdbc.service.PersonService;
@@ -38,109 +37,109 @@ import org.springframework.integration.samples.jdbc.service.PersonService;
  */
 public final class Main {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(Main.class);
+	private static final Logger LOGGER = Logger.getLogger(Main.class);
 
-    private Main() { }
+	private Main() { }
 
-    /**
-     * Load the Spring Integration Application Context
-     *
-     * @param args - command line arguments
-     */
-    public static void main(final String... args) {
+	/**
+	 * Load the Spring Integration Application Context
+	 *
+	 * @param args - command line arguments
+	 */
+	public static void main(final String... args) {
 
-        LOGGER.info("\n========================================================="
-                  + "\n                                                         "
-                  + "\n          Welcome to Spring Integration!                 "
-                  + "\n                                                         "
-                  + "\n    For more information please visit:                   "
-                  + "\n    http://www.springsource.org/spring-integration       "
-                  + "\n                                                         "
-                  + "\n=========================================================" );
+		LOGGER.info("\n========================================================="
+				  + "\n                                                         "
+				  + "\n          Welcome to Spring Integration!                 "
+				  + "\n                                                         "
+				  + "\n    For more information please visit:                   "
+				  + "\n    http://www.springsource.org/spring-integration       "
+				  + "\n                                                         "
+				  + "\n=========================================================" );
 
-        final AbstractApplicationContext context =
-                new ClassPathXmlApplicationContext("classpath:META-INF/spring/integration/*-context.xml");
+		final AbstractApplicationContext context =
+				new ClassPathXmlApplicationContext("classpath:META-INF/spring/integration/*-context.xml");
 
-        context.registerShutdownHook();
+		context.registerShutdownHook();
 
-        final Scanner scanner = new Scanner(System.in);
+		final Scanner scanner = new Scanner(System.in);
 
-        
-        final PersonService personService = context.getBean(PersonService.class);
 
-        LOGGER.info("\n========================================================="
-                  + "\n                                                         "
-                  + "\n    Please press 'q + Enter' to quit the application.    "
-                  + "\n                                                         "
-                  + "\n=========================================================" );
+		final PersonService personService = context.getBean(PersonService.class);
 
-        System.out.println("Please enter a choice and press <enter>: ");
-        System.out.println("\t1. Find person details");
-        System.out.println("\t2. Create a new person detail");
-        System.out.println("\tq. Quit the application");
-        System.out.print("Enter you choice: ");
-        while (true) {
-        	final String input = scanner.nextLine();
-        	if("1".equals(input.trim()))
-        		getPersonDetails(scanner, personService);
-        	else if("2".equals(input.trim()))
-        		createPersonDetails(scanner,personService);
-        	else if("q".equals(input.trim()))
-        		break;
-        	else 
-        		System.out.println("Invalid choice\n\n");
+		LOGGER.info("\n========================================================="
+				  + "\n                                                         "
+				  + "\n    Please press 'q + Enter' to quit the application.    "
+				  + "\n                                                         "
+				  + "\n=========================================================" );
 
-        	System.out.println("Please enter a choice and press <enter>: ");
-            System.out.println("\t1. Find person details");
-            System.out.println("\t2. Create a new person detail");
-            System.out.println("\tq. Quit the application");
-            System.out.print("Enter you choice: ");
-        }
+		System.out.println("Please enter a choice and press <enter>: ");
+		System.out.println("\t1. Find person details");
+		System.out.println("\t2. Create a new person detail");
+		System.out.println("\tq. Quit the application");
+		System.out.print("Enter you choice: ");
+		while (true) {
+			final String input = scanner.nextLine();
+			if("1".equals(input.trim()))
+				getPersonDetails(scanner, personService);
+			else if("2".equals(input.trim()))
+				createPersonDetails(scanner,personService);
+			else if("q".equals(input.trim()))
+				break;
+			else
+				System.out.println("Invalid choice\n\n");
 
-        LOGGER.info("Exiting application...bye.");
+			System.out.println("Please enter a choice and press <enter>: ");
+			System.out.println("\t1. Find person details");
+			System.out.println("\t2. Create a new person detail");
+			System.out.println("\tq. Quit the application");
+			System.out.print("Enter you choice: ");
+		}
 
-        System.exit(0);
+		LOGGER.info("Exiting application...bye.");
 
-    }
+		System.exit(0);
 
-    private static void createPersonDetails(final Scanner scanner,PersonService service) {
-    	while(true) {
-    		System.out.print("\nEnter the Person's name:");
-    		String name = scanner.nextLine();
-    		Gender gender;
-    		while(true) {
-    			System.out.print("Enter the Person's gender(M/F):");
-        		String genderStr = scanner.nextLine();
-        		if("m".equalsIgnoreCase(genderStr) || "f".equalsIgnoreCase(genderStr)) {
-        			gender = Gender.getGenderByIdentifier(genderStr.toUpperCase());
-        			break;
-        		}        			
-    		}
-    		Date dateOfBirth;
-    		SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
-    		while(true) {
-    			System.out.print("Enter the Person's Date of birth in DD/MM/YYYY format:");
-        		String dobStr = scanner.nextLine();
-        		try {
+	}
+
+	private static void createPersonDetails(final Scanner scanner,PersonService service) {
+		while(true) {
+			System.out.print("\nEnter the Person's name:");
+			String name = scanner.nextLine();
+			Gender gender;
+			while(true) {
+				System.out.print("Enter the Person's gender(M/F):");
+				String genderStr = scanner.nextLine();
+				if("m".equalsIgnoreCase(genderStr) || "f".equalsIgnoreCase(genderStr)) {
+					gender = Gender.getGenderByIdentifier(genderStr.toUpperCase());
+					break;
+				}
+			}
+			Date dateOfBirth;
+			SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+			while(true) {
+				System.out.print("Enter the Person's Date of birth in DD/MM/YYYY format:");
+				String dobStr = scanner.nextLine();
+				try {
 					dateOfBirth = format.parse(dobStr);
 					break;
 				} catch (ParseException e) {
 					//Silently suppress and ask to enter details again
-				}        		        			
-    		}
-    		
-    		Person person = new Person();
-    		person.setDateOfBirth(dateOfBirth);
-    		person.setGender(gender);
-    		person.setName(name);
-    		person = service.createPerson(person);
-    		System.out.println("Created person record with id: " + person.getPersonId());
-    		System.out.print("Do you want to create another person? (y/n)");
+				}
+			}
+
+			Person person = new Person();
+			person.setDateOfBirth(dateOfBirth);
+			person.setGender(gender);
+			person.setName(name);
+			person = service.createPerson(person);
+			System.out.println("Created person record with id: " + person.getPersonId());
+			System.out.print("Do you want to create another person? (y/n)");
 			String choice  = scanner.nextLine();
 			if(!"y".equalsIgnoreCase(choice))
 				break;
-    	}
-    }
+		}
+	}
 	/**
 	 * @param service
 	 * @param input
@@ -154,18 +153,18 @@ public final class Main {
 				for(Person person:personList) {
 					System.out.print(
 							String.format("Person found - Person Id: '%d', Person Name is: '%s',  Gender: '%s'",
-							              person.getPersonId(),person.getName(), person.getGender()));
+										  person.getPersonId(),person.getName(), person.getGender()));
 					System.out.println(String.format(", Date of birth: '%1$td/%1$tm/%1$tC%1$ty'", person.getDateOfBirth()));
 				}
 			} else {
 				System.out.println(
 						String.format("No Person record found for name: '%s'.", input));
-			}			 
+			}
 			System.out.print("Do you want to find another person? (y/n)");
 			String choice  = scanner.nextLine();
 			if(!"y".equalsIgnoreCase(choice))
-				break;			
+				break;
 		}
-		
+
 	}
 }

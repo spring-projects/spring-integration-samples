@@ -29,50 +29,50 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 /**
  * Demonstrates use of the outbound gateway to use ls, get and rm.
- * 
+ *
  * The previous Test {@link FtpOutboundChannelAdapterSample} was uploading 2 test
  * files:
- * 
+ *
  * <ul>
  *     <li>a.txt</li>
  *     <li>b.txt</li>
  * </ul>
  *
- * This test will now retrieves those 2 files and removes them. Instead of just 
- * polling the file, the files are instead retrieved and deleted using explicit 
+ * This test will now retrieves those 2 files and removes them. Instead of just
+ * polling the file, the files are instead retrieved and deleted using explicit
  * FTP commands (LS and RM)
- * 
+ *
  * @author Gary Russell
  * @since 2.1
  *
  */
 public class FtpOutboundGatewaySample {
 
-	
+
 	@Test
 	public void testLsGetRm() throws Exception {
 		ConfigurableApplicationContext ctx = new ClassPathXmlApplicationContext(
 				"classpath:/META-INF/spring/integration/FtpOutboundGatewaySample-context.xml");
-		
+
 		final ToFtpFlowGateway toFtpFlow = ctx.getBean(ToFtpFlowGateway.class);
 
 		// execute the flow (ls, get, rm, aggregate results)
 		List<Boolean> rmResults = toFtpFlow.lsGetAndRmFiles("/");
-		
+
 		//Check everything went as expected, and clean up
 		assertEquals("Was expecting the collection 'rmResults' to contain 2 elements.", 2, rmResults.size());
-		
+
 		for (Boolean result : rmResults) {
 			assertTrue(result);
 		}
-		
+
 		assertTrue("Expected FTP remote directory to be empty",  new File(TestSuite.FTP_ROOT_DIR).delete());
 
 	}
-	
+
 	@After
 	public void cleanup() {
 		FileUtils.deleteQuietly(new File(TestSuite.LOCAL_FTP_TEMP_DIR));
 	}
-	
+
 }

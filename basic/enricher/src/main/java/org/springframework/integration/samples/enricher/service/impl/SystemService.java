@@ -1,5 +1,5 @@
 /*
- * Copyright 2002-2011 the original author or authors.
+ * Copyright 2002-2012 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,8 +15,7 @@
  */
 package org.springframework.integration.samples.enricher.service.impl;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.log4j.Logger;
 import org.springframework.integration.samples.enricher.User;
 
 /**
@@ -27,28 +26,28 @@ import org.springframework.integration.samples.enricher.User;
  */
 public class SystemService {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(SystemService.class);
+	private static final Logger LOGGER = Logger.getLogger(SystemService.class);
 
 	/** Default Constructor. */
 	public SystemService() {
-        super();
+		super();
 	}
 
 	public User findUser(User user) {
 
-	    LOGGER.info("Calling method 'findUser' with parameter {}", user);
+		LOGGER.info(String.format("Calling method 'findUser' with parameter %s", user));
 
 		final User fullUser = new User(user.getUsername(),
-				                       "secret",
-				                       user.getUsername() + "@springintegration.org");
+									   "secret",
+									   user.getUsername() + "@springintegration.org");
 		return fullUser;
 	}
 
 	public User findUserByUsername(String username) {
 
-	    LOGGER.info("Calling method 'findUserByUsername' with parameter: {}", username);
+		LOGGER.info(String.format("Calling method 'findUserByUsername' with parameter: %s", username));
 
-	    return new User(username, "secret", username + "@springintegration.org");
+		return new User(username, "secret", username + "@springintegration.org");
 
 	}
 
