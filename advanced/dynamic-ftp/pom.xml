@@ -8,7 +8,7 @@
 	<properties>
 	    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<spring.framework.version>3.1.0.RELEASE</spring.framework.version>
-		<spring.integration.version>2.1.0.RELEASE</spring.integration.version>
+		<spring.integration.version>2.2.0.M1</spring.integration.version>
 		<log4j.version>1.2.16</log4j.version>
 		<junit.version>4.10</junit.version>
 	</properties>

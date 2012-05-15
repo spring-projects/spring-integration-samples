@@ -27,6 +27,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.integration.Message;
 import org.springframework.integration.MessageChannel;
 import org.springframework.integration.MessageHandlingException;
+import org.springframework.integration.MessagingException;
 import org.springframework.integration.support.MessageBuilder;
 
 /**
@@ -47,14 +48,14 @@ public class FtpOutboundChannelAdapterSample {
 						.build();
 		try {
 			channel.send(message);
-		} catch (MessageHandlingException e) {
+		} catch (MessagingException e) {
 			assertTrue(e.getCause().getCause() instanceof UnknownHostException);
 			assertEquals("host.for.cust1", e.getCause().getCause().getMessage());
 		}
 		// send another so we can see in the log we don't create the ac again.
 		try {
 			channel.send(message);
-		} catch (MessageHandlingException e) {
+		} catch (MessagingException e) {
 			assertTrue(e.getCause().getCause() instanceof UnknownHostException);
 			assertEquals("host.for.cust1", e.getCause().getCause().getMessage());
 		}
@@ -63,7 +64,7 @@ public class FtpOutboundChannelAdapterSample {
 				.setHeader("customer", "cust2").build();
 		try {
 			channel.send(message);
-		} catch (MessageHandlingException e) {
+		} catch (MessagingException e) {
 			assertTrue(e.getCause().getCause() instanceof UnknownHostException);
 			assertEquals("host.for.cust2", e.getCause().getCause().getMessage());
 		}
@@ -74,7 +75,7 @@ public class FtpOutboundChannelAdapterSample {
 				.setHeader("customer", "cust3").build();
 		try {
 			channel.send(message);
-		} catch (MessageHandlingException e) {
+		} catch (MessagingException e) {
 			assertTrue(e.getCause().getCause() instanceof UnknownHostException);
 			assertEquals("host.for.cust3", e.getCause().getCause().getMessage());
 		}
@@ -85,7 +86,7 @@ public class FtpOutboundChannelAdapterSample {
 				.setHeader("customer", "cust1").build();
 		try {
 			channel.send(message);
-		} catch (MessageHandlingException e) {
+		} catch (MessagingException e) {
 			assertTrue(e.getCause().getCause() instanceof UnknownHostException);
 			assertEquals("host.for.cust1", e.getCause().getCause().getMessage());
 		}
