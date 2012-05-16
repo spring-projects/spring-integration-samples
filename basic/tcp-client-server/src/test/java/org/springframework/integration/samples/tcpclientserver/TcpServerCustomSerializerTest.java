@@ -30,10 +30,12 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.integration.Message;
 import org.springframework.integration.MessageChannel;
 import org.springframework.integration.core.SubscribableChannel;
 import org.springframework.integration.handler.AbstractReplyProducingMessageHandler;
+import org.springframework.integration.samples.tcpclientserver.support.CustomTestContextLoader;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -47,13 +49,17 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
  * @author: ceposta
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = {"/META-INF/spring/integration/tcpServerCustomSerialize-context.xml"})
+@ContextConfiguration(loader=CustomTestContextLoader.class,
+	locations = {"/META-INF/spring/integration/tcpServerCustomSerialize-context.xml"})
 @DirtiesContext
 public class TcpServerCustomSerializerTest {
 
     @Autowired
     @Qualifier("incomingServerChannel")
     MessageChannel incomingServerChannel;
+
+	@Value("${availableServerSocket}")
+	int availableServerSocket;
 
     @Test
     public void testHappyPath() {
@@ -86,7 +92,7 @@ public class TcpServerCustomSerializerTest {
         Writer out = null;
         BufferedReader in = null;
         try {
-            socket = new Socket("localhost", 11111);
+            socket = new Socket("localhost", availableServerSocket);
             out = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
             out.write(sourceMessage);
             out.flush();

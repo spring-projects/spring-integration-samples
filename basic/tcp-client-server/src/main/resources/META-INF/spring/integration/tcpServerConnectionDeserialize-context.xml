@@ -1,27 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xmlns:int="http://www.springframework.org/schema/integration"
-       xmlns:int-ip="http://www.springframework.org/schema/integration/ip"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/integration http://www.springframework.org/schema/integration/spring-integration.xsd http://www.springframework.org/schema/integration/ip http://www.springframework.org/schema/integration/ip/spring-integration-ip-2.0.xsd">
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:int="http://www.springframework.org/schema/integration"
+	xmlns:int-ip="http://www.springframework.org/schema/integration/ip"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+		http://www.springframework.org/schema/integration http://www.springframework.org/schema/integration/spring-integration.xsd
+		http://www.springframework.org/schema/integration/ip http://www.springframework.org/schema/integration/ip/spring-integration-ip.xsd">
 
-    <!-- Client side -->
+	<context:property-placeholder />
+
+	<!-- Client side -->
 	<int:gateway id="gw"
-        service-interface="org.springframework.integration.samples.tcpclientserver.SimpleGateway"
-        default-request-channel="input"/>
+		service-interface="org.springframework.integration.samples.tcpclientserver.SimpleGateway"
+		default-request-channel="input"/>
 
-    <!-- Create a connection for the client gateway that uses the same Stx-Etx deserializer to turn the stream
-    into the appropriate content (it looks for the Stx byte, extracts anything between it and the Etx byte). We
-    don't specify the serializer (although we could) because the unit test explicitly shows how the content
-    to be sent is wrapped by the Stx and Etx bytes. -->
+	<!-- Create a connection for the client gateway that uses the same Stx-Etx deserializer to turn the stream
+	into the appropriate content (it looks for the Stx byte, extracts anything between it and the Etx byte). We
+	don't specify the serializer (although we could) because the unit test explicitly shows how the content
+	to be sent is wrapped by the Stx and Etx bytes. -->
 	<int-ip:tcp-connection-factory id="client"
 		type="client"
 		host="localhost"
-		port="22222"
+		port="${availableServerSocket}"
 		single-use="true"
 		so-timeout="10000"
-        deserializer="connectionSerializeDeserialize"
-        />
+		deserializer="connectionSerializeDeserialize"/>
 
 	<int:channel id="input" />
 
@@ -30,27 +35,26 @@
 		reply-channel="clientBytes2StringChannel"
 		connection-factory="client"
 		request-timeout="10000"
-		reply-timeout="10000"
-		/>
+		reply-timeout="10000"/>
 
-    <int:channel id="clientBytes2StringChannel"/>
+	<int:channel id="clientBytes2StringChannel"/>
 
-    <int:transformer id="clientBytes2String"
+	<int:transformer id="clientBytes2String"
 		input-channel="clientBytes2StringChannel"
 		expression="new String(payload)"/>
 
-    <!-- Server side -->
-    <!-- When creating the socket factory on the server side, we specify both the serializer and deserializer
-    which deals with both accepting a stream formatted with the Stx-Etx bytes as well as sending a stream
-    formatted with the Stx-Etx bytes. -->
+	<!-- Server side -->
+	<!-- When creating the socket factory on the server side, we specify both the serializer and deserializer
+	which deals with both accepting a stream formatted with the Stx-Etx bytes as well as sending a stream
+	formatted with the Stx-Etx bytes. -->
 	<int-ip:tcp-connection-factory id="serverConnectionFactory"
 		type="server"
-		port="22222"
-        serializer="connectionSerializeDeserialize"
-        deserializer="connectionSerializeDeserialize"/>
+		port="${availableServerSocket}"
+		serializer="connectionSerializeDeserialize"
+		deserializer="connectionSerializeDeserialize"/>
 
 
-    <bean id="connectionSerializeDeserialize" class="org.springframework.integration.ip.tcp.serializer.ByteArrayStxEtxSerializer"/>
+	<bean id="connectionSerializeDeserialize" class="org.springframework.integration.ip.tcp.serializer.ByteArrayStxEtxSerializer"/>
 
 
 	<int-ip:tcp-inbound-gateway id="gatewayCrLf"
@@ -58,9 +62,9 @@
 		request-channel="incomingServerChannel"
 		error-channel="errorChannel"/>
 
-    <!-- We leave a message listener off of this channel on purpose because we hook
-    one up before the test actually runs (see the unit test associated with this
-    context file) -->
+	<!-- We leave a message listener off of this channel on purpose because we hook
+	one up before the test actually runs (see the unit test associated with this
+	context file) -->
 	<int:channel id="incomingServerChannel" />
 
 </beans>

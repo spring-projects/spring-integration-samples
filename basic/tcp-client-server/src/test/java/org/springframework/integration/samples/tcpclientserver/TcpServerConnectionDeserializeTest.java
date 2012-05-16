@@ -24,6 +24,7 @@ import org.springframework.integration.MessageChannel;
 import org.springframework.integration.core.SubscribableChannel;
 import org.springframework.integration.handler.AbstractReplyProducingMessageHandler;
 import org.springframework.integration.ip.tcp.serializer.ByteArrayStxEtxSerializer;
+import org.springframework.integration.samples.tcpclientserver.support.CustomTestContextLoader;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -43,7 +44,8 @@ import static org.junit.Assert.assertEquals;
  * @author: ceposta
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = {"/META-INF/spring/integration/tcpServerConnectionDeserialize-context.xml"})
+@ContextConfiguration(loader=CustomTestContextLoader.class,
+	locations = {"/META-INF/spring/integration/tcpServerConnectionDeserialize-context.xml"})
 @DirtiesContext
 public class TcpServerConnectionDeserializeTest {
 
