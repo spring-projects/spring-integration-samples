@@ -33,17 +33,17 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
  * echo service and the echoed response comes back over tcp and is returned to
  * the test case for verification.
  *
- * The test uses explicit transformers to convert the byte array payloads to
+ * This version shows how the conversion service can be used
+ * instead of explicit transformers to convert the byte array payloads to
  * Strings.
  *
  * @author Gary Russell
  *
  */
-// This one uses transformers
-@ContextConfiguration(loader=CustomTestContextLoader.class, locations={"/META-INF/spring/integration/tcpClientServerDemo-context.xml"})
+@ContextConfiguration(loader=CustomTestContextLoader.class, locations={"/META-INF/spring/integration/tcpClientServerDemo-conversion-context.xml"})
 @RunWith(SpringJUnit4ClassRunner.class)
 @DirtiesContext
-public class TcpClientServerDemoTest {
+public class TcpClientServerDemoWithConversionServiceTest {
 
 	@Autowired
 	SimpleGateway gw;
