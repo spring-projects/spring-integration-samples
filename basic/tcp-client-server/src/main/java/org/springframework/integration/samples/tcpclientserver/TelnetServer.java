@@ -15,7 +15,12 @@
  */
 package org.springframework.integration.samples.tcpclientserver;
 
+import java.util.HashMap;
+import java.util.Map;
+
+import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.core.env.MapPropertySource;
 
 /**
  * The configured inbound gateway uses CRLF delimited messages which means
@@ -23,15 +28,31 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
  * telnet localhost 11111 - each time you hit enter you should see your input
  * echoed back, preceded by 'echo:'.
  *
+ * Alternatively, you can also customize the port by providing an additional system
+ * property at startup e.g. <i>-DavailableServerSocket=7777</i>
+ *
  * @author Gary Russell
+ * @author Gunnar Hillert
  *
  */
 public class TelnetServer {
 
 	public static void main(String[] args) throws Exception {
-		new ClassPathXmlApplicationContext("/META-INF/spring/integration/tcpClientServerDemo-context.xml");
+
+		ConfigurableApplicationContext context = new ClassPathXmlApplicationContext(new String[]{"/META-INF/spring/integration/tcpClientServerDemo-context.xml"}, false);
+
+		final Map<String, Object> sockets = new HashMap<String, Object>();
+		sockets.put("availableServerSocket", 11111);
+
+		final MapPropertySource propertySource = new MapPropertySource("sockets", sockets);
+
+		context.getEnvironment().getPropertySources().addLast(propertySource);
+		context.refresh();
+
+		System.out.println("Use telnet and connect to port: " + context.getEnvironment().getProperty("availableServerSocket"));
 		System.out.println("Press Enter/Return in the console to exit");
 		System.in.read();
+		System.out.println("exiting application...bye.\n\n");
 		System.exit(0);
 	}
 

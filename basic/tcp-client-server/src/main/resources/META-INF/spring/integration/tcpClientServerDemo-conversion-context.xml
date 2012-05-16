@@ -1,39 +1,48 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<beans:beans xmlns:beans="http://www.springframework.org/schema/beans"
+<beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xmlns="http://www.springframework.org/schema/integration"
-	xmlns:ip="http://www.springframework.org/schema/integration/ip"
+	xmlns:int="http://www.springframework.org/schema/integration"
+	xmlns:int-ip="http://www.springframework.org/schema/integration/ip"
+	xmlns:context="http://www.springframework.org/schema/context"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
 		http://www.springframework.org/schema/integration http://www.springframework.org/schema/integration/spring-integration.xsd
 		http://www.springframework.org/schema/integration/ip http://www.springframework.org/schema/integration/ip/spring-integration-ip.xsd">
 
-	<beans:description>
+	<description>
 		This version demonstrates the use of a conversion service and channel 'dataType'
 		instead of explicit transformers to convert from byte array to String.
-	</beans:description>
+	</description>
 
-	<converter>
-		<beans:bean class="org.springframework.integration.samples.tcpclientserver.ByteArrayToStringConverter" />
-	</converter>
+	<bean id="integrationConversionService"
+		class="org.springframework.context.support.ConversionServiceFactoryBean">
+		<property name="converters">
+			<list>
+				<bean class="org.springframework.integration.samples.tcpclientserver.ByteArrayToStringConverter" />
+			</list>
+		</property>
+	</bean>
+
+	<context:property-placeholder />
 
 	<!-- Client side -->
 
-	<gateway id="gw"
-        service-interface="org.springframework.integration.samples.tcpclientserver.SimpleGateway"
-        default-request-channel="input"
-        default-reply-channel="reply"/>
+	<int:gateway id="gw"
+		service-interface="org.springframework.integration.samples.tcpclientserver.SimpleGateway"
+		default-request-channel="input"
+		default-reply-channel="reply"/>
 
-	<ip:tcp-connection-factory id="client"
+	<int-ip:tcp-connection-factory id="client"
 		type="client"
 		host="localhost"
-		port="11111"
+		port="${availableServerSocket}"
 		single-use="true"
 		so-timeout="10000"
 		/>
 
-	<channel id="input" />
+	<int:channel id="input" />
 
-	<ip:tcp-outbound-gateway id="outGateway"
+	<int-ip:tcp-outbound-gateway id="outGateway"
 		request-channel="input"
 		reply-channel="reply"
 		connection-factory="client"
@@ -42,32 +51,33 @@
 		/>
 
 	<!-- dataType attribute invokes the conversion service -->
-	<channel id="reply" datatype="java.lang.String" />
+	<int:channel id="reply" datatype="java.lang.String" />
 
 	<!-- Server side -->
 
-	<ip:tcp-connection-factory id="crLfServer"
+	<int-ip:tcp-connection-factory id="crLfServer"
 		type="server"
-		port="11111"/>
+		port="${availableServerSocket}"/>
 
-	<ip:tcp-inbound-gateway id="gatewayCrLf"
+	<int-ip:tcp-inbound-gateway id="gatewayCrLf"
 		connection-factory="crLfServer"
 		request-channel="toSA"
 		error-channel="errorChannel"/>
 
 	<!-- dataType attribute invokes the conversion service -->
-	<channel id="toSA" datatype="java.lang.String" />
+	<int:channel id="toSA" datatype="java.lang.String" />
 
-	<service-activator input-channel="toSA"
-					   ref="echoService"
-					   method="test"
+	<int:service-activator input-channel="toSA"
+					ref="echoService"
+					method="test"
 	/>
 
-	<beans:bean id="echoService"
+	<bean id="echoService"
 		  class="org.springframework.integration.samples.tcpclientserver.EchoService" />
 
-	<transformer id="errorHandler"
+	<int:transformer id="errorHandler"
 		input-channel="errorChannel"
 		expression="payload.failedMessage.payload + ':' + payload.cause.message"/>
 
-</beans:beans>
+</beans>
+

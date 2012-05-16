@@ -1,34 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xmlns:int="http://www.springframework.org/schema/integration"
-       xmlns:int-ip="http://www.springframework.org/schema/integration/ip"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/integration http://www.springframework.org/schema/integration/spring-integration.xsd http://www.springframework.org/schema/integration/ip http://www.springframework.org/schema/integration/ip/spring-integration-ip-2.0.xsd">
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:int="http://www.springframework.org/schema/integration"
+	xmlns:int-ip="http://www.springframework.org/schema/integration/ip"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+		http://www.springframework.org/schema/integration http://www.springframework.org/schema/integration/spring-integration.xsd
+		http://www.springframework.org/schema/integration/ip http://www.springframework.org/schema/integration/ip/spring-integration-ip.xsd">
 
+	<context:property-placeholder />
 
-    <!-- Server side -->
-    <!-- When creating the socket factory on the server side, we specify both the serializer and deserializer
-    which deals with both accepting a stream formatted with the Stx-Etx bytes as well as sending a stream
-    formatted with the Stx-Etx bytes. -->
+	<!-- Server side -->
+	<!-- When creating the socket factory on the server side, we specify both the serializer and deserializer
+	which deals with both accepting a stream formatted with the Stx-Etx bytes as well as sending a stream
+	formatted with the Stx-Etx bytes. -->
 	<int-ip:tcp-connection-factory id="serverConnectionFactory"
 		type="server"
-		port="11111"
-        single-use="true"
-        so-linger="10000"
-        serializer="connectionSerializeDeserialize"
-        deserializer="connectionSerializeDeserialize"/>
+		port="${availableServerSocket}"
+		single-use="true"
+		so-linger="10000"
+		serializer="connectionSerializeDeserialize"
+		deserializer="connectionSerializeDeserialize"/>
 
 
-    <bean id="connectionSerializeDeserialize" class="org.springframework.integration.samples.tcpclientserver.CustomSerializerDeserializer"/>
+	<bean id="connectionSerializeDeserialize" class="org.springframework.integration.samples.tcpclientserver.CustomSerializerDeserializer"/>
 
 	<int-ip:tcp-inbound-gateway id="gatewayCrLf"
 		connection-factory="serverConnectionFactory"
 		request-channel="incomingServerChannel"
 		error-channel="errorChannel"/>
 
-    <!-- We leave a message listener off of this channel on purpose because we hook
-    one up before the test actually runs (see the unit test associated with this
-    context file) -->
+	<!-- We leave a message listener off of this channel on purpose because we hook
+	one up before the test actually runs (see the unit test associated with this
+	context file) -->
 	<int:channel id="incomingServerChannel" />
 
 </beans>

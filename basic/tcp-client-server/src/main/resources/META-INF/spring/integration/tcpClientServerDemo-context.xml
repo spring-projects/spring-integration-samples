@@ -1,68 +1,69 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<beans:beans xmlns:beans="http://www.springframework.org/schema/beans"
+<beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xmlns="http://www.springframework.org/schema/integration"
-	xmlns:ip="http://www.springframework.org/schema/integration/ip"
+	xmlns:int="http://www.springframework.org/schema/integration"
+	xmlns:int-ip="http://www.springframework.org/schema/integration/ip"
+	xmlns:context="http://www.springframework.org/schema/context"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
 		http://www.springframework.org/schema/integration http://www.springframework.org/schema/integration/spring-integration.xsd
 		http://www.springframework.org/schema/integration/ip http://www.springframework.org/schema/integration/ip/spring-integration-ip.xsd">
 
-	<!-- Client side -->
-	
-	<gateway id="gw" 
-        service-interface="org.springframework.integration.samples.tcpclientserver.SimpleGateway"
-        default-request-channel="input"/>
+	<context:property-placeholder />
 
-	<ip:tcp-connection-factory id="client"
+	<!-- Client side -->
+
+	<int:gateway id="gw"
+		service-interface="org.springframework.integration.samples.tcpclientserver.SimpleGateway"
+		default-request-channel="input"/>
+
+	<int-ip:tcp-connection-factory id="client"
 		type="client"
 		host="localhost"
-		port="11111"
+		port="${availableServerSocket}"
 		single-use="true"
-		so-timeout="10000"
-        />
-	
-	<channel id="input" />
-	
-	<ip:tcp-outbound-gateway id="outGateway"
+		so-timeout="10000"/>
+
+	<int:channel id="input" />
+
+	<int-ip:tcp-outbound-gateway id="outGateway"
 		request-channel="input"
 		reply-channel="clientBytes2StringChannel"
 		connection-factory="client"
 		request-timeout="10000"
-		reply-timeout="10000"
-		/>
+		reply-timeout="10000"/>
 
-	<transformer id="clientBytes2String"
+	<int:transformer id="clientBytes2String"
 		input-channel="clientBytes2StringChannel"
 		expression="new String(payload)"/>
-		
+
 	<!-- Server side -->
-	
-	<ip:tcp-connection-factory id="crLfServer"
+
+	<int-ip:tcp-connection-factory id="crLfServer"
 		type="server"
-		port="11111"/>
-			
-	<ip:tcp-inbound-gateway id="gatewayCrLf"
+		port="${availableServerSocket}"/>
+
+	<int-ip:tcp-inbound-gateway id="gatewayCrLf"
 		connection-factory="crLfServer"
-		request-channel="serverBytes2StringChannel" 
+		request-channel="serverBytes2StringChannel"
 		error-channel="errorChannel"/>
-		
-	<channel id="toSA" />
 
-	<service-activator input-channel="toSA"
-					   ref="echoService"
-					   method="test"
-	/>
+	<int:channel id="toSA" />
 
-	<beans:bean id="echoService" 
-		  class="org.springframework.integration.samples.tcpclientserver.EchoService" />
-		  
-	<transformer id="serverBytes2String"
+	<int:service-activator input-channel="toSA"
+		ref="echoService"
+		method="test"/>
+
+	<bean id="echoService"
+		class="org.springframework.integration.samples.tcpclientserver.EchoService" />
+
+	<int:transformer id="serverBytes2String"
 		input-channel="serverBytes2StringChannel"
-		output-channel="toSA" 
+		output-channel="toSA"
 		expression="new String(payload)"/>
-		
-	<transformer id="errorHandler"
+
+	<int:transformer id="errorHandler"
 		input-channel="errorChannel"
 		expression="payload.failedMessage.payload + ':' + payload.cause.message"/>
-		  
-</beans:beans>
+
+</beans>
