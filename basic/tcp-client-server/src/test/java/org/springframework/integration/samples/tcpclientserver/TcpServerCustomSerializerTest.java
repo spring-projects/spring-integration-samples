@@ -26,6 +26,7 @@ import java.io.OutputStreamWriter;
 import java.io.Writer;
 import java.net.Socket;
 
+import org.apache.log4j.Logger;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,6 +36,7 @@ import org.springframework.integration.Message;
 import org.springframework.integration.MessageChannel;
 import org.springframework.integration.core.SubscribableChannel;
 import org.springframework.integration.handler.AbstractReplyProducingMessageHandler;
+import org.springframework.integration.ip.tcp.connection.AbstractServerConnectionFactory;
 import org.springframework.integration.samples.tcpclientserver.support.CustomTestContextLoader;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ContextConfiguration;
@@ -46,7 +48,9 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
  * the Java socket API on the front end (client) and the Spring Integration TCP inbound
  * gateway with the custom serializer/deserializers.
  *
- * @author: ceposta
+ * @author ceposta
+ * @author Gunnar Hillert
+ *
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(loader=CustomTestContextLoader.class,
@@ -54,73 +58,92 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @DirtiesContext
 public class TcpServerCustomSerializerTest {
 
-    @Autowired
-    @Qualifier("incomingServerChannel")
-    MessageChannel incomingServerChannel;
+	private static final Logger LOGGER = Logger.getLogger(TcpServerCustomSerializerTest.class);
+
+	@Autowired
+	@Qualifier("incomingServerChannel")
+	MessageChannel incomingServerChannel;
 
 	@Value("${availableServerSocket}")
 	int availableServerSocket;
 
-    @Test
-    public void testHappyPath() {
+	@Autowired
+	AbstractServerConnectionFactory serverConnectionFactory;
 
-        // add a listener to this channel, otherwise there is not one defined
-        // the reason we use a listener here is so we can assert truths on the
-        // message and/or payload
-        SubscribableChannel channel = (SubscribableChannel) incomingServerChannel;
-        channel.subscribe(new AbstractReplyProducingMessageHandler(){
+	@Test
+	public void testHappyPath() {
 
-            @Override
-            protected Object handleRequestMessage(Message<?> requestMessage) {
-                CustomOrder payload = (CustomOrder) requestMessage.getPayload();
+		// add a listener to this channel, otherwise there is not one defined
+		// the reason we use a listener here is so we can assert truths on the
+		// message and/or payload
+		SubscribableChannel channel = (SubscribableChannel) incomingServerChannel;
+		channel.subscribe(new AbstractReplyProducingMessageHandler(){
 
-                // we assert during the processing of the messaging that the
-                // payload is just the content we wanted to send without the
-                // framing bytes (STX/ETX)
-                assertEquals(123, payload.getNumber());
-                assertEquals("PINGPONG02", payload.getSender());
-                assertEquals("You got it to work!", payload.getMessage());
-                return requestMessage;
-            }
-        });
+			@Override
+			protected Object handleRequestMessage(Message<?> requestMessage) {
+				CustomOrder payload = (CustomOrder) requestMessage.getPayload();
 
-        String sourceMessage = "123PINGPONG02000019You got it to work!";
+				// we assert during the processing of the messaging that the
+				// payload is just the content we wanted to send without the
+				// framing bytes (STX/ETX)
+				assertEquals(123, payload.getNumber());
+				assertEquals("PINGPONG02", payload.getSender());
+				assertEquals("You got it to work!", payload.getMessage());
+				return requestMessage;
+			}
+		});
 
+		String sourceMessage = "123PINGPONG02000019You got it to work!";
 
-        // use the java socket API to make the connection to the server
-        Socket socket = null;
-        Writer out = null;
-        BufferedReader in = null;
-        try {
-            socket = new Socket("localhost", availableServerSocket);
-            out = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
-            out.write(sourceMessage);
-            out.flush();
+		// use the java socket API to make the connection to the server
+		Socket socket = null;
+		Writer out = null;
+		BufferedReader in = null;
 
-            in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-            StringBuffer str = new StringBuffer();
+		int n = 0;
+		while (!serverConnectionFactory.isListening()) {
 
-            int c;
-            while ((c = in.read()) != -1) {
-                str.append((char) c);
-            }
+			try {
+				Thread.sleep(100);
+			} catch (InterruptedException e1) {
+				throw new IllegalStateException(e1);
+			}
 
-            String response = str.toString();
-            assertEquals(sourceMessage, response);
+			if (n++ > 100) {
+				fail("Server didn't begin listening.");
+			}
+		}
 
-        } catch (IOException e) {
-            fail("Test ended with an exception " + e.getMessage());
-        }
-        finally {
-            try {
-                socket.close();
-                out.close();
-                in.close();
+		try {
+			socket = new Socket("localhost", availableServerSocket);
+			out = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
+			out.write(sourceMessage);
+			out.flush();
 
-            } catch (Exception e) {
-                // swallow exception
-            }
+			in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+			StringBuffer str = new StringBuffer();
 
-        }
-    }
+			int c;
+			while ((c = in.read()) != -1) {
+				str.append((char) c);
+			}
+
+			String response = str.toString();
+			assertEquals(sourceMessage, response);
+
+		} catch (IOException e) {
+			LOGGER.error(e.getMessage(), e);
+			fail(String.format("Test (port: %s) ended with an exception: %s", availableServerSocket, e.getMessage()));
+		} finally {
+			try {
+				socket.close();
+				out.close();
+				in.close();
+
+			} catch (Exception e) {
+				// swallow exception
+			}
+
+		}
+	}
 }
