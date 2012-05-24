@@ -15,6 +15,7 @@
  */
 package org.springframework.integration.samples.tcpclientserver;
 
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,8 +24,10 @@ import org.springframework.integration.Message;
 import org.springframework.integration.MessageChannel;
 import org.springframework.integration.core.SubscribableChannel;
 import org.springframework.integration.handler.AbstractReplyProducingMessageHandler;
+import org.springframework.integration.ip.tcp.connection.AbstractServerConnectionFactory;
 import org.springframework.integration.ip.tcp.serializer.ByteArrayStxEtxSerializer;
 import org.springframework.integration.samples.tcpclientserver.support.CustomTestContextLoader;
+import org.springframework.integration.samples.tcpclientserver.support.ServerUtils;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -55,6 +58,14 @@ public class TcpServerConnectionDeserializeTest {
     @Autowired
     @Qualifier("incomingServerChannel")
     MessageChannel incomingServerChannel;
+
+	@Autowired
+	AbstractServerConnectionFactory crLfServer;
+
+	@Before
+	public void setup() {
+		ServerUtils.waitListening(this.crLfServer);
+	}
 
     @Test
     public void testHappyPath() {

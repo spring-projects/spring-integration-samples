@@ -27,6 +27,7 @@ import java.io.Writer;
 import java.net.Socket;
 
 import org.apache.log4j.Logger;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,6 +39,7 @@ import org.springframework.integration.core.SubscribableChannel;
 import org.springframework.integration.handler.AbstractReplyProducingMessageHandler;
 import org.springframework.integration.ip.tcp.connection.AbstractServerConnectionFactory;
 import org.springframework.integration.samples.tcpclientserver.support.CustomTestContextLoader;
+import org.springframework.integration.samples.tcpclientserver.support.ServerUtils;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -70,6 +72,11 @@ public class TcpServerCustomSerializerTest {
 	@Autowired
 	AbstractServerConnectionFactory serverConnectionFactory;
 
+	@Before
+	public void setup() {
+		ServerUtils.waitListening(serverConnectionFactory);
+	}
+
 	@Test
 	public void testHappyPath() {
 
@@ -99,20 +106,6 @@ public class TcpServerCustomSerializerTest {
 		Socket socket = null;
 		Writer out = null;
 		BufferedReader in = null;
-
-		int n = 0;
-		while (!serverConnectionFactory.isListening()) {
-
-			try {
-				Thread.sleep(100);
-			} catch (InterruptedException e1) {
-				throw new IllegalStateException(e1);
-			}
-
-			if (n++ > 100) {
-				fail("Server didn't begin listening.");
-			}
-		}
 
 		try {
 			socket = new Socket("localhost", availableServerSocket);
@@ -146,4 +139,5 @@ public class TcpServerCustomSerializerTest {
 
 		}
 	}
+
 }
