@@ -23,11 +23,14 @@ import java.util.Set;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.task.SimpleAsyncTaskExecutor;
 import org.springframework.core.task.TaskExecutor;
+import org.springframework.integration.ip.tcp.connection.AbstractServerConnectionFactory;
+import org.springframework.integration.samples.tcpclientserver.support.ServerUtils;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
@@ -49,6 +52,14 @@ public class TcpClientServerDemoTest {
 
 	@Autowired
 	SimpleGateway gw;
+
+	@Autowired
+	AbstractServerConnectionFactory crLfServer;
+
+	@Before
+	public void setup() {
+		ServerUtils.waitListening(this.crLfServer);
+	}
 
 	@Test
 	public void testHappyDay() {
