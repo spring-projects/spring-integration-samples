@@ -34,15 +34,15 @@ import org.springframework.integration.samples.ftp.support.TestUserManager;
 
 /**
  * Test Suite that will bootstrap an embedded Apache FTP Server. Additionally some
- * test files will be send to the FTP Server. 
- * 
- * 
+ * test files will be send to the FTP Server.
+ *
+ *
  * @author Gunnar Hillert
  *
  */
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
-		   FtpOutboundChannelAdapterSample.class, 
+		   FtpOutboundChannelAdapterSample.class,
 		   FtpInboundChannelAdapterSample.class,
 		   FtpOutboundGatewaySample.class
 	   })
@@ -50,20 +50,20 @@ public class TestSuite {
 
 	public static final String FTP_ROOT_DIR       = "target" + File.separator + "ftproot";
 	public static final String LOCAL_FTP_TEMP_DIR = "target" + File.separator + "local-ftp-temp";
-	
+
 	@ClassRule
 	public static final TemporaryFolder temporaryFolder = new TemporaryFolder();
 
 	public static FtpServer server;
-	
+
 	@BeforeClass
 	public static void setupFtpServer() throws FtpException, SocketException, IOException {
 
 		File ftpRoot = new File (FTP_ROOT_DIR);
 		ftpRoot.mkdirs();
-		
+
 		TestUserManager userManager = new TestUserManager(ftpRoot.getAbsolutePath());
-				
+
 		FtpServerFactory serverFactory = new FtpServerFactory();
 		serverFactory.setUserManager(userManager);
 		ListenerFactory factory = new ListenerFactory();
@@ -71,13 +71,13 @@ public class TestSuite {
 		factory.setPort(3333);
 
 		serverFactory.addListener("default", factory.createListener());
-		                
-		server = serverFactory.createServer(); 
-		        
+
+		server = serverFactory.createServer();
+
 		server.start();
-		
+
 	}
-	
+
 	@AfterClass
 	public static void shutDown() {
 		server.stop();
