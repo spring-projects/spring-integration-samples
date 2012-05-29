@@ -10,24 +10,24 @@
 		http://www.springframework.org/schema/integration http://www.springframework.org/schema/integration/spring-integration.xsd
 		http://www.springframework.org/schema/rabbit http://www.springframework.org/schema/rabbit/spring-rabbit.xsd
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
-        
-    <!-- From TCP To RabbitMQ -->
+
+	<!-- From TCP To RabbitMQ -->
 
 	<int-ip:tcp-connection-factory id="server" type="server" port="11111" />
 
 	<int-ip:tcp-inbound-channel-adapter channel="toRabbit" connection-factory="server" />
 
-    <int:channel id="toRabbit" />
+	<int:channel id="toRabbit" />
 
-    <int-amqp:outbound-channel-adapter channel="toRabbit"
+	<int-amqp:outbound-channel-adapter channel="toRabbit"
 		amqp-template="amqpTemplate" exchange-name="si.test.exchange" 
 		routing-key="si.test.binding"/>
 
-    <!-- From RabbitMQ To STDOUT -->
+	<!-- From RabbitMQ To STDOUT -->
 
-    <int-amqp:inbound-channel-adapter channel="fromRabbit" 
-                                      queue-names="si.test.queue"
-                                      connection-factory="connectionFactory" />
+	<int-amqp:inbound-channel-adapter channel="fromRabbit" 
+			queue-names="si.test.queue"
+			connection-factory="connectionFactory" />
 
     <int:channel id="fromRabbit" />
 
