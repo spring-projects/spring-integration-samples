@@ -1,0 +1,21 @@
+.container {
+    border: 1px solid #728C16;
+    margin-top: 1.5em;
+}
+
+#header {
+    background-color: #EEEEEE;
+}
+
+.twitterMessages {
+    list-style: none;
+}
+
+.twitterMessages img {
+    vertical-align: middle;
+}
+
+.twitterMessages li {
+    padding-top: 2px;
+    padding-bottom: 2px;
+}
