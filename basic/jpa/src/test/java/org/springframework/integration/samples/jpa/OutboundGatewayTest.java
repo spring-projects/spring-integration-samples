@@ -25,7 +25,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.integration.samples.jpa.service.PersonService;
 
 /**
- * The test class for jdbc outbound gateway
+ *
  * @author Amol Nayak
  *
  */
@@ -36,8 +36,8 @@ public class OutboundGatewayTest {
 	@Test
 	public void insertPersonRecord() {
 
-		final ApplicationContext context
-        = new ClassPathXmlApplicationContext("classpath:/META-INF/spring/integration/spring-integration-context.xml");
+		final ApplicationContext context = new ClassPathXmlApplicationContext(
+			"classpath:/META-INF/spring/integration/spring-integration-context.xml");
 
 		final PersonService service = context.getBean(PersonService.class);
 

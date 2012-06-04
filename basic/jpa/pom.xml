@@ -22,7 +22,7 @@
 		<openjpa.version>2.2.0</openjpa.version>
 		<eclipselink.version>2.3.2</eclipselink.version>
 		<hibernate.version>4.0.1.Final</hibernate.version>
-		<spring-instrument.version>3.1.0.RELEASE</spring-instrument.version>
+		<spring-instrument.version>3.1.1.RELEASE</spring-instrument.version>
 	</properties>
 
 	<repositories>

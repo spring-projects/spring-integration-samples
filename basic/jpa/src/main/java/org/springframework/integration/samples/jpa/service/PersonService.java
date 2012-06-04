@@ -33,7 +33,7 @@ public interface PersonService {
 	 * Creates a {@link Person} instance from the {@link Person} instance passed
 	 *
 	 * @param the created person instance, it will contain the generated primary key and the formated name
-	 * @return
+	 * @return The persisted Entity
 	 */
 	Person createPerson(Person person);
 
