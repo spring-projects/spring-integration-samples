@@ -33,6 +33,7 @@ This is a good place to get started. The samples here are technically motivated 
 * **jmx** - demonstrates **JMX** support using a **JMX Attribute Polling Channel** and **JMX Operation Invoking Channel Adapter**
 * **mail** - example showing **IMAP** and **POP3** support
 * **oddeven** - Example combining the functionality of **Inbound Channel Adapter**, **Filter**, **Router** and **Poller**
+* **jpa** - This sample illustrates how the JPA Components can be used
 * **quote** - Example demoing core EIP support using **Channel Adapter (Inbound and Stdout)**, **Poller** with Interval Trigers, **Service Activator**
 * **sftp** - demonstrating SFTP support using **SFTP Inbound / Outbound Channel Adapters**
 * **tcp-client-server** - demonstrates socket communication using **TcpOutboundGateway**, **TcpInboundGateway** and also uses a **Gateway** and a **Service Activator**

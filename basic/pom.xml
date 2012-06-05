@@ -21,6 +21,7 @@
         <module>jdbc</module>
         <module>jms</module>
         <module>jmx</module>
+        <module>jpa</module>
         <module>mail</module>
         <module>oddeven</module>
         <module>quote</module>
