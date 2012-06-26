@@ -12,15 +12,37 @@
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/integration/twitter http://www.springframework.org/schema/integration/twitter/spring-integration-twitter.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
-	
+
+	<context:mbean-server/>
+	<int-jmx:mbean-export id="integrationMBeanExporter" default-domain="spring.application"/>
+	<context:mbean-export default-domain="spring.application"/>
+
+	<int:message-history/>
+
 	<context:component-scan base-package="org.springframework.integration.service" />
 
 	<int-twitter:search-inbound-channel-adapter id="twitter" query="#springintegration"
 												channel="twitterChannel" auto-startup="true">
 		<int:poller fixed-rate="30000" max-messages-per-poll="10" />
 	</int-twitter:search-inbound-channel-adapter>
-	
-	<int:service-activator id="twitterServiceActivator" input-channel="twitterChannel"
+
+	<int:inbound-channel-adapter id="dummyAdapter" channel="twitterChannel" method="getTweet">
+		<bean class="org.springframework.integration.service.impl.DummyTwitter"/>
+		<int:poller fixed-delay="5000"/>
+	</int:inbound-channel-adapter>
+
+	<int:header-enricher id="addFooHeader" input-channel="twitterChannel" output-channel="twitterChannel2">
+		<int:correlation-id value="foo"/>
+	</int:header-enricher>
+
+	<int:transformer id="noopButSlowTransformer" input-channel="twitterChannel2" output-channel="twitterChannel3">
+		<int-groovy:script>
+			Thread.sleep(1000)
+			payload
+		</int-groovy:script>
+	</int:transformer>
+
+	<int:service-activator id="twitterServiceActivator" input-channel="twitterChannel3"
 						ref="twitterService" method="addTwitterMessages" />
 
 	<bean id="twitterService" class="_org.springframework.integration.service.impl.DefaultTwitterService"/>
@@ -28,6 +50,14 @@
 	<int:channel id="twitterChannel">
 		<int:interceptors>
 			<int:wire-tap channel="logger" />
+			<bean class="_org.springframework.integration.PayloadAwareTimingInterceptor">
+				<constructor-arg>
+					<array>
+						<value>java.lang.String</value>
+						<value>org.springframework.social.twitter.api.Tweet</value>
+					</array>
+				</constructor-arg>
+			</bean>
 		</int:interceptors>
 	</int:channel>
 

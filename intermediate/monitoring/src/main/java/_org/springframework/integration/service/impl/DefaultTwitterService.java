@@ -29,6 +29,7 @@ import org.springframework.integration.monitor.IntegrationMBeanExporter;
 import org.springframework.integration.service.TwitterService;
 import org.springframework.integration.support.MessageBuilder;
 import org.springframework.jmx.export.annotation.ManagedMetric;
+import org.springframework.jmx.export.annotation.ManagedResource;
 import org.springframework.jmx.support.MetricType;
 import org.springframework.social.twitter.api.Tweet;
 import org.springframework.stereotype.Service;
@@ -39,7 +40,7 @@ import org.springframework.stereotype.Service;
  * classes from MBean export.
  */
 @Service
-
+@ManagedResource
 public class DefaultTwitterService implements TwitterService {
 
 	/** Holds a collection of polled Twitter messages */
