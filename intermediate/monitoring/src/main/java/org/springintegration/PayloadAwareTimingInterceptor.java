@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package _org.springframework.integration;
+package org.springintegration;
 
 import java.util.Map;
 import java.util.Map.Entry;
@@ -27,6 +27,9 @@ import org.springframework.jmx.export.annotation.ManagedResource;
 import org.springframework.util.StopWatch;
 
 /**
+ * A sample channel interceptor that illustrates a technique to capture elapsed times
+ * based on message payload types.
+ *
  * @author Gary Russell
  * @since 2.2
  *
@@ -38,6 +41,11 @@ public class PayloadAwareTimingInterceptor extends ChannelInterceptorAdapter {
 
 	private Map<Class<?>, Stats> statsMap = new ConcurrentHashMap<Class<?>, PayloadAwareTimingInterceptor.Stats>();
 
+	/**
+	 *
+	 * @param classes An array of types for which statistics will be captured; if
+	 * not supplied {@link Object} will be added as a catch-all.
+	 */
 	public PayloadAwareTimingInterceptor(Class<?>[] classes) {
 		for (Class<?> clazz : classes) {
 			this.statsMap.put(clazz, new Stats());

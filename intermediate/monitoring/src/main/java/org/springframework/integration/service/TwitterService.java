@@ -44,6 +44,9 @@ public interface TwitterService {
 	 */
 	void stopTwitterAdapter();
 
+	/**
+	 * Performs an orderly shutdown of the Spring Integration twitter application.
+	 */
 	void shutdown();
 
 }

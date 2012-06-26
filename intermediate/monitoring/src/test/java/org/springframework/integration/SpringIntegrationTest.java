@@ -1,5 +1,5 @@
 /*
- * Copyright 2002-2010 the original author or authors.
+ * Copyright 2002-2012 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,20 +16,19 @@
 
 package org.springframework.integration;
 
-import org.junit.Test;
-import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 /**
+ * Run this class to run the sample from the command line.
+ * @author Gary Russell
  */
 public class SpringIntegrationTest {
 
-    @Test
-    public void testSpringIntegrationContextStartup() throws Exception{
+    public static void main(String[] args) throws Exception {
 
-        final ApplicationContext context = new ClassPathXmlApplicationContext("/META-INF/spring/integration/spring-integration-context.xml", SpringIntegrationTest.class);
+        new ClassPathXmlApplicationContext("/META-INF/spring/integration/spring-integration-context.xml", SpringIntegrationTest.class);
+        System.out.println("Hit Enter to terminate");
         System.in.read();
-
     }
 
 }
