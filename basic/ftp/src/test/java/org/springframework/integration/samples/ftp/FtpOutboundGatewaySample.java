@@ -21,8 +21,6 @@ import static org.junit.Assert.assertTrue;
 import java.io.File;
 import java.util.List;
 
-import org.apache.commons.io.FileUtils;
-import org.junit.After;
 import org.junit.Test;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -68,11 +66,6 @@ public class FtpOutboundGatewaySample {
 
 		assertTrue("Expected FTP remote directory to be empty",  new File(TestSuite.FTP_ROOT_DIR).delete());
 
-	}
-
-	@After
-	public void cleanup() {
-		FileUtils.deleteQuietly(new File(TestSuite.LOCAL_FTP_TEMP_DIR));
 	}
 
 }

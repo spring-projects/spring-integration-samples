@@ -82,6 +82,7 @@ public class TestSuite {
 	public static void shutDown() {
 		server.stop();
 		FileUtils.deleteQuietly(new File(FTP_ROOT_DIR));
+		FileUtils.deleteQuietly(new File(LOCAL_FTP_TEMP_DIR));
 	}
 
 }
