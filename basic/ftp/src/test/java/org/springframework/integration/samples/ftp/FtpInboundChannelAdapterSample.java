@@ -18,10 +18,7 @@ package org.springframework.integration.samples.ftp;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 
-import java.io.File;
 import org.apache.log4j.Logger;
-import org.apache.commons.io.FileUtils;
-import org.junit.After;
 import org.junit.Test;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -59,8 +56,4 @@ public class FtpInboundChannelAdapterSample {
 
 	}
 
-	@After
-	public void cleanup() {
-		FileUtils.deleteQuietly(new File(TestSuite.LOCAL_FTP_TEMP_DIR));
-	}
 }
