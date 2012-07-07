@@ -13,7 +13,7 @@ This example demonstrates how emails including their attachments can be processe
 
 # Getting Started
 
-In order to use this sample you must have access to a mail-server. You either use an external server (e.g. GMail) or you can also easily setup your own mail server using Apache James 3.0 (http://james.apache.org/). You can find instructions for setting up a basic instance at:
+In order to use this sample you must have access to a mail-server. You can either use an external server (e.g. GMail) or you can also easily setup your own mail server using Apache James 3.0 (http://james.apache.org/). You can find instructions for setting up a basic instance at:
 
 * http://james.apache.org/server/3/quick-start.html
 * http://hillert.blogspot.com/2011/05/testing-email-notifications-with-apache.html

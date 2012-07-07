@@ -76,15 +76,13 @@ public final class EmailParserUtils {
 		}
 
 		if (content instanceof String) {
-
 			emailFragments.add(new EmailFragment(new File(subject), "message.txt", content));
-
-		}  else if (content instanceof Multipart) {
-
+		}
+		else if (content instanceof Multipart) {
 			Multipart multipart = (Multipart) content;
 			handleMultipart(directory, multipart, mailMessage, emailFragments);
-
-		} else {
+		}
+		else {
 			throw new IllegalStateException("This content type is not handled - " + content.getClass().getSimpleName());
 		}
 
@@ -105,6 +103,7 @@ public final class EmailParserUtils {
 		Assert.notNull(emailFragments, "The collection of emailfragments must not be null.");
 
 		final int count;
+
 		try {
 			count = multipart.getCount();
 
@@ -112,7 +111,8 @@ public final class EmailParserUtils {
 				LOGGER.info(String.format("Number of enclosed BodyPart objects: %s.", count));
 			}
 
-		} catch (MessagingException e) {
+		}
+		catch (MessagingException e) {
 			throw new IllegalStateException("Error while retrieving the number of enclosed BodyPart objects.", e);
 		}
 
@@ -122,7 +122,8 @@ public final class EmailParserUtils {
 
 			try {
 				bp = multipart.getBodyPart(i);
-			} catch (MessagingException e) {
+			}
+			catch (MessagingException e) {
 				throw new IllegalStateException("Error while retrieving body part.", e);
 			}
 
@@ -142,7 +143,8 @@ public final class EmailParserUtils {
 					filename = ((MimeBodyPart) bp).getContentID();
 				}
 
-			} catch (MessagingException e) {
+			}
+			catch (MessagingException e) {
 				throw new IllegalStateException("Unable to retrieve body part meta data.", e);
 			}
 
@@ -159,9 +161,11 @@ public final class EmailParserUtils {
 
 			try {
 				content = bp.getContent();
-			} catch (IOException e) {
+			}
+			catch (IOException e) {
 				throw new IllegalStateException("Error while retrieving the email contents.", e);
-			} catch (MessagingException e) {
+			}
+			catch (MessagingException e) {
 				throw new IllegalStateException("Error while retrieving the email contents.", e);
 			}
 
@@ -170,21 +174,26 @@ public final class EmailParserUtils {
 				if (Part.ATTACHMENT.equalsIgnoreCase(disposition)) {
 					emailFragments.add(new EmailFragment(directory, i + "-" + filename, content));
 					LOGGER.info(String.format("Handdling attachment '%s', type: '%s'", filename, contentType));
-				} else {
+				}
+				else {
 
 					final String textFilename;
-					ContentType ct;
+					final ContentType ct;
+
 					try {
 						ct = new ContentType(contentType);
-					} catch (ParseException e) {
+					}
+					catch (ParseException e) {
 						throw new IllegalStateException("Error while parsing content type '" + contentType + "'.", e);
 					}
 
 					if ("text/plain".equalsIgnoreCase(ct.getBaseType())) {
 						textFilename = "message.txt";
-					} else if ("text/html".equalsIgnoreCase(ct.getBaseType())) {
+					}
+					else if ("text/html".equalsIgnoreCase(ct.getBaseType())) {
 						textFilename = "message.html";
-					} else {
+					}
+					else {
 						textFilename = "message.other";
 					}
 
@@ -192,25 +201,30 @@ public final class EmailParserUtils {
 				}
 
 
-			}  else if (content instanceof InputStream) {
+			}
+			else if (content instanceof InputStream) {
 
-				InputStream inputStream = (InputStream) content;
-				ByteArrayOutputStream bis = new ByteArrayOutputStream();
+				final InputStream inputStream = (InputStream) content;
+				final ByteArrayOutputStream bis = new ByteArrayOutputStream();
 
 				try {
 					IOUtils.copy(inputStream, bis);
-				} catch (IOException e) {
+				}
+				catch (IOException e) {
 					throw new IllegalStateException("Error while copying input stream to the ByteArrayOutputStream.", e);
 				}
 
 				emailFragments.add(new EmailFragment(directory, filename, bis.toByteArray()));
 
-			} else if (content instanceof javax.mail.Message)  {
+			}
+			else if (content instanceof javax.mail.Message)  {
 				handleMessage(directory, (javax.mail.Message) content, emailFragments);
-			} else if (content instanceof Multipart) {
-				Multipart mp2 = (Multipart) content;
+			}
+			else if (content instanceof Multipart) {
+				final Multipart mp2 = (Multipart) content;
 				handleMultipart(directory, mp2, mailMessage, emailFragments);
-			} else {
+			}
+			else {
 				throw new IllegalStateException("Content type not handled: " + content.getClass().getSimpleName());
 			}
 		}

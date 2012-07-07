@@ -88,7 +88,8 @@ public class MimeMessageParsingTest {
 
 			helper.addAttachment(pictureName, byteArrayResource, "image/png");
 
-		} catch (MessagingException e) {
+		}
+		catch (MessagingException e) {
 			throw new MailParseException(e);
 		}
 
@@ -103,14 +104,13 @@ public class MimeMessageParsingTest {
 
 		for (WiserMessage wiserMessage : wiserMessages) {
 
-				List<EmailFragment> emailFragments = new ArrayList<EmailFragment>();
+				final List<EmailFragment> emailFragments = new ArrayList<EmailFragment>();
 
 				try {
-
 					final MimeMessage mailMessage = wiserMessage.getMimeMessage();
 					EmailParserUtils.handleMessage(null, mailMessage, emailFragments);
-
-				} catch (MessagingException e) {
+				}
+				catch (MessagingException e) {
 					throw new IllegalStateException("Error while retrieving Mime Message.");
 				}
 
@@ -156,14 +156,14 @@ public class MimeMessageParsingTest {
 			messageHelper.setSubject("Parsing of Attachments");
 			messageHelper.setText("Spring Integration Rocks!", "Spring Integration <b>Rocks</b>!");
 
-			final MimeMessage message = mailSender.createMimeMessage();
 			final String pictureName = "picture.png";
 
 			final ByteArrayResource byteArrayResource = getFileData(pictureName);
 
 			messageHelper.addInline("picture12345", byteArrayResource, "image/png");
 
-		} catch (MessagingException e) {
+		}
+		catch (MessagingException e) {
 			throw new MailParseException(e);
 		}
 
@@ -224,7 +224,8 @@ public class MimeMessageParsingTest {
 		try {
 			byteArrayResource = new ByteArrayResource(IOUtils.toByteArray(attachmentInputStream));
 			attachmentInputStream.close();
-		} catch (IOException e1) {
+		}
+		catch (IOException e1) {
 			Assert.fail();
 		}
 

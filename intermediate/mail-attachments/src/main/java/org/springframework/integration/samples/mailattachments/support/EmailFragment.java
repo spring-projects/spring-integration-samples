@@ -20,6 +20,8 @@ import java.io.File;
 import org.springframework.util.Assert;
 
 /**
+ * Represents a part of the original email messsage. EmailFragments could be either
+ * Email messages themselves or also attachments.
  *
  * @author Gunnar Hillert
  * @since 2.2
@@ -32,8 +34,11 @@ public class EmailFragment {
 	private File   directory;
 
 	/**
-	 * @param filename
-	 * @param data
+	 * Constructor.
+	 *
+	 * @param directory Must not be null
+	 * @param filename  Must not be null
+	 * @param data  Must not be null
 	 */
 	public EmailFragment(File directory, String filename, Object data) {
 		super();
@@ -82,12 +87,14 @@ public class EmailFragment {
 		if (directory == null) {
 			if (other.directory != null)
 				return false;
-		} else if (!directory.equals(other.directory))
+		}
+		else if (!directory.equals(other.directory))
 			return false;
 		if (filename == null) {
 			if (other.filename != null)
 				return false;
-		} else if (!filename.equals(other.filename))
+		}
+		else if (!filename.equals(other.filename))
 			return false;
 		return true;
 	}

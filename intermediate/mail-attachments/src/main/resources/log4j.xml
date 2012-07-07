@@ -12,11 +12,11 @@
 
 	<!-- Loggers -->
 	<logger name="org.springframework.integration.mail">
-		<level value="debug" />
+		<level value="info" />
 	</logger>
 
 	<logger name="org.springframework.integration.samples">
-		<level value="debug" />
+		<level value="info" />
 	</logger>
 
 	<!-- Root Logger -->
