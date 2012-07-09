@@ -97,7 +97,7 @@
 		<repository>
 			<id>repo.springsource.org.milestone</id>
 			<name>Spring Framework Maven Milestone Repository</name>
-			<url>https://repo.springsource.org/milestone</url>
+			<url>https://repo.springsource.org/libs-milestone</url>
 		</repository>
 	</repositories>
 </project>

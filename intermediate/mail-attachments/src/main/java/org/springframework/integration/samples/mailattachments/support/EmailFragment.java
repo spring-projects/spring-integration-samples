@@ -21,7 +21,9 @@ import org.springframework.util.Assert;
 
 /**
  * Represents a part of the original email messsage. EmailFragments could be either
- * Email messages themselves or also attachments.
+ * Email messages themselves or also attachments. The sample will use {@link EmailFragment}s
+ * to ultimately write the various pieces that constitute an emil message out to
+ * the file system.
  *
  * @author Gunnar Hillert
  * @since 2.2
@@ -52,14 +54,26 @@ public class EmailFragment {
 		this.data = data;
 	}
 
+	/**
+	 * The data to save to the file system, e.g. text messages/attachments, binary
+	 * file attachments etc.
+	 */
 	public Object getData() {
 		return data;
 	}
 
+	/**
+	 * The file name to create for the respective {@link EmailFragment}.
+	 */
 	public String getFilename() {
 		return filename;
 	}
 
+	/**
+	 * The directory where to store the {@link #getData()} using the specified
+	 * {@link #getFilename()}.
+	 *
+	 */
 	public File getDirectory() {
 		return this.directory;
 	}

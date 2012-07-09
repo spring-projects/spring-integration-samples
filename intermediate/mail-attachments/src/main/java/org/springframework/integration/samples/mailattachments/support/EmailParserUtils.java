@@ -48,6 +48,13 @@ public final class EmailParserUtils {
 	 * Parses a mail message. The respective message can either be the root message
 	 * or another message that is attached to another message.
 	 *
+	 * If the mail message is an instance of {@link String}, then a {@link EmailFragment}
+	 * is being created using the email message's subject line as the file name,
+	 * which will contain the mail message's content.
+	 *
+	 * If the mail message is an instance of {@link Multipart} then we delegate
+	 * to {@link #handleMultipart(File, Multipart, javax.mail.Message, List)}.
+	 *
 	 * @param directory The directory for storing the message. If null this is the root message.
 	 * @param mailMessage The mail message to be parsed. Must not be null.
 	 * @param emailFragments Must not be null.
@@ -89,6 +96,16 @@ public final class EmailParserUtils {
 	}
 
 	/**
+	 * Parses any {@link Multipart} instances that contain text or Html attachments,
+	 * {@link InputStream} instances, additional instances of {@link Multipart}
+	 * or other attached instances of {@link javax.mail.Message}.
+	 *
+	 * Will create the respective {@link EmailFragment}s representing those attachments.
+	 *
+	 * Instances of {@link javax.mail.Message} are delegated to
+	 * {@link #handleMessage(File, javax.mail.Message, List)}. Further instances
+	 * of {@link Multipart} are delegated to
+	 * {@link #handleMultipart(File, Multipart, javax.mail.Message, List)}.
 	 *
 	 * @param directory Must not be null
 	 * @param multipart Must not be null
