@@ -8,8 +8,12 @@
 	xmlns:context="http://www.springframework.org/schema/context"
 	xmlns:int="http://www.springframework.org/schema/integration"
 	xmlns:int-twitter="http://www.springframework.org/schema/integration/twitter">
-	
+
 	<context:property-placeholder location="classpath:oauth.properties"/>
+
+<!-- While authentication is certainly support for executing Twitter searches,
+	 authentication is not required.  -->
+<!--
 
 	<bean id="twitterTemplate"
 		class="org.springframework.social.twitter.api.impl.TwitterTemplate">
@@ -18,13 +22,21 @@
 		<constructor-arg value="${twitter.oauth.accessToken}" />
 		<constructor-arg value="${twitter.oauth.accessTokenSecret}" />
 	</bean>
-	
-	<int-twitter:search-inbound-channel-adapter id="searchAdapter" channel="sourceExtractor" 
-	                                            query="#springintegration" twitter-template="twitterTemplate">
-    	<int:poller fixed-rate="3000" max-messages-per-poll="5" />
-    </int-twitter:search-inbound-channel-adapter>
-   
+
+	<int-twitter:search-inbound-channel-adapter id="searchAdapter" channel="sourceExtractor"
+		query="#springintegration" twitter-template="twitterTemplate">
+		<int:poller fixed-rate="3000" max-messages-per-poll="5" />
+	</int-twitter:search-inbound-channel-adapter>
+
+-->
+
+	<!-- Search Twitter without authentication -->
+	<int-twitter:search-inbound-channel-adapter id="searchAdapter" channel="sourceExtractor"
+		query="springintegration OR springframework OR #grails">
+		<int:poller fixed-rate="3000" max-messages-per-poll="5" />
+	</int-twitter:search-inbound-channel-adapter>
+
 	<int:transformer input-channel="sourceExtractor" output-channel="twitterOut" expression="payload.getText()"/>
-	
-	<int:logging-channel-adapter id="twitterOut"/>
+
+	<int:logging-channel-adapter id="twitterOut" level="INFO"/>
 </beans>
