@@ -13,7 +13,7 @@
  *	 See the License for the specific language governing permissions and
  *	 limitations under the License.
  */
-package _org.springframework.integration.service.impl;
+package org.springintegration.service.impl;
 
 import java.util.Collection;
 import java.util.LinkedHashMap;
@@ -25,18 +25,16 @@ import org.springframework.integration.Message;
 import org.springframework.integration.MessageChannel;
 import org.springframework.integration.endpoint.SourcePollingChannelAdapter;
 import org.springframework.integration.model.TwitterMessage;
-import org.springframework.integration.monitor.IntegrationMBeanExporter;
 import org.springframework.integration.service.TwitterService;
 import org.springframework.integration.support.MessageBuilder;
 import org.springframework.jmx.export.annotation.ManagedMetric;
 import org.springframework.jmx.export.annotation.ManagedResource;
 import org.springframework.jmx.support.MetricType;
-import org.springframework.social.twitter.api.Tweet;
 import org.springframework.stereotype.Service;
 
 /**
  * Implementation of the TwitterService interface.
- * In the _org package because SI excludes all org.springframework.integration.*
+ * In the org.springintegration package because SI excludes all org.springframework.integration.*
  * classes from MBean export.
  */
 @Service

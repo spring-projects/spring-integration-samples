@@ -13,7 +13,9 @@
 		http://www.springframework.org/schema/integration/twitter http://www.springframework.org/schema/integration/twitter/spring-integration-twitter.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
 
-	<context:mbean-server/>
+	<bean id="mbeanServer"
+	    class="org.springframework.jmx.support.MBeanServerFactoryBean"/>
+	    
 	<int-jmx:mbean-export id="integrationMBeanExporter" default-domain="spring.application"/>
 	<context:mbean-export default-domain="spring.application"/>
 
@@ -45,12 +47,12 @@
 	<int:service-activator id="twitterServiceActivator" input-channel="twitterChannel3"
 						ref="twitterService" method="addTwitterMessages" />
 
-	<bean id="twitterService" class="_org.springframework.integration.service.impl.DefaultTwitterService"/>
+	<bean id="twitterService" class="org.springintegration.service.impl.DefaultTwitterService"/>
 
 	<int:channel id="twitterChannel">
 		<int:interceptors>
 			<int:wire-tap channel="logger" />
-			<bean class="_org.springframework.integration.PayloadAwareTimingInterceptor">
+			<bean class="org.springintegration.PayloadAwareTimingInterceptor">
 				<constructor-arg>
 					<array>
 						<value>java.lang.String</value>
