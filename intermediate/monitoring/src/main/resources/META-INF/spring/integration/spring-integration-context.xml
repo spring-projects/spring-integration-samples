@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:int="http://www.springframework.org/schema/integration"
+	xmlns:int-twitter="http://www.springframework.org/schema/integration/twitter"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:int-jmx="http://www.springframework.org/schema/integration/jmx"
+	xmlns:int-groovy="http://www.springframework.org/schema/integration/groovy"
+	xsi:schemaLocation="http://www.springframework.org/schema/integration http://www.springframework.org/schema/integration/spring-integration.xsd
+		http://www.springframework.org/schema/integration/jmx http://www.springframework.org/schema/integration/jmx/spring-integration-jmx.xsd
+		http://www.springframework.org/schema/integration/groovy http://www.springframework.org/schema/integration/groovy/spring-integration-groovy-2.1.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/integration/twitter http://www.springframework.org/schema/integration/twitter/spring-integration-twitter.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+	<bean id="mbeanServer"
+	    class="org.springframework.jmx.support.MBeanServerFactoryBean"/>
+
+	<int-jmx:mbean-export id="integrationMBeanExporter" default-domain="spring.application"/>
+	<context:mbean-export default-domain="spring.application"/>
+
+	<int:message-history/>
+
+	<context:component-scan base-package="org.springframework.integration.service" />
+
+	<int-twitter:search-inbound-channel-adapter id="twitter" query="#springintegration"
+												channel="twitterChannel" auto-startup="true">
+		<int:poller fixed-rate="30000" max-messages-per-poll="10" />
+	</int-twitter:search-inbound-channel-adapter>
+
+	<int:inbound-channel-adapter id="dummyAdapter" channel="twitterChannel" method="getTweet">
+		<bean class="org.springframework.integration.service.impl.DummyTwitter"/>
+		<int:poller fixed-delay="5000"/>
+	</int:inbound-channel-adapter>
+
+	<int:header-enricher id="addFooHeader" input-channel="twitterChannel" output-channel="twitterChannel2">
+		<int:correlation-id value="foo"/>
+	</int:header-enricher>
+
+	<int:transformer id="noopButSlowTransformer" input-channel="twitterChannel2" output-channel="twitterChannel3">
+		<int-groovy:script>
+			Thread.sleep(1000)
+			payload
+		</int-groovy:script>
+	</int:transformer>
+
+	<int:service-activator id="twitterServiceActivator" input-channel="twitterChannel3"
+						ref="twitterService" method="addTwitterMessages" />
+
+	<bean id="twitterService" class="org.springintegration.service.impl.DefaultTwitterService"/>
+
+	<int:channel id="twitterChannel">
+		<int:interceptors>
+			<int:wire-tap channel="logger" />
+			<bean class="org.springintegration.PayloadAwareTimingInterceptor">
+				<constructor-arg>
+					<array>
+						<value>java.lang.String</value>
+						<value>org.springframework.social.twitter.api.Tweet</value>
+					</array>
+				</constructor-arg>
+			</bean>
+		</int:interceptors>
+	</int:channel>
+
+	<int:publish-subscribe-channel id="logger" />
+	
+	<int:logging-channel-adapter id="loggingAdapter" channel="logger" level="INFO"
+								expression="'Id:' + payload.id + '; Date:' + payload.createdAt + '; FromUser: ' + payload.fromUser" />
+
+	<int:bridge input-channel="logger" output-channel="queue"/>
+	
+	<int:channel id="queue">
+		<int:queue/>
+	</int:channel>
+
+	<int:channel id="controlBusChannel"/>
+
+	<int:control-bus id="controlBus" input-channel="controlBusChannel"/>
+
+</beans>
