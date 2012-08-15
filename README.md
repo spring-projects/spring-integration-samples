@@ -14,6 +14,15 @@ Welcome to the Spring Integration Samples. To simplify your experience, Spring I
 
 *Happy Integration!*
 
+## Related GitHub projects
+
+* [Spring Integration][]
+* [Spring Integration Extensions][]
+* [Spring Integration Templates][]
+* [Spring Integration Dsl Groovy][]
+* [Spring Integration Dsl Scala][]
+* [Spring Integration Pattern Catalog][]
+
 # Categories
 
 Below is a short description of each category.
@@ -43,6 +52,7 @@ This is a good place to get started. The samples here are technically motivated 
 * **ws-outbound-gateway** - Shows outbound web services support using the **Web Service Outbound Gateway**, **Content Enricher**, Composed Message Processor (**Chain**)
 * **xml** - Example demonstrates various aspects of the **Xml** support using an **XPath Splitter**, **XPath Router**, **XSLT Transformer** as well as **XPath Expression** support
 * **xmpp** - Show the support for [**XMPP**](http://en.wikipedia.org/wiki/Extensible_Messaging_and_Presence_Protocol) (formerly known as Jabber) using e.g. GoogleTalk
+* **xquery** - Shows the capabilities of the **[Spring Integration XQuery](https://github.com/SpringSource/spring-integration-extensions/tree/master/spring-integration-xquery)** module
 
 ## Intermediate
 
@@ -79,3 +89,9 @@ This category targets developers and architects who have a good understanding of
 #Resources
 
 For more information, please visit the Spring Integration website at: [http://www.springsource.org/spring-integration](http://www.springsource.org/spring-integration)
+
+[Spring Integration Extensions]: https://github.com/SpringSource/spring-integration-extensions
+[Spring Integration Templates]: https://github.com/SpringSource/spring-integration-templates/tree/master/si-sts-templates
+[Spring Integration Dsl Groovy]: https://github.com/SpringSource/spring-integration-dsl-groovy
+[Spring Integration Dsl Scala]: https://github.com/SpringSource/spring-integration-dsl-scala
+[Spring Integration Pattern Catalog]: https://github.com/SpringSource/spring-integration-pattern-catalog
