@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<customers>
+	<customer id="1">
+		<name>Foo Industries</name>
+		<industry>Chemical</industry>
+		<city>Glowing City</city>
+	</customer>
+	<customer id="2">
+		<name>Bar Refreshments</name>
+		<industry>Beverage</industry>
+		<city>Desert Town</city>
+	</customer>
+	<customer id="3">
+		<name>Hello World Services</name>
+		<industry>Travel</industry>
+		<city>Coral Sands</city>
+	</customer>
+</customers>
