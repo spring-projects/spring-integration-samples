@@ -109,29 +109,55 @@
 			<version>${log4j.version}</version>
 		</dependency>
 
-		<!-- BaseX -->
-		<!-- IMPORTANT - For BaseX to work, please comment out the Saxon dependency below!! -->
-		<dependency>
-			<groupId>net.xqj</groupId>
-			<artifactId>basex-xqj</artifactId>
-			<version>1.2.0</version>
-		</dependency>
-
-		<!-- Sedna -->
-
-		<dependency>
-			<groupId>net.xqj.sedna</groupId>
-			<artifactId>sedna-xqj</artifactId>
-			<version>1.0.0</version>
-		</dependency>
-
-		<!-- Saxon -->
-
- 		<dependency>
-			<groupId>net.sf.saxon</groupId>
-			<artifactId>Saxon-HE</artifactId>
-			<version>9.4</version>
-		</dependency>
-
 	</dependencies>
+
+	<profiles>
+		<profile>
+			<id>default</id>
+			<activation>
+				<property><name>!basex</name></property>
+			</activation>
+			<dependencies>
+
+				<!-- Saxon -->
+
+				<dependency>
+					<groupId>net.sf.saxon</groupId>
+					<artifactId>Saxon-HE</artifactId>
+					<version>9.4</version>
+				</dependency>
+
+				<!-- Sedna -->
+
+				<dependency>
+					<groupId>net.xqj.sedna</groupId>
+					<artifactId>sedna-xqj</artifactId>
+					<version>1.0.0</version>
+				</dependency>
+				<dependency>
+					<groupId>com.xqj2</groupId>
+					<artifactId>xqj2</artifactId>
+					<version>0.0.1</version>
+				</dependency>
+
+			</dependencies>
+		</profile>
+		<profile>
+			<id>basex</id>
+			<activation>
+				<property><name>basex</name></property>
+			</activation>
+
+			<dependencies>
+
+				<!-- BaseX -->
+
+				<dependency>
+					<groupId>net.xqj</groupId>
+					<artifactId>basex-xqj</artifactId>
+					<version>1.2.0</version>
+				</dependency>
+			</dependencies>
+		</profile>
+	</profiles>
 </project>

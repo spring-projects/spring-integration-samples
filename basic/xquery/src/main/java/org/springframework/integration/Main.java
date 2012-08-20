@@ -78,20 +78,21 @@ public final class Main {
 
 			if("1".equals(input.trim())) {
 				context.getEnvironment().setActiveProfiles("saxon");
-				LOGGER.info("Using Saxon...");
+				System.out.println("\nUsing Saxon...");
 				break;
 			} else if("2".equals(input.trim())) {
 				context.getEnvironment().setActiveProfiles("sedna");
-				LOGGER.info("Using Sedna...");
+				System.out.println("\nUsing Sedna...");
 				break;
 			} else if("3".equals(input.trim())) {
 				context.getEnvironment().setActiveProfiles("basex");
-				LOGGER.info("Using BaseX...");
+				System.out.println("\nUsing BaseX...");
 
 				if(ClassUtils.isPresent("net.sf.saxon.xqj.SaxonXQDataSource", ClassUtils.getDefaultClassLoader())) {
 					LOGGER.error("Detected the Saxon library to be present. This "
-						+ "conflicts with BaseX. Please comment out the Saxon dependency "
-						+ "in your pom.xml file and try again. Exiting...");
+						+ "conflicts with BaseX. Please start the application "
+						+ "from the command line using:\n\n"
+						+ "mvn exec:java -Dbasex\n\nExiting...");
 					System.exit(1);
 				}
 

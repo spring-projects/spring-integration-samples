@@ -43,40 +43,17 @@ The application should start up and you will see the following screen on which y
 
 ### Note regarding BaseX
 
-For the [BaseX][] example to work, **please comment out the Saxon dependency in the `pom.xml` file!!** Otherwise, you may encounter the following exception:
+The [BaseX][] dependency conflicts with [Saxon][]. Therefore, this sample applies a separate Maven profile for [BaseX][]. If not triggering that special profile when you try to execute the [BaseX][] example, you may encounter the following error message:
 
-	Caused by: javax.xml.xquery.XQException:
-	  XQJTO013 - Values of 'standalone' and 'omit-xml-declaration' conflict
-		at net.xqj.basex.bin.R.a(Unknown Source)
-		at net.xqj.basex.bin.R.a(Unknown Source)
-		at net.xqj.basex.bin.A.a(Unknown Source)
-		at net.xqj.basex.bin.A.a(Unknown Source)
-		at net.xqj.basex.bin.ar.a(Unknown Source)
-		at net.xqj.basex.bin.ao.a(Unknown Source)
-		at net.xqj.basex.bin.ao.a(Unknown Source)
-		at net.xqj.basex.bin.v.bindNode(Unknown Source)
-		at org.springframework.integration.xquery.XQueryExecutor.execute(XQueryExecutor.java:266)
-		... 23 more
-	Caused by: net.sf.saxon.trans.XPathException: Values of 'standalone' and 'omit-xml-declaration' conflict
-		at net.sf.saxon.serialize.XMLEmitter.writeDeclaration(XMLEmitter.java:218)
-		at net.sf.saxon.serialize.XMLEmitter.openDocument(XMLEmitter.java:151)
-		at net.sf.saxon.serialize.XMLEmitter.startElement(XMLEmitter.java:296)
-		at net.sf.saxon.event.NamespaceReducer.startElement(NamespaceReducer.java:66)
-		at net.sf.saxon.dom.DOMSender.outputElement(DOMSender.java:195)
-		at net.sf.saxon.dom.DOMSender.walkNode(DOMSender.java:149)
-		at net.sf.saxon.dom.DOMSender.send(DOMSender.java:82)
-		at net.sf.saxon.dom.DOMObjectModel.sendSource(DOMObjectModel.java:232)
-		at net.sf.saxon.event.Sender.send(Sender.java:228)
-		at net.sf.saxon.IdentityTransformer.transform(IdentityTransformer.java:39)
-		... 32 more
+	Detected the Saxon library to be present. This conflicts with BaseX. Please start the application from the command line using:
 
-Once commented out, run from the command line:
+	mvn exec:java -Dbasex
 
-	$ mvn clean package -DskipTests=true
+Consequently, execute from the command line:
 
-followed by:
+	$ mvn exec:java -Dbasex
 
-	$ mvn exec:java
+The [BaseX][] sample will now execute successfully.
 
 ## Details
 
