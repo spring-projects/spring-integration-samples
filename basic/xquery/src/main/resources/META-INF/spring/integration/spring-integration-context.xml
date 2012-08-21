@@ -15,7 +15,7 @@
 	<int:channel id="requestChannel" />
 
 	<int-xquery:xquery-transformer id="xqueryTransformer"
-		xq-datasource="xqDataSource" input-channel="requestChannel"
+		data-source="xqDataSource" input-channel="requestChannel"
 		format-output="true" xquery-file-resource="classpath:data/xquery.xql">
 	</int-xquery:xquery-transformer>
 
