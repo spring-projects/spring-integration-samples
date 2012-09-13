@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://www.springframework.org/schema/beans"
+	xmlns:int="http://www.springframework.org/schema/integration"
+	xmlns:int-stream="http://www.springframework.org/schema/integration/stream"
+	xmlns:int-amqp="http://www.springframework.org/schema/integration/amqp"
+	xmlns:rabbit="http://www.springframework.org/schema/rabbit"
+	xsi:schemaLocation="http://www.springframework.org/schema/integration/amqp http://www.springframework.org/schema/integration/amqp/spring-integration-amqp-2.2.xsd
+		http://www.springframework.org/schema/integration http://www.springframework.org/schema/integration/spring-integration.xsd
+		http://www.springframework.org/schema/integration/stream http://www.springframework.org/schema/integration/stream/spring-integration-stream-2.2.xsd
+		http://www.springframework.org/schema/rabbit http://www.springframework.org/schema/rabbit/spring-rabbit-1.1.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!-- From STDIN To RabbitMQ -->
+
+    <int-stream:stdin-channel-adapter id="consoleIn" channel="toRabbit" >
+        <int:poller fixed-delay="1000" max-messages-per-poll="1" />
+    </int-stream:stdin-channel-adapter>
+
+    <int:channel id="toRabbit" />
+    
+    <int:chain input-channel="toRabbit">
+    	<int:header-enricher>
+    		<int:header name="uniqueId" expression="T(System).nanoTime()"/>
+    	</int:header-enricher>
+	    <int-amqp:outbound-channel-adapter mapped-request-headers="uniqueId"
+			amqp-template="amqpTemplate" exchange-name="si.test.exchange" 
+			routing-key="si.test.binding"/>
+    </int:chain>
+
+
+    <!-- From RabbitMQ To inputChannel -->
+
+    <int-amqp:inbound-channel-adapter channel="inputChannel"
+    								  mapped-request-headers="uniqueId" 
+                                      queue-names="si.test.queue"
+                                      connection-factory="connectionFactory" />
+
+	<int:channel id="inputChannel"/>
+	
+	<int:header-enricher input-channel="inputChannel" output-channel="toServiceChannel">
+		<int:header name="failingId" expression="headers['uniqueId'].toString()" />
+	</int:header-enricher>
+
+	<int:service-activator input-channel="toServiceChannel" 
+					   ref="conditionalService"
+					   method="testRetry">
+		<int:request-handler-advice-chain>
+			<ref bean="retryAdvice" />
+		</int:request-handler-advice-chain>
+	</int:service-activator>
+	
+	<int:channel id="failedChannel" />
+
+	<int:chain input-channel="failedChannel">
+		<int:transformer expression="'permanently failed:' + payload.failedMessage.payload" />
+		<int-stream:stderr-channel-adapter append-newline="true"/>
+	</int:chain>
+
+	<bean id="conditionalService" class="org.springframework.integration.samples.advice.ConditionalService" />
+
+
+<!-- Rabbit infrastructure -->
+
+    <rabbit:connection-factory id="connectionFactory" />
+
+    <rabbit:template id="amqpTemplate" connection-factory="connectionFactory" />
+
+    <rabbit:admin connection-factory="connectionFactory" />
+
+    <rabbit:queue name="si.test.queue" />
+
+    <rabbit:direct-exchange name="si.test.exchange">
+        <rabbit:bindings>
+            <rabbit:binding queue="si.test.queue" key="si.test.binding" />
+        </rabbit:bindings>
+    </rabbit:direct-exchange>
+
+	<beans profile="default">
+		<bean id="retryAdvice" class="org.springframework.integration.handler.advice.RequestHandlerRetryAdvice">
+			<property name="recoveryCallback">
+				<bean class="org.springframework.integration.handler.advice.ErrorMessageSendingRecoverer">
+					<constructor-arg ref="recoveryChannel" />
+				</bean>
+			</property>
+			<property name="retryStateGenerator">
+				<bean class="org.springframework.integration.handler.advice.SpelExpressionRetryStateGenerator">
+					<constructor-arg value="headers['uniqueId']"/>
+				</bean>
+			</property>
+		</bean>
+		
+		<int:channel id="recoveryChannel" />
+		
+		<int:chain input-channel="recoveryChannel">
+			<int:transformer expression="'permanently failed:' + payload.failedMessage.payload + ' handled by recovery'" />
+			<int-stream:stderr-channel-adapter append-newline="true"/>
+		</int:chain>
+	</beans>
+
+</beans>

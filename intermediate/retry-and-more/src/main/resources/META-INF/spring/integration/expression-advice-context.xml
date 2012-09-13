@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://www.springframework.org/schema/beans"
+	xmlns:int="http://www.springframework.org/schema/integration"
+	xmlns:int-stream="http://www.springframework.org/schema/integration/stream"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:int-file="http://www.springframework.org/schema/integration/file"
+	xmlns:int-ftp="http://www.springframework.org/schema/integration/ftp"
+	xsi:schemaLocation="http://www.springframework.org/schema/integration/ftp http://www.springframework.org/schema/integration/ftp/spring-integration-ftp-2.2.xsd
+		http://www.springframework.org/schema/integration http://www.springframework.org/schema/integration/spring-integration.xsd
+		http://www.springframework.org/schema/integration/file http://www.springframework.org/schema/integration/file/spring-integration-file-2.2.xsd
+		http://www.springframework.org/schema/integration/stream http://www.springframework.org/schema/integration/stream/spring-integration-stream-2.2.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.1.xsd">
+
+	<context:property-placeholder />
+
+	<int-file:inbound-channel-adapter
+		channel="inputChannel"
+		auto-startup="false"
+		auto-create-directory="true"
+		filename-pattern="*.txt"
+		directory="${java.io.tmpdir}/adviceDemo/">
+		<int:poller fixed-delay="500" error-channel="nullChannel" />
+	</int-file:inbound-channel-adapter>
+
+	<int:channel id="inputChannel" />
+
+	<int-ftp:outbound-channel-adapter
+		channel="inputChannel"
+		session-factory="mockSessionFactory"
+		remote-directory="foo">
+		<int-ftp:request-handler-advice-chain>
+			<bean class="org.springframework.integration.handler.advice.ExpressionEvaluatingRequestHandlerAdvice">
+				<property name="onSuccessExpression" value="payload.delete()" />
+				<property name="successChannel" ref="afterSuccessDeleteChannel" />
+				<property name="onFailureExpression" value="payload.renameTo(payload.absolutePath + '.failed.to.send')" />
+				<property name="failureChannel" ref="afterFailRenameChannel" />
+			</bean>
+		</int-ftp:request-handler-advice-chain>
+	</int-ftp:outbound-channel-adapter>
+
+	<bean id="mockSessionFactory" class="org.mockito.Mockito" factory-method="mock">
+		<constructor-arg value="org.springframework.integration.file.remote.session.SessionFactory" />
+	</bean>
+	
+	<int:transformer input-channel="afterSuccessDeleteChannel" output-channel="goodResultChannel"
+		expression="'Removal of ' + inputMessage.payload.absolutePath + ' after transfer, result:' +
+		payload" />
+	
+	<int:transformer input-channel="afterFailRenameChannel" output-channel="badResultChannel"
+		expression="'Renaming of ' + payload.failedMessage.payload.absolutePath + ' after failed transfer, result:' +
+		payload.evaluationResult" />
+	
+	<int:logging-channel-adapter id="goodResultChannel" level="INFO" />
+	
+	<int:logging-channel-adapter id="badResultChannel" level="ERROR"/>
+</beans>
