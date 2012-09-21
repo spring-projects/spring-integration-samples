@@ -1,10 +1,12 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <modelVersion>4.0.0</modelVersion>
-  <groupId>org.springframework.integration.samples</groupId>
-  <artifactId>file-processing</artifactId>
-  <version>2.1.0.BUILD-SNAPSHOT</version>
-    <properties>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>org.springframework.integration.samples</groupId>
+	<artifactId>file-processing</artifactId>
+	<version>2.1.0.BUILD-SNAPSHOT</version>
+	<name>Samples (Intermediate) - File Processing</name>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<spring.integration.version>2.1.0.RELEASE</spring.integration.version>
 		<log4j.version>1.2.16</log4j.version>
 		<junit.version>4.10</junit.version>
@@ -43,12 +45,11 @@
 			</plugin>
 		</plugins>
 	</build>
-    <repositories>
-        <repository>
-            <id>repo.springsource.org.milestone</id>
-            <name>Spring Framework Maven Milestone Repository</name>
-            <url>https://repo.springsource.org/milestone</url>
-        </repository>
-    </repositories>
-	<name>Samples (Intermediate) - File Processing</name>
+	<repositories>
+		<repository>
+			<id>repo.springsource.org.milestone</id>
+			<name>SpringSource Maven Milestone Repository</name>
+			<url>https://repo.springsource.org/libs-milestone</url>
+		</repository>
+	</repositories>
 </project>

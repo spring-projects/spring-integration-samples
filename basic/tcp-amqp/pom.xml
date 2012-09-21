@@ -17,23 +17,13 @@
         <junit.version>4.10</junit.version>
     </properties>
 
-    <repositories>
-        <repository>
-            <id>repository.springframework.maven.release</id>
-            <name>Spring Framework Maven Release Repository</name>
-            <url>http://maven.springframework.org/release</url>
-        </repository>
-        <repository>
-            <id>repository.springframework.maven.milestone</id>
-			<name>Spring Framework Maven Milestone Repository</name>
-			<url>http://maven.springframework.org/milestone</url>
-		</repository>
+	<repositories>
 		<repository>
-			<id>repository.springframework.maven.snapshot</id>
-			<name>Spring Framework Maven Snapshot Repository</name>
-			<url>http://maven.springframework.org/snapshot</url>
+			<id>repo.springsource.org.milestone</id>
+			<name>SpringSource Maven Milestone Repository</name>
+			<url>https://repo.springsource.org/libs-milestone</url>
 		</repository>
-    </repositories>
+	</repositories>
 
     <build>
         <plugins>
