@@ -12,7 +12,7 @@
 
 	<mongo:db-factory id="mongoDbFactory" dbname="test"/>
 	
-	<int-mongodb:outbound-channel-adapter id="deafultAdapter"/>
+	<int-mongodb:outbound-channel-adapter id="deafultAdapter" />
 	
 	<int-mongodb:outbound-channel-adapter id="adapterWithConverter"/>
 
