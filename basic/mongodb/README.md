@@ -80,7 +80,3 @@ However, if you know that your query can only return a single result you can avo
 Also, you may wish to do some post-processing to the successfully processed data that was read from the MongoDb.
 For example; you may want to move or remove a document after its been processed.
 You can do this using Transaction Synchronization feature that was added with Spring Integration 2.2 and which will be discussed in the next blog in this series expected in a few days (from Gary Russell). However the impatient once can get more details now by reading MongoDb Inbound Channel Adapter section of the reference manual <a href="http://static.springsource.org/spring-integration/docs/2.2.0.RC1/reference/htmlsingle/#mongodb-inbound-channel-adapter">http://static.springsource.org/spring-integration/docs/2.2.0.RC1/reference/htmlsingle/#mongodb-inbound-channel-adapter</a>
-
-<h3>Conclusion</h3>
-
-Spring Integration 2.2.RC1 is out and in the next few weeks we'll be talking about some of the new features available in this release. Give it a spin and let us know what you think by commenting in this blog or via the usual <a href="http://forum.springsource.org/forumdisplay.php?42-Integration">Spring Integration Forums</a>
