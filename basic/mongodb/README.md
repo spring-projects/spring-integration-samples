@@ -3,9 +3,9 @@ MongoDb Outbound Channel Adapter allows you to write the Message payload to a Mo
 
 You can see the simplest configuration of the MongoDb Channel Adapter below:
 
-[xml]
+````
 <int-mongodb:outbound-channel-adapter id="deafultAdapter"/>
-[/xml]
+````
 
 It will be initialized with the default instance of the <strong>MongoDbFactory</strong> (the default bean name is 'mongoDbFactory') otherwise you can provide its 
 reference via <strong>mongodb-factory</strong> attribute.
