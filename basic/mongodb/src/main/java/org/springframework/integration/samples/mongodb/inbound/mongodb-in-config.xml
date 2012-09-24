@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:int="http://www.springframework.org/schema/integration"
+	xmlns:int-mongodb="http://www.springframework.org/schema/integration/mongodb"
+	xmlns:mongo="http://www.springframework.org/schema/data/mongo"
+	xsi:schemaLocation="http://www.springframework.org/schema/data/mongo http://www.springframework.org/schema/data/mongo/spring-mongo-1.1.xsd
+		http://www.springframework.org/schema/integration http://www.springframework.org/schema/integration/spring-integration-2.2.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/integration/mongodb http://www.springframework.org/schema/integration/mongodb/spring-integration-mongodb-2.2.xsd">
+
+
+	<mongo:db-factory id="mongoDbFactory" dbname="test"/>
+	
+	<int-mongodb:inbound-channel-adapter id="simpleInboundAdapter" channel="splittingChannel" 
+									     query="{address.state : 'CA'}">
+		<int:poller fixed-rate="60000" max-messages-per-poll="1"/>
+	</int-mongodb:inbound-channel-adapter>
+	
+	<int:splitter input-channel="splittingChannel" output-channel="logger"/>
+	
+	<int:logging-channel-adapter id="logger" level="WARN"/>
+	
+</beans>
