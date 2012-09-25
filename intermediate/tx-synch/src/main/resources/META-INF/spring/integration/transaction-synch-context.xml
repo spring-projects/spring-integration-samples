@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://www.springframework.org/schema/beans"
+	xmlns:int="http://www.springframework.org/schema/integration"
+	xmlns:int-stream="http://www.springframework.org/schema/integration/stream"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:int-file="http://www.springframework.org/schema/integration/file"
+	xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+	xmlns:int-jdbc="http://www.springframework.org/schema/integration/jdbc"
+	xsi:schemaLocation="http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc.xsd
+		http://www.springframework.org/schema/integration http://www.springframework.org/schema/integration/spring-integration.xsd
+		http://www.springframework.org/schema/integration/file http://www.springframework.org/schema/integration/file/spring-integration-file.xsd
+		http://www.springframework.org/schema/integration/jdbc http://www.springframework.org/schema/integration/jdbc/spring-integration-jdbc-2.2.xsd
+		http://www.springframework.org/schema/integration/stream http://www.springframework.org/schema/integration/stream/spring-integration-stream.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+	<context:annotation-config />
+
+	<context:property-placeholder />
+
+	<int-file:inbound-channel-adapter
+		channel="inputChannel"
+		auto-create-directory="true"
+		filename-pattern="*.txt"
+		directory="${java.io.tmpdir}/txSynchDemo/">
+		<int:poller fixed-delay="500">
+			<int:transactional transaction-manager="txManager" synchronization-factory="syncFactory" />
+		</int:poller>
+	</int-file:inbound-channel-adapter>
+
+	<int:transaction-synchronization-factory id="syncFactory">
+		<int:after-commit expression="payload.renameTo(payload.absolutePath + '.SUCCEEDED') ? payload + ' renamed after success' : payload + 'failed to rename after success'" 
+			channel="infoLogger" />
+		<int:after-rollback expression="payload.renameTo(payload.absolutePath + '.FAILED') ? payload + ' renamed after faiure' : payload + 'failed to rename after failure'"
+			channel="errorLogger" />
+	</int:transaction-synchronization-factory>
+
+	<int:channel id="inputChannel"/>
+	
+	<int-file:file-to-string-transformer input-channel="inputChannel" output-channel="toServiceChannel" />
+	
+	<int:service-activator input-channel="toServiceChannel" 
+					   ref="conditionalService"
+					   method="failIfTextIsFail" />
+	
+	<int:logging-channel-adapter id="infoLogger" level="INFO" />
+
+	<int:logging-channel-adapter id="errorLogger" level="ERROR" />
+	<bean id="conditionalService" class="org.springframework.integration.samples.advice.ConditionalService" />
+
+	<bean id="txManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+
+	<jdbc:embedded-database id="dataSource" type="H2">
+		<jdbc:script location="classpath:table.sql" />
+	</jdbc:embedded-database>
+
+	<bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+
+	<!-- Poll the database for rows -->
+
+	<int-jdbc:inbound-channel-adapter channel="infoLogger"
+		query="select BAR from FOO" data-source="dataSource">
+		<int:poller fixed-delay="5000" />
+	</int-jdbc:inbound-channel-adapter>
+</beans>

@@ -62,6 +62,7 @@ This category targets developers who are already more familiar with the Spring I
 * **stored-procedures-oracle** Provides an example of the stored procedure Outbound Gateway using *ORACLE XE*
 * **monitoring** The project used in the *[Spring Integration Management and Monitoring Webinar](http://www.springsource.org/node/3598)* Also available on the *[SpringSourceDev YouTube Channel](http://www.youtube.com/SpringSourceDev)*
 * **retry-and-more** Provides samples showing the application of MessageHandler Advice Chains to endpoints - retry, circuit breaker, expression evaluating
+* **tx-synch** Provides a sample demonstrating the use of transaction syncrhonization, renaming an input file to a different filename, depending on whether the transaction commits, or rolls back.
 
 ## Advanced
 
