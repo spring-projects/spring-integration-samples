@@ -28,7 +28,7 @@
 		<groupId>org.codehaus.jackson</groupId>
 		<artifactId>jackson-mapper-asl</artifactId>
 		<version>1.8.0</version>
-		<scope>compile</scope>		
+		<scope>compile</scope>
 	</dependency>
 	<dependency>
 		<groupId>org.springframework.integration</groupId>
@@ -150,7 +150,7 @@
 	                       <target>
 	                            <echo>Copying jaxb.index to classes folder</echo>
 	                        </target>
-	                        <target>                            
+	                        <target>
 	                            <copy todir="${project.basedir}/target/classes/org/springframework/integration/samples/rest/domain"  overwrite="true">
 									<fileset dir="${project.basedir}/src/main/java/org/springframework/integration/samples/rest/domain">
 										<include name="**/jaxb.index"/>
@@ -169,20 +169,9 @@
 	</build>
 	<repositories>
 		<repository>
-			<id>repository.springframework.maven.release</id>
-			<name>Spring Framework Maven Release Repository</name>
-			<url>http://maven.springframework.org/release</url>
+			<id>repo.springsource.org.milestone</id>
+			<name>SpringSource Maven Milestone Repository</name>
+			<url>https://repo.springsource.org/libs-milestone</url>
 		</repository>
-		<repository>
-			<id>repository.springframework.maven.milestone</id>
-			<name>Spring Framework Maven Milestone Repository</name>
-			<url>http://maven.springframework.org/milestone</url>
-		</repository>
-		<repository>
-			<id>repository.springframework.maven.snapshot</id>
-			<name>Spring Framework Maven Snapshot Repository</name>
-			<url>http://maven.springframework.org/snapshot</url>
-		</repository>
-	</repositories>	
-
+	</repositories>
 </project>
