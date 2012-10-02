@@ -23,12 +23,12 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
  * @author Oleg Zhurakousky
  *
  */
-public class TwitterSearchSample {
+public class TwitterSearchSampleTest {
 
 	@Test
 	public void runDemo() throws Exception{
 		new ClassPathXmlApplicationContext("META-INF/spring/integration/TwitterSearch-context.xml");
-		
-		Thread.sleep(20000);
+
+		Thread.sleep(5000);
 	}
 }

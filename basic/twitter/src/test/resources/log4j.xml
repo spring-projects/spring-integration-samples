@@ -12,7 +12,7 @@
 
 	<!-- Loggers -->
 	<logger name="org.springframework.integration">
-		<level value="warn" />
+		<level value="info" />
 	</logger>
 
 	<logger name="org.springframework.integration.samples">
