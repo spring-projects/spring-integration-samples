@@ -1,36 +1,39 @@
-Cafe Sample Application
+Café Sample Application
 =======================
 
-The Cafe sample emulates a simple operation of the Coffee shop when modeled using Enterprise Integration Patterns (EIP). It is inspired by one of the samples featured in Gregor Hohpe's Ramblings (see Starbucks Does Not Use Two-Phase Commit: http://www.eaipatterns.com/ramblings/18_starbucks.html). The domain is that of a Cafe, and the basic flow is depicted in the following diagram:
+## Overview
+
+The *Café Sample* emulates the simple operation of a coffee shop that is modeled using *[Enterprise Integration Patterns][]* (EIP). The sample is inspired by one of the samples featured in [Gregor Hohpe][]'s ramblings. For more details, please see: *[Starbucks Does Not Use Two-Phase Commit][]*. The domain is that of a [café][], and the basic flow is depicted in the following diagram:
 
 
 	                                                                                          Barista
-					                                                     hotDrinks       ____________________        
+	                                                                     hotDrinks       ____________________
 	                                                                    |==========| -->|                    |
 	                     orders                   drinks               /                | prepareHotDrink()  |
 	Place Order ->Cafe->|======|->OrderSplitter->|======|->DrinkRouter                  |                    |
 	                                                                   \ coldDrinks     | prepareColdDrink() |
 	                                                                    |==========| -->|                    |
 	                                                                                    |____________________|
-										
-														Legend: |====| - channels  
-													
+	
+	                                                Legend: |====| - channels
+	
                                                                        
-The Order object may contain multiple OrderItems. Once the order is placed, a **Splitter** will break the composite order message into a single message per drink. Each of these is then processed by a **Router** that determines whether the drink is hot or cold (checking the OrderItem object's 'isIced' property). The Barista prepares each drink, but hot and cold drink preparation are handled by two distinct methods: 
+The *Order* object may contain multiple *OrderItems*. Once the order is placed, a **Splitter** will break the composite order message into a single message per drink. Each of these is then processed by a **Router** that determines whether the drink is hot or cold (checking the *OrderItem* object's 'isIced' property). The *Barista* prepares each drink, but hot and cold drink preparation are handled by two distinct methods: 
 
 * prepareHotDrink
 * prepareColdDrink
 
-The prepared drinks are then sent to the Waiter where they are aggregated into a Delivery object.
+The prepared drinks are then sent to the *Waiter* where they are aggregated into a *Delivery* object.
 
-## Cafe Sample Implementations
-There are currently three implementations of the cafe sample:
+## Café Sample Implementations
 
-1. Using Spring Integration channels and components
-2. Using AMQP/RabbitMQ to demonstrate a distributed architecture
-3. Using JMS/ActiveMQ to demonstrate jms-backed queues and a distributed architecture
+There are currently three implementations of the *Café Sample* that use:
 
-All three implementations follow the same flow described above. See each one's README.md file for more details about the respective implementations.
+1. Spring Integration channels and components
+2. [AMQP][] ([RabbitMQ][]) to demonstrate a distributed architecture
+3. [JMS][] ([ActiveMQ][]) to demonstrate JMS-backed queues and a distributed architecture
+
+All three implementations follow the same flow described above. See each one's **README.md** file for more details regarding the respective implementations.
 
 Upon running any of the alternatives, you should see the output similar to this:
 
@@ -56,3 +59,12 @@ Upon running any of the alternatives, you should see the output similar to this:
 	Hot LATTE, 2 shots.
    			
 Happy integration :-)
+
+[ActiveMQ]: http://activemq.apache.org/
+[AMQP]: http://en.wikipedia.org/wiki/Advanced_Message_Queuing_Protocol
+[café]: http://en.wikipedia.org/wiki/Caf%C3%A9
+[Enterprise Integration Patterns]: http://www.eaipatterns.com/eaipatterns.html
+[Gregor Hohpe]: http://www.eaipatterns.com/gregor.html
+[JMS]: http://en.wikipedia.org/wiki/Java_Message_Service
+[RabbitMQ]: http://www.rabbitmq.com/
+[Starbucks Does Not Use Two-Phase Commit]: http://www.eaipatterns.com/ramblings/18_starbucks.html

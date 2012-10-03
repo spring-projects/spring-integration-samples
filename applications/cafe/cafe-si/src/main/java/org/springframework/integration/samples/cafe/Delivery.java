@@ -1,5 +1,5 @@
 /*
- * Copyright 2002-2011 the original author or authors.
+ * Copyright 2002-2012 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,12 +22,15 @@ import java.util.List;
 /**
  * @author Marius Bogoevici
  * @author Tom McCuch
+ * @author Gunnar Hillert
  */
 public class Delivery implements Serializable{
 
+	private static final long serialVersionUID = 1L;
+
 	private static final String SEPARATOR = "-----------------------";
 
-    private List<Drink> deliveredDrinks;
+	private List<Drink> deliveredDrinks;
 
 	private int orderNumber;
 
@@ -36,27 +39,27 @@ public class Delivery implements Serializable{
 
 	public Delivery(List<Drink> deliveredDrinks) {
 		assert(deliveredDrinks.size() > 0);
-        this.deliveredDrinks = deliveredDrinks;
+		this.deliveredDrinks = deliveredDrinks;
 		this.orderNumber = deliveredDrinks.get(0).getOrderNumber();
-    }
+	}
 
 
-    public int getOrderNumber() {
+	public int getOrderNumber() {
 		return orderNumber;
 	}
 
-    public void setOrderNumber(int orderNumber) {
-    	this.orderNumber = orderNumber;
-    }
-    
+	public void setOrderNumber(int orderNumber) {
+		this.orderNumber = orderNumber;
+	}
+
 	public List<Drink> getDeliveredDrinks() {
-        return deliveredDrinks;
-    }
+		return deliveredDrinks;
+	}
 
 	public void setDeliveredDrinks(List<Drink> deliveredDrinks) {
 		this.deliveredDrinks = deliveredDrinks;
 	}
-	
+
 	@Override
 	public String toString() {
 		StringBuffer buffer = new StringBuffer(SEPARATOR + "\n");

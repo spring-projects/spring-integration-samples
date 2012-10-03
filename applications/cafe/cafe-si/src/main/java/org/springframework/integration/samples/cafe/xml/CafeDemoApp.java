@@ -1,5 +1,5 @@
 /*
- * Copyright 2002-2010 the original author or authors.
+ * Copyright 2002-2012 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -30,7 +30,7 @@ import org.springframework.integration.samples.cafe.Order;
  * <p/>
  * If deploying in SpringSource dmServer, the relevant ApplicationContext
  * configuration is in the META-INF/spring directory instead.
- * 
+ *
  * @author Mark Fisher
  * @author Marius Bogoevici
  * @author Oleg Zhurakousky
@@ -38,9 +38,9 @@ import org.springframework.integration.samples.cafe.Order;
 public class CafeDemoApp {
 
 	public static void main(String[] args) {
-		AbstractApplicationContext context = 
+		AbstractApplicationContext context =
 			new ClassPathXmlApplicationContext("/META-INF/spring/integration/cafeDemo-xml.xml", CafeDemoApp.class);
-	
+
 		Cafe cafe = (Cafe) context.getBean("cafe");
 		for (int i = 1; i <= 100; i++) {
 			Order order = new Order(i);

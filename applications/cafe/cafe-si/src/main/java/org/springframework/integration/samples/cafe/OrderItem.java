@@ -1,5 +1,5 @@
 /*
- * Copyright 2002-2011 the original author or authors.
+ * Copyright 2002-2012 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,27 +22,30 @@ import java.io.Serializable;
  * @author Mark Fisher
  * @author Marius Bogoevici
  * @author Tom McCuch
+ * @author Gunnar Hillert
  */
 public class OrderItem implements Serializable {
 
-    private DrinkType type;
+	private static final long serialVersionUID = 1L;
 
-    private int shots = 1;
+	private DrinkType type;
 
-    private boolean iced = false;
+	private int shots = 1;
 
-    /** the order this item is tied to */
+	private boolean iced = false;
+
+	/** the order this item is tied to */
 	private int orderNumber;
 
 	// Default constructor required by Jackson Java JSON-processor
 	public OrderItem() {}
 
 	public OrderItem(int orderNumber, DrinkType type, int shots, boolean iced) {
-        this.orderNumber = orderNumber;
+		this.orderNumber = orderNumber;
 		this.type = type;
-        this.shots = shots;
-        this.iced = iced;
-    }
+		this.shots = shots;
+		this.iced = iced;
+	}
 
 	public int getOrderNumber() {
 		return this.orderNumber;
@@ -51,33 +54,33 @@ public class OrderItem implements Serializable {
 	public void setOrderNumber(int orderNumber) {
 		this.orderNumber = orderNumber;
 	}
-	
+
 	public boolean isIced() {
-        return this.iced;
-    }
+		return this.iced;
+	}
 
 	public void setIced(boolean iced) {
 		this.iced = iced;
 	}
-	
+
 	public int getShots() {
-        return shots;
-    }
+		return shots;
+	}
 
 	public void setShots(int shots) {
 		this.shots = shots;
 	}
 
 	public DrinkType getDrinkType() {
-        return this.type;
-    }
+		return this.type;
+	}
 
 	public void setDrinkType(DrinkType type) {
 		this.type = type;
 	}
 
 	public String toString() {
-        return ((this.iced) ? "iced " : "hot ") + this.shots + " shot " + this.type;
-    }
+		return ((this.iced) ? "iced " : "hot ") + this.shots + " shot " + this.type;
+	}
 
 }

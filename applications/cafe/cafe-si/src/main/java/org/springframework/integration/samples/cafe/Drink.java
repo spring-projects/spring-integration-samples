@@ -1,5 +1,5 @@
 /*
- * Copyright 2002-2011 the original author or authors.
+ * Copyright 2002-2012 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,27 +21,29 @@ import java.io.Serializable;
 /**
  * @author Marius Bogoevici
  * @author Tom McCuch
+ * @author Gunnar Hillert
  */
 public class Drink implements Serializable{
 
-    private boolean iced;
+	private static final long serialVersionUID = 1L;
 
-    private int shots;
+	private boolean iced;
 
-    private DrinkType drinkType;
+	private int shots;
+
+	private DrinkType drinkType;
 
 	private int orderNumber;
 
-	
 	// Default constructor required by Jackson Java JSON-processor
 	public Drink() {}
 
 	public Drink(int orderNumber, DrinkType drinkType, boolean iced, int shots) {
-	    this.orderNumber = orderNumber;
-        this.drinkType = drinkType;
-        this.iced = iced;
-        this.shots = shots;
-    }
+		this.orderNumber = orderNumber;
+		this.drinkType = drinkType;
+		this.iced = iced;
+		this.shots = shots;
+	}
 
 
 	public int getOrderNumber() {
@@ -75,10 +77,10 @@ public class Drink implements Serializable{
 	public void setShots(int shots) {
 		this.shots = shots;
 	}
-	
+
 	@Override
-    public String toString() {
-        return (iced?"Iced":"Hot")  + " " + drinkType.toString() + ", " + shots + " shots.";
-    }
+	public String toString() {
+		return (iced?"Iced":"Hot")  + " " + drinkType.toString() + ", " + shots + " shots.";
+	}
 
 }

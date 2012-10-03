@@ -1,5 +1,5 @@
 /*
- * Copyright 2002-2011 the original author or authors.
+ * Copyright 2002-2012 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,23 +22,23 @@ import org.springframework.integration.samples.cafe.DrinkType;
 import org.springframework.integration.samples.cafe.Order;
 
 /**
- * Provides the 'main' method for running the Cafe Demo store front 
- * application using AMQP. Before running, be sure to have a 
- * RabbitMQ broker started on localhost:5672 configured with the default 
- * guest | guest client credentials on the / vHost. When an order is 
+ * Provides the 'main' method for running the Cafe Demo store front
+ * application using AMQP. Before running, be sure to have a
+ * RabbitMQ broker started on localhost:5672 configured with the default
+ * guest | guest client credentials on the / vHost. When an order is
  * placed, the Cafe store front will publish that order on the cafe-orders
  * exchange to be processed.
  * <p/>
  * The relevant components are defined within the configuration files:
- * ("cafeDemo-amqp-xml.xml", "cafeDemo-amqp-config-xml.xml"). 
+ * ("cafeDemo-amqp-xml.xml", "cafeDemo-amqp-config-xml.xml").
  * <p/>
  * If deploying in SpringSource dmServer, the relevant ApplicationContext
  * configuration is in the META-INF/spring directory instead.
- * 
+ *
  * @author Tom McCuch
  */
-public class CafeDemoAppAmqp {		
-	
+public class CafeDemoAppAmqp {
+
 	/**
 	 * place some orders
 	 * @param context spring context
@@ -55,9 +55,9 @@ public class CafeDemoAppAmqp {
 	}
 
 	public static void main(String[] args) {
-		AbstractApplicationContext context = 
+		AbstractApplicationContext context =
 			CafeDemoAppUtilities.loadProfileContext(
-                    "/META-INF/spring/integration/amqp/cafeDemo-amqp-xml.xml",
+					"/META-INF/spring/integration/amqp/cafeDemo-amqp-xml.xml",
 					CafeDemoAppAmqp.class,CafeDemoAppUtilities.DEV);
 		order(context, 100);
 		context.close();

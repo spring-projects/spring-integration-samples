@@ -1,20 +1,19 @@
-Cafe Sample Application - Pure SI Implementation
-=======================
+Café Sample Application - Pure SI Implementation
+================================================
 
-See the parent-level README.md for more details, but the flow of the implementation should follow this diagram:
+See the parent-level **README.md** for more details, but the flow of the implementation should follow this diagram:
 
 
 	                                                                                          Barista
-					                                                     hotDrinks       ____________________        
+	                                                                     hotDrinks       ____________________
 	                                                                    |==========| -->|                    |
 	                     orders                   drinks               /                | prepareHotDrink()  |
 	Place Order ->Cafe->|======|->OrderSplitter->|======|->DrinkRouter                  |                    |
 	                                                                   \ coldDrinks     | prepareColdDrink() |
 	                                                                    |==========| -->|                    |
 	                                                                                    |____________________|
-										
-														Legend: |====| - channels  
-													
+	
+	                                                Legend: |====| - channels
 
 
 ## Instructions for running the CafeDemo sample
