@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:int="http://www.springframework.org/schema/integration"
+	xmlns:int-file="http://www.springframework.org/schema/integration/file"
+	xmlns:int-mail="http://www.springframework.org/schema/integration/mail"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/integration      http://www.springframework.org/schema/integration/spring-integration.xsd
+		http://www.springframework.org/schema/integration/mail http://www.springframework.org/schema/integration/mail/spring-integration-mail.xsd
+		http://www.springframework.org/schema/integration/file http://www.springframework.org/schema/integration/file/spring-integration-file.xsd
+		http://www.springframework.org/schema/beans            http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/util             http://www.springframework.org/schema/util/spring-util.xsd">
+
+	<int-mail:inbound-channel-adapter id="poll-for-email"
+		channel="inboundChannel"
+		java-mail-properties="javaMailProperties"
+		store-uri="pop3://test:test@localhost:110/INBOX"
+		should-delete-messages="true">
+		<int:poller fixed-rate="5000"/>
+	</int-mail:inbound-channel-adapter>
+
+	<util:properties id="javaMailProperties">
+		<prop key="mail.store.protocol">pop3</prop>
+		<prop key="mail.debug">false</prop>
+	</util:properties>
+
+	<int:channel id="inboundChannel"/>
+
+	<int:chain id="transform-split" input-channel="inboundChannel" output-channel="outputChannel">
+		<int:transformer>
+			<bean class="org.springframework.integration.samples.mailattachments.support.EmailTransformer"/>
+		</int:transformer>
+		<int:splitter>
+			<bean class="org.springframework.integration.samples.mailattachments.support.EmailSplitter"/>
+		</int:splitter>
+	</int:chain>
+
+	<int:channel id="outputChannel"/>
+
+	<int-file:outbound-channel-adapter  id="save-as-file"
+		auto-create-directory="true"
+		channel="outputChannel"
+		directory-expression="'target/out/' + headers.directory"/>
+</beans>
