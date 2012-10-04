@@ -52,6 +52,7 @@ This category targets developers who are already more familiar with the Spring I
 * **async-gateway** - Example shows usage of an **Asynchronous Gateway**
 * **errorhandling** - Demonstrates basic **Error Handling** capabilities of Spring Integration
 * **file-processing** - Sample demonstrates how to wire a message flow to process files either sequentially (maintain the order) or concurrently (no order).
+* **mail-attachments** - Demonstrates the processing of email attachments
 * **multipart-http** - Demonstrates the sending of HTTP multipart requests using Spring's **RestTemplate** and a Spring Integration **Http Outbound Gateway**
 * **travel** - More sophisticated example showing the retrieval of weather (SOAP Web Service) and traffic (HTTP Service) reports using real services
 * **tcp-client-server-multiplex** - Demonstrates the use of *Collaborating Channel Adapters*
