@@ -14,9 +14,7 @@
 		http://www.springframework.org/schema/integration/jpa http://www.springframework.org/schema/integration/jpa/spring-integration-jpa.xsd">
 
 	<int:channel id="createPersonRequestChannel"/>
-	<int:channel id="createPersonReplyChannel"/>
 	<int:channel id="listPeopleRequestChannel"/>
-	<int:channel id="listPeopleReplyChannel"/>
 
 	<int:gateway id="personService"
 		service-interface="org.springframework.integration.samples.jpa.service.PersonService"
@@ -31,11 +29,11 @@
 	</int-jpa:retrieving-outbound-gateway>
 
 	<int-jpa:updating-outbound-gateway entity-manager-factory="entityManagerFactory"
-		request-channel="createPersonRequestChannel">
-		<int-jpa:transactional transaction-manager="transactionManager"/>
+		request-channel="createPersonRequestChannel" >
+		<int-jpa:transactional transaction-manager="transactionManager" />
 	</int-jpa:updating-outbound-gateway>
 
-	<!-- Depending on the selected profile, user can use different JPA Providers -->
+	<!-- Depending on the selected profile, users can use different JPA Providers -->
 
 	<beans profile="default, hibernate">
 		<import resource="classpath:/META-INF/spring/integration/hibernate-context.xml"/>
