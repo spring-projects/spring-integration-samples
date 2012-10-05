@@ -39,7 +39,7 @@ public interface PersonService {
 
 	/**
 	 *
-	 * @return the matching {@link Person} record(S)
+	 * @return the matching {@link Person} record(s)
 	 */
 	@Payload("new java.util.Date()")
 	List<Person> findPeople();
