@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:int-jmx="http://www.springframework.org/schema/integration/jmx"
+	xmlns:int="http://www.springframework.org/schema/integration"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="http://www.springframework.org/schema/integration http://www.springframework.org/schema/integration/spring-integration.xsd
+		http://www.springframework.org/schema/integration/jmx http://www.springframework.org/schema/integration/jmx/spring-integration-jmx.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
+
+	<bean id="clientConnector" class="org.springframework.jmx.support.MBeanServerConnectionFactoryBean">
+		<property name="serviceUrl" value="service:jmx:rmi://localhost/jndi/rmi://localhost:6969/jmxrmi"/>
+		<property name="environment">
+			<map>
+				<entry key="jmx.remote.credentials" value="#{new String[] {'admin', 'cbycfvjkjjudosrxchsgijfnbsrpnqctnujeirubbacljkhh'}}" />
+			</map>
+		</property>
+	</bean>
+
+	<int-jmx:notification-listening-channel-adapter
+		server="clientConnector"
+		channel="publishInChannel"
+		object-name="spring.application:type=TweetPublisher,name=*"/>
+
+	<int:channel id="publishInChannel"/>
+
+	<int:logging-channel-adapter channel="publishInChannel"/>
+
+	<int-jmx:attribute-polling-channel-adapter channel="publishInChannel"
+		server="clientConnector"
+		attribute-name="SendCount"
+		object-name="spring.application:type=MessageChannel,name=twitterChannel">
+		<int:poller fixed-delay="12000"/>
+	</int-jmx:attribute-polling-channel-adapter>
+
+	<int:gateway service-interface="org.springintegration.NotificationListener$Gateway"
+		default-request-channel="commandRouter"/>
+
+	<int:channel id="commandRouter"/>
+
+	<int:router input-channel="commandRouter"
+			expression="payload"
+			default-output-channel="nullChannel"
+			resolution-required="false">
+		<int:mapping value="y" channel="dummyStarter"/>
+		<int:mapping value="n" channel="dummyStopper"/>
+	</int:router>
+
+	<int:channel id="dummyStarter"/>
+	<int:channel id="dummyStopper"/>
+
+	<int-jmx:operation-invoking-channel-adapter channel="dummyStopper"
+		server="clientConnector"
+		operation-name="stop"
+		object-name="spring.application:type=MessageSource,name=dummyAdapter,bean=endpoint" />
+
+	<int-jmx:operation-invoking-channel-adapter channel="dummyStarter"
+		server="clientConnector"
+		operation-name="start"
+		object-name="spring.application:type=MessageSource,name=dummyAdapter,bean=endpoint" />
+
+</beans>
