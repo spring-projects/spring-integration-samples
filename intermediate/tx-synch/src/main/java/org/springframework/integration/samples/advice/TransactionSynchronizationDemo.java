@@ -56,7 +56,7 @@ public class TransactionSynchronizationDemo {
 				  + "\n    expression evaluation is logged.                                            "
 				  + "\n                                                          "
 				  + "\n=========================================================" );
-		System.out.println(System.getProperty("java.io.tmpdir") + "/txSynchDir");
+		System.out.println(System.getProperty("java.io.tmpdir") + "/txSynchDemo");
 		System.in.read();
 		System.exit(0);
 	}

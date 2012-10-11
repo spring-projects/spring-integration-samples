@@ -32,7 +32,7 @@ The java.io.tmpdir for your machine is displayed in the console…
     expression evaluation is logged.
 
 =========================================================
-/var/folders/k0/gch26h6d2ms9t0g7pyhtzfkc0000gn/T/txSynchDir
+/var/folders/k0/gch26h6d2ms9t0g7pyhtzfkc0000gn/T/txSynchDemo
 ````
 
 To send a good file, put a file in that directory; for example:
