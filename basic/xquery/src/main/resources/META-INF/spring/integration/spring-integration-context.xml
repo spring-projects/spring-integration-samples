@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:int="http://www.springframework.org/schema/integration"
+	xmlns:int-xquery="http://www.springframework.org/schema/integration/xquery"
+	xsi:schemaLocation="http://www.springframework.org/schema/integration http://www.springframework.org/schema/integration/spring-integration.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/integration/xquery http://www.springframework.org/schema/integration/xquery/spring-integration-xquery.xsd">
+
+	<int:gateway id="gateway" default-request-timeout="5000"
+		default-reply-timeout="5000" default-request-channel="requestChannel"
+		service-interface="org.springframework.integration.service.CustomerService">
+		<int:method name="getCustomerNames" />
+	</int:gateway>
+
+	<int:channel id="requestChannel" />
+
+	<int-xquery:xquery-transformer id="xqueryTransformer"
+		data-source="xqDataSource" input-channel="requestChannel"
+		format-output="true" xquery-file-resource="classpath:data/xquery.xql">
+	</int-xquery:xquery-transformer>
+
+	<beans profile="default, saxon">
+		<bean id="xqDataSource" class="net.sf.saxon.xqj.SaxonXQDataSource" />
+	</beans>
+
+	<beans profile="sedna">
+		<bean id="xqDataSource" class="net.xqj.sedna.SednaXQDataSource">
+			<property name="serverName" value="localhost" />
+			<property name="databaseName" value="test" />
+		</bean>
+	</beans>
+
+	<beans profile="basex">
+		<bean id="xqDataSource" class="net.xqj.basex.BaseXXQDataSource">
+			<property name="user" value="admin" />
+			<property name="password" value="admin" />
+			<property name="serverName" value="localhost" />
+			<property name="port" value="1984" />
+		</bean>
+	</beans>
+
+</beans>
