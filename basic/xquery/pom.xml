@@ -7,7 +7,7 @@
 	<version>1.0.0.BUILD-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
-	<name>xquery</name>
+	<name>Samples (Basic) - XQuery Sample</name>
 	<url>http://www.springsource.org/spring-integration</url>
 
 	<prerequisites>
@@ -16,7 +16,7 @@
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<spring.integration.version>2.2.0.RC2</spring.integration.version>
+		<spring.integration.version>2.2.0.RC3</spring.integration.version>
 		<log4j.version>1.2.17</log4j.version>
 		<junit.version>4.10</junit.version>
 	</properties>

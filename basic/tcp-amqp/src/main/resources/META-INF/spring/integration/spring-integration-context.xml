@@ -20,7 +20,7 @@
 	<int:channel id="toRabbit" />
 
 	<int-amqp:outbound-channel-adapter channel="toRabbit"
-		amqp-template="amqpTemplate" exchange-name="si.test.exchange" 
+		amqp-template="amqpTemplate" exchange-name="si.test.exchange"
 		routing-key="si.test.binding"/>
 
 	<!-- From RabbitMQ To STDOUT -->
@@ -29,26 +29,26 @@
 			queue-names="si.test.queue"
 			connection-factory="connectionFactory" />
 
-    <int:channel id="fromRabbit" />
+	<int:channel id="fromRabbit" />
 
 	<int-ip:tcp-connection-factory id="client" type="client" host="localhost" port="11112"/>
 
-	<int-ip:tcp-outbound-channel-adapter channel="fromRabbit" connection-factory="client"/>	
-	
-    <!-- Infrastructure -->
+	<int-ip:tcp-outbound-channel-adapter channel="fromRabbit" connection-factory="client"/>
 
-    <rabbit:connection-factory id="connectionFactory" />
+	<!-- Infrastructure -->
 
-    <rabbit:template id="amqpTemplate" connection-factory="connectionFactory" />
+	<rabbit:connection-factory id="connectionFactory" />
 
-    <rabbit:admin connection-factory="connectionFactory" />
+	<rabbit:template id="amqpTemplate" connection-factory="connectionFactory" />
 
-    <rabbit:queue name="si.test.queue" />
+	<rabbit:admin connection-factory="connectionFactory" />
 
-    <rabbit:direct-exchange name="si.test.exchange">
-        <rabbit:bindings>
-            <rabbit:binding queue="si.test.queue" key="si.test.binding" />
-        </rabbit:bindings>
-    </rabbit:direct-exchange>
+	<rabbit:queue name="si.test.queue" />
+
+	<rabbit:direct-exchange name="si.test.exchange">
+		<rabbit:bindings>
+			<rabbit:binding queue="si.test.queue" key="si.test.binding" />
+		</rabbit:bindings>
+	</rabbit:direct-exchange>
 
 </beans>

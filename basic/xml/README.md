@@ -1,14 +1,16 @@
 XML Sample
 ==========
 
-This example demonstrates the following aspects of the XML support available with Spring Integration:
+This example demonstrates the following aspects of the [Extensible Markup Language][] (XML) support available with *Spring Integration*:
 
-1. XPath Splitter - to split an order with multiple items into several order messages for separate processing.
-2. XPath Router - to route messages according to the evaluation of an XPath expression which tests to see if the order item is in stock.
-3. XPath Expression - which tests to see if the order item is in stock
-3. XSLT Transformer - to transform the payload of the order message into a resupply message where the order item is found to be out of stock.
+1. [XPath][] Splitter - to split an order with multiple items into several order messages for separate processing.
+2. [XPath][] Router - to route messages according to the evaluation of an [XPath][] expression which tests to see if the order item is in stock.
+3. [XPath][] Expression - which tests to see if the order item is in stock
+3. [XSLT][] Transformer - to transform the payload of the order message into a resupply message where the order item is found to be out of stock.
 
-To run the sample execute class **org.springframework.integration.samples.xml.BookOrderProcessingTestApp**. With Maven you can run the sample by executing:
+## Running the Sample
+
+To run the sample, execute the class **org.springframework.integration.samples.xml.BookOrderProcessingTestApp**. Alternatively, you can run the sample using [Maven][] by executing:
 
     $ mvn clean package exec:java
 
@@ -31,4 +33,8 @@ You should see the following output:
 			<bb:isbn>1590596439</bb:isbn>
 		</bb:order>
 	</bb:bigBooksOrder>
-
+	
+[Extensible Markup Language]: http://en.wikipedia.org/wiki/XML
+[Maven]: http://maven.apache.org/
+[XPath]: http://en.wikipedia.org/wiki/XPath
+[XSLT]: http://en.wikipedia.org/wiki/XSLT

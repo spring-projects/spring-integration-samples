@@ -1,5 +1,5 @@
 /*
- * Copyright 2002-2010 the original author or authors.
+ * Copyright 2002-2012 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -24,19 +24,21 @@ import org.springframework.integration.samples.loanbroker.domain.LoanRequest;
 /**
  * POJI Gateway that connects method invocations to the request-channel.
  * This completely isolates the developer from Spring Integration API details.
- * 
+ *
  * @author Oleg Zhurakousky
+ * @author Gunnar Hillert
+ *
  */
 public interface LoanBrokerGateway {
 
 	/**
 	 * Will return the best {@link LoanQuote} for the given request.
 	 */
-	public LoanQuote getBestLoanQuote(LoanRequest loanRequest);
+	LoanQuote getBestLoanQuote(LoanRequest loanRequest);
 
 	/**
 	 * Will return all {@link LoanQuote}s for the given request.
 	 */
-	public List<LoanQuote> getAllLoanQuotes(LoanRequest loanRequest);
+	List<LoanQuote> getAllLoanQuotes(LoanRequest loanRequest);
 
 }

@@ -20,10 +20,10 @@
 		<property name="port" value="22"/>
 		<property name="user" value="${user}"/>
 	</bean>
-	
+
 	<int-sftp:inbound-channel-adapter id="sftpInbondAdapter"
-			channel="receiveChannel" 
-			session-factory="sftpSessionFactory" 
+			channel="receiveChannel"
+			session-factory="sftpSessionFactory"
 			local-directory="file:local-dir"
 			remote-directory="<<SPECIFY REMOTE DIRECTORY (e.g., /{workspace}/samples/basic/sftp/remote-target-dir)>>"
 			auto-create-local-directory="true"
@@ -31,9 +31,9 @@
 			filename-regex=".*\.txt$">
 		<int:poller fixed-rate="1000" max-messages-per-poll="1"/>
 	</int-sftp:inbound-channel-adapter>
-	
+
 	<int:channel id="receiveChannel">
 		<int:queue/>
 	</int:channel>
-	
+
 </beans>

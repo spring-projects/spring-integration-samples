@@ -10,6 +10,10 @@
     <url>http://www.springsource.org/spring-integration</url>
     <packaging>pom</packaging>
 
+	<prerequisites>
+		<maven>2.2.1</maven>
+	</prerequisites>
+
     <modules>
         <module>basic</module>
         <module>intermediate</module>

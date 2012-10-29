@@ -4,30 +4,35 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.springframework.integration.samples</groupId>
 	<artifactId>helloworld</artifactId>
-	<version>2.1.0.BUILD-SNAPSHOT</version>
+	<version>2.2.0.BUILD-SNAPSHOT</version>
 	<name>Samples (Basic) - Hello World Sample</name>
 	<packaging>jar</packaging>
+
+	<prerequisites>
+		<maven>2.2.1</maven>
+	</prerequisites>
+
 	<properties>
-	    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<spring.integration.version>2.1.0.RELEASE</spring.integration.version>
-		<log4j.version>1.2.16</log4j.version>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<spring.integration.version>2.2.0.RC3</spring.integration.version>
+		<log4j.version>1.2.17</log4j.version>
 		<junit.version>4.10</junit.version>
 		<java.main.class>org.springframework.integration.samples.helloworld.HelloWorldApp</java.main.class>
 	</properties>
 
 	<profiles>
-	    <profile>
-	        <id>hello</id>
-	        <properties>
-	            <java.main.class>org.springframework.integration.samples.helloworld.HelloWorldApp</java.main.class>
-	        </properties>
-	    </profile>
-        <profile>
-            <id>poller</id>
-            <properties>
-                <java.main.class>org.springframework.integration.samples.helloworld.PollerApp</java.main.class>
-            </properties>
-        </profile>
+		<profile>
+			<id>hello</id>
+			<properties>
+				<java.main.class>org.springframework.integration.samples.helloworld.HelloWorldApp</java.main.class>
+			</properties>
+		</profile>
+		<profile>
+			<id>poller</id>
+			<properties>
+				<java.main.class>org.springframework.integration.samples.helloworld.PollerApp</java.main.class>
+			</properties>
+		</profile>
 	</profiles>
 
 	<dependencies>
@@ -53,19 +58,19 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
-				<version>2.3.2</version>
+				<version>2.5.1</version>
 				<configuration>
-					<source>1.5</source>
-					<target>1.5</target>
+					<source>1.6</source>
+					<target>1.6</target>
 					<compilerArgument>-Xlint:all</compilerArgument>
 					<showWarnings>true</showWarnings>
-					<showDeprecation>false</showDeprecation>
+					<showDeprecation>true</showDeprecation>
 				</configuration>
 			</plugin>
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>exec-maven-plugin</artifactId>
-                <version>1.2</version>
+                <version>1.2.1</version>
                 <configuration>
                     <mainClass>${java.main.class}</mainClass>
                 </configuration>

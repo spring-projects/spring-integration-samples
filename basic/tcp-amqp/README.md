@@ -5,7 +5,7 @@ Spring Integration - TCP-AMQP Sample
 
 This sample demonstrates basic functionality of bridging **Spring Integration TCP Adapters** with **Spring Integration AMQP Adapters**.
 
-Once the application is started, you enter some text in a telnet session and the data is written to an AMQP queue, which is then consumed and the result echoed to a netcat session.
+Once the application is started, you enter some text in a telnet session and the data is written to an AMQP queue, which is then consumed and the result echoed to a [netcat][] session.
 
     telnet->tcp-inbound-adapter->rabbit->tcp-outbound-adapter->netcat
 
@@ -16,6 +16,14 @@ netcat: http://en.wikipedia.org/wiki/Netcat
 
 # How to Run the Sample
 
+## Start netcat
+
+In a terminal window start [netcat][], listening on port *11112*:
+
+    netcat -l -p 11112
+
+## Start the Application
+
 If you imported the example into your IDE, you can just run class **org.springframework.integration.samples.tcpamqp.Main**. For example in [SpringSource Tool Suite](http://www.springsource.com/developer/sts) (STS) do:
 
 * Right-click on Main class --> Run As --> Java Application
@@ -24,15 +32,13 @@ Alternatively, you can start the sample from the command line ([Maven](http://ma
 
 * mvn exec:java
 
-In another terminal start netcat, listening on port 11112
+## Run Telnet
 
-    netcat -l 11112
-
-In another terminat, telnet to localhost:11111
+In another terminal window, telnet to localhost:11111
 
     telnet localhost 11111
 
-Data typed into the telnet terminal will be echoed to the netcat terminal, via the rabbit queue.
+Data typed into the telnet terminal will be echoed to the [netcat][] terminal, via the rabbit queue.
 
 # Used Spring Integration components
 
@@ -52,3 +58,5 @@ Some further resources:
 
 * RabbitMQ -  [http://www.rabbitmq.com/](http://www.rabbitmq.com/)
 * Spring AMQP - [http://www.springsource.org/spring-amqp](http://www.springsource.org/spring-amqp)
+
+[netcat]: http://en.wikipedia.org/wiki/Netcat

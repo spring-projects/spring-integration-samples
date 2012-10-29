@@ -33,7 +33,7 @@ import org.springframework.integration.service.CoffeeService;
  * @since 2.2
  *
  */
-public final class Main {
+public class Main {
 
 	private static final Logger LOGGER = Logger.getLogger(Main.class);
 

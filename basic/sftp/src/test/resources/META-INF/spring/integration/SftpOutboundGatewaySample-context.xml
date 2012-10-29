@@ -47,7 +47,7 @@
 		expression="headers['file_remoteDirectory'] + '/' + headers['file_remoteFile']"
 		request-channel="toRm"
 		command="rm"/>
-		
+
 	<int:aggregator input-channel="aggregateResultsChannel"/>
-			
+
 </beans>

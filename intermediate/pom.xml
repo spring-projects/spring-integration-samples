@@ -5,9 +5,13 @@
 	<modelVersion>4.0.0</modelVersion>
     <groupId>org.springframework.integration.samples</groupId>
 	<artifactId>intermediate-samples</artifactId>
-	<version>2.1.0.BUILD-SNAPSHOT</version>
+	<version>2.2.0.BUILD-SNAPSHOT</version>
 	<name>Spring Integration Samples - Intermediate</name>
 	<packaging>pom</packaging>
+
+	<prerequisites>
+		<maven>2.2.1</maven>
+	</prerequisites>
 
 	<modules>
         <module>async-gateway</module>
