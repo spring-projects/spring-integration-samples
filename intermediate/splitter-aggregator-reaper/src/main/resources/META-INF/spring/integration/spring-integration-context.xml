@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:int="http://www.springframework.org/schema/integration"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:task="http://www.springframework.org/schema/task"
+	xsi:schemaLocation="http://www.springframework.org/schema/integration http://www.springframework.org/schema/integration/spring-integration.xsd
+		http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+	<!-- Integration -->
+
+	<int:gateway id="searchRequestor" default-reply-channel="search-aggregated-reply"
+		default-request-channel="search-request" default-reply-timeout="5000"
+		service-interface="org.springframework.integration.samples.splitteraggregator.SearchRequestor">
+	</int:gateway>
+
+	<int:channel id="search-request"></int:channel>
+	<int:channel id="search-aggregated-reply"></int:channel>
+
+	<int:splitter input-channel="search-request" ref="searchRequestSplitter"
+		output-channel="search-requests">
+	</int:splitter>
+
+	<int:channel id="search-requests"></int:channel>
+
+	<int:payload-type-router input-channel="search-requests">
+		<int:mapping
+			type="org.springframework.integration.samples.splitteraggregator.CriteriaA"
+			channel="search-request-a" />
+		<int:mapping
+			type="org.springframework.integration.samples.splitteraggregator.CriteriaB"
+			channel="search-request-b" />
+	</int:payload-type-router>
+
+	<int:channel id="search-request-a">
+		<int:queue capacity="10" />
+	</int:channel>
+	<int:service-activator input-channel="search-request-a"
+		method="search" output-channel="search-reply" ref="searchA">
+		<int:poller max-messages-per-poll="1" fixed-delay="10"
+			receive-timeout="30000" task-executor="searchRequestExecutor" />
+	</int:service-activator>
+
+	<int:channel id="search-request-b">
+		<int:queue capacity="10" />
+	</int:channel>
+	<int:service-activator input-channel="search-request-b"
+		method="search" output-channel="search-reply" ref="searchB">
+		<int:poller max-messages-per-poll="1" fixed-delay="10"
+			receive-timeout="30000" task-executor="searchRequestExecutor" />
+	</int:service-activator>
+
+	<int:publish-subscribe-channel id="search-reply" />
+	<int:aggregator input-channel="search-reply" method="aggregate"
+		ref="searchResultAggregator" output-channel="search-aggregated-reply"
+		message-store="searchResultMessageStore"
+		send-partial-result-on-expiry="true">
+	</int:aggregator>
+
+	<!-- Define a store for our search results and set up a reaper that will
+		periodically expire those results. -->
+	<bean id="searchResultMessageStore" class="org.springframework.integration.store.SimpleMessageStore" />
+
+	<bean id="searchResultMessageStoreReaper" class="org.springframework.integration.store.MessageGroupStoreReaper">
+		<property name="messageGroupStore" ref="searchResultMessageStore" />
+		<property name="timeout" value="2000" />
+	</bean>
+
+	<task:scheduled-tasks>
+		<task:scheduled ref="searchResultMessageStoreReaper" method="run" fixed-rate="1000" />
+	</task:scheduled-tasks>
+
+	<!-- Execution of search requests. We are stating here that we only ever
+		let three searches of any type run concurrently (2 in the pool, one in the
+		calling thread if we already have two in operation). The queue size of 0
+		means that we don't allow the executor to queue things up (we take care of
+		queues further up the chain). -->
+	<task:executor id="searchRequestExecutor" pool-size="2" queue-capacity="0"
+		rejection-policy="CALLER_RUNS" />
+
+	<!-- Enable @Inject -->
+	<context:annotation-config />
+
+	<!-- Application beans -->
+	<bean id="searchRequestSplitter"  class="org.springframework.integration.samples.splitteraggregator.SearchRequestSplitter" />
+	<bean id="searchA"                class="org.springframework.integration.samples.splitteraggregator.SearchA" />
+	<bean id="searchB"                class="org.springframework.integration.samples.splitteraggregator.SearchB" />
+	<bean id="searchResultAggregator" class="org.springframework.integration.samples.splitteraggregator.SearchResultAggregator" />
+
+</beans>
