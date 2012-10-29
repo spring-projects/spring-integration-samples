@@ -1,0 +1,101 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>org.springframework.integration.samples</groupId>
+	<artifactId>splitter-aggregator-reaper</artifactId>
+	<version>2.2.0.BUILD-SNAPSHOT</version>
+	<packaging>jar</packaging>
+
+	<name>Samples (Intermediate) - Splitter-Aggregator-Reaper</name>
+	<url>http://www.springsource.org/spring-integration</url>
+	<description>
+		A demonstration of implementing the Splitter and Aggregator Enterprise
+		Integration Patterns (EIP) together
+	</description>
+
+	<prerequisites>
+		<maven>2.2.1</maven>
+	</prerequisites>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<spring.integration.version>2.2.0.RC2</spring.integration.version>
+		<log4j.version>1.2.16</log4j.version>
+		<junit.version>4.10</junit.version>
+		<inject.version>1</inject.version>
+		<spring.version>3.1.2.RELEASE</spring.version>
+	</properties>
+
+	<repositories>
+		<repository>
+			<id>repo.springsource.org.milestone</id>
+			<name>Spring Framework Maven Milestone Repository</name>
+			<url>https://repo.springsource.org/libs-milestone</url>
+		</repository>
+	</repositories>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>2.3.2</version>
+				<configuration>
+					<source>1.6</source>
+					<target>1.6</target>
+					<compilerArgument>-Xlint:all</compilerArgument>
+					<showWarnings>true</showWarnings>
+					<showDeprecation>true</showDeprecation>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>exec-maven-plugin</artifactId>
+				<version>1.2.1</version>
+				<configuration>
+					<mainClass>org.springframework.integration.samples.splitteraggregator.Main</mainClass>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+
+	<dependencies>
+
+		<!-- Compile dependencies -->
+
+		<dependency>
+			<groupId>org.springframework.integration</groupId>
+			<artifactId>spring-integration-core</artifactId>
+			<version>${spring.integration.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>javax.inject</groupId>
+			<artifactId>javax.inject</artifactId>
+			<version>${inject.version}</version>
+		</dependency>
+
+		<!-- Logging -->
+
+		<dependency>
+			<groupId>log4j</groupId>
+			<artifactId>log4j</artifactId>
+			<version>${log4j.version}</version>
+		</dependency>
+
+		<!-- Test dependencies -->
+
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>${junit.version}</version>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-test</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+	</dependencies>
+</project>

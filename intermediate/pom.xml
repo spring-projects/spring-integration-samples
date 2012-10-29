@@ -14,6 +14,7 @@
         <module>errorhandling</module>
         <module>file-processing</module>
         <module>multipart-http</module>
+        <module>splitter-aggregator-reaper</module>
         <module>stored-procedures-derby</module>
         <module>tcp-client-server-multiplex</module>
         <module>travel</module>

@@ -10,7 +10,7 @@ Welcome to the Spring Integration Samples. To simplify your experience, Spring I
 * Advanced
 * Applications
 
- Inside of each category you'll find a 'README.md' which will contain a more detailed description of that category's specifics. Each sample also comes with its own 'readme.txt' file explaining details.
+Inside of each category you'll find a 'README.md' which will contain a more detailed description of that category's specifics. Each sample also comes with its own 'readme.txt' file explaining details.
 
 *Happy Integration!*
 
@@ -70,6 +70,7 @@ This category targets developers who are already more familiar with the Spring I
 * **stored-procedures-oracle** Provides an example of the stored procedure Outbound Gateway using *ORACLE XE*
 * **stored-procedures-postgresql** Provides an example of the stored procedure Outbound Gateway using *[PostgreSQL](http://www.postgresql.org/)*
 * **rest-http** - This sample demonstrates how to send an HTTP request to a Spring Integration's HTTP service while utilizing Spring Integration's new HTTP Path usage. This sample also uses Spring Security for HTTP Basic authentication. With HTTP Path facility, the client program can send requests with URL Variables.
+* **splitter-aggregator-reaper** A demonstration of implementing the Splitter and Aggregator *Enterprise Integration Patterns* (EIP) together. This sample also provides a concrete example of a [message store reaper][] in action.
 * **stored-procedures-derby**  Provides an example of the stored procedure Outbound Gateway using *[Apache Derby](http://db.apache.org/derby/)*
 * **stored-procedures-oracle** Provides an example of the stored procedure Outbound Gateway using *ORACLE XE*
 * **monitoring** The project used in the *[Spring Integration Management and Monitoring Webinar](http://www.springsource.org/node/3598)* Also available on the *[SpringSourceDev YouTube Channel](http://www.youtube.com/SpringSourceDev)*
@@ -94,8 +95,11 @@ This category targets developers and architects who have a good understanding of
 
 For more information, please visit the Spring Integration website at: [http://www.springsource.org/spring-integration](http://www.springsource.org/spring-integration)
 
+[Spring Integration]: https://github.com/SpringSource/spring-integration
 [Spring Integration Extensions]: https://github.com/SpringSource/spring-integration-extensions
 [Spring Integration Templates]: https://github.com/SpringSource/spring-integration-templates/tree/master/si-sts-templates
 [Spring Integration Dsl Groovy]: https://github.com/SpringSource/spring-integration-dsl-groovy
 [Spring Integration Dsl Scala]: https://github.com/SpringSource/spring-integration-dsl-scala
 [Spring Integration Pattern Catalog]: https://github.com/SpringSource/spring-integration-pattern-catalog
+
+[message store reaper]: http://static.springsource.org/spring-integration/api/org/springframework/integration/store/MessageGroupStoreReaper.html
