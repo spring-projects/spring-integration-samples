@@ -1,18 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<beans:beans xmlns="http://www.springframework.org/schema/integration/ws"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:beans="http://www.springframework.org/schema/beans"
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:int-ws="http://www.springframework.org/schema/integration/ws"
 	xmlns:int="http://www.springframework.org/schema/integration"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/integration/ws http://www.springframework.org/schema/integration/ws/spring-integration-ws.xsd
 		http://www.springframework.org/schema/integration http://www.springframework.org/schema/integration/spring-integration.xsd">
 
-	<header-enricher input-channel="weatherChannel" output-channel="weatherServiceChannel">
-		<soap-action value="http://ws.cdyne.com/WeatherWS/GetCityWeatherByZIP" />
-	</header-enricher>
+	<int-ws:header-enricher input-channel="weatherChannel" output-channel="weatherServiceChannel">
+		<int-ws:soap-action value="http://ws.cdyne.com/WeatherWS/GetCityWeatherByZIP" />
+	</int-ws:header-enricher>
 
 	<int:channel id="weatherServiceChannel" />
 
-	<outbound-gateway request-channel="weatherServiceChannel"
-		uri="http://ws.cdyne.com/WeatherWS/Weather.asmx" />
+	<int-ws:outbound-gateway request-channel="weatherServiceChannel" reply-channel="prettifyXml"
+		uri="http://wsf.cdyne.com/WeatherWS/Weather.asmx" />
 
-</beans:beans>
+</beans>
