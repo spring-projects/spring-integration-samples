@@ -25,8 +25,8 @@ package org.springframework.integration.samples.travel;
  */
 public interface TravelGateway {
 
-	public String getWeatherByCity(City city);
+	String getWeatherByCity(City city);
 
-	public String getTrafficByCity(City city);
+	String getTrafficByCity(City city);
 
 }

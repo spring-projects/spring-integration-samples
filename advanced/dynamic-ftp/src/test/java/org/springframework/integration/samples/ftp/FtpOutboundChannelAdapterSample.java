@@ -26,7 +26,6 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.integration.Message;
 import org.springframework.integration.MessageChannel;
-import org.springframework.integration.MessageHandlingException;
 import org.springframework.integration.MessagingException;
 import org.springframework.integration.support.MessageBuilder;
 
@@ -50,14 +49,14 @@ public class FtpOutboundChannelAdapterSample {
 			channel.send(message);
 		} catch (MessagingException e) {
 			assertTrue(e.getCause().getCause() instanceof UnknownHostException);
-			assertEquals("host.for.cust1", e.getCause().getCause().getMessage());
+			assertTrue(e.getCause().getCause().getMessage().startsWith("host.for.cust1"));
 		}
 		// send another so we can see in the log we don't create the ac again.
 		try {
 			channel.send(message);
 		} catch (MessagingException e) {
 			assertTrue(e.getCause().getCause() instanceof UnknownHostException);
-			assertEquals("host.for.cust1", e.getCause().getCause().getMessage());
+			assertTrue(e.getCause().getCause().getMessage().startsWith("host.for.cust1"));
 		}
 		// send to a different customer; again, check the log to see a new ac is built
 		message = MessageBuilder.withPayload(file)
@@ -66,10 +65,10 @@ public class FtpOutboundChannelAdapterSample {
 			channel.send(message);
 		} catch (MessagingException e) {
 			assertTrue(e.getCause().getCause() instanceof UnknownHostException);
-			assertEquals("host.for.cust2", e.getCause().getCause().getMessage());
+			assertTrue(e.getCause().getCause().getMessage().startsWith("host.for.cust2"));
 		}
-		
-		// send to a different customer; again, check the log to see a new ac is built 
+
+		// send to a different customer; again, check the log to see a new ac is built
 		//and the first one created (cust1) should be closed and removed as per the max cache size restriction
 		message = MessageBuilder.withPayload(file)
 				.setHeader("customer", "cust3").build();
@@ -77,10 +76,10 @@ public class FtpOutboundChannelAdapterSample {
 			channel.send(message);
 		} catch (MessagingException e) {
 			assertTrue(e.getCause().getCause() instanceof UnknownHostException);
-			assertEquals("host.for.cust3", e.getCause().getCause().getMessage());
+			assertTrue(e.getCause().getCause().getMessage().startsWith("host.for.cust3"));
 		}
-		
-		//send to cust1 again, since this one has been invalidated before, we should 
+
+		//send to cust1 again, since this one has been invalidated before, we should
 		//see a new ac created (with ac of cust2 destroyed and removed)
 		message = MessageBuilder.withPayload(file)
 				.setHeader("customer", "cust1").build();

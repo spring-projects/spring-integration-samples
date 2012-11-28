@@ -8,18 +8,18 @@
 	xmlns:context="http://www.springframework.org/schema/context"
 	xmlns:int="http://www.springframework.org/schema/integration"
 	xmlns:int-xmpp="http://www.springframework.org/schema/integration/xmpp">
-	
+
 	<context:property-placeholder location="classpath:xmpp.properties"/>
 
 	<int-xmpp:xmpp-connection id="googleTalkConnection"
-            user="${user.login}"
-            password="${user.password}"
-            host="${user.host}"
-            service-name="${user.service}"
-            port="${user.port}"/>
-	
+		user="${user.login}"
+		password="${user.password}"
+		host="${user.host}"
+		service-name="${user.service}"
+		port="${user.port}"/>
+
 	<int-xmpp:inbound-channel-adapter channel="imOutChannel" xmpp-connection="googleTalkConnection"/>
 
 	<int:logging-channel-adapter id="imOutChannel"/>
-	
+
 </beans>

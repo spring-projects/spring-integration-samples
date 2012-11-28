@@ -4,7 +4,7 @@
 	xmlns:context="http://www.springframework.org/schema/context"
 	xmlns:int="http://www.springframework.org/schema/integration"
 	xmlns:int-ftp="http://www.springframework.org/schema/integration/ftp"
-	xsi:schemaLocation="http://www.springframework.org/schema/integration/ftp http://www.springframework.org/schema/integration/ftp/spring-integration-ftp-2.1.xsd
+	xsi:schemaLocation="http://www.springframework.org/schema/integration/ftp http://www.springframework.org/schema/integration/ftp/spring-integration-ftp.xsd
 		http://www.springframework.org/schema/integration http://www.springframework.org/schema/integration/spring-integration.xsd
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
@@ -29,12 +29,12 @@
 		command-options=""
 		expression="payload"
 		reply-channel="toSplitter"/>
-    
-    <int:channel id="toSplitter">
-    	<int:interceptors>
-    	 <int:wire-tap channel="logger"/>
-    	</int:interceptors>
-    </int:channel>
+
+	<int:channel id="toSplitter">
+		<int:interceptors>
+		 <int:wire-tap channel="logger"/>
+		</int:interceptors>
+	</int:channel>
 
 	<int:logging-channel-adapter id="logger" log-full-message="true"/>
 
@@ -45,25 +45,25 @@
 		session-factory="ftpSessionFactory"
 		request-channel="toGet"
 		reply-channel="toRemoveChannel"
-		command="get" 
+		command="get"
 		command-options="-P"
 		expression="payload.remoteDirectory + '/' + payload.filename"/>
 
-    <int:channel id="toRemoveChannel">
-        <int:interceptors>
-         <int:wire-tap channel="logger2"/>
-        </int:interceptors>
-    </int:channel>
+	<int:channel id="toRemoveChannel">
+		<int:interceptors>
+			<int:wire-tap channel="logger2"/>
+		</int:interceptors>
+	</int:channel>
 
-    <int:logging-channel-adapter id="logger2" log-full-message="true"/>
+	<int:logging-channel-adapter id="logger2" log-full-message="true"/>
 
-	<int-ftp:outbound-gateway id="gatewayRM" 
+	<int-ftp:outbound-gateway id="gatewayRM"
 		session-factory="ftpSessionFactory" cache-sessions="false"
 		expression="headers['file_remoteDirectory'] + '/' + headers['file_remoteFile']"
 		request-channel="toRemoveChannel"
 		command="rm"
 		reply-channel="aggregateResultsChannel"/>
 
-    <int:aggregator input-channel="aggregateResultsChannel"/>
+	<int:aggregator input-channel="aggregateResultsChannel"/>
 
 </beans>

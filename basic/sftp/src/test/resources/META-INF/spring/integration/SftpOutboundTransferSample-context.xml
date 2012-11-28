@@ -10,7 +10,7 @@
 		http://www.springframework.org/schema/integration/sftp http://www.springframework.org/schema/integration/sftp/spring-integration-sftp.xsd">
 
 	<context:property-placeholder location="classpath:user.properties"/>
-	
+
 	<bean id="sftpSessionFactory" class="org.springframework.integration.sftp.session.DefaultSftpSessionFactory">
 		<property name="host" value="localhost"/>
 		<property name="privateKey" value="classpath:META-INF/keys/sftp_rsa"/>
@@ -18,13 +18,13 @@
 		<property name="port" value="22"/>
 		<property name="user" value="${user}"/>
 	</bean>
-	
+
 	<int:channel id="inputChannel"/>
-	
+
 	<int-sftp:outbound-channel-adapter id="sftpOutboundAdapter"
 				session-factory="sftpSessionFactory"
 				channel="inputChannel"
 				remote-filename-generator-expression="payload.getName() + '_foo'"
 				remote-directory="<SPECIFY REMOTE DIRECTORY (e.g., /{workspace}/samples/basic/sftp/remote-target-dir)>"/>
-	
+
 </beans>
