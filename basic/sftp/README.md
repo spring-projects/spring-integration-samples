@@ -68,4 +68,4 @@ This sample uses a property **private.keyfile** to point to the location of your
 	>$ chmod 600 ~/.ssh/authorized_keys
 
 * Then edit **authorized_keys** file and paste in the contents of the public key file **sftp_rsa.pub**.
-* Move your private key file **sftp_rsa** to META-INF/keys directory
+* Move your private key file **sftp_rsa** to the directory **/src/test/resources/META-INF/keys/** directory.

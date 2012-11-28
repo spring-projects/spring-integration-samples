@@ -4,11 +4,16 @@
 	<groupId>org.springframework.integration.samples</groupId>
 	<artifactId>mail</artifactId>
 	<name>Samples (Basic) - Mail Demo (IMAP + POP3)</name>
-	<version>2.1.0.BUILD-SNAPSHOT</version>
+	<version>2.2.0.BUILD-SNAPSHOT</version>
+
+	<prerequisites>
+		<maven>2.2.1</maven>
+	</prerequisites>
+
 	<properties>
-	    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<spring.integration.version>2.1.0.RELEASE</spring.integration.version>
-		<log4j.version>1.2.16</log4j.version>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<spring.integration.version>2.2.0.RC3</spring.integration.version>
+		<log4j.version>1.2.17</log4j.version>
 		<junit.version>4.10</junit.version>
 	</properties>
 	<dependencies>
@@ -26,7 +31,7 @@
 		<dependency>
 			<groupId>javax.mail</groupId>
 			<artifactId>mail</artifactId>
-			<version>1.4.4</version>
+			<version>1.4.5</version>
 		</dependency>
 		<dependency>
 			<groupId>log4j</groupId>
@@ -45,13 +50,13 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
-				<version>2.3.2</version>
+				<version>2.5.1</version>
 				<configuration>
-					<source>1.5</source>
-					<target>1.5</target>
+					<source>1.6</source>
+					<target>1.6</target>
 					<compilerArgument>-Xlint:all</compilerArgument>
 					<showWarnings>true</showWarnings>
-					<showDeprecation>false</showDeprecation>
+					<showDeprecation>true</showDeprecation>
 				</configuration>
 			</plugin>
 		</plugins>

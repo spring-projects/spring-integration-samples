@@ -1,5 +1,5 @@
 /*
- * Copyright 2002-2010 the original author or authors.
+ * Copyright 2002-2012 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,18 +16,7 @@
 
 package org.springframework.integration.samples.jms;
 
-import java.io.ByteArrayOutputStream;
-import java.io.PrintStream;
-
-import junit.framework.Assert;
-
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
-import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
-import org.springframework.integration.MessageChannel;
-import org.springframework.integration.support.MessageBuilder;
 
 /**
  * A simple bootstrap main() method for starting a pair of JMS Channel
@@ -39,6 +28,7 @@ import org.springframework.integration.support.MessageBuilder;
  * See the configuration in the three XML files that are referenced below.
  *
  * @author Mark Fisher
+ * @author Gunnar Hillert
  */
 public class ChannelAdapterDemo {
 

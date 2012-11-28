@@ -80,14 +80,15 @@ public final class Main {
 		System.out.print("Enter you choice: ");
 		while (true) {
 			final String input = scanner.nextLine();
-			if("1".equals(input.trim()))
+			if("1".equals(input.trim())) {
 				getPersonDetails(scanner, personService);
-			else if("2".equals(input.trim()))
+			} else if("2".equals(input.trim())) {
 				createPersonDetails(scanner,personService);
-			else if("q".equals(input.trim()))
+			} else if("q".equals(input.trim())) {
 				break;
-			else
+			} else {
 				System.out.println("Invalid choice\n\n");
+			}
 
 			System.out.println("Please enter a choice and press <enter>: ");
 			System.out.println("\t1. Find person details");

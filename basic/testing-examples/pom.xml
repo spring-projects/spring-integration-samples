@@ -4,14 +4,17 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.springframework.integration.samples</groupId>
 	<artifactId>testing-examples</artifactId>
-	<version>2.1.0.BUILD-SNAPSHOT</version>
+	<version>2.2.0.BUILD-SNAPSHOT</version>
 	<name>Samples (Basic) - Testing Examples</name>
 	<packaging>jar</packaging>
+	<prerequisites>
+		<maven>2.2.1</maven>
+	</prerequisites>
 	<properties>
-	    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<spring.integration.version>2.1.0.RELEASE</spring.integration.version>
-		<spring.version>3.1.0.RELEASE</spring.version>
-		<log4j.version>1.2.16</log4j.version>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<spring.integration.version>2.2.0.RC3</spring.integration.version>
+		<spring.version>3.1.3.RELEASE</spring.version>
+		<log4j.version>1.2.17</log4j.version>
 		<junit.version>4.10</junit.version>
 	</properties>
 	<dependencies>
@@ -67,62 +70,62 @@
 			<artifactId>spring-webmvc</artifactId>
 			<version>${spring.version}</version>
 		</dependency>
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-context</artifactId>
-            <version>${spring.version}</version>
-            <exclusions>
-            	<exclusion>
-            		<artifactId>spring-expression</artifactId>
-            		<groupId>org.springframework</groupId>
-            	</exclusion>
-            </exclusions>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-oxm</artifactId>
-            <version>${spring.version}</version>
-        </dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context</artifactId>
+			<version>${spring.version}</version>
+			<exclusions>
+				<exclusion>
+					<artifactId>spring-expression</artifactId>
+					<groupId>org.springframework</groupId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-oxm</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
 	</dependencies>
 	<build>
 		<testResources>
-		  <testResource>
-		    <directory>src/test/java</directory>
-		    <includes>
-		      <include>**/*</include>
-		    </includes>
-		    <excludes>
-		      <exclude>**/*.java</exclude>
-		    </excludes>
-		  </testResource>
-		  <testResource>
-		    <directory>src/test/resources</directory>
-		    <includes>
-		      <include>**/*</include>
-		    </includes>
-		  </testResource>
+			<testResource>
+				<directory>src/test/java</directory>
+				<includes>
+					<include>**/*</include>
+				</includes>
+				<excludes>
+					<exclude>**/*.java</exclude>
+				</excludes>
+			</testResource>
+			<testResource>
+				<directory>src/test/resources</directory>
+				<includes>
+					<include>**/*</include>
+				</includes>
+			</testResource>
 		</testResources>
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
-				<version>2.3.2</version>
+				<version>2.5.1</version>
 				<configuration>
-					<source>1.5</source>
-					<target>1.5</target>
+					<source>1.6</source>
+					<target>1.6</target>
 					<compilerArgument>-Xlint:all</compilerArgument>
 					<showWarnings>true</showWarnings>
-					<showDeprecation>false</showDeprecation>
+					<showDeprecation>true</showDeprecation>
 				</configuration>
 			</plugin>
 			<plugin>
-			  <artifactId>maven-surefire-plugin</artifactId>
-			  <version>2.11</version>
-			  <configuration>
-			    <includes>
-			      <include>**/*Tests.java</include>
-			    </includes>
-			  </configuration>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<version>2.12.4</version>
+				<configuration>
+					<includes>
+						<include>**/*Tests.java</include>
+					</includes>
+				</configuration>
 			</plugin>
 		</plugins>
 	</build>
