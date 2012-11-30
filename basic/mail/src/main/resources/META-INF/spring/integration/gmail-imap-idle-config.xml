@@ -9,16 +9,16 @@
 	xmlns:int-mail="http://www.springframework.org/schema/integration/mail"
 	xmlns:util="http://www.springframework.org/schema/util">
 
-	<int:channel id="recieveChannel" />
+	<int:channel id="receiveChannel" />
 	<!-- replace 'userid and 'password' wit the real values -->
 	<int-mail:imap-idle-channel-adapter id="customAdapter"
 			store-uri="imaps://[userid]:[pasword]@imap.gmail.com:993/inbox"
-			channel="recieveChannel"
+			channel="receiveChannel"
 			auto-startup="true"
 			should-delete-messages="false"
 			should-mark-messages-as-read="false"
 			java-mail-properties="javaMailProperties"/>
-	
+
 	<util:properties id="javaMailProperties">
 		<prop key="mail.imap.socketFactory.class">javax.net.ssl.SSLSocketFactory</prop>
 		<prop key="mail.imap.socketFactory.fallback">false</prop>
