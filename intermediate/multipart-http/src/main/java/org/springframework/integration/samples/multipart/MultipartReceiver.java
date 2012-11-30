@@ -1,5 +1,5 @@
 /*
- * Copyright 2002-2010 the original author or authors.
+ * Copyright 2002-2012 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -24,12 +24,12 @@ import org.springframework.util.LinkedMultiValueMap;
  * @author Oleg Zhurakousky
  *
  */
-public class MultipartReceiever {
-	private static Logger logger = Logger.getLogger(MultipartReceiever.class);
+public class MultipartReceiver {
+	private static Logger logger = Logger.getLogger(MultipartReceiver.class);
 
 	@SuppressWarnings("rawtypes")
-	public void recieve(LinkedMultiValueMap<String, Object> multipartRequest){	
-		logger.info("Successfully recieved multipart request: " + multipartRequest);
+	public void receive(LinkedMultiValueMap<String, Object> multipartRequest){
+		logger.info("Successfully received multipart request: " + multipartRequest);
 		for (String elementName : multipartRequest.keySet()) {
 			if (elementName.equals("company")){
 				LinkedList value =  (LinkedList)multipartRequest.get("company");
@@ -38,7 +38,7 @@ public class MultipartReceiever {
 					logger.info(elementName + " - " + companyName);
 				}
 			} else if (elementName.equals("company-logo")){
-				logger.info(elementName + " - as UploadedMultipartFile: " 
+				logger.info(elementName + " - as UploadedMultipartFile: "
 						+ ((UploadedMultipartFile) multipartRequest.getFirst("company-logo")).getOriginalFilename());
 			}
 		}

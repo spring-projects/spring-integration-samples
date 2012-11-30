@@ -18,7 +18,7 @@
 	<int:channel id="receiveChannel"/>
 	
 	<int:service-activator id="multipartReceiver" input-channel="receiveChannel">
-		<bean class="org.springframework.integration.samples.multipart.MultipartReceiever"/>
+		<bean class="org.springframework.integration.samples.multipart.MultipartReceiver"/>
 	</int:service-activator>
 	
 	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver"/>
