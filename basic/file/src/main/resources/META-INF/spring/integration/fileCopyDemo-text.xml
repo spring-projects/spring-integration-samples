@@ -14,7 +14,7 @@
 
 	<file:inbound-channel-adapter id="filesIn"
 	                              directory="file:${java.io.tmpdir}/spring-integration-samples/input"
-	                              filename-pattern="[a-z]+.txt">
+	                              filename-regex="[a-z]+.txt">
 		<integration:poller id="poller" fixed-delay="5000"/>
 	</file:inbound-channel-adapter>
 
