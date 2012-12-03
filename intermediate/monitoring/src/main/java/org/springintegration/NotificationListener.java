@@ -13,23 +13,32 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+package org.springintegration;
 
-package org.springframework.integration;
-
+import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 /**
- * Run this class to run the sample from the command line.
+ * This class demonstrates the use a Spring Integration jmx adadpers to receive
+ * notifications, poll attributes, and invoke operations on a Remote JMX MBeanServer.
  *
  * @author Gary Russell
+ * @since 2.2
+ *
  */
-public class SpringIntegrationTest {
+public class NotificationListener {
 
 	public static void main(String[] args) throws Exception {
-
-		new ClassPathXmlApplicationContext("/META-INF/spring/integration/spring-integration-context.xml", SpringIntegrationTest.class);
-		System.out.println("Hit Enter to terminate");
-		System.in.read();
+		ApplicationContext ctx = new ClassPathXmlApplicationContext("classpath:/META-INF/spring/integration/remote-monitor-context.xml");
+		Gateway gw = ctx.getBean(Gateway.class);
+		int cmd = 0;
+		while (cmd != 'q') {
+			cmd = System.in.read();
+			gw.send((char) cmd);
+		}
 	}
 
+	public static interface Gateway {
+		void send(char command);
+	}
 }
