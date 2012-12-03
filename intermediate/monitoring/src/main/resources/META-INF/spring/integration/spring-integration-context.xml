@@ -49,7 +49,7 @@
 
 	<bean id="twitterService" class="org.springintegration.service.impl.DefaultTwitterService"/>
 
-	<int:channel id="twitterChannel">
+	<int:publish-subscribe-channel id="twitterChannel">
 		<int:interceptors>
 			<int:wire-tap channel="logger" />
 			<bean class="org.springintegration.PayloadAwareTimingInterceptor">
@@ -61,18 +61,31 @@
 				</constructor-arg>
 			</bean>
 		</int:interceptors>
-	</int:channel>
+	</int:publish-subscribe-channel>
 
 	<int:publish-subscribe-channel id="logger" />
 	
 	<int:logging-channel-adapter id="loggingAdapter" channel="logger" level="INFO"
 								expression="'Id:' + payload.id + '; Date:' + payload.createdAt + '; FromUser: ' + payload.fromUser" />
 
-	<int:bridge input-channel="logger" output-channel="queue"/>
+	<int:bridge id="bridgeToQueueChannel"
+		input-channel="logger" output-channel="queue"/>
 	
 	<int:channel id="queue">
 		<int:queue/>
 	</int:channel>
+
+	<int:transformer id="tweetToStringTransformer"
+		input-channel="twitterChannel"
+		output-channel="twitterPublishChannel"
+		expression="'Id:' + payload.id + '; Date:' + payload.createdAt + '; FromUser: ' + payload.fromUser"/>
+
+	<int:channel id="twitterPublishChannel"/>
+
+	<int-jmx:notification-publishing-channel-adapter
+		channel="twitterPublishChannel"
+		default-notification-type="TWEET"
+		object-name="spring.application:type=TweetPublisher,name=tweeter"/>
 
 	<int:channel id="controlBusChannel"/>
 
