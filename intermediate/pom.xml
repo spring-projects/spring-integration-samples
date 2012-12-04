@@ -3,7 +3,7 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
 	<modelVersion>4.0.0</modelVersion>
-    <groupId>org.springframework.integration.samples</groupId>
+	<groupId>org.springframework.integration.samples</groupId>
 	<artifactId>intermediate-samples</artifactId>
 	<version>2.2.0.BUILD-SNAPSHOT</version>
 	<name>Spring Integration Samples - Intermediate</name>
@@ -14,15 +14,15 @@
 	</prerequisites>
 
 	<modules>
-        <module>async-gateway</module>
-        <module>errorhandling</module>
-        <module>file-processing</module>
-        <module>multipart-http</module>
-        <module>splitter-aggregator-reaper</module>
-        <module>stored-procedures-derby</module>
-        <module>tcp-client-server-multiplex</module>
-        <module>travel</module>
-        <module>mail-attachments</module>
+		<module>async-gateway</module>
+		<module>errorhandling</module>
+		<module>file-processing</module>
+		<module>multipart-http</module>
+		<module>splitter-aggregator-reaper</module>
+		<module>stored-procedures-derby</module>
+		<module>tcp-client-server-multiplex</module>
+		<module>travel</module>
+		<module>mail-attachments</module>
 	</modules>
 
 </project>
