@@ -1,5 +1,5 @@
 /*
- * Copyright 2002-2010 the original author or authors.
+ * Copyright 2002-2012 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,30 +23,44 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.integration.Message;
 import org.springframework.integration.MessageChannel;
 import org.springframework.integration.support.MessageBuilder;
+import org.springframework.util.Assert;
 
 /**
+ *
  * @author Oleg Zhurakousky
+ * @author Gunnar Hillert
  *
  */
 public class SftpOutboundTransferSample {
 
 	@Test
 	public void testOutbound() throws Exception{
-		ClassPathXmlApplicationContext ac = 
+
+		final String sourceFileName = "README.md";
+		final String destinationFileName = sourceFileName +"_foo";
+		final String destinationFilePath = "remote-target-dir/" + destinationFileName;
+
+		final ClassPathXmlApplicationContext ac =
 			new ClassPathXmlApplicationContext("/META-INF/spring/integration/SftpOutboundTransferSample-context.xml", SftpOutboundTransferSample.class);
 		ac.start();
-		File file = new File("readme.txt");
-		if (file.exists()){
-			Message<File> message = MessageBuilder.withPayload(file).build();
-			MessageChannel inputChannel = ac.getBean("inputChannel", MessageChannel.class);
-			inputChannel.send(message);
-			Thread.sleep(2000);
-		}
-		if (new File("remote-target-dir/readme.txt_foo").exists()){
-			System.out.println("Successfully transfered 'readme.txt' file to a remote location under the name 'readme.txt_foo'");
-		}
+
+		final File file = new File(sourceFileName);
+
+		Assert.isTrue(file.exists(), String.format("File '%s' does not exist.", sourceFileName));
+
+		final Message<File> message = MessageBuilder.withPayload(file).build();
+		final MessageChannel inputChannel = ac.getBean("inputChannel", MessageChannel.class);
+
+		inputChannel.send(message);
+		Thread.sleep(2000);
+
+		Assert.isTrue(new File(destinationFilePath).exists(), String.format("File '%s' does not exist.", destinationFilePath));
+
+		System.out.println(String.format("Successfully transferred '%s' file to a " +
+				"remote location under the name '%s'", sourceFileName, destinationFileName));
+
 		ac.stop();
-		
+
 	}
 
 }
