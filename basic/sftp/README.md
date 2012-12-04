@@ -24,9 +24,9 @@ As you can see, although the remote directory had 3 files we only received 2 sin
 
 ## OUTBOUND CHANNEL ADAPTER
 	
-To run the OUTBOUND CHANNEL ADAPTER sample execute the **SftpOutboundTransferSample** test. You will see that based on the configuration it will attempt to transfer this **readme.txt** file to a remote directory **remote-target-dir**. The output should look like this:
+To run the OUTBOUND CHANNEL ADAPTER sample execute the **SftpOutboundTransferSample** test. You will see that based on the configuration it will attempt to transfer the **README.md** file to a remote directory **remote-target-dir**. The output should look like this:
 
-	Successfully transfered 'readme.txt' file to a remote location under the name 'readme.txt_foo'
+	Successfully transferred 'README.md' file to a remote location under the name 'README.md_foo'
 
 NOTE: You can see that we are using *SpEL* via the **remote-filename-generator-expression** attribute to define the remote file name by simply appending **_foo** to the original file name.
 
