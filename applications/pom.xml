@@ -3,16 +3,16 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
 	<modelVersion>4.0.0</modelVersion>
-    <groupId>org.springframework.integration.samples</groupId>
+	<groupId>org.springframework.integration.samples</groupId>
 	<artifactId>applications</artifactId>
 	<version>2.2.0.BUILD-SNAPSHOT</version>
 	<name>Spring Integration Samples - Applications</name>
 	<packaging>pom</packaging>
 
 	<modules>
-        <module>cafe</module>
-        <module>loan-broker</module>
-        <module>loanshark</module>
+		<module>cafe</module>
+		<module>loan-broker</module>
+		<module>loanshark</module>
 	</modules>
 
 </project>
