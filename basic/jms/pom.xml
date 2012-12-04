@@ -14,7 +14,7 @@
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<spring.integration.version>2.2.0.RC3</spring.integration.version>
+		<spring.integration.version>2.2.0.RELEASE</spring.integration.version>
 		<activemq.version>5.7.0</activemq.version>
 		<slf4j.version>1.7.2</slf4j.version>
 		<junit.version>4.10</junit.version>
