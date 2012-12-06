@@ -16,9 +16,11 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<spring.integration.version>2.2.0.RELEASE</spring.integration.version>
 		<activemq.version>5.7.0</activemq.version>
-		<slf4j.version>1.7.2</slf4j.version>
+		<log4j.version>1.2.17</log4j.version>
 		<junit.version>4.10</junit.version>
+		<java.main.class>org.springframework.integration.samples.jms.Main</java.main.class>
 	</properties>
+
 	<dependencies>
 
 		<dependency>
@@ -37,10 +39,6 @@
 					<artifactId>spring-context</artifactId>
 					<groupId>org.springframework</groupId>
 				</exclusion>
-				<exclusion>
-					<artifactId>slf4j-api</artifactId>
-					<groupId>org.slf4j</groupId>
-				</exclusion>
 			</exclusions>
 		</dependency>
 			<dependency>
@@ -53,23 +51,33 @@
 			<groupId>org.springframework.integration</groupId>
 			<artifactId>spring-integration-core</artifactId>
 			<version>${spring.integration.version}</version>
-				</dependency>
-				<dependency>
-						<groupId>org.springframework.integration</groupId>
-						<artifactId>spring-integration-jms</artifactId>
-						<version>${spring.integration.version}</version>
-				</dependency>
+		</dependency>
+		<dependency>
+				<groupId>org.springframework.integration</groupId>
+				<artifactId>spring-integration-jms</artifactId>
+				<version>${spring.integration.version}</version>
+		</dependency>
 		<dependency>
 			<groupId>org.springframework.integration</groupId>
 			<artifactId>spring-integration-stream</artifactId>
 			<version>${spring.integration.version}</version>
 		</dependency>
-
-				<dependency>
-						<groupId>org.slf4j</groupId>
-						<artifactId>slf4j-log4j12</artifactId>
-						<version>${slf4j.version}</version>
-				</dependency>
+		<dependency>
+			<groupId>org.springframework.integration</groupId>
+			<artifactId>spring-integration-test</artifactId>
+			<version>${spring.integration.version}</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>log4j</groupId>
+			<artifactId>log4j</artifactId>
+			<version>${log4j.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-log4j12</artifactId>
+			<version>1.6.6</version>
+		</dependency>
 
 	</dependencies>
 	<build>
@@ -84,6 +92,14 @@
 					<compilerArgument>-Xlint:all</compilerArgument>
 					<showWarnings>true</showWarnings>
 					<showDeprecation>true</showDeprecation>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>exec-maven-plugin</artifactId>
+				<version>1.2.1</version>
+				<configuration>
+					<mainClass>${java.main.class}</mainClass>
 				</configuration>
 			</plugin>
 		</plugins>

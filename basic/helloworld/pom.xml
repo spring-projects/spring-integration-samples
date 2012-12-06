@@ -67,14 +67,14 @@
 					<showDeprecation>true</showDeprecation>
 				</configuration>
 			</plugin>
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>exec-maven-plugin</artifactId>
-                <version>1.2.1</version>
-                <configuration>
-                    <mainClass>${java.main.class}</mainClass>
-                </configuration>
-            </plugin>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>exec-maven-plugin</artifactId>
+				<version>1.2.1</version>
+				<configuration>
+					<mainClass>${java.main.class}</mainClass>
+				</configuration>
+			</plugin>
 		</plugins>
 	</build>
 	<repositories>

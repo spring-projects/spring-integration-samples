@@ -1,7 +1,7 @@
 JMS Sample
 ==========
 
-This example demonstrates the following aspects of the JMS support available with Spring Integration:
+This example demonstrates the following aspects of the Java Message Service (JMS) support available with *Spring Integration*:
 
 1. JMS Message-driven Channel Adapter
 2. JMS Inbound Gateway
@@ -11,15 +11,40 @@ It also uses the following components:
 
 1. Poller
 2. Stdout Channel Adapter (from Stream support Module)
-3. Stdin Channel Adapter (from Stream support Module) 
+3. Stdin Channel Adapter (from Stream support Module)
 
 The Stdout and Stdin Channel Adapters will allow you to interact with JMS via the console. It uses an embedded ActiveMQ broker.
 
-To run the samples, simply execute the **GatewayDemo** and **ChannelAdapterDemo** classes located in the *org.springframework.integration.samples.jms* package.
+To run the sample, simply execute the **Main** class located in the the *org.springframework.integration.samples.jms* package either from your favorite IDE or by using Maven. When using Maven you can start the sample by executing:
 
-When running demos you will see the following prompt:
+    $ mvn clean package exec:java
 
-	> Please type something and hit return
+You will then be prompted to run one of two demos:
 
-* **GatewayDemo** uses *DemoBean* service, which will echo the response, upper-casing it.
+* **GatewayDemo**
+* **ChannelAdapterDemo**
+
+The console output should look like:
+
+	=========================================================
+
+	    Welcome to the Spring Integration JMS Sample!
+
+	    For more information please visit:
+	    http://www.springintegration.org/
+
+	=========================================================
+	16:48:21.158 INFO  [org.springframework.integration.samples.jms.Main.main()][org.springframework.integration.samples.jms.ActiveMqTestUtils] Refreshing ActiveMQ data directory.
+
+	    Which Demo would you like to run? <enter>:
+
+		1. Channel Adapter Demo
+		2. Gateway Demo
+
+When running either one of the demos you will see the following prompt:
+
+	> Please type something and hit <enter>
+
+* **GatewayDemo** uses the *DemoBean* service, which will echo the response and upper-casing it.
 * **ChannelAdapterDemo** will simply echo the response
+
