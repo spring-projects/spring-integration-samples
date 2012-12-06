@@ -10,7 +10,7 @@
 	<bean id="connectionFactory" class="org.springframework.jms.connection.CachingConnectionFactory">
 		<property name="targetConnectionFactory">
 			<bean class="org.apache.activemq.ActiveMQConnectionFactory">
-				<property name="brokerURL" value="vm://localhost"/>		
+				<property name="brokerURL" value="vm://localhost"/>
 			</bean>
 		</property>
 		<property name="sessionCacheSize" value="10"/>

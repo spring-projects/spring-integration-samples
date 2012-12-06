@@ -1,5 +1,5 @@
 /*
- * Copyright 2002-2010 the original author or authors.
+ * Copyright 2002-2012 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,28 +17,30 @@ package org.springframework.integration.samples.jms;
 
 import java.io.File;
 
+import org.apache.log4j.Logger;
+
 /**
  * @author Oleg Zhurakousky
+ * @author Gunnar Hillert
  *
  */
 public class ActiveMqTestUtils {
 
+	private static final Logger LOGGER = Logger.getLogger(ActiveMqTestUtils.class);
+
 	public static void prepare() {
-		System.out.println("####### Refreshing ActiveMq ########");
+		LOGGER.info("Refreshing ActiveMQ data directory.");
 		File activeMqTempDir = new File("activemq-data");
 		deleteDir(activeMqTempDir);
-		
 	}
-	/*
-	 * 
-	 */
+
 	private static void deleteDir(File directory){
 		if (directory.exists()){
 			String[] children = directory.list();
 			if (children != null){
-				 for (int i=0; i < children.length; i++) {
-			         deleteDir(new File(directory, children[i]));
-			     }
+				for (int i=0; i < children.length; i++) {
+					deleteDir(new File(directory, children[i]));
+				}
 			}
 		}
 		directory.delete();
