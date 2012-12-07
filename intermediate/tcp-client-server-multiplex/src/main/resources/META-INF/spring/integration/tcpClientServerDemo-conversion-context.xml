@@ -3,13 +3,17 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns="http://www.springframework.org/schema/integration"
 	xmlns:ip="http://www.springframework.org/schema/integration/ip"
-	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/integration/ip http://www.springframework.org/schema/integration/ip/spring-integration-ip.xsd
 		http://www.springframework.org/schema/integration http://www.springframework.org/schema/integration/spring-integration.xsd
-		http://www.springframework.org/schema/integration/ip http://www.springframework.org/schema/integration/ip/spring-integration-ip.xsd">
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
 
 	<beans:description>
 		Uses conversion service and collaborating channel adapters.
 	</beans:description>
+
+	<context:property-placeholder />
 
 	<converter>
 		<beans:bean class="org.springframework.integration.samples.tcpclientserver.ByteArrayToStringConverter" />
@@ -31,7 +35,7 @@
 	<ip:tcp-connection-factory id="client"
 		type="client"
 		host="localhost"
-		port="11111"
+		port="${availableServerSocket}"
 		single-use="false"
 		serializer="fastestWireFormatSerializer"
 		deserializer="fastestWireFormatSerializer"
@@ -71,7 +75,7 @@
 
 	<ip:tcp-connection-factory id="server"
 		type="server"
-		port="11111"
+		port="${availableServerSocket}"
 		using-nio="true"
 		serializer="fastestWireFormatSerializer"
 		deserializer="fastestWireFormatSerializer" />
