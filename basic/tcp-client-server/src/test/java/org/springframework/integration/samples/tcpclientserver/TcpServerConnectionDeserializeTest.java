@@ -15,6 +15,10 @@
  */
 package org.springframework.integration.samples.tcpclientserver;
 
+import static org.junit.Assert.assertEquals;
+
+import java.io.StringWriter;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -26,15 +30,11 @@ import org.springframework.integration.core.SubscribableChannel;
 import org.springframework.integration.handler.AbstractReplyProducingMessageHandler;
 import org.springframework.integration.ip.tcp.connection.AbstractServerConnectionFactory;
 import org.springframework.integration.ip.tcp.serializer.ByteArrayStxEtxSerializer;
+import org.springframework.integration.ip.util.TestingUtilities;
 import org.springframework.integration.samples.tcpclientserver.support.CustomTestContextLoader;
-import org.springframework.integration.samples.tcpclientserver.support.ServerUtils;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-
-import java.io.StringWriter;
-
-import static org.junit.Assert.assertEquals;
 
 /**
  * Shows an example of using the Stx/Etx stream framing serializers that are included with
@@ -45,6 +45,7 @@ import static org.junit.Assert.assertEquals;
  * we create and attach to the incomingServerChannel), does not have any of the Stx/Etx bytes.
  *
  * @author: ceposta
+ * @author Gunnar Hillert
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(loader=CustomTestContextLoader.class,
@@ -52,62 +53,62 @@ import static org.junit.Assert.assertEquals;
 @DirtiesContext
 public class TcpServerConnectionDeserializeTest {
 
-    @Autowired
+	@Autowired
 	SimpleGateway gw;
 
-    @Autowired
-    @Qualifier("incomingServerChannel")
-    MessageChannel incomingServerChannel;
+	@Autowired
+	@Qualifier("incomingServerChannel")
+	MessageChannel incomingServerChannel;
 
 	@Autowired
 	AbstractServerConnectionFactory crLfServer;
 
 	@Before
 	public void setup() {
-		ServerUtils.waitListening(this.crLfServer);
+		TestingUtilities.waitListening(this.crLfServer, 10000L);
 	}
 
-    @Test
-    public void testHappyPath() {
+	@Test
+	public void testHappyPath() {
 
-        // add a listener to this channel, otherwise there is not one defined
-        // the reason we use a listener here is so we can assert truths on the
-        // message and/or payload
-        SubscribableChannel channel = (SubscribableChannel) incomingServerChannel;
-        channel.subscribe(new AbstractReplyProducingMessageHandler(){
+		// add a listener to this channel, otherwise there is not one defined
+		// the reason we use a listener here is so we can assert truths on the
+		// message and/or payload
+		SubscribableChannel channel = (SubscribableChannel) incomingServerChannel;
+		channel.subscribe(new AbstractReplyProducingMessageHandler(){
 
-            @Override
-            protected Object handleRequestMessage(Message<?> requestMessage) {
-                byte[] payload = (byte[]) requestMessage.getPayload();
+			@Override
+			protected Object handleRequestMessage(Message<?> requestMessage) {
+				byte[] payload = (byte[]) requestMessage.getPayload();
 
-                // we assert during the processing of the messaging that the
-                // payload is just the content we wanted to send without the
-                // framing bytes (STX/ETX)
-                assertEquals("Hello World!", new String(payload));
-                return requestMessage;
-            }
-        });
+				// we assert during the processing of the messaging that the
+				// payload is just the content we wanted to send without the
+				// framing bytes (STX/ETX)
+				assertEquals("Hello World!", new String(payload));
+				return requestMessage;
+			}
+		});
 
-        String sourceMessage = wrapWithStxEtx("Hello World!");
-        String result = gw.send(sourceMessage);
-        System.out.println(result);
-        assertEquals("Hello World!", result);
-    }
+		String sourceMessage = wrapWithStxEtx("Hello World!");
+		String result = gw.send(sourceMessage);
+		System.out.println(result);
+		assertEquals("Hello World!", result);
+	}
 
-    /**
-     * Show, explicitly, how the stream would look if you had to manually create it.
-     *
-     * See more about TCP synchronous communication for more about framing the stream
-     * with STX/ETX:  http://en.wikipedia.org/wiki/Binary_Synchronous_Communications
-     *
-     * @param content
-     * @return a string that is wrapped with the STX/ETX framing bytes
-     */
-    private String wrapWithStxEtx(String content) {
-        StringWriter writer = new StringWriter();
-        writer.write(ByteArrayStxEtxSerializer.STX);
-        writer.write(content);
-        writer.write(ByteArrayStxEtxSerializer.ETX);
-        return writer.toString();
-    }
+	/**
+	 * Show, explicitly, how the stream would look if you had to manually create it.
+	 *
+	 * See more about TCP synchronous communication for more about framing the stream
+	 * with STX/ETX:  http://en.wikipedia.org/wiki/Binary_Synchronous_Communications
+	 *
+	 * @param content
+	 * @return a string that is wrapped with the STX/ETX framing bytes
+	 */
+	private String wrapWithStxEtx(String content) {
+		StringWriter writer = new StringWriter();
+		writer.write(ByteArrayStxEtxSerializer.STX);
+		writer.write(content);
+		writer.write(ByteArrayStxEtxSerializer.ETX);
+		return writer.toString();
+	}
 }
