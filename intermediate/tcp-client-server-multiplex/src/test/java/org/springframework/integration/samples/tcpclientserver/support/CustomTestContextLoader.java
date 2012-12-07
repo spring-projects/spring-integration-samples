@@ -44,7 +44,7 @@ public class CustomTestContextLoader extends GenericXmlContextLoader {
 		sockets.put("availableServerSocket", availableServerSocket);
 
 		if (LOGGER.isInfoEnabled()) {
-			LOGGER.info("Available Server Socket 1: " + availableServerSocket);
+			LOGGER.info("Available Server Socket: " + availableServerSocket);
 		}
 
 		final MapPropertySource propertySource = new MapPropertySource("sockets", sockets);

@@ -22,8 +22,8 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.integration.ip.tcp.connection.AbstractServerConnectionFactory;
+import org.springframework.integration.ip.util.TestingUtilities;
 import org.springframework.integration.samples.tcpclientserver.support.CustomTestContextLoader;
-import org.springframework.integration.samples.tcpclientserver.support.ServerUtils;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -41,6 +41,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
  * Strings.
  *
  * @author Gary Russell
+ * @author Gunnar Hillert
  *
  */
 @ContextConfiguration(loader=CustomTestContextLoader.class, locations={"/META-INF/spring/integration/tcpClientServerDemo-conversion-context.xml"})
@@ -56,7 +57,7 @@ public class TcpClientServerDemoWithConversionServiceTest {
 
 	@Before
 	public void setup() {
-		ServerUtils.waitListening(this.crLfServer);
+		TestingUtilities.waitListening(this.crLfServer, 10000L);
 	}
 
 	@Test

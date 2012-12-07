@@ -38,8 +38,8 @@ import org.springframework.integration.MessageChannel;
 import org.springframework.integration.core.SubscribableChannel;
 import org.springframework.integration.handler.AbstractReplyProducingMessageHandler;
 import org.springframework.integration.ip.tcp.connection.AbstractServerConnectionFactory;
+import org.springframework.integration.ip.util.TestingUtilities;
 import org.springframework.integration.samples.tcpclientserver.support.CustomTestContextLoader;
-import org.springframework.integration.samples.tcpclientserver.support.ServerUtils;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -74,7 +74,7 @@ public class TcpServerCustomSerializerTest {
 
 	@Before
 	public void setup() {
-		ServerUtils.waitListening(serverConnectionFactory);
+		TestingUtilities.waitListening(this.serverConnectionFactory, 10000L);
 	}
 
 	@Test
