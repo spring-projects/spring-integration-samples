@@ -50,7 +50,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
  * the Java socket API on the front end (client) and the Spring Integration TCP inbound
  * gateway with the custom serializer/deserializers.
  *
- * @author ceposta
+ * @author Christian Posta
  * @author Gunnar Hillert
  *
  */

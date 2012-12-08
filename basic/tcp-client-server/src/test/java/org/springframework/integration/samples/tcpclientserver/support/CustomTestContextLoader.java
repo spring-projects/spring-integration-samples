@@ -26,9 +26,7 @@ import org.springframework.test.context.MergedContextConfiguration;
 import org.springframework.test.context.support.GenericXmlContextLoader;
 
 /**
- *
  * @author Gunnar Hillert
- *
  */
 public class CustomTestContextLoader extends GenericXmlContextLoader {
 
@@ -44,7 +42,7 @@ public class CustomTestContextLoader extends GenericXmlContextLoader {
 		sockets.put("availableServerSocket", availableServerSocket);
 
 		if (LOGGER.isInfoEnabled()) {
-			LOGGER.info("Available Server Socket 1: " + availableServerSocket);
+			LOGGER.info("Available server socket: " + availableServerSocket);
 		}
 
 		final MapPropertySource propertySource = new MapPropertySource("sockets", sockets);

@@ -44,7 +44,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
  * assert that the payload, once it reaches a component (in this case, the message listener
  * we create and attach to the incomingServerChannel), does not have any of the Stx/Etx bytes.
  *
- * @author: ceposta
+ * @author Christian Posta
  * @author Gunnar Hillert
  */
 @RunWith(SpringJUnit4ClassRunner.class)
