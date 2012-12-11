@@ -37,7 +37,7 @@
 		<int:header name="ICED" expression="payload.isIced()"/>
 	</int:header-enricher>
 
-	<int:object-to-json-transformer id="drink-to-json" input-channel="drinks" output-channel="jsonDrinks" />
+	<int:object-to-json-transformer id="drink-to-json" input-channel="drinks" output-channel="jsonDrinks" content-type="text/x-json"/>
 
 	<int:router input-channel="jsonDrinks"  expression="headers.ICED ? 'coldDrinks' : 'hotDrinks'"/>
 
@@ -84,7 +84,7 @@
 		<int:header name="NUMBER" expression="payload.getOrderNumber()" />
 	</int:header-enricher>
 
-	<int:object-to-json-transformer id="delivery-to-json" input-channel="deliveries" output-channel="jsonDeliveries"/>
+	<int:object-to-json-transformer id="delivery-to-json" input-channel="deliveries" output-channel="jsonDeliveries" content-type="text/x-json"/>
 
 	<int:channel id="jsonDeliveries" />
 

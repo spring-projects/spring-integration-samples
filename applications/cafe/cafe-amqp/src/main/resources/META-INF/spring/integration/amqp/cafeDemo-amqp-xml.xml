@@ -31,7 +31,7 @@
 		<int:header name="NUMBER" expression="payload.getNumber()"/>
 	</int:header-enricher>
 
-	<int:object-to-json-transformer input-channel="newOrders" output-channel="jsonNewOrders" />
+	<int:object-to-json-transformer input-channel="newOrders" output-channel="jsonNewOrders" content-type="text/x-json"/>
 
 	<int:channel id="jsonNewOrders" />
 
