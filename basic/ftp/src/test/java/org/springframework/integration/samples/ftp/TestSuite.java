@@ -1,5 +1,5 @@
 /*
- * Copyright 2002-2011 the original author or authors.
+ * Copyright 2002-2012 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -24,6 +24,7 @@ import org.apache.ftpserver.FtpServer;
 import org.apache.ftpserver.FtpServerFactory;
 import org.apache.ftpserver.ftplet.FtpException;
 import org.apache.ftpserver.listener.ListenerFactory;
+import org.apache.log4j.Logger;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.ClassRule;
@@ -31,6 +32,7 @@ import org.junit.rules.TemporaryFolder;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 import org.springframework.integration.samples.ftp.support.TestUserManager;
+import org.springframework.integration.test.util.SocketUtils;
 
 /**
  * Test Suite that will bootstrap an embedded Apache FTP Server. Additionally some
@@ -48,8 +50,11 @@ import org.springframework.integration.samples.ftp.support.TestUserManager;
 	   })
 public class TestSuite {
 
+	private static final Logger LOGGER = Logger.getLogger(TestSuite.class);
+
 	public static final String FTP_ROOT_DIR       = "target" + File.separator + "ftproot";
 	public static final String LOCAL_FTP_TEMP_DIR = "target" + File.separator + "local-ftp-temp";
+	public static final String SERVER_PORT_SYSTEM_PROPERTY = "availableServerPort";
 
 	@ClassRule
 	public static final TemporaryFolder temporaryFolder = new TemporaryFolder();
@@ -58,6 +63,17 @@ public class TestSuite {
 
 	@BeforeClass
 	public static void setupFtpServer() throws FtpException, SocketException, IOException {
+
+		final int availableServerSocket;
+
+		if (System.getProperty(SERVER_PORT_SYSTEM_PROPERTY) == null) {
+			availableServerSocket = SocketUtils.findAvailableServerSocket(4444);
+			System.setProperty(SERVER_PORT_SYSTEM_PROPERTY, Integer.valueOf(availableServerSocket).toString());
+		} else {
+			availableServerSocket = Integer.valueOf(System.getProperty(SERVER_PORT_SYSTEM_PROPERTY));
+		}
+
+		LOGGER.info("Using open server port..." + availableServerSocket);
 
 		File ftpRoot = new File (FTP_ROOT_DIR);
 		ftpRoot.mkdirs();
@@ -68,7 +84,7 @@ public class TestSuite {
 		serverFactory.setUserManager(userManager);
 		ListenerFactory factory = new ListenerFactory();
 
-		factory.setPort(3333);
+		factory.setPort(availableServerSocket);
 
 		serverFactory.addListener("default", factory.createListener());
 
