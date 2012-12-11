@@ -10,25 +10,25 @@
 		http://www.springframework.org/schema/integration/ftp http://www.springframework.org/schema/integration/ftp/spring-integration-ftp.xsd">
 
 	<context:property-placeholder location="classpath:user.properties"/>
-	
+
 	<bean id="ftpClientFactory" class="org.springframework.integration.ftp.session.DefaultFtpSessionFactory">
 		<property name="host" value="${host}"/>
-		<property name="port" value="${port}"/>
+		<property name="port" value="${availableServerPort}"/>
 		<property name="username" value="${userid}"/>
 		<property name="password" value="${password}"/>
 	</bean>
-	
+
 	<int-ftp:inbound-channel-adapter id="ftpInbound" cache-sessions="false"
-				channel="ftpChannel" 
+				channel="ftpChannel"
 				session-factory="ftpClientFactory"
-				filename-pattern="*.txt" 
+				filename-pattern="*.txt"
 				auto-create-local-directory="true"
 				delete-remote-files="false"
 				remote-directory="/"
 				local-directory="#{ T(org.springframework.integration.samples.ftp.TestSuite).LOCAL_FTP_TEMP_DIR}/ftpInbound">
 			<int:poller fixed-rate="1000"/>
 	</int-ftp:inbound-channel-adapter>
-				
+
 	<int:channel id="ftpChannel">
 		<int:queue/>
 	</int:channel>
