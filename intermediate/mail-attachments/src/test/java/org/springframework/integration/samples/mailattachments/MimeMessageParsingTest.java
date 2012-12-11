@@ -33,6 +33,7 @@ import org.junit.Test;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.integration.samples.mailattachments.support.EmailFragment;
 import org.springframework.integration.samples.mailattachments.support.EmailParserUtils;
+import org.springframework.integration.test.util.SocketUtils;
 import org.springframework.mail.MailParseException;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.mail.javamail.MimeMessageHelper;
@@ -51,12 +52,18 @@ public class MimeMessageParsingTest {
 
 	private Wiser wiser;
 
+	private int wiserPort;
+
 	@Before
 	public void startWiser() {
+
+		this.wiserPort = SocketUtils.findAvailableServerSocket(2500);
+
 		wiser = new Wiser();
-		wiser.setPort(2500);
+		wiser.setPort(this.wiserPort);
 		wiser.start();
 		LOGGER.info("Wiser was started.");
+
 	}
 
 	/**
@@ -70,7 +77,7 @@ public class MimeMessageParsingTest {
 	public void testProcessingOfEmailAttachments() {
 
 		final JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
-		mailSender.setPort(2500);
+		mailSender.setPort(this.wiserPort);
 
 		final MimeMessage message = mailSender.createMimeMessage();
 		final String pictureName = "picture.png";
@@ -143,7 +150,7 @@ public class MimeMessageParsingTest {
 	public void testProcessingOfNestedEmailAttachments() {
 
 		final JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
-		mailSender.setPort(2500);
+		mailSender.setPort(this.wiserPort);
 
 		final MimeMessage rootMessage = mailSender.createMimeMessage();
 
