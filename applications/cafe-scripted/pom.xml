@@ -150,7 +150,7 @@
 							<arguments>
 								<argument>-classpath</argument>
 								<classpath />
-								<argument>org.springframework.integration.samples.org.springframework.integration.samples.cafe.demo.CafeDemoApp</argument>
+								<argument>org.springframework.integration.samples.cafe.demo.CafeDemoApp</argument>
 								<argument>${lang}</argument>
 							</arguments>
 							<successCodes>
@@ -181,7 +181,7 @@
 							<arguments>
 								<argument>-classpath</argument>
 								<classpath />
-								<argument>org.springframework.integration.samples.org.springframework.integration.samples.cafe.demo.ControlBusMain</argument>
+								<argument>org.springframework.integration.samples.cafe.demo.ControlBusMain</argument>
 
 							</arguments>
 							<successCodes>
