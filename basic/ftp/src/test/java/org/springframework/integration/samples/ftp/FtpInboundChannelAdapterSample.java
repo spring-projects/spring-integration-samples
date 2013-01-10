@@ -54,6 +54,7 @@ public class FtpInboundChannelAdapterSample {
 		assertNotNull(message2);
 		assertNull("Was NOT expecting a third message.", message3);
 
+		ctx.close();
 	}
 
 }
