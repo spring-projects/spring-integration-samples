@@ -35,7 +35,7 @@
 		<int:service-activator method="prepareColdDrink">
 			<bean class="org.springframework.integration.samples.cafe.xml.Barista"/>
 		</int:service-activator>
-		<int:object-to-json-transformer />
+		<int:object-to-json-transformer content-type="text/x-json"/>
 	</int:chain>
 
 	<!-- rabbit exchanges, queues, and bindings used by this app -->
