@@ -22,7 +22,7 @@ import java.io.File;
 import java.net.UnknownHostException;
 
 import org.junit.Test;
-import org.springframework.context.ApplicationContext;
+import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.integration.Message;
 import org.springframework.integration.MessageChannel;
@@ -38,7 +38,7 @@ public class FtpOutboundChannelAdapterSample {
 
 	@Test
 	public void runDemo() throws Exception{
-		ApplicationContext ctx =
+		ConfigurableApplicationContext ctx =
 			new ClassPathXmlApplicationContext("META-INF/spring/integration/DynamicFtpOutboundChannelAdapterSample-context.xml");
 		MessageChannel channel = ctx.getBean("toDynRouter", MessageChannel.class);
 		File file = File.createTempFile("temp", "txt");
@@ -89,5 +89,7 @@ public class FtpOutboundChannelAdapterSample {
 			assertTrue(e.getCause().getCause() instanceof UnknownHostException);
 			assertEquals("host.for.cust1", e.getCause().getCause().getMessage());
 		}
+
+		ctx.close();
 	}
 }

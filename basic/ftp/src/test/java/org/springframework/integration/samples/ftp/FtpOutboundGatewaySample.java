@@ -66,6 +66,7 @@ public class FtpOutboundGatewaySample {
 
 		assertTrue("Expected FTP remote directory to be empty",  new File(TestSuite.FTP_ROOT_DIR).delete());
 
+		ctx.close();
 	}
 
 }
