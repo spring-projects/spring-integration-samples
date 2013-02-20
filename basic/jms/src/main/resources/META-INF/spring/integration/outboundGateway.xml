@@ -21,10 +21,25 @@
 
 	<jms:outbound-gateway request-channel="stdinToJmsoutChannel"
 						  request-destination="requestQueue"
-						  reply-channel="jmsReplyToStdoutChannel"/>
+						  reply-channel="jmsReplyChannel"/>
 
-	<channel id="jmsReplyToStdoutChannel"/>
+	<channel id="jmsReplyChannel" />
 
-	<stream:stdout-channel-adapter channel="jmsReplyToStdoutChannel" append-newline="true"/>
+
+	<beans:beans profile="default">
+
+		<stream:stdout-channel-adapter channel="jmsReplyChannel" append-newline="true"/>
+
+	</beans:beans>
+
+	<beans:beans profile="testCase">
+
+		<bridge input-channel="jmsReplyChannel" output-channel="queueChannel"/>
+
+		<channel id="queueChannel">
+			<queue />
+		</channel>
+
+	</beans:beans>
 
 </beans:beans>

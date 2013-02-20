@@ -15,15 +15,13 @@
  */
 package org.springframework.integration.samples.jms;
 
-import java.io.ByteArrayOutputStream;
-import java.io.PrintStream;
-
 import junit.framework.Assert;
 
-import org.junit.Before;
 import org.junit.Test;
 import org.springframework.context.support.GenericXmlApplicationContext;
+import org.springframework.integration.Message;
 import org.springframework.integration.MessageChannel;
+import org.springframework.integration.channel.QueueChannel;
 import org.springframework.integration.support.MessageBuilder;
 
 /**
@@ -37,29 +35,25 @@ public class GatewayDemoTest {
 		"/META-INF/spring/integration/outboundGateway.xml"
 	};
 
-	private final ByteArrayOutputStream out = new ByteArrayOutputStream();
-
-	@Before
-	public void setupStreams() {
-		System.setOut(new PrintStream(this.out));
-	}
-
-	private void resetStreams() {
-		this.out.reset();
-	}
-
 	@Test
 	public void testGatewayDemo() throws InterruptedException {
+
+		System.setProperty("spring.profiles.active", "testCase");
 
 		final GenericXmlApplicationContext applicationContext = new GenericXmlApplicationContext(configFilesGatewayDemo);
 
 		final MessageChannel stdinToJmsoutChannel = applicationContext.getBean("stdinToJmsoutChannel", MessageChannel.class);
 
-		resetStreams();
 		stdinToJmsoutChannel.send(MessageBuilder.withPayload("jms test").build());
 
-		Thread.sleep(1000);
-		Assert.assertEquals("JMS response: JMS TEST\n", out.toString());
+		final QueueChannel queueChannel = applicationContext.getBean("queueChannel", QueueChannel.class);
+
+		@SuppressWarnings("unchecked")
+		Message<String> reply = (Message<String>) queueChannel.receive(20000);
+		Assert.assertNotNull(reply);
+		String out = reply.getPayload();
+
+		Assert.assertEquals("JMS response: JMS TEST", out);
 
 		applicationContext.close();
 	}

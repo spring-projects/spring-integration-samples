@@ -13,6 +13,8 @@ It also uses the following components:
 2. Stdout Channel Adapter (from Stream support Module)
 3. Stdin Channel Adapter (from Stream support Module)
 
+It also shows an example of using Spring profiles to modify the configuration for test cases.
+
 The Stdout and Stdin Channel Adapters will allow you to interact with JMS via the console. It uses an embedded ActiveMQ broker.
 
 To run the sample, simply execute the **Main** class located in the the *org.springframework.integration.samples.jms* package either from your favorite IDE or by using Maven. When using Maven you can start the sample by executing:
@@ -48,3 +50,5 @@ When running either one of the demos you will see the following prompt:
 * **GatewayDemo** uses the *DemoBean* service, which will echo the response and upper-casing it.
 * **ChannelAdapterDemo** will simply echo the response
 
+
+There are also test cases that exercise both demos; utilizing Spring 3.0 profiles to route the output to a QueueChannel instead of stdout.
