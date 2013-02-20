@@ -13,12 +13,27 @@
 			http://www.springframework.org/schema/integration/stream
 			http://www.springframework.org/schema/integration/stream/spring-integration-stream.xsd">
 
-	<jms:message-driven-channel-adapter id="jmsin"
+	<jms:message-driven-channel-adapter id="jmsIn"
 			destination="requestQueue"
-			channel="jmsinToStdoutChannel"/>
+			channel="jmsInChannel" />
 
-	<channel id="jmsinToStdoutChannel"/>
+	<channel id="jmsInChannel" />
 
-	<stream:stdout-channel-adapter id="stdout" channel="jmsinToStdoutChannel" append-newline="true"/>
+
+	<beans:beans profile="default">
+
+		<stream:stdout-channel-adapter id="stdout" channel="jmsInChannel" append-newline="true"/>
+
+	</beans:beans>
+
+	<beans:beans profile="testCase">
+
+		<bridge input-channel="jmsInChannel" output-channel="queueChannel"/>
+
+		<channel id="queueChannel">
+			<queue />
+		</channel>
+
+	</beans:beans>
 
 </beans:beans>
