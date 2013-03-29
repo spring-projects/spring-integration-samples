@@ -12,6 +12,8 @@ Welcome to the **Spring Integration Samples** repository which provides **50+ sa
 
 Inside of each category you'll find a **README.md** file, which will contain a more detailed description of that category. Each sample also comes with its own **README.md** file explaining further details, e.g. how to run the respective sample.
 
+| For additional samples, please also checkout the [Spring Integration Extensions][] project as it also provides numerous samples.
+
 *Happy Integration!*
 
 ## Related GitHub projects
@@ -57,7 +59,6 @@ This is a good place to get started. The samples here are technically motivated 
 * **ws-outbound-gateway** - Shows outbound web services support using the **Web Service Outbound Gateway**, **Content Enricher**, Composed Message Processor (**Chain**)
 * **xml** - Example demonstrates various aspects of the **Xml** support using an **XPath Splitter**, **XPath Router**, **XSLT Transformer** as well as **XPath Expression** support
 * **xmpp** - Show the support for [**XMPP**](http://en.wikipedia.org/wiki/Extensible_Messaging_and_Presence_Protocol) (formerly known as Jabber) using e.g. GoogleTalk
-* **xquery** - Shows the capabilities of the **[Spring Integration XQuery](https://github.com/SpringSource/spring-integration-extensions/tree/master/spring-integration-xquery)** module
 
 ## Intermediate
 
