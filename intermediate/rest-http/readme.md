@@ -1,23 +1,27 @@
 # Introduction
 
-This sample demonstrates how you can send an HTTP request to a Spring Integration's HTTP service while utilizing Spring Integration's new HTTP Path usage;
-This sample also uses Spring Security for HTTP Basic authentication. With HTTP Path facility, the client program can send requests with URL Variables.
+This sample demonstrates how you can send an HTTP request to a *Spring Integration* HTTP service while utilizing *Spring Integration*'s HTTP Path usage. This sample also uses [Spring Security][] for HTTP Basic authentication. With the HTTP Path facility, the client program can send requests with URL Variables.
 
-It consists of two parts - Client and Server.
+The sample consists of two parts:
 
-The following client program can be used to test the HTTP Path usage.
+* Client and
+* Server
 
-1. RestHttpClientTest. It uses Spring's RestTemplate to assemble and send HTTP request
+The *Client* program is provided as a [JUnit][] test:
 
-Server is Spring Integration's HTTP endpoint configuration.
+* RestHttpClientTest
 
-To run this sample
+This test-case can be used to test the HTTP Path usage. It uses Spring's [RestTemplate][] to assemble and send HTTP requests. The *Server*, on the other hand, is using Spring Integration's HTTP Endpoint configuration. The provided project itself is a web project and you can build the project using [Maven][] and deploy the resulting war under `target/rest-http-*.war` to Servlet Containers such as [Jetty][] or [Apache Tomcat][]:
 
-1. deploy project
-    - If you are using STS and project is imported as Eclipse project in your workspace you can just execute 'Run on Server'
-    - You can also run 'mvn clean install' and generate the WAR file that you can deploy the conventional way
-2. run the simple JUNIT Test: org.springframework.integration.samples.rest.RestHttpClientTest
-      You may change the URI Variable value in the test to see different results.
+	$ mvn clean verify
+
+# To run this sample
+
+1. Deploy the project
+  - If you are using [Spring Tool Suite][] (STS) and project is imported as Eclipse project in your workspace you can just execute 'Run on Server'
+  - You can also run 'mvn clean verify' and generate the WAR file that you can deploy to Servlet Containers
+2. Run the simple JUnit Test: **org.springframework.integration.samples.rest.RestHttpClientTest**
+  - You may change the URI Variable value in the test to see different results.
 
 For example, when you give 0 as the URL Variable's value in the test, then you should see the following output from the server:
 
@@ -42,3 +46,40 @@ For example, when you give 0 as the URL Variable's value in the test, then you s
 	14:01:34,556  INFO main rest.RestHttpClientTest:122 - Return Status Message :[Success]
 	{"employee":[{"employeeId":1,"fname":"John","lname":"Doe"},{"employeeId":2,"fname":"Jane","lname":"Doe"}],"returnStatus":"0","returnStatusMsg":"Success"}
 
+# The REST API
+
+If you like to access the server's REST API yourself, please use the following URLs:
+
+## Return All Employees
+
+http://localhost:8080/rest-http/services/employee/0/search
+
+## Return Specific Employees
+
+http://localhost:8080/rest-http/services/employee/{employeeId}/search
+
+For example using [cURL][] you can list the details for a specific user with:
+
+	$ curl -u SPRING:spring http://localhost:8080/rest-http/services/employee/1/search
+
+This should produce output similar to this:
+
+	<?xml version="1.0" encoding="UTF-8" standalone="yes"?><EmployeeList><Employee><employeeId>1</employeeId><fname>John</fname><lname>Doe</lname></Employee><returnStatus>0</returnStatus><returnStatusMsg>Success</returnStatusMsg></EmployeeList>
+
+## Security
+
+The REST Endpoint is using [Spring Security][]. The security credentials are:
+
+* Username: SPRING
+* Password: spring
+
+They are stored in `src/main/resources/users.properties`.
+
+[Apache Tomcat]: http://tomcat.apache.org/
+[cURL]: http://en.wikipedia.org/wiki/CURL
+[Jetty]: http://www.eclipse.org/jetty/
+[JUnit]: http://junit.org/
+[Maven]: http://maven.apache.org/
+[RestTemplate]: http://static.springsource.org/spring/docs/current/javadoc-api/org/springframework/web/client/RestTemplate.html
+[Spring Security]: http://www.springsource.org/spring-security
+[Spring Tool Suite]: http://www.springsource.org/sts
