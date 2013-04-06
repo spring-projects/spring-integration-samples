@@ -24,6 +24,13 @@
 		<module>tcp-client-server-multiplex</module>
 		<module>travel</module>
 		<module>mail-attachments</module>
+		<module>dynamic-poller</module>
+		<module>monitoring</module>
+		<module>retry-and-more</module>
+		<module>stored-procedures-ms</module>
+		<module>stored-procedures-oracle</module>
+		<module>stored-procedures-postgresql</module>
+		<module>tx-synch</module>
 	</modules>
 
 </project>
