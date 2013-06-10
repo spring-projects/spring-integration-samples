@@ -5,7 +5,7 @@ This example demonstrates the following aspects of the Twitter support available
 
 1. Twitter Inbound Channel Adapter - allows you to receive HOME status updates
 2. Twitter Inbound Search Channel Adapter - allows you to receive HOME status updates
-3. Twitter Outboud Channel Adapter - allows send status updates
+3. Twitter Outbound Channel Adapter - allows send status updates
 
 In order to run this sample you need to configure [OAuth][] and set the values in the [OAuth][] properties.
 
