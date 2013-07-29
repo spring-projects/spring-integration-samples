@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:rabbit="http://www.springframework.org/schema/rabbit"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+	http://www.springframework.org/schema/rabbit http://www.springframework.org/schema/rabbit/spring-rabbit-1.0.xsd">
+
+	<bean id="hbaseGateway" name="hbaseGateway"
+		class="org.springframework.integration.samples.producer.gateway.HBaseGateway">
+		<property name="rabbitTemplate" ref="rabbitTemplate" />
+	</bean>
+	<bean name="queueWorkerParams" class="org.springframework.integration.samples.server.workers.beans.QueueWorkerParams">
+		<property name="gw" ref="hbaseGateway" />
+		<property name="familyColumn">
+			<value>value</value>
+		</property>
+		<property name="queueHost">
+			<value>${queue.host}</value>
+		</property>
+		<property name="queuePort">
+			<value>${queue.port}</value>
+		</property>
+		<property name="queueAdminUser">
+			<value>${queue.username}</value>
+		</property>
+		<property name="queueAdminPassword">
+			<value>${queue.password}</value>
+		</property>
+		<property name="queueExchange">
+			<value>${test.direct.exchange}</value>
+		</property>
+	</bean>
+	<bean name="controlWorker" class="org.springframework.integration.samples.server.workers.ControlWorker">
+		<constructor-arg index="0">
+			<ref bean="queueWorkerParams"/>
+		</constructor-arg>
+		<property name="rabbitTemplate" ref="rabbitTopicTemplate" />
+	</bean>
+	
+	<rabbit:listener-container id="mysourceControlListenerContainer" 
+		concurrency="1" connection-factory="connectionFactory" message-converter="jsonMessageConverter">
+		<rabbit:listener ref="controlWorker" method="handleMessage" queue-names="#{mysourceControlQueue.name}" />
+	</rabbit:listener-container>
+</beans>

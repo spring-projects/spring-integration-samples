@@ -13,6 +13,7 @@
 		<module>cafe</module>
 		<module>loan-broker</module>
 		<module>loanshark</module>
+		<module>hbase-sink-with-trigger-on-finish</module>
 	</modules>
 
 </project>

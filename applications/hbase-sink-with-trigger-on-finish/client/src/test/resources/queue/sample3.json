@@ -1,0 +1,25 @@
+{
+"id": "8b9b6080-f889-11e2-b778-0800200c9a68",
+"routing-key" : "mysource",
+"source" : "mysource",
+"docs": [
+    {
+		"url": "URLn",
+        "meta": {
+            "timestamp": 1372413068,
+            "language": "de",
+            "categories": ["computer"]
+        	},
+        "text": "some text for sample 3"
+   },
+   {
+		"url": "URL5",
+        "meta": {
+        	"timestamp": 1372411068,
+            "language": "en",
+            "categories":  ["economics"]
+        	},
+        "text": "some other text for sample 3"
+    }
+    ]
+}

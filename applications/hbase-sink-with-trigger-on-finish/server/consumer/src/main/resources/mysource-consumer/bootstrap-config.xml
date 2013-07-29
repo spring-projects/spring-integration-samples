@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:task="http://www.springframework.org/schema/task"
+	xmlns:rabbit="http://www.springframework.org/schema/rabbit"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+		http://www.springframework.org/schema/rabbit http://www.springframework.org/schema/rabbit/spring-rabbit-1.0.xsd
+		http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task-3.0.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+
+	<context:property-placeholder location="classpath:sample-buffer.properties"/>
+	
+	<context:property-placeholder system-properties-mode="OVERRIDE"/>
+	
+	<!-- set configuration values -->
+	<context:component-scan base-package="org.springframework.integration.samples.server.workers"/>
+	
+	<rabbit:connection-factory id="connectionFactory"
+		host="${queue.host}" 
+		username="${queue.username}"
+		password="${queue.password}"
+		port="${queue.port}" />
+
+	<bean id="jsonMessageConverter"
+		class="org.springframework.amqp.support.converter.Jackson2JsonMessageConverter" />
+	
+	<rabbit:template id="rabbitTemplate"
+		connection-factory="connectionFactory" 
+		message-converter="jsonMessageConverter"
+		exchange="${test.direct.exchange}" />
+		
+	<rabbit:template id="rabbitTopicTemplate"
+		connection-factory="connectionFactory" 
+		message-converter="jsonMessageConverter"
+		exchange="amq.topic" />
+		
+	<!-- Needed to automatically create queues and exchanges -->
+	<rabbit:admin connection-factory="connectionFactory" />
+	
+	<import resource="classpath:mysource-consumer/queue-exchange-bindings.xml" />
+	<import resource="classpath:mysource-consumer/workers.xml" />
+<!-- 	<import resource="classpath:mysource-consumer/jmx.xml" /> -->
+	
+</beans>

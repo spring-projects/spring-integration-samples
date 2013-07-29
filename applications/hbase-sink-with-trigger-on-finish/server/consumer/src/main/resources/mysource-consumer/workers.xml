@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:rabbit="http://www.springframework.org/schema/rabbit"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+	http://www.springframework.org/schema/rabbit http://www.springframework.org/schema/rabbit/spring-rabbit-1.0.xsd">
+
+	<bean name="mysourceServerWorker" class="org.springframework.integration.samples.server.workers.QueueWorker">
+		<!-- Determine tmp table name -->
+		<constructor-arg index="0">
+			<value>${mysource.queue.name}</value>
+		</constructor-arg>
+		<constructor-arg index="1">
+			<value>value</value>
+		</constructor-arg>
+		<property name="rabbitTemplate" ref="rabbitTopicTemplate" />
+	</bean>
+	
+	<rabbit:listener-container id="mysourceListenerContainer" 
+		concurrency="5" connection-factory="connectionFactory" message-converter="jsonMessageConverter">
+		<rabbit:listener ref="mysourceServerWorker" method="handleMessage" queue-names="#{mysourceQueue.name},#{mysourceConsumerQueue.name}" />
+	</rabbit:listener-container>
+</beans>

@@ -1,0 +1,108 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>org.springframework.integration.server</groupId>
+		<artifactId>server</artifactId>
+		<version>2.2.0.BUILD-SNAPSHOT</version>
+	</parent>
+	<artifactId>consumer</artifactId>
+	<packaging>jar</packaging>
+	<name>Spring AMQP queue consumer</name>
+	<url>http://www.springframework.org</url>
+	<description>This project shows the usage of Spring AMQP integration classes</description>
+
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-core</artifactId>
+				<version>${spring.framework.version}</version>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+	<dependencies>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-test</artifactId>
+			<version>${spring.framework.version}</version>
+			<scope>test</scope>
+		</dependency>
+		<!-- Spring AMQP -->
+		<dependency>
+			<groupId>org.springframework.amqp</groupId>
+			<artifactId>spring-amqp</artifactId>
+			<version>${spring.amqp.version}</version>
+		</dependency>
+		<!-- Spring framework -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context-support</artifactId>
+			<version>${spring.framework.version}</version>
+			<scope>runtime</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-aop</artifactId>
+			<version>${spring.framework.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-oxm</artifactId>
+			<version>${spring.framework.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.aspectj</groupId>
+			<artifactId>aspectjrt</artifactId>
+			<version>1.5.4</version>
+		</dependency>
+		<dependency>
+			<groupId>org.aspectj</groupId>
+			<artifactId>aspectjweaver</artifactId>
+			<version>1.5.4</version>
+		</dependency>
+
+	
+		<!-- Zookeeper management -->
+		<dependency>
+			<groupId>org.springframework.integration.samples.server</groupId>
+			<artifactId>curator</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+		<!-- HBase utils -->
+		<dependency>
+			<groupId>org.springframework.integration.samples.server</groupId>
+			<artifactId>persistence</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<groupId>com.springsource.bundlor</groupId>
+					<artifactId>com.springsource.bundlor.maven</artifactId>
+					<version>1.0.0.M1B</version>
+				</plugin>
+				<plugin>
+					<artifactId>maven-assembly-plugin</artifactId>
+					<inherited>false</inherited>
+					<configuration>
+						<descriptorRefs>
+							<descriptorRef>project</descriptorRef>
+						</descriptorRefs>
+					</configuration>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+		<plugins>
+			<plugin>
+				<groupId>org.mortbay.jetty</groupId>
+				<artifactId>maven-jetty-plugin</artifactId>
+				<version>6.1.26</version>
+			</plugin>
+		</plugins>
+	</build>
+
+</project>
