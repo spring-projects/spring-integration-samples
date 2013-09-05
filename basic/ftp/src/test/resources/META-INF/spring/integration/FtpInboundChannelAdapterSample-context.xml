@@ -18,7 +18,7 @@
 		<property name="password" value="${password}"/>
 	</bean>
 
-	<int-ftp:inbound-channel-adapter id="ftpInbound" cache-sessions="false"
+	<int-ftp:inbound-channel-adapter id="ftpInbound"
 				channel="ftpChannel"
 				session-factory="ftpClientFactory"
 				filename-pattern="*.txt"

@@ -20,7 +20,7 @@
 
 	<int:channel id="ftpChannel"/>
 
-	<int-ftp:outbound-channel-adapter  id="ftpOutbound" cache-sessions="false"
+	<int-ftp:outbound-channel-adapter  id="ftpOutbound"
 				channel="ftpChannel"
 				remote-directory="/"
 				session-factory="ftpClientFactory" />
