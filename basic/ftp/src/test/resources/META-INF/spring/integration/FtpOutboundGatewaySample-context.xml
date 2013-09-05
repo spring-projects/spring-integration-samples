@@ -22,7 +22,7 @@
 		<property name="password" value="${password}"/>
 	</bean>
 
-	<int-ftp:outbound-gateway id="gatewayLS" cache-sessions="false"
+	<int-ftp:outbound-gateway id="gatewayLS"
 		session-factory="ftpSessionFactory"
 		request-channel="inbound"
 		command="ls"
@@ -40,7 +40,7 @@
 
 	<int:splitter id="splitter" input-channel="toSplitter" output-channel="toGet"/>
 
-	<int-ftp:outbound-gateway id="gatewayGET" cache-sessions="false"
+	<int-ftp:outbound-gateway id="gatewayGET"
 		local-directory="#{ T(org.springframework.integration.samples.ftp.TestSuite).LOCAL_FTP_TEMP_DIR}/gatewayGET"
 		session-factory="ftpSessionFactory"
 		request-channel="toGet"
@@ -58,7 +58,7 @@
 	<int:logging-channel-adapter id="logger2" log-full-message="true"/>
 
 	<int-ftp:outbound-gateway id="gatewayRM"
-		session-factory="ftpSessionFactory" cache-sessions="false"
+		session-factory="ftpSessionFactory"
 		expression="headers['file_remoteDirectory'] + '/' + headers['file_remoteFile']"
 		request-channel="toRemoveChannel"
 		command="rm"
