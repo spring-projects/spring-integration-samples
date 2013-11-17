@@ -22,6 +22,8 @@ and then use [VisualVM][]/JConsole to explore the [MBeans][].
 
 The twitter search results can be examined at `http://localhost:8080/monitoring`.
 
+Alternatively, there is a simple `main` class `SpringIntegrationTest`.
+
 ## 2.2 Updates:
 
 The application context now includes an example of &lt;int-jmx:notification-publishing-channel-adapter/&gt;, to which the tweets are published. You can navigate to the MBean - **spring.application:type=TweetPublisher,name=tweeter**, click the _Notifications_ tab and then subscribe. You will then see the notifications.
@@ -38,6 +40,41 @@ You will need to update the credentials on the _clientConnector_ in _remote-moni
 You should observe log output of the notifications as well as polling the channel's _sendCount_. Simply use the console to enter 'n' to stop and 'y' to start the adapter.
 
 These changes show how you can create a sophisticated monitoring application using Spring Integration - it is important to understand that the application being monitored doesn't have to be a Spring or Spring Integration application - any application that exports MBeans can be monitored in this way.
+
+## Note:
+
+Twitter now requires an authenticated user to perform searches. By default, this project now uses a dummy adapter to avoid having
+to configure the credentials. To use a real
+adapter, uncomment the __spring.profiles.active__ `context-param` element in the `web.xml`.
+
+To run the `SpringIntegrationTest` command-line application, use `-Dspring.profiles.active=twitter` command line argument in the launch configuration.
+
+However, you will need to configure OAuth and set the values in the OAuth properties.
+
+To use OAuth authentication/authorization with Twitter you must create a new Application on the Twitter Developer's site.
+Follow the directions below to create a new application and obtain the consumer keys and the access token:
+
+* Go to [http://dev.twitter.com/](http://dev.twitter.com/)
+* Log in to your account
+* Go to *My applications*.
+* Click on 'Create a new application' link and fill out all required fields on the form provided;
+* Submit the form.
+* If everything is successful you'll be presented with the 'Consumer Key' and 'Consumer Secret'.
+* Copy both values to a safe place.
+* On the same page you should see 'My Access Token' button on bottom of the page.
+* Click on it and you'll be presented with two more values: 'Access Token' and 'Access Token Secret'.
+* Copy these values to a safe place as well.
+
+When done, fill out **oauth.properties** file so it looks similar to this.
+
+	twitter.oauth.consumerKey=4XzBPabcJQxyBzzzH3TrRQ
+	twitter.oauth.consumerSecret=ab2piKdMfPu8bVa3ab6DAIvIWEVZyMDL0RSEN2I8
+	twitter.oauth.accessToken=21691649-4XYZY5iJEOfz2A9qCFd9SjBRGb3HLmIm4HNE6AMv4
+	twitter.oauth.accessTokenSecret=AbRxUAvyNCtqQtvxFK8w5ZMtMj20KFhB6oEfTA0
+
+NOTE: the above values are samples only.
+
+
 
 --------------------------------------------------------------------------------
 

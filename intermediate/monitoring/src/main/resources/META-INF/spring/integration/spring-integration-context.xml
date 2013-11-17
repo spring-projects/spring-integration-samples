@@ -23,12 +23,19 @@
 
 	<context:component-scan base-package="org.springframework.integration.service" />
 
-	<int-twitter:search-inbound-channel-adapter id="twitter" query="#springintegration"
-												channel="twitterChannel" auto-startup="true">
-		<int:poller fixed-rate="30000" max-messages-per-poll="10" />
-	</int-twitter:search-inbound-channel-adapter>
+	<!-- As of Twitter API version 1.1, users must be authenticated to perform searches
+		so, by default, we run with a dummy adapter only see README if you want a real twitter search
+		where this adapter will be replaced by a real one -->
 
-	<int:inbound-channel-adapter id="dummyAdapter" channel="twitterChannel" method="getTweet">
+	<int:inbound-channel-adapter id="twitter" channel="twitterChannel" method="getTweet">
+		<bean class="org.springframework.integration.service.impl.DummyTwitter"/>
+		<int:poller fixed-delay="30000"/>
+	</int:inbound-channel-adapter>
+
+	<!-- This dummy adapter is used to generate traffic for the monitoring demo in addition to the
+		 above adapter, or a real twitter adapter -->
+
+	<int:inbound-channel-adapter id="dummyTwitter" channel="twitterChannel" method="getTweet">
 		<bean class="org.springframework.integration.service.impl.DummyTwitter"/>
 		<int:poller fixed-delay="5000"/>
 	</int:inbound-channel-adapter>
@@ -66,7 +73,7 @@
 	<int:publish-subscribe-channel id="logger" />
 	
 	<int:logging-channel-adapter id="loggingAdapter" channel="logger" level="INFO"
-								expression="'Id:' + payload.id + '; Date:' + payload.createdAt + '; FromUser: ' + payload.fromUser" />
+		expression="'Id:' + payload.id + '; Date:' + payload.createdAt + '; FromUser: ' + payload.fromUser" />
 
 	<int:bridge id="bridgeToQueueChannel"
 		input-channel="logger" output-channel="queue"/>
@@ -90,5 +97,28 @@
 	<int:channel id="controlBusChannel"/>
 
 	<int:control-bus id="controlBus" input-channel="controlBusChannel"/>
+
+	<beans profile="twitter">
+
+		<!-- As of Twitter API version 1.1, users must be authenticated to perform searches -->
+
+		<context:property-placeholder location="classpath:oauth.properties"/>
+
+		<bean id="twitt -->erTemplate"
+			class="org.springframework.social.twitter.api.impl.TwitterTemplate">
+			<constructor-arg value="${twitter.oauth.consumerKey}" />
+			<constructor-arg value="${twitter.oauth.consumerSecret}" />
+			<constructor-arg value="${twitter.oauth.accessToken}" />
+			<constructor-arg value="${twitter.oauth.accessTokenSecret}" />
+		</bean>
+
+		<int-twitter:search-inbound-channel-adapter id="twitter" query="#springintegration"
+				twitter-template="twitterTemplate"
+				channel="twitterChannel"
+				auto-startup="true">
+			<int:poller fixed-rate="30000" max-messages-per-poll="10" />
+		</int-twitter:search-inbound-channel-adapter>
+
+	</beans>
 
 </beans>
