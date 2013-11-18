@@ -73,7 +73,7 @@
 	<int:publish-subscribe-channel id="logger" />
 	
 	<int:logging-channel-adapter id="loggingAdapter" channel="logger" level="INFO"
-		expression="'Id:' + payload.id + '; Date:' + payload.createdAt + '; FromUser: ' + payload.fromUser" />
+		expression="'Id:' + payload.id + '; Date:' + payload.createdAt + '; FromUser: ' + payload.fromUser + '; Content: ' + payload.text" />
 
 	<int:bridge id="bridgeToQueueChannel"
 		input-channel="logger" output-channel="queue"/>
@@ -85,7 +85,7 @@
 	<int:transformer id="tweetToStringTransformer"
 		input-channel="twitterChannel"
 		output-channel="twitterPublishChannel"
-		expression="'Id:' + payload.id + '; Date:' + payload.createdAt + '; FromUser: ' + payload.fromUser"/>
+		expression="'Id:' + payload.id + '; Date:' + payload.createdAt + '; FromUser: ' + payload.fromUser + '; Content: ' + payload.text"/>
 
 	<int:channel id="twitterPublishChannel"/>
 
@@ -104,7 +104,7 @@
 
 		<context:property-placeholder location="classpath:oauth.properties"/>
 
-		<bean id="twitt -->erTemplate"
+		<bean id="twitterTemplate"
 			class="org.springframework.social.twitter.api.impl.TwitterTemplate">
 			<constructor-arg value="${twitter.oauth.consumerKey}" />
 			<constructor-arg value="${twitter.oauth.consumerSecret}" />
