@@ -9,6 +9,14 @@
         <param-value>classpath:META-INF/spring/integration/spring-integration-context.xml</param-value>
     </context-param>
 
+<!-- uncomment this if you want to use real twitter and have set oauth keys -->
+<!--
+    <context-param>
+        <param-name>spring.profiles.active</param-name>
+        <param-value>twitter</param-value>
+    </context-param>
+-->
+
     <!-- Creates the Spring Container shared by all Servlets and Filters -->
     <listener>
         <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
