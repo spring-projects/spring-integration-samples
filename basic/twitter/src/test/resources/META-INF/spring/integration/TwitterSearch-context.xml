@@ -11,9 +11,7 @@
 
 	<context:property-placeholder location="classpath:oauth.properties"/>
 
-<!-- While authentication is certainly support for executing Twitter searches,
-	 authentication is not required.  -->
-<!--
+	<!-- As of Twitter API version 1.1, users must be authenticated to perform searches -->
 
 	<bean id="twitterTemplate"
 		class="org.springframework.social.twitter.api.impl.TwitterTemplate">
@@ -24,15 +22,7 @@
 	</bean>
 
 	<int-twitter:search-inbound-channel-adapter id="searchAdapter" channel="sourceExtractor"
-		query="#springintegration" twitter-template="twitterTemplate">
-		<int:poller fixed-rate="3000" max-messages-per-poll="5" />
-	</int-twitter:search-inbound-channel-adapter>
-
--->
-
-	<!-- Search Twitter without authentication -->
-	<int-twitter:search-inbound-channel-adapter id="searchAdapter" channel="sourceExtractor"
-		query="springintegration OR springframework OR #grails">
+		query="springintegration OR springframework OR #grails" twitter-template="twitterTemplate">
 		<int:poller fixed-rate="3000" max-messages-per-poll="5" />
 	</int-twitter:search-inbound-channel-adapter>
 

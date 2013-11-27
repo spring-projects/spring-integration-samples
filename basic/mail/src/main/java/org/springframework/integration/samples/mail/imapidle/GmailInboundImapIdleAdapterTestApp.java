@@ -33,7 +33,7 @@ public class GmailInboundImapIdleAdapterTestApp {
 
 	public static void main (String[] args) throws Exception {
 		ApplicationContext ac = new ClassPathXmlApplicationContext("/META-INF/spring/integration/gmail-imap-idle-config.xml");
-		DirectChannel inputChannel = ac.getBean("recieveChannel", DirectChannel.class);
+		DirectChannel inputChannel = ac.getBean("receiveChannel", DirectChannel.class);
 		inputChannel.subscribe(new MessageHandler() {
 			public void handleMessage(Message<?> message) throws MessagingException {
 				logger.info("Message: " + message);

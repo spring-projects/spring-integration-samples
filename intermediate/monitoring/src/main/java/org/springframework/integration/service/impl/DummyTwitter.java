@@ -33,7 +33,7 @@ public class DummyTwitter {
 				"Spring Integration is the coolest Enterprise Integration project",
 				new Date(),
 				"SomeUser",
-				"http://a0.twimg.com/profile_images/1598911687/ICO_S2_Bug_normal.png",
+				"https://pbs.twimg.com/profile_images/378800000502646541/992d3596458fca87741b8e93e7df0860_normal.png",
 				0L,
 				0L,
 				null,

@@ -23,7 +23,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
  * @author Oleg Zhurakousky
  *
  */
-public class TwitterSearchSampleTest {
+public class TwitterSearchSample {
 
 	@Test
 	public void runDemo() throws Exception{
