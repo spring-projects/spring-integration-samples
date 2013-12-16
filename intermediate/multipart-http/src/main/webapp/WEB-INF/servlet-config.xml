@@ -9,17 +9,17 @@
 	xmlns:int-file="http://www.springframework.org/schema/integration/file"
 	xmlns:int-http="http://www.springframework.org/schema/integration/http">
 
-	
-	<int-http:inbound-channel-adapter id="httpInboundAdapter" 
-									  channel="receiveChannel" 
-									  name="/inboundAdapter.htm" 
+
+	<int-http:inbound-channel-adapter id="httpInboundAdapter"
+									  channel="receiveChannel"
+									  path="/inboundAdapter.htm"
 									  supported-methods="GET, POST" />
-	
+
 	<int:channel id="receiveChannel"/>
-	
+
 	<int:service-activator id="multipartReceiver" input-channel="receiveChannel">
 		<bean class="org.springframework.integration.samples.multipart.MultipartReceiver"/>
 	</int:service-activator>
-	
+
 	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver"/>
 </beans>

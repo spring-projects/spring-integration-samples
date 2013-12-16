@@ -32,7 +32,7 @@ import org.springframework.web.client.RestTemplate;
  *
  */
 public class MultipartRestClient {
-	
+
 	private static Logger logger = Logger.getLogger(MultipartRestClient.class);
 	private static String uri = "http://localhost:8080/multipart-http/inboundAdapter.htm";
 	private static String resourcePath = "org/springframework/integration/samples/multipart/spring09_logo.png";
@@ -51,7 +51,7 @@ public class MultipartRestClient {
 		headers.setContentType(new MediaType("multipart", "form-data"));
 		HttpEntity<Object> request = new HttpEntity<Object>(multipartMap, headers);
 		logger.info("Posting request to: " + uri);
-		ResponseEntity<?> httpResponse = template.exchange(uri, HttpMethod.POST, request, null);
+		ResponseEntity<?> httpResponse = template.exchange(uri, HttpMethod.POST, request, Object.class);
 		if (!httpResponse.getStatusCode().equals(HttpStatus.OK)){
 			logger.error("Problems with the request. Http status: " + httpResponse.getStatusCode());
 		}
