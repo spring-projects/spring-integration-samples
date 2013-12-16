@@ -36,11 +36,11 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @ContextConfiguration(locations="classpath:META-INF/spring/applicationContext.xml")
 @RunWith(SpringJUnit4ClassRunner.class)
-public class TestAccumulator {
+public class AccumulatorTests {
 
 	@Autowired
 	Accumulator accumulator;
-	
+
 	@Test
 	@Transactional
 	public void test() {

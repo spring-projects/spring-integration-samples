@@ -11,10 +11,10 @@
 	xmlns:int-mail="http://www.springframework.org/schema/integration/mail">
 
 	<int-http:inbound-gateway request-channel="receiveChannel"
-                          name="/receiveGateway"
+                          path="/receiveGateway"
                           supported-methods="POST"/>
-                          
-	<int:channel id="receiveChannel"/>	
-	
+
+	<int:channel id="receiveChannel"/>
+
 	<int:service-activator input-channel="receiveChannel" expression="payload + ' from the other side'"/>
 </beans>
