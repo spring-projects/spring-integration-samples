@@ -27,6 +27,10 @@
 			<name>SpringSource Maven Milestone Repository</name>
 			<url>https://repo.springsource.org/libs-milestone</url>
 		</repository>
+		<repository>
+			<id>code.lds.org</id>
+			<url>https://code.lds.org/nexus/content/groups/main-repo</url>
+		</repository>
 	</repositories>
 
 	<build>

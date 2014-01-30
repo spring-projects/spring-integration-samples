@@ -37,15 +37,16 @@
 		instantiate your @Controller classes, as these should be instantiated
 		by a web tier application context. Refer to web.xml for more details
 		about the web tier application context setup services.
-		
-		Furthermore, this turns on @Autowired, @PostConstruct etc support. These 
-		annotations allow you to use common Spring and Java Enterprise Edition 
-		annotations in your classes without needing to do any special configuration. 
+
+		Furthermore, this turns on @Autowired, @PostConstruct etc support. These
+		annotations allow you to use common Spring and Java Enterprise Edition
+		annotations in your classes without needing to do any special configuration.
 		The most commonly used annotation is @Autowired, which instructs Spring to
 		dependency inject an object into your class.
 	-->
     <context:component-scan base-package="org.springframework.integration.samples.loanbroker.loanshark">
         <context:exclude-filter expression=".*_Roo_.*" type="regex"/>
+        <context:exclude-filter expression=".*TestAccumulator.*" type="regex"/>
         <context:exclude-filter expression="org.springframework.stereotype.Controller" type="annotation"/>
     </context:component-scan>
     <bean class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close" id="dataSource">

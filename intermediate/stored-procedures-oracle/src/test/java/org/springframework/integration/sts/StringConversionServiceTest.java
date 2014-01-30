@@ -16,17 +16,17 @@
 
 package org.springframework.integration.sts;
 
-import static junit.framework.Assert.*;
-
+import org.junit.Ignore;
 import org.junit.Test;
+
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
-
 import org.springframework.integration.service.StringConversionService;
 
 /**
  * Verify that the Spring Integration Application Context starts successfully.
  */
+@Ignore
 public class StringConversionServiceTest {
 
     @Test

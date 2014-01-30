@@ -11,6 +11,7 @@
 
 	<modules>
 		<module>cafe</module>
+		<module>cafe-scripted</module>
 		<module>loan-broker</module>
 		<module>loanshark</module>
 	</modules>
