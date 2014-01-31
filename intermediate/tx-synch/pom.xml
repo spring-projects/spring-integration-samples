@@ -14,8 +14,8 @@
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<spring.framework.version>3.1.3.RELEASE</spring.framework.version>
-		<spring.integration.version>3.0.0.RELEASE</spring.integration.version>
+		<spring.integration.version>3.0.1.RELEASE</spring.integration.version>
+		<spring.version>3.2.7.RELEASE</spring.version>
 		<log4j.version>1.2.17</log4j.version>
 		<junit.version>4.10</junit.version>
 	</properties>
@@ -44,7 +44,7 @@
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-jdbc</artifactId>
-			<version>${spring.framework.version}</version>
+			<version>${spring.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>com.h2database</groupId>
@@ -65,7 +65,7 @@
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-test</artifactId>
-			<version>${spring.framework.version}</version>
+			<version>${spring.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>junit</groupId>
@@ -92,7 +92,7 @@
 				<artifactId>exec-maven-plugin</artifactId>
 				<version>1.2</version>
 				<configuration>
-					<mainClass>${java.main.class}</mainClass>
+					<mainClass>org.springframework.integration.samples.advice.TransactionSynchronizationDemo</mainClass>
 				</configuration>
 			</plugin>
 		</plugins>
@@ -101,7 +101,7 @@
 		<repository>
 			<id>repo.springsource.org.milestone</id>
 			<name>Spring Framework Maven Milestone Repository</name>
-			<url>https://repo.springsource.org/libs-snapshot</url>
+			<url>https://repo.spring.io/libs-milestone</url>
 		</repository>
 	</repositories>
 </project>

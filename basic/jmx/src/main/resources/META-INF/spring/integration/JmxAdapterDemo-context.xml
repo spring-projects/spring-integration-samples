@@ -6,7 +6,7 @@
 	xmlns:stream="http://www.springframework.org/schema/integration/stream"
 	xmlns:context="http://www.springframework.org/schema/context"
 	xsi:schemaLocation="http://www.springframework.org/schema/integration http://www.springframework.org/schema/integration/spring-integration.xsd
-		http://www.springframework.org/schema/integration/jmx http://www.springframework.org/schema/integration/jmx/spring-integration-jmx-2.0.xsd
+		http://www.springframework.org/schema/integration/jmx http://www.springframework.org/schema/integration/jmx/spring-integration-jmx.xsd
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
 		http://www.springframework.org/schema/integration/stream http://www.springframework.org/schema/integration/stream/spring-integration-stream.xsd">
@@ -28,7 +28,7 @@
 
 	<si:filter input-channel="seconds" expression="payload >= 10" output-channel="reset"/>
 
-	<jmx:operation-invoking-channel-adapter id="reset" 
+	<jmx:operation-invoking-channel-adapter id="reset"
 			object-name="org.springframework.integration.samples.jmx:type=StopWatch,name=stopWatch"
 			operation-name="reset"/>
 

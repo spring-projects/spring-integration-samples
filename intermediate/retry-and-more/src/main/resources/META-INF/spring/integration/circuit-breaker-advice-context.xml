@@ -4,7 +4,7 @@
 	xmlns:int="http://www.springframework.org/schema/integration"
 	xmlns:int-stream="http://www.springframework.org/schema/integration/stream"
 	xsi:schemaLocation="http://www.springframework.org/schema/integration http://www.springframework.org/schema/integration/spring-integration.xsd
-		http://www.springframework.org/schema/integration/stream http://www.springframework.org/schema/integration/stream/spring-integration-stream-2.2.xsd
+		http://www.springframework.org/schema/integration/stream http://www.springframework.org/schema/integration/stream/spring-integration-stream.xsd
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
 	<int-stream:stdin-channel-adapter channel="inputChannel">
@@ -12,15 +12,15 @@
 	</int-stream:stdin-channel-adapter>
 
 	<int:channel id="inputChannel"/>
-	
-	<int:service-activator input-channel="inputChannel" 
+
+	<int:service-activator input-channel="inputChannel"
 					   ref="conditionalService"
 					   method="testCircuitBreaker">
 		<int:request-handler-advice-chain>
 			<ref bean="circuitBreakerAdvice" />
 		</int:request-handler-advice-chain>
 	</int:service-activator>
-	
+
 	<int:channel id="failedChannel" />
 
 	<int:chain input-channel="failedChannel">

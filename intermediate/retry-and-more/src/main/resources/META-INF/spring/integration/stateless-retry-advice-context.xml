@@ -4,7 +4,7 @@
 	xmlns:int="http://www.springframework.org/schema/integration"
 	xmlns:int-stream="http://www.springframework.org/schema/integration/stream"
 	xsi:schemaLocation="http://www.springframework.org/schema/integration http://www.springframework.org/schema/integration/spring-integration.xsd
-		http://www.springframework.org/schema/integration/stream http://www.springframework.org/schema/integration/stream/spring-integration-stream-2.2.xsd
+		http://www.springframework.org/schema/integration/stream http://www.springframework.org/schema/integration/stream/spring-integration-stream.xsd
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
 	<int-stream:stdin-channel-adapter channel="inputChannel">
@@ -12,19 +12,19 @@
 	</int-stream:stdin-channel-adapter>
 
 	<int:channel id="inputChannel"/>
-	
+
 	<int:header-enricher input-channel="inputChannel" output-channel="toServiceChannel">
 		<int:header name="failingId" expression="headers['id'].toString()" />
 	</int:header-enricher>
 
-	<int:service-activator input-channel="toServiceChannel" 
+	<int:service-activator input-channel="toServiceChannel"
 					   ref="conditionalService"
 					   method="testRetry">
 		<int:request-handler-advice-chain>
 			<ref bean="retryAdvice" />
 		</int:request-handler-advice-chain>
 	</int:service-activator>
-	
+
 	<int:channel id="failedChannel" />
 
 	<int:chain input-channel="failedChannel">
@@ -39,7 +39,7 @@
 	<beans profile="default">
 		<bean id="retryAdvice" class="org.springframework.integration.handler.advice.RequestHandlerRetryAdvice" />
 	</beans>
-	
+
 	<!-- Retry advice, template with default 3 tries, exponential backoff, no recovery;
 	     final failure will go to poller's error channel -->
 	<beans profile="backoff">
@@ -67,9 +67,9 @@
 				</bean>
 			</property>
 		</bean>
-		
+
 		<int:channel id="recoveryChannel" />
-		
+
 		<int:chain input-channel="recoveryChannel">
 			<int:transformer expression="'permanently failed:' + payload.failedMessage.payload + ' handled by recovery'" />
 			<int-stream:stderr-channel-adapter append-newline="true"/>
