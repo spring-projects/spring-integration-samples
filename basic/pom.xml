@@ -33,6 +33,8 @@
 		<module>ws-outbound-gateway</module>
 		<module>xml</module>
 		<module>xmpp</module>
+		<module>mongodb</module>
+		<module>tcp-amqp</module>
 	</modules>
 
 </project>

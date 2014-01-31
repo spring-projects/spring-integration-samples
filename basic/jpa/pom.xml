@@ -16,13 +16,13 @@
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<spring.integration.version>3.0.0.RELEASE</spring.integration.version>
+		<spring.integration.version>3.0.1.RELEASE</spring.integration.version>
+		<spring.version>3.2.7.RELEASE</spring.version>
 		<log4j.version>1.2.17</log4j.version>
 		<junit.version>4.10</junit.version>
 		<openjpa.version>2.2.0</openjpa.version>
 		<eclipselink.version>2.3.2</eclipselink.version>
 		<hibernate.version>4.0.1.Final</hibernate.version>
-		<spring-instrument.version>3.1.3.RELEASE</spring-instrument.version>
 	</properties>
 
 	<repositories>
@@ -33,14 +33,8 @@
 		</repository>
 		<repository>
 			<id>repo.eclipse</id>
-			<name>Spring Framework Maven Milestone Repository</name>
-			<url> http://download.eclipse.org/rt/eclipselink/maven.repo/</url>
-			<snapshots><enabled></enabled></snapshots>
-		</repository>
-		<repository>
-			<id>central</id>
-			<name>Maven Central</name>
-			<url>http://repo1.maven.org/maven</url>
+			<name>EclipseLink Maven Repository</name>
+			<url>http://download.eclipse.org/rt/eclipselink/maven.repo</url>
 		</repository>
 	</repositories>
 
@@ -65,7 +59,7 @@
 				<configuration>
 					<executable>java</executable>
 					<arguments>
-						<argument>-javaagent:${settings.localRepository}/org/springframework/spring-instrument/${spring-instrument.version}/spring-instrument-${spring-instrument.version}.jar</argument>
+						<argument>-javaagent:${settings.localRepository}/org/springframework/spring-instrument/${spring.version}/spring-instrument-${spring.version}.jar</argument>
 						<argument>-javaagent:${settings.localRepository}/org/apache/openjpa/openjpa/${openjpa.version}/openjpa-${openjpa.version}.jar</argument>
 						<argument>-classpath</argument>
 						<classpath></classpath>
@@ -104,7 +98,7 @@
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-instrument</artifactId>
-			<version>${spring-instrument.version}</version>
+			<version>${spring.version}</version>
 		</dependency>
 
 		<!-- Logging -->

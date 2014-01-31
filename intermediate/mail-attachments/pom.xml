@@ -8,7 +8,8 @@
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<spring.integration.version>3.0.0.RELEASE</spring.integration.version>
+		<spring.integration.version>3.0.1.RELEASE</spring.integration.version>
+		<spring.version>3.2.7.RELEASE</spring.version>
 		<log4j.version>1.2.17</log4j.version>
 		<junit.version>4.10</junit.version>
 	</properties>
@@ -59,7 +60,7 @@
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-test</artifactId>
-			<version>3.1.3.RELEASE</version>
+			<version>${spring.version}</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>

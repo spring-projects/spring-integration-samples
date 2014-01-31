@@ -16,7 +16,7 @@
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<spring.integration.version>3.0.0.RELEASE</spring.integration.version>
+		<spring.integration.version>3.0.1.RELEASE</spring.integration.version>
 		<log4j.version>1.2.17</log4j.version>
 		<junit.version>4.10</junit.version>
 	</properties>
@@ -25,7 +25,7 @@
 		<repository>
 			<id>repo.springsource.org.milestone</id>
 			<name>Spring Framework Maven Milestone Repository</name>
-			<url>https://repo.springsource.org/milestone</url>
+			<url>https://repo.spring.io/libs-milestone</url>
 		</repository>
 	</repositories>
 
