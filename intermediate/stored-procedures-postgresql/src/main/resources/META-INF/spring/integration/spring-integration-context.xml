@@ -7,7 +7,7 @@
 	xmlns:tx="http://www.springframework.org/schema/tx"
 	xsi:schemaLocation="http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc.xsd
 		http://www.springframework.org/schema/integration http://www.springframework.org/schema/integration/spring-integration.xsd
-		http://www.springframework.org/schema/integration/jdbc file:///Users/hillert/dev/git/spring-integration/spring-integration-jdbc/src/main/resources/org/springframework/integration/jdbc/config/spring-integration-jdbc-2.2.xsd
+		http://www.springframework.org/schema/integration/jdbc http://www.springframework.org/schema/spring-integration-jdbc.xsd
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
 
