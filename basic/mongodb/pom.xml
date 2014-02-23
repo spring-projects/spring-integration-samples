@@ -23,7 +23,7 @@
 
 	<repositories>
 		<repository>
-			<id>repo.springsource.org.milestone</id>
+			<id>repo.spring.io.milestone</id>
 			<name>Spring Framework Maven Milestone Repository</name>
 			<url>https://repo.spring.io/libs-milestone</url>
 		</repository>

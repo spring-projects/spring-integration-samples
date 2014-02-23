@@ -131,9 +131,9 @@
 	</build>
 	<repositories>
 		<repository>
-			<id>repo.springsource.org.milestone</id>
+			<id>repo.spring.io.milestone</id>
 			<name>SpringSource Maven Milestone Repository</name>
-			<url>https://repo.springsource.org/libs-milestone</url>
+			<url>https://repo.spring.io/libs-milestone</url>
 		</repository>
 	</repositories>
 </project>
