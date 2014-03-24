@@ -35,27 +35,12 @@ public class GatewayDemoTest {
 		"/META-INF/spring/integration/outboundGateway.xml"
 	};
 
+    public static final String PAYLOAD = "jms test";
+
 	@Test
 	public void testGatewayDemo() throws InterruptedException {
-
-		System.setProperty("spring.profiles.active", "testCase");
-
-		final GenericXmlApplicationContext applicationContext = new GenericXmlApplicationContext(configFilesGatewayDemo);
-
-		final MessageChannel stdinToJmsoutChannel = applicationContext.getBean("stdinToJmsoutChannel", MessageChannel.class);
-
-		stdinToJmsoutChannel.send(MessageBuilder.withPayload("jms test").build());
-
-		final QueueChannel queueChannel = applicationContext.getBean("queueChannel", QueueChannel.class);
-
-		@SuppressWarnings("unchecked")
-		Message<String> reply = (Message<String>) queueChannel.receive(20000);
-		Assert.assertNotNull(reply);
-		String out = reply.getPayload();
-
-		Assert.assertEquals("JMS response: JMS TEST", out);
-
-		applicationContext.close();
+        JmsApplicationDriver driver = JmsApplicationDriver.configureApplication(configFilesGatewayDemo);
+        driver.send(PAYLOAD);
+        Assert.assertEquals("JMS response: JMS TEST", driver.receive());
 	}
-
 }
