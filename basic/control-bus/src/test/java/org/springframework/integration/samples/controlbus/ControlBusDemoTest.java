@@ -1,5 +1,5 @@
 /*
- * Copyright 2002-2011 the original author or authors.
+ * Copyright 2002-2014 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,23 +18,24 @@ package org.springframework.integration.samples.controlbus;
 import org.apache.log4j.Logger;
 import org.junit.Test;
 
-import org.springframework.context.ApplicationContext;
+import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
-import org.springframework.integration.MessageChannel;
-import org.springframework.integration.core.PollableChannel;
-import org.springframework.integration.message.GenericMessage;
+import org.springframework.messaging.MessageChannel;
+import org.springframework.messaging.PollableChannel;
+import org.springframework.messaging.support.GenericMessage;
 
 /**
  * @author Oleg Zhurakousky
  *
  */
 public class ControlBusDemoTest {
-	
+
 	private static Logger logger = Logger.getLogger(ControlBusDemoTest.class);
 
 	@Test
 	public void demoControlBus(){
-		ApplicationContext ac = new ClassPathXmlApplicationContext("/META-INF/spring/integration/ControlBusDemo-context.xml");
+		ConfigurableApplicationContext ac = new ClassPathXmlApplicationContext(
+				"/META-INF/spring/integration/ControlBusDemo-context.xml");
 		MessageChannel controlChannel = ac.getBean("controlChannel", MessageChannel.class);
 		PollableChannel adapterOutputChanel = ac.getBean("adapterOutputChanel", PollableChannel.class);
 		logger.info("Received before adapter started: " + adapterOutputChanel.receive(1000));
@@ -42,5 +43,6 @@ public class ControlBusDemoTest {
 		logger.info("Received before adapter started: " + adapterOutputChanel.receive(1000));
 		controlChannel.send(new GenericMessage<String>("@inboundAdapter.stop()"));
 		logger.info("Received after adapter stopped: " + adapterOutputChanel.receive(1000));
+		ac.close();
 	}
 }

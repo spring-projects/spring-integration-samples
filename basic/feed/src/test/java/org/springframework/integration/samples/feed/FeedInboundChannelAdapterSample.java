@@ -1,5 +1,5 @@
 /*
- * Copyright 2002-2010 the original author or authors.
+ * Copyright 2002-2014 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,10 +17,10 @@ package org.springframework.integration.samples.feed;
 
 import org.junit.Test;
 
-import org.springframework.context.ApplicationContext;
+import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
-import org.springframework.integration.Message;
-import org.springframework.integration.core.PollableChannel;
+import org.springframework.messaging.Message;
+import org.springframework.messaging.PollableChannel;
 
 import com.sun.syndication.feed.synd.SyndEntry;
 
@@ -33,7 +33,7 @@ public class FeedInboundChannelAdapterSample {
 	@SuppressWarnings("unchecked")
 	@Test
 	public void runDemo(){
-		ApplicationContext ac = 
+		ConfigurableApplicationContext ac =
 			new ClassPathXmlApplicationContext("META-INF/spring/integration/FeedInboundChannelAdapterSample-context.xml");
 		PollableChannel feedChannel = ac.getBean("feedChannel", PollableChannel.class);
 		for (int i = 0; i < 10; i++) {
@@ -46,5 +46,6 @@ public class FeedInboundChannelAdapterSample {
 				break;
 			}
 		}
+		ac.close();
 	}
 }

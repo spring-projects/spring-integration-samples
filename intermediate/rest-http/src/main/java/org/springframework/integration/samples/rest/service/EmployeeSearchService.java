@@ -19,9 +19,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.apache.log4j.Logger;
-import org.springframework.integration.Message;
-import org.springframework.integration.MessageHeaders;
-import org.springframework.integration.message.GenericMessage;
+import org.springframework.messaging.Message;
+import org.springframework.messaging.MessageHeaders;
+import org.springframework.messaging.support.GenericMessage;
 import org.springframework.integration.samples.rest.domain.Employee;
 import org.springframework.integration.samples.rest.domain.EmployeeList;
 import org.springframework.security.access.annotation.Secured;

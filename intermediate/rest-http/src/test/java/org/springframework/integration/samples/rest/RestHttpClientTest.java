@@ -17,6 +17,7 @@ package org.springframework.integration.samples.rest;
 
 import static org.junit.Assert.assertTrue;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.StringWriter;
 import java.util.HashMap;
@@ -25,10 +26,10 @@ import java.util.Map;
 import javax.xml.transform.stream.StreamResult;
 
 import org.apache.log4j.Logger;
-import org.codehaus.jackson.map.ObjectMapper;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -45,9 +46,11 @@ import org.springframework.web.client.HttpMessageConverterExtractor;
 import org.springframework.web.client.RequestCallback;
 import org.springframework.web.client.RestTemplate;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 /**
  * RestHttpClientTest.java: Functional Test to test the REST HTTP Path usage. This test requires
- * rest-http application running in HTTP environment. 
+ * rest-http application running in HTTP environment.
  * @author Vigil Bose
  */
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -66,14 +69,14 @@ public class RestHttpClientTest {
 	@Before
 	public void setUp() {
 		responseExtractor = new HttpMessageConverterExtractor<EmployeeList>(EmployeeList.class, restTemplate.getMessageConverters());
-		
+
 		Map<String, Object> properties = new HashMap<String, Object>();
 		properties.put(javax.xml.bind.Marshaller.JAXB_ENCODING, "UTF-8");
 		properties.put(javax.xml.bind.Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
 		marshaller.setMarshallerProperties(properties);
 	}
 	/**
-	 * 
+	 *
 	 * @throws Exception
 	 */
 	@Test
@@ -107,21 +110,23 @@ public class RestHttpClientTest {
 		employeeSearchMap.put("id", id);
 		return employeeSearchMap;
 	}
-	
+
 	@Test
 	public void testGetEmployeeAsJson() throws Exception{
 		Map<String, Object> employeeSearchMap = getEmployeeSearchMap("0");
-		
+
 		final String fullUrl = "http://localhost:8080/rest-http/services/employee/{id}/search?format=json";
 		HttpHeaders headers = getHttpHeadersWithUserCredentials(new HttpHeaders());
 		headers.add("Accept", "application/json");
 		HttpEntity<Object> request = new HttpEntity<Object>(headers);
-		
+
 		ResponseEntity<?> httpResponse = restTemplate.exchange(fullUrl, HttpMethod.GET, request, EmployeeList.class, employeeSearchMap);
 		logger.info("Return Status :"+httpResponse.getHeaders().get("X-Return-Status"));
 		logger.info("Return Status Message :"+httpResponse.getHeaders().get("X-Return-Status-Msg"));
 		assertTrue(httpResponse.getStatusCode().equals(HttpStatus.OK));
-		jaxbJacksonObjectMapper.writeValue(System.out, httpResponse.getBody());
+		ByteArrayOutputStream out = new ByteArrayOutputStream();
+		jaxbJacksonObjectMapper.writeValue(out, httpResponse.getBody());
+		logger.info(new String(out.toByteArray()));
 	}
 
 	private HttpHeaders getHttpHeadersWithUserCredentials(ClientHttpRequest request){

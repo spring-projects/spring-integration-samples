@@ -18,7 +18,7 @@ package org.springframework.integration.samples.ftp;
 import static org.junit.Assert.*;
 
 import org.junit.Test;
-import org.springframework.integration.MessageChannel;
+import org.springframework.messaging.MessageChannel;
 
 /**
  * @author Gary Russell
