@@ -19,9 +19,9 @@ package org.springframework.integration.samples.helloworld;
 import org.apache.log4j.Logger;
 import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
-import org.springframework.integration.MessageChannel;
-import org.springframework.integration.core.PollableChannel;
-import org.springframework.integration.message.GenericMessage;
+import org.springframework.messaging.MessageChannel;
+import org.springframework.messaging.PollableChannel;
+import org.springframework.messaging.support.GenericMessage;
 
 /**
  * Demonstrates a basic Message Endpoint that simply prepends a greeting

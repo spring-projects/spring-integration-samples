@@ -17,11 +17,11 @@
 package org.springframework.integration.samples.ws;
 
 import org.springframework.context.support.ClassPathXmlApplicationContext;
-import org.springframework.integration.Message;
-import org.springframework.integration.MessageChannel;
 import org.springframework.integration.support.MessageBuilder;
 import org.springframework.integration.support.channel.BeanFactoryChannelResolver;
-import org.springframework.integration.support.channel.ChannelResolver;
+import org.springframework.messaging.Message;
+import org.springframework.messaging.MessageChannel;
+import org.springframework.messaging.core.DestinationResolver;
 
 /**
  * Demonstrates a web service invocation through a Web Service outbound Gateway.
@@ -35,7 +35,7 @@ public class WebServiceDemoTestApp {
 	public static void main(String[] args) {
 		ClassPathXmlApplicationContext context =
 			new ClassPathXmlApplicationContext("/META-INF/spring/integration/temperatureConversion.xml");
-		ChannelResolver channelResolver = new BeanFactoryChannelResolver(context);
+		DestinationResolver<MessageChannel> channelResolver = new BeanFactoryChannelResolver(context);
 
 		// Compose the XML message according to the server's schema
 		String requestXml =
@@ -47,7 +47,7 @@ public class WebServiceDemoTestApp {
 		Message<String> message = MessageBuilder.withPayload(requestXml).build();
 
 		// Send the Message to the handler's input channel
-		MessageChannel channel = channelResolver.resolveChannelName("fahrenheitChannel");
+		MessageChannel channel = channelResolver.resolveDestination("fahrenheitChannel");
 		channel.send(message);
 	}
 

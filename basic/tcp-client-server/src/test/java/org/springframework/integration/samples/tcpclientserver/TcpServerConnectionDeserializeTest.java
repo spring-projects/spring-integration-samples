@@ -22,16 +22,17 @@ import java.io.StringWriter;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.integration.Message;
-import org.springframework.integration.MessageChannel;
-import org.springframework.integration.core.SubscribableChannel;
+import org.springframework.messaging.SubscribableChannel;
 import org.springframework.integration.handler.AbstractReplyProducingMessageHandler;
 import org.springframework.integration.ip.tcp.connection.AbstractServerConnectionFactory;
 import org.springframework.integration.ip.tcp.serializer.ByteArrayStxEtxSerializer;
 import org.springframework.integration.ip.util.TestingUtilities;
 import org.springframework.integration.samples.tcpclientserver.support.CustomTestContextLoader;
+import org.springframework.messaging.Message;
+import org.springframework.messaging.MessageChannel;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -75,7 +76,7 @@ public class TcpServerConnectionDeserializeTest {
 		// the reason we use a listener here is so we can assert truths on the
 		// message and/or payload
 		SubscribableChannel channel = (SubscribableChannel) incomingServerChannel;
-		channel.subscribe(new AbstractReplyProducingMessageHandler(){
+		channel.subscribe(new AbstractReplyProducingMessageHandler() {
 
 			@Override
 			protected Object handleRequestMessage(Message<?> requestMessage) {

@@ -18,10 +18,10 @@ package org.springframework.integration.samples.mail.imapidle;
 import org.apache.log4j.Logger;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
-import org.springframework.integration.Message;
-import org.springframework.integration.MessagingException;
+import org.springframework.messaging.Message;
+import org.springframework.messaging.MessagingException;
 import org.springframework.integration.channel.DirectChannel;
-import org.springframework.integration.core.MessageHandler;
+import org.springframework.messaging.MessageHandler;
 
 /**
  * @author Oleg Zhurakousky

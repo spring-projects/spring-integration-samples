@@ -22,8 +22,8 @@ import org.apache.log4j.Logger;
 import org.junit.Test;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
-import org.springframework.integration.Message;
-import org.springframework.integration.core.PollableChannel;
+import org.springframework.messaging.Message;
+import org.springframework.messaging.PollableChannel;
 
 /**
  *
