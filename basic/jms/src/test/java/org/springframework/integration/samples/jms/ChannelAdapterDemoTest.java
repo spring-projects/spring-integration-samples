@@ -19,42 +19,26 @@ import junit.framework.Assert;
 
 import org.junit.Test;
 import org.springframework.context.support.GenericXmlApplicationContext;
-import org.springframework.integration.Message;
-import org.springframework.integration.MessageChannel;
-import org.springframework.integration.channel.QueueChannel;
-import org.springframework.integration.support.MessageBuilder;
+
+import static org.springframework.integration.samples.jms.JmsApplicationDriver.configureApplication;
 
 /**
  * @author Gunnar Hillert
  */
 public class ChannelAdapterDemoTest {
 
-	private final static String[] configFilesChannelAdapterDemo = {
+    private final static String[] configFilesChannelAdapterDemo = {
 		"/META-INF/spring/integration/common.xml",
 		"/META-INF/spring/integration/inboundChannelAdapter.xml",
 		"/META-INF/spring/integration/outboundChannelAdapter.xml"
 	};
 
-	@Test
+    public static final String PAYLOAD = "jms test";
+
+    @Test
 	public void testChannelAdapterDemo() throws InterruptedException {
-
-		System.setProperty("spring.profiles.active", "testCase");
-
-		final GenericXmlApplicationContext applicationContext = new GenericXmlApplicationContext(configFilesChannelAdapterDemo);
-
-		final MessageChannel stdinToJmsoutChannel = applicationContext.getBean("stdinToJmsoutChannel", MessageChannel.class);
-
-		stdinToJmsoutChannel.send(MessageBuilder.withPayload("jms test").build());
-
-		final QueueChannel queueChannel = applicationContext.getBean("queueChannel", QueueChannel.class);
-
-		@SuppressWarnings("unchecked")
-		Message<String> reply = (Message<String>) queueChannel.receive(20000);
-		Assert.assertNotNull(reply);
-		String out = reply.getPayload();
-		Assert.assertEquals("jms test", out);
-
-		applicationContext.close();
+        JmsApplicationDriver driver = configureApplication(configFilesChannelAdapterDemo);
+        driver.send(PAYLOAD);
+		Assert.assertEquals(PAYLOAD, driver.receive());
 	}
-
 }
