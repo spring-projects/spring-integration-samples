@@ -23,7 +23,7 @@
 		amqp-template="amqpTemplate" exchange-name="si.test.exchange"
 		routing-key="si.test.binding"/>
 
-	<!-- From RabbitMQ To STDOUT -->
+	<!-- From RabbitMQ To RabbitMQ -->
 
 	<int-amqp:inbound-channel-adapter channel="fromRabbit"
 			queue-names="si.test.queue"
