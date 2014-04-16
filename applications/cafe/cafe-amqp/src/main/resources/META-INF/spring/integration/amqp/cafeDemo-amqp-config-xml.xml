@@ -21,7 +21,7 @@
 
 	<!-- Obtain a connection to the RabbitMQ via cloudfoundry-runtime: -->
 	<beans profile="cloud">
-		<cloud:rabbit-connection-factory id="rabbitConnectionFactory" />
+<!-- 		<cloud:rabbit-connection-factory id="rabbitConnectionFactory" /> -->
 	</beans>
 
 	<!-- connect to the local broker using the default user name and password -->

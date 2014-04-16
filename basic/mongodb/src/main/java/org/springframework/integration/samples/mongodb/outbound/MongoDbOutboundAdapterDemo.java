@@ -16,8 +16,8 @@
 package org.springframework.integration.samples.mongodb.outbound;
 
 import org.springframework.context.support.ClassPathXmlApplicationContext;
-import org.springframework.integration.MessageChannel;
-import org.springframework.integration.message.GenericMessage;
+import org.springframework.messaging.MessageChannel;
+import org.springframework.messaging.support.GenericMessage;
 import org.springframework.integration.samples.mongodb.domain.Address;
 import org.springframework.integration.samples.mongodb.domain.Person;
 import org.springframework.integration.samples.mongodb.util.DemoUtils;

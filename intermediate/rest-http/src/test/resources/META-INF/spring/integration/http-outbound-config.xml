@@ -19,7 +19,7 @@
 					<property name="marshaller" ref="marshaller"/>
 					<property name="unmarshaller" ref="marshaller"/>
 				</bean>
-				<bean class="org.springframework.http.converter.json.MappingJacksonHttpMessageConverter">
+				<bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
 					<property name="objectMapper" ref="jaxbJacksonObjectMapper"/>
 				</bean>
 			</list>
@@ -28,7 +28,7 @@
 
 	<context:component-scan base-package="org.springframework.integration.samples.rest"/>
 
-	<oxm:jaxb2-marshaller id="marshaller" contextPath="org.springframework.integration.samples.rest.domain" />
+	<oxm:jaxb2-marshaller id="marshaller" context-path="org.springframework.integration.samples.rest.domain" />
 
 	<bean id="jaxbJacksonObjectMapper" class="org.springframework.integration.samples.rest.json.JaxbJacksonObjectMapper"/>
 

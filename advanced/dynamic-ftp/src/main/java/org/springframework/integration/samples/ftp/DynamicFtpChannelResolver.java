@@ -25,7 +25,7 @@ import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.core.env.PropertiesPropertySource;
 import org.springframework.core.env.StandardEnvironment;
-import org.springframework.integration.MessageChannel;
+import org.springframework.messaging.MessageChannel;
 
 /**
  * Demonstrates how a dynamic Spring Integration flow snippet can be used

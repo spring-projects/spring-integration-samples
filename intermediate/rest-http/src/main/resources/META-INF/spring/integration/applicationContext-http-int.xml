@@ -61,7 +61,7 @@
 		</property>
 	</bean>
 
-	<oxm:jaxb2-marshaller id="marshaller" contextPath="org.springframework.integration.samples.rest.domain" />
+	<oxm:jaxb2-marshaller id="marshaller" context-path="org.springframework.integration.samples.rest.domain" />
 
 	<int:service-activator id="employeeServiceActivator"
 					input-channel="employeeSearchRequest"
