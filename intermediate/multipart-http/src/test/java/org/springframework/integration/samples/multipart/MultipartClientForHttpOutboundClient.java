@@ -19,6 +19,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.apache.log4j.Logger;
+
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.core.io.ClassPathResource;
@@ -29,7 +30,7 @@ import org.springframework.http.HttpStatus;
  *
  */
 public class MultipartClientForHttpOutboundClient {
-	
+
 	private static Logger logger = Logger.getLogger(MultipartClientForHttpOutboundClient.class);
 	private static String resourcePath = "org/springframework/integration/samples/multipart/spring09_logo.png";
 
