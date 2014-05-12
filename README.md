@@ -13,6 +13,7 @@ Welcome to the **Spring Integration Samples** repository which provides **50+ sa
 * Intermediate
 * Advanced
 * Applications
+* DSL
 
 Inside of each category you'll find a **README.md** file, which will contain a more detailed description of that category. Each sample also comes with its own **README.md** file explaining further details, e.g. how to run the respective sample.
 
@@ -32,6 +33,10 @@ Inside of each category you'll find a **README.md** file, which will contain a m
 # Categories
 
 Below is a short description of each category.
+
+## DSL
+
+This directory holds demos/samples for Spring Integration 4.0 Java Configuration as well as the Java DSL Extension.
 
 ## Basic
 
