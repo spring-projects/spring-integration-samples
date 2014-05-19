@@ -1,0 +1,20 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>org.springframework.integration.samples</groupId>
+		<artifactId>hbase-sink-with-trigger-on-finish</artifactId>
+		<version>2.2.0.BUILD-SNAPSHOT</version>
+	</parent>
+	<groupId>org.springframework.integration.samples.server</groupId>
+	<artifactId>server</artifactId>
+	<packaging>pom</packaging>
+	<name>ENS AMQP queue server side</name>
+	
+	<modules>
+		<module>curator</module>
+		<module>persistence</module>
+		<module>consumer</module>
+	</modules>
+
+</project>

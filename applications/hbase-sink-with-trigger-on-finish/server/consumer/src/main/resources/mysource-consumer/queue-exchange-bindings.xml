@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:rabbit="http://www.springframework.org/schema/rabbit"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+		http://www.springframework.org/schema/rabbit http://www.springframework.org/schema/rabbit/spring-rabbit-1.0.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+	
+	<rabbit:queue id="mysourceQueue" name="${mysource.queue.name}" durable="true" />
+	<rabbit:queue id="mysourceConsumerQueue" name="${mysource.consumer.queue}" durable="false" />
+	<rabbit:queue id="mysourceControlQueue" name="${mysource.queue.control.name}" durable="false" />
+<!-- 	<rabbit:queue id="myothersourceQueue" name="${myothersource.queue.name}" durable="true" /> -->
+<!-- 	<rabbit:queue id="myothersourceConsumerQueue" name="${myothersource.consumer.queue}" durable="false" /> -->
+<!-- 	<rabbit:queue id="mysotherourceControlQueue" name="${myothersource.queue.control.name}" durable="false" /> -->
+	
+	<rabbit:direct-exchange name="${test.direct.exchange}" >
+		<rabbit:bindings>
+			<rabbit:binding queue="mysourceQueue" key="${mysource.queue.name}" />
+<!-- 			<rabbit:binding queue="myothersourceQueue" key="${myothersource.queue.name}" /> -->
+		</rabbit:bindings>
+	</rabbit:direct-exchange>
+	
+	<rabbit:topic-exchange name="amq.topic" >
+		<rabbit:bindings>
+			<rabbit:binding queue="mysourceConsumerQueue" pattern="${mysource.queue.name}.*" />
+<!-- 			<rabbit:binding queue="myothersourceConsumer1Queue" pattern="${myothersource.queue.name}" /> -->
+		</rabbit:bindings>
+	</rabbit:topic-exchange>
+	
+</beans>
