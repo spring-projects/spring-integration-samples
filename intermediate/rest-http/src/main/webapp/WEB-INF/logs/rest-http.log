@@ -558,3 +558,270 @@
 2013-03-30 00:53:00,709 INFO [org.springframework.integration.endpoint.EventDrivenConsumer] - stopped _org.springframework.integration.errorLogger
 2013-03-30 00:53:00,709 INFO [org.springframework.beans.factory.support.DefaultListableBeanFactory] - Destroying singletons in org.springframework.beans.factory.support.DefaultListableBeanFactory@58773ac1: defining beans [org.springframework.security.access.method.DelegatingMethodSecurityMetadataSource#0,org.springframework.security.access.vote.AffirmativeBased#0,org.springframework.security.access.intercept.aopalliance.MethodSecurityInterceptor#0,org.springframework.security.methodSecurityMetadataSourceAdvisor,org.springframework.aop.config.internalAutoProxyCreator,org.springframework.security.filterChains,org.springframework.security.filterChainProxy,org.springframework.security.web.PortMapperImpl#0,org.springframework.security.web.PortResolverImpl#0,org.springframework.security.config.authentication.AuthenticationManagerFactoryBean#0,org.springframework.security.authentication.ProviderManager#0,org.springframework.security.web.context.HttpSessionSecurityContextRepository#0,org.springframework.security.web.authentication.session.SessionFixationProtectionStrategy#0,org.springframework.security.web.savedrequest.HttpSessionRequestCache#0,org.springframework.security.web.access.expression.DefaultWebSecurityExpressionHandler#0,org.springframework.security.access.vote.AffirmativeBased#1,org.springframework.security.web.access.intercept.FilterSecurityInterceptor#0,org.springframework.security.web.access.DefaultWebInvocationPrivilegeEvaluator#0,org.springframework.security.authentication.AnonymousAuthenticationProvider#0,org.springframework.security.web.authentication.www.BasicAuthenticationEntryPoint#0,org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter#0,org.springframework.security.userDetailsServiceFactory,org.springframework.security.web.DefaultSecurityFilterChain#0,org.springframework.security.provisioning.InMemoryUserDetailsManager#0,org.springframework.security.authentication.dao.DaoAuthenticationProvider#0,org.springframework.security.authentication.DefaultAuthenticationEventPublisher#0,org.springframework.security.authenticationManager,jasyptStringDigester,passwordEncoder,channelInitializer,$autoCreateChannelCandidates,org.springframework.integration.internalDefaultConfiguringBeanFactoryPostProcessor,org.springframework.integration.internalMessagingAnnotationPostProcessor,org.springframework.integration.internalPublisherAnnotationBeanPostProcessor,org.springframework.integration.http.inbound.UriPathHandlerMapping#0,employeeSearchRequest,employeeSearchResponse,inboundEmployeeSearchRequestGateway,org.springframework.web.servlet.view.ContentNegotiatingViewResolver#0,marshaller,org.springframework.integration.config.ServiceActivatorFactoryBean#0,employeeServiceActivator,jaxbJacksonObjectMapper,employeeSearchService,org.springframework.context.annotation.internalConfigurationAnnotationProcessor,org.springframework.context.annotation.internalAutowiredAnnotationProcessor,org.springframework.context.annotation.internalRequiredAnnotationProcessor,org.springframework.context.annotation.internalCommonAnnotationProcessor,org.springframework.context.annotation.ConfigurationClassPostProcessor.importAwareProcessor,nullChannel,errorChannel,_org.springframework.integration.errorLogger,taskScheduler,org.springframework.integration.config.IdGeneratorConfigurer#0]; root of factory hierarchy
 2013-03-30 00:53:00,709 INFO [org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler] - Shutting down ExecutorService 'taskScheduler'
+2014-04-17 19:11:50,411 INFO [org.springframework.web.context.ContextLoader] - Root WebApplicationContext: initialization started
+2014-04-17 19:11:50,461 INFO [org.springframework.web.context.support.XmlWebApplicationContext] - Refreshing Root WebApplicationContext: startup date [Thu Apr 17 19:11:50 EEST 2014]; root of context hierarchy
+2014-04-17 19:11:50,484 INFO [org.springframework.beans.factory.xml.XmlBeanDefinitionReader] - Loading XML bean definitions from ServletContext resource [/WEB-INF/config/web-application-config.xml]
+2014-04-17 19:11:50,601 INFO [org.springframework.beans.factory.xml.XmlBeanDefinitionReader] - Loading XML bean definitions from ServletContext resource [/WEB-INF/config/security-config.xml]
+2014-04-17 19:11:50,630 INFO [org.springframework.security.core.SpringSecurityCoreVersion] - You are running with Spring Security Core 3.2.3.RELEASE
+2014-04-17 19:11:50,630 INFO [org.springframework.security.config.SecurityNamespaceHandler] - Spring Security 'config' module version is 3.2.3.RELEASE
+2014-04-17 19:11:50,661 INFO [org.springframework.security.config.http.FilterInvocationSecurityMetadataSourceParser] - Creating access control expression attribute 'hasRole('ROLE_REST_HTTP_USER')' for /services/employee/*
+2014-04-17 19:11:50,671 INFO [org.springframework.security.config.http.AuthenticationConfigBuilder] - No login page configured. The default internal one will be used. Use the 'login-page' attribute to set the URL of the login page.
+2014-04-17 19:11:50,677 INFO [org.springframework.security.config.http.HttpSecurityBeanDefinitionParser] - Checking sorted filter chain: [Root bean: class [org.springframework.security.web.context.SecurityContextPersistenceFilter]; scope=; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null, order = 200, Root bean: class [org.springframework.security.web.authentication.logout.LogoutFilter]; scope=; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null, order = 700, <org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter#0>, order = 1100, Root bean: class [org.springframework.security.web.authentication.ui.DefaultLoginPageGeneratingFilter]; scope=; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null, order = 1300, Root bean: class [org.springframework.security.web.authentication.www.BasicAuthenticationFilter]; scope=; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null, order = 1500, Root bean: class [org.springframework.security.web.savedrequest.RequestCacheAwareFilter]; scope=; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null, order = 1600, Root bean: class [org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter]; scope=; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null, order = 1700, Root bean: class [org.springframework.security.web.authentication.AnonymousAuthenticationFilter]; scope=; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null, order = 2000, Root bean: class [org.springframework.security.web.session.SessionManagementFilter]; scope=; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null, order = 2100, Root bean: class [org.springframework.security.web.access.ExceptionTranslationFilter]; scope=; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null, order = 2200, <org.springframework.security.web.access.intercept.FilterSecurityInterceptor#0>, order = 2300]
+2014-04-17 19:11:50,690 INFO [org.springframework.beans.factory.xml.XmlBeanDefinitionReader] - Loading XML bean definitions from class path resource [META-INF/spring/integration/applicationContext-http-int.xml]
+2014-04-17 19:11:50,752 INFO [org.springframework.beans.factory.config.PropertiesFactoryBean] - Loading properties file from URL [jar:file:/C:/Users/artembilan/.gradle/caches/modules-2/files-2.1/org.springframework.integration/spring-integration-core/4.0.0.RC1/c69da0a1655a21b0c8d31e933295984f35fec993/spring-integration-core-4.0.0.RC1.jar!/META-INF/spring.integration.default.properties]
+2014-04-17 19:11:50,758 INFO [org.springframework.integration.config.IntegrationRegistrar] - No bean named 'integrationHeaderChannelRegistry' has been explicitly defined. Therefore, a default DefaultHeaderChannelRegistry will be created.
+2014-04-17 19:11:50,906 INFO [org.springframework.integration.config.DefaultConfiguringBeanFactoryPostProcessor] - No bean named 'errorChannel' has been explicitly defined. Therefore, a default PublishSubscribeChannel will be created.
+2014-04-17 19:11:50,908 INFO [org.springframework.integration.config.DefaultConfiguringBeanFactoryPostProcessor] - No bean named 'taskScheduler' has been explicitly defined. Therefore, a default ThreadPoolTaskScheduler will be created.
+2014-04-17 19:11:50,915 INFO [org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor] - JSR-330 'javax.inject.Inject' annotation found and supported for autowiring
+2014-04-17 19:11:50,977 INFO [org.springframework.beans.factory.config.PropertiesFactoryBean] - Loading properties file from URL [jar:file:/C:/Users/artembilan/.gradle/caches/modules-2/files-2.1/org.springframework.integration/spring-integration-core/4.0.0.RC1/c69da0a1655a21b0c8d31e933295984f35fec993/spring-integration-core-4.0.0.RC1.jar!/META-INF/spring.integration.default.properties]
+2014-04-17 19:11:50,979 INFO [org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker] - Bean 'integrationGlobalProperties' of type [class org.springframework.beans.factory.config.PropertiesFactoryBean] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2014-04-17 19:11:50,980 INFO [org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker] - Bean 'integrationGlobalProperties' of type [class java.util.Properties] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2014-04-17 19:11:50,986 INFO [org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker] - Bean 'messageBuilderFactory' of type [class org.springframework.integration.support.DefaultMessageBuilderFactory] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2014-04-17 19:11:51,038 INFO [org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker] - Bean '(inner bean)#653fbbfc' of type [class org.springframework.integration.channel.MessagePublishingErrorHandler] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2014-04-17 19:11:51,039 INFO [org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler] - Initializing ExecutorService  'taskScheduler'
+2014-04-17 19:11:51,041 INFO [org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker] - Bean 'taskScheduler' of type [class org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2014-04-17 19:11:51,041 INFO [org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker] - Bean 'integrationHeaderChannelRegistry' of type [class org.springframework.integration.channel.DefaultHeaderChannelRegistry] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2014-04-17 19:11:51,061 INFO [org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker] - Bean '(inner bean)#318155b1' of type [class org.springframework.security.access.annotation.SecuredAnnotationSecurityMetadataSource] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2014-04-17 19:11:51,074 INFO [org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker] - Bean 'org.springframework.security.access.method.DelegatingMethodSecurityMetadataSource#0' of type [class org.springframework.security.access.method.DelegatingMethodSecurityMetadataSource] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2014-04-17 19:11:51,080 INFO [org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker] - Bean 'org.springframework.security.methodSecurityMetadataSourceAdvisor' of type [class org.springframework.security.access.intercept.aopalliance.MethodSecurityMetadataSourceAdvisor] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2014-04-17 19:11:51,250 INFO [org.springframework.beans.factory.config.PropertiesFactoryBean] - Loading properties file from class path resource [users.properties]
+2014-04-17 19:11:52,016 INFO [org.springframework.security.web.DefaultSecurityFilterChain] - Creating filter chain: org.springframework.security.web.util.matcher.AnyRequestMatcher@1, [org.springframework.security.web.context.SecurityContextPersistenceFilter@1aa7d66e, org.springframework.security.web.authentication.logout.LogoutFilter@5cc85ffc, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@189f2184, org.springframework.security.web.authentication.ui.DefaultLoginPageGeneratingFilter@57386162, org.springframework.security.web.authentication.www.BasicAuthenticationFilter@7388d94d, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@6da14f7f, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@c53c04e, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@18f493d7, org.springframework.security.web.session.SessionManagementFilter@2d036335, org.springframework.security.web.access.ExceptionTranslationFilter@4a3e1b5d, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@587df3e4]
+2014-04-17 19:11:52,332 INFO [org.springframework.oxm.jaxb.Jaxb2Marshaller] - Creating JAXBContext with context path [org.springframework.integration.samples.rest.domain]
+2014-04-17 19:11:52,486 WARN [org.springframework.web.servlet.view.ContentNegotiatingViewResolver] - Did not find any ViewResolvers to delegate to; please configure them using the 'viewResolvers' property on the ContentNegotiatingViewResolver
+2014-04-17 19:11:52,607 INFO [org.springframework.context.support.DefaultLifecycleProcessor] - Starting beans in phase -2147483648
+2014-04-17 19:11:52,609 INFO [org.springframework.context.support.DefaultLifecycleProcessor] - Starting beans in phase 0
+2014-04-17 19:11:52,612 INFO [org.springframework.integration.http.inbound.HttpRequestHandlingController] - started inboundEmployeeSearchRequestGateway
+2014-04-17 19:11:52,612 INFO [org.springframework.integration.endpoint.EventDrivenConsumer] - Adding {service-activator:employeeServiceActivator} as a subscriber to the 'employeeSearchRequest' channel
+2014-04-17 19:11:52,613 INFO [org.springframework.integration.channel.DirectChannel] - Channel 'org.springframework.web.context.WebApplicationContext:/rest-http.employeeSearchRequest' has 1 subscriber(s).
+2014-04-17 19:11:52,614 INFO [org.springframework.integration.endpoint.EventDrivenConsumer] - started employeeServiceActivator
+2014-04-17 19:11:52,614 INFO [org.springframework.integration.endpoint.EventDrivenConsumer] - Adding {logging-channel-adapter:_org.springframework.integration.errorLogger} as a subscriber to the 'errorChannel' channel
+2014-04-17 19:11:52,615 INFO [org.springframework.integration.channel.PublishSubscribeChannel] - Channel 'org.springframework.web.context.WebApplicationContext:/rest-http.errorChannel' has 1 subscriber(s).
+2014-04-17 19:11:52,616 INFO [org.springframework.integration.endpoint.EventDrivenConsumer] - started _org.springframework.integration.errorLogger
+2014-04-17 19:11:52,624 INFO [org.springframework.integration.http.inbound.IntegrationRequestMappingHandlerMapping] - Mapped "{[/services/employee/{id}/search],methods=[GET || POST],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public abstract void org.springframework.web.HttpRequestHandler.handleRequest(javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse) throws javax.servlet.ServletException,java.io.IOException
+2014-04-17 19:11:52,628 INFO [org.springframework.web.context.ContextLoader] - Root WebApplicationContext: initialization completed in 2216 ms
+2014-04-17 19:11:52,679 INFO [org.springframework.web.servlet.DispatcherServlet] - FrameworkServlet 'Spring Integration Rest HTTP Path Usage': initialization started
+2014-04-17 19:11:52,682 INFO [org.springframework.web.context.support.XmlWebApplicationContext] - Refreshing WebApplicationContext for namespace 'Spring Integration Rest HTTP Path Usage-servlet': startup date [Thu Apr 17 19:11:52 EEST 2014]; parent: Root WebApplicationContext
+2014-04-17 19:11:52,702 INFO [org.springframework.web.servlet.DispatcherServlet] - FrameworkServlet 'Spring Integration Rest HTTP Path Usage': initialization completed in 22 ms
+2014-04-17 19:12:02,929 WARN [org.springframework.web.servlet.PageNotFound] - No mapping found for HTTP request with URI [/rest-http/] in DispatcherServlet with name 'Spring Integration Rest HTTP Path Usage'
+2014-04-17 19:18:09,597 INFO [org.springframework.integration.endpoint.EventDrivenConsumer] - Adding {bridge:null} as a subscriber to the 'employeeSearchResponse' channel
+2014-04-17 19:18:09,598 INFO [org.springframework.integration.channel.DirectChannel] - Channel 'org.springframework.web.context.WebApplicationContext:/rest-http.employeeSearchResponse' has 1 subscriber(s).
+2014-04-17 19:18:09,599 INFO [org.springframework.integration.endpoint.EventDrivenConsumer] - started org.springframework.integration.endpoint.EventDrivenConsumer@61063288
+2014-04-17 19:18:09,622 WARN [org.springframework.integration.http.inbound.HttpRequestHandlingController] - failure occurred in gateway sendAndReceive
+org.springframework.messaging.MessageHandlingException: org.springframework.security.access.AccessDeniedException: Access is denied
+	at org.springframework.integration.handler.MethodInvokingMessageProcessor.processMessage(MethodInvokingMessageProcessor.java:78)
+	at org.springframework.integration.handler.ServiceActivatingHandler.handleRequestMessage(ServiceActivatingHandler.java:71)
+	at org.springframework.integration.handler.AbstractReplyProducingMessageHandler.handleMessageInternal(AbstractReplyProducingMessageHandler.java:170)
+	at org.springframework.integration.handler.AbstractMessageHandler.handleMessage(AbstractMessageHandler.java:78)
+	at org.springframework.integration.dispatcher.AbstractDispatcher.tryOptimizedDispatch(AbstractDispatcher.java:116)
+	at org.springframework.integration.dispatcher.UnicastingDispatcher.doDispatch(UnicastingDispatcher.java:101)
+	at org.springframework.integration.dispatcher.UnicastingDispatcher.dispatch(UnicastingDispatcher.java:97)
+	at org.springframework.integration.channel.AbstractSubscribableChannel.doSend(AbstractSubscribableChannel.java:77)
+	at org.springframework.integration.channel.AbstractMessageChannel.send(AbstractMessageChannel.java:255)
+	at org.springframework.messaging.core.GenericMessagingTemplate.doSend(GenericMessagingTemplate.java:114)
+	at org.springframework.messaging.core.GenericMessagingTemplate.doSendAndReceive(GenericMessagingTemplate.java:154)
+	at org.springframework.messaging.core.GenericMessagingTemplate.doSendAndReceive(GenericMessagingTemplate.java:44)
+	at org.springframework.messaging.core.AbstractMessagingTemplate.sendAndReceive(AbstractMessagingTemplate.java:75)
+	at org.springframework.integration.gateway.MessagingGatewaySupport.doSendAndReceive(MessagingGatewaySupport.java:250)
+	at org.springframework.integration.gateway.MessagingGatewaySupport.sendAndReceiveMessage(MessagingGatewaySupport.java:224)
+	at org.springframework.integration.http.inbound.HttpRequestHandlingEndpointSupport.actualDoHandleRequest(HttpRequestHandlingEndpointSupport.java:505)
+	at org.springframework.integration.http.inbound.HttpRequestHandlingEndpointSupport.doHandleRequest(HttpRequestHandlingEndpointSupport.java:408)
+	at org.springframework.integration.http.inbound.HttpRequestHandlingController.handleRequest(HttpRequestHandlingController.java:150)
+	at org.springframework.web.servlet.mvc.SimpleControllerHandlerAdapter.handle(SimpleControllerHandlerAdapter.java:50)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:938)
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:870)
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:961)
+	at org.springframework.web.servlet.FrameworkServlet.doGet(FrameworkServlet.java:852)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:707)
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:837)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:820)
+	at org.mortbay.jetty.servlet.ServletHolder.handle(ServletHolder.java:511)
+	at org.mortbay.jetty.servlet.ServletHandler$CachedChain.doFilter(ServletHandler.java:1166)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:330)
+	at org.springframework.security.web.access.intercept.FilterSecurityInterceptor.invoke(FilterSecurityInterceptor.java:118)
+	at org.springframework.security.web.access.intercept.FilterSecurityInterceptor.doFilter(FilterSecurityInterceptor.java:84)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:342)
+	at org.springframework.security.web.access.ExceptionTranslationFilter.doFilter(ExceptionTranslationFilter.java:113)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:342)
+	at org.springframework.security.web.session.SessionManagementFilter.doFilter(SessionManagementFilter.java:103)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:342)
+	at org.springframework.security.web.authentication.AnonymousAuthenticationFilter.doFilter(AnonymousAuthenticationFilter.java:113)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:342)
+	at org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter.doFilter(SecurityContextHolderAwareRequestFilter.java:154)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:342)
+	at org.springframework.security.web.savedrequest.RequestCacheAwareFilter.doFilter(RequestCacheAwareFilter.java:45)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:342)
+	at org.springframework.security.web.authentication.www.BasicAuthenticationFilter.doFilter(BasicAuthenticationFilter.java:150)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:342)
+	at org.springframework.security.web.authentication.ui.DefaultLoginPageGeneratingFilter.doFilter(DefaultLoginPageGeneratingFilter.java:155)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:342)
+	at org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter.doFilter(AbstractAuthenticationProcessingFilter.java:199)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:342)
+	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:110)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:342)
+	at org.springframework.security.web.context.SecurityContextPersistenceFilter.doFilter(SecurityContextPersistenceFilter.java:87)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:342)
+	at org.springframework.security.web.FilterChainProxy.doFilterInternal(FilterChainProxy.java:192)
+	at org.springframework.security.web.FilterChainProxy.doFilter(FilterChainProxy.java:160)
+	at org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:344)
+	at org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:261)
+	at org.mortbay.jetty.servlet.ServletHandler$CachedChain.doFilter(ServletHandler.java:1157)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:88)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:108)
+	at org.mortbay.jetty.servlet.ServletHandler$CachedChain.doFilter(ServletHandler.java:1157)
+	at org.mortbay.jetty.servlet.ServletHandler.handle(ServletHandler.java:388)
+	at org.mortbay.jetty.security.SecurityHandler.handle(SecurityHandler.java:216)
+	at org.mortbay.jetty.servlet.SessionHandler.handle(SessionHandler.java:182)
+	at org.mortbay.jetty.handler.ContextHandler.handle(ContextHandler.java:765)
+	at org.mortbay.jetty.webapp.WebAppContext.handle(WebAppContext.java:440)
+	at org.mortbay.jetty.handler.ContextHandlerCollection.handle(ContextHandlerCollection.java:230)
+	at org.mortbay.jetty.handler.HandlerCollection.handle(HandlerCollection.java:114)
+	at org.mortbay.jetty.handler.HandlerWrapper.handle(HandlerWrapper.java:152)
+	at org.mortbay.jetty.Server.handle(Server.java:326)
+	at org.mortbay.jetty.HttpConnection.handleRequest(HttpConnection.java:542)
+	at org.mortbay.jetty.HttpConnection$RequestHandler.headerComplete(HttpConnection.java:926)
+	at org.mortbay.jetty.HttpParser.parseNext(HttpParser.java:549)
+	at org.mortbay.jetty.HttpParser.parseAvailable(HttpParser.java:212)
+	at org.mortbay.jetty.HttpConnection.handle(HttpConnection.java:404)
+	at org.mortbay.io.nio.SelectChannelEndPoint.run(SelectChannelEndPoint.java:410)
+	at org.mortbay.thread.QueuedThreadPool$PoolThread.run(QueuedThreadPool.java:582)
+Caused by: org.springframework.security.access.AccessDeniedException: Access is denied
+	at org.springframework.security.access.vote.AffirmativeBased.decide(AffirmativeBased.java:83)
+	at org.springframework.security.access.intercept.AbstractSecurityInterceptor.beforeInvocation(AbstractSecurityInterceptor.java:206)
+	at org.springframework.security.access.intercept.aopalliance.MethodSecurityInterceptor.invoke(MethodSecurityInterceptor.java:60)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:179)
+	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:644)
+	at org.springframework.integration.samples.rest.service.EmployeeSearchService$$EnhancerBySpringCGLIB$$3f3a4466.getEmployee(<generated>)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:483)
+	at org.springframework.expression.spel.support.ReflectiveMethodExecutor.execute(ReflectiveMethodExecutor.java:63)
+	at org.springframework.expression.spel.ast.MethodReference.getValueInternal(MethodReference.java:122)
+	at org.springframework.expression.spel.ast.MethodReference.access$000(MethodReference.java:44)
+	at org.springframework.expression.spel.ast.MethodReference$MethodValueRef.getValue(MethodReference.java:258)
+	at org.springframework.expression.spel.ast.CompoundExpression.getValueInternal(CompoundExpression.java:84)
+	at org.springframework.expression.spel.ast.SpelNodeImpl.getTypedValue(SpelNodeImpl.java:114)
+	at org.springframework.expression.spel.standard.SpelExpression.getValue(SpelExpression.java:111)
+	at org.springframework.integration.util.AbstractExpressionEvaluator.evaluateExpression(AbstractExpressionEvaluator.java:159)
+	at org.springframework.integration.util.MessagingMethodInvokerHelper.processInternal(MessagingMethodInvokerHelper.java:268)
+	at org.springframework.integration.util.MessagingMethodInvokerHelper.process(MessagingMethodInvokerHelper.java:142)
+	at org.springframework.integration.handler.MethodInvokingMessageProcessor.processMessage(MethodInvokingMessageProcessor.java:75)
+	... 75 more
+2014-04-17 19:20:29,108 WARN [org.springframework.integration.http.inbound.HttpRequestHandlingController] - failure occurred in gateway sendAndReceive
+org.springframework.messaging.MessageHandlingException: org.springframework.security.access.AccessDeniedException: Access is denied
+	at org.springframework.integration.handler.MethodInvokingMessageProcessor.processMessage(MethodInvokingMessageProcessor.java:78)
+	at org.springframework.integration.handler.ServiceActivatingHandler.handleRequestMessage(ServiceActivatingHandler.java:71)
+	at org.springframework.integration.handler.AbstractReplyProducingMessageHandler.handleMessageInternal(AbstractReplyProducingMessageHandler.java:170)
+	at org.springframework.integration.handler.AbstractMessageHandler.handleMessage(AbstractMessageHandler.java:78)
+	at org.springframework.integration.dispatcher.AbstractDispatcher.tryOptimizedDispatch(AbstractDispatcher.java:116)
+	at org.springframework.integration.dispatcher.UnicastingDispatcher.doDispatch(UnicastingDispatcher.java:101)
+	at org.springframework.integration.dispatcher.UnicastingDispatcher.dispatch(UnicastingDispatcher.java:97)
+	at org.springframework.integration.channel.AbstractSubscribableChannel.doSend(AbstractSubscribableChannel.java:77)
+	at org.springframework.integration.channel.AbstractMessageChannel.send(AbstractMessageChannel.java:255)
+	at org.springframework.messaging.core.GenericMessagingTemplate.doSend(GenericMessagingTemplate.java:114)
+	at org.springframework.messaging.core.GenericMessagingTemplate.doSendAndReceive(GenericMessagingTemplate.java:154)
+	at org.springframework.messaging.core.GenericMessagingTemplate.doSendAndReceive(GenericMessagingTemplate.java:44)
+	at org.springframework.messaging.core.AbstractMessagingTemplate.sendAndReceive(AbstractMessagingTemplate.java:75)
+	at org.springframework.integration.gateway.MessagingGatewaySupport.doSendAndReceive(MessagingGatewaySupport.java:250)
+	at org.springframework.integration.gateway.MessagingGatewaySupport.sendAndReceiveMessage(MessagingGatewaySupport.java:224)
+	at org.springframework.integration.http.inbound.HttpRequestHandlingEndpointSupport.actualDoHandleRequest(HttpRequestHandlingEndpointSupport.java:505)
+	at org.springframework.integration.http.inbound.HttpRequestHandlingEndpointSupport.doHandleRequest(HttpRequestHandlingEndpointSupport.java:408)
+	at org.springframework.integration.http.inbound.HttpRequestHandlingController.handleRequest(HttpRequestHandlingController.java:150)
+	at org.springframework.web.servlet.mvc.SimpleControllerHandlerAdapter.handle(SimpleControllerHandlerAdapter.java:50)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:938)
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:870)
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:961)
+	at org.springframework.web.servlet.FrameworkServlet.doGet(FrameworkServlet.java:852)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:707)
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:837)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:820)
+	at org.mortbay.jetty.servlet.ServletHolder.handle(ServletHolder.java:511)
+	at org.mortbay.jetty.servlet.ServletHandler$CachedChain.doFilter(ServletHandler.java:1166)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:330)
+	at org.springframework.security.web.access.intercept.FilterSecurityInterceptor.invoke(FilterSecurityInterceptor.java:118)
+	at org.springframework.security.web.access.intercept.FilterSecurityInterceptor.doFilter(FilterSecurityInterceptor.java:84)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:342)
+	at org.springframework.security.web.access.ExceptionTranslationFilter.doFilter(ExceptionTranslationFilter.java:113)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:342)
+	at org.springframework.security.web.session.SessionManagementFilter.doFilter(SessionManagementFilter.java:103)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:342)
+	at org.springframework.security.web.authentication.AnonymousAuthenticationFilter.doFilter(AnonymousAuthenticationFilter.java:113)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:342)
+	at org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter.doFilter(SecurityContextHolderAwareRequestFilter.java:154)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:342)
+	at org.springframework.security.web.savedrequest.RequestCacheAwareFilter.doFilter(RequestCacheAwareFilter.java:45)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:342)
+	at org.springframework.security.web.authentication.www.BasicAuthenticationFilter.doFilter(BasicAuthenticationFilter.java:150)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:342)
+	at org.springframework.security.web.authentication.ui.DefaultLoginPageGeneratingFilter.doFilter(DefaultLoginPageGeneratingFilter.java:155)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:342)
+	at org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter.doFilter(AbstractAuthenticationProcessingFilter.java:199)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:342)
+	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:110)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:342)
+	at org.springframework.security.web.context.SecurityContextPersistenceFilter.doFilter(SecurityContextPersistenceFilter.java:87)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:342)
+	at org.springframework.security.web.FilterChainProxy.doFilterInternal(FilterChainProxy.java:192)
+	at org.springframework.security.web.FilterChainProxy.doFilter(FilterChainProxy.java:160)
+	at org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:344)
+	at org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:261)
+	at org.mortbay.jetty.servlet.ServletHandler$CachedChain.doFilter(ServletHandler.java:1157)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:88)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:108)
+	at org.mortbay.jetty.servlet.ServletHandler$CachedChain.doFilter(ServletHandler.java:1157)
+	at org.mortbay.jetty.servlet.ServletHandler.handle(ServletHandler.java:388)
+	at org.mortbay.jetty.security.SecurityHandler.handle(SecurityHandler.java:216)
+	at org.mortbay.jetty.servlet.SessionHandler.handle(SessionHandler.java:182)
+	at org.mortbay.jetty.handler.ContextHandler.handle(ContextHandler.java:765)
+	at org.mortbay.jetty.webapp.WebAppContext.handle(WebAppContext.java:440)
+	at org.mortbay.jetty.handler.ContextHandlerCollection.handle(ContextHandlerCollection.java:230)
+	at org.mortbay.jetty.handler.HandlerCollection.handle(HandlerCollection.java:114)
+	at org.mortbay.jetty.handler.HandlerWrapper.handle(HandlerWrapper.java:152)
+	at org.mortbay.jetty.Server.handle(Server.java:326)
+	at org.mortbay.jetty.HttpConnection.handleRequest(HttpConnection.java:542)
+	at org.mortbay.jetty.HttpConnection$RequestHandler.headerComplete(HttpConnection.java:926)
+	at org.mortbay.jetty.HttpParser.parseNext(HttpParser.java:549)
+	at org.mortbay.jetty.HttpParser.parseAvailable(HttpParser.java:212)
+	at org.mortbay.jetty.HttpConnection.handle(HttpConnection.java:404)
+	at org.mortbay.io.nio.SelectChannelEndPoint.run(SelectChannelEndPoint.java:410)
+	at org.mortbay.thread.QueuedThreadPool$PoolThread.run(QueuedThreadPool.java:582)
+Caused by: org.springframework.security.access.AccessDeniedException: Access is denied
+	at org.springframework.security.access.vote.AffirmativeBased.decide(AffirmativeBased.java:83)
+	at org.springframework.security.access.intercept.AbstractSecurityInterceptor.beforeInvocation(AbstractSecurityInterceptor.java:206)
+	at org.springframework.security.access.intercept.aopalliance.MethodSecurityInterceptor.invoke(MethodSecurityInterceptor.java:60)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:179)
+	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:644)
+	at org.springframework.integration.samples.rest.service.EmployeeSearchService$$EnhancerBySpringCGLIB$$3f3a4466.getEmployee(<generated>)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:483)
+	at org.springframework.expression.spel.support.ReflectiveMethodExecutor.execute(ReflectiveMethodExecutor.java:63)
+	at org.springframework.expression.spel.ast.MethodReference.getValueInternal(MethodReference.java:95)
+	at org.springframework.expression.spel.ast.MethodReference.access$000(MethodReference.java:44)
+	at org.springframework.expression.spel.ast.MethodReference$MethodValueRef.getValue(MethodReference.java:258)
+	at org.springframework.expression.spel.ast.CompoundExpression.getValueInternal(CompoundExpression.java:84)
+	at org.springframework.expression.spel.ast.SpelNodeImpl.getTypedValue(SpelNodeImpl.java:114)
+	at org.springframework.expression.spel.standard.SpelExpression.getValue(SpelExpression.java:111)
+	at org.springframework.integration.util.AbstractExpressionEvaluator.evaluateExpression(AbstractExpressionEvaluator.java:159)
+	at org.springframework.integration.util.MessagingMethodInvokerHelper.processInternal(MessagingMethodInvokerHelper.java:268)
+	at org.springframework.integration.util.MessagingMethodInvokerHelper.process(MessagingMethodInvokerHelper.java:142)
+	at org.springframework.integration.handler.MethodInvokingMessageProcessor.processMessage(MethodInvokingMessageProcessor.java:75)
+	... 75 more
+2014-04-17 19:22:37,330 WARN [org.springframework.web.servlet.PageNotFound] - No mapping found for HTTP request with URI [/rest-http/services] in DispatcherServlet with name 'Spring Integration Rest HTTP Path Usage'
+2014-04-17 19:22:46,728 WARN [org.springframework.web.servlet.PageNotFound] - No mapping found for HTTP request with URI [/rest-http/] in DispatcherServlet with name 'Spring Integration Rest HTTP Path Usage'
+2014-04-17 19:24:05,011 INFO [org.springframework.web.context.support.XmlWebApplicationContext] - Closing WebApplicationContext for namespace 'Spring Integration Rest HTTP Path Usage-servlet': startup date [Thu Apr 17 19:11:52 EEST 2014]; parent: Root WebApplicationContext
+2014-04-17 19:24:05,015 INFO [org.springframework.web.context.support.XmlWebApplicationContext] - Closing Root WebApplicationContext: startup date [Thu Apr 17 19:11:50 EEST 2014]; root of context hierarchy
+2014-04-17 19:24:05,016 INFO [org.springframework.context.support.DefaultLifecycleProcessor] - Stopping beans in phase 0
+2014-04-17 19:24:05,017 INFO [org.springframework.integration.endpoint.EventDrivenConsumer] - Removing {bridge:null} as a subscriber to the 'employeeSearchResponse' channel
+2014-04-17 19:24:05,017 INFO [org.springframework.integration.channel.DirectChannel] - Channel 'org.springframework.web.context.WebApplicationContext:/rest-http.employeeSearchResponse' has 0 subscriber(s).
+2014-04-17 19:24:05,018 INFO [org.springframework.integration.endpoint.EventDrivenConsumer] - stopped org.springframework.integration.endpoint.EventDrivenConsumer@61063288
+2014-04-17 19:24:05,018 INFO [org.springframework.integration.http.inbound.HttpRequestHandlingController] - stopped inboundEmployeeSearchRequestGateway
+2014-04-17 19:24:05,018 INFO [org.springframework.integration.endpoint.EventDrivenConsumer] - Removing {service-activator:employeeServiceActivator} as a subscriber to the 'employeeSearchRequest' channel
+2014-04-17 19:24:05,019 INFO [org.springframework.integration.channel.DirectChannel] - Channel 'org.springframework.web.context.WebApplicationContext:/rest-http.employeeSearchRequest' has 0 subscriber(s).
+2014-04-17 19:24:05,019 INFO [org.springframework.integration.endpoint.EventDrivenConsumer] - stopped employeeServiceActivator
+2014-04-17 19:24:05,020 INFO [org.springframework.integration.endpoint.EventDrivenConsumer] - Removing {logging-channel-adapter:_org.springframework.integration.errorLogger} as a subscriber to the 'errorChannel' channel
+2014-04-17 19:24:05,020 INFO [org.springframework.integration.channel.PublishSubscribeChannel] - Channel 'org.springframework.web.context.WebApplicationContext:/rest-http.errorChannel' has 0 subscriber(s).
+2014-04-17 19:24:05,020 INFO [org.springframework.integration.endpoint.EventDrivenConsumer] - stopped _org.springframework.integration.errorLogger
+2014-04-17 19:24:05,021 INFO [org.springframework.context.support.DefaultLifecycleProcessor] - Stopping beans in phase -2147483648
+2014-04-17 19:24:05,026 INFO [org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler] - Shutting down ExecutorService 'taskScheduler'

@@ -20,7 +20,7 @@
 
 	<int:gateway id="gateway" default-request-timeout="4000"
 		default-reply-timeout="4000"
-		service-interface="org.springframework.integration.service.CoffeeService">
+		service-interface="org.springframework.integration.samples.storedprocedure.service.CoffeeService">
 		<int:method name="findCoffeeBeverage" request-channel="findCoffeeProcedureRequestChannel" />
 		<int:method name="findAllCoffeeBeverages" request-channel="findAllProcedureRequestChannel" />
 	</int:gateway>
@@ -39,17 +39,19 @@
 		request-channel="findAllProcedureRequestChannel" is-function="true"
 		stored-procedure-name="FIND_ALL_COFFEE_BEVERAGES"
 		expect-single-result="true" >
-		<int-jdbc:returning-resultset name="ref" row-mapper="org.springframework.integration.support.CoffeBeverageMapper" />
+		<int-jdbc:returning-resultset name="ref" row-mapper="coffeBeverageMapper" />
 	</int-jdbc:stored-proc-outbound-gateway>
 
 	<int-jdbc:stored-proc-inbound-channel-adapter auto-startup="true"
 		id="inbound-channel-adapter-find-all" data-source="dataSource"
 		channel="loggit" expect-single-result="true" is-function="true"
 		stored-procedure-name="FIND_ALL_COFFEE_BEVERAGES">
-		<int-jdbc:returning-resultset name="ref" row-mapper="org.springframework.integration.support.CoffeBeverageMapper"/>
+		<int-jdbc:returning-resultset name="ref" row-mapper="coffeBeverageMapper"/>
 	</int-jdbc:stored-proc-inbound-channel-adapter>
 
 	<int:logging-channel-adapter id="loggit" log-full-message="true"/>
+
+	<bean id="coffeBeverageMapper" class="org.springframework.integration.samples.storedprocedure.support.CoffeBeverageMapper"/>
 
 	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
 		<property name="dataSource" ref="dataSource"/>

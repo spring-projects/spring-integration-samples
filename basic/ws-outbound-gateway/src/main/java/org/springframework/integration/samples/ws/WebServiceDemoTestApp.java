@@ -39,8 +39,8 @@ public class WebServiceDemoTestApp {
 
 		// Compose the XML message according to the server's schema
 		String requestXml =
-				"<FahrenheitToCelsius xmlns=\"http://tempuri.org/\">" +
-				"    <Fahrenheit>90.0</Fahrenheit>" +
+				"<FahrenheitToCelsius xmlns=\"http://www.w3schools.com/webservices/\">" +
+						"<Fahrenheit>90.0</Fahrenheit>" +
 				"</FahrenheitToCelsius>";
 
 		// Create the Message object

@@ -1,36 +1,53 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-
-	<modelVersion>4.0.0</modelVersion>
-	<groupId>org.springframework.integration.samples</groupId>
-	<artifactId>intermediate-samples</artifactId>
-	<version>2.2.0.BUILD-SNAPSHOT</version>
-	<name>Spring Integration Samples - Intermediate</name>
-	<packaging>pom</packaging>
-
-	<prerequisites>
-		<maven>2.2.1</maven>
-	</prerequisites>
-
-	<modules>
-		<module>async-gateway</module>
-		<module>errorhandling</module>
-		<module>file-processing</module>
-		<module>multipart-http</module>
-		<module>rest-http</module>
-		<module>splitter-aggregator-reaper</module>
-		<module>stored-procedures-derby</module>
-		<module>tcp-client-server-multiplex</module>
-		<module>travel</module>
-		<module>mail-attachments</module>
-		<module>dynamic-poller</module>
-		<module>monitoring</module>
-		<module>retry-and-more</module>
-		<module>stored-procedures-ms</module>
-		<module>stored-procedures-oracle</module>
-		<module>stored-procedures-postgresql</module>
-		<module>tx-synch</module>
-	</modules>
-
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>org.springframework.integration.samples</groupId>
+  <artifactId>intermediate</artifactId>
+  <version>2.2.0.BUILD-SNAPSHOT</version>
+  <url>http://projects.spring.io/spring-integration</url>
+  <organization>
+    <name>SpringIO</name>
+    <url>https://spring.io</url>
+  </organization>
+  <licenses>
+    <license>
+      <name>The Apache Software License, Version 2.0</name>
+      <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+      <distribution>repo</distribution>
+    </license>
+  </licenses>
+  <developers>
+    <developer>
+      <id>garyrussell</id>
+      <name>Gary Russell</name>
+      <email>grussell@gopivotal.com</email>
+      <roles>
+        <role>project lead</role>
+      </roles>
+    </developer>
+    <developer>
+      <id>markfisher</id>
+      <name>Mark Fisher</name>
+      <email>mfisher@gopivotal.com</email>
+      <roles>
+        <role>project founder and lead emeritus</role>
+      </roles>
+    </developer>
+    <developer>
+      <id>ghillert</id>
+      <name>Gunnar Hillert</name>
+      <email>ghillert@gopivotal.com</email>
+    </developer>
+    <developer>
+      <id>abilan</id>
+      <name>Artem Bilan</name>
+      <email>abilan@gopivotal.com</email>
+    </developer>
+  </developers>
+  <scm>
+    <connection>scm:git:scm:git:git://github.com/spring-projects/spring-integration-samples.git</connection>
+    <developerConnection>scm:git:scm:git:ssh://git@github.com:spring-projects/spring-integration-samples.git</developerConnection>
+    <url>https://github.com/spring-projects/spring-integration-samples</url>
+  </scm>
 </project>
