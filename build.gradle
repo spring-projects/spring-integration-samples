@@ -12,6 +12,15 @@ ext {
 	linkScmDevConnection = 'scm:git:ssh://git@github.com:spring-projects/spring-integration-samples.git'
 }
 
+buildscript {
+	repositories {
+		maven { url "http://repo.spring.io/libs-milestone" }
+	}
+	dependencies {
+		classpath("org.springframework.boot:spring-boot-gradle-plugin:$springBootVersion")
+	}
+}
+
 allprojects {
 	group = 'org.springframework.integration.samples'
 }
@@ -101,6 +110,23 @@ subprojects { subproject ->
 					}
 				}
 
+				if (subproject.plugins.hasPlugin('spring-boot')) {
+					parent {
+						groupId = 'org.springframework.boot'
+						artifactId = 'spring-boot-starter-parent'
+						version = springBootVersion
+					}
+
+					build {
+						plugins {
+							plugin {
+								groupId = 'org.springframework.boot'
+								artifactId = 'spring-boot-maven-plugin'
+							}
+						}
+					}
+		}
+
 			}
 		}.writeTo('pom.xml')
 	}
@@ -161,6 +187,7 @@ subprojects { subproject ->
 			subethasmtpVersion = '1.2'
 			slf4jVersion = '1.7.6'
 			springIntegrationVersion = '4.0.0.RELEASE'
+			springIntegrationDslVersion = '1.0.0.M1'
 			springVersion = '4.0.4.RELEASE'
 			springSecurityVersion = '3.2.3.RELEASE'
 			springWebFlowVersion = '2.3.3.RELEASE'
@@ -456,6 +483,24 @@ project('http') {
 		compile "commons-fileupload:commons-fileupload:$commonsFileUploadVersion"
 		compile "commons-io:commons-io:$commonsIoVersion"
 		compile "javax.mail:javax.mail-api:$javaxMailVersion"
+	}
+
+}
+
+project('javaconfig') {
+	description = 'Java Configuration/DSL Sample'
+
+	apply plugin: 'spring-boot'
+
+	sourceCompatibility = 1.8
+
+	dependencies {
+		compile 'org.springframework.boot:spring-boot-starter-web'
+		compile 'org.springframework.boot:spring-boot-starter-integration'
+		compile "org.springframework.integration:spring-integration-twitter:$springIntegrationVersion"
+		compile "org.springframework.integration:spring-integration-java-dsl:$springIntegrationDslVersion"
+
+		testCompile 'org.springframework.boot:spring-boot-starter-test'
 	}
 
 }
