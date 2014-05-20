@@ -21,16 +21,16 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.messaging.Message;
-import org.springframework.messaging.MessageChannel;
 import org.springframework.integration.endpoint.SourcePollingChannelAdapter;
-import org.springframework.integration.model.TwitterMessage;
+import org.springframework.integration.samples.storedprocedure.model.TwitterMessage;
 import org.springframework.integration.monitor.IntegrationMBeanExporter;
 import org.springframework.integration.service.TwitterService;
 import org.springframework.integration.support.MessageBuilder;
 import org.springframework.jmx.export.annotation.ManagedMetric;
 import org.springframework.jmx.export.annotation.ManagedResource;
 import org.springframework.jmx.support.MetricType;
+import org.springframework.messaging.Message;
+import org.springframework.messaging.MessageChannel;
 import org.springframework.social.twitter.api.Tweet;
 import org.springframework.stereotype.Service;
 

@@ -27,6 +27,8 @@ import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMResult;
 import javax.xml.transform.dom.DOMSource;
 
+import org.w3c.dom.Document;
+
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.oxm.Marshaller;
 import org.springframework.oxm.MarshallingFailureException;
@@ -35,26 +37,27 @@ import org.springframework.oxm.XmlMappingException;
 import org.springframework.xml.transform.StringResult;
 import org.springframework.xml.transform.StringSource;
 import org.springframework.xml.xpath.XPathExpressionFactory;
-import org.w3c.dom.Document;
-
-import com.sun.org.apache.xalan.internal.xsltc.trax.TransformerFactoryImpl;
 /**
- * 
+ *
  * @author Oleg Zhurakousky
  * @author Mark Fisher
  * @since SpringOne2GX - 2010, Chicago
  */
 public class WeatherMarshaller implements Marshaller, Unmarshaller, InitializingBean {
-	private Map<String, String> namespacePrefixes = new HashMap<String, String>();	
+
+	private static final TransformerFactory transformerFactory = TransformerFactory.newInstance();
+
+	private Map<String, String> namespacePrefixes = new HashMap<String, String>();
+
 	private String xpathPrefix = "/p:GetCityWeatherByZIPResponse/p:GetCityWeatherByZIPResult/";
 
 	public Object unmarshal(Source source) throws IOException, XmlMappingException {
-		
+
 		//this.writeXml(((DOMSource)source).getNode().getOwnerDocument());
 		DOMResult result = null;
 		try {
-			Transformer transformer = new TransformerFactoryImpl().newTransformer();
-			result = new DOMResult();		
+			Transformer transformer = transformerFactory.newTransformer();
+			result = new DOMResult();
 			transformer.transform(source, result);
 		} catch (Exception e) {
 			throw new MarshallingFailureException("Failed to unmarshal SOAP Response", e);
@@ -86,13 +89,13 @@ public class WeatherMarshaller implements Marshaller, Unmarshaller, Initializing
 							"	<weat:ZIP>" + zip + "</weat:ZIP>" +
 							"</weat:GetCityWeatherByZIP>";
 		try {
-			Transformer transformer = new TransformerFactoryImpl().newTransformer();
+			Transformer transformer = transformerFactory.newTransformer();
 			transformer.transform(new StringSource(xmlString), result);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public static final void writeXml(Document document) {
 		Transformer transformer = createIndentingTransformer();
 
@@ -108,7 +111,7 @@ public class WeatherMarshaller implements Marshaller, Unmarshaller, Initializing
 	public static final Transformer createIndentingTransformer() {
 		Transformer xformer;
 		try {
-			xformer = TransformerFactory.newInstance().newTransformer();
+			xformer = transformerFactory.newTransformer();
 			xformer.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, "yes");
 			xformer.setOutputProperty(OutputKeys.ENCODING, "UTF-8");
 			xformer.setOutputProperty(OutputKeys.INDENT, "yes");
@@ -122,6 +125,6 @@ public class WeatherMarshaller implements Marshaller, Unmarshaller, Initializing
 	}
 
 	public void afterPropertiesSet() throws Exception {
-		namespacePrefixes.put("p", "http://ws.cdyne.com/WeatherWS/");	
+		namespacePrefixes.put("p", "http://ws.cdyne.com/WeatherWS/");
 	}
 }

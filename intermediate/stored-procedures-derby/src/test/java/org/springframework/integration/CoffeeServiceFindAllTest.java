@@ -16,14 +16,16 @@
 
 package org.springframework.integration;
 
+import static org.junit.Assert.assertTrue;
+
 import java.util.List;
 
 import org.junit.Test;
+
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
-import org.springframework.integration.model.CoffeeBeverage;
-import org.springframework.integration.service.CoffeeService;
-import static org.junit.Assert.assertTrue;
+import org.springframework.integration.samples.storedprocedure.model.CoffeeBeverage;
+import org.springframework.integration.samples.storedprocedure.service.CoffeeService;
 
 /**
  * @author Gunnar Hillert

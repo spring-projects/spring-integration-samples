@@ -107,9 +107,9 @@ END;
 ```SQL
 create or replace
 FUNCTION GET_COOL_NUMBER
-   RETURN NUMBER 
+   RETURN NUMBER
    IS cool_number NUMBER(11,2);
-BEGIN 
+BEGIN
    cool_number := 12345;
    RETURN cool_number;
 END;
@@ -124,15 +124,15 @@ END;
 
 You should see the following output:
 
-	16:05:19.556 INFO  [main][org.springframework.integration.Main]
+	16:05:19.556 INFO  [main][org.springframework.integration.samples.storedprocedure.Main]
 	=========================================================
-                                                         
+
 	          Welcome to Spring Integration's
 	     Stored Procedure/Function Sample for Oracle
-                                                         
+
 	    For more information please visit:
 	    http://www.springsource.org/spring-integration
-                                                         
+
 	=========================================================
 	Please enter a choice and press <enter>:
 		1. Execute Sample 1 (Capitalize String)
@@ -142,9 +142,9 @@ You should see the following output:
 Select **Opion 1**.
 
 	=========================================================
-                                                         
+
 	    Please press 'q + Enter' to quit the application.
-                                                         
+
 	=========================================================
 	Please enter a string and press <enter>: hello world
 	Converting String to Uppcase using Stored Procedure...
@@ -190,10 +190,10 @@ end;
 ```
 
 ```SQL
-create or replace 
+create or replace
 FUNCTION find_all_coffee_beverages return types.cursortype
 AS
-  l_cursor types.cursorType; 
+  l_cursor types.cursorType;
 BEGIN
   OPEN l_cursor FOR SELECT "ID", "COFFEE_NAME", "COFFEE_DESCRIPTION" FROM "COFFEE_BEVERAGES";
   RETURN l_cursor;
@@ -202,7 +202,7 @@ END;
 #### Find Specific Coffee Beverage
 
 ```SQL
-create or replace 
+create or replace
 FUNCTION find_coffee(coffee_id IN integer)
   RETURN VARCHAR2 is description VARCHAR2(1000);
 begin
@@ -211,7 +211,7 @@ begin
 end;
 ```
 ### Execute the Sample
-        
+
 * running the "Main" class from within STS (Right-click on Main class --> Run As --> Java Application)
 * or from the command line:
     - mvn package
@@ -219,15 +219,15 @@ end;
 
 You should see the following output:
 
-	16:05:19.556 INFO  [main][org.springframework.integration.Main]
+	16:05:19.556 INFO  [main][org.springframework.integration.samples.storedprocedure.Main]
 	=========================================================
-                                                         
+
 	          Welcome to Spring Integration's
 	     Stored Procedure/Function Sample for Oracle
-                                                         
+
 	    For more information please visit:
 	    http://www.springsource.org/spring-integration
-                                                         
+
 	=========================================================
 	Please enter a choice and press <enter>:
 		1. Execute Sample 1 (Capitalize String)

@@ -15,3 +15,5 @@ activemq-data
 .settings/
 
 
+/.gradle
+build/

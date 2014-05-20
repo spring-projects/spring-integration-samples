@@ -15,9 +15,9 @@
  */
 package org.springframework.integration.samples.jms;
 
-import junit.framework.Assert;
-
+import org.junit.Assert;
 import org.junit.Test;
+
 import org.springframework.context.support.GenericXmlApplicationContext;
 import org.springframework.messaging.Message;
 import org.springframework.messaging.MessageChannel;

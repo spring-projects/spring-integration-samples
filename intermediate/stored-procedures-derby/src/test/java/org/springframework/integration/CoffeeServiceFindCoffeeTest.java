@@ -16,11 +16,13 @@
 
 package org.springframework.integration;
 
+import static org.junit.Assert.assertEquals;
+
 import org.junit.Test;
+
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
-import org.springframework.integration.service.CoffeeService;
-import static org.junit.Assert.assertEquals;
+import org.springframework.integration.samples.storedprocedure.service.CoffeeService;
 
 /**
  * @author Gunnar Hillert
