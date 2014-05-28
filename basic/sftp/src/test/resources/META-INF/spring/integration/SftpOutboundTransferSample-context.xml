@@ -25,6 +25,6 @@
 				session-factory="sftpSessionFactory"
 				channel="inputChannel"
 				remote-filename-generator-expression="payload.getName() + '_foo'"
-				remote-directory="<SPECIFY REMOTE DIRECTORY (e.g., /{workspace}/samples/basic/sftp/remote-target-dir)>"/>
+				remote-directory="${remote.directory}"/>
 
 </beans>

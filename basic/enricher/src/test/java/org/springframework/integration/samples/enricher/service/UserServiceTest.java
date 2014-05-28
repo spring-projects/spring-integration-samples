@@ -16,13 +16,13 @@
 
 package org.springframework.integration.samples.enricher.service;
 
-import static junit.framework.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
+
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.integration.samples.enricher.User;
-import org.springframework.integration.samples.enricher.service.UserService;
 
 
 /**

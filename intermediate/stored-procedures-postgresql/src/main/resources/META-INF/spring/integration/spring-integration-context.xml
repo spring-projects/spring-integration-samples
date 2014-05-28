@@ -7,7 +7,7 @@
 	xmlns:tx="http://www.springframework.org/schema/tx"
 	xsi:schemaLocation="http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc.xsd
 		http://www.springframework.org/schema/integration http://www.springframework.org/schema/integration/spring-integration.xsd
-		http://www.springframework.org/schema/integration/jdbc http://www.springframework.org/schema/spring-integration-jdbc.xsd
+		http://www.springframework.org/schema/integration/jdbc http://www.springframework.org/schema/integration/jdbc/spring-integration-jdbc.xsd
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
 
@@ -27,7 +27,7 @@
 
 	<int:gateway id="gateway" default-request-timeout="4000"
 		default-reply-timeout="4000"
-		service-interface="org.springframework.integration.service.CoffeeService">
+		service-interface="org.springframework.integration.samples.storedprocedure.service.CoffeeService">
 		<int:method name="findCoffeeBeverage" request-channel="findCoffeeProcedureRequestChannel" />
 		<int:method name="findAllCoffeeBeverages" request-channel="findAllProcedureRequestChannel" />
 	</int:gateway>
@@ -46,15 +46,17 @@
 		request-channel="findAllProcedureRequestChannel" expect-single-result="true"
 		stored-procedure-name="FIND_ALL_COFFEE_BEVERAGES">
 		<int-jdbc:returning-resultset name="ref"
-			row-mapper="org.springframework.integration.support.CoffeBeverageMapper" />
+			row-mapper="coffeBeverageMapper" />
 	</int-jdbc:stored-proc-outbound-gateway>
 
 	<int-jdbc:stored-proc-inbound-channel-adapter data-source="dataSource" ignore-column-meta-data="true"
 		channel="loggit" expect-single-result="true" stored-procedure-name="FIND_ALL_COFFEE_BEVERAGES">
-		<int-jdbc:returning-resultset name="ref" row-mapper="org.springframework.integration.support.CoffeBeverageMapper"/>
+		<int-jdbc:returning-resultset name="ref" row-mapper="coffeBeverageMapper"/>
 	</int-jdbc:stored-proc-inbound-channel-adapter>
 
 	<int:logging-channel-adapter id="loggit" log-full-message="true"/>
+
+	<bean id="coffeBeverageMapper" class="org.springframework.integration.samples.storedprocedure.support.CoffeBeverageMapper"/>
 
 	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
 		<property name="dataSource" ref="dataSource"/>

@@ -17,6 +17,7 @@
 package org.springframework.integration.samples.ws;
 
 import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.CoreMatchers.instanceOf;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 
@@ -28,6 +29,7 @@ import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 
+import org.hamcrest.CoreMatchers;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.w3c.dom.Document;
@@ -76,7 +78,7 @@ public class InboundGatewayTests {
 		MessageContext messageContext = new DefaultMessageContext(request, messageFactory);
 		gateway.invoke(messageContext);
 		Object reply = messageContext.getResponse().getPayloadSource();
-		assertThat(reply, is(DOMSource.class));
+		assertThat(reply, is(instanceOf(DOMSource.class)));
 		DOMSource replySource = (DOMSource) reply;
 		Element element = (Element) replySource.getNode().getFirstChild();
 		assertThat(element.getTagName(), equalTo("echoResponse"));

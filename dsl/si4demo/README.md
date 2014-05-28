@@ -6,9 +6,11 @@ It's currently using the spring-boot 1.1.0.M1 milestone so you may have to add t
 
 There are two demo applications:
 
-__demo.Application__ is a Spring Boot application using Spring Integration 4.0 Java configuration features.
+__org.springframework.integration.samples.javaconfig.annotations.Application__ is a Spring Boot application using 
+Spring Integration 4.0 Java configuration features.
 
-__dsl.Application__ is the equivalent application using the new Java DSL that is currently being developed in the [extensions github repository](https://github.com/spring-projects/spring-integration-extensions/tree/master/spring-integration-java-dsl)
+__org.springframework.integration.samples.javaconfig.dsl.Application__ is the equivalent application using the new Java 
+DSL that is currently being developed in the [extensions github repository](https://github.com/spring-projects/spring-integration-extensions/tree/master/spring-integration-java-dsl)
 
 In both cases, you can use Telnet or curl to search twitter
 

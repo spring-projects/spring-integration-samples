@@ -25,7 +25,7 @@
 			channel="receiveChannel"
 			session-factory="sftpSessionFactory"
 			local-directory="file:local-dir"
-			remote-directory="<<SPECIFY REMOTE DIRECTORY (e.g., /{workspace}/samples/basic/sftp/remote-target-dir)>>"
+			remote-directory="${remote.directory}"
 			auto-create-local-directory="true"
 			delete-remote-files="false"
 			filename-regex=".*\.txt$">
