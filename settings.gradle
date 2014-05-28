@@ -1,6 +1,6 @@
 rootProject.name = 'spring-integration-samples'
 
-['advanced', 'applications', 'basic', 'intermediate'].each {
+['advanced', 'applications', 'basic', 'intermediate', 'dsl'].each {
 	def projectDir = new File(rootDir, it)
 	include ":${it}"
 	projectDir.eachDir { dir ->

@@ -487,7 +487,7 @@ project('http') {
 
 }
 
-project('javaconfig') {
+project('si4demo') {
 	description = 'Java Configuration/DSL Sample'
 
 	apply plugin: 'spring-boot'
@@ -503,6 +503,7 @@ project('javaconfig') {
 		testCompile 'org.springframework.boot:spring-boot-starter-test'
 	}
 
+	mainClassName = 'org.springframework.integration.samples.si4demo.dsl.Application'
 }
 
 project('jdbc') {

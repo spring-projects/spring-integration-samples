@@ -13,7 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.springframework.integration.samples.javaconfig.annotations;
+package org.springframework.integration.samples.si4demo.dsl;
+
+import java.util.Scanner;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
@@ -24,9 +26,11 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
 import org.springframework.http.HttpMethod;
-import org.springframework.integration.annotation.ServiceActivator;
-import org.springframework.integration.annotation.Transformer;
+import org.springframework.integration.annotation.IntegrationComponentScan;
+import org.springframework.integration.annotation.MessagingGateway;
 import org.springframework.integration.channel.DirectChannel;
+import org.springframework.integration.dsl.IntegrationFlow;
+import org.springframework.integration.dsl.IntegrationFlows;
 import org.springframework.integration.http.inbound.HttpRequestHandlingMessagingGateway;
 import org.springframework.integration.http.inbound.RequestMapping;
 import org.springframework.integration.ip.tcp.TcpInboundGateway;
@@ -40,8 +44,8 @@ import org.springframework.social.twitter.api.impl.TwitterTemplate;
 
 /**
  *
- * Spring Boot app offering telnet and http access to twitter search. Uses
- * Spring Integration 4.0 Java Configuration.
+ * Spring Boot app offering telnet and http access to twitter search. Uses the Spring Integration 4.0 Java DSL extension.
+ * Adds a filter and only returns the first tweet.
  *
  * <pre class=code>
  * $ telnet localhost 9876
@@ -57,19 +61,31 @@ import org.springframework.social.twitter.api.impl.TwitterTemplate;
  * [{"extraData":{},"id":461548132401438720,"text":"RT @gprussell: Spring Integration 4.0.0.RELEASE is out! ...
  * </pre>
  *
+ * It also supports typing a hashtag into the console.
  * @author Gary Russell
  * @since 4.0
  *
  */
 @Configuration
 @ComponentScan
+@IntegrationComponentScan
 @EnableAutoConfiguration
 public class Application {
 
 	public static void main(String[] args) throws Exception {
 		ConfigurableApplicationContext ctx = SpringApplication.run(Application.class);
-		System.in.read();
+		Scanner scanner = new Scanner(System.in);
+		String hashTag = scanner.nextLine();
+		System.out.println(ctx.getBean(Gateway.class).sendReceive(hashTag));
+		scanner.close();
 		ctx.close();
+	}
+
+	@MessagingGateway(defaultRequestChannel="requestChannel")
+	public interface Gateway {
+
+		String sendReceive(String in);
+
 	}
 
 	@Autowired
@@ -105,47 +121,29 @@ public class Application {
 		return new DirectChannel();
 	}
 
-/*
- * This was the first demonstration - an echo service before
- * we added twitter.
- */
-//	@MessageEndpoint
-//	public static class Echo {
-//
-//		@ServiceActivator(inputChannel="requestChannel")
-//		public String echo(byte[] in) {
-//			return "echo:" + new String(in);
-//		}
-//	}
-
 	@Bean
-	@Transformer(inputChannel="requestChannel", outputChannel="searchChannel")
-	public org.springframework.integration.transformer.Transformer converttoString() {
-		return new ObjectToStringTransformer();
+	public IntegrationFlow flow() {
+		return IntegrationFlows.from("requestChannel")
+				.transform(new ObjectToStringTransformer())
+				.filter((String p) -> p.startsWith("#spring"),
+						f -> f.discardChannel("rejected"))
+				.handle(twitterGate())
+				.transform("payload[0]")
+				.transform(new ObjectToJsonTransformer())
+				.get();
 	}
 
 	@Bean
-	public MessageChannel searchChannel() {
-		return new DirectChannel();
+	public IntegrationFlow errorFlow() {
+		return IntegrationFlows.from("rejected")
+				.transform("'Error: hashtag must start with #spring; got' + payload")
+				.get();
 	}
 
 	@Bean
-	@ServiceActivator(inputChannel="searchChannel")
 	public TwitterSearchOutboundGateway twitterGate() {
 		TwitterSearchOutboundGateway gateway = new TwitterSearchOutboundGateway(twitter());
-		gateway.setOutputChannel(toJsonChannel());
 		return gateway;
-	}
-
-	@Bean
-	public MessageChannel toJsonChannel() {
-		return new DirectChannel();
-	}
-
-	@Bean
-	@Transformer(inputChannel="toJsonChannel")
-	public org.springframework.integration.transformer.Transformer converttoJson() {
-		return new ObjectToJsonTransformer();
 	}
 
 	@Bean
