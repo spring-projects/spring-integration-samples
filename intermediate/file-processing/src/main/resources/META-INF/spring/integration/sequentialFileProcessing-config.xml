@@ -9,18 +9,19 @@
 	xmlns:int-file="http://www.springframework.org/schema/integration/file"
 	xmlns:task="http://www.springframework.org/schema/task">
 
-	
-	<int-file:inbound-channel-adapter id="filesInChannel"
-	                              directory="file:input">
-	    <int:poller id="poller" fixed-rate="10"/>
-	</int-file:inbound-channel-adapter>
-	
+
 	<int:service-activator input-channel="filesInChannel" output-channel="filesOutChannel">
 		<bean class="org.springframework.integration.samples.fileprocessing.FileProcessor"/>
 	</int:service-activator>
-	
+
+	<int-file:inbound-channel-adapter id="filesInChannel"
+	                              directory="file:input">
+	    <int:poller id="poller" fixed-rate="100"/>
+	</int-file:inbound-channel-adapter>
+
+
 	<int:channel id="filesOutChannel">
 		<int:queue/>
 	</int:channel>
-	
+
 </beans>
