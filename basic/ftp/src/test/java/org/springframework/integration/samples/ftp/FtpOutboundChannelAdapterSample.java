@@ -75,7 +75,7 @@ public class FtpOutboundChannelAdapterSample {
 		assertTrue(new File(TestSuite.FTP_ROOT_DIR + File.separator + "b.txt").exists());
 
 		LOGGER.info("Successfully transfered file 'a.txt' and 'b.txt' to a remote FTP location.");
-
+		ctx.close();
 	}
 
 	@After
