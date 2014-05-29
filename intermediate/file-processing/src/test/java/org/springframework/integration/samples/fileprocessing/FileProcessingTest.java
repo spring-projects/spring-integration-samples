@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package org.springframework.integration.samples.fileprocessing;
 
@@ -21,7 +21,7 @@ import org.springframework.messaging.PollableChannel;
 public class FileProcessingTest {
 	private int fileCount = 5;
 	private Logger logger = Logger.getLogger(FileProcessingTest.class);
-	
+
 	@Before
 	public void createDirectory(){
 		File directory = new File("input");
@@ -32,7 +32,7 @@ public class FileProcessingTest {
 	}
 
 	@Test
-	public void testSequentialFileProcessing() throws Exception {	
+	public void testSequentialFileProcessing() throws Exception {
 		logger.info("\n\n#### Starting Sequential processing test ####");
 		logger.info("Populating directory with files");
 		for (int i = 0; i < fileCount; i++) {
@@ -42,12 +42,12 @@ public class FileProcessingTest {
 		    out.close();
 		}
 		logger.info("Populated directory with files");
-		Thread.sleep(2000);
+		Thread.sleep(5000);
 		logger.info("Starting Spring Integration Sequential File processing");
 		ApplicationContext ac = new ClassPathXmlApplicationContext("META-INF/spring/integration/sequentialFileProcessing-config.xml");
 		PollableChannel filesOutChannel = ac.getBean("filesOutChannel", PollableChannel.class);
 		for (int i = 0; i < fileCount; i++) {
-			logger.info("Finished processing " + filesOutChannel.receive(10000).getPayload());
+			logger.info("Finished processing " + filesOutChannel.receive(20000).getPayload());
 		}
 	}
 	@Test
