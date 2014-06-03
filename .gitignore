@@ -1,6 +1,7 @@
 application.log
 application.log*
 target/
+bin/
 log.roo
 .project
 .classpath

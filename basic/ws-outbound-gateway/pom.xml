@@ -12,7 +12,7 @@
 	</prerequisites>
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<spring.integration.version>3.0.2.RELEASE</spring.integration.version>
+		<spring.integration.version>3.0.3.RELEASE</spring.integration.version>
 		<log4j.version>1.2.17</log4j.version>
 		<junit.version>4.10</junit.version>
 		<saaj.version>1.3.19</saaj.version>
