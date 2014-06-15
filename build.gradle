@@ -351,6 +351,7 @@ project('loanshark') {
 	description = 'Loan Shark Sample'
 
 	apply plugin: 'jetty'
+	apply plugin: 'eclipse-wtp'
 
 	dependencies {
 		compile "org.springframework.integration:spring-integration-ip:$springIntegrationVersion"
@@ -473,6 +474,7 @@ project('http') {
 
 	apply plugin: 'application'
 	apply plugin: 'jetty'
+	apply plugin: 'eclipse-wtp'
 
 	mainClassName = 'org.springframework.integration.samples.http.HttpClientDemo'
 
@@ -717,6 +719,7 @@ project('ws-inbound-gateway') {
 	description = 'WS Inbound Gateway Sample'
 
 	apply plugin: 'jetty'
+	apply plugin: 'eclipse-wtp'
 
 	dependencies {
 		compile "org.springframework.integration:spring-integration-xml:$springIntegrationVersion"
@@ -828,6 +831,7 @@ project('monitoring') {
 
 	apply plugin: 'jetty'
 	apply plugin: 'application'
+	apply plugin: 'eclipse-wtp'
 
 	mainClassName = 'org.springintegration.SpringIntegrationTest'
 
@@ -844,6 +848,7 @@ project('multipart-http') {
 	description = 'HTTP Multipart Demo'
 
 	apply plugin: 'jetty'
+	apply plugin: 'eclipse-wtp'
 
 	dependencies {
 		compile "org.springframework.integration:spring-integration-http:$springIntegrationVersion"
@@ -858,6 +863,7 @@ project('rest-http') {
 	description = 'Spring Integration Rest HTTP Path Usage Demo'
 
 	apply plugin: 'jetty'
+	apply plugin: 'eclipse-wtp'
 
 	dependencies {
 		compile "org.springframework.integration:spring-integration-http:$springIntegrationVersion"
