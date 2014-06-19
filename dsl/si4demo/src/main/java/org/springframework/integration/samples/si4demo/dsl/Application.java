@@ -25,6 +25,7 @@ import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.DependsOn;
 import org.springframework.core.env.Environment;
 import org.springframework.http.HttpMethod;
 import org.springframework.integration.annotation.IntegrationComponentScan;
@@ -123,6 +124,7 @@ public class Application {
 	}
 
 	@Bean
+	@DependsOn("errorFlow")
 	public IntegrationFlow flow() {
 		return IntegrationFlows.from("requestChannel")
 				.transform(new ObjectToStringTransformer())
