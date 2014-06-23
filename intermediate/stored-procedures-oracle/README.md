@@ -12,6 +12,34 @@ Actually 2 samples are provided:
 
 ## Running the Sample
 
+### Pre-requisites
+
+This sample was tested against: **Oracle Database Express Edition 11g Release 2** (which can be downloaded and used for free).
+Nevertheless, the example should work with other versions as well.
+
+- Access to a Oracle or Oracle XE database instance
+- Install Oracle JDBC Driver to your local Maven repository (~/.m2)
+
+### JDBC Driver Installation for Oracle
+
+- Go to [http://www.oracle.com/technetwork/indexes/downloads/index.html](http://www.oracle.com/technetwork/indexes/downloads/index.html)
+- Under "JDBC Drivers", download the appropriate driver relevant to your Oracle and JDK version (This sample was tested using "Oracle Database 11g Release 2 JDBC Drivers")
+- Once downloaded, install the driver to your local Maven repository:
+
+        $ mvn install:install-file -DgroupId=com.oracle -DartifactId=ojdbc6 -Dversion=11.2.0.3 -Dpackaging=jar -Dfile=~/dev/ojdbc6.jar -DgeneratePom=true
+
+- Now you can add the dependency to the Maven pom.xml file. Please check the pom.xml for this project and verify that it matches your installed Oracle JDBC driver
+
+```XML
+        <dependency>
+            <groupId>com.oracle</groupId>
+            <artifactId>ojdbc6</artifactId>
+            <version>11.2.0.3</version>
+        </dependency>
+```
+
+After that you can run the sample application using [Gradle Application Plugin](http://www.gradle.org/docs/current/userguide/application_plugin.html):
+
     $ gradlew :stored-procedures-oracle:run
 
 ### Common Oracle Setup

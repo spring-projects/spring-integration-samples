@@ -960,7 +960,7 @@ project('stored-procedures-oracle') {
 	mainClassName = 'org.springframework.integration.samples.storedprocedure.Main'
 
 	repositories {
-		maven { url 'https://code.lds.org/nexus/content/groups/main-repo' } //Oracle JDBC Driver
+		mavenLocal() //Oracle JDBC Driver
 	}
 
 	dependencies {

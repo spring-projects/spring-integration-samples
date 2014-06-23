@@ -5,7 +5,7 @@ The Loan Broker sample is distributed as a Gradle project, so you can run it in 
 
 ### Gradle (command line):
 
-Execute **gredlew :loan-broker:run**. You should see output that looks similar to this:
+Execute **gradlew :loan-broker:run**. You should see output that looks similar to this:
 
 	. . . . .
 	INFO : org.springframework.integration.loanbroker.demo.LoanBrokerDemo - 

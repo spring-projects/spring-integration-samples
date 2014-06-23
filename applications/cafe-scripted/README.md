@@ -7,7 +7,7 @@ This is the scripted implementation of the classic **cafe** sample application. 
 
 The script language is passed as a command line argument. This may be run directly from Gradle:
 
-	$ grdlew :cafe-scripted:runCafeDemoApp -Plang=[language]
+	$ gradlew :cafe-scripted:runCafeDemoApp -Plang=[language]
 
 ## Groovy Control Bus
 
@@ -15,7 +15,7 @@ This sample also demonstrates the use of Spring Integration's **groovy control b
 
 To demonstrate the control bus, while the CafeDemoApp is running, execute in a separate window:
 
-	$ grdlew :cafe-scripted:runControlBus
+	$ gradlew :cafe-scripted:runControlBus
 
 This will use groovy scripts to 
 
