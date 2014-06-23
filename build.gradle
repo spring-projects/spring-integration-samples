@@ -188,6 +188,7 @@ subprojects { subproject ->
 			postgresVersion = '9.1-901-1.jdbc4'
 			subethasmtpVersion = '1.2'
 			slf4jVersion = '1.7.6'
+			springAmqpVersion = '1.3.5.RELEASE'
 			springIntegrationVersion = '4.0.3.RELEASE'
 			springIntegrationDslVersion = '1.0.0.M2'
 			springVersion = '4.0.5.RELEASE'
@@ -289,7 +290,10 @@ project('cafe-amqp') {
 
 	dependencies {
 		compile project(":cafe-si")
-		compile "org.springframework.integration:spring-integration-amqp:$springIntegrationVersion"
+		compile ("org.springframework.integration:spring-integration-amqp:$springIntegrationVersion") {
+			exclude group: "org.springframework.amqp"
+		}
+		compile "org.springframework.amqp:spring-rabbit:$springAmqpVersion"
 	}
 }
 
@@ -394,8 +398,21 @@ project('amqp') {
 
 	dependencies {
 		compile "org.springframework.integration:spring-integration-stream:$springIntegrationVersion"
-		compile "org.springframework.integration:spring-integration-amqp:$springIntegrationVersion"
+		compile ("org.springframework.integration:spring-integration-amqp:$springIntegrationVersion") {
+			exclude group: "org.springframework.amqp"
+		}
+		compile "org.springframework.amqp:spring-rabbit:$springAmqpVersion"
 	}
+
+	task runMain2(type: JavaExec) {
+		main 'org.springframework.integration.samples.amqp.Main2'
+		classpath = sourceSets.main.runtimeClasspath
+		standardInput = System.in
+		// 	useful for debugging the GradleWorkerMain
+		//		jvmArgs "-agentlib:jdwp=transport=dt_socket,server=y,suspend=y,address=8000"
+
+	}
+
 }
 
 project('control-bus') {
