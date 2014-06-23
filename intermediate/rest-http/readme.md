@@ -11,15 +11,17 @@ The *Client* program is provided as a [JUnit][] test:
 
 * RestHttpClientTest
 
-This test-case can be used to test the HTTP Path usage. It uses Spring's [RestTemplate][] to assemble and send HTTP requests. The *Server*, on the other hand, is using Spring Integration's HTTP Endpoint configuration. The provided project itself is a web project and you can build the project using [Maven][] and deploy the resulting war under `target/rest-http-*.war` to Servlet Containers such as [Jetty][] or [Apache Tomcat][]:
+This test-case can be used to test the HTTP Path usage. It uses Spring's [RestTemplate][] to assemble and send HTTP requests. The *Server*, on the other hand, is using Spring Integration's HTTP Endpoint configuration. 
+The provided project itself is a web project and you can build the project using [Gradle][] and deploy the resulting 
+war under `target/rest-http-*.war` to Servlet Containers such as [Jetty][] or [Apache Tomcat][]:
 
-	$ mvn clean verify
+	$ gradlew :rest-http:build
 
 # To run this sample
 
 1. Deploy the project
   - If you are using [Spring Tool Suite][] (STS) and project is imported as Eclipse project in your workspace you can just execute 'Run on Server'
-  - You can also run 'mvn clean verify' and generate the WAR file that you can deploy to Servlet Containers
+  - You can also run **gradlew :rest-http:build** and generate the WAR file that you can deploy to Servlet Containers
 2. Run the simple JUnit Test: **org.springframework.integration.samples.rest.RestHttpClientTest**
   - You may change the URI Variable value in the test to see different results.
 
@@ -79,7 +81,7 @@ They are stored in `src/main/resources/users.properties`.
 [cURL]: http://en.wikipedia.org/wiki/CURL
 [Jetty]: http://www.eclipse.org/jetty/
 [JUnit]: http://junit.org/
-[Maven]: http://maven.apache.org/
+[Gradle]: http://www.gradle.org
 [RestTemplate]: http://static.springsource.org/spring/docs/current/javadoc-api/org/springframework/web/client/RestTemplate.html
 [Spring Security]: http://www.springsource.org/spring-security
 [Spring Tool Suite]: http://www.springsource.org/sts

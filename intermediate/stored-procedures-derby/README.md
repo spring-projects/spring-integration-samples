@@ -11,14 +11,14 @@ returns a **ResultSet**.
 
 # Setup
 
-Just make sure you have Maven set up and that the project builds successfully.
+Just make sure you have Gradle set up and that the project builds successfully.
 
 # Run the Sample
 
 * running the "Main" class from within STS (Right-click on Main class --> Run As --> Java Application)
 * or from the command line:
-    - mvn package
-    - mvn exec:java
+    
+    $ gradlew :stored-procedures-derby:run
 
 * Follow the screen (command line) instructions.
 

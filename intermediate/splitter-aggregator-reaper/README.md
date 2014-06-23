@@ -9,8 +9,8 @@ Demonstration of how to implement the Splitter/Aggregator [Enterprise Integratio
 
 * running the "Main" class from within STS (Right-click on Main class --> Run As --> Java Application)
 * or from the command line:
-    - mvn package
-    - mvn exec:java
+    
+    $ gradlew :splitter-aggregator-reaper:run
 
 You should see the following output:
 

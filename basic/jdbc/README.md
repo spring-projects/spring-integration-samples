@@ -19,9 +19,9 @@ You can run the application by either
 
 * running the "Main" class from within STS (Right-click on Main class --> Run As --> Java Application)
 * or from the command line:
-    - mvn package
-    - mvn exec:java
-
+    
+    $ gradlew :jdbc:run
+    
 Make an appropriate choice for searching a Person or creating a Person.
 
 For creating the person record, select the appropriate steps as prompted by the application.

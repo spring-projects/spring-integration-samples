@@ -22,10 +22,11 @@ Hibernate works out of the box and there are 2 options on how to execute the sam
 
 * running the "Main" class from within STS (Right-click on Main class --> Run As --> Java Application)
 * or from the command line:
-    - mvn clean package
-    - mvn exec:exec
+    $ gradlew :jpa:run
 
-For **OpenJPA** and **EclipseLink** to work, you must provide a [Java Agent](http://docs.oracle.com/javase/6/docs/api/java/lang/instrument/package-summary.html). When using the Maven Exec Plugin, this is taken care of for you behind the scenes automatically. However, when running the sample from within STS start the Main class with the following JVM flags:
+For **OpenJPA** and **EclipseLink** to work, you must provide a [Java Agent](http://docs.oracle.com/javase/6/docs/api/java/lang/instrument/package-summary.html). 
+When using the Gradle Application Plugin, this is taken care of for you behind the scenes automatically. However, 
+when running the sample from within STS start the Main class with the following JVM flags:
 
     -javaagent:/path/to/.m2/repository/org/springframework/spring-instrument/3.1.1.RELEASE/spring-instrument-3.1.1.RELEASE.jar
     -javaagent:/path/to/.m2/repository/org/apache/openjpa/openjpa/2.2.0/openjpa-2.2.0.jar

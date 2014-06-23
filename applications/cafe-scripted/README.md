@@ -5,11 +5,9 @@ This is the scripted implementation of the classic **cafe** sample application. 
 
 # Instructions for running the CafeDemo sample
 
-The script language is passed as a command line argument. This may be run directly from maven:
+The script language is passed as a command line argument. This may be run directly from Gradle:
 
-	$ mvn clean compile
-
-	$ mvn exec:exec -Dlang=[language]
+	$ grdlew :cafe-scripted:runCafeDemoApp -Plang=[language]
 
 ## Groovy Control Bus
 
@@ -17,7 +15,7 @@ This sample also demonstrates the use of Spring Integration's **groovy control b
 
 To demonstrate the control bus, while the CafeDemoApp is running, execute in a separate window:
 
-	$ mvn exec:exec -Pcontrol-bus
+	$ grdlew :cafe-scripted:runControlBus
 
 This will use groovy scripts to 
 

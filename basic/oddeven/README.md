@@ -36,13 +36,14 @@ The following Spring Integration components are being used:
 
 ## Running the Samples
 
-To run the two samples, simply execute either **CronOddEvenDemo** or **IntervalOddEvenDemoTestApp** in package **org.springframework.integration.samples.oddeven**. You can also execute those two samples using the [Exec Maven Plugin](http://mojo.codehaus.org/exec-maven-plugin/):
+To run the two samples, simply execute either **CronOddEvenDemo** or **IntervalOddEvenDemoTestApp** in package **org.springframework.integration.samples.oddeven**. 
+You can also execute those two samples using the [Gradle Application Plugin](http://www.gradle.org/docs/current/userguide/application_plugin.html):
 
-    $ mvn clean package exec:java -P cron
+    $ gradlew :oddeven:runCronOddEvenDemo
 
 which will execute **CronOddEvenDemo**. In order to run **IntervalOddEvenDemoTestApp**, execute:
 
-    $ mvn clean package exec:java -P interval
+    $ gradlew :oddeven:runIntervalOddEvenDemoTestApp
 
 For both samples you should see the output similar to this:
 
