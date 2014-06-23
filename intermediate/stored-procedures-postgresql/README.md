@@ -10,10 +10,6 @@ The second procedure returns a **ResultSet**.
 
 # Setup
 
-## Maven
-
-Please make sure you have *Maven* set up and that the project builds successfully using `mvn clean package`.
-
 ## PostgreSQL
 
 Please ensure that you can connect to a running instance of a *PostgreSQL server*. The sample was tested using **PostgreSQL v9.2.1**. 
@@ -80,8 +76,8 @@ Please configure the necessary credentials in order to connect to your database 
 
 * running the "Main" class from within STS (Right-click on Main class --> Run As --> Java Application)
 * or from the command line:
-    - mvn package
-    - mvn exec:java
+    
+    $ gradlew :stored-procedures-postgresql:run
 
 * Follow the screen (command line) instructions.
 

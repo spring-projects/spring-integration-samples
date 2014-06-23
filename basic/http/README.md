@@ -12,15 +12,17 @@ The sample consists of two parts:
 
 ### Server
 
-#### Command Line Using Maven
+#### Command Line Using Gradle
 
-The easiest way to run the **server** is to use the [Maven Jetty Plugin](http://docs.codehaus.org/display/JETTY/Maven+Jetty+Plugin). Simply execute:
+The easiest way to run the **server** is to use the [Gralde Jetty Plugin](http://www.gradle.org/docs/current/userguide/jetty_plugin.html).
+ Simply execute:
 
-    $ mvn jetty:run
+    $ gradlew :http:jettyRun
 
-This command starts a Jetty servlet container running on port 8080 serving the application. Alternatively you can also package the war-file and deploy it manually to a servlet container of your choosing. For that to happen execute:
+This command starts a Jetty servlet container running on port 8080 serving the application. 
+Alternatively you can also package the war-file and deploy it manually to a servlet container of your choosing. For that to happen execute:
 
-    $ mvn clean package
+    $ gradlew :http:build
 
 The resulting war-file will be located in the **target** folder.
 
@@ -30,13 +32,13 @@ If you are using [STS](http://www.springsource.com/developer/sts) and the projec
 
 ### Client
 
-#### Command Line Using Maven
+#### Command Line Using Gradle
 
-In order to run the **client** using Maven, execute:
+In order to run the **client** using Gradle, execute:
 
-    $ mvn clean package exec:java
+    $ gradlew :http:run
 
-This will package the application and run it using the [Exec Maven Plugin](http://mojo.codehaus.org/exec-maven-plugin/)
+This will package the application and run it using the [Gradle Application Plugin](http://www.gradle.org/docs/current/userguide/application_plugin.html)
 
 #### Using an IDE such as SpringSource Tool Suite™ (STS)
 

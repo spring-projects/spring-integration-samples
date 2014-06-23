@@ -15,14 +15,13 @@ If you imported the example into your IDE, you can just run class **org.springfr
 
 * Right-click on Main class --> Run As --> Java Application
 
-Alternatively, you can start the sample from the command line ([Maven](http://maven.apache.org/) required):
+Alternatively, you can start the sample from the command line ([Gradle](http://www.gradle.org) required):
 
-* mvn package
-* mvn exec:java
+* gradlew :amqp:run
 
 # Used Spring Integration components
 
-### Spring Integration Modules (Maven dependencies)
+### Spring Integration Modules (Maven/Gradle dependencies)
 
 * spring-integration-core
 * spring-integration-amqp

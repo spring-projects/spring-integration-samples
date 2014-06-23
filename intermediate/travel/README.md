@@ -46,9 +46,10 @@ This sample uses the [MapQuest API][], specifically the [MapQuest Traffic Web Se
 
 ## Running the Sample
 
-To run the sample execute **Main** in package **org.springframework.integration.samples.travel**. You can also execute that class using the [Exec Maven Plugin](http://mojo.codehaus.org/exec-maven-plugin/):
+To run the sample execute **Main** in package **org.springframework.integration.samples.travel**. 
+You can also execute that class using the [Gradle Application Plugin](http://www.gradle.org/docs/current/userguide/application_plugin.html):
 
-    $ mvn clean package exec:java -Dmapquest.apikey="your_mapquest_api_key_url_decoded"
+    $ gradlew :travel:run -Dmapquest.apikey="your_mapquest_api_key_url_decoded"
 
 You should see the following output:
 

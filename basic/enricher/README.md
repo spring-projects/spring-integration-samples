@@ -11,8 +11,8 @@ You can run the sample application by either
 
 * running the "Main" class from within STS (Right-click on Main class --> Run As --> Java Application)
 * or from the command line execute:
-    - mvn package
-    - mvn exec:java
+    
+    $ gradlew :enricher:run
 
 This example illustrates the usage of the Content Enricher.           
                                                                           

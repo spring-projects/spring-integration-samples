@@ -38,6 +38,10 @@ Nevertheless, the example should work with other versions as well.
         </dependency>
 ```
 
+After that you can run the sample application using [Gradle Application Plugin](http://www.gradle.org/docs/current/userguide/application_plugin.html):
+
+    $ gradlew :stored-procedures-oracle:run
+
 ### Common Oracle Setup
 
 #### Create Tablespace
@@ -119,8 +123,8 @@ END;
 
 * running the "Main" class from within STS (Right-click on Main class --> Run As --> Java Application)
 * or from the command line:
-    - mvn package
-    - mvn exec:java
+    
+    $ gradlew :stored-procedures-oracle:run
 
 You should see the following output:
 
@@ -214,8 +218,8 @@ end;
 
 * running the "Main" class from within STS (Right-click on Main class --> Run As --> Java Application)
 * or from the command line:
-    - mvn package
-    - mvn exec:java
+    
+    $ gradlew :stored-procedures-oracle:run
 
 You should see the following output:
 

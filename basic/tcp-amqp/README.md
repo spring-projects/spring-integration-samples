@@ -28,9 +28,10 @@ If you imported the example into your IDE, you can just run class **org.springfr
 
 * Right-click on Main class --> Run As --> Java Application
 
-Alternatively, you can start the sample from the command line ([Maven](http://maven.apache.org/) required):
+Alternatively, you can start the sample from the command line 
+([Gradle Application Plugin](http://www.gradle.org/docs/current/userguide/application_plugin.html)):
 
-* mvn exec:java
+    $ gradlew :tcp-amqp:run
 
 ## Run Telnet
 

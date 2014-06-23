@@ -28,8 +28,8 @@ You can run this sample by either.
 
 * running the "Main" class from within STS (Right-click on Main class --> Run As --> Java Application)
 * or from the command line:
-    - mvn package
-    - mvn exec:java
+    
+    $ gradlew :mail-attachments:run
 
 Once started, the configured mail server will be polled for new email messages every 5 seconds.
 

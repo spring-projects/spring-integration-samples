@@ -12,9 +12,10 @@ The Hello World application demonstrates a simple message flow represented by th
 
     Message -> Channel -> ServiceActivator -> QueueChannel 
 
-To run the sample simply execute **HelloWorldApp** in package **org.springframework.integration.samples.helloworld**. You can also execute that class using the [Exec Maven Plugin](http://mojo.codehaus.org/exec-maven-plugin/):
+To run the sample simply execute **HelloWorldApp** in package **org.springframework.integration.samples.helloworld**. 
+You can also execute that class using the [Gralde](http://www.gradle.org):
 
-    $ mvn clean package exec:java -P hello
+    $ gradlew :helloworld:runHelloWorldApp
 
 You should see the following output:
 
@@ -26,9 +27,10 @@ This simple application will print out the current system time twice every 20 se
 
 More specifically, an **Inbound Channel Adapter** polls for the current system time 2 times every 20 seconds (20000 milliseconds). The resulting message contains as payload the time in milliseconds and the message is sent to a **Logging Channel Adapter**, which will print the time to the command prompt.
 
-To run the sample simply execute **PollerApp** in package **org.springframework.integration.samples.helloworld**. You can also execute that class using the [Exec Maven Plugin](http://mojo.codehaus.org/exec-maven-plugin/):
+To run the sample simply execute **PollerApp** in package **org.springframework.integration.samples.helloworld**. 
+You can also execute that class using the [Gralde](http://www.gradle.org):
 
-    $ mvn clean package exec:java -P poller
+    $ gradlew :helloworld:runPollerApp
 
 You should see output like the following:
 

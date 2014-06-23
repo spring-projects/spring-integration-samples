@@ -13,7 +13,7 @@ This example demonstrates the following aspects of the FTP support available wit
 
 The samples work out of the box using an embedded Apache FTP Server. Simply execute:
 
-    $ mvn clean package
+    $ gradlew :ftp:run
 
 and the samples are build as well as executed. The samples are part of a JUnit test suite:
 

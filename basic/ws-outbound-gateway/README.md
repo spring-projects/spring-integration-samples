@@ -19,8 +19,9 @@ Fahrenheit (90F) to Celsius (32.2C) and the result is printed to the console:
 
 ## Running the Sample
 
-To run the sample simply execute **WebServiceDemoTestApp** in package *org.springframework.integration.samples.ws*. You can also execute that class using the [Exec Maven Plugin](http://mojo.codehaus.org/exec-maven-plugin/):
+To run the sample simply execute **WebServiceDemoTestApp** in package *org.springframework.integration.samples.ws*. 
+You can also execute that class using the [Gradle Application Plugin](http://www.gradle.org/docs/current/userguide/application_plugin.html):
 
-    $ mvn clean package exec:java
+    $ gradlew :ws-outbound-gateway:run
 
 [Simple Object Access Protocol]: http://en.wikipedia.org/wiki/SOAP

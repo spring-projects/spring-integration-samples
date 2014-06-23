@@ -110,8 +110,8 @@ You may have to update the *Microsoft SQL Server* properties in:
 
 * running the "Main" class from within STS (Right-click on Main class --> Run As --> Java Application)
 * or from the command line:
-    - mvn package
-    - mvn exec:java
+    
+    $ gradlew :stored-procedures-ms:run
 
 --------------------------------------------------------------------------------
 

@@ -1,11 +1,11 @@
 Loan Broker Application
 =======================
 
-The Loan Broker sample is distributed as a Maven project, so you can run it in two ways.
+The Loan Broker sample is distributed as a Gradle project, so you can run it in two ways.
 
-### Maven (command line):
+### Gradle (command line):
 
-Execute **mvn install**. You should see output that looks similar to this:
+Execute **gradlew :loan-broker:run**. You should see output that looks similar to this:
 
 	. . . . .
 	INFO : org.springframework.integration.loanbroker.demo.LoanBrokerDemo - 
@@ -30,7 +30,7 @@ Execute **mvn install**. You should see output that looks similar to this:
 
 This extension to the loan broker sample shows how to exchange messages between Spring Integration applications (and other technologies) using UDP. Any loan quotes over 5.2% will be sent to the loanshark application.
 
-* Deploy the **loanshark** sample to a web container (e.g. **mvn tomcat:run**); or 
+* Deploy the **loanshark** sample to a web container (e.g. **gradlew :loan-broker:jettyRun**); or 
 * run the perl (**udps.pl**) or groovy (**udps.groovy**) scripts from the command line.
 
 Run the **LoanBrokerSharkDetectorDemo** test case. You can see the banks that were detected as loan sharks in the **loanshark web UI**.
