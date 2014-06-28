@@ -965,7 +965,8 @@ project('stored-procedures-oracle') {
 
 	dependencies {
 		compile "org.springframework.integration:spring-integration-jdbc:$springIntegrationVersion"
-		compile "com.oracle:ojdbc6:$oracleDriverVersion"
+//TODO Uncomment it when the ojdbc6 artifact is available in the mavenLocal()
+//		compile "com.oracle:ojdbc6:$oracleDriverVersion"
 	}
 
 	test {

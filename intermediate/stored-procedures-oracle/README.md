@@ -28,16 +28,8 @@ Nevertheless, the example should work with other versions as well.
 
         $ mvn install:install-file -DgroupId=com.oracle -DartifactId=ojdbc6 -Dversion=11.2.0.3 -Dpackaging=jar -Dfile=~/dev/ojdbc6.jar -DgeneratePom=true
 
-- Now you can add the dependency to the Maven pom.xml file. Please check the pom.xml for this project and verify that it matches your installed Oracle JDBC driver
-
-```XML
-        <dependency>
-            <groupId>com.oracle</groupId>
-            <artifactId>ojdbc6</artifactId>
-            <version>11.2.0.3</version>
-        </dependency>
-```
-
+- Now you can uncomment the `ojdbc6` dependency in the build.gradle file for `stored-procedures-oracle` project.
+ 
 After that you can run the sample application using [Gradle Application Plugin](http://www.gradle.org/docs/current/userguide/application_plugin.html):
 
     $ gradlew :stored-procedures-oracle:run
