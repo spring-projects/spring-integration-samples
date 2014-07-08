@@ -139,6 +139,7 @@ subprojects { subproject ->
 
 	repositories {
 		maven { url 'http://repo.spring.io/libs-milestone' }
+//		maven { url 'http://repo.spring.io/libs-staging-local' }
 	}
 
 	if (!(subproject.name in ['advanced', 'applications', 'basic', 'intermediate', 'cafe'])) {
@@ -186,7 +187,7 @@ subprojects { subproject ->
 			postgresVersion = '9.1-901-1.jdbc4'
 			subethasmtpVersion = '1.2'
 			slf4jVersion = '1.7.6'
-			springIntegrationVersion = '4.0.2.RELEASE'
+			springIntegrationVersion = '4.0.3.RELEASE'
 			springIntegrationDslVersion = '1.0.0.M2'
 			springVersion = '4.0.5.RELEASE'
 			springSecurityVersion = '3.2.4.RELEASE'
