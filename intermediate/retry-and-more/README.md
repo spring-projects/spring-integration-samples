@@ -3,6 +3,7 @@ Handler Advice Sample "retry-and-more"
 
 This sample shows how to use the 2.2.0 Handler Advice feature.
 
+
 ##Stateless Retry Advice Demo
 
 This class (`StatelessRetryDemo`) demonstrates stateless retry.
@@ -18,6 +19,10 @@ In each case enter 'fail n' where n is the number of times you want the service 
 
 e.g. 'fail 2' will succeed in each case on the third try, 'fail 3' will fail permanently after the third try.
 
+__NOTE: Starting with Spring Integration 4.0, stateless retry has convenient namespace support; this sample has been updated to show its use.__
+
+It shows the retry advice declared (for each profile) as a top level bean `<int:handler-retry-advice id="retryAdvice">`. Declaring it as a top level bean allows it to be used in multiple places (or via profiles). You can also declare it within the advice chain using `<int:retry-advice/>` (with no 'id'). In that case, it cannot be reused in other advice chains.
+
 
 ##Stateful Retry Advice Demo
 
@@ -25,6 +30,7 @@ This class (`StatefulRetryDemo`) demonstrates stateful retry.
 
 It is similar to the default version of the stateless retry but uses AMQP; you will see that the exception are thrown back to the container and the retries are re-delivered by AMQP.
 
+NOTE: Starting with Spring Integration 4.0, __stateless retry__ has convenient namespace support; stateful retry requires the retry advice to be configured using `<bean/>` definitions as is shown here.
 
 ##Circuit Breaker Advice Demo
 

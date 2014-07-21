@@ -16,6 +16,7 @@
 package org.springframework.integration.samples.advice;
 
 import org.apache.log4j.Logger;
+
 import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
@@ -28,7 +29,7 @@ public class StatelessRetryDemo {
 
 	private static final Logger LOGGER = Logger.getLogger(StatelessRetryDemo.class);
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws Exception {
 		LOGGER.info("\n========================================================="
 				  + "\n                                                         "
 				  + "\n          Welcome to Spring Integration!                 "
@@ -50,8 +51,12 @@ public class StatelessRetryDemo {
 				  + "\n    Please enter some text and press return.              "
 				  + "\n    'fail 2' will fail twice, then succeed                "
 				  + "\n    'fail 3' will fail and never succeed                  "
+				  + "\n    Demo will terminate in 60 seconds.                    "
 				  + "\n                                                          "
 				  + "\n=========================================================" );
 
+		Thread.sleep(60000);
+		context.close();
 	}
+
 }

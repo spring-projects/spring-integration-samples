@@ -37,36 +37,21 @@
 	<!-- Default retry advice 3 tries, no backoff, no recovery;
 	     final failure will go to poller's error channel -->
 	<beans profile="default">
-		<bean id="retryAdvice" class="org.springframework.integration.handler.advice.RequestHandlerRetryAdvice" />
+		<int:handler-retry-advice id="retryAdvice" />
 	</beans>
 
 	<!-- Retry advice, template with default 3 tries, exponential backoff, no recovery;
 	     final failure will go to poller's error channel -->
 	<beans profile="backoff">
-		<bean id="retryAdvice" class="org.springframework.integration.handler.advice.RequestHandlerRetryAdvice">
-			<property name="retryTemplate">
-				<bean class="org.springframework.retry.support.RetryTemplate">
-					<property name="backOffPolicy">
-						<bean class="org.springframework.retry.backoff.ExponentialBackOffPolicy">
-							<property name="initialInterval" value="2000" />
-							<property name="multiplier" value="2" />
-						</bean>
-					</property>
-				</bean>
-			</property>
-		</bean>
+		<int:handler-retry-advice id="retryAdvice">
+			<int:exponential-back-off initial="2000" multiplier="2" />
+		</int:handler-retry-advice>
 	</beans>
 
 	<!-- Retry advice, template with default 3 tries, no backoff, recovery;
 	     final handled by recovery instead of going to the poller's error channel -->
 	<beans profile="recovery">
-		<bean id="retryAdvice" class="org.springframework.integration.handler.advice.RequestHandlerRetryAdvice">
-			<property name="recoveryCallback">
-				<bean class="org.springframework.integration.handler.advice.ErrorMessageSendingRecoverer">
-					<constructor-arg ref="recoveryChannel" />
-				</bean>
-			</property>
-		</bean>
+		<int:handler-retry-advice id="retryAdvice" recovery-channel="recoveryChannel" />
 
 		<int:channel id="recoveryChannel" />
 

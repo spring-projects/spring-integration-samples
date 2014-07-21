@@ -37,7 +37,7 @@
 
 	<!-- Infrastructure -->
 
-	<rabbit:connection-factory id="connectionFactory" />
+	<rabbit:connection-factory id="connectionFactory" host="localhost" />
 
 	<rabbit:template id="amqpTemplate" connection-factory="connectionFactory" />
 

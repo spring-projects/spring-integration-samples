@@ -16,6 +16,7 @@
 package org.springframework.integration.samples.advice;
 
 import org.apache.log4j.Logger;
+
 import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
@@ -28,7 +29,7 @@ public class CircuitBreakerDemo {
 
 	private static final Logger LOGGER = Logger.getLogger(CircuitBreakerDemo.class);
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws Exception {
 		LOGGER.info("\n========================================================="
 				  + "\n                                                         "
 				  + "\n          Welcome to Spring Integration!                 "
@@ -51,8 +52,12 @@ public class CircuitBreakerDemo {
 				  + "\n    Service will succeed only in the last quarter         "
 				  + "\n    minute. Breaker will open after 2 failures and        "
 				  + "\n    will go half-open after 15 seconds.                   "
+				  + "\n    Demo will terminate in 2 minutes.                     "
 				  + "\n                                                          "
 				  + "\n=========================================================" );
 
+		Thread.sleep(120000);
+		context.close();
 	}
+
 }
