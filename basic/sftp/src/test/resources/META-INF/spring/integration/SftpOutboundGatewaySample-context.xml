@@ -1,26 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xmlns:context="http://www.springframework.org/schema/context"
 	xmlns:int="http://www.springframework.org/schema/integration"
 	xmlns:int-sftp="http://www.springframework.org/schema/integration/sftp"
 	xsi:schemaLocation="http://www.springframework.org/schema/integration http://www.springframework.org/schema/integration/spring-integration.xsd
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
-		http://www.springframework.org/schema/integration/sftp http://www.springframework.org/schema/integration/sftp/spring-integration-sftp.xsd
-		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+		http://www.springframework.org/schema/integration/sftp http://www.springframework.org/schema/integration/sftp/spring-integration-sftp.xsd">
 
-	<context:property-placeholder location="classpath:user.properties"/>
+	<import resource="SftpSampleCommon.xml"/>
 
 	<int:gateway id="gw" service-interface="org.springframework.integration.samples.sftp.ToSftpFlowGateway"
 		default-request-channel="inbound"/>
 
-	<bean id="sftpSessionFactory"
+	<bean id="sftpSessionFactory" class="org.springframework.integration.file.remote.session.CachingSessionFactory">
+		<constructor-arg ref="defaultSftpSessionFactory" />
+	</bean>
+
+	<bean id="defaultSftpSessionFactory"
 		class="org.springframework.integration.sftp.session.DefaultSftpSessionFactory">
-		<property name="host" value="localhost"/>
+		<property name="host" value="${host}"/>
 		<property name="privateKey" value="${private.keyfile}"/>
 		<property name="privateKeyPassphrase" value="${passphrase}"/>
-		<property name="port" value="22"/>
-		<property name="user" value="${user}"/>
+		<property name="port" value="#{serverPort}"/>
+		<property name="user" value="${username}"/>
 	</bean>
 
 	<int-sftp:outbound-gateway id="gatewayLS"
@@ -40,11 +42,11 @@
 		reply-channel="toRm"
 		command="get"
 		command-options="-P"
-		expression="payload.remoteDirectory + '/' + payload.filename"/>
+		expression="payload.remoteDirectory + payload.filename"/>
 
 	<int-sftp:outbound-gateway id="gatewayRM" reply-channel="aggregateResultsChannel"
 		session-factory="sftpSessionFactory"
-		expression="headers['file_remoteDirectory'] + '/' + headers['file_remoteFile']"
+		expression="headers['file_remoteDirectory'] + headers['file_remoteFile']"
 		request-channel="toRm"
 		command="rm"/>
 

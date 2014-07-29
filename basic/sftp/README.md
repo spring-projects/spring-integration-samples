@@ -6,11 +6,18 @@ This example demonstrates the following aspects of the SFTP support available wi
 1. SFTP Inbound Channel Adapter (transfers files from remote to local directory)
 2. SFTP Outbound Channel Adapter (transfers files from local to the remote directory)
 
-In order to run this sample you need to:
+In order to run this sample for the 'real' SFTP Server you need to:
 
 1. generate private/public keys. Below is simple directions what needs to be done
 2. update user.properties file with appropriate values
 3. run the sample
+
+By default this sample uses an [Apache MINA](http://mina.apache.org/sshd-project) embedded `SshServer` with predefined 
+private and public keys.
+Note, the embedded Server is started only when the `port` property remains as `-1`. In this case the target port
+for the Embedded Server is selected randomly. For a real SFTP server you should specify correct `host/port` properties.
+
+NOTE: The test cases will create/delete a directory `si.sftp.sample`.
 	
 ## INBOUND CHANNEL ADAPTER
 	

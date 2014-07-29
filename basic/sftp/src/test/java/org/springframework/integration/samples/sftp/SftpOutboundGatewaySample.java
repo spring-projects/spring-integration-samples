@@ -20,11 +20,16 @@ import static org.junit.Assert.assertTrue;
 
 import java.io.File;
 import java.util.List;
-import java.util.Random;
 
 import org.junit.Test;
+
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.integration.file.remote.RemoteFileTemplate;
+import org.springframework.integration.file.remote.session.CachingSessionFactory;
+import org.springframework.integration.file.remote.session.SessionFactory;
+
+import com.jcraft.jsch.ChannelSftp.LsEntry;
 
 /**
  * Demonstrates use of the outbound gateway to use ls, get and rm.
@@ -40,24 +45,23 @@ public class SftpOutboundGatewaySample {
 		ConfigurableApplicationContext ctx = new ClassPathXmlApplicationContext(
 				"classpath:/META-INF/spring/integration/SftpOutboundGatewaySample-context.xml");
 		ToSftpFlowGateway toFtpFlow = ctx.getBean(ToSftpFlowGateway.class);
+		RemoteFileTemplate<LsEntry> template = null;
+		String file1 = "1.ftptest";
+		String file2 = "2.ftptest";
+		File tmpDir = new File(System.getProperty("java.io.tmpdir"));
+
 		try {
-			String tmpDir = System.getProperty("java.io.tmpdir");
-
 			// remove the previous output files if necessary
-			new File(new File(tmpDir), "1.ftptest").delete();
-			new File(new File(tmpDir), "2.ftptest").delete();
+			new File(tmpDir, file1).delete();
+			new File(tmpDir, file2).delete();
 
-			// create a couple of files in a temp dir
-			File dir = new File(tmpDir + "/" + new Random().nextInt());
-			dir.mkdir();
-			File f1 = new File(dir, "1.ftptest");
-			f1.createNewFile();
-			File f2 = new File(dir, "2.ftptest");
-			f2.createNewFile();
-
+			@SuppressWarnings("unchecked")
+			SessionFactory<LsEntry> sessionFactory = ctx.getBean(CachingSessionFactory.class);
+			template = new RemoteFileTemplate<LsEntry>(sessionFactory);
+			SftpTestUtils.createTestFiles(template, file1, file2);
 
 			// execute the flow (ls, get, rm, aggregate results)
-			List<Boolean> rmResults = toFtpFlow.lsGetAndRmFiles(dir.getAbsolutePath());
+			List<Boolean> rmResults = toFtpFlow.lsGetAndRmFiles("si.sftp.sample");
 
 
 			//Check everything went as expected, and clean up
@@ -65,13 +69,16 @@ public class SftpOutboundGatewaySample {
 			for (Boolean result : rmResults) {
 				assertTrue(result);
 			}
-			assertTrue("Expected remote dir to be empty", dir.delete());
-			assertTrue("Could note delete retrieved file", new File(new File(tmpDir), "1.ftptest").delete());
-			assertTrue("Could note delete retrieved file", new File(new File(tmpDir), "2.ftptest").delete());
-		} finally {
+
+		}
+		finally {
+			SftpTestUtils.cleanUp(template, file1, file2);
 			ctx.close();
+			assertTrue("Could note delete retrieved file", new File(tmpDir, file1).delete());
+			assertTrue("Could note delete retrieved file", new File(tmpDir, file2).delete());
 		}
 	}
+
 }
 
 

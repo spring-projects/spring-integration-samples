@@ -1,3 +1,4 @@
 /local-dir
 /target
-/src/test/resources/META-INF/keys/sftp_rsa
+hostkey.ser
+si.sftp.sample
