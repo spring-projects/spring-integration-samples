@@ -14,7 +14,7 @@
 
 	<bean id="sftpSessionFactory"
 		class="org.springframework.integration.sftp.session.DefaultSftpSessionFactory">
-		<property name="host" value="localhost"/>
+		<property name="host" value="${host}"/>
 		<property name="privateKey" value="${private.keyfile}"/>
 		<property name="privateKeyPassphrase" value="${passphrase}"/>
 		<property name="port" value="#{serverPort}"/>

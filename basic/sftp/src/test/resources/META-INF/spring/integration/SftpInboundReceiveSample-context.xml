@@ -10,7 +10,7 @@
 	<import resource="SftpSampleCommon.xml"/>
 
 	<bean id="sftpSessionFactory" class="org.springframework.integration.sftp.session.DefaultSftpSessionFactory">
-		<property name="host" value="localhost"/>
+		<property name="host" value="${host}"/>
 		<property name="privateKey" value="classpath:META-INF/keys/sftp_rsa"/>
 		<property name="privateKeyPassphrase" value="${passphrase}"/>
 		<property name="port" value="#{serverPort}"/>

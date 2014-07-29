@@ -75,6 +75,7 @@ public class EmbeddedSftpServer implements InitializingBean, SmartLifecycle {
 		this.server.setPort(this.port);
 		this.server.setKeyPairProvider(new SimpleGeneratorHostKeyProvider("hostkey.ser"));
 		this.server.setSubsystemFactories(Collections.<NamedFactory<Command>>singletonList(new SftpSubsystem.Factory()));
+		final String virtualDir = new FileSystemResource("").getFile().getAbsolutePath();
 		this.server.setFileSystemFactory(new NativeFileSystemFactory() {
 
 			@Override
@@ -83,7 +84,7 @@ public class EmbeddedSftpServer implements InitializingBean, SmartLifecycle {
 
 					@Override
 					public String getVirtualUserDir() {
-						return new FileSystemResource("").getFile().getAbsolutePath();
+						return virtualDir;
 					}
 				};
 			}

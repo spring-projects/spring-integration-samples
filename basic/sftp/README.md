@@ -14,6 +14,8 @@ In order to run this sample for the 'real' SFTP Server you need to:
 
 By default this sample uses [Apache MINA](http://mina.apache.org/sshd-project) embedded `SshServer` with predefined 
 private and public keys.
+Note, Embedded Server is started on in case the `port` property remains as `-1`. In this case the target port
+for Embedded Server is selected randomly. For real SFTP you should specify correct `host/port` properties.
 	
 ## INBOUND CHANNEL ADAPTER
 	
