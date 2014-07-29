@@ -30,18 +30,19 @@ import org.apache.sshd.common.NamedFactory;
 import org.apache.sshd.common.file.FileSystemView;
 import org.apache.sshd.common.file.nativefs.NativeFileSystemFactory;
 import org.apache.sshd.common.file.nativefs.NativeFileSystemView;
+import org.apache.sshd.common.util.Base64;
 import org.apache.sshd.server.Command;
 import org.apache.sshd.server.PublickeyAuthenticator;
 import org.apache.sshd.server.keyprovider.SimpleGeneratorHostKeyProvider;
 import org.apache.sshd.server.session.ServerSession;
 import org.apache.sshd.server.sftp.SftpSubsystem;
-import sun.misc.BASE64Decoder;
 
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.context.SmartLifecycle;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.util.SocketUtils;
+import org.springframework.util.StreamUtils;
 
 /**
  * @author Artem Bilan
@@ -92,7 +93,7 @@ public class EmbeddedSftpServer implements InitializingBean, SmartLifecycle {
 
 	private PublicKey decodePublicKey() throws Exception {
 		InputStream stream = new ClassPathResource("META-INF/keys/sftp_rsa.pub").getInputStream();
-		byte[] decodeBuffer = new BASE64Decoder().decodeBuffer(stream);
+		byte[] decodeBuffer = Base64.decodeBase64(StreamUtils.copyToByteArray(stream));
 		ByteBuffer bb = ByteBuffer.wrap(decodeBuffer);
 		int len = bb.getInt();
 		byte[] type = new byte[len];
