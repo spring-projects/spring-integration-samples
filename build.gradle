@@ -150,6 +150,7 @@ subprojects { subproject ->
 
 		ext {
 			activeMqVersion = '5.9.0'
+			apacheSshdVersion = '0.10.1'
 			aspectjVersion = '1.8.0'
 			commonsDigesterVersion = '2.0'
 			commonsDbcpVersion = '1.2.2'
@@ -652,10 +653,7 @@ project('sftp') {
 
 	dependencies {
 		compile "org.springframework.integration:spring-integration-sftp:$springIntegrationVersion"
-	}
-
-	test {
-		exclude '**/*Sample*'
+		compile "org.apache.sshd:sshd-core:$apacheSshdVersion"
 	}
 }
 

@@ -23,8 +23,10 @@ import java.util.List;
 import java.util.Random;
 
 import org.junit.Test;
+
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.core.io.FileSystemResource;
 
 /**
  * Demonstrates use of the outbound gateway to use ls, get and rm.
@@ -41,14 +43,16 @@ public class SftpOutboundGatewaySample {
 				"classpath:/META-INF/spring/integration/SftpOutboundGatewaySample-context.xml");
 		ToSftpFlowGateway toFtpFlow = ctx.getBean(ToSftpFlowGateway.class);
 		try {
-			String tmpDir = System.getProperty("java.io.tmpdir");
+			File tmpDir = new File(System.getProperty("java.io.tmpdir"));
 
 			// remove the previous output files if necessary
-			new File(new File(tmpDir), "1.ftptest").delete();
-			new File(new File(tmpDir), "2.ftptest").delete();
+			new File(tmpDir, "1.ftptest").delete();
+			new File(tmpDir, "2.ftptest").delete();
+
+			String remoteDir = new FileSystemResource("").getFile().getAbsolutePath();
 
 			// create a couple of files in a temp dir
-			File dir = new File(tmpDir + "/" + new Random().nextInt());
+			File dir = new File(remoteDir + "/" + new Random().nextInt());
 			dir.mkdir();
 			File f1 = new File(dir, "1.ftptest");
 			f1.createNewFile();
@@ -57,7 +61,7 @@ public class SftpOutboundGatewaySample {
 
 
 			// execute the flow (ls, get, rm, aggregate results)
-			List<Boolean> rmResults = toFtpFlow.lsGetAndRmFiles(dir.getAbsolutePath());
+			List<Boolean> rmResults = toFtpFlow.lsGetAndRmFiles(dir.getName());
 
 
 			//Check everything went as expected, and clean up
@@ -66,8 +70,9 @@ public class SftpOutboundGatewaySample {
 				assertTrue(result);
 			}
 			assertTrue("Expected remote dir to be empty", dir.delete());
-			assertTrue("Could note delete retrieved file", new File(new File(tmpDir), "1.ftptest").delete());
-			assertTrue("Could note delete retrieved file", new File(new File(tmpDir), "2.ftptest").delete());
+
+			assertTrue("Could note delete retrieved file", new File(tmpDir, "1.ftptest").delete());
+			assertTrue("Could note delete retrieved file", new File(tmpDir, "2.ftptest").delete());
 		} finally {
 			ctx.close();
 		}
