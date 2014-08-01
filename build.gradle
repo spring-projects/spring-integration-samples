@@ -510,6 +510,25 @@ project('si4demo') {
 	mainClassName = 'org.springframework.integration.samples.si4demo.dsl.Application'
 }
 
+project('cafe-dsl') {
+	description = 'Java DSL Cafe Sample'
+
+	apply plugin: 'spring-boot'
+
+	sourceCompatibility = 1.8
+
+	dependencies {
+		compile project(":cafe-si")
+		compile 'org.springframework.boot:spring-boot-starter-integration'
+		compile "org.springframework.integration:spring-integration-java-dsl:$springIntegrationDslVersion"
+
+		testCompile 'org.springframework.boot:spring-boot-starter-test'
+	}
+
+	mainClassName = 'org.springframework.integration.samples.dsl.cafe.Application'
+}
+
+
 project('jdbc') {
 	description = 'JDBC Basic Sample'
 
