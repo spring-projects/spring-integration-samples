@@ -404,8 +404,17 @@ project('amqp') {
 		compile "org.springframework.amqp:spring-rabbit:$springAmqpVersion"
 	}
 
-	task runMain2(type: JavaExec) {
-		main 'org.springframework.integration.samples.amqp.Main2'
+	task runSimple(type: JavaExec) {
+		main 'org.springframework.integration.samples.amqp.SampleSimple'
+		classpath = sourceSets.main.runtimeClasspath
+		standardInput = System.in
+		// 	useful for debugging the GradleWorkerMain
+		//		jvmArgs "-agentlib:jdwp=transport=dt_socket,server=y,suspend=y,address=8000"
+
+	}
+
+	task runPubConfirmsReturns(type: JavaExec) {
+		main 'org.springframework.integration.samples.amqp.SamplePubConfirmsReturns'
 		classpath = sourceSets.main.runtimeClasspath
 		standardInput = System.in
 		// 	useful for debugging the GradleWorkerMain

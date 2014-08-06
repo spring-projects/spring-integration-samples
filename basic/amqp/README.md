@@ -11,19 +11,25 @@ Once the application is started, you enter some text on the command prompt and a
 
 # How to Run the Sample
 
-If you imported the example into your IDE, you can just run class **org.springframework.integration.samples.amqp.Main**. For example in [SpringSource Tool Suite](http://www.springsource.com/developer/sts) (STS) do:
+If you imported the example into your IDE, you can just run class **org.springframework.integration.samples.amqp.SampleSimple**. For example in [SpringSource Tool Suite](http://www.springsource.com/developer/sts) (STS) do:
 
-* Right-click on Main class --> Run As --> Java Application
+* Right-click on SampleSimple class --> Run As --> Java Application
 
-* ./gradlew :amqp:run
+Alternatively, you can start the sample from the command line:
 
-Alternatively, you can start the sample from the command line ([Gradle](http://www.gradle.org) required):
+* ./gradlew :amqp:runSimple
 
-The __Main2__ class is similar, but demonstrates publisher confirms and returns.
+Enter some data (e.g. 'foo') on the console; you will see a [tapInbound] log and 'Received: foo'.
 
-* Right-click on Main2 class --> Run As --> Java Application
+Ctrl-C to terminate.
 
-* ./gradlew :amqp:runMain2
+The __SamplePubConfirmsReturns__ class is similar, but demonstrates publisher confirms and returns.
+
+* Right-click on SamplePubConfirmsReturns class --> Run As --> Java Application
+
+Or:
+
+* ./gradlew :amqp:runPubConfirmsReturns
 
 When you enter a message in the console you will see the message received, together with a send confirmation:
 
@@ -48,6 +54,8 @@ nack
 nack send failed (nack)
 11:54:00.818 ERROR [pool-1-thread-1][org.springframework.amqp.rabbit.connection.CachingConnectionFactory] Channel shutdown: channel error; protocol method: #method<channel.close>(reply-code=404, reply-text=NOT_FOUND - no exchange 'badExchange' in vhost '/', class-id=60, method-id=40)
 ````
+
+Ctrl-C to terminate.
 
 # Used Spring Integration components
 
