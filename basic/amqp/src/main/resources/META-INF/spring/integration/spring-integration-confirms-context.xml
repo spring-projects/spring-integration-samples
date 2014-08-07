@@ -20,8 +20,21 @@
 	<int:channel id="toRabbit" />
 
 	<int-amqp:outbound-channel-adapter
-		channel="toRabbit" amqp-template="amqpTemplate" exchange-name="si.test.exchange"
-		routing-key="si.test.binding" />
+		channel="toRabbit" amqp-template="amqpTemplate"
+		exchange-name-expression="payload.toLowerCase() == 'nack' ? 'badExchange' : 'si.test.exchange'"
+		routing-key-expression="payload.toLowerCase() == 'fail' ? 'badKey' : 'si.test.binding'"
+		confirm-correlation-expression="payload"
+		confirm-ack-channel="good"
+		confirm-nack-channel="errors"
+		return-channel="returns" />
+
+	<!--Confirms are correlated with the entire payload; for rich objects, we might just use 'payload.invoiceId' -->
+
+	<int:transformer input-channel="good" output-channel="stdOut" expression="payload + ' sent ok'"/>
+
+	<int:transformer input-channel="errors" output-channel="stdErr" expression="payload + ' send failed (nack)'"/>
+
+	<int:transformer input-channel="returns" output-channel="stdErr" expression="payload + ' returned:' + headers['amqp_returnReplyText']"/>
 
 	<!-- From RabbitMQ To STDOUT -->
 
@@ -34,9 +47,12 @@
 		</int:interceptors>
 	</int:channel>
 
-	<int:transformer input-channel="fromRabbit" output-channel="consoleOut" expression="'Received: ' + payload" />
+	<int:transformer input-channel="fromRabbit" output-channel="stdOut" expression="'Received: ' + payload" />
 
-	<int-stream:stdout-channel-adapter id="consoleOut"
+	<int-stream:stdout-channel-adapter id="stdOut"
+		append-newline="true" />
+
+	<int-stream:stderr-channel-adapter id="stdErr"
 		append-newline="true" />
 
 	<int:logging-channel-adapter id="loggingChannel" log-full-message="true" logger-name="tapInbound"
@@ -44,9 +60,9 @@
 
 	<!-- Infrastructure -->
 
-	<rabbit:connection-factory id="connectionFactory" host="localhost" />
+	<rabbit:connection-factory id="connectionFactory" host="localhost" publisher-confirms="true" publisher-returns="true" />
 
-	<rabbit:template id="amqpTemplate" connection-factory="connectionFactory" />
+	<rabbit:template id="amqpTemplate" connection-factory="connectionFactory" mandatory="true" /> <!-- for nacks -->
 
 	<rabbit:admin connection-factory="connectionFactory" />
 

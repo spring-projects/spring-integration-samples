@@ -388,14 +388,29 @@ project('loanshark') {
 project('amqp') {
 	description = 'AMQP Basic Sample'
 
-	apply plugin: 'application'
-
-	mainClassName = 'org.springframework.integration.samples.amqp.Main'
-
 	dependencies {
 		compile "org.springframework.integration:spring-integration-stream:$springIntegrationVersion"
 		compile "org.springframework.integration:spring-integration-amqp:$springIntegrationVersion"
 	}
+
+	task runSimple(type: JavaExec) {
+		main 'org.springframework.integration.samples.amqp.SampleSimple'
+		classpath = sourceSets.main.runtimeClasspath
+		standardInput = System.in
+		// 	useful for debugging the GradleWorkerMain
+		//		jvmArgs "-agentlib:jdwp=transport=dt_socket,server=y,suspend=y,address=8000"
+
+	}
+
+	task runPubConfirmsReturns(type: JavaExec) {
+		main 'org.springframework.integration.samples.amqp.SamplePubConfirmsReturns'
+		classpath = sourceSets.main.runtimeClasspath
+		standardInput = System.in
+		// 	useful for debugging the GradleWorkerMain
+		//		jvmArgs "-agentlib:jdwp=transport=dt_socket,server=y,suspend=y,address=8000"
+
+	}
+
 }
 
 project('control-bus') {
