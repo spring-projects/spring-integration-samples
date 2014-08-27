@@ -39,9 +39,8 @@
 
 	<int:channel id="clientBytes2StringChannel"/>
 
-	<int:transformer id="clientBytes2String"
-		input-channel="clientBytes2StringChannel"
-		expression="new String(payload)"/>
+	<int:object-to-string-transformer id="clientBytes2String"
+		input-channel="clientBytes2StringChannel" />
 
 	<!-- Server side -->
 	<!-- When creating the socket factory on the server side, we specify both the serializer and deserializer

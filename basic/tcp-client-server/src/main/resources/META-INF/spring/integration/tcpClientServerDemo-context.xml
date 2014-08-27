@@ -33,9 +33,8 @@
 		request-timeout="10000"
 		reply-timeout="10000"/>
 
-	<int:transformer id="clientBytes2String"
-		input-channel="clientBytes2StringChannel"
-		expression="new String(payload)"/>
+	<int:object-to-string-transformer id="clientBytes2String"
+		input-channel="clientBytes2StringChannel" />
 
 	<!-- Server side -->
 
@@ -57,10 +56,9 @@
 	<bean id="echoService"
 		class="org.springframework.integration.samples.tcpclientserver.EchoService" />
 
-	<int:transformer id="serverBytes2String"
+	<int:object-to-string-transformer id="serverBytes2String"
 		input-channel="serverBytes2StringChannel"
-		output-channel="toSA"
-		expression="new String(payload)"/>
+		output-channel="toSA"/>
 
 	<int:transformer id="errorHandler"
 		input-channel="errorChannel"
