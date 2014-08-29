@@ -189,6 +189,7 @@ subprojects { subproject ->
 			subethasmtpVersion = '1.2'
 			slf4jVersion = '1.7.6'
 			springIntegrationVersion = '4.0.3.RELEASE'
+			springIntegration41Version = '4.1.0.BUILD-SNAPSHOT'
 			springIntegrationDslVersion = '1.0.0.M2'
 			springVersion = '4.0.5.RELEASE'
 			springSecurityVersion = '3.2.4.RELEASE'
@@ -788,7 +789,10 @@ project('async-gateway') {
 	description = 'Async Gateway Sample'
 
 	dependencies {
-		compile "org.springframework.integration:spring-integration-core:$springIntegrationVersion"
+		compile "org.springframework.integration:spring-integration-core:$springIntegration41Version"
+	}
+	repositories {
+		mavenLocal() 
 	}
 }
 
