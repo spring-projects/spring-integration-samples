@@ -18,8 +18,6 @@ package org.springframework.integration.samples.async.gateway;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-import java.util.Collections;
-import java.util.List;
 import java.util.Random;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
@@ -50,9 +48,6 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import reactor.core.Environment;
 import reactor.core.composable.Promise;
-import reactor.core.configuration.PropertiesConfigurationReader;
-import reactor.event.dispatch.Dispatcher;
-import reactor.event.dispatch.ThreadPoolExecutorDispatcher;
 import reactor.function.Consumer;
 
 /**
@@ -140,11 +135,7 @@ public class PromiseTest {
 
 		@Bean
 		public Environment env() {
-			Environment environment = new Environment(
-					Collections.<String, List<Dispatcher>>singletonMap("foo",
-							Collections.<Dispatcher>singletonList(new ThreadPoolExecutorDispatcher(100,  1))),
-					new PropertiesConfigurationReader());
-			return environment;
+			return new Environment();
 		}
 
 	}
