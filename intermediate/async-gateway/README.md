@@ -5,7 +5,7 @@ Gateways provide a convenient way to expose a Proxy over a service-interface thu
 
 But what about the cases where you can't (e.g, message was filtered out and discarded or routed into a unidirectional sub-flow)?
 
-Starting with Spring Integration 2.0, we are introducing support for an Asynchronous Gateway, which is a convenient way to initiate flows, where you may not know, if a reply is expected or how long will it take for it to arrive. A natural way to handle these types of scenarios in Java would be to rely upon **java.util.concurrent.Future** instances. That is exactly what Spring Integration uses to support Asynchronous Gateways.
+Starting with Spring Integration 2.0, we introduced support for an Asynchronous Gateway, which is a convenient way to initiate flows, where you may not know, if a reply is expected or how long will it take for it to arrive. A natural way to handle these types of scenarios in Java would be to rely upon **java.util.concurrent.Future** instances. That is exactly what Spring Integration uses to support Asynchronous Gateways.
 
 This example demonstrates how you can apply an Asynchronous Gateway based on the following simple use case:
 
@@ -24,3 +24,10 @@ You should see the following output:
 	INFO : org.springframework.integration.samples.async.gateway.AsyncGatewayTest - Multiplication of 39 by 2 is can not be accomplished in 20 seconds
 	INFO : org.springframework.integration.samples.async.gateway.AsyncGatewayTest - Multiplication of 36 by 2 is can not be accomplished in 20 seconds
 	INFO : org.springframework.integration.samples.async.gateway.AsyncGatewayTest - Multiplication of 37 by 2 is can not be accomplished in 20 seconds
+
+
+Spring Integration 4.0 provided the capability to more easily configure Messaging Gateways with Java configuration.
+
+Spring Integration 4.1 added support for **ListenableFuture** and **Promise** (from project reactor) return types.
+
+The **ListenableFutureTest** and **PromiseTest** test classes replicate the above test case, using those return types, and showing the use of **@MessagingGateway** java configuration.

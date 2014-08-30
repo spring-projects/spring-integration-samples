@@ -1,5 +1,5 @@
 /*
- * Copyright 2002-2010 the original author or authors.
+ * Copyright 2002-2014 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -27,20 +27,23 @@ import java.util.concurrent.TimeoutException;
 
 import org.apache.log4j.Logger;
 import org.junit.Test;
-import org.springframework.context.ApplicationContext;
+
+import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.support.FileSystemXmlApplicationContext;
 /**
  * @author Oleg Zhurakousky
+ * @author Gary Russell
  *
  */
 public class AsyncGatewayTest {
 	private static Logger logger = Logger.getLogger(AsyncGatewayTest.class);
 	private static ExecutorService executor = Executors.newFixedThreadPool(100);
 	private static int timeout = 20;
-	
+
 	@Test
 	public void testAsyncGateway() throws Exception{
-		ApplicationContext ac = new FileSystemXmlApplicationContext("src/main/resources/META-INF/spring/integration/*.xml");
+		ConfigurableApplicationContext ac =
+				new FileSystemXmlApplicationContext("src/main/resources/META-INF/spring/integration/*.xml");
 		MathServiceGateway mathService = ac.getBean("mathService", MathServiceGateway.class);
 		Map<Integer, Future<Integer>> results = new HashMap<Integer, Future<Integer>>();
 		Random random = new Random();
@@ -50,25 +53,24 @@ public class AsyncGatewayTest {
 			results.put(number, result);
 		}
 		for (final Map.Entry<Integer, Future<Integer>> resultEntry : results.entrySet()) {
-			executor.execute(new Runnable() {
-				public void run() {			
-					int[] result = processFuture(resultEntry);
-					
-					if (result[1] == -1){
-						logger.info("Multiplying " + result[0] + " should be easy. You should be able to multiply any number < 100 by 2 in your head");
-					} else if (result[1] == -2){
-						logger.info("Multiplication of " + result[0] + " by 2 is can not be accomplished in " + timeout + " seconds");
-					} else {
-						logger.info("Result of multiplication of " + result[0] + " by 2 is " + result[1]);
-					}
+			executor.execute(() -> {
+				int[] result = processFuture(resultEntry);
+
+				if (result[1] == -1){
+					logger.info("Multiplying " + result[0] + " should be easy. You should be able to multiply any number < 100 by 2 in your head");
+				} else if (result[1] == -2){
+					logger.info("Multiplication of " + result[0] + " by 2 is can not be accomplished in " + timeout + " seconds");
+				} else {
+					logger.info("Result of multiplication of " + result[0] + " by 2 is " + result[1]);
 				}
-			});		
+			});
 		}
 		executor.shutdown();
 		executor.awaitTermination(60, TimeUnit.SECONDS);
 		logger.info("Finished");
+		ac.close();
 	}
-	
+
 	public static int[] processFuture(Map.Entry<Integer, Future<Integer>> resultEntry){
 		int originalNumber = resultEntry.getKey();
 		Future<Integer> result = resultEntry.getValue();
