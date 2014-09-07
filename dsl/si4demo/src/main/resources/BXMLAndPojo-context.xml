@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:int="http://www.springframework.org/schema/integration"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+		http://www.springframework.org/schema/integration http://www.springframework.org/schema/integration/spring-integration.xsd">
+
+	<int:annotation-config />
+
+	<int:gateway 
+		service-interface="org.springframework.integration.samples.si4demo.springone.b.BXMLAndPojo$FooService"
+		default-request-channel="foo" />
+
+	<int:channel id="foo" />
+
+	<int:channel id="bar" />
+
+	<bean class="org.springframework.integration.samples.si4demo.springone.b.BXMLAndPojo$MyComponents"/>
+
+</beans>

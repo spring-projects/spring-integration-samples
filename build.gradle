@@ -520,13 +520,21 @@ project('si4demo') {
 	dependencies {
 		compile 'org.springframework.boot:spring-boot-starter-web'
 		compile 'org.springframework.boot:spring-boot-starter-integration'
-		compile "org.springframework.integration:spring-integration-twitter:$springIntegrationVersion"
+		compile "org.springframework.integration:spring-integration-mail:$springIntegration41Version"
+		compile "org.springframework.integration:spring-integration-twitter:$springIntegration41Version"
 		compile "org.springframework.integration:spring-integration-java-dsl:$springIntegrationDslVersion"
+		compile "javax.mail:javax.mail-api:$javaxMailVersion"
+		compile "com.sun.mail:javax.mail:$javaxMailVersion"
+		compile "com.sun.mail:smtp:$javaxMailVersion"
+		compile "com.sun.mail:pop3:$javaxMailVersion"
+		compile "com.sun.mail:imap:$javaxMailVersion"
+		compile "com.rometools:rome:1.5.0"
 
 		testCompile 'org.springframework.boot:spring-boot-starter-test'
 	}
 
 	mainClassName = 'org.springframework.integration.samples.si4demo.dsl.Application'
+
 }
 
 project('cafe-dsl') {
