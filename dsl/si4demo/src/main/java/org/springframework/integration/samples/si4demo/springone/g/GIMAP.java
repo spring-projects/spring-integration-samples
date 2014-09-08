@@ -16,13 +16,16 @@
 package org.springframework.integration.samples.si4demo.springone.g;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.integration.dsl.IntegrationFlow;
+import org.springframework.integration.dsl.IntegrationFlows;
+import org.springframework.integration.dsl.mail.Mail;
+import org.springframework.integration.mail.MailHeaders;
 import org.springframework.integration.samples.si4demo.springone.GMailProperties;
 
 /**
@@ -41,7 +44,9 @@ public class GIMAP {
 
 	public static void main(String[] args) throws Exception {
 		ConfigurableApplicationContext ctx =
-				SpringApplication.run(GIMAP.class);
+				new SpringApplicationBuilder(GIMAP.class)
+						.web(false)
+						.run(args);
 		System.out.println("Hit Enter to terminate");
 		System.in.read();
 		ctx.close();
@@ -49,7 +54,22 @@ public class GIMAP {
 
 	@Bean
 	IntegrationFlow imapIdle() {
-		return null;
+		return IntegrationFlows.from(Mail.imapIdleAdapter(
+							"imaps://"
+							+ gmail.getUser().replaceAll("@", "%40")
+							+ ":"
+							+ gmail.getPassword()
+							+ "@imap.gmail.com:993/INBOX")
+						.id("imapIn")
+						.autoStartup(true)
+						.javaMailProperties(p ->
+							 p.put("mail.debug", "false")))
+				.enrichHeaders(s -> s.headerExpressions(h -> h
+						.put(MailHeaders.SUBJECT, "payload.subject")
+						.put(MailHeaders.FROM, "payload.from[0].toString()")))
+				.transform("payload.content")
+				.handle(System.out::println)
+				.get();
 	}
 
 }
