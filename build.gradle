@@ -191,10 +191,10 @@ subprojects { subproject ->
 			postgresVersion = '9.1-901-1.jdbc4'
 			subethasmtpVersion = '1.2'
 			slf4jVersion = '1.7.6'
-			springIntegrationVersion = '4.0.3.RELEASE'
-			springIntegration41Version = '4.1.0.BUILD-SNAPSHOT'
-			springIntegrationDslVersion = '1.0.0.M2'
-			springVersion = '4.0.5.RELEASE'
+			springIntegrationVersion = '4.0.4.RELEASE'
+			springIntegration41Version = '4.1.0.M1'
+			springIntegrationDslVersion = '1.0.0.M3'
+			springVersion = '4.0.7.RELEASE'
 			springSecurityVersion = '3.2.4.RELEASE'
 			springWebFlowVersion = '2.3.3.RELEASE'
 			tilesJspVersion = '2.2.1'
@@ -528,6 +528,25 @@ project('si4demo') {
 
 	mainClassName = 'org.springframework.integration.samples.si4demo.dsl.Application'
 }
+
+project('cafe-dsl') {
+	description = 'Java DSL Cafe Sample'
+
+	apply plugin: 'spring-boot'
+
+	sourceCompatibility = 1.8
+
+	dependencies {
+		compile project(":cafe-si")
+		compile 'org.springframework.boot:spring-boot-starter-integration'
+		compile "org.springframework.integration:spring-integration-java-dsl:$springIntegrationDslVersion"
+
+		testCompile 'org.springframework.boot:spring-boot-starter-test'
+	}
+
+	mainClassName = 'org.springframework.integration.samples.dsl.cafe.Application'
+}
+
 
 project('jdbc') {
 	description = 'JDBC Basic Sample'
