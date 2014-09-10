@@ -139,6 +139,7 @@ subprojects { subproject ->
 
 	repositories {
 		//TODO on release
+//		mavenLocal()
 		maven { url 'http://repo.spring.io/libs-snapshot' }
 		maven { url 'http://repo.spring.io/libs-milestone' }
 //		maven { url 'http://repo.spring.io/libs-staging-local' }
@@ -192,7 +193,7 @@ subprojects { subproject ->
 			subethasmtpVersion = '1.2'
 			slf4jVersion = '1.7.6'
 			springIntegrationVersion = '4.0.4.RELEASE'
-			springIntegration41Version = '4.1.0.M1'
+			springIntegration41Version = '4.1.0.BUILD-SNAPSHOT'
 			springIntegrationDslVersion = '1.0.0.M3'
 			springVersion = '4.0.7.RELEASE'
 			springSecurityVersion = '3.2.4.RELEASE'
@@ -1083,6 +1084,21 @@ project('tx-synch') {
 		compile "org.springframework.integration:spring-integration-file:$springIntegrationVersion"
 		compile "com.h2database:h2:$h2Version"
 	}
+}
+
+project('web-sockets') {
+	description = 'Web Sockets Basic Sample'
+
+	apply plugin: 'spring-boot'
+
+	dependencies {
+		compile 'org.springframework.boot:spring-boot-starter-websocket'
+		compile "org.springframework.integration:spring-integration-websocket:$springIntegration41Version"
+
+		testCompile 'org.springframework.boot:spring-boot-starter-test'
+	}
+
+	mainClassName = 'org.springframework.integration.samples.websocket.standard.server.Application'
 }
 
 task wrapper(type: Wrapper) {
