@@ -4,7 +4,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.springframework.integration.samples</groupId>
   <artifactId>mail-attachments</artifactId>
-  <version>2.2.0.BUILD-SNAPSHOT</version>
+  <version>3.0.0.BUILD-SNAPSHOT</version>
   <name>Mail Attachment Sample</name>
   <description>Mail Attachment Sample</description>
   <url>http://projects.spring.io/spring-integration</url>
@@ -23,7 +23,7 @@
     <developer>
       <id>garyrussell</id>
       <name>Gary Russell</name>
-      <email>grussell@gopivotal.com</email>
+      <email>grussell@pivotal.io</email>
       <roles>
         <role>project lead</role>
       </roles>
@@ -31,7 +31,7 @@
     <developer>
       <id>markfisher</id>
       <name>Mark Fisher</name>
-      <email>mfisher@gopivotal.com</email>
+      <email>mfisher@pivotal.io</email>
       <roles>
         <role>project founder and lead emeritus</role>
       </roles>
@@ -39,12 +39,12 @@
     <developer>
       <id>ghillert</id>
       <name>Gunnar Hillert</name>
-      <email>ghillert@gopivotal.com</email>
+      <email>ghillert@pivotal.io</email>
     </developer>
     <developer>
       <id>abilan</id>
       <name>Artem Bilan</name>
-      <email>abilan@gopivotal.com</email>
+      <email>abilan@pivotal.io</email>
     </developer>
   </developers>
   <scm>
@@ -73,6 +73,24 @@
       <scope>test</scope>
     </dependency>
     <dependency>
+      <groupId>org.springframework.integration</groupId>
+      <artifactId>spring-integration-mail</artifactId>
+      <version>4.0.4.RELEASE</version>
+      <scope>compile</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.integration</groupId>
+      <artifactId>spring-integration-file</artifactId>
+      <version>4.0.4.RELEASE</version>
+      <scope>compile</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-test</artifactId>
+      <version>4.0.7.RELEASE</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
       <groupId>commons-io</groupId>
       <artifactId>commons-io</artifactId>
       <version>2.4</version>
@@ -87,14 +105,8 @@
     <dependency>
       <groupId>org.springframework.integration</groupId>
       <artifactId>spring-integration-test</artifactId>
-      <version>4.0.0.RELEASE</version>
+      <version>4.0.4.RELEASE</version>
       <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.springframework.integration</groupId>
-      <artifactId>spring-integration-mail</artifactId>
-      <version>4.0.0.RELEASE</version>
-      <scope>compile</scope>
     </dependency>
     <dependency>
       <groupId>log4j</groupId>
@@ -119,18 +131,6 @@
       <artifactId>mockito-core</artifactId>
       <version>1.9.5</version>
       <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.springframework</groupId>
-      <artifactId>spring-test</artifactId>
-      <version>4.0.3.RELEASE</version>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.springframework.integration</groupId>
-      <artifactId>spring-integration-file</artifactId>
-      <version>4.0.0.RELEASE</version>
-      <scope>compile</scope>
     </dependency>
   </dependencies>
 </project>

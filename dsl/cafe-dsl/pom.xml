@@ -2,12 +2,16 @@
 <project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <artifactId>spring-boot-starter-parent</artifactId>
+    <groupId>org.springframework.boot</groupId>
+    <version>1.1.6.RELEASE</version>
+  </parent>
   <groupId>org.springframework.integration.samples</groupId>
-  <artifactId>multipart-http</artifactId>
+  <artifactId>cafe-dsl</artifactId>
   <version>3.0.0.BUILD-SNAPSHOT</version>
-  <packaging>war</packaging>
-  <name>HTTP Multipart Demo</name>
-  <description>HTTP Multipart Demo</description>
+  <name>Java DSL Cafe Sample</name>
+  <description>Java DSL Cafe Sample</description>
   <url>http://projects.spring.io/spring-integration</url>
   <organization>
     <name>SpringIO</name>
@@ -56,14 +60,8 @@
   <build>
     <plugins>
       <plugin>
-        <groupId>org.mortbay.jetty</groupId>
-        <artifactId>jetty-maven-plugin</artifactId>
-        <version>8.1.14.v20131031</version>
-        <configuration>
-          <webAppConfig>
-            <contextPath>/multipart-http</contextPath>
-          </webAppConfig>
-        </configuration>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-maven-plugin</artifactId>
       </plugin>
     </plugins>
   </build>
@@ -76,9 +74,9 @@
   </repositories>
   <dependencies>
     <dependency>
-      <groupId>org.springframework</groupId>
-      <artifactId>spring-webmvc</artifactId>
-      <version>4.0.7.RELEASE</version>
+      <groupId>org.springframework.integration.samples</groupId>
+      <artifactId>cafe-si</artifactId>
+      <version>3.0.0.BUILD-SNAPSHOT</version>
       <scope>compile</scope>
     </dependency>
     <dependency>
@@ -100,33 +98,25 @@
       <scope>test</scope>
     </dependency>
     <dependency>
-      <groupId>commons-io</groupId>
-      <artifactId>commons-io</artifactId>
-      <version>2.4</version>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-test</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-integration</artifactId>
       <scope>compile</scope>
     </dependency>
     <dependency>
       <groupId>org.springframework.integration</groupId>
-      <artifactId>spring-integration-http</artifactId>
-      <version>4.0.4.RELEASE</version>
+      <artifactId>spring-integration-java-dsl</artifactId>
+      <version>1.0.0.M3</version>
       <scope>compile</scope>
     </dependency>
     <dependency>
       <groupId>log4j</groupId>
       <artifactId>log4j</artifactId>
       <version>1.2.17</version>
-      <scope>compile</scope>
-    </dependency>
-    <dependency>
-      <groupId>commons-fileupload</groupId>
-      <artifactId>commons-fileupload</artifactId>
-      <version>1.2.2</version>
-      <scope>compile</scope>
-    </dependency>
-    <dependency>
-      <groupId>com.fasterxml.jackson.core</groupId>
-      <artifactId>jackson-databind</artifactId>
-      <version>2.3.2</version>
       <scope>compile</scope>
     </dependency>
     <dependency>

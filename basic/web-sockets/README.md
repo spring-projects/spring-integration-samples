@@ -10,6 +10,8 @@ The server is presented only with single `org.springframework.integration.sample
 class, which is based on the Spring Boot AutoConfiguration and Spring Integration Java & Annotation configuration.
 It is a `main` and starts embedded Tomcat on default `8080` port. The WebSocket endpoint is mapped to the `/time` path.
 
+The server also can be run from Gradle `gradlew :web-sockets:run`
+
 ## Java Client
 
 The `org.springframework.integration.samples.websocket.standard.client.Application` represents simple Java application,

@@ -4,7 +4,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.springframework.integration.samples</groupId>
   <artifactId>loanshark</artifactId>
-  <version>2.2.0.BUILD-SNAPSHOT</version>
+  <version>3.0.0.BUILD-SNAPSHOT</version>
   <packaging>war</packaging>
   <name>Loan Shark Sample</name>
   <description>Loan Shark Sample</description>
@@ -24,7 +24,7 @@
     <developer>
       <id>garyrussell</id>
       <name>Gary Russell</name>
-      <email>grussell@gopivotal.com</email>
+      <email>grussell@pivotal.io</email>
       <roles>
         <role>project lead</role>
       </roles>
@@ -32,7 +32,7 @@
     <developer>
       <id>markfisher</id>
       <name>Mark Fisher</name>
-      <email>mfisher@gopivotal.com</email>
+      <email>mfisher@pivotal.io</email>
       <roles>
         <role>project founder and lead emeritus</role>
       </roles>
@@ -40,12 +40,12 @@
     <developer>
       <id>ghillert</id>
       <name>Gunnar Hillert</name>
-      <email>ghillert@gopivotal.com</email>
+      <email>ghillert@pivotal.io</email>
     </developer>
     <developer>
       <id>abilan</id>
       <name>Artem Bilan</name>
-      <email>abilan@gopivotal.com</email>
+      <email>abilan@pivotal.io</email>
     </developer>
   </developers>
   <scm>
@@ -76,12 +76,6 @@
   </repositories>
   <dependencies>
     <dependency>
-      <groupId>org.springframework</groupId>
-      <artifactId>spring-context</artifactId>
-      <version>4.0.3.RELEASE</version>
-      <scope>compile</scope>
-    </dependency>
-    <dependency>
       <groupId>org.slf4j</groupId>
       <artifactId>slf4j-log4j12</artifactId>
       <version>1.7.6</version>
@@ -100,21 +94,33 @@
       <scope>test</scope>
     </dependency>
     <dependency>
-      <groupId>org.springframework</groupId>
-      <artifactId>spring-jdbc</artifactId>
-      <version>4.0.3.RELEASE</version>
-      <scope>compile</scope>
-    </dependency>
-    <dependency>
       <groupId>commons-fileupload</groupId>
       <artifactId>commons-fileupload</artifactId>
       <version>1.2.2</version>
       <scope>compile</scope>
     </dependency>
     <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-aop</artifactId>
+      <version>4.0.7.RELEASE</version>
+      <scope>compile</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-context</artifactId>
+      <version>4.0.7.RELEASE</version>
+      <scope>compile</scope>
+    </dependency>
+    <dependency>
       <groupId>org.aspectj</groupId>
       <artifactId>aspectjtools</artifactId>
       <version>1.8.0</version>
+      <scope>compile</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-webmvc</artifactId>
+      <version>4.0.7.RELEASE</version>
       <scope>compile</scope>
     </dependency>
     <dependency>
@@ -127,24 +133,6 @@
       <groupId>commons-pool</groupId>
       <artifactId>commons-pool</artifactId>
       <version>1.5.4</version>
-      <scope>compile</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.springframework</groupId>
-      <artifactId>spring-aop</artifactId>
-      <version>4.0.3.RELEASE</version>
-      <scope>compile</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.springframework</groupId>
-      <artifactId>spring-tx</artifactId>
-      <version>4.0.3.RELEASE</version>
-      <scope>compile</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.springframework</groupId>
-      <artifactId>spring-aspects</artifactId>
-      <version>4.0.3.RELEASE</version>
       <scope>compile</scope>
     </dependency>
     <dependency>
@@ -191,14 +179,14 @@
     </dependency>
     <dependency>
       <groupId>org.springframework</groupId>
-      <artifactId>spring-test</artifactId>
-      <version>4.0.3.RELEASE</version>
-      <scope>test</scope>
+      <artifactId>spring-jdbc</artifactId>
+      <version>4.0.7.RELEASE</version>
+      <scope>compile</scope>
     </dependency>
     <dependency>
-      <groupId>org.springframework</groupId>
-      <artifactId>spring-webmvc</artifactId>
-      <version>4.0.3.RELEASE</version>
+      <groupId>org.springframework.integration</groupId>
+      <artifactId>spring-integration-ip</artifactId>
+      <version>4.0.4.RELEASE</version>
       <scope>compile</scope>
     </dependency>
     <dependency>
@@ -208,9 +196,21 @@
       <scope>compile</scope>
     </dependency>
     <dependency>
-      <groupId>org.springframework.integration</groupId>
-      <artifactId>spring-integration-ip</artifactId>
-      <version>4.0.0.RELEASE</version>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-test</artifactId>
+      <version>4.0.7.RELEASE</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-orm</artifactId>
+      <version>4.0.7.RELEASE</version>
+      <scope>compile</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-aspects</artifactId>
+      <version>4.0.7.RELEASE</version>
       <scope>compile</scope>
     </dependency>
     <dependency>
@@ -226,15 +226,15 @@
       <scope>test</scope>
     </dependency>
     <dependency>
-      <groupId>org.springframework</groupId>
-      <artifactId>spring-orm</artifactId>
-      <version>4.0.3.RELEASE</version>
-      <scope>compile</scope>
-    </dependency>
-    <dependency>
       <groupId>commons-digester</groupId>
       <artifactId>commons-digester</artifactId>
       <version>2.0</version>
+      <scope>compile</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-tx</artifactId>
+      <version>4.0.7.RELEASE</version>
       <scope>compile</scope>
     </dependency>
     <dependency>
