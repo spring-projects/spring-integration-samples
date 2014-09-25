@@ -61,24 +61,24 @@ subprojects { subproject ->
 					developer {
 						id = 'garyrussell'
 						name = 'Gary Russell'
-						email = 'grussell@gopivotal.com'
+						email = 'grussell@pivotal.io'
 						roles = ["project lead"]
 					}
 					developer {
 						id = 'markfisher'
 						name = 'Mark Fisher'
-						email = 'mfisher@gopivotal.com'
+						email = 'mfisher@pivotal.io'
 						roles = ["project founder and lead emeritus"]
 					}
 					developer {
 						id = 'ghillert'
 						name = 'Gunnar Hillert'
-						email = 'ghillert@gopivotal.com'
+						email = 'ghillert@pivotal.io'
 					}
 					developer {
 						id = 'abilan'
 						name = 'Artem Bilan'
-						email = 'abilan@gopivotal.com'
+						email = 'abilan@pivotal.io'
 					}
 				}
 
@@ -139,6 +139,7 @@ subprojects { subproject ->
 
 	repositories {
 		//TODO on release
+//		mavenLocal()
 		maven { url 'http://repo.spring.io/libs-snapshot' }
 		maven { url 'http://repo.spring.io/libs-milestone' }
 //		maven { url 'http://repo.spring.io/libs-staging-local' }
@@ -192,7 +193,7 @@ subprojects { subproject ->
 			subethasmtpVersion = '1.2'
 			slf4jVersion = '1.7.6'
 			springIntegrationVersion = '4.0.4.RELEASE'
-			springIntegration41Version = '4.1.0.M1'
+			springIntegration41Version = '4.1.0.BUILD-SNAPSHOT'
 			springIntegrationDslVersion = '1.0.0.M3'
 			springVersion = '4.0.7.RELEASE'
 			springSecurityVersion = '3.2.4.RELEASE'
@@ -527,6 +528,10 @@ project('si4demo') {
 	}
 
 	mainClassName = 'org.springframework.integration.samples.si4demo.dsl.Application'
+
+	tasks.withType(JavaExec) {
+		standardInput = System.in
+	}
 }
 
 project('cafe-dsl') {
@@ -539,6 +544,7 @@ project('cafe-dsl') {
 	dependencies {
 		compile project(":cafe-si")
 		compile 'org.springframework.boot:spring-boot-starter-integration'
+		compile "org.springframework.integration:spring-integration-core:$springIntegration41Version"
 		compile "org.springframework.integration:spring-integration-java-dsl:$springIntegrationDslVersion"
 
 		testCompile 'org.springframework.boot:spring-boot-starter-test'
@@ -1082,6 +1088,25 @@ project('tx-synch') {
 		compile "org.springframework.integration:spring-integration-jdbc:$springIntegrationVersion"
 		compile "org.springframework.integration:spring-integration-file:$springIntegrationVersion"
 		compile "com.h2database:h2:$h2Version"
+	}
+}
+
+project('web-sockets') {
+	description = 'Web Sockets Basic Sample'
+
+	apply plugin: 'spring-boot'
+
+	dependencies {
+		compile 'org.springframework.boot:spring-boot-starter-websocket'
+		compile "org.springframework.integration:spring-integration-websocket:$springIntegration41Version"
+
+		testCompile 'org.springframework.boot:spring-boot-starter-test'
+	}
+
+	mainClassName = 'org.springframework.integration.samples.websocket.standard.server.Application'
+
+	tasks.withType(JavaExec) {
+		standardInput = System.in
 	}
 }
 
