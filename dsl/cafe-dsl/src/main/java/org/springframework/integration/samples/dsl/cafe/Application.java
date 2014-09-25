@@ -26,6 +26,7 @@ import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.DependsOn;
 import org.springframework.integration.annotation.Gateway;
 import org.springframework.integration.annotation.IntegrationComponentScan;
 import org.springframework.integration.annotation.MessagingGateway;
@@ -98,6 +99,7 @@ public class Application {
 	}
 
 	@Bean
+	@DependsOn("preparedDrinksFlow")
 	public IntegrationFlow coldDrinksFlow() {
 		return IntegrationFlows.from(MessageChannels.queue("coldDrinks", 10))
 				.<OrderItem>handle((orderItem, h) -> {
@@ -119,6 +121,7 @@ public class Application {
 	}
 
 	@Bean
+	@DependsOn("preparedDrinksFlow")
 	public IntegrationFlow hotDrinksFlow() {
 		return IntegrationFlows.from(MessageChannels.queue("hotDrinks", 10))
 				.<OrderItem>handle((orderItem, h) -> {
