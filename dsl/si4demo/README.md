@@ -1,8 +1,8 @@
 #Spring Integration 4.0/4.1 Java Config/DSL Demo
 
-This sample is the demo used in the [Spring Integration 4.0 Webinar](https://spring.io/blog/2014/05/15/webinar-replay-spring-integration-4-0-the-new-frontier)
+This sample is the demo used in the [Spring Integration 4.0 Webinar](https://spring.io/blog/2014/05/15/webinar-replay-spring-integration-4-0-the-new-frontier) and SpringOne/2GX 2014.
 
-There are two demo applications:
+There are two demo applications from the webinar:
 
 __org.springframework.integration.samples.javaconfig.annotations.Application__ is a Spring Boot application using 
 Spring Integration 4.0 Java configuration features.
@@ -34,6 +34,9 @@ Twitter now requires authentication to perform searches; visit the [twitter deve
         accessToken:
         accessTokenSecret:
 
+
+
+#SpringOne/2GX 2014
 
 Additional examples were added to this project at __SpringOne2GX 2014__ - see the __springone__ package.
 
