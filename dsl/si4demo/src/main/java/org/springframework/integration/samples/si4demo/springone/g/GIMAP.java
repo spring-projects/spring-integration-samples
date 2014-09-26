@@ -68,7 +68,7 @@ public class GIMAP {
 						.put(MailHeaders.SUBJECT, "payload.subject")
 						.put(MailHeaders.FROM, "payload.from[0].toString()")))
 				.transform("payload.content")
-				.handle(System.out::println)
+				.<String>handle(System.out::println)
 				.get();
 	}
 
