@@ -68,7 +68,7 @@ import org.springframework.social.twitter.api.impl.TwitterTemplate;
 public class Application {
 
 	public static void main(String[] args) throws Exception {
-		ConfigurableApplicationContext ctx = SpringApplication.run(Application.class);
+		ConfigurableApplicationContext ctx = SpringApplication.run(Application.class, args);
 		System.in.read();
 		ctx.close();
 	}

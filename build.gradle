@@ -138,7 +138,6 @@ subprojects { subproject ->
 	}
 
 	repositories {
-		//TODO on release
 //		mavenLocal()
 		maven { url 'http://repo.spring.io/libs-snapshot' }
 		maven { url 'http://repo.spring.io/libs-milestone' }
@@ -1111,6 +1110,27 @@ project('web-sockets') {
 	}
 
 	mainClassName = 'org.springframework.integration.samples.websocket.standard.server.Application'
+
+	tasks.withType(JavaExec) {
+		standardInput = System.in
+	}
+}
+
+project('stomp-chat') {
+	description = 'Web Sockets Stomp Chat Sample'
+
+	apply plugin: 'spring-boot'
+
+	dependencies {
+		compile 'org.springframework.boot:spring-boot-starter-websocket'
+		compile "org.springframework.integration:spring-integration-websocket:$springIntegration41Version"
+		compile "org.springframework.integration:spring-integration-event:$springIntegration41Version"
+		compile "org.springframework.integration:spring-integration-groovy:$springIntegration41Version"
+
+		testCompile 'org.springframework.boot:spring-boot-starter-test'
+	}
+
+	mainClassName = 'org.springframework.integration.samples.chat.stomp.server.Application'
 
 	tasks.withType(JavaExec) {
 		standardInput = System.in

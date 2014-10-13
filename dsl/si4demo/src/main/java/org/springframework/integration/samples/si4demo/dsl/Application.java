@@ -75,7 +75,7 @@ import org.springframework.social.twitter.api.impl.TwitterTemplate;
 public class Application {
 
 	public static void main(String[] args) throws Exception {
-		ConfigurableApplicationContext ctx = SpringApplication.run(Application.class);
+		ConfigurableApplicationContext ctx = SpringApplication.run(Application.class, args);
 		Scanner scanner = new Scanner(System.in);
 		String hashTag = scanner.nextLine();
 		System.out.println(ctx.getBean(Gateway.class).sendReceive(hashTag));
