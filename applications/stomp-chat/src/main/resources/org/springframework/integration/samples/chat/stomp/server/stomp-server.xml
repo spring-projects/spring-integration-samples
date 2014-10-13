@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	   xmlns:int="http://www.springframework.org/schema/integration"
+	   xmlns:int-websocket="http://www.springframework.org/schema/integration/websocket"
+	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   xmlns:int-event="http://www.springframework.org/schema/integration/event"
+	   xmlns:task="http://www.springframework.org/schema/task" xmlns:util="http://www.springframework.org/schema/util"
+	   xmlns:int-groovy="http://www.springframework.org/schema/integration/groovy"
+	   xsi:schemaLocation="http://www.springframework.org/schema/beans
+	   http://www.springframework.org/schema/beans/spring-beans.xsd
+	   http://www.springframework.org/schema/integration
+			http://www.springframework.org/schema/integration/spring-integration.xsd
+			http://www.springframework.org/schema/integration/event
+			http://www.springframework.org/schema/integration/event/spring-integration-event.xsd
+			http://www.springframework.org/schema/integration/websocket
+			http://www.springframework.org/schema/integration/websocket/spring-integration-websocket.xsd
+			http://www.springframework.org/schema/task
+			http://www.springframework.org/schema/task/spring-task.xsd
+			http://www.springframework.org/schema/util
+			http://www.springframework.org/schema/util/spring-util.xsd
+			http://www.springframework.org/schema/integration/groovy
+			http://www.springframework.org/schema/integration/groovy/spring-integration-groovy.xsd">
+
+	<int:wire-tap channel="logger"/>
+
+	<int:logging-channel-adapter id="logger" level="INFO" log-full-message="true"/>
+
+	<task:executor id="executor"/>
+
+	<bean id="webSocketSessionStore" class="org.springframework.integration.metadata.SimpleMetadataStore"/>
+
+	<bean id="chatMessagesStore" class="org.springframework.integration.store.SimpleMessageStore"/>
+
+	<util:map id="chatRoomSessions" value-type="java.util.List">
+		<entry key="room1" value="#{new java.util.ArrayList()}"/>
+		<entry key="room2" value="#{new java.util.ArrayList()}"/>
+	</util:map>
+
+	<bean id="stompSubProtocolHandler" class="org.springframework.web.socket.messaging.StompSubProtocolHandler"/>
+
+	<int-websocket:server-container id="serverWebSocketContainer" path="/chat">
+		<int-websocket:sockjs/>
+	</int-websocket:server-container>
+
+	<int-event:inbound-channel-adapter event-types="org.springframework.web.socket.messaging.AbstractSubProtocolEvent"
+									   payload-expression="message"
+									   channel="routeStompEvents"/>
+
+	<int:header-value-router input-channel="routeStompEvents"
+							 header-name="simpMessageType"
+							 resolution-required="false"
+							 default-output-channel="nullChannel">
+		<int:mapping value="#{T(org.springframework.messaging.simp.SimpMessageType).CONNECT.name()}"
+					 channel="connectAck"/>
+		<int:mapping value="#{T(org.springframework.messaging.simp.SimpMessageType).SUBSCRIBE.name()}"
+					 channel="subscribe"/>
+		<int:mapping value="#{T(org.springframework.messaging.simp.SimpMessageType).UNSUBSCRIBE.name()}"
+					 channel="unsubscribe"/>
+		<int:mapping value="#{T(org.springframework.messaging.simp.SimpMessageType).DISCONNECT.name()}"
+					 channel="disconnect"/>
+	</int:header-value-router>
+
+	<int:outbound-channel-adapter id="connectAck"
+								  expression="@webSocketSessionStore.put(headers.simpSessionId, headers.nativeHeaders.login)"/>
+
+	<int:publish-subscribe-channel id="subscribe"/>
+
+	<int:service-activator input-channel="subscribe" output-channel="nullChannel"
+						   expression="@chatRoomSessions[headers.simpDestination]
+						   					.add(T(reactor.tuple.Tuple).of(headers.simpSessionId, headers.simpSubscriptionId))"/>
+
+	<int:chain input-channel="subscribe" output-channel="sendMessage">
+		<int:header-enricher>
+			<int:header name="sessionToSend" expression="headers.simpSessionId"/>
+			<int:header name="subscriptionToSend" expression="headers.simpSubscriptionId"/>
+		</int:header-enricher>
+		<int:service-activator
+				expression="@chatMessagesStore.getMessageGroup(headers.simpDestination).messages"/>
+		<int:filter expression="!payload.empty"/>
+		<int:header-enricher default-overwrite="true">
+			<int:header name="#{T(org.springframework.messaging.simp.stomp.StompHeaderAccessor).SESSION_ID_HEADER}"
+						expression="headers.sessionToSend"/>
+			<int:header
+					name="#{T(org.springframework.messaging.simp.stomp.StompHeaderAccessor).STOMP_SUBSCRIPTION_HEADER}"
+					expression="headers.subscriptionToSend"/>
+		</int:header-enricher>
+		<int:splitter apply-sequence="false"/>
+	</int:chain>
+
+
+	<int:outbound-channel-adapter id="unsubscribe">
+		<int-groovy:script>
+			chatRoomSessions.each { k, v ->
+			v.remove(reactor.tuple.Tuple.of(headers.simpSessionId, headers.simpSubscriptionId))
+			}
+			null
+		</int-groovy:script>
+	</int:outbound-channel-adapter>
+
+
+	<int:channel id="receiveMessage"/>
+
+	<int-websocket:inbound-channel-adapter channel="receiveMessage" container="serverWebSocketContainer"
+										   default-protocol-handler="stompSubProtocolHandler"/>
+
+	<int:transformer input-channel="receiveMessage" output-channel="storeMessageAndPublish"
+					 expression="{user: @webSocketSessionStore.get(headers.simpSessionId), message: payload, date: new java.util.Date()}"/>
+
+	<int:publish-subscribe-channel id="storeMessageAndPublish"/>
+
+	<int:service-activator input-channel="storeMessageAndPublish" output-channel="nullChannel"
+						   expression="@chatMessagesStore.addMessageToGroup(headers.simpDestination, #root)"/>
+
+
+	<int:splitter input-channel="storeMessageAndPublish" output-channel="sendMessage" apply-sequence="false">
+		<int-groovy:script>
+			chatRoomSessions[headers.simpDestination].collect {
+				org.springframework.integration.support.MessageBuilder.withPayload(payload)
+						.copyHeaders(headers)
+						.setHeader('simpSessionId', it.t1)
+						.setHeader('simpSubscriptionId', it.t2)
+						.build()
+			}
+		</int-groovy:script>
+	</int:splitter>
+
+	<int:channel id="sendMessage">
+		<int:dispatcher task-executor="executor"/>
+	</int:channel>
+
+	<int-websocket:outbound-channel-adapter channel="sendMessage" container="serverWebSocketContainer"
+											default-protocol-handler="stompSubProtocolHandler"/>
+
+	<int:outbound-channel-adapter id="disconnect">
+		<int-groovy:script>
+			webSocketSessionStore.remove(headers.simpSessionId)
+			chatRoomSessions.each { k, v -> v.removeAll { it.t1 == headers.simpSessionId } }
+			null
+		</int-groovy:script>
+	</int:outbound-channel-adapter>
+
+</beans>
