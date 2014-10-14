@@ -30,7 +30,8 @@
                         tr.innerHTML = "<td width='100'><div class='messageUser'>" +
                                 m.user +
                                 "</div><div class='messageDate'>" +
-                                new Date(m.date).toLocaleFormat("%b-%d %H:%M") +
+                                new Date(m.date).toLocaleTimeString(navigator.userLanguage,
+                                        {month: "short", day: "numeric", hour: "2-digit", minute: "2-digit"}) +
                                 "</div></td><td>" +
                                 m.message +
                                 "</td>";

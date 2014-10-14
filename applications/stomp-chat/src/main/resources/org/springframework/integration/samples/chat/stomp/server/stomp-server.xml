@@ -21,6 +21,10 @@
 			http://www.springframework.org/schema/integration/groovy
 			http://www.springframework.org/schema/integration/groovy/spring-integration-groovy.xsd">
 
+	<int:wire-tap channel="logger"/>
+
+	<int:logging-channel-adapter id="logger" level="INFO" log-full-message="true"/>
+
 	<task:executor id="executor"/>
 
 	<bean id="webSocketSessionStore" class="org.springframework.integration.metadata.SimpleMetadataStore"/>
@@ -38,19 +42,22 @@
 		<int-websocket:sockjs/>
 	</int-websocket:server-container>
 
-	<int-event:inbound-channel-adapter
-			event-types="org.springframework.web.socket.messaging.SessionConnectEvent,
-						org.springframework.web.socket.messaging.SessionDisconnectEvent,
-						org.springframework.web.socket.messaging.SessionSubscribeEvent,
-						org.springframework.web.socket.messaging.SessionUnsubscribeEvent"
-			payload-expression="message"
-			channel="routeStompEvents"/>
+	<int-event:inbound-channel-adapter event-types="org.springframework.web.socket.messaging.AbstractSubProtocolEvent"
+									   payload-expression="message"
+									   channel="routeStompEvents"/>
 
-	<int:header-value-router input-channel="routeStompEvents" header-name="simpMessageType">
-		<int:mapping value="#{T(org.springframework.messaging.simp.SimpMessageType).CONNECT.name()}" channel="connectAck"/>
-		<int:mapping value="#{T(org.springframework.messaging.simp.SimpMessageType).SUBSCRIBE.name()}" channel="subscribe"/>
-		<int:mapping value="#{T(org.springframework.messaging.simp.SimpMessageType).UNSUBSCRIBE.name()}" channel="unsubscribe"/>
-		<int:mapping value="#{T(org.springframework.messaging.simp.SimpMessageType).DISCONNECT.name()}" channel="disconnect"/>
+	<int:header-value-router input-channel="routeStompEvents"
+							 header-name="simpMessageType"
+							 resolution-required="false"
+							 default-output-channel="nullChannel">
+		<int:mapping value="#{T(org.springframework.messaging.simp.SimpMessageType).CONNECT.name()}"
+					 channel="connectAck"/>
+		<int:mapping value="#{T(org.springframework.messaging.simp.SimpMessageType).SUBSCRIBE.name()}"
+					 channel="subscribe"/>
+		<int:mapping value="#{T(org.springframework.messaging.simp.SimpMessageType).UNSUBSCRIBE.name()}"
+					 channel="unsubscribe"/>
+		<int:mapping value="#{T(org.springframework.messaging.simp.SimpMessageType).DISCONNECT.name()}"
+					 channel="disconnect"/>
 	</int:header-value-router>
 
 	<int:outbound-channel-adapter id="connectAck"
