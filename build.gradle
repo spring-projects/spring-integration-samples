@@ -192,7 +192,6 @@ subprojects { subproject ->
 			subethasmtpVersion = '1.2'
 			slf4jVersion = '1.7.6'
 			springIntegrationVersion = '4.0.4.RELEASE'
-			springIntegration41Version = '4.1.0.BUILD-SNAPSHOT'
 			springIntegrationDslVersion = '1.0.0.M3'
 			springVersion = '4.0.7.RELEASE'
 			springSecurityVersion = '3.2.4.RELEASE'
@@ -520,8 +519,8 @@ project('si4demo') {
 	dependencies {
 		compile 'org.springframework.boot:spring-boot-starter-web'
 		compile 'org.springframework.boot:spring-boot-starter-integration'
-		compile "org.springframework.integration:spring-integration-mail:$springIntegration41Version"
-		compile "org.springframework.integration:spring-integration-twitter:$springIntegration41Version"
+		compile "org.springframework.integration:spring-integration-mail"
+		compile "org.springframework.integration:spring-integration-twitter"
 		compile "org.springframework.integration:spring-integration-java-dsl:$springIntegrationDslVersion"
 		compile "javax.mail:javax.mail-api:$javaxMailVersion"
 		compile "com.sun.mail:javax.mail:$javaxMailVersion"
@@ -550,7 +549,7 @@ project('cafe-dsl') {
 	dependencies {
 		compile project(":cafe-si")
 		compile 'org.springframework.boot:spring-boot-starter-integration'
-		compile "org.springframework.integration:spring-integration-core:$springIntegration41Version"
+		compile "org.springframework.integration:spring-integration-core"
 		compile "org.springframework.integration:spring-integration-java-dsl:$springIntegrationDslVersion"
 
 		testCompile 'org.springframework.boot:spring-boot-starter-test'
@@ -637,7 +636,6 @@ project('mail') {
 
 	dependencies {
 		compile "org.springframework.integration:spring-integration-mail:$springIntegrationVersion"
-		compile "org.springframework:spring-context:$springVersion"
 		compile "javax.mail:javax.mail-api:$javaxMailVersion"
 		compile "com.sun.mail:mailapi:$javaxMailVersion"
 	}
@@ -819,17 +817,6 @@ project('xmpp') {
 	}
 }
 
-project('async-gateway') {
-	description = 'Async Gateway Sample'
-
-	sourceCompatibility = 1.8
-
-	dependencies {
-		compile "org.springframework.integration:spring-integration-core:$springIntegration41Version"
-		compile "org.projectreactor.spring:reactor-spring-context:$reactorSpringVersion"
-	}
-}
-
 project('dynamic-poller') {
 	description = 'Dynamic Poller Sample'
 
@@ -923,7 +910,6 @@ project('rest-http') {
 		compile "org.springframework:spring-oxm:$springVersion"
 		compile "org.springframework:spring-tx:$springVersion"
 		compile "org.springframework:spring-jdbc:$springVersion"
-		compile "org.springframework:spring-context:$springVersion"
 		compile "org.springframework:spring-aop:$springVersion"
 		compile "com.fasterxml.jackson.core:jackson-databind:$jacksonVersion"
 		compile "org.springframework.security:spring-security-web:$springSecurityVersion"
@@ -1094,46 +1080,6 @@ project('tx-synch') {
 		compile "org.springframework.integration:spring-integration-jdbc:$springIntegrationVersion"
 		compile "org.springframework.integration:spring-integration-file:$springIntegrationVersion"
 		compile "com.h2database:h2:$h2Version"
-	}
-}
-
-project('web-sockets') {
-	description = 'Web Sockets Basic Sample'
-
-	apply plugin: 'spring-boot'
-
-	dependencies {
-		compile 'org.springframework.boot:spring-boot-starter-websocket'
-		compile "org.springframework.integration:spring-integration-websocket:$springIntegration41Version"
-
-		testCompile 'org.springframework.boot:spring-boot-starter-test'
-	}
-
-	mainClassName = 'org.springframework.integration.samples.websocket.standard.server.Application'
-
-	tasks.withType(JavaExec) {
-		standardInput = System.in
-	}
-}
-
-project('stomp-chat') {
-	description = 'Web Sockets Stomp Chat Sample'
-
-	apply plugin: 'spring-boot'
-
-	dependencies {
-		compile 'org.springframework.boot:spring-boot-starter-websocket'
-		compile "org.springframework.integration:spring-integration-websocket:$springIntegration41Version"
-		compile "org.springframework.integration:spring-integration-event:$springIntegration41Version"
-		compile "org.springframework.integration:spring-integration-groovy:$springIntegration41Version"
-
-		testCompile 'org.springframework.boot:spring-boot-starter-test'
-	}
-
-	mainClassName = 'org.springframework.integration.samples.chat.stomp.server.Application'
-
-	tasks.withType(JavaExec) {
-		standardInput = System.in
 	}
 }
 
