@@ -3,7 +3,7 @@ Spring Integration Samples
 
 # Note
 
-This (master) branch requires Spring Integration 4.0 or above. For samples running against earlier versions of Spring Integration, use the __maint__ branch.
+This (SI4.0.x) branch requires Spring Integration 4.0.x. Use the __master__ branch for 4.1.x and the __SI3.0.x__ branch for 3.0.x.
 
 # Introduction
 
