@@ -1,5 +1,5 @@
 /*
- * Copyright 2002-2011 the original author or authors.
+ * Copyright 2002-2014 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.springframework.integration.samples.jdbc.service;
 
 import java.util.List;
@@ -28,16 +29,16 @@ public interface PersonService {
 
 	/**
 	 * Creates a {@link Person} instance from the {@link Person} instance passed
-	 * 
-	 * @param the created person instance, it will contain the generated primary key and the formated name
-	 * @return
+	 *
+	 * @param person created person instance, it will contain the generated primary key and the formatted name
+	 * @return the retrieved {@link Person}
 	 */
 	Person createPerson(Person person);
-	
+
 	/**
-	 * Find the person by the person name, the name search is case insensitive, however the 
+	 * Find the person by the person name, the name search is case insensitive, however the
 	 * spaces are not ignored
-	 *  
+	 *
 	 * @param name
 	 * @return the matching {@link Person} record
 	 */

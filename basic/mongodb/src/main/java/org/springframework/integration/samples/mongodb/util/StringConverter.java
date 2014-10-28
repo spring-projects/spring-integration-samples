@@ -1,5 +1,5 @@
 /*
- * Copyright 2002-2012 the original author or authors.
+ * Copyright 2002-2014 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,10 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.springframework.integration.samples.mongodb.util;
 
 import org.springframework.data.mapping.context.MappingContext;
 import org.springframework.data.mongodb.MongoDbFactory;
+import org.springframework.data.mongodb.core.convert.DefaultDbRefResolver;
 import org.springframework.data.mongodb.core.convert.MappingMongoConverter;
 import org.springframework.data.mongodb.core.mapping.MongoPersistentEntity;
 import org.springframework.data.mongodb.core.mapping.MongoPersistentProperty;
@@ -24,6 +26,7 @@ import org.springframework.util.StringUtils;
 
 import com.mongodb.BasicDBObject;
 import com.mongodb.DBObject;
+
 /**
  *
  * @author Oleg Zhurakousky
@@ -33,8 +36,9 @@ public class StringConverter extends MappingMongoConverter {
 	public StringConverter(
 			MongoDbFactory mongoDbFactory,
 			MappingContext<? extends MongoPersistentEntity<?>, MongoPersistentProperty> mappingContext) {
-		super(mongoDbFactory, mappingContext);
+		super(new DefaultDbRefResolver(mongoDbFactory), mappingContext);
 	}
+
 	@Override
 	public void write(Object source, DBObject target) {
 		String strPerson = (String) source;
@@ -52,14 +56,13 @@ public class StringConverter extends MappingMongoConverter {
 	@SuppressWarnings("unchecked")
 	@Override
 	public <S> S read(Class<S> clazz, DBObject source) {
-		StringBuffer buffer = new StringBuffer();
-		buffer.append(source.get("fname") + ", ");
-		buffer.append(source.get("lname") + ", ");
-		buffer.append(source.get("city") + ", ");
-		buffer.append(source.get("street") + ", ");
-		buffer.append(source.get("zip") + ", ");
-		buffer.append(source.get("state") + ", ");
-		return (S) buffer.toString();
+		return (S) ((source.get("fname") + ", ")
+				+ source.get("lname") + ", "
+				+ source.get("city") + ", "
+				+ source.get("street") + ", "
+				+ source.get("zip") + ", "
+				+ source.get("state") + ", ");
 	}
+
 }
 

@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.springframework.integration.samples.feed;
 
 import org.junit.Test;
@@ -22,7 +23,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.messaging.Message;
 import org.springframework.messaging.PollableChannel;
 
-import com.sun.syndication.feed.synd.SyndEntry;
+import com.rometools.rome.feed.synd.SyndEntry;
 
 /**
  * @author Oleg Zhurakousky
@@ -48,4 +49,5 @@ public class FeedInboundChannelAdapterSample {
 		}
 		ac.close();
 	}
+
 }

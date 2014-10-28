@@ -1,5 +1,5 @@
 /*
- * Copyright 2002-2012 the original author or authors.
+ * Copyright 2002-2014 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,12 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.springframework.integration.samples.jpa.service;
 
 import java.util.List;
 
-import org.springframework.integration.annotation.Payload;
 import org.springframework.integration.samples.jpa.Person;
+import org.springframework.messaging.handler.annotation.Payload;
 
 /**
  * The Service is used to create Person instance in database
@@ -32,7 +33,7 @@ public interface PersonService {
 	/**
 	 * Creates a {@link Person} instance from the {@link Person} instance passed
 	 *
-	 * @param the created person instance, it will contain the generated primary key and the formated name
+	 * @param person created person instance, it will contain the generated primary key and the formated name
 	 * @return The persisted Entity
 	 */
 	Person createPerson(Person person);
