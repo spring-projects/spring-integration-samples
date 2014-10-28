@@ -1,6 +1,8 @@
 Spring Integration Samples
 ==========================
 
+This (SI3.0.x) branch requires Spring Integration 3.0.x. Use the __master__ branch for 4.1.x and the __SI4.0.x__ branch for 4.0.x.
+
 # Introduction
 
 Welcome to the **Spring Integration Samples** repository which provides **50+ samples** to help you learn [Spring Integration][]. To simplify your experience, the *Spring Integration* samples are split into 4 distinct categories:
