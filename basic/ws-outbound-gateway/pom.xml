@@ -61,6 +61,12 @@
   </repositories>
   <dependencies>
     <dependency>
+      <groupId>org.springframework.integration</groupId>
+      <artifactId>spring-integration-ws</artifactId>
+      <version>4.1.0.RC1</version>
+      <scope>compile</scope>
+    </dependency>
+    <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
       <version>4.11</version>
@@ -73,9 +79,15 @@
       <scope>test</scope>
     </dependency>
     <dependency>
+      <groupId>org.springframework.integration</groupId>
+      <artifactId>spring-integration-stream</artifactId>
+      <version>4.1.0.RC1</version>
+      <scope>compile</scope>
+    </dependency>
+    <dependency>
       <groupId>org.springframework</groupId>
       <artifactId>spring-test</artifactId>
-      <version>4.0.7.RELEASE</version>
+      <version>4.1.1.RELEASE</version>
       <scope>test</scope>
     </dependency>
     <dependency>
@@ -85,22 +97,10 @@
       <scope>compile</scope>
     </dependency>
     <dependency>
-      <groupId>org.springframework.integration</groupId>
-      <artifactId>spring-integration-stream</artifactId>
-      <version>4.0.4.RELEASE</version>
-      <scope>compile</scope>
-    </dependency>
-    <dependency>
       <groupId>org.mockito</groupId>
       <artifactId>mockito-core</artifactId>
       <version>1.9.5</version>
       <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.springframework.integration</groupId>
-      <artifactId>spring-integration-ws</artifactId>
-      <version>4.0.4.RELEASE</version>
-      <scope>compile</scope>
     </dependency>
   </dependencies>
 </project>

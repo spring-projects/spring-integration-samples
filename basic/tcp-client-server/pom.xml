@@ -62,8 +62,8 @@
   <dependencies>
     <dependency>
       <groupId>org.springframework.integration</groupId>
-      <artifactId>spring-integration-ip</artifactId>
-      <version>4.0.4.RELEASE</version>
+      <artifactId>spring-integration-test</artifactId>
+      <version>4.1.0.RC1</version>
       <scope>compile</scope>
     </dependency>
     <dependency>
@@ -87,13 +87,13 @@
     <dependency>
       <groupId>org.springframework</groupId>
       <artifactId>spring-test</artifactId>
-      <version>4.0.7.RELEASE</version>
+      <version>4.1.1.RELEASE</version>
       <scope>test</scope>
     </dependency>
     <dependency>
       <groupId>org.springframework.integration</groupId>
-      <artifactId>spring-integration-test</artifactId>
-      <version>4.0.4.RELEASE</version>
+      <artifactId>spring-integration-ip</artifactId>
+      <version>4.1.0.RC1</version>
       <scope>compile</scope>
     </dependency>
     <dependency>

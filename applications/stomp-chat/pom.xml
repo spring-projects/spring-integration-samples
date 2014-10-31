@@ -2,11 +2,16 @@
 <project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <artifactId>spring-boot-starter-parent</artifactId>
+    <groupId>org.springframework.boot</groupId>
+    <version>1.2.0.BUILD-SNAPSHOT</version>
+  </parent>
   <groupId>org.springframework.integration.samples</groupId>
-  <artifactId>twitter</artifactId>
+  <artifactId>stomp-chat</artifactId>
   <version>3.0.0.BUILD-SNAPSHOT</version>
-  <name>Twitter Basic Sample</name>
-  <description>Twitter Basic Sample</description>
+  <name>Web Sockets Stomp Chat Sample</name>
+  <description>Web Sockets Stomp Chat Sample</description>
   <url>http://projects.spring.io/spring-integration</url>
   <organization>
     <name>SpringIO</name>
@@ -52,6 +57,14 @@
     <developerConnection>scm:git:scm:git:ssh://git@github.com:spring-projects/spring-integration-samples.git</developerConnection>
     <url>https://github.com/spring-projects/spring-integration-samples</url>
   </scm>
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-maven-plugin</artifactId>
+      </plugin>
+    </plugins>
+  </build>
   <repositories>
     <repository>
       <id>repo.spring.io.milestone</id>
@@ -61,10 +74,30 @@
   </repositories>
   <dependencies>
     <dependency>
+      <groupId>org.springframework.integration</groupId>
+      <artifactId>spring-integration-event</artifactId>
+      <scope>compile</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-websocket</artifactId>
+      <scope>compile</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.integration</groupId>
+      <artifactId>spring-integration-groovy</artifactId>
+      <scope>compile</scope>
+    </dependency>
+    <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
       <version>4.11</version>
       <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.integration</groupId>
+      <artifactId>spring-integration-websocket</artifactId>
+      <scope>compile</scope>
     </dependency>
     <dependency>
       <groupId>org.hamcrest</groupId>
@@ -73,10 +106,9 @@
       <scope>test</scope>
     </dependency>
     <dependency>
-      <groupId>org.springframework.integration</groupId>
-      <artifactId>spring-integration-twitter</artifactId>
-      <version>4.1.0.RC1</version>
-      <scope>compile</scope>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-test</artifactId>
+      <scope>test</scope>
     </dependency>
     <dependency>
       <groupId>org.springframework</groupId>

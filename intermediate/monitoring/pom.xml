@@ -76,18 +76,6 @@
   </repositories>
   <dependencies>
     <dependency>
-      <groupId>org.springframework.integration</groupId>
-      <artifactId>spring-integration-groovy</artifactId>
-      <version>4.0.4.RELEASE</version>
-      <scope>compile</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.springframework</groupId>
-      <artifactId>spring-webmvc</artifactId>
-      <version>4.0.7.RELEASE</version>
-      <scope>compile</scope>
-    </dependency>
-    <dependency>
       <groupId>javax.servlet</groupId>
       <artifactId>jstl</artifactId>
       <version>1.2</version>
@@ -106,16 +94,28 @@
       <scope>test</scope>
     </dependency>
     <dependency>
+      <groupId>org.springframework.integration</groupId>
+      <artifactId>spring-integration-jmx</artifactId>
+      <version>4.1.0.RC1</version>
+      <scope>compile</scope>
+    </dependency>
+    <dependency>
       <groupId>org.springframework</groupId>
-      <artifactId>spring-test</artifactId>
-      <version>4.0.7.RELEASE</version>
-      <scope>test</scope>
+      <artifactId>spring-webmvc</artifactId>
+      <version>4.1.1.RELEASE</version>
+      <scope>compile</scope>
     </dependency>
     <dependency>
       <groupId>org.springframework.integration</groupId>
       <artifactId>spring-integration-twitter</artifactId>
-      <version>4.0.4.RELEASE</version>
+      <version>4.1.0.RC1</version>
       <scope>compile</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-test</artifactId>
+      <version>4.1.1.RELEASE</version>
+      <scope>test</scope>
     </dependency>
     <dependency>
       <groupId>log4j</groupId>
@@ -124,16 +124,16 @@
       <scope>compile</scope>
     </dependency>
     <dependency>
+      <groupId>org.springframework.integration</groupId>
+      <artifactId>spring-integration-groovy</artifactId>
+      <version>4.1.0.RC1</version>
+      <scope>compile</scope>
+    </dependency>
+    <dependency>
       <groupId>org.mockito</groupId>
       <artifactId>mockito-core</artifactId>
       <version>1.9.5</version>
       <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.springframework.integration</groupId>
-      <artifactId>spring-integration-jmx</artifactId>
-      <version>4.0.4.RELEASE</version>
-      <scope>compile</scope>
     </dependency>
   </dependencies>
 </project>
