@@ -168,6 +168,7 @@ subprojects { subproject ->
 			hibernateValidatorVersion = '4.2.0.Final'
 			ftpServerVersion = '1.0.6'
 			flexjsonVersion = '2.0'
+			guavaVersion = '16.0.1'
 			groovyVersion = '2.3.0'
 			hsqldbVersion = '2.3.2'
 			h2Version = '1.3.175'
@@ -193,7 +194,7 @@ subprojects { subproject ->
 			subethasmtpVersion = '1.2'
 			slf4jVersion = '1.7.6'
 			springIntegrationVersion = '4.1.0.RC1'
-			springIntegrationDslVersion = '1.0.0.RC1'
+			springIntegrationDslVersion = '1.0.0.BUILD-SNAPSHOT'
 			springVersion = '4.1.1.RELEASE'
 			springSecurityVersion = '3.2.4.RELEASE'
 			springWebFlowVersion = '2.3.3.RELEASE'
@@ -551,6 +552,7 @@ project('cafe-dsl') {
 		compile project(":cafe-si")
 		compile 'org.springframework.boot:spring-boot-starter-integration'
 		compile "org.springframework.integration:spring-integration-core"
+		compile "com.google.guava:guava:$guavaVersion"
 		compile "org.springframework.integration:spring-integration-java-dsl:$springIntegrationDslVersion"
 
 		testCompile 'org.springframework.boot:spring-boot-starter-test'
