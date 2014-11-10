@@ -18,6 +18,7 @@ package org.springframework.integration.samples.chat.stomp.server;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.boot.autoconfigure.groovy.template.GroovyTemplateAutoConfiguration;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.ImportResource;
@@ -27,7 +28,7 @@ import org.springframework.context.annotation.ImportResource;
  * @since 3.0
  */
 @Configuration
-@EnableAutoConfiguration
+@EnableAutoConfiguration(exclude = GroovyTemplateAutoConfiguration.class)
 @ImportResource("classpath:org/springframework/integration/samples/chat/stomp/server/stomp-server.xml")
 public class Application {
 
