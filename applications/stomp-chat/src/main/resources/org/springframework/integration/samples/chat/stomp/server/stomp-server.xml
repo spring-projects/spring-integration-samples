@@ -50,7 +50,7 @@
 							 header-name="simpMessageType"
 							 resolution-required="false"
 							 default-output-channel="nullChannel">
-		<int:mapping value="#{T(org.springframework.messaging.simp.SimpMessageType).CONNECT.name()}"
+		<int:mapping value="#{T(org.springframework.messaging.simp.SimpMessageType).CONNECT_ACK.name()}"
 					 channel="connectAck"/>
 		<int:mapping value="#{T(org.springframework.messaging.simp.SimpMessageType).SUBSCRIBE.name()}"
 					 channel="subscribe"/>
@@ -61,7 +61,8 @@
 	</int:header-value-router>
 
 	<int:outbound-channel-adapter id="connectAck"
-								  expression="@webSocketSessionStore.put(headers.simpSessionId, headers.nativeHeaders.login)"/>
+								  expression="@webSocketSessionStore.put(headers.simpSessionId,
+								                             headers.simpConnectMessage.headers.nativeHeaders.login)"/>
 
 	<int:publish-subscribe-channel id="subscribe"/>
 

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.springframework.integration.samples.dsl.cafe;
+package org.springframework.integration.samples.dsl.cafe.lambda;
 
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
@@ -22,10 +22,9 @@ import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 
 import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.integration.annotation.Gateway;
 import org.springframework.integration.annotation.IntegrationComponentScan;
 import org.springframework.integration.annotation.MessagingGateway;
@@ -45,12 +44,11 @@ import com.google.common.util.concurrent.Uninterruptibles;
  * @author Artem Bilan
  * @since 3.0
  */
-@Configuration
-@EnableAutoConfiguration
+@SpringBootApplication
 @IntegrationComponentScan
 public class Application {
 
-	public static void main(String[] args) throws InterruptedException {
+	public static void main(String[] args) throws Exception {
 		ConfigurableApplicationContext ctx = SpringApplication.run(Application.class, args);
 
 		Cafe cafe = ctx.getBean(Cafe.class);
@@ -61,8 +59,8 @@ public class Application {
 			cafe.placeOrder(order);
 		}
 
-		Thread.sleep(60000);
-
+		System.out.println("Hit 'Enter' to terminate");
+		System.in.read();
 		ctx.close();
 	}
 
