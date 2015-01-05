@@ -31,6 +31,7 @@ import java.util.concurrent.TimeUnit;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.IntegrationTest;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.context.ConfigurableApplicationContext;
@@ -50,11 +51,15 @@ import org.springframework.test.context.web.WebAppConfiguration;
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = Application.class)
 @WebAppConfiguration
-@IntegrationTest
+@IntegrationTest({"server.port=0", "management.port=0"})
 public class ApplicationTests {
+
+	@Value("${local.server.port}")
+	private String port;
 
 	@Test
 	public void testWebSockets() throws InterruptedException {
+		System.setProperty("local.server.port", this.port);
 		ConfigurableApplicationContext ctx = new ClassPathXmlApplicationContext("client-context.xml",
 				org.springframework.integration.samples.websocket.standard.client.Application.class);
 		DirectChannel webSocketInputChannel = ctx.getBean("webSocketInputChannel", DirectChannel.class);

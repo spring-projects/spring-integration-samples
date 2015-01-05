@@ -31,7 +31,7 @@ import org.springframework.test.context.web.WebAppConfiguration;
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = Application.class)
 @WebAppConfiguration
-@IntegrationTest
+@IntegrationTest({"server.port=0", "management.port=0"})
 public class ApplicationTests {
 
 	@Test
