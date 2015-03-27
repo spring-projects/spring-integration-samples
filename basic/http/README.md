@@ -14,7 +14,7 @@ The sample consists of two parts:
 
 #### Command Line Using Gradle
 
-The easiest way to run the **server** is to use the [Gralde Jetty Plugin](http://www.gradle.org/docs/current/userguide/jetty_plugin.html).
+The easiest way to run the **server** is to use the [Gradle Jetty Plugin](http://www.gradle.org/docs/current/userguide/jetty_plugin.html).
  Simply execute:
 
     $ gradlew :http:jettyRun

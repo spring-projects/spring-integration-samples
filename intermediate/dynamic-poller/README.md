@@ -12,7 +12,7 @@ When changing the polling period, the change to the trigger will occur after the
 You can run the application by either:
 
 * running the "Main" class from within STS (Right-click on Main class --> Run As --> Java Application)
-* or from the command line using the [Gralde](http://www.gradle.org):
+* or from the command line using the [Gradle](http://www.gradle.org):
     
     $ gradlew :dynamic-poller:runHelloWorldApp
 
