@@ -20,11 +20,11 @@
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<spring.integration.version>3.0.6.RELEASE</spring.integration.version>
+		<spring.integration.version>3.0.7.RELEASE</spring.integration.version>
 		<log4j.version>1.2.16</log4j.version>
 		<junit.version>4.10</junit.version>
 		<inject.version>1</inject.version>
-		<spring.version>3.2.8.RELEASE</spring.version>
+		<spring.version>3.2.13.RELEASE</spring.version>
 	</properties>
 
 	<repositories>
