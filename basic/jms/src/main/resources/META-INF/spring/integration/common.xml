@@ -14,11 +14,14 @@
 			</bean>
 		</property>
 		<property name="sessionCacheSize" value="10"/>
-		<property name="cacheProducers" value="false"/>
 	</bean>
 
 	<bean id="requestQueue" class="org.apache.activemq.command.ActiveMQQueue">
 		<constructor-arg value="queue.demo"/>
+	</bean>
+
+	<bean id="requestTopic" class="org.apache.activemq.command.ActiveMQTopic">
+		<constructor-arg value="topic.demo"/>
 	</bean>
 
 	<bean id="replyQueue" class="org.apache.activemq.command.ActiveMQQueue">

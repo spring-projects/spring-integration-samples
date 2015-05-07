@@ -12,6 +12,7 @@ It also uses the following components:
 1. Poller
 2. Stdout Channel Adapter (from Stream support Module)
 3. Stdin Channel Adapter (from Stream support Module)
+4. Aggregator
 
 It also shows an example of using Spring profiles to modify the configuration for test cases.
 
@@ -22,10 +23,11 @@ To run the sample, simply execute the **Main** class located in the the *org.spr
 
        $ gradlew :jms:run
 
-You will then be prompted to run one of two demos:
+You will then be prompted to run one of three demos:
 
 * **GatewayDemo**
 * **ChannelAdapterDemo**
+* **AggregationDemo**
 
 The console output should look like:
 
@@ -43,13 +45,17 @@ The console output should look like:
 
 		1. Channel Adapter Demo
 		2. Gateway Demo
+		3. Aggregation Demo
 
-When running either one of the demos you will see the following prompt:
+
+When running any of the demos you will see the following prompt:
 
 	> Please type something and hit <enter>
 
 * **GatewayDemo** uses the *DemoBean* service, which will echo the response and upper-casing it.
 * **ChannelAdapterDemo** will simply echo the response
+* **AggregatingDemo** uses a JMS Topic; and aggregates the responses from two inbound gateways, which
+invoke a flow that upper-cases the response; the aggregation returns a list of responses.
 
 
-There are also test cases that exercise both demos; utilizing Spring 3.0 profiles to route the output to a QueueChannel instead of stdout.
+There are also test cases that exercise each demo; utilizing Spring 3.0 profiles to route the output to a QueueChannel instead of stdout.

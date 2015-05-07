@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns:int="http://www.springframework.org/schema/integration"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://www.springframework.org/schema/beans"
+	xmlns:int-jms="http://www.springframework.org/schema/integration/jms"
+	xmlns:int-stream="http://www.springframework.org/schema/integration/stream"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+			http://www.springframework.org/schema/beans/spring-beans.xsd
+			http://www.springframework.org/schema/context
+			http://www.springframework.org/schema/context/spring-context.xsd
+			http://www.springframework.org/schema/integration
+			http://www.springframework.org/schema/integration/spring-integration.xsd
+			http://www.springframework.org/schema/integration/jms
+			http://www.springframework.org/schema/integration/jms/spring-integration-jms.xsd
+			http://www.springframework.org/schema/integration/stream
+			http://www.springframework.org/schema/integration/stream/spring-integration-stream.xsd">
+
+	<int-stream:stdin-channel-adapter id="stdin" channel="stdinToJmsoutChannel"/>
+
+	<int:channel id="stdinToJmsoutChannel"/>
+
+	<int:chain input-channel="stdinToJmsoutChannel">
+		<int:header-enricher>
+			<int:header name="jms_replyTo" ref="replyQueue" />
+		</int:header-enricher>
+		<int-jms:outbound-channel-adapter destination="requestTopic" />
+	</int:chain>
+
+	<int-jms:message-driven-channel-adapter channel="jmsReplyChannel"
+		destination="replyQueue"/>
+
+	<int:channel id="jmsReplyChannel" />
+
+	<int:aggregator input-channel="jmsReplyChannel" output-channel="out"
+		group-timeout="5000"
+		expire-groups-upon-timeout="false"
+		send-partial-result-on-expiry="true"
+		discard-channel="logLateArrivers"
+		correlation-strategy-expression="headers['jms_correlationId']"
+		release-strategy-expression="size() == 2"/>
+
+	<int:logging-channel-adapter id="logLateArrivers" />
+
+	<!-- Subscribers -->
+
+	<int-jms:inbound-gateway request-channel="upcase" request-destination="requestTopic" />
+
+	<int-jms:inbound-gateway request-channel="upcase" request-destination="requestTopic" />
+
+	<int:transformer input-channel="upcase" expression="payload.toUpperCase()" />
+
+	<!-- Profiles -->
+
+	<beans profile="default">
+
+		<int-stream:stdout-channel-adapter id="out" append-newline="true"/>
+
+	</beans>
+
+	<beans profile="testCase">
+
+		<int:bridge input-channel="out" output-channel="queueChannel"/>
+
+		<int:channel id="queueChannel">
+			<int:queue />
+		</int:channel>
+
+	</beans>
+
+</beans>
