@@ -31,6 +31,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
  *
  * @author Mark Fisher
  * @author Gunnar Hillert
+ * @author Gary Russell
  */
 public class Main {
 
@@ -44,6 +45,11 @@ public class Main {
 		"/META-INF/spring/integration/common.xml",
 		"/META-INF/spring/integration/inboundChannelAdapter.xml",
 		"/META-INF/spring/integration/outboundChannelAdapter.xml"
+	};
+
+	private final static String[] configFilesAggregationDemo = {
+		"/META-INF/spring/integration/common.xml",
+		"/META-INF/spring/integration/aggregation.xml"
 	};
 
 	public static void main(String[] args) {
@@ -64,6 +70,7 @@ public class Main {
 		System.out.println("\n    Which Demo would you like to run? <enter>:\n");
 		System.out.println("\t1. Channel Adapter Demo");
 		System.out.println("\t2. Gateway Demo");
+		System.out.println("\t3. Aggregation Demo");
 
 		while (true) {
 			final String input = scanner.nextLine();
@@ -72,11 +79,18 @@ public class Main {
 				System.out.println("    Loading Channel Adapter Demo...");
 				new ClassPathXmlApplicationContext(configFilesChannelAdapterDemo, Main.class);
 				break;
-			} else if("2".equals(input.trim())) {
+			}
+			else if("2".equals(input.trim())) {
 				System.out.println("    Loading Gateway Demo...");
 				new ClassPathXmlApplicationContext(configFilesGatewayDemo, Main.class);
 				break;
-			} else {
+			}
+			else if("3".equals(input.trim())) {
+				System.out.println("    Loading Aggregation Demo...");
+				new ClassPathXmlApplicationContext(configFilesAggregationDemo, Main.class);
+				break;
+			}
+			else {
 				System.out.println("Invalid choice\n\n");
 				System.out.print("Enter you choice: ");
 			}
