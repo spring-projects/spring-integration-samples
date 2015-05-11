@@ -14,6 +14,7 @@ Several variations of the sample are provided:
 * Serializer Demo
 	* Using the Stx-Etx [Serializer][]/[Deserializer][]
 	* Using a Custom [Serializer][]/[Deserializer][]
+* Annotation based client-server Demo (JUnit test only)
 
 ### Client-Server Demo
 
@@ -133,6 +134,11 @@ You can run the example by executing JUnit test **TcpServerConnectionDeserialize
 Some use cases may dictate you needing to create your own stream handling serializers and deserializers. This sample shows a custom [Serializer][]/[Deserializer][] being used with the Java socket API on the front end (client) and the Spring Integration TCP inbound gateway with the custom serializer/deserializers.
 
 You can run the example by executing JUnit test **TcpServerCustomSerializerTest**.
+
+
+#### Annotation-based Configuration
+
+A simple client server test using entirely annotation-based configuration is shown in **TcpClientServerAnnotationDemoTest**.
 
 
 [ByteArrayCrLfSerializer]: http://static.springsource.org/spring-integration/api/org/springframework/integration/ip/tcp/serializer/ByteArrayCrLfSerializer.html
