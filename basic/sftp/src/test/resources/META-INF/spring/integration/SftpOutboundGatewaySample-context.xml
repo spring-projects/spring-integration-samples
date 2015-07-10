@@ -31,7 +31,11 @@
 		command="ls"
 		command-options=""
 		expression="payload"
-		reply-channel="toSplitter"/>
+		reply-channel="toSplitter">
+		<int-sftp:request-handler-advice-chain>
+			<int:retry-advice />
+		</int-sftp:request-handler-advice-chain>
+	</int-sftp:outbound-gateway>
 
 	<int:splitter input-channel="toSplitter" output-channel="toGet"/>
 
@@ -42,13 +46,21 @@
 		reply-channel="toRm"
 		command="get"
 		command-options="-P"
-		expression="payload.remoteDirectory + payload.filename"/>
+		expression="payload.remoteDirectory + payload.filename">
+		<int-sftp:request-handler-advice-chain>
+			<int:retry-advice />
+		</int-sftp:request-handler-advice-chain>
+	</int-sftp:outbound-gateway>
 
 	<int-sftp:outbound-gateway id="gatewayRM" reply-channel="aggregateResultsChannel"
 		session-factory="sftpSessionFactory"
 		expression="headers['file_remoteDirectory'] + headers['file_remoteFile']"
 		request-channel="toRm"
-		command="rm"/>
+		command="rm">
+		<int-sftp:request-handler-advice-chain>
+			<int:retry-advice />
+		</int-sftp:request-handler-advice-chain>
+	</int-sftp:outbound-gateway>
 
 	<int:aggregator input-channel="aggregateResultsChannel"/>
 

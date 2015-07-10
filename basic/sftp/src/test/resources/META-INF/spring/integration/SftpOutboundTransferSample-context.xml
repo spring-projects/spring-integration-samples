@@ -28,6 +28,10 @@
 				session-factory="sftpSessionFactory"
 				channel="inputChannel"
 				remote-filename-generator-expression="payload.getName() + '_foo'"
-				remote-directory="si.sftp.sample"/>
+				remote-directory="si.sftp.sample">
+		<int-sftp:request-handler-advice-chain>
+			<int:retry-advice />
+		</int-sftp:request-handler-advice-chain>
+	</int-sftp:outbound-channel-adapter>
 
 </beans>

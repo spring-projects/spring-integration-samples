@@ -28,7 +28,11 @@
 		command="ls"
 		command-options=""
 		expression="payload"
-		reply-channel="toSplitter"/>
+		reply-channel="toSplitter">
+		<int-ftp:request-handler-advice-chain>
+			<int:retry-advice />
+		</int-ftp:request-handler-advice-chain>
+	</int-ftp:outbound-gateway>
 
 	<int:channel id="toSplitter">
 		<int:interceptors>
@@ -47,7 +51,11 @@
 		reply-channel="toRemoveChannel"
 		command="get"
 		command-options="-P"
-		expression="payload.remoteDirectory + '/' + payload.filename"/>
+		expression="payload.remoteDirectory + '/' + payload.filename">
+		<int-ftp:request-handler-advice-chain>
+			<int:retry-advice />
+		</int-ftp:request-handler-advice-chain>
+	</int-ftp:outbound-gateway>
 
 	<int:channel id="toRemoveChannel">
 		<int:interceptors>
@@ -62,7 +70,11 @@
 		expression="headers['file_remoteDirectory'] + '/' + headers['file_remoteFile']"
 		request-channel="toRemoveChannel"
 		command="rm"
-		reply-channel="aggregateResultsChannel"/>
+		reply-channel="aggregateResultsChannel">
+		<int-ftp:request-handler-advice-chain>
+			<int:retry-advice />
+		</int-ftp:request-handler-advice-chain>
+	</int-ftp:outbound-gateway>
 
 	<int:aggregator input-channel="aggregateResultsChannel"/>
 

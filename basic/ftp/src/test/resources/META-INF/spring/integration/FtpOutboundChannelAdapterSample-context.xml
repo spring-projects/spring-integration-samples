@@ -23,6 +23,10 @@
 	<int-ftp:outbound-channel-adapter  id="ftpOutbound"
 				channel="ftpChannel"
 				remote-directory="/"
-				session-factory="ftpClientFactory" />
+				session-factory="ftpClientFactory">
+		<int-ftp:request-handler-advice-chain>
+			<int:retry-advice />
+		</int-ftp:request-handler-advice-chain>
+	</int-ftp:outbound-channel-adapter>
 
 </beans>
