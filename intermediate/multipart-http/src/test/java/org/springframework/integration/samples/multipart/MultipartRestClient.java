@@ -53,6 +53,8 @@ public class MultipartRestClient {
         HttpEntity<MultiValueMap<String, Object>> request = new HttpEntity<MultiValueMap<String, Object>>(multipartMap, headers);
         logger.info("Posting request to: " + uri);
         ResponseEntity<?> httpResponse = template.exchange(uri, HttpMethod.POST, request, Object.class);
+        // Use this if you expect response to be plain text
+        // ResponseEntity<String> httpResponse = template.postForEntity(uri, request, String.class);
         if (!httpResponse.getStatusCode().equals(HttpStatus.OK)) {
             logger.error("Problems with the request. Http status: " + httpResponse.getStatusCode());
         }
