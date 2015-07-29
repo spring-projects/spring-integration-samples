@@ -17,7 +17,7 @@ package org.springframework.integration.samples.enricher.service;
 
 import java.util.Map;
 
-import org.springframework.integration.samples.enricher.User;
+import org.springframework.integration.samples.enricher.domain.User;
 
 /**
  * Provides user services.

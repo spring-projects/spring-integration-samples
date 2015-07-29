@@ -1,5 +1,5 @@
 /*
- * Copyright 2002-2010 the original author or authors.
+ * Copyright 2002-2015 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,6 +20,7 @@ import java.util.Date;
 
 /**
  * @author Oleg Zhurakousky
+ * @author Gary Russell
  */
 public class LoanQuote implements Comparable<LoanQuote>{
 
@@ -78,8 +79,9 @@ public class LoanQuote implements Comparable<LoanQuote>{
 		this.rate = rate;
 	}
 
+	@Override
 	public int compareTo(LoanQuote other) {
-		if (this.rate > other.rate) {
+		if (this.rate > other.rate) { //NOSONAR
 			return 1;
 		}
 		else if (this.rate < other.rate) {
@@ -88,8 +90,9 @@ public class LoanQuote implements Comparable<LoanQuote>{
 		return 0;
 	}
 
+	@Override
 	public String toString() {
-		return this.lender + ":\t" + this.rate; 
+		return this.lender + ":\t" + this.rate;
 	}
 
 }

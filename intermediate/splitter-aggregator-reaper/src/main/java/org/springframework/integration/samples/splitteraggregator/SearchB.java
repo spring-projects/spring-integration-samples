@@ -17,6 +17,8 @@ package org.springframework.integration.samples.splitteraggregator;
 
 import org.apache.log4j.Logger;
 
+import org.springframework.integration.samples.splitteraggregator.support.CriteriaB;
+
 /**
  * Another type of search.
  *

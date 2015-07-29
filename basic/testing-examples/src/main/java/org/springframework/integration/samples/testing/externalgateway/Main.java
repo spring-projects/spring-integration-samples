@@ -1,5 +1,5 @@
 /*
- * Copyright 2002-2011 the original author or authors.
+ * Copyright 2002-2015 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -31,14 +31,20 @@ public class Main {
 
 	public static void main(String[] args) throws Exception {
 		AbstractApplicationContext context = new ClassPathXmlApplicationContext(
-				"META-INF/spring/integration/04-externalgateway/*.xml"); 
+				"META-INF/spring/integration/04-externalgateway/*.xml");
 		System.out.println("Please enter zip");
-		
+
 		BufferedReader console = new BufferedReader(new InputStreamReader(System.in));
-		String zip = console.readLine().trim();
-		WeatherAndTraffic weatherAndTraffic = context.getBean("wat", WeatherAndTraffic.class);
-		List<String> result = weatherAndTraffic.getByZip(zip);
-		System.out.println(result.get(0) + "\r\n" + result.get(1) + "\r\n");
+		String line = console.readLine();
+		if (line != null) {
+			String zip = line.trim();
+			WeatherAndTraffic weatherAndTraffic = context.getBean("wat", WeatherAndTraffic.class);
+			List<String> result = weatherAndTraffic.getByZip(zip);
+			System.out.println(result.get(0) + "\r\n" + result.get(1) + "\r\n");
+		}
+		else {
+			System.out.println("Console closed");
+		}
 		context.close();
 		System.exit(0);
 	}

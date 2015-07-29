@@ -1,5 +1,5 @@
 /*
- * Copyright 2002-2010 the original author or authors.
+ * Copyright 2002-2015 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -38,7 +38,7 @@ public class Accumulator {
 		if (shark == null) {
 			shark = new LoanShark();
 			shark.setName(quote.getSharkName());
-			shark.setCounter(new Long(0));
+			shark.setCounter(Long.valueOf(0));
 			shark.setAverageRate(0.0d);
 			shark.persist();
 		}
@@ -46,5 +46,5 @@ public class Accumulator {
 		shark.setCounter(shark.getCounter().longValue() + 1);
 		shark.setAverageRate((current + quote.getSharkRate()) / shark.getCounter());
 	}
-	
+
 }

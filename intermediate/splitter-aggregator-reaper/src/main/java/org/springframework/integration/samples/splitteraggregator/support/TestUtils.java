@@ -15,11 +15,6 @@
  */
 package org.springframework.integration.samples.splitteraggregator.support;
 
-import org.springframework.integration.samples.splitteraggregator.CompositeCriteria;
-import org.springframework.integration.samples.splitteraggregator.CriteriaA;
-import org.springframework.integration.samples.splitteraggregator.CriteriaB;
-
-
 /**
  * @author Gunnar Hillert
  * @since 1.0

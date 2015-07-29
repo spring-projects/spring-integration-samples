@@ -18,7 +18,7 @@ package org.springframework.integration.samples.jdbc.service;
 
 import java.util.List;
 
-import org.springframework.integration.samples.jdbc.Person;
+import org.springframework.integration.samples.jdbc.domain.Person;
 
 /**
  * The Service used to create Person instance in database

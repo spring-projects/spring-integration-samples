@@ -1,5 +1,5 @@
 /*
- * Copyright 2002-2011 the original author or authors.
+ * Copyright 2002-2015 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -26,6 +26,7 @@ import org.springframework.jdbc.support.JdbcUtils;
 /**
  *
  * @author Gunnar Hillert
+ * @author Gary Russell
  * @since 2.1
  *
  */
@@ -49,7 +50,8 @@ public final class DerbyStoredProcedures {
 			resultset.next();
 			coffeeDescription[0] = resultset.getString("COFFEE_DESCRIPTION");
 
-		} finally {
+		}
+		finally {
 			JdbcUtils.closeStatement(statement);
 			JdbcUtils.closeConnection(connection);
 		}
@@ -62,10 +64,16 @@ public final class DerbyStoredProcedures {
 		Connection connection = null;
 		PreparedStatement statement = null;
 
-		connection = DriverManager.getConnection("jdbc:default:connection");
-		String sql = "SELECT * FROM COFFEE_BEVERAGES";
-		statement = connection.prepareStatement(sql);
-		coffeeBeverages[0] = statement.executeQuery();
+		try {
+			connection = DriverManager.getConnection("jdbc:default:connection");
+			String sql = "SELECT * FROM COFFEE_BEVERAGES";
+			statement = connection.prepareStatement(sql);//NOSONAR see below
+			coffeeBeverages[0] = statement.executeQuery();
+		}
+		finally {
+//			JdbcUtils.closeStatement(statement); // cannot close due to result set being returned
+			JdbcUtils.closeConnection(connection);
+		}
 
 	}
 }

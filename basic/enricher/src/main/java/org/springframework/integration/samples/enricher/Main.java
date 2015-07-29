@@ -22,6 +22,7 @@ import java.util.Scanner;
 import org.apache.log4j.Logger;
 import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.integration.samples.enricher.domain.User;
 import org.springframework.integration.samples.enricher.service.UserService;
 
 

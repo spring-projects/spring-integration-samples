@@ -1,5 +1,5 @@
 /*
- * Copyright 2002-2010 the original author or authors.
+ * Copyright 2002-2015 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,17 +19,19 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.apache.log4j.Logger;
+
+import org.springframework.integration.samples.rest.domain.Employee;
+import org.springframework.integration.samples.rest.domain.EmployeeList;
 import org.springframework.messaging.Message;
 import org.springframework.messaging.MessageHeaders;
 import org.springframework.messaging.support.GenericMessage;
-import org.springframework.integration.samples.rest.domain.Employee;
-import org.springframework.integration.samples.rest.domain.EmployeeList;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Service;
 
 /**
  * EmployeeSearchService.java: This is the default employee search service
  * @author Vigil Bose
+ * @author Gary Russell
  */
 @Service("employeeSearchService")
 public class EmployeeSearchService {
@@ -46,41 +48,46 @@ public class EmployeeSearchService {
 	 */
 	@Secured("ROLE_REST_HTTP_USER")
 	public Message<EmployeeList> getEmployee(Message<?> inMessage){
-	
+
 		EmployeeList employeeList = new EmployeeList();
 		Map<String, Object> responseHeaderMap = new HashMap<String, Object>();
-		
+
 		try{
 			MessageHeaders headers = inMessage.getHeaders();
 			String id = (String)headers.get("employeeId");
 			boolean isFound;
-			if (id.equals("1")){
+			if (id.equals("1")) {
 				employeeList.getEmployee().add(new Employee(1, "John", "Doe"));
 				isFound = true;
-			}else if (id.equals("2")){
+			}
+			else if (id.equals("2")) {
 				employeeList.getEmployee().add(new Employee(2, "Jane", "Doe"));
 				isFound = true;
-			}else if (id.equals("0")){
-				employeeList.getEmployee().add(new Employee(1, "John", "Doe"));
-				employeeList.getEmployee().add(new Employee(2, "Jane", "Doe"));				
-				isFound = true;
-			}else{				
-				isFound = false;
-			}			
-			if (isFound){
-				setReturnStatusAndMessage("0", "Success", employeeList, responseHeaderMap);
-			}else{
-				setReturnStatusAndMessage("2", "Employee Not Found", employeeList, responseHeaderMap);								
 			}
-			
-		}catch (Throwable e){
+			else if (id.equals("0")) {
+				employeeList.getEmployee().add(new Employee(1, "John", "Doe"));
+				employeeList.getEmployee().add(new Employee(2, "Jane", "Doe"));
+				isFound = true;
+			}
+			else {
+				isFound = false;
+			}
+			if (isFound) {
+				setReturnStatusAndMessage("0", "Success", employeeList, responseHeaderMap);
+			}
+			else {
+				setReturnStatusAndMessage("2", "Employee Not Found", employeeList, responseHeaderMap);
+			}
+
+		}
+		catch (Exception e) {
 			setReturnStatusAndMessage("1", "System Error", employeeList, responseHeaderMap);
-			logger.error("System error occured :"+e);
+			logger.error("System error occured :" + e);
 		}
 		Message<EmployeeList> message = new GenericMessage<EmployeeList>(employeeList, responseHeaderMap);
-		return message;		
+		return message;
 	}
-	
+
 	/**
 	 * The API <code>setReturnStatusAndMessage()</code> sets the return status and return message
 	 * in the return message payload and its header.
@@ -89,16 +96,17 @@ public class EmployeeSearchService {
 	 * @param employeeList
 	 * @param responseHeaderMap
 	 */
-	private void setReturnStatusAndMessage(String status, 
-						String message, 
-						EmployeeList employeeList, 
+	private void setReturnStatusAndMessage(String status,
+						String message,
+						EmployeeList employeeList,
 						Map<String, Object> responseHeaderMap){
-		
+
 		employeeList.setReturnStatus(status);
 		employeeList.setReturnStatusMsg(message);
 		responseHeaderMap.put("Return-Status", status);
 		responseHeaderMap.put("Return-Status-Msg", message);
 	}
+
 }
 
 

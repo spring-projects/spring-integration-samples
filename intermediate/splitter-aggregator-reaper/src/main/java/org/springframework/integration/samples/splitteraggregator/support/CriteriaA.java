@@ -13,14 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.springframework.integration.samples.splitteraggregator;
+package org.springframework.integration.samples.splitteraggregator.support;
 
 /**
- * Another type of criteria.
+ * One type of criteria.
  * 
  * @author Christopher Hunt
  * 
  */
-public class CriteriaB extends AbstractCriteria {
+public class CriteriaA extends AbstractCriteria {
 
 }

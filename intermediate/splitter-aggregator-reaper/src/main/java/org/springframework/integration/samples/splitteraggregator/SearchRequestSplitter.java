@@ -17,6 +17,9 @@ package org.springframework.integration.samples.splitteraggregator;
 
 import java.util.Collection;
 
+import org.springframework.integration.samples.splitteraggregator.support.AbstractCriteria;
+import org.springframework.integration.samples.splitteraggregator.support.CompositeCriteria;
+
 /**
  * Given CompositeCriteria, return a collection of the individual criterion.
  * 

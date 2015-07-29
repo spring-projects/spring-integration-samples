@@ -1,5 +1,5 @@
 /*
- * Copyright 2002-2008 the original author or authors.
+ * Copyright 2002-2015 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -25,14 +25,15 @@ import org.springframework.integration.annotation.ServiceActivator;
 
 /**
  * @author Mark Fisher
+ * @author Gary Russell
  */
 @MessageEndpoint
 public class QuoteService {
 
 	@ServiceActivator(inputChannel="tickers", outputChannel="quotes")
 	public Quote lookupQuote(String ticker) {
-		BigDecimal price = new BigDecimal(new Random().nextDouble() * 100);		
-		return new Quote(ticker, price.setScale(2, RoundingMode.HALF_EVEN));	
+		BigDecimal price = new BigDecimal(new Random().nextDouble() * 100);//NOSONAR
+		return new Quote(ticker, price.setScale(2, RoundingMode.HALF_EVEN));
 	}
 
 }

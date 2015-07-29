@@ -1,5 +1,5 @@
 /*
- * Copyright 2002-2011 the original author or authors.
+ * Copyright 2002-2015 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -10,31 +10,34 @@
  * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the
  * specific language governing permissions and limitations under the License.
  */
-package org.springframework.integration.samples.enricher;
+package org.springframework.integration.samples.enricher.domain;
 
 public class User {
-    private String username;
-    private String password;
-    private String email;
 
-    public User(String username, String password, String email) {
-        super();
-        this.username = username;
-        this.password = password;
-        this.email = email;
-    }
+	private String username;
 
-    public String getUsername() {
-        return this.username;
-    }
+	private String password;
 
-    public String getPassword() {
-        return this.password;
-    }
+	private String email;
 
-    public String getEmail() {
-        return this.email;
-    }
+	public User(String username, String password, String email) {
+		super();
+		this.username = username;
+		this.password = password;
+		this.email = email;
+	}
+
+	public String getUsername() {
+		return this.username;
+	}
+
+	public String getPassword() {
+		return this.password;
+	}
+
+	public String getEmail() {
+		return this.email;
+	}
 
 	public void setUsername(String username) {
 		this.username = username;
@@ -51,12 +54,8 @@ public class User {
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
-		builder.append("User [username=")
-		       .append(this.username)
-			   .append(", password=")
-			   .append(this.password)
-			   .append(", email=")
-			   .append(this.email).append("]");
+		builder.append("User [username=").append(this.username).append(", password=").append(this.password)
+				.append(", email=").append(this.email).append("]");
 		return builder.toString();
 	}
 

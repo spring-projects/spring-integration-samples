@@ -24,6 +24,14 @@ buildscript {
 
 allprojects {
 	group = 'org.springframework.integration.samples'
+
+	repositories {
+	//		mavenLocal()
+		maven { url 'http://repo.spring.io/libs-snapshot' }
+		maven { url 'http://repo.spring.io/libs-milestone' }
+	//		maven { url 'http://repo.spring.io/libs-staging-local' }
+	}
+
 }
 
 subprojects { subproject ->
@@ -138,16 +146,14 @@ subprojects { subproject ->
 		}
 	}
 
-	repositories {
-//		mavenLocal()
-		maven { url 'http://repo.spring.io/libs-snapshot' }
-		maven { url 'http://repo.spring.io/libs-milestone' }
-//		maven { url 'http://repo.spring.io/libs-staging-local' }
-	}
-
 	if (!(subproject.name in ['advanced', 'applications', 'basic', 'intermediate', 'cafe'])) {
 
 		apply plugin: 'java'
+		apply plugin: 'jacoco'
+
+		jacoco {
+			toolVersion = "0.7.2.201409121644"
+		}
 
 		sourceCompatibility = 1.6
 
@@ -224,9 +230,21 @@ subprojects { subproject ->
 		ext.xLintArg = '-Xlint:all,-options'
 		[compileJava, compileTestJava]*.options*.compilerArgs = [xLintArg]
 
+		jacocoTestReport {
+			reports {
+				xml.enabled false
+				csv.enabled false
+				html.destination "${buildDir}/reports/jacoco/html"
+			}
+		}
+
 		test {
 			// suppress all console output during testing unless running `gradle -i`
 			logging.captureStandardOutput(LogLevel.INFO)
+			jacoco {
+				append = false
+				destinationFile = file("$buildDir/jacoco.exec")
+			}
 		}
 
 		task checkTestConfigs << {
@@ -249,6 +267,7 @@ subprojects { subproject ->
 		}
 
 		test.dependsOn checkTestConfigs
+		build.dependsOn jacocoTestReport
 	}
 
 	task cleanTarget(type: Delete) {
@@ -1136,6 +1155,20 @@ project('stomp-chat') {
 
 	tasks.withType(JavaExec) {
 		standardInput = System.in
+	}
+}
+
+apply plugin: 'sonar-runner'
+
+sonarRunner {
+	sonarProperties {
+		property "sonar.jacoco.reportPath", "${buildDir.name}/jacoco.exec"
+		property "sonar.links.homepage", linkHomepage
+		property "sonar.links.ci", linkCi
+		property "sonar.links.issue", linkIssue
+		property "sonar.links.scm", linkScmUrl
+		property "sonar.links.scm_dev", linkScmDevConnection
+		property "sonar.java.coveragePlugin", "jacoco"
 	}
 }
 
