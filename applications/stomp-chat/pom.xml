@@ -5,11 +5,11 @@
   <parent>
     <artifactId>spring-boot-starter-parent</artifactId>
     <groupId>org.springframework.boot</groupId>
-    <version>1.2.0.BUILD-SNAPSHOT</version>
+    <version>1.2.5.RELEASE</version>
   </parent>
   <groupId>org.springframework.integration.samples</groupId>
   <artifactId>stomp-chat</artifactId>
-  <version>3.0.0.BUILD-SNAPSHOT</version>
+  <version>4.1.0.BUILD-SNAPSHOT</version>
   <name>Web Sockets Stomp Chat Sample</name>
   <description>Web Sockets Stomp Chat Sample</description>
   <url>http://projects.spring.io/spring-integration</url>
@@ -95,6 +95,12 @@
       <scope>test</scope>
     </dependency>
     <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-test</artifactId>
+      <version>4.1.7.RELEASE</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
       <groupId>org.springframework.integration</groupId>
       <artifactId>spring-integration-websocket</artifactId>
       <scope>compile</scope>
@@ -108,12 +114,6 @@
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-test</artifactId>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.springframework</groupId>
-      <artifactId>spring-test</artifactId>
-      <version>4.1.1.RELEASE</version>
       <scope>test</scope>
     </dependency>
     <dependency>

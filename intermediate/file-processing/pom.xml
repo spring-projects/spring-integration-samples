@@ -4,7 +4,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.springframework.integration.samples</groupId>
   <artifactId>file-processing</artifactId>
-  <version>3.0.0.BUILD-SNAPSHOT</version>
+  <version>4.1.0.BUILD-SNAPSHOT</version>
   <name>File Processing Sample</name>
   <description>File Processing Sample</description>
   <url>http://projects.spring.io/spring-integration</url>
@@ -67,6 +67,12 @@
       <scope>test</scope>
     </dependency>
     <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-test</artifactId>
+      <version>4.1.7.RELEASE</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
       <groupId>org.hamcrest</groupId>
       <artifactId>hamcrest-all</artifactId>
       <version>1.3</version>
@@ -75,14 +81,8 @@
     <dependency>
       <groupId>org.springframework.integration</groupId>
       <artifactId>spring-integration-file</artifactId>
-      <version>4.1.0.RC1</version>
+      <version>4.1.6.RELEASE</version>
       <scope>compile</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.springframework</groupId>
-      <artifactId>spring-test</artifactId>
-      <version>4.1.1.RELEASE</version>
-      <scope>test</scope>
     </dependency>
     <dependency>
       <groupId>log4j</groupId>
