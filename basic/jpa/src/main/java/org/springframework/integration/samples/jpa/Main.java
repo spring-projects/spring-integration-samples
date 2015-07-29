@@ -1,5 +1,5 @@
 /*
- * Copyright 2002-2012 the original author or authors.
+ * Copyright 2002-2015 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,6 +20,7 @@ import java.util.List;
 import java.util.Scanner;
 
 import org.springframework.context.support.GenericXmlApplicationContext;
+import org.springframework.integration.samples.jpa.domain.Person;
 import org.springframework.integration.samples.jpa.service.PersonService;
 import org.springframework.util.StringUtils;
 
@@ -28,6 +29,7 @@ import org.springframework.util.StringUtils;
  *
  * @author Gunnar Hillert
  * @author Amol Nayak
+ * @author Gary Russell
  * @version 1.0
  *
  */
@@ -104,13 +106,16 @@ public final class Main {
 		while (true) {
 			final String input = scanner.nextLine();
 
-			if("1".equals(input.trim())) {
+			if ("1".equals(input.trim())) {
 				findPeople(personService);
-			} else if("2".equals(input.trim())) {
-				createPersonDetails(scanner,personService);
-			} else if("q".equals(input.trim())) {
+			}
+			else if ("2".equals(input.trim())) {
+				createPersonDetails(scanner, personService);
+			}
+			else if ("q".equals(input.trim())) {
 				break;
-			} else {
+			}
+			else {
 				System.out.println("Invalid choice\n\n");
 			}
 
@@ -122,6 +127,7 @@ public final class Main {
 		}
 
 		System.out.println("Exiting application...bye.");
+		context.close();
 		System.exit(0);
 
 	}
@@ -169,7 +175,7 @@ public final class Main {
 			if(people != null && !people.isEmpty()) {
 				for(Person person : people) {
 					System.out.print(String.format("%d, %s, ", person.getId(), person.getName()));
-					System.out.println(DATE_FORMAT.format(person.getCreatedDateTime()));
+					System.out.println(DATE_FORMAT.format(person.getCreatedDateTime()));//NOSONAR
 				}
 			} else {
 				System.out.println(

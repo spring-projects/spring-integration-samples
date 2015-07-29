@@ -22,6 +22,7 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.integration.samples.jpa.domain.Person;
 import org.springframework.integration.samples.jpa.service.PersonService;
 
 /**

@@ -26,10 +26,10 @@
 
 	<int:payload-type-router input-channel="search-requests">
 		<int:mapping
-			type="org.springframework.integration.samples.splitteraggregator.CriteriaA"
+			type="org.springframework.integration.samples.splitteraggregator.support.CriteriaA"
 			channel="search-request-a" />
 		<int:mapping
-			type="org.springframework.integration.samples.splitteraggregator.CriteriaB"
+			type="org.springframework.integration.samples.splitteraggregator.support.CriteriaB"
 			channel="search-request-b" />
 	</int:payload-type-router>
 

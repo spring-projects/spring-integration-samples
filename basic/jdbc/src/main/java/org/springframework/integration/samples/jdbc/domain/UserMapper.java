@@ -10,29 +10,15 @@
  * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the
  * specific language governing permissions and limitations under the License.
  */
-package org.springframework.integration.samples.jdbc;
+package org.springframework.integration.samples.jdbc.domain;
 
-public class User {
-    private String username;
-    private String password;
-    private String email;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
-    public User(String username, String password, String email) {
-        super();
-        this.username = username;
-        this.password = password;
-        this.email = email;
-    }
+import org.springframework.jdbc.core.RowMapper;
 
-    public String getUsername() {
-        return this.username;
-    }
-
-    public String getPassword() {
-        return this.password;
-    }
-
-    public String getEmail() {
-        return this.email;
+public class UserMapper implements RowMapper<User> {
+    public User mapRow(ResultSet rs, int rowNum) throws SQLException {
+        return new User(rs.getString("username"), rs.getString("password"), rs.getString("email"));
     }
 }

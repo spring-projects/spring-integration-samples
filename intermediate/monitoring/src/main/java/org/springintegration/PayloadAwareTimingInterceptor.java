@@ -19,11 +19,11 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.concurrent.ConcurrentHashMap;
 
+import org.springframework.jmx.export.annotation.ManagedOperation;
+import org.springframework.jmx.export.annotation.ManagedResource;
 import org.springframework.messaging.Message;
 import org.springframework.messaging.MessageChannel;
 import org.springframework.messaging.support.ChannelInterceptorAdapter;
-import org.springframework.jmx.export.annotation.ManagedOperation;
-import org.springframework.jmx.export.annotation.ManagedResource;
 import org.springframework.util.StopWatch;
 
 /**
@@ -37,9 +37,9 @@ import org.springframework.util.StopWatch;
 @ManagedResource
 public class PayloadAwareTimingInterceptor extends ChannelInterceptorAdapter {
 
-	private ThreadLocal<StopWatchHolder> stopWatchHolder = new ThreadLocal<PayloadAwareTimingInterceptor.StopWatchHolder>();
+	private final ThreadLocal<StopWatchHolder> stopWatchHolder = new ThreadLocal<PayloadAwareTimingInterceptor.StopWatchHolder>();
 
-	private Map<Class<?>, Stats> statsMap = new ConcurrentHashMap<Class<?>, PayloadAwareTimingInterceptor.Stats>();
+	private final Map<Class<?>, Stats> statsMap = new ConcurrentHashMap<Class<?>, PayloadAwareTimingInterceptor.Stats>();
 
 	/**
 	 *
@@ -68,12 +68,12 @@ public class PayloadAwareTimingInterceptor extends ChannelInterceptorAdapter {
 		StopWatchHolder holder = this.stopWatchHolder.get();
 		if (holder != null) {
 			holder.getStopWatch().stop();
+			Stats stats = this.statsMap.get(holder.getType());
+			if (stats == null) {
+				stats = this.statsMap.get(Object.class);
+			}
+			stats.add(holder.getStopWatch().getLastTaskTimeMillis());
 		}
-		Stats stats = this.statsMap.get(holder.getType());
-		if (stats == null) {
-			stats = this.statsMap.get(Object.class);
-		}
-		stats.add(holder.getStopWatch().getLastTaskTimeMillis());
 	}
 
 	@ManagedOperation

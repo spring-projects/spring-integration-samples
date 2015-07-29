@@ -15,6 +15,8 @@
  */
 package org.springframework.integration.samples.splitteraggregator;
 
+import org.springframework.integration.samples.splitteraggregator.support.CompositeCriteria;
+
 /**
  * A service interface responsible for performing a search and returning a
  * result synchronously.

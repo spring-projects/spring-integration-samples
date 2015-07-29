@@ -46,7 +46,7 @@
         
        
 	
-	<bean id="personResultMapper" class="org.springframework.integration.samples.jdbc.PersonMapper"/>
+	<bean id="personResultMapper" class="org.springframework.integration.samples.jdbc.domain.PersonMapper"/>
 	<int-jdbc:outbound-gateway data-source="datasource" 
 								request-channel="createPersonRequestChannel"
 								reply-channel="createPersonReplyChannel"

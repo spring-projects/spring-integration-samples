@@ -18,7 +18,7 @@ package org.springframework.integration.samples.jpa.service;
 
 import java.util.List;
 
-import org.springframework.integration.samples.jpa.Person;
+import org.springframework.integration.samples.jpa.domain.Person;
 import org.springframework.messaging.handler.annotation.Payload;
 
 /**

@@ -24,6 +24,8 @@ import java.util.Scanner;
 import org.apache.log4j.Logger;
 import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.integration.samples.jdbc.domain.Gender;
+import org.springframework.integration.samples.jdbc.domain.Person;
 import org.springframework.integration.samples.jdbc.service.PersonService;
 
 

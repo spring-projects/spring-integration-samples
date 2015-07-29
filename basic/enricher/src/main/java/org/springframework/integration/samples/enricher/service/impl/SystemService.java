@@ -16,7 +16,8 @@
 package org.springframework.integration.samples.enricher.service.impl;
 
 import org.apache.log4j.Logger;
-import org.springframework.integration.samples.enricher.User;
+
+import org.springframework.integration.samples.enricher.domain.User;
 
 /**
  * Simple Service class for retrieving user information.
