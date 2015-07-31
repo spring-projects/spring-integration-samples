@@ -1174,6 +1174,6 @@ sonarRunner {
 
 task wrapper(type: Wrapper) {
 	description = 'Generates gradlew[.bat] scripts'
-	gradleVersion = '2.3'
+	gradleVersion = '2.5'
 	distributionUrl = "http://services.gradle.org/distributions/gradle-${gradleVersion}-all.zip"
 }
