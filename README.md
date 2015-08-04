@@ -43,6 +43,7 @@ This directory holds demos/samples for Spring Integration 4.0 Java Configuration
 This is a good place to get started. The samples here are technically motivated and demonstrate the bare minimum with regard to configuration and code to help you to get introduced to the basic concepts, API and configuration of Spring Integration. For example, if you are looking for an answer on how to wire a **Service Activator**  to a **Channel** or how to apply a **Gateway** to your message exchange or how to get started with using the **MAIL** or **XML** module, this would be the right place to find a relevant sample. The bottom line is that this is a good starting point.
 
 * **amqp** - Demonstrates the functionality of the various **AMQP Adapters**
+* **barrier** - Shows how to suspend a thread until some asynchronous event occurs 
 * **control-bus** - Demonstrates the functionality of the **Control Bus**
 * **enricher** - This sample demonstrates how the Enricher components can be used
 * **feed** - Demonstrates the functionality of the **Feed Adapter** (RSS/ATOM)
@@ -106,7 +107,7 @@ This category targets developers and architects who have a good understanding of
 * **cafe** - Emulates a simple operation of a coffee shop combining various Spring Integration adapters (Including **Router** and **Splitter**) see [Appendix A of the reference documentation](http://static.springsource.org/spring-integration/docs/latest-ga/reference/html/samples.html) for more details. Implementations are provided for:
   - AMQP
   - JMS
-  - In memory channels 
+  - In memory channels
 * **cafe-scripted** - Scripted implementation of the classic **cafe** sample application. Supports **JavaScript**, **Groovy**, **Ruby**, and **Python**.
 * **loan-broker** - Simulates a simple banking application (Uses **Gateway**, **Chain**, **Header Enricher**, **Recipient List Router**, **Aggregator**) see [Appendix A of the reference documentation](http://static.springsource.org/spring-integration/docs/latest-ga/reference/html/samples.html) for more details
 * **loanshark** This extension to the loan broker sample shows how to exchange messages between Spring Integration applications (and other technologies) using **UDP**.

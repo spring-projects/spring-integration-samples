@@ -48,5 +48,5 @@ In STS (Eclipse), go to package **org.springframework.integration.samples.http**
   
 The gateway (**client**) initiates a simple request posting "Hello" to the **server** and the **server** responds by appending **from the other side** to the message payload and returns. You should see the following output from the server:
    
-    INFO : org.springframework.integration.samples.http.HttpClientDemo - Replied with: Hello from the other side
+    ++++++++++++ Replied with: Hello from the other side ++++++++++++
 
