@@ -20,6 +20,7 @@
 		<property name="privateKeyPassphrase" value="${passphrase}"/>
 		<property name="port" value="#{serverPort}"/>
 		<property name="user" value="${username}"/>
+		<property name="allowUnknownKeys" value="true"/>
 	</bean>
 
 	<int-sftp:inbound-channel-adapter id="sftpInbondAdapter"

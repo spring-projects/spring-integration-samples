@@ -17,6 +17,7 @@ package org.springframework.integration.samples.travel;
 
 import org.apache.log4j.Logger;
 import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,6 +35,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 	"classpath:META-INF/spring/integration-context.xml",
 	"classpath:META-INF/spring/integration-ws-context.xml"})
 @RunWith(SpringJUnit4ClassRunner.class)
+@Ignore("The target WeatherWS is unreliable (INTSAMPLES-145), so uncomment if you'd like to test the real interaction")
 public class TravelGatewayTest {
 
 	private static final Logger LOGGER = Logger.getLogger(TravelGatewayTest.class);

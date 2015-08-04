@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:int="http://www.springframework.org/schema/integration"
+	xmlns:int-http="http://www.springframework.org/schema/integration/http"
+	xmlns:int-amqp="http://www.springframework.org/schema/integration/amqp"
+	xmlns:rabbit="http://www.springframework.org/schema/rabbit"
+	xsi:schemaLocation="http://www.springframework.org/schema/integration/amqp http://www.springframework.org/schema/integration/amqp/spring-integration-amqp.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/integration/file http://www.springframework.org/schema/integration/file/spring-integration-file.xsd
+		http://www.springframework.org/schema/rabbit http://www.springframework.org/schema/rabbit/spring-rabbit.xsd
+		http://www.springframework.org/schema/integration/http http://www.springframework.org/schema/integration/http/spring-integration-http.xsd
+		http://www.springframework.org/schema/integration http://www.springframework.org/schema/integration/spring-integration.xsd">
+
+	<int-http:inbound-gateway request-channel="receiveChannel"
+							path="/receiveGateway"
+							error-channel="errorChannel"
+							supported-methods="POST"/>
+
+	<int:channel id="receiveChannel" />
+
+	<int:header-enricher input-channel="receiveChannel" output-channel="processChannel">
+		<int:header name="ackCorrelation" expression="headers['id']" />
+	</int:header-enricher>
+
+	<int:publish-subscribe-channel id="processChannel" />
+
+	<int:chain input-channel="processChannel" order="1">
+		<int:header-filter header-names="content-type, content-length" />
+		<int:splitter delimiters="," />
+		<int-amqp:outbound-channel-adapter amqp-template="amqpTemplate"
+			exchange-name="barrier.sample.exchange" routing-key="barrier.sample.key"
+			confirm-ack-channel="confirmations"
+			confirm-nack-channel="confirmations"
+			return-channel="errorChannel"
+			confirm-correlation-expression="#this"/>
+	</int:chain>
+
+	<!-- Suspend the HTTP thread until the publisher confirms are asynchronously received -->
+
+	<int:barrier id="barrier" input-channel="processChannel" order="2"
+		correlation-strategy-expression="headers['ackCorrelation']"
+		output-channel="transform" timeout="10000" />
+
+	<int:transformer input-channel="transform" expression="payload[1]" />
+
+	<!-- Aggregate the publisher confirms and send the result to the barrier release channel -->
+
+	<int:chain input-channel="confirmations" output-channel="release">
+		<int:header-filter header-names="replyChannel, errorChannel" />
+		<int:service-activator expression="payload" /> <!-- INT-3791; use s-a to retain ack header -->
+		<int:aggregator>
+			<bean class="org.springframework.integration.samples.barrier.AckAggregator" />
+		</int:aggregator>
+	</int:chain>
+
+	<int:channel id="release" />
+
+	<int:outbound-channel-adapter channel="release" ref="barrier.handler" method="trigger" />
+
+	<!-- Consumer -> nullChannel -->
+
+	<int-amqp:inbound-channel-adapter channel="nullChannel"
+		queue-names="barrier.sample.queue"
+		connection-factory="connectionFactory" />
+	
+	<!-- Infrastructure -->
+
+	<rabbit:connection-factory id="connectionFactory" host="localhost" publisher-confirms="true"
+			publisher-returns="true"/>
+
+	<rabbit:template id="amqpTemplate" connection-factory="connectionFactory" mandatory="true" />
+
+	<rabbit:admin connection-factory="connectionFactory" />
+
+	<rabbit:queue name="barrier.sample.queue" auto-delete="true" />
+
+	<rabbit:direct-exchange name="barrier.sample.exchange" auto-delete="true">
+		<rabbit:bindings>
+			<rabbit:binding queue="barrier.sample.queue" key="barrier.sample.key" />
+		</rabbit:bindings>
+	</rabbit:direct-exchange>
+
+</beans>

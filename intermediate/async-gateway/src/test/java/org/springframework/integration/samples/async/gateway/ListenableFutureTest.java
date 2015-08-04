@@ -127,7 +127,7 @@ public class ListenableFutureTest {
 
 	}
 
-	@MessagingGateway(defaultReplyTimeout = 0)
+	@MessagingGateway(defaultReplyTimeout = "0")
 	public interface MathGateway {
 
 		@Gateway(requestChannel = "gatewayChannel")

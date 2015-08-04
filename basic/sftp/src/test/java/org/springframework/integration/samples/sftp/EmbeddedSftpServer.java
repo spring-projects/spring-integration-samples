@@ -1,5 +1,5 @@
 /*
- * Copyright 2014 the original author or authors.
+ * Copyright 2014-2015 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -27,9 +27,7 @@ import java.util.Collections;
 
 import org.apache.sshd.SshServer;
 import org.apache.sshd.common.NamedFactory;
-import org.apache.sshd.common.file.FileSystemView;
-import org.apache.sshd.common.file.nativefs.NativeFileSystemFactory;
-import org.apache.sshd.common.file.nativefs.NativeFileSystemView;
+import org.apache.sshd.common.file.virtualfs.VirtualFileSystemFactory;
 import org.apache.sshd.common.util.Base64;
 import org.apache.sshd.server.Command;
 import org.apache.sshd.server.PublickeyAuthenticator;
@@ -76,20 +74,7 @@ public class EmbeddedSftpServer implements InitializingBean, SmartLifecycle {
 		this.server.setKeyPairProvider(new SimpleGeneratorHostKeyProvider("hostkey.ser"));
 		this.server.setSubsystemFactories(Collections.<NamedFactory<Command>>singletonList(new SftpSubsystem.Factory()));
 		final String virtualDir = new FileSystemResource("").getFile().getAbsolutePath();
-		this.server.setFileSystemFactory(new NativeFileSystemFactory() {
-
-			@Override
-			public FileSystemView createFileSystemView(org.apache.sshd.common.Session session) {
-				return new NativeFileSystemView(session.getUsername(), false) {
-
-					@Override
-					public String getVirtualUserDir() {
-						return virtualDir;
-					}
-				};
-			}
-
-		});
+		server.setFileSystemFactory(new VirtualFileSystemFactory(virtualDir));
 	}
 
 	private PublicKey decodePublicKey() throws Exception {
