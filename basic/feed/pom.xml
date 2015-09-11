@@ -52,24 +52,11 @@
     <developerConnection>scm:git:scm:git:ssh://git@github.com:spring-projects/spring-integration-samples.git</developerConnection>
     <url>https://github.com/spring-projects/spring-integration-samples</url>
   </scm>
-  <repositories>
-    <repository>
-      <id>repo.spring.io.milestone</id>
-      <name>Spring Framework Maven Milestone Repository</name>
-      <url>https://repo.spring.io/libs-milestone</url>
-    </repository>
-  </repositories>
   <dependencies>
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
       <version>4.11</version>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.springframework</groupId>
-      <artifactId>spring-test</artifactId>
-      <version>4.1.7.RELEASE</version>
       <scope>test</scope>
     </dependency>
     <dependency>
@@ -81,8 +68,14 @@
     <dependency>
       <groupId>org.springframework.integration</groupId>
       <artifactId>spring-integration-feed</artifactId>
-      <version>4.1.6.RELEASE</version>
+      <version>4.2.0.RELEASE</version>
       <scope>compile</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-test</artifactId>
+      <version>4.2.0.RELEASE</version>
+      <scope>test</scope>
     </dependency>
     <dependency>
       <groupId>log4j</groupId>
@@ -97,4 +90,11 @@
       <scope>test</scope>
     </dependency>
   </dependencies>
+  <repositories>
+    <repository>
+      <id>repo.spring.io.milestone</id>
+      <name>Spring Framework Maven Milestone Repository</name>
+      <url>https://repo.spring.io/libs-milestone</url>
+    </repository>
+  </repositories>
 </project>

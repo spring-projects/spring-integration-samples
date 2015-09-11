@@ -52,24 +52,17 @@
     <developerConnection>scm:git:scm:git:ssh://git@github.com:spring-projects/spring-integration-samples.git</developerConnection>
     <url>https://github.com/spring-projects/spring-integration-samples</url>
   </scm>
-  <repositories>
-    <repository>
-      <id>repo.spring.io.milestone</id>
-      <name>Spring Framework Maven Milestone Repository</name>
-      <url>https://repo.spring.io/libs-milestone</url>
-    </repository>
-  </repositories>
   <dependencies>
     <dependency>
       <groupId>org.springframework.integration</groupId>
       <artifactId>spring-integration-core</artifactId>
-      <version>4.1.6.RELEASE</version>
+      <version>4.2.0.RELEASE</version>
       <scope>compile</scope>
     </dependency>
     <dependency>
-      <groupId>org.projectreactor.spring</groupId>
-      <artifactId>reactor-spring-context</artifactId>
-      <version>1.1.3.RELEASE</version>
+      <groupId>io.projectreactor</groupId>
+      <artifactId>reactor-stream</artifactId>
+      <version>2.0.5.RELEASE</version>
       <scope>compile</scope>
     </dependency>
     <dependency>
@@ -79,15 +72,21 @@
       <scope>test</scope>
     </dependency>
     <dependency>
-      <groupId>org.springframework</groupId>
-      <artifactId>spring-test</artifactId>
-      <version>4.1.7.RELEASE</version>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
       <groupId>org.hamcrest</groupId>
       <artifactId>hamcrest-all</artifactId>
       <version>1.3</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>io.projectreactor.spring</groupId>
+      <artifactId>reactor-spring-context</artifactId>
+      <version>2.0.5.RELEASE</version>
+      <scope>compile</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-test</artifactId>
+      <version>4.2.0.RELEASE</version>
       <scope>test</scope>
     </dependency>
     <dependency>
@@ -103,4 +102,11 @@
       <scope>test</scope>
     </dependency>
   </dependencies>
+  <repositories>
+    <repository>
+      <id>repo.spring.io.milestone</id>
+      <name>Spring Framework Maven Milestone Repository</name>
+      <url>https://repo.spring.io/libs-milestone</url>
+    </repository>
+  </repositories>
 </project>
