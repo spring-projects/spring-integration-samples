@@ -13,9 +13,16 @@
 		http://www.springframework.org/schema/integration http://www.springframework.org/schema/integration/spring-integration.xsd">
 
 	<int-http:inbound-gateway request-channel="receiveChannel"
-							path="/receiveGateway"
+							path="/postGateway"
 							error-channel="errorChannel"
 							supported-methods="POST"/>
+
+	<int-http:inbound-gateway request-channel="createPayload"
+							path="/getGateway"
+							error-channel="errorChannel"
+							supported-methods="GET"/>
+
+	<int:transformer input-channel="createPayload" output-channel="receiveChannel" expression="'A,B,C'" />
 
 	<int:channel id="receiveChannel" />
 
@@ -28,7 +35,7 @@
 	<int:chain input-channel="processChannel" order="1">
 		<int:header-filter header-names="content-type, content-length" />
 		<int:splitter delimiters="," />
-		<int-amqp:outbound-channel-adapter amqp-template="amqpTemplate"
+		<int-amqp:outbound-channel-adapter amqp-template="rabbitTemplate"
 			exchange-name="barrier.sample.exchange" routing-key="barrier.sample.key"
 			confirm-ack-channel="confirmations"
 			confirm-nack-channel="confirmations"
@@ -62,16 +69,9 @@
 
 	<int-amqp:inbound-channel-adapter channel="nullChannel"
 		queue-names="barrier.sample.queue"
-		connection-factory="connectionFactory" />
+		connection-factory="rabbitConnectionFactory" />
 	
 	<!-- Infrastructure -->
-
-	<rabbit:connection-factory id="connectionFactory" host="localhost" publisher-confirms="true"
-			publisher-returns="true"/>
-
-	<rabbit:template id="amqpTemplate" connection-factory="connectionFactory" mandatory="true" />
-
-	<rabbit:admin connection-factory="connectionFactory" />
 
 	<rabbit:queue name="barrier.sample.queue" auto-delete="true" />
 

@@ -16,24 +16,30 @@
 
 package org.springframework.integration.samples.barrier;
 
+import org.springframework.amqp.rabbit.connection.CachingConnectionFactory;
 import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.context.ConfigurableApplicationContext;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.ImportResource;
 
 /**
  * @author Gary Russell
  * @since 4.2
  */
-@Configuration
-@EnableAutoConfiguration
+@SpringBootApplication
 @ImportResource("/META-INF/spring/integration/server-context.xml")
 public class Application {
 
 	public static void main(String[] args) throws Exception {
 		ConfigurableApplicationContext server = SpringApplication.run(Application.class, args);
+
+		// https://github.com/spring-projects/spring-boot/issues/3945
+		CachingConnectionFactory connectionFactory = server.getBean(CachingConnectionFactory.class);
+		connectionFactory.setPublisherConfirms(true);
+		connectionFactory.resetConnection();
+		// https://github.com/spring-projects/spring-boot/issues/3945
+
 		ConfigurableApplicationContext client
 			= new SpringApplicationBuilder("/META-INF/spring/integration/client-context.xml")
 				.web(false)
