@@ -199,7 +199,7 @@ subprojects { subproject ->
 			postgresVersion = '9.1-901-1.jdbc4'
 			subethasmtpVersion = '1.2'
 			slf4jVersion = '1.7.11'
-			springIntegrationVersion = '4.2.0.RC1'
+			springIntegrationVersion = '4.2.0.RELEASE'
 			springIntegrationDslVersion = '1.1.0.BUILD-SNAPSHOT'
 			springVersion = '4.2.0.RELEASE'
 			springSecurityVersion = '4.0.2.RELEASE'
@@ -445,6 +445,7 @@ project('barrier') {
 	dependencies {
 		compile 'org.springframework.boot:spring-boot-starter-web'
 		compile 'org.springframework.boot:spring-boot-starter-integration'
+		compile 'org.springframework.boot:spring-boot-starter-amqp'
 		compile "org.springframework.integration:spring-integration-core:$springIntegrationVersion"
 		compile "org.springframework.integration:spring-integration-amqp:$springIntegrationVersion"
 		compile "org.springframework.integration:spring-integration-http:$springIntegrationVersion"

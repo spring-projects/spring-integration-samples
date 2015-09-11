@@ -14,8 +14,14 @@
 	<int:channel id="requestChannel"/>
 
 	<int-http:outbound-gateway request-channel="requestChannel" 
-					url="http://localhost:8080/receiveGateway"
+					url="#{url}"
 					http-method="POST"
 					expected-response-type="java.lang.String"/>
+
+	<beans profile="default">
+		<bean id="url" class="java.lang.String">
+			<constructor-arg value="http://localhost:8080/postGateway" />
+		</bean>
+	</beans>
 
 </beans>

@@ -11,4 +11,9 @@
   <root level="warn">
     <appender-ref ref="STDOUT" />
   </root>
+
+  <logger name="org.springframework" level="WARN" />
+  <logger name="org.springframework.integration" level="WARN" />
+  <logger name="org.springframework.amqp" level="WARN" />
+
 </configuration>
