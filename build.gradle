@@ -446,6 +446,7 @@ project('barrier') {
 	dependencies {
 		compile 'org.springframework.boot:spring-boot-starter-web'
 		compile 'org.springframework.boot:spring-boot-starter-integration'
+		compile 'org.springframework.boot:spring-boot-starter-amqp'
 		compile "org.springframework.integration:spring-integration-core:$springIntegrationVersion"
 		compile "org.springframework.integration:spring-integration-amqp:$springIntegrationVersion"
 		compile "org.springframework.integration:spring-integration-http:$springIntegrationVersion"
