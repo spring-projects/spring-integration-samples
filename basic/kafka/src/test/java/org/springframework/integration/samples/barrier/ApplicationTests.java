@@ -15,8 +15,7 @@ package org.springframework.integration.samples.barrier;
  * limitations under the License.
  */
 
-
-
+import org.junit.ClassRule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -26,11 +25,15 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 /**
  * @author Gary Russell
+ * @author Artem Bilan
  * @since 4.2
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = Application.class)
 public class ApplicationTests {
+
+	@ClassRule
+	public static KafkaRunning kafkaRunning = new KafkaRunning();
 
 	@Test
 	public void contextLoads() {
