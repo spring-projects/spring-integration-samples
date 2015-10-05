@@ -54,6 +54,12 @@
   </scm>
   <dependencies>
     <dependency>
+      <groupId>org.springframework.integration</groupId>
+      <artifactId>spring-integration-jdbc</artifactId>
+      <version>4.2.2.RELEASE</version>
+      <scope>compile</scope>
+    </dependency>
+    <dependency>
       <groupId>c3p0</groupId>
       <artifactId>c3p0</artifactId>
       <version>0.9.1.2</version>
@@ -78,15 +84,9 @@
       <scope>test</scope>
     </dependency>
     <dependency>
-      <groupId>org.springframework.integration</groupId>
-      <artifactId>spring-integration-jdbc</artifactId>
-      <version>4.2.0.RELEASE</version>
-      <scope>compile</scope>
-    </dependency>
-    <dependency>
       <groupId>org.springframework</groupId>
       <artifactId>spring-test</artifactId>
-      <version>4.2.0.RELEASE</version>
+      <version>4.2.3.RELEASE</version>
       <scope>test</scope>
     </dependency>
     <dependency>

@@ -4,7 +4,7 @@
   <parent>
     <groupId>org.springframework.boot</groupId>
     <artifactId>spring-boot-starter-parent</artifactId>
-    <version>1.3.0.M5</version>
+    <version>1.3.0.RELEASE</version>
   </parent>
   <groupId>org.springframework.integration.samples</groupId>
   <artifactId>cafe-dsl</artifactId>
@@ -58,18 +58,6 @@
   </scm>
   <dependencies>
     <dependency>
-      <groupId>org.springframework.integration</groupId>
-      <artifactId>spring-integration-core</artifactId>
-      <version>4.2.0.RELEASE</version>
-      <scope>compile</scope>
-    </dependency>
-    <dependency>
-      <groupId>io.projectreactor</groupId>
-      <artifactId>reactor-stream</artifactId>
-      <version>2.0.5.RELEASE</version>
-      <scope>compile</scope>
-    </dependency>
-    <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
       <version>4.11</version>
@@ -104,22 +92,34 @@
       <scope>compile</scope>
     </dependency>
     <dependency>
-      <groupId>io.projectreactor.spring</groupId>
-      <artifactId>reactor-spring-context</artifactId>
-      <version>2.0.5.RELEASE</version>
+      <groupId>io.projectreactor</groupId>
+      <artifactId>reactor-stream</artifactId>
+      <version>2.0.7.RELEASE</version>
       <scope>compile</scope>
     </dependency>
     <dependency>
       <groupId>org.springframework.integration</groupId>
-      <artifactId>spring-integration-java-dsl</artifactId>
-      <version>1.1.0.RELEASE</version>
+      <artifactId>spring-integration-core</artifactId>
+      <version>4.2.2.RELEASE</version>
       <scope>compile</scope>
     </dependency>
     <dependency>
       <groupId>org.springframework</groupId>
       <artifactId>spring-test</artifactId>
-      <version>4.2.0.RELEASE</version>
+      <version>4.2.3.RELEASE</version>
       <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.integration</groupId>
+      <artifactId>spring-integration-java-dsl</artifactId>
+      <version>1.1.1.RELEASE</version>
+      <scope>compile</scope>
+    </dependency>
+    <dependency>
+      <groupId>io.projectreactor.spring</groupId>
+      <artifactId>reactor-spring-context</artifactId>
+      <version>2.0.7.RELEASE</version>
+      <scope>compile</scope>
     </dependency>
     <dependency>
       <groupId>org.mockito</groupId>

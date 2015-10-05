@@ -195,7 +195,7 @@ subprojects { subproject ->
 			springIntegrationVersion = '4.2.2.RELEASE'
 			springIntegrationDslVersion = '1.1.1.RELEASE'
 			springIntegrationKafkaVersion = '1.3.0.RELEASE'
-			springIntegrationSplunkVersion = '1.1.0.RELEASE' 
+			springIntegrationSplunkVersion = '1.1.0.RELEASE'
 			springVersion = '4.2.3.RELEASE'
 			springSecurityVersion = '4.0.2.RELEASE'
 			springWebFlowVersion = '2.3.3.RELEASE'
@@ -391,8 +391,6 @@ project('loanshark') {
 		compile "org.springframework:spring-context:$springVersion"
 		compile "commons-fileupload:commons-fileupload:$commonsFileUploadVersion"
 		compile "commons-dbcp:commons-dbcp:$commonsDbcpVersion"
-		compile "org.slf4j:slf4j-log4j12:$slf4jVersion"
-		compile "org.slf4j:jcl-over-slf4j:$slf4jVersion"
 		compile "commons-digester:commons-digester:$commonsDigesterVersion"
 		compile "commons-pool:commons-pool:$commonsPoolVersion"
 		compile "org.apache.tiles:tiles-jsp:$tilesJspVersion"
@@ -405,7 +403,11 @@ project('loanshark') {
 		compile "org.eclipse.persistence:javax.persistence:$jpaApiVersion"
 		compile "org.hibernate:hibernate-entitymanager:$hibernateVersion"
 		compile "org.springframework.webflow:spring-js:$springWebFlowVersion"
-		compile "log4j:log4j:$log4jVersion"
+		compile "org.slf4j:slf4j-api:$slf4jVersion"
+
+		runtime "log4j:log4j:$log4jVersion"
+		runtime "org.slf4j:slf4j-log4j12:$slf4jVersion"
+		runtime "org.slf4j:jcl-over-slf4j:$slf4jVersion"
 	}
 
 }
@@ -513,8 +515,10 @@ project('ftp') {
 		compile "org.springframework.integration:spring-integration-ftp:$springIntegrationVersion"
 		compile "commons-io:commons-io:$commonsIoVersion"
 		compile "org.apache.ftpserver:ftpserver-core:$ftpServerVersion"
-		compile "org.slf4j:slf4j-log4j12:$slf4jVersion"
-		compile "log4j:log4j:$log4jVersion"
+		compile "org.slf4j:slf4j-api:$slf4jVersion"
+
+		runtime "log4j:log4j:$log4jVersion"
+		runtime "org.slf4j:slf4j-log4j12:$slf4jVersion"
 
 		testCompile "org.springframework.integration:spring-integration-test:$springIntegrationVersion"
 	}
@@ -691,7 +695,6 @@ project('jms') {
 	dependencies {
 		compile "org.springframework.integration:spring-integration-jms:$springIntegrationVersion"
 		compile "org.springframework.integration:spring-integration-stream:$springIntegrationVersion"
-		compile "org.slf4j:slf4j-log4j12:$slf4jVersion"
 		compile "org.apache.activemq:activemq-broker:$activeMqVersion"
 		compile("org.apache.activemq:activemq-kahadb-store:$activeMqVersion") {
 			exclude group: "org.springframework"
@@ -833,8 +836,10 @@ project('tcp-amqp') {
 	dependencies {
 		compile "org.springframework.integration:spring-integration-amqp:$springIntegrationVersion"
 		compile "org.springframework.integration:spring-integration-ip:$springIntegrationVersion"
-		compile "org.slf4j:slf4j-log4j12:$slf4jVersion"
-		compile "log4j:log4j:$log4jVersion"
+		compile "org.slf4j:slf4j-api:$slf4jVersion"
+
+		runtime "log4j:log4j:$log4jVersion"
+		runtime "org.slf4j:slf4j-log4j12:$slf4jVersion"
 	}
 }
 
