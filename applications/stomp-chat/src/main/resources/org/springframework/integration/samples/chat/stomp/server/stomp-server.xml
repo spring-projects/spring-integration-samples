@@ -39,7 +39,7 @@
 	<bean id="stompSubProtocolHandler" class="org.springframework.web.socket.messaging.StompSubProtocolHandler"/>
 
 	<int-websocket:server-container id="serverWebSocketContainer" path="/chat">
-		<int-websocket:sockjs/>
+		<int-websocket:sockjs heartbeat-time="10000"/>
 	</int-websocket:server-container>
 
 	<int-event:inbound-channel-adapter event-types="org.springframework.web.socket.messaging.AbstractSubProtocolEvent"

@@ -12,6 +12,9 @@
             if (userValue.value != "") {
                 currentUser = userValue.value;
                 sock = new SockJS('http://localhost:8080/chat');
+                sock.onheartbeat = function() {
+                    console.log('heartbeat');
+                };
                 stompClient = Stomp.over(sock);
                 stompClient.connect({login: currentUser}, function (frame) {
                     document.getElementById("welcome").style.display = "none";
