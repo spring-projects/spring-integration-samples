@@ -29,7 +29,7 @@ public class DummyTwitter {
 	private long id;
 
 	public Tweet getTweet() {
-		Tweet tweet = new Tweet(++this.id,
+		Tweet tweet = new Tweet(++this.id, "" + this.id,
 				"Spring Integration is the coolest Enterprise Integration project",
 				new Date(),
 				"SomeUser",

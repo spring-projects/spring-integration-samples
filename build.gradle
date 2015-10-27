@@ -151,7 +151,7 @@ subprojects { subproject ->
 		sourceCompatibility = 1.8
 
 		ext {
-			activeMqVersion = '5.11.1'
+			activeMqVersion = '5.12.1'
 			apacheSshdVersion = '0.13.0'
 			aspectjVersion = '1.8.4'
 			commonsDigesterVersion = '2.0'
@@ -188,14 +188,14 @@ subprojects { subproject ->
 			mockitoVersion = '1.9.5'
 			openJpaVersion = '2.3.0'
 			oracleDriverVersion = '11.2.0.3'
-			reactorVersion = '2.0.5.RELEASE'
+			reactorVersion = '2.0.6.RELEASE'
 			postgresVersion = '9.1-901-1.jdbc4'
 			subethasmtpVersion = '1.2'
 			slf4jVersion = '1.7.11'
-			springIntegrationVersion = '4.2.0.RELEASE'
+			springIntegrationVersion = '4.2.1.RELEASE'
 			springIntegrationDslVersion = '1.1.0.RELEASE'
-			springIntegrationKafkaVersion = '1.2.2.BUILD-SNAPSHOT'
-			springVersion = '4.2.0.RELEASE'
+			springIntegrationKafkaVersion = '1.3.0.BUILD-SNAPSHOT'
+			springVersion = '4.2.2.RELEASE'
 			springSecurityVersion = '4.0.2.RELEASE'
 			springWebFlowVersion = '2.3.3.RELEASE'
 			tilesJspVersion = '2.2.1'
