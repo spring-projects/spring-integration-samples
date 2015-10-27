@@ -33,7 +33,7 @@ import org.springframework.integration.annotation.MessagingGateway;
 import org.springframework.integration.dsl.IntegrationFlow;
 import org.springframework.integration.dsl.IntegrationFlows;
 import org.springframework.integration.dsl.channel.MessageChannels;
-import org.springframework.integration.dsl.support.Pollers;
+import org.springframework.integration.dsl.core.Pollers;
 import org.springframework.integration.samples.cafe.Delivery;
 import org.springframework.integration.samples.cafe.Drink;
 import org.springframework.integration.samples.cafe.DrinkType;
@@ -75,9 +75,9 @@ public class Application {
 
 	}
 
-	private AtomicInteger hotDrinkCounter = new AtomicInteger();
+	private final AtomicInteger hotDrinkCounter = new AtomicInteger();
 
-	private AtomicInteger coldDrinkCounter = new AtomicInteger();
+	private final AtomicInteger coldDrinkCounter = new AtomicInteger();
 
 	@Bean
 	public Executor taskExecutor() {
