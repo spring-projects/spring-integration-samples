@@ -4,11 +4,11 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.springframework.integration.samples</groupId>
 	<artifactId>loan-broker</artifactId>
-	<version>2.2.0.BUILD-SNAPSHOT</version>
+	<version>3.0.8.RELEASE</version>
 	<name>Samples (Applications) - Loan Broker</name>
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<spring.integration.version>3.0.7.RELEASE</spring.integration.version>
+		<spring.integration.version>3.0.8.RELEASE</spring.integration.version>
 		<commons-logging.version>1.1.1</commons-logging.version>
 		<log4j.version>1.2.17</log4j.version>
 		<junit.version>4.10</junit.version>

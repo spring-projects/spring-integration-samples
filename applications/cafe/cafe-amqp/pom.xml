@@ -6,7 +6,7 @@
 	<parent>
 		<artifactId>cafe</artifactId>
 		<groupId>org.springframework.integration.samples</groupId>
-		<version>2.2.0.BUILD-SNAPSHOT</version>
+		<version>3.0.8.RELEASE</version>
 	</parent>
 
 	<artifactId>cafe-amqp</artifactId>

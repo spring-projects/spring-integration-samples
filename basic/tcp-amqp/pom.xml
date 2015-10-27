@@ -4,7 +4,7 @@
 
 	<groupId>org.springframework.integration.samples</groupId>
 	<artifactId>tcp-amqp</artifactId>
-	<version>2.2.0.BUILD-SNAPSHOT</version>
+	<version>3.0.8.RELEASE</version>
 	<packaging>jar</packaging>
 
 	<name>Samples (Basic) - TCP-AMQP</name>
@@ -16,7 +16,7 @@
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<spring.integration.version>3.0.7.RELEASE</spring.integration.version>
+		<spring.integration.version>3.0.8.RELEASE</spring.integration.version>
 		<slf4j.version>1.6.4</slf4j.version>
 		<junit.version>4.10</junit.version>
 	</properties>

@@ -4,7 +4,7 @@
 
 	<groupId>org.springframework.integration.samples</groupId>
 	<artifactId>splitter-aggregator-reaper</artifactId>
-	<version>2.2.0.BUILD-SNAPSHOT</version>
+	<version>3.0.8.RELEASE</version>
 	<packaging>jar</packaging>
 
 	<name>Samples (Intermediate) - Splitter-Aggregator-Reaper</name>
@@ -20,11 +20,11 @@
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<spring.integration.version>3.0.7.RELEASE</spring.integration.version>
+		<spring.integration.version>3.0.8.RELEASE</spring.integration.version>
 		<log4j.version>1.2.16</log4j.version>
 		<junit.version>4.10</junit.version>
 		<inject.version>1</inject.version>
-		<spring.version>3.2.13.RELEASE</spring.version>
+		<spring.version>3.2.15.RELEASE</spring.version>
 	</properties>
 
 	<repositories>
