@@ -4,10 +4,10 @@
 	xmlns="http://www.springframework.org/schema/integration"
 	xmlns:ip="http://www.springframework.org/schema/integration/ip"
 	xmlns:context="http://www.springframework.org/schema/context"
-	xsi:schemaLocation="http://www.springframework.org/schema/integration/ip http://www.springframework.org/schema/integration/ip/spring-integration-ip.xsd
-		http://www.springframework.org/schema/integration http://www.springframework.org/schema/integration/spring-integration.xsd
-		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
-		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+		http://www.springframework.org/schema/integration/ip http://www.springframework.org/schema/integration/ip/spring-integration-ip.xsd
+		http://www.springframework.org/schema/integration http://www.springframework.org/schema/integration/spring-integration.xsd">
 
 	<beans:description>
 		Uses conversion service and collaborating channel adapters.
@@ -29,8 +29,9 @@
 	<!-- Client side -->
 
 	<gateway id="gw"
-        service-interface="org.springframework.integration.samples.tcpclientserver.SimpleGateway"
-        default-request-channel="input" />
+		service-interface="org.springframework.integration.samples.tcpclientserver.SimpleGateway"
+		default-reply-timeout="20000"
+		default-request-channel="input" />
 
 	<ip:tcp-connection-factory id="client"
 		type="client"
@@ -65,8 +66,16 @@
 
 	<aggregator input-channel="toAggregator.client"
 		output-channel="toTransformer.client"
+		expire-groups-upon-completion="true"
+		expire-groups-upon-timeout="true"
+		discard-channel="noResponseChannel"
+		group-timeout="1000"
 		correlation-strategy-expression="payload.substring(0,3)"
 		release-strategy-expression="size() == 2" />
+
+	<channel id="noResponseChannel" />
+
+	<service-activator input-channel="noResponseChannel" ref="echoService" method="noResponse" />
 
 	<transformer input-channel="toTransformer.client"
 		expression="payload.get(1)"/> <!-- The response is always second -->
