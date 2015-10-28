@@ -1,5 +1,5 @@
 /*
- * Copyright 2002-2010 the original author or authors.
+ * Copyright 2002-2015 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,8 +15,11 @@
  */
 package org.springframework.integration.samples.tcpclientserver;
 
+import static org.hamcrest.Matchers.containsString;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -26,9 +29,11 @@ import java.util.concurrent.TimeUnit;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.task.SimpleAsyncTaskExecutor;
 import org.springframework.core.task.TaskExecutor;
+import org.springframework.integration.MessageTimeoutException;
 import org.springframework.integration.ip.tcp.connection.AbstractServerConnectionFactory;
 import org.springframework.integration.ip.util.TestingUtilities;
 import org.springframework.integration.samples.tcpclientserver.support.CustomTestContextLoader;
@@ -79,6 +84,7 @@ public class TcpClientServerDemoTest {
 			results.add(i);
 			final int j = i;
 			executor.execute(new Runnable() {
+				@Override
 				public void run() {
 					String result = gw.send(j + "Hello world!"); // first 3 bytes is correlationid
 					assertEquals(j + "Hello world!:echo", result);
@@ -89,4 +95,16 @@ public class TcpClientServerDemoTest {
 		assertTrue(latch.await(10, TimeUnit.SECONDS));
 		assertEquals(0, results.size());
 	}
+
+	@Test
+	public void testTimeout() {
+		try {
+			gw.send("TIMEOUT_TEST");
+			fail("expected exception");
+		}
+		catch (MessageTimeoutException e) {
+			assertThat(e.getMessage(), containsString("No response received for TIMEOUT_TEST"));
+		}
+	}
+
 }
