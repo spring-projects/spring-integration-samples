@@ -1,4 +1,4 @@
-package org.springframework.integration.samples.barrier;
+package org.springframework.integration.samples.kafka;
 /*
  * Copyright 2015 the original author or authors.
  *
@@ -20,7 +20,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import org.springframework.boot.test.SpringApplicationConfiguration;
-import org.springframework.integration.samples.kafka.Application;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 /**

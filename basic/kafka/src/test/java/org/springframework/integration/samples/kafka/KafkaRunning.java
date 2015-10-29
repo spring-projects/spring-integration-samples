@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.springframework.integration.samples.barrier;
+package org.springframework.integration.samples.kafka;
 
 import org.I0Itec.zkclient.ZkClient;
 import org.apache.commons.logging.Log;
