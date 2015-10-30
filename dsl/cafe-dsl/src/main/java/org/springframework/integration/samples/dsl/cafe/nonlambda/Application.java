@@ -99,10 +99,9 @@ public class Application {
 	}
 
 	@Bean
-	@SuppressWarnings("unchecked")
 	public IntegrationFlow orders() {
 		return IntegrationFlows.from("orders.input")
-				.split("payload.items", (Consumer) null)
+				.split("payload.items")
 				.channel(MessageChannels.executor(Executors.newCachedThreadPool()))
 				.route("payload.iced",
 						new Consumer<RouterSpec<ExpressionEvaluatingRouter>>() {
@@ -176,7 +175,7 @@ public class Application {
 						aggregatorSpec.processor(cafeAggregator, null);
 					}
 
-				}, null)
+				})
 				.handle(CharacterStreamWritingMessageHandler.stdout())
 				.get();
 	}
