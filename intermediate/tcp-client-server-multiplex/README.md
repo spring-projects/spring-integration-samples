@@ -26,7 +26,7 @@ on the socket.
 
 This sample now shows how to use the `group-timeout` on the aggregator to release the group under this condition.
 Further, it routes the discarded message to a service activator which return a `MessagingTimeoutException` which
-is routed to the waiting thread.
+is routed to the waiting thread and thrown to the caller.
 
 ````
 gateway -> outbound-channel-adapter
@@ -38,6 +38,12 @@ aggregator(group-timeout discard)->service-activator
 A service activator is used here instead of a transformer because you may wish to take some other action when the
 timeout condition occurs.
 
-Normal gateway processing detects that the payload is an `Exception` and throws it to the caller.
+There are two test cases, one throws an exception; the other returns one as the message payload.
 
-Thus, this shows how to return an exception to a gateway caller, even when the messaging is entirely asynchronous.
+When the payload of the reply messsage is a `Throwable` normal gateway processing detects that and throws it to the
+caller.
+
+Similarly, when the async flow throws an exception, it is wrapped in an `ErrorMessage` and routed to the caller.
+
+Thus, this shows both techniques for returning an exception to a gateway caller, even when the messaging is entirely
+asynchronous.

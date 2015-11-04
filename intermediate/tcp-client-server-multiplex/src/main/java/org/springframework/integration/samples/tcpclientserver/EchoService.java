@@ -31,7 +31,7 @@ public class EchoService {
 		if ("FAIL".equals(input)) {
 			throw new RuntimeException("Failure Demonstration");
 		}
-		else if("TIMEOUT_TEST".equals(input)){
+		else if(input.startsWith("TIMEOUT_TEST")) {
 			Thread.sleep(3000);
 		}
 
@@ -39,7 +39,12 @@ public class EchoService {
 	}
 
 	public MessageTimeoutException noResponse(String input) {
-		return new MessageTimeoutException("No response received for " + input);
+		if ("TIMEOUT_TEST_THROW".equals(input)) {
+			throw new MessageTimeoutException("No response received for " + input);
+		}
+		else {
+			return new MessageTimeoutException("No response received for " + input);
+		}
 	}
 
 }

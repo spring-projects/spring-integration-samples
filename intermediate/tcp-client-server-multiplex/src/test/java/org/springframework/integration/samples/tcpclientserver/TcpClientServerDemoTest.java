@@ -33,10 +33,10 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.task.SimpleAsyncTaskExecutor;
 import org.springframework.core.task.TaskExecutor;
-import org.springframework.integration.MessageTimeoutException;
 import org.springframework.integration.ip.tcp.connection.AbstractServerConnectionFactory;
 import org.springframework.integration.ip.util.TestingUtilities;
 import org.springframework.integration.samples.tcpclientserver.support.CustomTestContextLoader;
+import org.springframework.messaging.MessagingException;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -97,12 +97,23 @@ public class TcpClientServerDemoTest {
 	}
 
 	@Test
-	public void testTimeout() {
+	public void testTimeoutThrow() {
 		try {
-			gw.send("TIMEOUT_TEST");
+			gw.send("TIMEOUT_TEST_THROW");
 			fail("expected exception");
 		}
-		catch (MessageTimeoutException e) {
+		catch (MessagingException e) {
+			assertThat(e.getMessage(), containsString("No response received for TIMEOUT_TEST"));
+		}
+	}
+
+	@Test
+	public void testTimeoutReturn() {
+		try {
+			gw.send("TIMEOUT_TEST_RETURN");
+			fail("expected exception");
+		}
+		catch (MessagingException e) {
 			assertThat(e.getMessage(), containsString("No response received for TIMEOUT_TEST"));
 		}
 	}
