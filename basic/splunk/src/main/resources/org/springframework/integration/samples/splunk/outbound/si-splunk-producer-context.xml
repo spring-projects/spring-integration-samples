@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" 
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xmlns:int="http://www.springframework.org/schema/integration" 
+             xmlns:stream="http://www.springframework.org/schema/integration/stream"
+             xmlns:int-splunk="http://www.springframework.org/schema/integration/splunk"
+             xsi:schemaLocation="http://www.springframework.org/schema/integration/stream http://www.springframework.org/schema/integration/stream/spring-integration-stream.xsd
+		     http://www.springframework.org/schema/integration http://www.springframework.org/schema/integration/spring-integration.xsd
+	 	     http://www.springframework.org/schema/integration/splunk http://www.springframework.org/schema/integration/splunk/spring-integration-splunk.xsd
+             http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+  
+  
+  
+<int-splunk:server id="splunkServer" host="localhost"
+    port="8089" username="admin" password="admin" owner="admin"  />
+    
+  <int:channel id="outputToSplunk"/>
+  <int:channel id="outputToSplunkIndex"/>
+
+  <int-splunk:outbound-channel-adapter
+                            id="splunkOutboundChannelAdapter" 
+                            auto-startup="false" 
+                            order="1"
+                            channel="outputToSplunk" 
+                            splunk-server-ref="splunkServer"
+                            source-type="customMessage" 
+                            source="tinyMain">
+     <int-splunk:submit-writer  index="tinyindex"/>
+  </int-splunk:outbound-channel-adapter>
+    
+    
+   <int-splunk:outbound-channel-adapter
+        id="splunkOutboundChannelAdapterIndex"
+        channel="outputToSplunkIndex"
+        splunk-server-ref="splunkServer"
+     >
+        <int-splunk:index-writer index="someindex"/>
+    </int-splunk:outbound-channel-adapter>
+  
+  
+  
+  
+</beans>
