@@ -37,7 +37,7 @@
     <dependency>
       <groupId>org.springframework.integration</groupId>
       <artifactId>spring-integration-splunk</artifactId>
-      <version>1.2.0.BUILD-SNAPSHOT</version>
+      <version>1.1.0.RELEASE</version>
       <scope>compile</scope>
     </dependency>
     <dependency>
