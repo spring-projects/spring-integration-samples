@@ -17,6 +17,7 @@
 package org.springframework.integration.samples.barrier;
 
 import org.springframework.amqp.rabbit.connection.CachingConnectionFactory;
+import org.springframework.boot.Banner.Mode;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
@@ -43,6 +44,7 @@ public class Application {
 		ConfigurableApplicationContext client
 			= new SpringApplicationBuilder("/META-INF/spring/integration/client-context.xml")
 				.web(false)
+				.bannerMode(Mode.OFF)
 				.run(args);
 		RequestGateway requestGateway = client.getBean("requestGateway", RequestGateway.class);
 		String request = "A,B,C";
