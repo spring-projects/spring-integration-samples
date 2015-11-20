@@ -62,7 +62,7 @@ public class FileTransferRenameAfterFailureDemo {
 				  + "\n                                                          "
 				  + "\n    Press 'Enter' to terminate.                           "
 				  + "\n                                                          "
-				  + "\n    Place a file in ${java.io.tmpdir}/adviceDemo ending   "
+				  + "\n    Place a file in "+ System.getProperty("java.io.tmpdir") +"/adviceDemo ending   "
 				  + "\n    with .txt                                             "
 				  + "\n    The demo simulates a file transfer failure followed   "
 				  + "\n    by the Advice renaming the file; the result of the    "

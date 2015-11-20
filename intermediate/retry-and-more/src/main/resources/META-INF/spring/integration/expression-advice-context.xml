@@ -34,7 +34,7 @@
 			<bean class="org.springframework.integration.handler.advice.ExpressionEvaluatingRequestHandlerAdvice">
 				<property name="onSuccessExpression" value="payload.delete()" />
 				<property name="successChannel" ref="afterSuccessDeleteChannel" />
-				<property name="onFailureExpression" value="payload.renameTo(payload.absolutePath + '.failed.to.send')" />
+				<property name="onFailureExpression" value="payload.renameTo(new java.io.File(payload.absolutePath + '.failed.to.send'))" />
 				<property name="failureChannel" ref="afterFailRenameChannel" />
 			</bean>
 		</int-ftp:request-handler-advice-chain>
