@@ -1,4 +1,3 @@
-package org.springframework.integration.samples.splunk.event;
 /*
  * Copyright 2015 the original author or authors.
  *
@@ -14,6 +13,7 @@ package org.springframework.integration.samples.splunk.event;
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+package org.springframework.integration.samples.splunk.event;
 
 import org.springframework.integration.splunk.event.SplunkEvent;
 

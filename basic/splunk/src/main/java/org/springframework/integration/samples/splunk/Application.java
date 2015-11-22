@@ -1,4 +1,3 @@
-package org.springframework.integration.samples.splunk;
 /*
  * Copyright 2015 the original author or authors.
  *
@@ -14,8 +13,7 @@ package org.springframework.integration.samples.splunk;
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-
+package org.springframework.integration.samples.splunk;
 
 import java.util.Random;
 import java.util.function.Function;

@@ -1,4 +1,3 @@
-package org.springframework.integration.samples.splunk;
 /*
  * Copyright 2015 the original author or authors.
  *
@@ -15,6 +14,8 @@ package org.springframework.integration.samples.splunk;
  * limitations under the License.
  */
 
+package org.springframework.integration.samples.splunk;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -22,7 +23,7 @@ import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 /**
- * @author 
+ * @author fbalicchia
  * @since 4.2
  */
 @RunWith(SpringJUnit4ClassRunner.class)
