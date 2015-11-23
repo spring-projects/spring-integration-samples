@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:int="http://www.springframework.org/schema/integration"
+	xmlns:stream="http://www.springframework.org/schema/integration/stream"
+	xmlns:int-splunk="http://www.springframework.org/schema/integration/splunk"
+	xsi:schemaLocation="http://www.springframework.org/schema/integration/stream http://www.springframework.org/schema/integration/stream/spring-integration-stream.xsd
+	    http://www.springframework.org/schema/integration http://www.springframework.org/schema/integration/spring-integration.xsd
+		http://www.springframework.org/schema/integration/splunk http://www.springframework.org/schema/integration/splunk/spring-integration-splunk.xsd
+    	http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<int:channel id="toSplunk" />
+
+	<int-splunk:outbound-channel-adapter
+		id="splunkOutboundChannelAdapter" auto-startup="true" order="1"
+		channel="toSplunk" splunk-server-ref="splunkServerRef" source-type="customMessage"
+		source="tinyMain">
+		<int-splunk:submit-writer index="tinyindex" />
+	</int-splunk:outbound-channel-adapter>
+
+	<!-- Inbound -->
+
+	<int:channel id="inputFromSplunk" />
+
+	<stream:stdout-channel-adapter id="stdout"
+		channel="inputFromSplunk" append-newline="true" />
+
+	<int-splunk:inbound-channel-adapter
+		id="splunkInboundChannelAdapter" auto-startup="true" search="search ean > 135"
+		splunk-server-ref="splunkServerRef" channel="inputFromSplunk" mode="BLOCKING"
+		earliest-time="-1d" latest-time="now" init-earliest-time="-1d"
+		field-list="field1, field2">
+		<int:poller fixed-rate="5000" />
+	</int-splunk:inbound-channel-adapter>
+</beans>

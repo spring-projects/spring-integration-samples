@@ -195,6 +195,7 @@ subprojects { subproject ->
 			springIntegrationVersion = '4.2.2.RELEASE'
 			springIntegrationDslVersion = '1.1.1.RELEASE'
 			springIntegrationKafkaVersion = '1.3.0.RELEASE'
+			springIntegrationSplunkVersion = '1.1.0.RELEASE' 
 			springVersion = '4.2.3.RELEASE'
 			springSecurityVersion = '4.0.2.RELEASE'
 			springWebFlowVersion = '2.3.3.RELEASE'
@@ -562,6 +563,28 @@ project('http') {
 		compile "log4j:log4j:$log4jVersion"
 	}
 
+}
+
+project('splunk') {
+	description = 'Splunk Sample'
+
+	apply plugin: 'spring-boot'
+
+	dependencies {
+		compile 'org.springframework.boot:spring-boot-starter-integration'
+		compile "org.springframework.integration:spring-integration-core:$springIntegrationVersion"
+		compile "org.springframework.integration:spring-integration-splunk:$springIntegrationSplunkVersion"
+		testCompile 'org.springframework.boot:spring-boot-starter-test'
+	}
+
+	springBoot {
+		mainClass = 'org.springframework.integration.samples.splunk.Application'
+	}
+
+	task run(type: JavaExec) {
+		main 'org.springframework.integration.samples.splunk.Application'
+		classpath = sourceSets.main.runtimeClasspath
+	}
 }
 
 project('kafka') {
