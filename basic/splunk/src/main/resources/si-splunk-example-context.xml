@@ -31,5 +31,4 @@
 		field-list="field1, field2">
 		<int:poller fixed-rate="5000" />
 	</int-splunk:inbound-channel-adapter>
-
 </beans>

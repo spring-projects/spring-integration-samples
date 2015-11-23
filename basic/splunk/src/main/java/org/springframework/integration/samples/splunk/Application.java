@@ -15,10 +15,10 @@
  */
 package org.springframework.integration.samples.splunk;
 
-import java.util.Random;
-import java.util.function.Function;
+import java.util.concurrent.ThreadLocalRandom;
 import java.util.stream.IntStream;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -49,7 +49,6 @@ public class Application {
 	private String password;
 	@Value("${splunk.owner}")
 	private String owner;
-
 	public static void main(String[] args) throws Exception {
 
 		ConfigurableApplicationContext context = SpringApplication.run(Application.class, args);
@@ -60,29 +59,20 @@ public class Application {
 	}
 
 	private static void sendWithRest(MessageChannel channel) {
-		OrderEventTrasformer convertToTopicAndPartitionFunction = new OrderEventTrasformer();
+		
 		IntStream.range(1, 10).forEach(i -> {
-			channel.send(MessageBuilder.withPayload(convertToTopicAndPartitionFunction.apply(i)).build());
+			channel.send(MessageBuilder.withPayload(createEvent()).build());
 		});
 	}
 
-	private static class OrderEventTrasformer implements Function<Integer, SplunkEvent> {
-
-		Random randomGenerator = new Random();
-
-		/**
-		 * {@inheritDoc}
-		 */
-		@Override
-		public SplunkEvent apply(Integer t) {
-			OrderEvent sd = new OrderEvent();
-			sd.setEan(String.valueOf(t * randomGenerator.nextInt(100)));
-			sd.setCommonSeverity("ALERT");
-			sd.setEmailuser("mail@gmail.com");
-			sd.setOrderNumber("21501001010101");
-			return sd;
-		}
-
+	private static SplunkEvent createEvent()
+	{
+		int nextInt = ThreadLocalRandom.current().nextInt(1, 1000);
+		OrderEvent sd = new OrderEvent();
+		sd.setEan(String.valueOf (nextInt));
+		sd.setEmailuser("mail@gmail.com");
+		sd.setOrderNumber("21501001010101");
+		return sd;
 	}
 
 	@Bean
@@ -95,5 +85,5 @@ public class Application {
 		splunkServer.setPassword(password);
 		return splunkServer;
 	}
-	
+
 }
