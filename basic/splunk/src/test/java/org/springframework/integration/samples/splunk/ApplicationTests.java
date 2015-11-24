@@ -16,9 +16,9 @@
 
 package org.springframework.integration.samples.splunk;
 
+import org.junit.ClassRule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
@@ -29,6 +29,9 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = Application.class)
 public class ApplicationTests {
+
+	@ClassRule
+	public static SplunkWatcher splunkWatcher = new SplunkWatcher();
 
 	@Test
 	public void contextLoads() {

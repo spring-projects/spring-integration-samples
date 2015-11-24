@@ -18,7 +18,6 @@ package org.springframework.integration.samples.splunk;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.stream.IntStream;
 
-import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -65,8 +64,7 @@ public class Application {
 		});
 	}
 
-	private static SplunkEvent createEvent()
-	{
+	private static SplunkEvent createEvent(){
 		int nextInt = ThreadLocalRandom.current().nextInt(1, 1000);
 		OrderEvent sd = new OrderEvent();
 		sd.setEan(String.valueOf (nextInt));
