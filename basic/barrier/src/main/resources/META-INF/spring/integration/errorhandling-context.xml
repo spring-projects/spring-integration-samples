@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:int="http://www.springframework.org/schema/integration"
+	xmlns:rabbit="http://www.springframework.org/schema/rabbit"
+	xmlns:task="http://www.springframework.org/schema/task"
+	xsi:schemaLocation="http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task-4.2.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/rabbit http://www.springframework.org/schema/rabbit/spring-rabbit.xsd
+		http://www.springframework.org/schema/integration http://www.springframework.org/schema/integration/spring-integration.xsd">
+
+	<int:gateway default-request-channel="processChannel"
+				service-interface="org.springframework.integration.samples.barrier2.Gateway"
+				default-payload-expression="#args[0]">
+		<int:default-header name="barrierCorrelation" expression="#args[1]" />
+	</int:gateway>
+
+	<int:publish-subscribe-channel id="processChannel" />
+
+	<int:splitter input-channel="processChannel" output-channel="process" order="1" />
+
+	<int:channel id="process">
+		<int:queue />
+	</int:channel>
+
+	<int:chain input-channel="process" output-channel="aggregatorChannel">
+		<int:transformer expression="10 / payload" /> <!-- exception on 0 payloads -->
+		<int:poller fixed-delay="1000" error-channel="errors" task-executor="exec" />
+	</int:chain>
+
+	<task:executor id="exec"/>
+
+	<!-- Suspend the calling thread until the aggregation is complete -->
+
+	<int:barrier id="barrier" input-channel="processChannel" order="2"
+		correlation-strategy-expression="headers['barrierCorrelation']"
+		timeout="10000" />
+
+	<!-- Aggregate the results and send the result to the barrier release channel -->
+
+	<int:aggregator input-channel="aggregatorChannel" output-channel="release">
+		<bean class="org.springframework.integration.samples.barrier2.Aggregator" />
+	</int:aggregator>
+
+	<int:channel id="release" />
+
+	<int:outbound-channel-adapter channel="release" ref="barrier.handler" method="trigger" />
+
+	<!-- Error flow; send exceptions to the aggregator; restore the correlation data from the failedMessage -->
+
+	<int:chain input-channel="errors" output-channel="aggregatorChannel">
+		<int:header-enricher>
+			<int:correlation-id expression="payload.failedMessage.headers.correlationId" />
+			<int:header name="sequenceSize" expression="payload.failedMessage.headers.sequenceSize" />
+			<int:header name="sequenceNumber" expression="payload.failedMessage.headers.sequenceNumber" />
+		</int:header-enricher>
+	</int:chain>
+
+</beans>
