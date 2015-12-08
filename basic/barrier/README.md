@@ -42,6 +42,8 @@ You should see the following output from the server:
 
     ++++++++++++ Replied with: Result: A: ack=true, B: ack=true, C: ack=true ++++++++++++
 
+### Error Handling
+
 The second example uses a simple gateway to launch some asynchronous tasks and waits for those tasks to complete.
 
 It shows how you might return an exception to the caller if one or more of those tasks fail.
