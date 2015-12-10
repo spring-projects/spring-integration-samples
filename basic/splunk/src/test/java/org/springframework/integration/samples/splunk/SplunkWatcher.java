@@ -26,24 +26,27 @@ import org.springframework.integration.splunk.support.SplunkServer;
 import org.springframework.integration.splunk.support.SplunkServiceFactory;
 
 /**
- * @author fbalicchia
+ * @author filippo balicchia
  * @since 4.2
  */
 public class SplunkWatcher extends TestWatcher {
 
 	private static final Log logger = LogFactory.getLog(SplunkWatcher.class);
-	
+
 	@Override
 	public Statement apply(Statement base, Description description) {
 		try {
-			
-			SplunkServer splunkServer = new SplunkServer(); 
+
+			SplunkServer splunkServer = new SplunkServer();
 			splunkServer.setPassword("admin");
 			splunkServer.setUsername("admin");
-			SplunkServiceFactory splunkServiceFactory = new SplunkServiceFactory(splunkServer);
+			SplunkServiceFactory splunkServiceFactory = new SplunkServiceFactory(
+					splunkServer);
 			splunkServiceFactory.getService().open(splunkServer.getPort());
-		} catch (Exception e) {
-			logger.warn("Not executing tests because basic connectivity test failed");
+		}
+		catch (Exception e) {
+			logger.warn(
+					"Not executing tests because basic connectivity test failed");
 			Assume.assumeNoException(e);
 		}
 

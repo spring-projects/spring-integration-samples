@@ -16,7 +16,6 @@
 package org.springframework.integration.samples.splunk;
 
 import java.util.concurrent.ThreadLocalRandom;
-import java.util.stream.IntStream;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
@@ -31,7 +30,7 @@ import org.springframework.integration.support.MessageBuilder;
 import org.springframework.messaging.MessageChannel;
 
 /**
- * @author fbalicchia
+ * @author filippo balicchia
  * @since 4.2
  */
 @SpringBootApplication
@@ -51,17 +50,18 @@ public class Application {
 	public static void main(String[] args) throws Exception {
 
 		ConfigurableApplicationContext context = SpringApplication.run(Application.class, args);
-		MessageChannel channelRestoutput = context.getBean("toSplunk", MessageChannel.class);
-		sendWithRest(channelRestoutput);
+		MessageChannel channelRestOutput = context.getBean("toSplunk", MessageChannel.class);
+		sendWithRest(channelRestOutput);
 		System.out.println("Consumer");
 
 	}
 
 	private static void sendWithRest(MessageChannel channel) {
-		
-		IntStream.range(1, 10).forEach(i -> {
+
+		for (int i = 0; i < 10; i++) {
 			channel.send(MessageBuilder.withPayload(createEvent()).build());
-		});
+		}
+
 	}
 
 	private static SplunkEvent createEvent(){
