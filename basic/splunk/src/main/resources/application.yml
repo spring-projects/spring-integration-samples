@@ -1,0 +1,7 @@
+splunk:
+   host: localhost
+   port: 8089
+   username: admin
+   password: admin
+   owner: admin
+   
