@@ -30,7 +30,7 @@ import org.springframework.integration.support.MessageBuilder;
 import org.springframework.messaging.MessageChannel;
 
 /**
- * @author filippo balicchia
+ * @author Filippo Balicchia
  * @since 4.2
  */
 @SpringBootApplication

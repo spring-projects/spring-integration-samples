@@ -25,13 +25,25 @@ import org.junit.runners.model.Statement;
 import org.springframework.integration.splunk.support.SplunkServer;
 import org.springframework.integration.splunk.support.SplunkServiceFactory;
 
+import com.splunk.Service;
+
 /**
- * @author filippo balicchia
+ * @author Filippo Balicchia
  * @since 4.2
  */
 public class SplunkWatcher extends TestWatcher {
 
 	private static final Log logger = LogFactory.getLog(SplunkWatcher.class);
+
+	private final int port;
+
+	public SplunkWatcher() {
+		this(Service.DEFAULT_PORT);
+	}
+
+	public SplunkWatcher(int port) {
+		this.port = port;
+	}
 
 	@Override
 	public Statement apply(Statement base, Description description) {
@@ -42,7 +54,7 @@ public class SplunkWatcher extends TestWatcher {
 			splunkServer.setUsername("admin");
 			SplunkServiceFactory splunkServiceFactory = new SplunkServiceFactory(
 					splunkServer);
-			splunkServiceFactory.getService().open(splunkServer.getPort());
+			splunkServiceFactory.getService().open(port);
 		}
 		catch (Exception e) {
 			logger.warn(

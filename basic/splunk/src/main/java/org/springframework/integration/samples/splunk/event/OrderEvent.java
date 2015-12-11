@@ -18,8 +18,8 @@ package org.springframework.integration.samples.splunk.event;
 import org.springframework.integration.splunk.event.SplunkEvent;
 
 /**
- * @author filippo balicchia
- * @version $Id: $
+ * @author Filippo Balicchia
+ * @since 4.2
  */
 public class OrderEvent extends SplunkEvent {
 
