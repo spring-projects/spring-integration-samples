@@ -1,5 +1,5 @@
 /*
- * Copyright 2002-2012 the original author or authors.
+ * Copyright 2002-2016 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -24,13 +24,15 @@ import org.apache.ftpserver.FtpServer;
 import org.apache.ftpserver.FtpServerFactory;
 import org.apache.ftpserver.ftplet.FtpException;
 import org.apache.ftpserver.listener.ListenerFactory;
-import org.apache.log4j.Logger;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.ClassRule;
 import org.junit.rules.TemporaryFolder;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import org.springframework.integration.samples.ftp.support.TestUserManager;
 import org.springframework.integration.test.util.SocketUtils;
 
@@ -50,7 +52,7 @@ import org.springframework.integration.test.util.SocketUtils;
 	   })
 public class TestSuite {
 
-	private static final Logger LOGGER = Logger.getLogger(TestSuite.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(TestSuite.class);
 
 	public static final String FTP_ROOT_DIR       = "target" + File.separator + "ftproot";
 	public static final String LOCAL_FTP_TEMP_DIR = "target" + File.separator + "local-ftp-temp";

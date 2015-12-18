@@ -15,44 +15,48 @@
  */
 package org.springframework.integration.samples.jpa;
 
-import java.util.Calendar;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
-import org.apache.log4j.Logger;
-import org.junit.Assert;
+import java.util.Calendar;
+import java.util.List;
+
 import org.junit.Test;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.junit.runner.RunWith;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaAutoConfiguration;
+import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.integration.samples.jpa.domain.Person;
 import org.springframework.integration.samples.jpa.service.PersonService;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 /**
  *
  * @author Amol Nayak
+ * @author Artem Bilan
  *
  */
-public class OutboundGatewayTest {
+@RunWith(SpringJUnit4ClassRunner.class)
+@SpringApplicationConfiguration(classes = {Main.class, HibernateJpaAutoConfiguration.class})
+public class JpaTests {
 
-	private static final Logger LOGGER = Logger.getLogger(OutboundGatewayTest.class);
+	@Autowired
+	private PersonService personService;
 
 	@Test
 	public void insertPersonRecord() {
-
-		final ApplicationContext context = new ClassPathXmlApplicationContext(
-			"classpath:/META-INF/spring/integration/spring-integration-context.xml");
-
-		final PersonService service = context.getBean(PersonService.class);
-
-		LOGGER.info("Creating person Instance");
-
-		final Person person = new Person();
+		Person person = new Person();
 		Calendar createdDateTime = Calendar.getInstance();
-		createdDateTime.set(1980, 0, 1);
+		createdDateTime.set(1980, Calendar.JANUARY, 1);
 		person.setCreatedDateTime(createdDateTime.getTime());
 		person.setName("Name Of The Person");
 
-		final Person persistedPerson = service.createPerson(person);
-		Assert.assertNotNull("Expected a non null instance of Person, got null", persistedPerson);
-		LOGGER.info("\n\tGenerated person with id: " + persistedPerson.getId() + ", with name: " + persistedPerson.getName());
+		this.personService.createPerson(person);
+		List<Person> people = this.personService.findPeople();
+		assertNotNull(people);
+		assertEquals(2, people.size());
+		assertEquals(person.getName(), people.get(1).getName());
 	}
 
 }

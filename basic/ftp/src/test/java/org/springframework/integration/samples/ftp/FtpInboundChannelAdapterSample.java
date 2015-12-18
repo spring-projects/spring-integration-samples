@@ -1,5 +1,5 @@
 /*
- * Copyright 2002-2011 the original author or authors.
+ * Copyright 2002-2016 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,8 +18,10 @@ package org.springframework.integration.samples.ftp;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 
-import org.apache.log4j.Logger;
 import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.messaging.Message;
@@ -33,7 +35,7 @@ import org.springframework.messaging.PollableChannel;
  */
 public class FtpInboundChannelAdapterSample {
 
-	private static final Logger LOGGER = Logger.getLogger(FtpInboundChannelAdapterSample.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(FtpInboundChannelAdapterSample.class);
 
 	@Test
 	public void runDemo() throws Exception{

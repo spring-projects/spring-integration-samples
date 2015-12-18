@@ -29,7 +29,7 @@ allprojects {
 //			mavenLocal()
 		maven { url 'http://repo.spring.io/libs-snapshot' }
 		maven { url 'http://repo.spring.io/libs-milestone' }
-//			maven { url 'http://repo.spring.io/libs-staging-local' }
+			maven { url 'http://repo.spring.io/libs-staging-local' }
 	}
 
 }
@@ -162,8 +162,9 @@ subprojects { subproject ->
 			commonsPoolVersion = '1.5.4'
 			c3p0Version = '0.9.1.2'
 			derbyVersion = '10.10.1.1'
+			eclipseLinkVersion = '2.4.2'
 			hamcrestVersion = '1.3'
-			hibernateVersion = '4.2.11.Final'
+			hibernateVersion = '4.3.11.Final'
 			hibernateValidatorVersion = '4.2.0.Final'
 			ftpServerVersion = '1.0.6'
 			flexjsonVersion = '2.0'
@@ -180,13 +181,14 @@ subprojects { subproject ->
 			jtdsVersion = '1.2.6'
 			jmsApiVersion = '1.1-rev-1'
 			jrubyVersion = '1.7.12'
+			jpa21ApiVersion = '1.0.0.Final'
 			jpaApiVersion = '2.0.0'
 			jstlVersion = '1.2'
 			junitVersion = '4.11'
 			jythonVersion = '2.5.3'
 			log4jVersion = '1.2.17'
 			mockitoVersion = '1.9.5'
-			openJpaVersion = '2.3.0'
+			openJpaVersion = '2.4.0'
 			oracleDriverVersion = '11.2.0.3'
 			reactorVersion = '2.0.7.RELEASE'
 			postgresVersion = '9.1-901-1.jdbc4'
@@ -196,7 +198,7 @@ subprojects { subproject ->
 			springIntegrationDslVersion = '1.1.2.RELEASE'
 			springIntegrationKafkaVersion = '1.3.0.RELEASE'
 			springIntegrationSplunkVersion = '1.1.0.RELEASE'
-			springVersion = '4.2.3.RELEASE'
+			springVersion = '4.2.5.RELEASE'
 			springSecurityVersion = '4.0.2.RELEASE'
 			springWebFlowVersion = '2.3.3.RELEASE'
 			tilesJspVersion = '2.2.1'
@@ -758,31 +760,34 @@ project('jpa') {
 	description = 'JPA Basic Sample'
 
 	apply plugin: 'application'
+	apply plugin: 'spring-boot'
 
 	mainClassName = 'org.springframework.integration.samples.jpa.Main'
 
 	dependencies {
+		compile 'org.springframework.boot:spring-boot-starter-data-jpa'
 		compile "org.springframework.integration:spring-integration-jpa:$springIntegrationVersion"
 		compile "com.h2database:h2:$h2Version"
-		compile "org.hibernate:hibernate-entitymanager:$hibernateVersion"
-		compile "org.eclipse.persistence:javax.persistence:$jpaApiVersion"
-		compile "commons-lang:commons-lang:$commonsLangVersion"
-		compile "log4j:log4j:$log4jVersion"
+		compile "org.hibernate.javax.persistence:hibernate-jpa-2.1-api:$jpa21ApiVersion"
 
 		runtime "org.springframework:spring-instrument:$springVersion"
 		runtime "org.apache.openjpa:openjpa:$openJpaVersion"
-
+		runtime "org.hibernate:hibernate-entitymanager:$hibernateVersion"
+		runtime "org.eclipse.persistence:org.eclipse.persistence.jpa:$eclipseLinkVersion"
 	}
 
 	//Suppress openjpa annotation processor warnings
 	compileTestJava.options.compilerArgs = ["${xLintArg},-processing"]
 
-	run {
-		def javaAgents = configurations.testRuntime.resolvedConfiguration.resolvedArtifacts
-				.findAll { it.name in ['spring-instrument', 'openjpa'] }
-				.collect { "-javaagent:${it.file}" }
-		jvmArgs javaAgents
+	springBoot {
+		mainClass = 'org.springframework.integration.samples.jpa.Main'
 	}
+
+	tasks.withType(JavaExec) {
+		standardInput = System.in
+		jvmArgs classpath.files.findAll{it.name ==~ /(spring-instrument.+)|(openjpa-${openJpaVersion}.+)/}.collect{"-javaagent:$it"}
+	}
+
 }
 
 project('mail') {
@@ -799,7 +804,6 @@ project('mail') {
 	task runGmailInboundPop3AdapterTestApp(type: JavaExec) {
 		main 'org.springframework.integration.samples.mail.imapidle.GmailInboundPop3AdapterTestApp'
 		classpath = sourceSets.main.runtimeClasspath
-
 	}
 
 	task runGmailInboundImapIdleAdapterTestApp(type: JavaExec) {
