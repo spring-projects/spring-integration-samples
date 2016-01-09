@@ -9,8 +9,8 @@
   <groupId>org.springframework.integration.samples</groupId>
   <artifactId>splunk</artifactId>
   <version>4.1.0.BUILD-SNAPSHOT</version>
-  <name>Apache splunk Sample</name>
-  <description>Apache splunk Sample</description>
+  <name>Splunk Sample</name>
+  <description>Splunk Sample</description>
   <url>http://projects.spring.io/spring-integration</url>
   <organization>
     <name>SpringIO</name>
