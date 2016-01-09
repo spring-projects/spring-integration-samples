@@ -70,12 +70,6 @@
       <scope>test</scope>
     </dependency>
     <dependency>
-      <groupId>org.springframework.integration.samples</groupId>
-      <artifactId>cafe-si</artifactId>
-      <version>4.1.0.BUILD-SNAPSHOT</version>
-      <scope>compile</scope>
-    </dependency>
-    <dependency>
       <groupId>com.google.guava</groupId>
       <artifactId>guava</artifactId>
       <version>16.0.1</version>
@@ -108,6 +102,12 @@
       <artifactId>spring-test</artifactId>
       <version>4.2.3.RELEASE</version>
       <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.integration.samples</groupId>
+      <artifactId>cafe-si</artifactId>
+      <version>4.1.0.BUILD-SNAPSHOT</version>
+      <scope>compile</scope>
     </dependency>
     <dependency>
       <groupId>org.springframework.integration</groupId>

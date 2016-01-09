@@ -72,12 +72,6 @@
       <scope>test</scope>
     </dependency>
     <dependency>
-      <groupId>org.springframework.integration.samples</groupId>
-      <artifactId>cafe-si</artifactId>
-      <version>4.1.0.BUILD-SNAPSHOT</version>
-      <scope>compile</scope>
-    </dependency>
-    <dependency>
       <groupId>org.apache.activemq</groupId>
       <artifactId>activemq-broker</artifactId>
       <version>5.12.1</version>
@@ -99,6 +93,12 @@
       <groupId>log4j</groupId>
       <artifactId>log4j</artifactId>
       <version>1.2.17</version>
+      <scope>compile</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.integration.samples</groupId>
+      <artifactId>cafe-si</artifactId>
+      <version>4.1.0.BUILD-SNAPSHOT</version>
       <scope>compile</scope>
     </dependency>
     <dependency>
