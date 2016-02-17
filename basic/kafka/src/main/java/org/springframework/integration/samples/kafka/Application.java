@@ -20,7 +20,6 @@ import java.util.Collections;
 import java.util.Map;
 import java.util.Properties;
 
-import org.I0Itec.zkclient.ZkClient;
 import org.apache.kafka.common.serialization.StringSerializer;
 
 import org.springframework.beans.factory.annotation.Value;
@@ -48,15 +47,12 @@ import org.springframework.integration.kafka.support.ProducerConfiguration;
 import org.springframework.integration.kafka.support.ProducerFactoryBean;
 import org.springframework.integration.kafka.support.ProducerMetadata;
 import org.springframework.integration.kafka.support.ZookeeperConnect;
+import org.springframework.integration.kafka.util.TopicUtils;
 import org.springframework.messaging.Message;
 import org.springframework.messaging.MessageChannel;
 import org.springframework.messaging.MessageHandler;
 import org.springframework.messaging.PollableChannel;
 import org.springframework.messaging.support.GenericMessage;
-
-import kafka.admin.AdminUtils;
-import kafka.common.TopicExistsException;
-import kafka.utils.ZKStringSerializer$;
 
 /**
  * @author Gary Russell
@@ -186,12 +182,7 @@ public class Application {
 
 		@Override
 		public void start() {
-			ZkClient client = new ZkClient(this.zkConnect, 10000, 10000, ZKStringSerializer$.MODULE$);
-			try {
-				AdminUtils.createTopic(client, this.topic, 1, 1, new Properties());
-			}
-			catch (TopicExistsException e) {
-			}
+			TopicUtils.ensureTopicCreated(this.zkConnect, this.topic, 1, 1);
 			this.running = true;
 		}
 
