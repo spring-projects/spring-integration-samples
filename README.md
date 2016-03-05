@@ -43,7 +43,7 @@ This directory holds demos/samples for Spring Integration 4.0 Java Configuration
 This is a good place to get started. The samples here are technically motivated and demonstrate the bare minimum with regard to configuration and code to help you to get introduced to the basic concepts, API and configuration of Spring Integration. For example, if you are looking for an answer on how to wire a **Service Activator**  to a **Channel** or how to apply a **Gateway** to your message exchange or how to get started with using the **MAIL** or **XML** module, this would be the right place to find a relevant sample. The bottom line is that this is a good starting point.
 
 * **amqp** - Demonstrates the functionality of the various **AMQP Adapters**
-* **barrier** - Shows how to suspend a thread until some asynchronous event occurs 
+* **barrier** - Shows how to suspend a thread until some asynchronous event occurs
 * **control-bus** - Demonstrates the functionality of the **Control Bus**
 * **enricher** - This sample demonstrates how the Enricher components can be used
 * **feed** - Demonstrates the functionality of the **Feed Adapter** (RSS/ATOM)
@@ -56,6 +56,7 @@ This is a good place to get started. The samples here are technically motivated 
 * **jmx** - Demonstrates **JMX** support using a **JMX Attribute Polling Channel** and **JMX Operation Invoking Channel Adapter**
 * **jpa** - Shows the usage of the JPA Components can be used
 * **mail** - Example showing **IMAP** and **POP3** support
+* **mqtt** - Demonstrates the functionality of inbound and outbound **MQTT Adapters**
 * **mongodb** - Shows how to persist a Message payload to a **MongoDb** document store and how to read documents from **MongoDb**
 * **oddeven** - Example combining the functionality of **Inbound Channel Adapter**, **Filter**, **Router** and **Poller**
 * **jpa** - This sample illustrates how the JPA Components can be used
