@@ -192,8 +192,8 @@ subprojects { subproject ->
 			postgresVersion = '9.1-901-1.jdbc4'
 			subethasmtpVersion = '1.2'
 			slf4jVersion = '1.7.11'
-			springIntegrationVersion = '4.2.2.RELEASE'
-			springIntegrationDslVersion = '1.1.1.RELEASE'
+			springIntegrationVersion = '4.3.0.M1'
+			springIntegrationDslVersion = '1.1.2.RELEASE'
 			springIntegrationKafkaVersion = '1.3.0.RELEASE'
 			springIntegrationSplunkVersion = '1.1.0.RELEASE'
 			springVersion = '4.2.3.RELEASE'
@@ -615,6 +615,36 @@ project('kafka') {
 		classpath = sourceSets.main.runtimeClasspath
 	}
 }
+
+project('mqtt') {
+	description = 'MQTT Basic Sample'
+
+	apply plugin: 'spring-boot'
+
+	sourceCompatibility = 1.8
+
+	dependencies {
+		compile 'org.springframework.boot:spring-boot-starter-integration'
+		compile "org.springframework.integration:spring-integration-stream:$springIntegrationVersion"
+		compile "org.springframework.integration:spring-integration-mqtt:$springIntegrationVersion"
+		compile "org.springframework.integration:spring-integration-java-dsl:$springIntegrationDslVersion"
+	}
+
+	springBoot {
+		mainClass = 'org.springframework.integration.samples.mqtt.Application'
+	}
+
+	task run(type: JavaExec) {
+		main 'org.springframework.integration.samples.mqtt.Application'
+		classpath = sourceSets.main.runtimeClasspath
+	}
+
+	tasks.withType(JavaExec) {
+		standardInput = System.in
+	}
+
+}
+
 project('si4demo') {
 	description = 'Java Configuration/DSL Sample'
 
