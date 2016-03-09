@@ -774,6 +774,8 @@ project('jpa') {
 		runtime "org.apache.openjpa:openjpa:$openJpaVersion"
 		runtime "org.hibernate:hibernate-entitymanager:$hibernateVersion"
 		runtime "org.eclipse.persistence:org.eclipse.persistence.jpa:$eclipseLinkVersion"
+
+		testCompile 'org.springframework.boot:spring-boot-starter-test'
 	}
 
 	//Suppress openjpa annotation processor warnings
