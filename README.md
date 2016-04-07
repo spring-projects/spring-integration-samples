@@ -30,6 +30,10 @@ Inside of each category you'll find a **README.md** file, which will contain a m
 * [Spring Integration Dsl Scala][]
 * [Spring Integration Pattern Catalog][]
 
+## Community Sample Projects
+
+* [Xavier Padró][]
+
 # Categories
 
 Below is a short description of each category.
@@ -125,3 +129,5 @@ For more information, please visit the Spring Integration website at: [http://ww
 [Spring Integration Pattern Catalog]: https://github.com/SpringSource/spring-integration-pattern-catalog
 
 [message store reaper]: http://static.springsource.org/spring-integration/api/org/springframework/integration/store/MessageGroupStoreReaper.html
+
+[Xavier Padró]: https://github.com/xpadro/spring-integration
