@@ -3,7 +3,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.springframework.integration.samples</groupId>
   <artifactId>rest-http</artifactId>
-  <version>4.1.0.BUILD-SNAPSHOT</version>
+  <version>4.3.0.BUILD-SNAPSHOT</version>
   <name>Spring Integration Rest HTTP Path Usage Demo</name>
   <description>Spring Integration Rest HTTP Path Usage Demo</description>
   <url>http://projects.spring.io/spring-integration</url>
@@ -54,8 +54,8 @@
   <dependencies>
     <dependency>
       <groupId>org.springframework</groupId>
-      <artifactId>spring-tx</artifactId>
-      <version>4.2.3.RELEASE</version>
+      <artifactId>spring-oxm</artifactId>
+      <version>4.2.5.RELEASE</version>
       <scope>compile</scope>
     </dependency>
     <dependency>
@@ -65,6 +65,18 @@
       <scope>test</scope>
     </dependency>
     <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-test</artifactId>
+      <version>4.2.5.RELEASE</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.integration</groupId>
+      <artifactId>spring-integration-http</artifactId>
+      <version>4.3.0.M1</version>
+      <scope>compile</scope>
+    </dependency>
+    <dependency>
       <groupId>org.springframework.security</groupId>
       <artifactId>spring-security-config</artifactId>
       <version>4.0.2.RELEASE</version>
@@ -72,32 +84,20 @@
     </dependency>
     <dependency>
       <groupId>org.springframework</groupId>
-      <artifactId>spring-oxm</artifactId>
-      <version>4.2.3.RELEASE</version>
-      <scope>compile</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.springframework.integration</groupId>
-      <artifactId>spring-integration-http</artifactId>
-      <version>4.2.2.RELEASE</version>
-      <scope>compile</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.springframework</groupId>
-      <artifactId>spring-test</artifactId>
-      <version>4.2.3.RELEASE</version>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.springframework</groupId>
-      <artifactId>spring-jdbc</artifactId>
-      <version>4.2.3.RELEASE</version>
-      <scope>compile</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.springframework</groupId>
       <artifactId>spring-aop</artifactId>
-      <version>4.2.3.RELEASE</version>
+      <version>4.2.5.RELEASE</version>
+      <scope>compile</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-context</artifactId>
+      <version>4.2.5.RELEASE</version>
+      <scope>compile</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-webmvc</artifactId>
+      <version>4.2.5.RELEASE</version>
       <scope>compile</scope>
     </dependency>
     <dependency>
@@ -107,12 +107,6 @@
       <scope>test</scope>
     </dependency>
     <dependency>
-      <groupId>org.springframework</groupId>
-      <artifactId>spring-webmvc</artifactId>
-      <version>4.2.3.RELEASE</version>
-      <scope>compile</scope>
-    </dependency>
-    <dependency>
       <groupId>org.jasypt</groupId>
       <artifactId>jasypt</artifactId>
       <version>1.7</version>
@@ -120,8 +114,8 @@
     </dependency>
     <dependency>
       <groupId>org.springframework</groupId>
-      <artifactId>spring-context</artifactId>
-      <version>4.2.3.RELEASE</version>
+      <artifactId>spring-tx</artifactId>
+      <version>4.2.5.RELEASE</version>
       <scope>compile</scope>
     </dependency>
     <dependency>
@@ -147,6 +141,12 @@
       <artifactId>mockito-core</artifactId>
       <version>1.9.5</version>
       <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-jdbc</artifactId>
+      <version>4.2.5.RELEASE</version>
+      <scope>compile</scope>
     </dependency>
   </dependencies>
   <repositories>

@@ -3,7 +3,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.springframework.integration.samples</groupId>
   <artifactId>ws-inbound-gateway</artifactId>
-  <version>4.1.0.BUILD-SNAPSHOT</version>
+  <version>4.3.0.BUILD-SNAPSHOT</version>
   <name>WS Inbound Gateway Sample</name>
   <description>WS Inbound Gateway Sample</description>
   <url>http://projects.spring.io/spring-integration</url>
@@ -53,16 +53,22 @@
   </scm>
   <dependencies>
     <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-webmvc</artifactId>
+      <version>4.2.5.RELEASE</version>
+      <scope>compile</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.integration</groupId>
+      <artifactId>spring-integration-ws</artifactId>
+      <version>4.3.0.M1</version>
+      <scope>compile</scope>
+    </dependency>
+    <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
       <version>4.11</version>
       <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.springframework.integration</groupId>
-      <artifactId>spring-integration-xml</artifactId>
-      <version>4.2.2.RELEASE</version>
-      <scope>compile</scope>
     </dependency>
     <dependency>
       <groupId>org.hamcrest</groupId>
@@ -72,14 +78,8 @@
     </dependency>
     <dependency>
       <groupId>org.springframework</groupId>
-      <artifactId>spring-webmvc</artifactId>
-      <version>4.2.3.RELEASE</version>
-      <scope>compile</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.springframework</groupId>
       <artifactId>spring-test</artifactId>
-      <version>4.2.3.RELEASE</version>
+      <version>4.2.5.RELEASE</version>
       <scope>test</scope>
     </dependency>
     <dependency>
@@ -90,8 +90,8 @@
     </dependency>
     <dependency>
       <groupId>org.springframework.integration</groupId>
-      <artifactId>spring-integration-ws</artifactId>
-      <version>4.2.2.RELEASE</version>
+      <artifactId>spring-integration-xml</artifactId>
+      <version>4.3.0.M1</version>
       <scope>compile</scope>
     </dependency>
     <dependency>

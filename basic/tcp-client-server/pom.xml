@@ -4,7 +4,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.springframework.integration.samples</groupId>
   <artifactId>tcp-client-server</artifactId>
-  <version>4.1.0.BUILD-SNAPSHOT</version>
+  <version>4.3.0.BUILD-SNAPSHOT</version>
   <name>TCP Client Server Sample</name>
   <description>TCP Client Server Sample</description>
   <url>http://projects.spring.io/spring-integration</url>
@@ -54,12 +54,6 @@
   </scm>
   <dependencies>
     <dependency>
-      <groupId>org.springframework.integration</groupId>
-      <artifactId>spring-integration-ip</artifactId>
-      <version>4.2.2.RELEASE</version>
-      <scope>compile</scope>
-    </dependency>
-    <dependency>
       <groupId>commons-lang</groupId>
       <artifactId>commons-lang</artifactId>
       <version>2.6</version>
@@ -78,21 +72,27 @@
       <scope>test</scope>
     </dependency>
     <dependency>
-      <groupId>org.springframework.integration</groupId>
-      <artifactId>spring-integration-test</artifactId>
-      <version>4.2.2.RELEASE</version>
-      <scope>compile</scope>
-    </dependency>
-    <dependency>
       <groupId>org.springframework</groupId>
       <artifactId>spring-test</artifactId>
-      <version>4.2.3.RELEASE</version>
+      <version>4.2.5.RELEASE</version>
       <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.integration</groupId>
+      <artifactId>spring-integration-ip</artifactId>
+      <version>4.3.0.M1</version>
+      <scope>compile</scope>
     </dependency>
     <dependency>
       <groupId>log4j</groupId>
       <artifactId>log4j</artifactId>
       <version>1.2.17</version>
+      <scope>compile</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.integration</groupId>
+      <artifactId>spring-integration-test</artifactId>
+      <version>4.3.0.M1</version>
       <scope>compile</scope>
     </dependency>
     <dependency>

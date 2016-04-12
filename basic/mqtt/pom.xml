@@ -70,6 +70,12 @@
       <scope>test</scope>
     </dependency>
     <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-test</artifactId>
+      <version>4.2.5.RELEASE</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-integration</artifactId>
       <scope>compile</scope>
@@ -85,12 +91,6 @@
       <artifactId>spring-integration-stream</artifactId>
       <version>4.3.0.M1</version>
       <scope>compile</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.springframework</groupId>
-      <artifactId>spring-test</artifactId>
-      <version>4.2.3.RELEASE</version>
-      <scope>test</scope>
     </dependency>
     <dependency>
       <groupId>org.springframework.integration</groupId>

@@ -3,10 +3,8 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.springframework.integration.samples</groupId>
-  <artifactId>dynamic-ftp</artifactId>
+  <artifactId>http-boot</artifactId>
   <version>4.3.0.BUILD-SNAPSHOT</version>
-  <name>Dynamic FTP Demo</name>
-  <description>Dynamic FTP Demo</description>
   <url>http://projects.spring.io/spring-integration</url>
   <organization>
     <name>SpringIO</name>
@@ -70,18 +68,6 @@
       <artifactId>spring-test</artifactId>
       <version>4.2.5.RELEASE</version>
       <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.springframework.integration</groupId>
-      <artifactId>spring-integration-ftp</artifactId>
-      <version>4.3.0.M1</version>
-      <scope>compile</scope>
-    </dependency>
-    <dependency>
-      <groupId>log4j</groupId>
-      <artifactId>log4j</artifactId>
-      <version>1.2.17</version>
-      <scope>compile</scope>
     </dependency>
     <dependency>
       <groupId>org.mockito</groupId>

@@ -3,7 +3,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.springframework.integration.samples</groupId>
   <artifactId>http</artifactId>
-  <version>4.1.0.BUILD-SNAPSHOT</version>
+  <version>4.3.0.BUILD-SNAPSHOT</version>
   <name>HTTP Sample</name>
   <description>HTTP Sample</description>
   <url>http://projects.spring.io/spring-integration</url>
@@ -53,6 +53,12 @@
   </scm>
   <dependencies>
     <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-webmvc</artifactId>
+      <version>4.2.5.RELEASE</version>
+      <scope>compile</scope>
+    </dependency>
+    <dependency>
       <groupId>javax.mail</groupId>
       <artifactId>javax.mail-api</artifactId>
       <version>1.5.2</version>
@@ -71,34 +77,28 @@
       <scope>test</scope>
     </dependency>
     <dependency>
-      <groupId>commons-io</groupId>
-      <artifactId>commons-io</artifactId>
-      <version>2.4</version>
-      <scope>compile</scope>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-test</artifactId>
+      <version>4.2.5.RELEASE</version>
+      <scope>test</scope>
     </dependency>
     <dependency>
-      <groupId>org.springframework</groupId>
-      <artifactId>spring-webmvc</artifactId>
-      <version>4.2.3.RELEASE</version>
+      <groupId>org.springframework.integration</groupId>
+      <artifactId>spring-integration-http</artifactId>
+      <version>4.3.0.M1</version>
       <scope>compile</scope>
     </dependency>
     <dependency>
       <groupId>org.springframework.integration</groupId>
       <artifactId>spring-integration-mail</artifactId>
-      <version>4.2.2.RELEASE</version>
+      <version>4.3.0.M1</version>
       <scope>compile</scope>
     </dependency>
     <dependency>
-      <groupId>org.springframework.integration</groupId>
-      <artifactId>spring-integration-http</artifactId>
-      <version>4.2.2.RELEASE</version>
+      <groupId>commons-io</groupId>
+      <artifactId>commons-io</artifactId>
+      <version>2.4</version>
       <scope>compile</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.springframework</groupId>
-      <artifactId>spring-test</artifactId>
-      <version>4.2.3.RELEASE</version>
-      <scope>test</scope>
     </dependency>
     <dependency>
       <groupId>log4j</groupId>

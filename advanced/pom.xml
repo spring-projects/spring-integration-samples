@@ -4,7 +4,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.springframework.integration.samples</groupId>
   <artifactId>advanced</artifactId>
-  <version>4.1.0.BUILD-SNAPSHOT</version>
+  <version>4.3.0.BUILD-SNAPSHOT</version>
   <url>http://projects.spring.io/spring-integration</url>
   <organization>
     <name>SpringIO</name>
