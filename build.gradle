@@ -29,7 +29,7 @@ allprojects {
 		mavenLocal()
 		maven { url 'http://repo.spring.io/libs-snapshot' }
 		maven { url 'http://repo.spring.io/libs-milestone' }
-			maven { url 'http://repo.spring.io/libs-staging-local' }
+//			maven { url 'http://repo.spring.io/libs-staging-local' }
 	}
 
 }
@@ -194,7 +194,7 @@ subprojects { subproject ->
 			postgresVersion = '9.1-901-1.jdbc4'
 			subethasmtpVersion = '1.2'
 			slf4jVersion = '1.7.11'
-			springIntegrationVersion = '4.3.0.M1'
+			springIntegrationVersion = '4.3.0.M2'
 			springIntegrationDslVersion = '1.1.2.RELEASE'
 			springIntegrationKafkaVersion = '2.0.0.M1'
 			springIntegrationSplunkVersion = '1.1.0.RELEASE'
