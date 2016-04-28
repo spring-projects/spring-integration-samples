@@ -18,9 +18,9 @@
 	     Web Service for the given URI, and the reply Message is sent to the 'celsiusChannel'. -->
 	<chain input-channel="fahrenheitChannel" output-channel="celsiusChannel">
 		<ws:header-enricher>
-			<ws:soap-action value="http://www.w3schools.com/webservices/FahrenheitToCelsius"/>
+			<ws:soap-action value="http://www.w3schools.com/xml/FahrenheitToCelsius"/>
 		</ws:header-enricher>
-		<ws:outbound-gateway uri="http://www.w3schools.com/webservices/tempconvert.asmx"/>
+		<ws:outbound-gateway uri="http://www.w3schools.com/xml/tempconvert.asmx"/>
 	</chain>
 
 	<!-- The response from the service is logged to the console. -->
