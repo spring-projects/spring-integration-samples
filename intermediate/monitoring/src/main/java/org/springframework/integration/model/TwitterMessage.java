@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.springframework.integration.samples.storedprocedure.model;
+package org.springframework.integration.model;
 
 import java.util.Date;
 

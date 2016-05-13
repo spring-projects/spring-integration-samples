@@ -19,19 +19,15 @@ package org.springframework.integration.samples.chat.stomp.server;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import org.springframework.boot.test.IntegrationTest;
-import org.springframework.boot.test.SpringApplicationConfiguration;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.test.context.web.WebAppConfiguration;
 
 /**
  * @author Artem Bilan
  * @since 3.0
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@SpringApplicationConfiguration(classes = Application.class)
-@WebAppConfiguration
-@IntegrationTest({"server.port=0", "management.port=0"})
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT, classes = Application.class)
 public class ApplicationTests {
 
 	@Test

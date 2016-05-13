@@ -53,10 +53,22 @@
   </scm>
   <dependencies>
     <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-jdbc</artifactId>
+      <version>4.3.0.RC2</version>
+      <scope>compile</scope>
+    </dependency>
+    <dependency>
       <groupId>javax.transaction</groupId>
       <artifactId>jta</artifactId>
       <version>1.1</version>
       <scope>compile</scope>
+    </dependency>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>4.12</version>
+      <scope>test</scope>
     </dependency>
     <dependency>
       <groupId>org.slf4j</groupId>
@@ -65,9 +77,9 @@
       <scope>runtime</scope>
     </dependency>
     <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <version>4.11</version>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-test</artifactId>
+      <version>4.3.0.RC2</version>
       <scope>test</scope>
     </dependency>
     <dependency>
@@ -78,26 +90,20 @@
     </dependency>
     <dependency>
       <groupId>org.springframework</groupId>
-      <artifactId>spring-aop</artifactId>
-      <version>4.2.5.RELEASE</version>
-      <scope>compile</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.springframework</groupId>
-      <artifactId>spring-context</artifactId>
-      <version>4.2.5.RELEASE</version>
-      <scope>compile</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.springframework</groupId>
-      <artifactId>spring-webmvc</artifactId>
-      <version>4.2.5.RELEASE</version>
+      <artifactId>spring-tx</artifactId>
+      <version>4.3.0.RC2</version>
       <scope>compile</scope>
     </dependency>
     <dependency>
       <groupId>org.slf4j</groupId>
       <artifactId>slf4j-api</artifactId>
       <version>1.7.11</version>
+      <scope>compile</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-orm</artifactId>
+      <version>4.3.0.RC2</version>
       <scope>compile</scope>
     </dependency>
     <dependency>
@@ -156,20 +162,20 @@
     </dependency>
     <dependency>
       <groupId>org.springframework</groupId>
-      <artifactId>spring-jdbc</artifactId>
-      <version>4.2.5.RELEASE</version>
+      <artifactId>spring-aop</artifactId>
+      <version>4.3.0.RC2</version>
       <scope>compile</scope>
     </dependency>
     <dependency>
       <groupId>org.springframework</groupId>
-      <artifactId>spring-test</artifactId>
-      <version>4.2.5.RELEASE</version>
-      <scope>test</scope>
+      <artifactId>spring-webmvc</artifactId>
+      <version>4.3.0.RC2</version>
+      <scope>compile</scope>
     </dependency>
     <dependency>
-      <groupId>org.hibernate</groupId>
-      <artifactId>hibernate-entitymanager</artifactId>
-      <version>4.3.11.Final</version>
+      <groupId>org.springframework.integration</groupId>
+      <artifactId>spring-integration-ip</artifactId>
+      <version>4.3.0.RC1</version>
       <scope>compile</scope>
     </dependency>
     <dependency>
@@ -180,20 +186,20 @@
     </dependency>
     <dependency>
       <groupId>org.springframework</groupId>
-      <artifactId>spring-orm</artifactId>
-      <version>4.2.5.RELEASE</version>
-      <scope>compile</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.springframework</groupId>
       <artifactId>spring-aspects</artifactId>
-      <version>4.2.5.RELEASE</version>
+      <version>4.3.0.RC2</version>
       <scope>compile</scope>
     </dependency>
     <dependency>
       <groupId>org.apache.tiles</groupId>
       <artifactId>tiles-jsp</artifactId>
       <version>2.2.1</version>
+      <scope>compile</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.hibernate</groupId>
+      <artifactId>hibernate-entitymanager</artifactId>
+      <version>5.1.0.Final</version>
       <scope>compile</scope>
     </dependency>
     <dependency>
@@ -209,15 +215,9 @@
       <scope>compile</scope>
     </dependency>
     <dependency>
-      <groupId>org.springframework.integration</groupId>
-      <artifactId>spring-integration-ip</artifactId>
-      <version>4.3.0.M1</version>
-      <scope>compile</scope>
-    </dependency>
-    <dependency>
       <groupId>org.springframework</groupId>
-      <artifactId>spring-tx</artifactId>
-      <version>4.2.5.RELEASE</version>
+      <artifactId>spring-context</artifactId>
+      <version>4.3.0.RC2</version>
       <scope>compile</scope>
     </dependency>
     <dependency>

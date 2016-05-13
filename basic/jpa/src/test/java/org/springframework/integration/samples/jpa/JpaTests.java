@@ -26,7 +26,7 @@ import org.junit.runner.RunWith;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaAutoConfiguration;
-import org.springframework.boot.test.SpringApplicationConfiguration;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.integration.samples.jpa.domain.Person;
 import org.springframework.integration.samples.jpa.service.PersonService;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -38,7 +38,8 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
  *
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@SpringApplicationConfiguration(classes = {Main.class, HibernateJpaAutoConfiguration.class})
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE,
+		classes = {Main.class, HibernateJpaAutoConfiguration.class})
 public class JpaTests {
 
 	@Autowired

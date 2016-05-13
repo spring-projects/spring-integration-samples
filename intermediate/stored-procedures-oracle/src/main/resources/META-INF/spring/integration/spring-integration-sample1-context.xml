@@ -14,7 +14,7 @@
 
 	<int:gateway id="gateway" default-request-timeout="5000"
 		default-reply-timeout="5000" default-request-channel="functionRequestChannel"
-		service-interface="org.springframework.integration.samples.storedprocedure.service.StringConversionService">
+		service-interface="org.springframework.integration.service.StringConversionService">
 		<int:method name="convertToUpperCase" request-channel="procedureRequestChannel" />
 		<int:method name="getNumber" request-channel="functionRequestChannel"
 			payload-expression="new java.util.Date()" />

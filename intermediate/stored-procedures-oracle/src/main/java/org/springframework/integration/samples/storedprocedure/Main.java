@@ -21,9 +21,9 @@ import java.util.Scanner;
 import org.apache.log4j.Logger;
 
 import org.springframework.context.support.GenericXmlApplicationContext;
-import org.springframework.integration.samples.storedprocedure.model.CoffeeBeverage;
-import org.springframework.integration.samples.storedprocedure.service.CoffeeService;
-import org.springframework.integration.samples.storedprocedure.service.StringConversionService;
+import org.springframework.integration.model.CoffeeBeverage;
+import org.springframework.integration.service.CoffeeService;
+import org.springframework.integration.service.StringConversionService;
 
 
 /**

@@ -22,7 +22,7 @@ import org.junit.Test;
 
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
-import org.springframework.integration.samples.storedprocedure.service.CoffeeService;
+import org.springframework.integration.service.CoffeeService;
 
 /**
  * @author Gunnar Hillert

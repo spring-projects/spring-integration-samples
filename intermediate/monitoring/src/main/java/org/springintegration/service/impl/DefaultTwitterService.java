@@ -22,7 +22,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.integration.endpoint.SourcePollingChannelAdapter;
-import org.springframework.integration.samples.storedprocedure.model.TwitterMessage;
+import org.springframework.integration.model.TwitterMessage;
 import org.springframework.integration.monitor.IntegrationMBeanExporter;
 import org.springframework.integration.service.TwitterService;
 import org.springframework.integration.support.MessageBuilder;

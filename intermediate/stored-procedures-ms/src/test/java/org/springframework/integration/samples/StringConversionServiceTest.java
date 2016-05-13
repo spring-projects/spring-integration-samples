@@ -21,7 +21,7 @@ import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
-import org.springframework.integration.samples.storedprocedure.service.StringConversionService;
+import org.springframework.integration.service.StringConversionService;
 
 /**
  * Verify that the Spring Integration Application Context starts successfully.

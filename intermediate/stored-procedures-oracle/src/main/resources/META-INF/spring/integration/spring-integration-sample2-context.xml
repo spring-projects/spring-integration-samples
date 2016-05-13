@@ -20,7 +20,7 @@
 
 	<int:gateway id="gateway" default-request-timeout="4000"
 		default-reply-timeout="4000"
-		service-interface="org.springframework.integration.samples.storedprocedure.service.CoffeeService">
+		service-interface="org.springframework.integration.service.CoffeeService">
 		<int:method name="findCoffeeBeverage" request-channel="findCoffeeProcedureRequestChannel" />
 		<int:method name="findAllCoffeeBeverages" request-channel="findAllProcedureRequestChannel" />
 	</int:gateway>

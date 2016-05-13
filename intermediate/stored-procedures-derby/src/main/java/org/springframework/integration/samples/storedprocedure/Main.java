@@ -22,8 +22,8 @@ import org.apache.log4j.Logger;
 import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-import org.springframework.integration.samples.storedprocedure.model.CoffeeBeverage;
-import org.springframework.integration.samples.storedprocedure.service.CoffeeService;
+import org.springframework.integration.model.CoffeeBeverage;
+import org.springframework.integration.service.CoffeeService;
 
 
 /**

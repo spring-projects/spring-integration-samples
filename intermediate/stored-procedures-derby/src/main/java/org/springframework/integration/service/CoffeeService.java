@@ -14,11 +14,11 @@
  *     limitations under the License.
  */
 
-package org.springframework.integration.samples.storedprocedure.service;
+package org.springframework.integration.service;
 
 import java.util.List;
 
-import org.springframework.integration.samples.storedprocedure.model.CoffeeBeverage;
+import org.springframework.integration.model.CoffeeBeverage;
 import org.springframework.messaging.handler.annotation.Payload;
 
 

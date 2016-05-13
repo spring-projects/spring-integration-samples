@@ -21,7 +21,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.integration.samples.storedprocedure.model.TwitterMessage;
+import org.springframework.integration.model.TwitterMessage;
 import org.springframework.integration.service.TwitterService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

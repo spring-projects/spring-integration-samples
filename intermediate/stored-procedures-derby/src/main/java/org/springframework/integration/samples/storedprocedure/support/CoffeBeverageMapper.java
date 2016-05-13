@@ -15,7 +15,7 @@ package org.springframework.integration.samples.storedprocedure.support;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import org.springframework.integration.samples.storedprocedure.model.CoffeeBeverage;
+import org.springframework.integration.model.CoffeeBeverage;
 import org.springframework.jdbc.core.RowMapper;
 
 /**
