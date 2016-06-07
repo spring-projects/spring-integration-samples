@@ -23,7 +23,6 @@ import java.util.Properties;
 import org.I0Itec.zkclient.ZkClient;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.clients.producer.ProducerConfig;
-import org.apache.kafka.common.TopicPartition;
 import org.apache.kafka.common.serialization.StringDeserializer;
 import org.apache.kafka.common.serialization.StringSerializer;
 
@@ -44,6 +43,8 @@ import org.springframework.kafka.core.DefaultKafkaProducerFactory;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.kafka.core.ProducerFactory;
 import org.springframework.kafka.listener.KafkaMessageListenerContainer;
+import org.springframework.kafka.listener.config.ContainerProperties;
+import org.springframework.kafka.support.TopicPartitionInitialOffset;
 import org.springframework.messaging.Message;
 import org.springframework.messaging.MessageChannel;
 import org.springframework.messaging.MessageHandler;
@@ -123,7 +124,8 @@ public class Application {
 
 	@Bean
 	public KafkaMessageListenerContainer<String, String> container() throws Exception {
-		return new KafkaMessageListenerContainer<>(consumerFactory(), new TopicPartition(this.topic, 0));
+		return new KafkaMessageListenerContainer<>(consumerFactory(),
+				new ContainerProperties(new TopicPartitionInitialOffset(this.topic, 0)));
 	}
 
 	@Bean

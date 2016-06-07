@@ -1,3 +1,16 @@
+buildscript {
+	repositories {
+		maven { url 'http://repo.spring.io/libs-snapshot' }
+		maven { url "http://repo.spring.io/libs-milestone" }
+	}
+	dependencies {
+		classpath("org.springframework.boot:spring-boot-gradle-plugin:$springBootVersion")
+	}
+}
+plugins {
+	id "org.sonarqube" version "1.2"
+}
+
 description = 'Spring Integration Samples'
 
 apply plugin: 'base'
@@ -10,16 +23,6 @@ ext {
 	linkScmUrl = 'https://github.com/spring-projects/spring-integration-samples'
 	linkScmConnection = 'scm:git:git://github.com/spring-projects/spring-integration-samples.git'
 	linkScmDevConnection = 'scm:git:ssh://git@github.com:spring-projects/spring-integration-samples.git'
-}
-
-buildscript {
-	repositories {
-		maven { url 'http://repo.spring.io/libs-snapshot' }
-		maven { url "http://repo.spring.io/libs-milestone" }
-	}
-	dependencies {
-		classpath("org.springframework.boot:spring-boot-gradle-plugin:$springBootVersion")
-	}
 }
 
 allprojects {
@@ -196,9 +199,9 @@ subprojects { subproject ->
 			slf4jVersion = '1.7.11'
 			springIntegrationVersion = '4.3.0.RC1'
 			springIntegrationDslVersion = '1.1.2.RELEASE'
-			springIntegrationKafkaVersion = '2.0.0.M1'
+			springIntegrationKafkaVersion = '2.0.0.RC1'
 			springIntegrationSplunkVersion = '1.1.0.RELEASE'
-			springKafkaVersion = '1.0.0.M2'
+			springKafkaVersion = '1.0.0.RC1'
 			springVersion = '4.3.0.RC2'
 			springSecurityVersion = '4.0.2.RELEASE'
 			springWebFlowVersion = '2.3.3.RELEASE'
@@ -609,6 +612,8 @@ project('kafka') {
 			exclude group: 'org.slf4j'
 		}
 
+		compile "log4j:log4j:$log4jVersion"
+
 		testCompile 'org.springframework.boot:spring-boot-starter-test'
 	}
 
@@ -663,6 +668,8 @@ project('si4demo') {
 		compile 'org.springframework.boot:spring-boot-starter-integration'
 		compile "org.springframework.integration:spring-integration-mail"
 		compile "org.springframework.integration:spring-integration-twitter"
+		compile "org.springframework.integration:spring-integration-http"
+		compile "org.springframework.integration:spring-integration-ip"
 		compile "org.springframework.integration:spring-integration-java-dsl:$springIntegrationDslVersion"
 		compile "javax.mail:javax.mail-api:$javaxMailVersion"
 		compile "com.sun.mail:javax.mail:$javaxMailVersion"
@@ -1337,10 +1344,8 @@ project('stomp-chat') {
 	}
 }
 
-apply plugin: 'sonar-runner'
-
-sonarRunner {
-	sonarProperties {
+sonarqube {
+	properties {
 		property "sonar.jacoco.reportPath", "${buildDir.name}/jacoco.exec"
 		property "sonar.links.homepage", linkHomepage
 		property "sonar.links.ci", linkCi
@@ -1349,10 +1354,4 @@ sonarRunner {
 		property "sonar.links.scm_dev", linkScmDevConnection
 		property "sonar.java.coveragePlugin", "jacoco"
 	}
-}
-
-task wrapper(type: Wrapper) {
-	description = 'Generates gradlew[.bat] scripts'
-	gradleVersion = '2.5'
-	distributionUrl = "http://services.gradle.org/distributions/gradle-${gradleVersion}-all.zip"
 }
