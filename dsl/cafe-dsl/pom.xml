@@ -4,7 +4,7 @@
   <parent>
     <groupId>org.springframework.boot</groupId>
     <artifactId>spring-boot-starter-parent</artifactId>
-    <version>1.4.0.M2</version>
+    <version>1.4.0.M3</version>
   </parent>
   <groupId>org.springframework.integration.samples</groupId>
   <artifactId>cafe-dsl</artifactId>
@@ -58,12 +58,6 @@
   </scm>
   <dependencies>
     <dependency>
-      <groupId>org.springframework.integration.samples</groupId>
-      <artifactId>cafe-si</artifactId>
-      <version>4.3.0.BUILD-SNAPSHOT</version>
-      <scope>compile</scope>
-    </dependency>
-    <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
       <version>4.12</version>
@@ -101,6 +95,12 @@
       <groupId>io.projectreactor</groupId>
       <artifactId>reactor-stream</artifactId>
       <version>2.0.7.RELEASE</version>
+      <scope>compile</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.integration.samples</groupId>
+      <artifactId>cafe-si</artifactId>
+      <version>4.3.0.BUILD-SNAPSHOT</version>
       <scope>compile</scope>
     </dependency>
     <dependency>
