@@ -1,15 +1,19 @@
 /*
- * Copyright 2002-2012 the original author or authors.
+ * Copyright 2002-2016 the original author or authors.
  *
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
- * the License. You may obtain a copy of the License at
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
  *
- * http://www.apache.org/licenses/LICENSE-2.0
+ *      http://www.apache.org/licenses/LICENSE-2.0
  *
- * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on
- * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the
- * specific language governing permissions and limitations under the License.
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
+
 package org.springframework.integration.samples.advance.testing.jms;
 
 import static org.junit.Assert.assertEquals;
@@ -17,6 +21,7 @@ import static org.junit.Assert.assertTrue;
 import static org.mockito.Matchers.anyString;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 import java.io.IOException;
 import java.util.concurrent.CountDownLatch;
@@ -28,24 +33,30 @@ import javax.jms.TextMessage;
 import org.apache.log4j.Logger;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.messaging.Message;
-import org.springframework.messaging.MessageChannel;
-import org.springframework.messaging.MessagingException;
-import org.springframework.messaging.MessageHandler;
-import org.springframework.messaging.SubscribableChannel;
-
 import org.springframework.jms.core.JmsTemplate;
 import org.springframework.jms.support.converter.SimpleMessageConverter;
+import org.springframework.messaging.Message;
+import org.springframework.messaging.MessageChannel;
+import org.springframework.messaging.MessageHandler;
+import org.springframework.messaging.MessagingException;
+import org.springframework.messaging.SubscribableChannel;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.annotation.DirtiesContext.ClassMode;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+/**
+ * @author David Turanski
+ * @author Gunnar Hillert
+ * @author Gary Russell
+ * @author Artem Bilan
+ */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration
-@DirtiesContext(classMode=ClassMode.AFTER_EACH_TEST_METHOD)
+@DirtiesContext(classMode = ClassMode.AFTER_EACH_TEST_METHOD)
 public class JmsMockTests {
 
 	private static final Logger LOGGER = Logger.getLogger(JmsMockTests.class);
@@ -112,7 +123,8 @@ public class JmsMockTests {
 	}
 
 	/**
-	 * Provide a message via a mock JMS template and wait for the default timeout to receive the message on the expected channel
+	 * Provide a message via a mock JMS template and wait for the default timeout to receive the message
+	 * on the expected channel
 	 * @param obj The message provided to the poller (currently must be a String)
 	 * @param expectedOutputChannel The expected output channel
 	 * @param handler An instance of CountDownHandler to handle (verify) the output message
@@ -120,23 +132,27 @@ public class JmsMockTests {
 	 * @throws JMSException
 	 * @throws InterruptedException
 	 */
-	protected boolean verifyJmsMessageReceivedOnOutputChannel(Object obj, SubscribableChannel expectedOutputChannel, CountDownHandler handler) throws JMSException, InterruptedException{
+	protected boolean verifyJmsMessageReceivedOnOutputChannel(Object obj, SubscribableChannel expectedOutputChannel,
+			CountDownHandler handler) throws JMSException, InterruptedException {
 		return verifyJmsMessageOnOutputChannel(obj, expectedOutputChannel, handler, 7000);
 	}
 
 
 	/**
-	  * Provide a message via a mock JMS template and wait for the specified timeout to receive the message on the expected channel
+	 * Provide a message via a mock JMS template and wait for the specified timeout to receive the message
+	 * on the expected channel
 	 * @param obj The message provided to the poller (currently must be a String)
 	 * @param expectedOutputChannel The expected output channel
 	 * @param handler An instance of CountDownHandler to handle (verify) the output message
-	 * @param timeoutMillisec The timeout period. Note that this must allow at least enough time to process the entire flow. Only set if the default is
+	 * @param timeoutMillisec The timeout period. Note that this must allow at least enough time
+	 * to process the entire flow. Only set if the default is
 	 * not long enough
 	 * @return true if the message was received on the expected channel
 	 * @throws JMSException
 	 * @throws InterruptedException
 	 */
-	protected boolean verifyJmsMessageOnOutputChannel(Object obj, SubscribableChannel expectedOutputChannel, CountDownHandler handler,int timeoutMillisec) throws JMSException,
+	protected boolean verifyJmsMessageOnOutputChannel(Object obj, SubscribableChannel expectedOutputChannel,
+			CountDownHandler handler, int timeoutMillisec) throws JMSException,
 			InterruptedException {
 
 		if (!(obj instanceof String)) {
@@ -149,8 +165,8 @@ public class JmsMockTests {
 		 */
 
 		TextMessage message = mock(TextMessage.class);
-		doReturn(new SimpleMessageConverter()).when(mockJmsTemplate).getMessageConverter();
-		doReturn(message).when(mockJmsTemplate).receiveSelected(anyString());
+		when(this.mockJmsTemplate.getMessageConverter()).thenReturn(new SimpleMessageConverter());
+		when(this.mockJmsTemplate.receiveSelected(anyString())).thenReturn(message);
 
 		String text = (String) obj;
 
@@ -194,5 +210,7 @@ public class JmsMockTests {
 			verifyMessage(message);
 			latch.countDown();
 		}
+
 	}
+
 }
