@@ -201,7 +201,7 @@ subprojects { subproject ->
 			springIntegrationDslVersion = '1.1.2.RELEASE'
 			springIntegrationKafkaVersion = '2.0.0.RELEASE'
 			springIntegrationSplunkVersion = '1.1.0.RELEASE'
-			springKafkaVersion = '1.0.0.RELEASE'
+			springKafkaVersion = '1.0.1.RELEASE'
 			springVersion = '4.3.0.RELEASE'
 			springSecurityVersion = '4.0.2.RELEASE'
 			springWebFlowVersion = '2.3.3.RELEASE'
