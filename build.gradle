@@ -167,7 +167,7 @@ subprojects { subproject ->
 			derbyVersion = '10.10.1.1'
 			eclipseLinkVersion = '2.4.2'
 			hamcrestVersion = '1.3'
-			hibernateVersion = '5.1.0.Final'
+			hibernateVersion = '5.0.9.Final'
 			hibernateValidatorVersion = '4.2.0.Final'
 			ftpServerVersion = '1.0.6'
 			flexjsonVersion = '2.0'
@@ -178,7 +178,7 @@ subprojects { subproject ->
 			jacksonVersion = '2.3.2'
 			jasyptVersion = '1.7'
 			javaxInjectVersion = '1'
-			javaxMailVersion = '1.5.2'
+			javaxMailVersion = '1.5.5'
 			jodaTimeVersion = '1.6'
 			jtaVersion = '1.1'
 			jtdsVersion = '1.2.6'
@@ -570,6 +570,7 @@ project('http') {
 		compile "commons-fileupload:commons-fileupload:$commonsFileUploadVersion"
 		compile "commons-io:commons-io:$commonsIoVersion"
 		compile "javax.mail:javax.mail-api:$javaxMailVersion"
+		compile "com.sun.mail:javax.mail:$javaxMailVersion"
 		compile "log4j:log4j:$log4jVersion"
 	}
 
@@ -673,9 +674,6 @@ project('si4demo') {
 		compile "org.springframework.integration:spring-integration-java-dsl:$springIntegrationDslVersion"
 		compile "javax.mail:javax.mail-api:$javaxMailVersion"
 		compile "com.sun.mail:javax.mail:$javaxMailVersion"
-		compile "com.sun.mail:smtp:$javaxMailVersion"
-		compile "com.sun.mail:pop3:$javaxMailVersion"
-		compile "com.sun.mail:imap:$javaxMailVersion"
 		compile "com.rometools:rome:1.5.0"
 
 		testCompile 'org.springframework.boot:spring-boot-starter-test'
@@ -810,7 +808,7 @@ project('mail') {
 		compile "org.springframework.integration:spring-integration-mail:$springIntegrationVersion"
 		compile "org.springframework:spring-context:$springVersion"
 		compile "javax.mail:javax.mail-api:$javaxMailVersion"
-		compile "com.sun.mail:mailapi:$javaxMailVersion"
+		compile "com.sun.mail:javax.mail:$javaxMailVersion"
 		compile "log4j:log4j:$log4jVersion"
 	}
 
@@ -1059,8 +1057,8 @@ project('mail-attachments') {
 		compile "org.springframework.integration:spring-integration-mail:$springIntegrationVersion"
 		compile "org.springframework.integration:spring-integration-file:$springIntegrationVersion"
 		compile "javax.mail:javax.mail-api:$javaxMailVersion"
+		compile "com.sun.mail:javax.mail:$javaxMailVersion"
 		compile "commons-io:commons-io:$commonsIoVersion"
-		compile "com.sun.mail:mailapi:$javaxMailVersion"
 		compile "log4j:log4j:$log4jVersion"
 
 		testCompile "org.springframework.integration:spring-integration-test:$springIntegrationVersion"
