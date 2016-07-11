@@ -26,6 +26,7 @@ Inside of each category you'll find a **README.md** file, which will contain a m
 * [Spring Integration][]
 * [Spring Integration Extensions][]
 * [Spring Integration Templates][]
+* [Spring Integration Java Dsl][]
 * [Spring Integration Dsl Groovy][]
 * [Spring Integration Dsl Scala][]
 * [Spring Integration Pattern Catalog][]
@@ -128,6 +129,7 @@ For more information, please visit the Spring Integration website at: [http://pr
 [Spring Integration]: https://github.com/spring-projects/spring-integration
 [Spring Integration Extensions]: https://github.com/spring-projects/spring-integration-extensions
 [Spring Integration Templates]: https://github.com/spring-projects/spring-integration-templates/tree/master/si-sts-templates
+[Spring Integration Java Dsl]: https://github.com/spring-projects/spring-integration-java-dsl
 [Spring Integration Dsl Groovy]: https://github.com/spring-projects/spring-integration-dsl-groovy
 [Spring Integration Dsl Scala]: https://github.com/spring-projects/spring-integration-dsl-scala
 [Spring Integration Pattern Catalog]: https://github.com/spring-projects/spring-integration-pattern-catalog
