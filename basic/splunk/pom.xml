@@ -4,7 +4,7 @@
   <parent>
     <groupId>org.springframework.boot</groupId>
     <artifactId>spring-boot-starter-parent</artifactId>
-    <version>1.4.0.RC1</version>
+    <version>1.4.0.RELEASE</version>
   </parent>
   <groupId>org.springframework.integration.samples</groupId>
   <artifactId>splunk</artifactId>
@@ -65,7 +65,7 @@
     <dependency>
       <groupId>org.springframework.integration</groupId>
       <artifactId>spring-integration-core</artifactId>
-      <version>4.3.0.RELEASE</version>
+      <version>4.3.1.RELEASE</version>
       <scope>compile</scope>
     </dependency>
     <dependency>
@@ -95,7 +95,7 @@
     <dependency>
       <groupId>org.springframework</groupId>
       <artifactId>spring-test</artifactId>
-      <version>4.3.0.RELEASE</version>
+      <version>4.3.2.RELEASE</version>
       <scope>test</scope>
     </dependency>
     <dependency>

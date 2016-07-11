@@ -29,7 +29,6 @@ allprojects {
 	group = 'org.springframework.integration.samples'
 
 	repositories {
-		mavenLocal()
 		maven { url 'http://repo.spring.io/libs-snapshot' }
 		maven { url 'http://repo.spring.io/libs-milestone' }
 //			maven { url 'http://repo.spring.io/libs-staging-local' }
@@ -193,12 +192,12 @@ subprojects { subproject ->
 			mockitoVersion = '1.9.5'
 			openJpaVersion = '2.4.0'
 			oracleDriverVersion = '11.2.0.3'
-			reactorVersion = '2.0.7.RELEASE'
+			reactorVersion = '2.0.8.RELEASE'
 			postgresVersion = '9.1-901-1.jdbc4'
 			subethasmtpVersion = '1.2'
 			slf4jVersion = '1.7.11'
 			springIntegrationVersion = '4.3.1.RELEASE'
-			springIntegrationDslVersion = '1.1.2.RELEASE'
+			springIntegrationDslVersion = '1.2.0.M1'
 			springIntegrationKafkaVersion = '2.0.1.RELEASE'
 			springIntegrationSplunkVersion = '1.1.0.RELEASE'
 			springKafkaVersion = '1.1.0.M1'
@@ -702,8 +701,6 @@ project('cafe-dsl') {
 		compile "org.springframework.integration:spring-integration-core:$springIntegrationVersion"
 		compile "com.google.guava:guava:$guavaVersion"
 		compile "org.springframework.integration:spring-integration-java-dsl:$springIntegrationDslVersion"
-		compile "io.projectreactor:reactor-stream:$reactorVersion"
-		compile "io.projectreactor.spring:reactor-spring-context:$reactorVersion"
 
 		testCompile 'org.springframework.boot:spring-boot-starter-test'
 	}
@@ -1011,7 +1008,6 @@ project('async-gateway') {
 	dependencies {
 		compile "org.springframework.integration:spring-integration-core:$springIntegrationVersion"
 		compile "io.projectreactor:reactor-stream:$reactorVersion"
-		compile "io.projectreactor.spring:reactor-spring-context:$reactorVersion"
 		compile "log4j:log4j:$log4jVersion"
 	}
 }
@@ -1336,6 +1332,38 @@ project('stomp-chat') {
 
 	springBoot {
 		mainClass = 'org.springframework.integration.samples.chat.stomp.server.Application'
+	}
+
+	tasks.withType(JavaExec) {
+		standardInput = System.in
+	}
+}
+
+project('kafka-dsl') {
+	description = 'Java DSL Kafka Sample'
+
+	apply plugin: 'spring-boot'
+
+	sourceCompatibility = 1.8
+
+	dependencies {
+		compile 'org.springframework.boot:spring-boot-starter-integration'
+		compile "org.springframework.integration:spring-integration-core:$springIntegrationVersion"
+		compile "org.springframework.integration:spring-integration-java-dsl:$springIntegrationDslVersion"
+		compile "org.springframework.kafka:spring-kafka:$springKafkaVersion"
+		compile ("org.springframework.kafka:spring-kafka-test:$springKafkaVersion") {
+			exclude group: 'org.slf4j'
+		}
+		compile "log4j:log4j:$log4jVersion"
+		testCompile 'org.springframework.boot:spring-boot-starter-test'
+	}
+	springBoot {
+		mainClass = 'org.springframework.integration.samples.dsl.kafka.Application'
+	}
+
+	task run(type: JavaExec) {
+		main 'org.springframework.integration.samples.dsl.kafka.Application'
+		classpath = sourceSets.main.runtimeClasspath
 	}
 
 	tasks.withType(JavaExec) {

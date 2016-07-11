@@ -104,12 +104,12 @@ public class Application {
 				.split("payload.items")
 				.channel(MessageChannels.executor(Executors.newCachedThreadPool()))
 				.route("payload.iced",
-						new Consumer<RouterSpec<ExpressionEvaluatingRouter>>() {
+						new Consumer<RouterSpec<Object, ExpressionEvaluatingRouter>>() {
 
 							@Override
-							public void accept(RouterSpec<ExpressionEvaluatingRouter> spec) {
-								spec.channelMapping("true", "iced")
-										.channelMapping("false", "hot");
+							public void accept(RouterSpec<Object, ExpressionEvaluatingRouter> spec) {
+								spec.channelMapping(true, "iced")
+										.channelMapping(false, "hot");
 							}
 
 						})

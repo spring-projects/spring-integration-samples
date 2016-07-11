@@ -23,9 +23,9 @@ import java.util.Random;
  */
 public class MathService {
 	private final Random random = new Random();
-	
+
 	public int multiplyByTwo(int i) throws Exception{
-		long sleep = random.nextInt(10) * 500;
+		long sleep = random.nextInt(10) * 100;
 		Thread.sleep(sleep);
 		return i*2;
 	}

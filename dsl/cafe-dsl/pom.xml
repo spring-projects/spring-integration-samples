@@ -4,7 +4,7 @@
   <parent>
     <groupId>org.springframework.boot</groupId>
     <artifactId>spring-boot-starter-parent</artifactId>
-    <version>1.4.0.RC1</version>
+    <version>1.4.0.RELEASE</version>
   </parent>
   <groupId>org.springframework.integration.samples</groupId>
   <artifactId>cafe-dsl</artifactId>
@@ -71,7 +71,7 @@
     <dependency>
       <groupId>org.springframework.integration</groupId>
       <artifactId>spring-integration-core</artifactId>
-      <version>4.3.0.RELEASE</version>
+      <version>4.3.1.RELEASE</version>
       <scope>compile</scope>
     </dependency>
     <dependency>
@@ -83,19 +83,7 @@
     <dependency>
       <groupId>org.springframework.integration</groupId>
       <artifactId>spring-integration-java-dsl</artifactId>
-      <version>1.1.2.RELEASE</version>
-      <scope>compile</scope>
-    </dependency>
-    <dependency>
-      <groupId>io.projectreactor</groupId>
-      <artifactId>reactor-stream</artifactId>
-      <version>2.0.7.RELEASE</version>
-      <scope>compile</scope>
-    </dependency>
-    <dependency>
-      <groupId>io.projectreactor.spring</groupId>
-      <artifactId>reactor-spring-context</artifactId>
-      <version>2.0.7.RELEASE</version>
+      <version>1.2.0.M1</version>
       <scope>compile</scope>
     </dependency>
     <dependency>
@@ -119,7 +107,7 @@
     <dependency>
       <groupId>org.springframework</groupId>
       <artifactId>spring-test</artifactId>
-      <version>4.3.0.RELEASE</version>
+      <version>4.3.2.RELEASE</version>
       <scope>test</scope>
     </dependency>
     <dependency>

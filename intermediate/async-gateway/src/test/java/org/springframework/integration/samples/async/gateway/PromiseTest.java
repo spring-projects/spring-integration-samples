@@ -47,7 +47,6 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import reactor.rx.Promise;
-import reactor.spring.context.config.EnableReactor;
 
 /**
  * @author Oleg Zhurakousky
@@ -97,27 +96,14 @@ public class PromiseTest {
 
 	@Configuration
 	@EnableIntegration
-	@EnableReactor
 	@ComponentScan
 	@IntegrationComponentScan
 	public static class TestConfig {
 
 		@Bean
-		public MessageChannel gatewayChannel() {
-			return new DirectChannel();
-		}
-
-		@Bean
 		@ServiceActivator(inputChannel = "mathServiceChannel")
 		public MathService mathService() {
 			return new MathService();
-		}
-
-		@Bean
-		public AsyncTaskExecutor exec() {
-			SimpleAsyncTaskExecutor simpleAsyncTaskExecutor = new SimpleAsyncTaskExecutor();
-			simpleAsyncTaskExecutor.setThreadNamePrefix("exec-");
-			return simpleAsyncTaskExecutor;
 		}
 
 	}
