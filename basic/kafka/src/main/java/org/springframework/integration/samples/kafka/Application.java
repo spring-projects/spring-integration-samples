@@ -44,6 +44,7 @@ import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.kafka.core.ProducerFactory;
 import org.springframework.kafka.listener.KafkaMessageListenerContainer;
 import org.springframework.kafka.listener.config.ContainerProperties;
+import org.springframework.kafka.support.KafkaNull;
 import org.springframework.kafka.support.TopicPartitionInitialOffset;
 import org.springframework.messaging.Message;
 import org.springframework.messaging.MessageChannel;
@@ -84,6 +85,7 @@ public class Application {
 		for (int i = 0; i < 10; i++) {
 			toKafka.send(new GenericMessage<>("foo" + i));
 		}
+		toKafka.send(new GenericMessage<>(KafkaNull.INSTANCE));
 		PollableChannel fromKafka = context.getBean("received", PollableChannel.class);
 		Message<?> received = fromKafka.receive(10000);
 		while (received != null) {
@@ -178,7 +180,7 @@ public class Application {
 			ZkUtils zkUtils = new ZkUtils(new ZkClient(this.zkConnect, 6000, 6000,
 				ZKStringSerializer$.MODULE$), null, false);
 			try {
-				AdminUtils.createTopic(zkUtils, topic, 1, 1, new Properties());
+				AdminUtils.createTopic(zkUtils, topic, 1, 1, new Properties(), null);
 			}
 			catch (TopicExistsException e) {
 				// no-op

@@ -197,12 +197,12 @@ subprojects { subproject ->
 			postgresVersion = '9.1-901-1.jdbc4'
 			subethasmtpVersion = '1.2'
 			slf4jVersion = '1.7.11'
-			springIntegrationVersion = '4.3.0.RELEASE'
+			springIntegrationVersion = '4.3.1.RELEASE'
 			springIntegrationDslVersion = '1.1.2.RELEASE'
-			springIntegrationKafkaVersion = '2.0.0.RELEASE'
+			springIntegrationKafkaVersion = '2.0.1.RELEASE'
 			springIntegrationSplunkVersion = '1.1.0.RELEASE'
-			springKafkaVersion = '1.0.1.RELEASE'
-			springVersion = '4.3.0.RELEASE'
+			springKafkaVersion = '1.1.0.M1'
+			springVersion = '4.3.2.RELEASE'
 			springSecurityVersion = '4.0.2.RELEASE'
 			springWebFlowVersion = '2.3.3.RELEASE'
 			tilesJspVersion = '2.2.1'
@@ -609,6 +609,7 @@ project('kafka') {
 			exclude group: 'org.slf4j'
 		}
 		compile "org.springframework.integration:spring-integration-core:$springIntegrationVersion"
+		compile "org.springframework.kafka:spring-kafka:$springKafkaVersion"
 		compile ("org.springframework.kafka:spring-kafka-test:$springKafkaVersion") {
 			exclude group: 'org.slf4j'
 		}
