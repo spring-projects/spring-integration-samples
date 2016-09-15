@@ -87,7 +87,7 @@ public class Application {
 				.split(Order.class, Order::getItems)
 				.channel(c -> c.executor(Executors.newCachedThreadPool()))
 				.<OrderItem, Boolean>route(OrderItem::isIced, mapping -> mapping
-						.subFlowMapping("true", sf -> sf
+						.subFlowMapping(true, sf -> sf
 								.channel(c -> c.queue(10))
 								.publishSubscribeChannel(c -> c
 										.subscribe(s -> s.handle(m -> Uninterruptibles.sleepUninterruptibly(1, TimeUnit.SECONDS)))
@@ -97,7 +97,7 @@ public class Application {
 																+ " prepared cold drink #" + this.coldDrinkCounter.incrementAndGet()
 																+ " for order #" + p.getOrderNumber() + ": " + p)
 												.handle(m -> System.out.println(m.getPayload())))))
-						.subFlowMapping("false", sf -> sf
+						.subFlowMapping(false, sf -> sf
 								.channel(c -> c.queue(10))
 								.publishSubscribeChannel(c -> c
 										.subscribe(s -> s.handle(m -> Uninterruptibles.sleepUninterruptibly(5, TimeUnit.SECONDS)))
@@ -106,7 +106,8 @@ public class Application {
 														Thread.currentThread().getName()
 																+ " prepared hot drink #" + this.hotDrinkCounter.incrementAndGet()
 																+ " for order #" + p.getOrderNumber() + ": " + p)
-												.handle(m -> System.out.println(m.getPayload()))))))
+												.handle(m -> System.out.println(m.getPayload())))))
+						.defaultOutputToParentFlow())
 				.<OrderItem, Drink>transform(orderItem ->
 						new Drink(orderItem.getOrderNumber(),
 								orderItem.getDrinkType(),
