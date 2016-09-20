@@ -117,6 +117,7 @@ This category targets developers and architects who have a good understanding of
 * **cafe-scripted** - Scripted implementation of the classic **cafe** sample application. Supports **JavaScript**, **Groovy**, **Ruby**, and **Python**.
 * **loan-broker** - Simulates a simple banking application (Uses **Gateway**, **Chain**, **Header Enricher**, **Recipient List Router**, **Aggregator**) see [Appendix A of the reference documentation](http://docs.spring.io/spring-integration/reference/html/samples.html) for more details
 * **loanshark** This extension to the loan broker sample shows how to exchange messages between Spring Integration applications (and other technologies) using **UDP**.
+  **file-split-ftp** - Reads a file; splits into 3 based on contents; sends files over ftp; sends email with results.
 
 #Contributing
 
