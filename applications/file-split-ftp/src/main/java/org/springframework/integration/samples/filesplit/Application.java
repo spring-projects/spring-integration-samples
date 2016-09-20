@@ -27,21 +27,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.mail.MailProperties;
-import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.integration.dsl.IntegrationFlow;
 import org.springframework.integration.dsl.IntegrationFlows;
 import org.springframework.integration.dsl.core.Pollers;
 import org.springframework.integration.dsl.file.Files;
 import org.springframework.integration.dsl.mail.Mail;
-import org.springframework.integration.dsl.support.StringStringMapBuilder;
 import org.springframework.integration.file.FileHeaders;
 import org.springframework.integration.file.remote.session.SessionFactory;
 import org.springframework.integration.file.splitter.FileSplitter;
 import org.springframework.integration.file.support.FileExistsMode;
 import org.springframework.integration.ftp.session.DefaultFtpSessionFactory;
 import org.springframework.integration.http.config.EnableIntegrationGraphController;
-import org.springframework.integration.router.PayloadTypeRouter;
 import org.springframework.messaging.Message;
 import org.springframework.messaging.MessageHeaders;
 import org.springframework.messaging.MessagingException;
@@ -50,7 +47,6 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 @SpringBootApplication
-@EnableConfigurationProperties(MailProperties.class)
 @EnableIntegrationGraphController
 public class Application {
 
@@ -63,23 +59,22 @@ public class Application {
 	@Autowired
 	private MailProperties mailProperties;
 
+	/**
+	 * Poll for files, add an error channel, split into lines route the start/end markers
+	 * to {@link #markers()} and the lines to {@link #lines()}.
+	 * @return the flow.
+	 */
 	@Bean
 	public IntegrationFlow fromFile() {
 		return IntegrationFlows.from(Files.inboundAdapter(new File("/tmp/in"))
+					.preventDuplicates(false)
 					.patternFilter("*.txt"), e -> e.poller(Pollers.fixedDelay(5000)))
 				.enrichHeaders(h -> h.header(MessageHeaders.ERROR_CHANNEL, "tfrErrors.input"))
 				.handle(Files.splitter(true, true))
-				.route(ptr())
+				.<Object, Class<?>>route(Object::getClass, m -> m
+						.channelMapping(FileSplitter.FileMarker.class, "markers.input")
+						.channelMapping(String.class, "lines.input"))
 				.get();
-	}
-
-	private PayloadTypeRouter ptr() {
-		PayloadTypeRouter payloadTypeRouter = new PayloadTypeRouter();
-		payloadTypeRouter.setChannelMappings(new StringStringMapBuilder()
-				.put(FileSplitter.FileMarker.class.getName(), "markers.input")
-				.put(String.class.getName(), "lines.input")
-				.get());
-		return payloadTypeRouter;
 	}
 
 	/**
@@ -104,11 +99,11 @@ public class Application {
 	@Bean
 	public IntegrationFlow markers() {
 		return f -> f.<FileSplitter.FileMarker>filter(m -> m.getMark().equals(FileSplitter.FileMarker.Mark.END),
-						e -> e.id("markerFilter").discardChannel("nullChannel")) // INT-4109
+						e -> e.id("markerFilter"))
 				.publishSubscribeChannel(s -> s
 
 						// first trigger file flushes
-						.subscribe(sf -> sf.transform("'/tmp/out/.*\\.txt'")
+						.subscribe(sf -> sf.transform("'/tmp/out/.*\\.txt'", e -> e.id("toTriggerPattern"))
 										.handle("fileOut.handler", "trigger", e -> e.id("flusher")))
 
 						// send the first file
@@ -127,7 +122,7 @@ public class Application {
 								.handleWithAdapter(a -> a.ftp(ftp3()).remoteDirectory("foo"), e -> e.id("ftp009")))
 
 						// send an email
-						.subscribe(sf -> sf.<FileSplitter.FileMarker, String>transform(p -> p.getFilePath())
+						.subscribe(sf -> sf.transform(FileSplitter.FileMarker::getFilePath)
 								.enrichHeaders(Mail.headers()
 										.subject("File successfully split and transferred")
 										.from("foo@bar")
@@ -176,19 +171,15 @@ public class Application {
 				.enrichHeaders(h -> h.header(EMAIL_SUCCESS_SUFFIX, ".failed")
 						.headerExpression(FileHeaders.ORIGINAL_FILE, "payload.failedMessage.headers['"
 								+ FileHeaders.ORIGINAL_FILE + "']"))
-				.<MessagingException, String>transform(p -> {
-					StringBuilder builder = new StringBuilder();
-					builder.append(p.getFailedMessage().getPayload().toString()).append("\n")
-						.append(getStackTraceAsString(p));
-					return builder.toString();
-				})
+				.<MessagingException, String>transform(p ->
+						p.getFailedMessage().getPayload().toString() + "\n" + getStackTraceAsString(p))
 				.channel("toMail.input");
 	}
 
 	@Bean
 	public IntegrationFlow toMail() {
 		return f ->  f.handleWithAdapter(a -> a.mail(this.mailProperties.getHost())
-						.javaMailProperties(b -> b.put("mail.debug", "true"))
+//						.javaMailProperties(b -> b.put("mail.debug", "true"))
 						.port(this.mailProperties.getPort())
 						.credentials(this.mailProperties.getUsername(), this.mailProperties.getPassword()),
 						e -> e.id("mailOut").advice(afterMailAdvice()));

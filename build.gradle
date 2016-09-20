@@ -1379,9 +1379,11 @@ project('file-split-ftp') {
 	dependencies {
 		compile 'org.springframework.boot:spring-boot-starter-web'
 		compile 'org.springframework.boot:spring-boot-starter-integration'
+		compile "org.springframework.integration:spring-integration-core:$springIntegrationVersion"
 		compile "org.springframework.integration:spring-integration-ftp:$springIntegrationVersion"
 		compile "org.springframework.integration:spring-integration-http:$springIntegrationVersion"
 		compile "org.springframework.integration:spring-integration-mail:$springIntegrationVersion"
+		compile "org.springframework.integration:spring-integration-java-dsl:$springIntegrationDslVersion"
 		compile "org.springframework.integration:spring-integration-test:5.0.0.BUILD-SNAPSHOT" // test mail server
 		compile "javax.mail:javax.mail-api:$javaxMailVersion"
 		compile "com.sun.mail:javax.mail:$javaxMailVersion"
@@ -1390,11 +1392,11 @@ project('file-split-ftp') {
 	}
 
 	springBoot {
-		mainClass = 'org.springframework.integration.samples.barrier.Application'
+		mainClass = 'org.springframework.integration.samples.filesplit.Application'
 	}
 
 	task run(type: JavaExec) {
-		main 'org.springframework.integration.samples.barrier.Application'
+		main 'org.springframework.integration.samples.filesplit.Application'
 		classpath = sourceSets.main.runtimeClasspath
 	}
 }
