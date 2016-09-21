@@ -34,6 +34,7 @@ import org.springframework.integration.dsl.core.Pollers;
 import org.springframework.integration.dsl.file.Files;
 import org.springframework.integration.dsl.mail.Mail;
 import org.springframework.integration.file.FileHeaders;
+import org.springframework.integration.file.FileWritingMessageHandler;
 import org.springframework.integration.file.remote.session.SessionFactory;
 import org.springframework.integration.file.splitter.FileSplitter;
 import org.springframework.integration.file.support.FileExistsMode;
@@ -83,12 +84,16 @@ public class Application {
 	 */
 	@Bean
 	public IntegrationFlow lines() {
-		return f -> f.enrichHeaders(h -> h.headerExpression(
-						FileHeaders.FILENAME, "payload.substring(1, 4) + '.txt'", true))
-				.handle(Files.outboundAdapter("'/tmp/out'")
-						.appendNewLine(true)
-						.fileExistsMode(FileExistsMode.APPEND_NO_FLUSH), // files remain open for efficiency
-							e -> e.id("fileOut"));
+		return f -> f.handle(fileOut());
+	}
+
+	@Bean
+	public FileWritingMessageHandler fileOut() {
+		return Files.outboundAdapter("'/tmp/out'")
+				.appendNewLine(true)
+				.fileNameExpression("payload.substring(1, 4) + '.txt'")
+				.fileExistsMode(FileExistsMode.APPEND_NO_FLUSH) // files remain open for efficiency
+				.get();
 	}
 
 	/**
@@ -104,7 +109,7 @@ public class Application {
 
 						// first trigger file flushes
 						.subscribe(sf -> sf.transform("'/tmp/out/.*\\.txt'", e -> e.id("toTriggerPattern"))
-										.handle("fileOut.handler", "trigger", e -> e.id("flusher")))
+										.handle("fileOut", "trigger", e -> e.id("flusher")))
 
 						// send the first file
 						.subscribe(sf -> sf.<FileSplitter.FileMarker, File>transform(p -> new File("/tmp/out/002.txt"))
