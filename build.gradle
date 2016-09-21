@@ -189,7 +189,7 @@ subprojects { subproject ->
 			junitVersion = '4.12'
 			jythonVersion = '2.5.3'
 			log4jVersion = '1.2.17'
-			mockitoVersion = '1.9.5'
+			mockitoVersion = '1.10.19'
 			openJpaVersion = '2.4.0'
 			oracleDriverVersion = '11.2.0.3'
 			reactorVersion = '2.0.8.RELEASE'
@@ -1370,6 +1370,37 @@ project('kafka-dsl') {
 		standardInput = System.in
 	}
 }
+
+project('file-split-ftp') {
+	description = 'File Split FTP'
+
+	apply plugin: 'spring-boot'
+
+	dependencies {
+		compile 'org.springframework.boot:spring-boot-starter-web'
+		compile 'org.springframework.boot:spring-boot-starter-integration'
+		compile "org.springframework.integration:spring-integration-core:$springIntegrationVersion"
+		compile "org.springframework.integration:spring-integration-ftp:$springIntegrationVersion"
+		compile "org.springframework.integration:spring-integration-http:$springIntegrationVersion"
+		compile "org.springframework.integration:spring-integration-mail:$springIntegrationVersion"
+		compile "org.springframework.integration:spring-integration-java-dsl:$springIntegrationDslVersion"
+		compile "org.springframework.integration:spring-integration-test:5.0.0.BUILD-SNAPSHOT" // test mail server
+		compile "javax.mail:javax.mail-api:$javaxMailVersion"
+		compile "com.sun.mail:javax.mail:$javaxMailVersion"
+
+		testCompile 'org.springframework.boot:spring-boot-starter-test'
+	}
+
+	springBoot {
+		mainClass = 'org.springframework.integration.samples.filesplit.Application'
+	}
+
+	task run(type: JavaExec) {
+		main 'org.springframework.integration.samples.filesplit.Application'
+		classpath = sourceSets.main.runtimeClasspath
+	}
+}
+
 
 sonarqube {
 	properties {

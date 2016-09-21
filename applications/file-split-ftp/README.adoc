@@ -1,0 +1,21 @@
+:imagesdir: ./images
+
+= File Split and FTP Sample
+
+- Looks for files `*.txt` in `/tmp/in`
+- Reads file and writes to 3 files based on account (first 4 bytes in file)
+- FileSplitter -> router [lines -> `lines`], [file marks -> `marks`]
+- `marks` filters on EOF marker (drops SOF)
+- pubsub [flush files], [ftp (x3)], [email result]
+- Exceptions go to `tfrErrors` - sends failure email
+- input file is renamed, based on final dispostion
+
+Test cases are provided for happy path and failure scenarios
+
+Run `ApplicationTests` as a JUnit test from your IDE.
+
+= Flow Visualization
+
+image::flo1.png[]
+
+image::flo2.png[]
