@@ -105,6 +105,7 @@ This category targets advanced developers who are quite familiar with Spring Int
 
 * **advanced-testing-examples** - Example test cases that show advanced techniques to test Spring Integration applications
 * **dynamic-ftp** - Demonstrates one technique for sending files to dynamic destinations.
+* **dynamic-tcp-client** - Demonstrates a technique for dynamically creating TCP clients.
 
 ## Applications
 

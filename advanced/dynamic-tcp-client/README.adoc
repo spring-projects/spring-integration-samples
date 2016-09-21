@@ -1,0 +1,16 @@
+= Dynamic TCP Client
+
+Demonstrates a technique to dynamically add TCP clients on-demand, with caching and LRU removal.
+
+Uses the http://https://github.com/spring-projects/spring-integration-java-dsl[Spring Integration Java DSL] Runtime flow registration feature.
+
+The code starts two inbound channel adapters on ports 1234 and 5678 and sends a message to each.
+
+Run from your favorite IDE, or from the command line `./gradlew :dynamic-tcp-client:run`.
+
+The output messages show that each was received from a different socket...
+
+```
+GenericMessage [payload=byte[3], headers={ip_tcp_remotePort=59000, ip_connectionId=localhost:59000:1234:fe482d5d-46d2-4708-bde8-afdcee6d3275, ip_localInetAddress=/127.0.0.1, ip_address=127.0.0.1, history=inOne,outputChannel, id=4c66210d-3855-28ad-833c-f6862d4263fb, ip_hostname=localhost, timestamp=1474483130778}]
+GenericMessage [payload=byte[3], headers={ip_tcp_remotePort=59001, ip_connectionId=localhost:59001:5678:e54f0ffe-83bc-40de-861f-9fa03df6e43d, ip_localInetAddress=/127.0.0.1, ip_address=127.0.0.1, history=inTwo,outputChannel, id=d6bd4319-00e1-550d-9511-3348d7fae907, ip_hostname=localhost, timestamp=1474483130784}]
+```
