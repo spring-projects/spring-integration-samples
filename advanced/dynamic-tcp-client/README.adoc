@@ -6,7 +6,7 @@ Uses the http://https://github.com/spring-projects/spring-integration-java-dsl[S
 
 The code starts two inbound channel adapters on ports 1234 and 5678 and sends a message to each.
 
-Run from your favorite IDE, or from the command line `mvn spring-boot:run`.
+Run from your favorite IDE, or from the command line `./gradlew :dynamic-tcp-client:run`.
 
 The output messages show that each was received from a different socket...
 
