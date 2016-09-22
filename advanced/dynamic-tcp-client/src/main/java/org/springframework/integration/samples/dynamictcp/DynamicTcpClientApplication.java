@@ -123,7 +123,7 @@ public class DynamicTcpClientApplication {
 		private IntegrationFlowContext flowContext;
 
 		@Override
-		protected Collection<MessageChannel> determineTargetChannels(Message<?> message) {
+		protected synchronized Collection<MessageChannel> determineTargetChannels(Message<?> message) {
 			MessageChannel channel = this.subFlows
 					.get("" + message.getHeaders().get("host") + message.getHeaders().get("port"));
 			if (channel == null) {
