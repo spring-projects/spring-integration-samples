@@ -146,7 +146,7 @@ public class DynamicTcpClientApplication {
 			handler.setConnectionFactory(cf);
 			IntegrationFlow flow = f -> f.handle(handler);
 			this.flowContext.register(hostPort + ".flow", flow);
-			MessageChannel channel = context.getBean(hostPort + ".flow.input", MessageChannel.class);
+			MessageChannel channel = this.flowContext.messagingTemplateFor(hostPort + ".flow").getDefaultDestination();
 			this.subFlows.put(hostPort, channel);
 			return channel;
 		}
