@@ -38,7 +38,7 @@ import org.springframework.integration.annotation.IntegrationComponentScan;
 import org.springframework.integration.annotation.MessagingGateway;
 import org.springframework.integration.dsl.IntegrationFlow;
 import org.springframework.integration.dsl.IntegrationFlows;
-import org.springframework.integration.dsl.kafka.Kafka09;
+import org.springframework.integration.dsl.kafka.Kafka;
 import org.springframework.kafka.core.ConsumerFactory;
 import org.springframework.kafka.core.DefaultKafkaConsumerFactory;
 import org.springframework.kafka.core.DefaultKafkaProducerFactory;
@@ -130,7 +130,7 @@ public class Application {
 	@Bean
 	public IntegrationFlow toKafka() {
 		return f -> f
-				.handle(Kafka09.outboundChannelAdapter(producerFactory())
+				.handle(Kafka.outboundChannelAdapter(producerFactory())
 						.topic(this.topic)
 						.messageKey(this.messageKey));
 	}
@@ -150,7 +150,7 @@ public class Application {
 	@Bean
 	public IntegrationFlow fromKafka() {
 		return IntegrationFlows
-				.from(Kafka09.messageDriverChannelAdapter(consumerFactory(), this.topic))
+				.from(Kafka.messageDrivenChannelAdapter(consumerFactory(), this.topic))
 				.channel(c -> c.queue("fromKafka"))
 				.get();
 	}

@@ -6,7 +6,6 @@ import java.util.LinkedHashMap;
 import java.util.Map.Entry;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.support.DefaultSingletonBeanRegistry;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
@@ -17,6 +16,7 @@ import org.springframework.integration.channel.QueueChannel;
 import org.springframework.integration.config.EnableMessageHistory;
 import org.springframework.integration.dsl.IntegrationFlow;
 import org.springframework.integration.dsl.context.IntegrationFlowContext;
+import org.springframework.integration.dsl.context.IntegrationFlowRegistration;
 import org.springframework.integration.ip.tcp.TcpReceivingChannelAdapter;
 import org.springframework.integration.ip.tcp.TcpSendingMessageHandler;
 import org.springframework.integration.ip.tcp.connection.TcpNetClientConnectionFactory;
@@ -54,15 +54,15 @@ public class DynamicTcpClientApplication {
 
 	@Bean
 	public IntegrationFlow toTcp() {
-		return f -> f.route(router());
-	}
-
-	@Bean
-	public TcpRouter router() {
-		return new TcpRouter();
+		return f -> f.route(new TcpRouter());
 	}
 
 	// Two servers
+
+	@Bean
+	public TcpNetServerConnectionFactory cfOne() {
+		return new TcpNetServerConnectionFactory(1234);
+	}
 
 	@Bean
 	public TcpReceivingChannelAdapter inOne(TcpNetServerConnectionFactory cfOne) {
@@ -73,8 +73,8 @@ public class DynamicTcpClientApplication {
 	}
 
 	@Bean
-	public TcpNetServerConnectionFactory cfOne() {
-		return new TcpNetServerConnectionFactory(1234);
+	public TcpNetServerConnectionFactory cfTwo() {
+		return new TcpNetServerConnectionFactory(5678);
 	}
 
 	@Bean
@@ -83,11 +83,6 @@ public class DynamicTcpClientApplication {
 		adapter.setConnectionFactory(cfTwo);
 		adapter.setOutputChannel(outputChannel());
 		return adapter;
-	}
-
-	@Bean
-	public TcpNetServerConnectionFactory cfTwo() {
-		return new TcpNetServerConnectionFactory(5678);
 	}
 
 	@Bean
@@ -117,15 +112,12 @@ public class DynamicTcpClientApplication {
 				};
 
 		@Autowired
-		private ConfigurableApplicationContext context;
-
-		@Autowired
 		private IntegrationFlowContext flowContext;
 
 		@Override
 		protected synchronized Collection<MessageChannel> determineTargetChannels(Message<?> message) {
 			MessageChannel channel = this.subFlows
-					.get("" + message.getHeaders().get("host") + message.getHeaders().get("port"));
+					.get(message.getHeaders().get("host", String.class) + message.getHeaders().get("port"));
 			if (channel == null) {
 				channel = createNewSubflow(message);
 			}
@@ -139,22 +131,22 @@ public class DynamicTcpClientApplication {
 			String hostPort = host + port;
 
 			TcpNetClientConnectionFactory cf = new TcpNetClientConnectionFactory(host, port);
-			this.context.getBeanFactory().registerSingleton(hostPort + ".cf", cf);
-			this.context.getBeanFactory().initializeBean(cf, hostPort+".cf");
-			cf.afterPropertiesSet();
 			TcpSendingMessageHandler handler = new TcpSendingMessageHandler();
 			handler.setConnectionFactory(cf);
 			IntegrationFlow flow = f -> f.handle(handler);
-			this.flowContext.register(hostPort + ".flow", flow);
-			MessageChannel channel = this.flowContext.messagingTemplateFor(hostPort + ".flow").getDefaultDestination();
-			this.subFlows.put(hostPort, channel);
-			return channel;
+			IntegrationFlowRegistration flowRegistration =
+					this.flowContext.registration(flow)
+							.addBean(cf)
+							.id(hostPort + ".flow")
+							.register();
+			MessageChannel inputChannel = flowRegistration.getInputChannel();
+			this.subFlows.put(hostPort, inputChannel);
+			return inputChannel;
 		}
 
 		private void removeSubFlow(Entry<String, MessageChannel> eldest) {
 			String hostPort = eldest.getKey();
 			this.flowContext.remove(hostPort + ".flow");
-			((DefaultSingletonBeanRegistry) this.context.getBeanFactory()).destroySingleton(hostPort + ".cf");
 		}
 
 	}

@@ -197,7 +197,7 @@ subprojects { subproject ->
 			subethasmtpVersion = '1.2'
 			slf4jVersion = '1.7.11'
 			springIntegrationVersion = '4.3.2.RELEASE'
-			springIntegrationDslVersion = '1.2.0.M2'
+			springIntegrationDslVersion = '1.2.0.RC1'
 			springIntegrationKafkaVersion = '2.1.0.RELEASE'
 			springIntegrationSplunkVersion = '1.1.0.RELEASE'
 			springKafkaVersion = '1.1.0.RELEASE'
@@ -1350,7 +1350,7 @@ project('kafka-dsl') {
 		compile 'org.springframework.boot:spring-boot-starter-integration'
 		compile "org.springframework.integration:spring-integration-core:$springIntegrationVersion"
 		compile "org.springframework.integration:spring-integration-java-dsl:$springIntegrationDslVersion"
-		compile "org.springframework.kafka:spring-kafka:$springKafkaVersion"
+		compile ("org.springframework.integration:spring-integration-kafka:$springIntegrationKafkaVersion")
 		compile ("org.springframework.kafka:spring-kafka-test:$springKafkaVersion") {
 			exclude group: 'org.slf4j'
 		}
