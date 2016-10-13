@@ -12,11 +12,16 @@
 
 	<int-http:inbound-gateway request-channel="receiveChannel"
                           path="/receiveGateway"
+                          mapped-request-headers="Content-Type"
                           supported-methods="POST"/>
 
 	<int:channel id="receiveChannel"/>
 
 	<int:chain input-channel="receiveChannel">
+		<int:header-enricher>
+			<int:header name="contentType" expression="headers['content-type']" />
+			<int:header name="conent-type" expression="null" overwrite="true" />
+		</int:header-enricher>
 		<int:header-filter header-names="content-type" />
 		<int:service-activator expression="payload + ' from the other side'"/>
 	</int:chain>

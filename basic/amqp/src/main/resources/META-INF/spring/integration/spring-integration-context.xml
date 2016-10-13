@@ -25,7 +25,7 @@
 
 	<!-- From RabbitMQ To STDOUT -->
 
-	<int-amqp:inbound-channel-adapter channel="fromRabbit"
+	<int-amqp:inbound-channel-adapter channel="fromRabbit" consumers-per-queue="1"
 		queue-names="si.test.queue" connection-factory="connectionFactory" />
 
 	<int:channel id="fromRabbit">

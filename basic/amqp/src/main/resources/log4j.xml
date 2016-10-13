@@ -11,6 +11,10 @@
 	</appender>
 
 	<!-- Loggers -->
+	<logger name="org.springframework.amqp">
+		<level value="debug" />
+	</logger>
+
 	<logger name="org.springframework.integration">
 		<level value="warn" />
 	</logger>

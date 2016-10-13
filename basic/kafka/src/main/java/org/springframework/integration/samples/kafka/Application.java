@@ -46,6 +46,7 @@ import org.springframework.kafka.listener.KafkaMessageListenerContainer;
 import org.springframework.kafka.listener.config.ContainerProperties;
 import org.springframework.kafka.support.KafkaNull;
 import org.springframework.kafka.support.TopicPartitionInitialOffset;
+import org.springframework.kafka.support.serializer.JsonDeserializer;
 import org.springframework.messaging.Message;
 import org.springframework.messaging.MessageChannel;
 import org.springframework.messaging.MessageHandler;
@@ -140,7 +141,9 @@ public class Application {
 		props.put(ConsumerConfig.SESSION_TIMEOUT_MS_CONFIG, 15000);
 		props.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
 		props.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
-		return new DefaultKafkaConsumerFactory<>(props);
+		final DefaultKafkaConsumerFactory<String, String> cf = new DefaultKafkaConsumerFactory<>(props);
+		cf.setValueDeserializer(new JsonDeserializer<>(String.class));
+		return cf;
 	}
 
 	@Bean

@@ -23,12 +23,14 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.ImportResource;
+import org.springframework.integration.http.config.EnableIntegrationGraphController;
 
 /**
  * @author Gary Russell
  * @since 4.2
  */
 @SpringBootApplication
+@EnableIntegrationGraphController
 @ImportResource("/META-INF/spring/integration/server-context.xml")
 public class Application {
 
@@ -51,9 +53,9 @@ public class Application {
 		System.out.println("\n\n++++++++++++ Sending: " + request + " ++++++++++++\n");
 		String reply = requestGateway.echo(request);
 		System.out.println("\n\n++++++++++++ Replied with: " + reply + " ++++++++++++\n");
-		client.close();
-		server.close();
-		System.exit(0); // AMQP-519
+//		client.close();
+//		server.close();
+//		System.exit(0); // AMQP-519
 	}
 
 
