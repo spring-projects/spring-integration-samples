@@ -28,7 +28,6 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.mail.MailProperties;
 import org.springframework.context.annotation.Bean;
-import org.springframework.integration.channel.DirectChannel;
 import org.springframework.integration.dsl.IntegrationFlow;
 import org.springframework.integration.dsl.IntegrationFlows;
 import org.springframework.integration.dsl.core.Pollers;
@@ -42,7 +41,6 @@ import org.springframework.integration.file.support.FileExistsMode;
 import org.springframework.integration.ftp.session.DefaultFtpSessionFactory;
 import org.springframework.integration.http.config.EnableIntegrationGraphController;
 import org.springframework.messaging.Message;
-import org.springframework.messaging.MessageChannel;
 import org.springframework.messaging.MessageHeaders;
 import org.springframework.messaging.MessagingException;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
@@ -71,7 +69,8 @@ public class Application {
 	public IntegrationFlow fromFile() {
 		return IntegrationFlows.from(Files.inboundAdapter(new File("/tmp/in"))
 					.preventDuplicates(false)
-					.patternFilter("*.txt"), e -> e.poller(Pollers.fixedDelay(5000).errorChannel(tfrErrorChannel())))
+					.patternFilter("*.txt"), e -> e.poller(Pollers.fixedDelay(5000)))
+				.enrichHeaders(h -> h.header(MessageHeaders.ERROR_CHANNEL, "tfrErrors.input"))
 				.handle(Files.splitter(true, true))
 				.<Object, Class<?>>route(Object::getClass, m -> m
 						.channelMapping(FileSplitter.FileMarker.class, "markers.input")
@@ -164,19 +163,13 @@ public class Application {
 		return ftp;
 	}
 
-	@Bean
-	public MessageChannel tfrErrorChannel() {
-		return new DirectChannel();
-	}
-
 	/**
 	 * Error flow - email failure
 	 * @return the flow.
 	 */
 	@Bean
 	public IntegrationFlow tfrErrors() {
-		return IntegrationFlows.from(tfrErrorChannel())
-				.enrichHeaders(Mail.headers()
+		return f -> f.enrichHeaders(Mail.headers()
 					.subject("File split and transfer failed")
 					.from("foo@bar")
 					.toFunction(m -> new String[] {"bar@baz"}))
@@ -185,8 +178,7 @@ public class Application {
 								+ FileHeaders.ORIGINAL_FILE + "']"))
 				.<MessagingException, String>transform(p ->
 						p.getFailedMessage().getPayload().toString() + "\n" + getStackTraceAsString(p))
-				.channel("toMail.input")
-				.get();
+				.channel("toMail.input");
 	}
 
 	@Bean

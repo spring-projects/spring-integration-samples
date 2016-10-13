@@ -174,7 +174,7 @@ subprojects { subproject ->
 			groovyVersion = '2.3.0'
 			hsqldbVersion = '2.3.2'
 			h2Version = '1.3.175'
-			jacksonVersion = '2.6.7'
+			jacksonVersion = '2.3.2'
 			jasyptVersion = '1.7'
 			javaxInjectVersion = '1'
 			javaxMailVersion = '1.5.5'
@@ -201,7 +201,7 @@ subprojects { subproject ->
 			springIntegrationKafkaVersion = '2.1.0.RELEASE'
 			springIntegrationSplunkVersion = '1.1.0.RELEASE'
 			springKafkaVersion = '1.1.0.RELEASE'
-			springVersion = '4.3.3.RELEASE'
+			springVersion = '4.3.2.RELEASE'
 			springSecurityVersion = '4.0.2.RELEASE'
 			springWebFlowVersion = '2.3.3.RELEASE'
 			tilesJspVersion = '2.2.1'
@@ -612,7 +612,6 @@ project('kafka') {
 		compile ("org.springframework.kafka:spring-kafka-test:$springKafkaVersion") {
 			exclude group: 'org.slf4j'
 		}
-		compile "com.fasterxml.jackson.core:jackson-databind:$jacksonVersion"
 
 		compile "log4j:log4j:$log4jVersion"
 
