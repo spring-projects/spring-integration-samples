@@ -109,7 +109,7 @@ public class ApplicationTests {
 		in.renameTo(new File("/tmp/in/", "foo.txt"));
 		File out = new File("/tmp/out/002.txt");
 		int n = 0;
-		while(n++ < 100 && !out.exists() && out.length() < 12) {
+		while(n++ < 100 && (!out.exists() || out.length() < 12)) {
 			Thread.sleep(100);
 		}
 		assertThat(out.exists()).isTrue();

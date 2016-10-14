@@ -28,7 +28,6 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.mail.MailProperties;
 import org.springframework.context.annotation.Bean;
-import org.springframework.integration.channel.DirectChannel;
 import org.springframework.integration.dsl.IntegrationFlow;
 import org.springframework.integration.dsl.IntegrationFlows;
 import org.springframework.integration.dsl.core.Pollers;
@@ -42,7 +41,6 @@ import org.springframework.integration.file.support.FileExistsMode;
 import org.springframework.integration.ftp.session.DefaultFtpSessionFactory;
 import org.springframework.integration.http.config.EnableIntegrationGraphController;
 import org.springframework.messaging.Message;
-import org.springframework.messaging.MessageChannel;
 import org.springframework.messaging.MessageHeaders;
 import org.springframework.messaging.MessagingException;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
@@ -69,9 +67,11 @@ public class Application {
 	 */
 	@Bean
 	public IntegrationFlow fromFile() {
-		return IntegrationFlows.from(Files.inboundAdapter(new File("/tmp/in"))
-					.preventDuplicates(false)
-					.patternFilter("*.txt"), e -> e.poller(Pollers.fixedDelay(5000).errorChannel(tfrErrorChannel())))
+		return IntegrationFlows.from(
+				Files.inboundAdapter(new File("/tmp/in"))
+						.preventDuplicates(false)
+						.patternFilter("*.txt"), e -> e.poller(Pollers.fixedDelay(5000)
+						.errorChannel("tfrErrors.input")))
 				.handle(Files.splitter(true, true))
 				.<Object, Class<?>>route(Object::getClass, m -> m
 						.channelMapping(FileSplitter.FileMarker.class, "markers.input")
@@ -92,7 +92,7 @@ public class Application {
 	public FileWritingMessageHandler fileOut() {
 		return Files.outboundAdapter("'/tmp/out'")
 				.appendNewLine(true)
-				.fileNameExpression("payload.substring(1, 4) + '.txt'")
+				.fileNameGenerator(m -> m.getPayload().toString().substring(1, 4) + ".txt")
 				.fileExistsMode(FileExistsMode.APPEND_NO_FLUSH) // files remain open for efficiency
 				.get();
 	}
@@ -105,12 +105,12 @@ public class Application {
 	@Bean
 	public IntegrationFlow markers() {
 		return f -> f.<FileSplitter.FileMarker>filter(m -> m.getMark().equals(FileSplitter.FileMarker.Mark.END),
-						e -> e.id("markerFilter"))
+				e -> e.id("markerFilter"))
 				.publishSubscribeChannel(s -> s
 
 						// first trigger file flushes
 						.subscribe(sf -> sf.transform("'/tmp/out/.*\\.txt'", e -> e.id("toTriggerPattern"))
-										.handle("fileOut", "trigger", e -> e.id("flusher")))
+								.trigger("fileOut", e -> e.id("flusher")))
 
 						// send the first file
 						.subscribe(sf -> sf.<FileSplitter.FileMarker, File>transform(p -> new File("/tmp/out/002.txt"))
@@ -132,7 +132,7 @@ public class Application {
 								.enrichHeaders(Mail.headers()
 										.subject("File successfully split and transferred")
 										.from("foo@bar")
-										.toFunction(m -> new String[] {"bar@baz"}))
+										.toFunction(m -> new String[] { "bar@baz" }))
 								.enrichHeaders(h -> h.header(EMAIL_SUCCESS_SUFFIX, ".success"))
 								.channel("toMail.input")));
 	}
@@ -164,38 +164,32 @@ public class Application {
 		return ftp;
 	}
 
-	@Bean
-	public MessageChannel tfrErrorChannel() {
-		return new DirectChannel();
-	}
-
 	/**
 	 * Error flow - email failure
 	 * @return the flow.
 	 */
 	@Bean
 	public IntegrationFlow tfrErrors() {
-		return IntegrationFlows.from(tfrErrorChannel())
+		return f -> f
 				.enrichHeaders(Mail.headers()
-					.subject("File split and transfer failed")
-					.from("foo@bar")
-					.toFunction(m -> new String[] {"bar@baz"}))
+						.subject("File split and transfer failed")
+						.from("foo@bar")
+						.toFunction(m -> new String[] { "bar@baz" }))
 				.enrichHeaders(h -> h.header(EMAIL_SUCCESS_SUFFIX, ".failed")
 						.headerExpression(FileHeaders.ORIGINAL_FILE, "payload.failedMessage.headers['"
 								+ FileHeaders.ORIGINAL_FILE + "']"))
 				.<MessagingException, String>transform(p ->
 						p.getFailedMessage().getPayload().toString() + "\n" + getStackTraceAsString(p))
-				.channel("toMail.input")
-				.get();
+				.channel("toMail.input");
 	}
 
 	@Bean
 	public IntegrationFlow toMail() {
-		return f ->  f.handleWithAdapter(a -> a.mail(this.mailProperties.getHost())
+		return f -> f.handleWithAdapter(a -> a.mail(this.mailProperties.getHost())
 //						.javaMailProperties(b -> b.put("mail.debug", "true"))
 						.port(this.mailProperties.getPort())
 						.credentials(this.mailProperties.getUsername(), this.mailProperties.getPassword()),
-						e -> e.id("mailOut").advice(afterMailAdvice()));
+				e -> e.id("mailOut").advice(afterMailAdvice()));
 	}
 
 	/**
@@ -225,6 +219,7 @@ public class Application {
 	@Bean
 	public WebMvcConfigurer corsConfigurer() {
 		return new WebMvcConfigurerAdapter() {
+
 			@Override
 			public void addCorsMappings(CorsRegistry registry) {
 				registry.addMapping("/integration").allowedOrigins("http://localhost:8082");
