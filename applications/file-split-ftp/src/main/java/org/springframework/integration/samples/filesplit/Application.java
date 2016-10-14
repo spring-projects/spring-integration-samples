@@ -31,6 +31,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.integration.dsl.IntegrationFlow;
 import org.springframework.integration.dsl.IntegrationFlows;
 import org.springframework.integration.dsl.core.Pollers;
+import org.springframework.integration.dsl.file.FileWritingMessageHandlerSpec;
 import org.springframework.integration.dsl.file.Files;
 import org.springframework.integration.dsl.mail.Mail;
 import org.springframework.integration.file.FileHeaders;
@@ -62,7 +63,7 @@ public class Application {
 
 	/**
 	 * Poll for files, add an error channel, split into lines route the start/end markers
-	 * to {@link #markers()} and the lines to {@link #lines()}.
+	 * to {@link #markers()} and the lines to {@link #lines}.
 	 * @return the flow.
 	 */
 	@Bean
@@ -84,17 +85,16 @@ public class Application {
 	 * @return the flow.
 	 */
 	@Bean
-	public IntegrationFlow lines() {
-		return f -> f.handle(fileOut());
+	public IntegrationFlow lines(FileWritingMessageHandler fileOut) {
+		return f -> f.handle(fileOut);
 	}
 
 	@Bean
-	public FileWritingMessageHandler fileOut() {
+	public FileWritingMessageHandlerSpec fileOut() {
 		return Files.outboundAdapter("'/tmp/out'")
 				.appendNewLine(true)
-				.fileNameGenerator(m -> m.getPayload().toString().substring(1, 4) + ".txt")
-				.fileExistsMode(FileExistsMode.APPEND_NO_FLUSH) // files remain open for efficiency
-				.get();
+				.fileNameExpression("payload.substring(1, 4) + '.txt'")
+				.fileExistsMode(FileExistsMode.APPEND_NO_FLUSH); // files remain open for efficiency
 	}
 
 	/**
