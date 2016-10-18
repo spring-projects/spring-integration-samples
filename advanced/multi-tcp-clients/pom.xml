@@ -90,32 +90,12 @@
       <url>https://repo.spring.io/libs-milestone</url>
     </repository>
   </repositories>
- <build>
-        <finalName>multi-tcp-clients</finalName>
-        <sourceDirectory>src/main/java</sourceDirectory>
-        <pluginManagement>
-            <plugins>
-                    <plugin>
-                        <groupId>org.springframework.boot</groupId>
-                        <artifactId>spring-boot-maven-plugin</artifactId>
-                        <version>1.4.1.RELEASE</version>
-                        <executions>
-                            <execution>
-                                <goals>
-                                    <goal>repackage</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                    </plugin>
-                    <plugin>
-                        <artifactId>maven-eclipse-plugin</artifactId>
-                        <version>2.10</version>
-                        <configuration>
-                            <downloadSources>true</downloadSources>
-                            <downloadJavadocs>true</downloadJavadocs>
-                        </configuration>
-                    </plugin>
-            </plugins>
-         </pluginManagement>
-    </build>
+   <build>
+    <plugins>
+      <plugin>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-maven-plugin</artifactId>
+      </plugin>
+    </plugins>
+  </build>
 </project>
