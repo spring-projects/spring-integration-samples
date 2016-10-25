@@ -118,12 +118,20 @@ public class ApplicationTests {
 		br.close();
 		out.delete();
 		out = new File("/tmp/out/006.txt");
+		n = 0;
+		while(n++ < 100 && (!out.exists() || out.length() < 12)) {
+			Thread.sleep(100);
+		}
 		assertThat(out.exists()).isTrue();
 		br = new BufferedReader(new FileReader(out));
 		assertThat(br.readLine()).isEqualTo("*006,baz,qux");
 		br.close();
 		out.delete();
 		out = new File("/tmp/out/009.txt");
+		n = 0;
+		while(n++ < 100 && (!out.exists() || out.length() < 12)) {
+			Thread.sleep(100);
+		}
 		assertThat(out.exists()).isTrue();
 		br = new BufferedReader(new FileReader(out));
 		assertThat(br.readLine()).isEqualTo("*009,fiz,buz");
