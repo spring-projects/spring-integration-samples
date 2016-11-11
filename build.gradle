@@ -103,7 +103,7 @@ subprojects { subproject ->
 					}
 				}
 
-				if (subproject.plugins.hasPlugin('spring-boot')) {
+				if (subproject.plugins.hasPlugin('org.springframework.boot')) {
 					parent {
 						groupId = 'org.springframework.boot'
 						artifactId = 'spring-boot-starter-parent'
@@ -124,7 +124,7 @@ subprojects { subproject ->
 										.appendNode('contextPath', '/' + subproject.name)
 					}
 				}
-				if (subproject.plugins.hasPlugin('spring-boot')) {
+				if (subproject.plugins.hasPlugin('org.springframework.boot')) {
 					asNode().appendNode('build').appendNode('plugins')
 							.appendNode('plugin').with {
 									appendNode('groupId', 'org.springframework.boot')
@@ -449,7 +449,7 @@ project('amqp') {
 project('barrier') {
 	description = 'Barrier Sample'
 
-	apply plugin: 'spring-boot'
+	apply plugin: 'org.springframework.boot'
 
 	dependencies {
 		compile 'org.springframework.boot:spring-boot-starter-web'
@@ -578,7 +578,7 @@ project('http') {
 project('splunk') {
 	description = 'Splunk Sample'
 
-	apply plugin: 'spring-boot'
+	apply plugin: 'org.springframework.boot'
 
 	dependencies {
 		compile 'org.springframework.boot:spring-boot-starter-integration'
@@ -600,7 +600,7 @@ project('splunk') {
 project('kafka') {
 	description = 'Apache Kafka Sample'
 
-	apply plugin: 'spring-boot'
+	apply plugin: 'org.springframework.boot'
 
 	dependencies {
 		compile 'org.springframework.boot:spring-boot-starter-integration'
@@ -631,7 +631,7 @@ project('kafka') {
 project('mqtt') {
 	description = 'MQTT Basic Sample'
 
-	apply plugin: 'spring-boot'
+	apply plugin: 'org.springframework.boot'
 
 	sourceCompatibility = 1.8
 
@@ -660,7 +660,7 @@ project('mqtt') {
 project('si4demo') {
 	description = 'Java Configuration/DSL Sample'
 
-	apply plugin: 'spring-boot'
+	apply plugin: 'org.springframework.boot'
 
 	sourceCompatibility = 1.8
 
@@ -691,7 +691,7 @@ project('si4demo') {
 project('cafe-dsl') {
 	description = 'Java DSL Cafe Sample'
 
-	apply plugin: 'spring-boot'
+	apply plugin: 'org.springframework.boot'
 
 	sourceCompatibility = 1.8
 
@@ -767,7 +767,7 @@ project('jpa') {
 	description = 'JPA Basic Sample'
 
 	apply plugin: 'application'
-	apply plugin: 'spring-boot'
+	apply plugin: 'org.springframework.boot'
 
 	mainClassName = 'org.springframework.integration.samples.jpa.Main'
 
@@ -1298,7 +1298,7 @@ project('tx-synch') {
 project('web-sockets') {
 	description = 'Web Sockets Basic Sample'
 
-	apply plugin: 'spring-boot'
+	apply plugin: 'org.springframework.boot'
 
 	dependencies {
 		compile 'org.springframework.boot:spring-boot-starter-websocket'
@@ -1319,7 +1319,7 @@ project('web-sockets') {
 project('stomp-chat') {
 	description = 'Web Sockets Stomp Chat Sample'
 
-	apply plugin: 'spring-boot'
+	apply plugin: 'org.springframework.boot'
 
 	dependencies {
 		compile 'org.springframework.boot:spring-boot-starter-websocket'
@@ -1342,7 +1342,7 @@ project('stomp-chat') {
 project('kafka-dsl') {
 	description = 'Java DSL Kafka Sample'
 
-	apply plugin: 'spring-boot'
+	apply plugin: 'org.springframework.boot'
 
 	sourceCompatibility = 1.8
 
@@ -1374,7 +1374,7 @@ project('kafka-dsl') {
 project('file-split-ftp') {
 	description = 'File Split FTP'
 
-	apply plugin: 'spring-boot'
+	apply plugin: 'org.springframework.boot'
 
 	dependencies {
 		compile 'org.springframework.boot:spring-boot-starter-web'
@@ -1404,7 +1404,7 @@ project('file-split-ftp') {
 project('dynamic-tcp-client') {
 	description = 'Dynamic TCP Client'
 
-	apply plugin: 'spring-boot'
+	apply plugin: 'org.springframework.boot'
 
 	dependencies {
 		compile 'org.springframework.boot:spring-boot-starter-integration'
