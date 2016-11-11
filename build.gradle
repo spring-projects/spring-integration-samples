@@ -196,7 +196,7 @@ subprojects { subproject ->
 			postgresVersion = '9.1-901-1.jdbc4'
 			subethasmtpVersion = '1.2'
 			slf4jVersion = '1.7.11'
-			springIntegrationVersion = '4.3.5.RELEASE'
+			springIntegrationVersion = '4.3.6.BUILD-SNAPSHOT'
 			springIntegrationDslVersion = '1.2.1.RELEASE'
 			springIntegrationKafkaVersion = '2.1.0.RELEASE'
 			springIntegrationSplunkVersion = '1.1.0.RELEASE'
@@ -1384,11 +1384,11 @@ project('file-split-ftp') {
 		compile "org.springframework.integration:spring-integration-http:$springIntegrationVersion"
 		compile "org.springframework.integration:spring-integration-mail:$springIntegrationVersion"
 		compile "org.springframework.integration:spring-integration-java-dsl:$springIntegrationDslVersion"
-		compile "org.springframework.integration:spring-integration-test:5.0.0.BUILD-SNAPSHOT" // test mail server
 		compile "javax.mail:javax.mail-api:$javaxMailVersion"
 		compile "com.sun.mail:javax.mail:$javaxMailVersion"
 
 		testCompile 'org.springframework.boot:spring-boot-starter-test'
+		testCompile "org.springframework.integration:spring-integration-test:$springIntegrationVersion"
 	}
 
 	springBoot {
