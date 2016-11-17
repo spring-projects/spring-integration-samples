@@ -7,7 +7,7 @@
 			http://www.springframework.org/schema/integration
 			http://www.springframework.org/schema/integration/spring-integration.xsd">
 
-	<bean id="connectionFactory" class="org.springframework.jms.connection.CachingConnectionFactory">
+	<bean id="jmsConnectionFactory" class="org.springframework.jms.connection.CachingConnectionFactory">
 		<property name="targetConnectionFactory">
 			<bean class="org.apache.activemq.ActiveMQConnectionFactory">
 				<property name="brokerURL" value="vm://localhost"/>

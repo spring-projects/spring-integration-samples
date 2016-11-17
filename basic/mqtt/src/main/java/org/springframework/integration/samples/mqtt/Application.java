@@ -23,7 +23,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.integration.annotation.IntegrationComponentScan;
 import org.springframework.integration.dsl.IntegrationFlow;
 import org.springframework.integration.dsl.IntegrationFlows;
-import org.springframework.integration.dsl.core.Pollers;
+import org.springframework.integration.dsl.Pollers;
 import org.springframework.integration.endpoint.MessageProducerSupport;
 import org.springframework.integration.handler.LoggingHandler;
 import org.springframework.integration.mqtt.core.DefaultMqttPahoClientFactory;

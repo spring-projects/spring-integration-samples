@@ -68,7 +68,7 @@
 
 	<int:service-activator input-channel="subscribe" output-channel="nullChannel"
 						   expression="@chatRoomSessions[headers.simpDestination]
-						   					.add(T(reactor.tuple.Tuple).of(headers.simpSessionId, headers.simpSubscriptionId))"/>
+						   					.add(T(reactor.util.function.Tuples).of(headers.simpSessionId, headers.simpSubscriptionId))"/>
 
 	<int:chain input-channel="subscribe" output-channel="sendMessage">
 		<int:header-enricher>
@@ -92,7 +92,7 @@
 	<int:outbound-channel-adapter id="unsubscribe">
 		<int-groovy:script>
 			chatRoomSessions.each { k, v ->
-			v.remove(reactor.tuple.Tuple.of(headers.simpSessionId, headers.simpSubscriptionId))
+			v.remove(reactor.util.function.Tuples.of(headers.simpSessionId, headers.simpSubscriptionId))
 			}
 			null
 		</int-groovy:script>

@@ -28,7 +28,7 @@ import org.springframework.integration.annotation.MessagingGateway;
 import org.springframework.integration.channel.DirectChannel;
 import org.springframework.integration.dsl.IntegrationFlow;
 import org.springframework.integration.dsl.IntegrationFlows;
-import org.springframework.integration.dsl.mail.Mail;
+import org.springframework.integration.mail.dsl.Mail;
 import org.springframework.integration.samples.si4demo.springone.GMailProperties;
 import org.springframework.messaging.MessageChannel;
 

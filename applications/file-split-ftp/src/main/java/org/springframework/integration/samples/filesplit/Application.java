@@ -22,7 +22,6 @@ import java.io.StringWriter;
 
 import org.aopalliance.intercept.MethodInterceptor;
 import org.apache.commons.net.ftp.FTPFile;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -30,17 +29,18 @@ import org.springframework.boot.autoconfigure.mail.MailProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.integration.dsl.IntegrationFlow;
 import org.springframework.integration.dsl.IntegrationFlows;
-import org.springframework.integration.dsl.core.Pollers;
-import org.springframework.integration.dsl.file.FileWritingMessageHandlerSpec;
-import org.springframework.integration.dsl.file.Files;
-import org.springframework.integration.dsl.mail.Mail;
+import org.springframework.integration.dsl.Pollers;
 import org.springframework.integration.file.FileHeaders;
 import org.springframework.integration.file.FileWritingMessageHandler;
+import org.springframework.integration.file.dsl.FileWritingMessageHandlerSpec;
+import org.springframework.integration.file.dsl.Files;
 import org.springframework.integration.file.remote.session.SessionFactory;
 import org.springframework.integration.file.splitter.FileSplitter;
 import org.springframework.integration.file.support.FileExistsMode;
+import org.springframework.integration.ftp.dsl.Ftp;
 import org.springframework.integration.ftp.session.DefaultFtpSessionFactory;
 import org.springframework.integration.http.config.EnableIntegrationGraphController;
+import org.springframework.integration.mail.dsl.Mail;
 import org.springframework.messaging.Message;
 import org.springframework.messaging.MessageHeaders;
 import org.springframework.messaging.MessagingException;
@@ -64,6 +64,7 @@ public class Application {
 	/**
 	 * Poll for files, add an error channel, split into lines route the start/end markers
 	 * to {@link #markers()} and the lines to {@link #lines}.
+	 *
 	 * @return the flow.
 	 */
 	@Bean
@@ -82,6 +83,7 @@ public class Application {
 
 	/**
 	 * Process lines; append (no flush) to the appropriate file.
+	 *
 	 * @return the flow.
 	 */
 	@Bean
@@ -100,6 +102,7 @@ public class Application {
 	/**
 	 * Process file markers; ignore START, when END, flush the files, ftp them and
 	 * send an email.
+	 *
 	 * @return the flow.
 	 */
 	@Bean
@@ -115,24 +118,24 @@ public class Application {
 						// send the first file
 						.subscribe(sf -> sf.<FileSplitter.FileMarker, File>transform(p -> new File("/tmp/out/002.txt"))
 								.enrichHeaders(h -> h.header(FileHeaders.FILENAME, "002.txt", true))
-								.handleWithAdapter(a -> a.ftp(ftp1()).remoteDirectory("foo"), e -> e.id("ftp002")))
+								.handle(Ftp.outboundAdapter(ftp1()).remoteDirectory("foo"), e -> e.id("ftp002")))
 
 						// send the second file
 						.subscribe(sf -> sf.<FileSplitter.FileMarker, File>transform(p -> new File("/tmp/out/006.txt"))
 								.enrichHeaders(h -> h.header(FileHeaders.FILENAME, "006.txt", true))
-								.handleWithAdapter(a -> a.ftp(ftp2()).remoteDirectory("foo"), e -> e.id("ftp006")))
+								.handle(Ftp.outboundAdapter(ftp2()).remoteDirectory("foo"), e -> e.id("ftp006")))
 
 						// send the third file
 						.subscribe(sf -> sf.<FileSplitter.FileMarker, File>transform(p -> new File("/tmp/out/009.txt"))
 								.enrichHeaders(h -> h.header(FileHeaders.FILENAME, "009.txt", true))
-								.handleWithAdapter(a -> a.ftp(ftp3()).remoteDirectory("foo"), e -> e.id("ftp009")))
+								.handle(Ftp.outboundAdapter(ftp3()).remoteDirectory("foo"), e -> e.id("ftp009")))
 
 						// send an email
 						.subscribe(sf -> sf.transform(FileSplitter.FileMarker::getFilePath)
 								.enrichHeaders(Mail.headers()
 										.subject("File successfully split and transferred")
 										.from("foo@bar")
-										.toFunction(m -> new String[] { "bar@baz" }))
+										.toFunction(m -> new String[]{"bar@baz"}))
 								.enrichHeaders(h -> h.header(EMAIL_SUCCESS_SUFFIX, ".success"))
 								.channel("toMail.input")));
 	}
@@ -166,6 +169,7 @@ public class Application {
 
 	/**
 	 * Error flow - email failure
+	 *
 	 * @return the flow.
 	 */
 	@Bean
@@ -174,7 +178,7 @@ public class Application {
 				.enrichHeaders(Mail.headers()
 						.subject("File split and transfer failed")
 						.from("foo@bar")
-						.toFunction(m -> new String[] { "bar@baz" }))
+						.toFunction(m -> new String[]{"bar@baz"}))
 				.enrichHeaders(h -> h.header(EMAIL_SUCCESS_SUFFIX, ".failed")
 						.headerExpression(FileHeaders.ORIGINAL_FILE, "payload.failedMessage.headers['"
 								+ FileHeaders.ORIGINAL_FILE + "']"))
@@ -185,15 +189,17 @@ public class Application {
 
 	@Bean
 	public IntegrationFlow toMail() {
-		return f -> f.handleWithAdapter(a -> a.mail(this.mailProperties.getHost())
+		return f -> f
+				.handle(Mail.outboundAdapter(this.mailProperties.getHost())
 //						.javaMailProperties(b -> b.put("mail.debug", "true"))
-						.port(this.mailProperties.getPort())
-						.credentials(this.mailProperties.getUsername(), this.mailProperties.getPassword()),
-				e -> e.id("mailOut").advice(afterMailAdvice()));
+								.port(this.mailProperties.getPort())
+								.credentials(this.mailProperties.getUsername(), this.mailProperties.getPassword()),
+						e -> e.id("mailOut").advice(afterMailAdvice()));
 	}
 
 	/**
 	 * Rename the input file after success/failure.
+	 *
 	 * @return the flow.
 	 */
 	@Bean
