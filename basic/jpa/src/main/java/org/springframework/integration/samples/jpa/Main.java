@@ -65,8 +65,7 @@ public class Main {
 
 		System.out.println("Please enter a choice and press <enter>: ");
 		System.out.println("\t1. Use Hibernate");
-		System.out.println("\t2. Use OpenJPA");
-		System.out.println("\t3. Use EclipseLink");
+		System.out.println("\t2. Use EclipseLink");
 
 		System.out.println("\tq. Quit the application");
 		System.out.print("Enter you choice: ");
@@ -80,9 +79,6 @@ public class Main {
 				springApplicationBuilder.sources(HibernateJpaAutoConfiguration.class);
 				break;
 			} else if("2".equals(input.trim())) {
-				springApplicationBuilder.profiles("openJpa");
-				break;
-			} else if("3".equals(input.trim())) {
 				springApplicationBuilder.profiles("eclipseLink");
 				break;
 			} else if("q".equals(input.trim())) {

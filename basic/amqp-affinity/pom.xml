@@ -4,7 +4,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.springframework.integration.samples</groupId>
   <artifactId>amqp-affinity</artifactId>
-  <version>4.3.0.BUILD-SNAPSHOT</version>
+  <version>5.0.0.BUILD-SNAPSHOT</version>
   <url>http://projects.spring.io/spring-integration</url>
   <organization>
     <name>SpringIO</name>
@@ -72,7 +72,7 @@
     <dependency>
       <groupId>org.springframework</groupId>
       <artifactId>spring-test</artifactId>
-      <version>4.3.2.RELEASE</version>
+      <version>5.0.0.BUILD-SNAPSHOT</version>
       <scope>test</scope>
     </dependency>
   </dependencies>

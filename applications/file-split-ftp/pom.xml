@@ -4,11 +4,11 @@
   <parent>
     <groupId>org.springframework.boot</groupId>
     <artifactId>spring-boot-starter-parent</artifactId>
-    <version>1.4.2.RELEASE</version>
+    <version>2.0.0.BUILD-SNAPSHOT</version>
   </parent>
   <groupId>org.springframework.integration.samples</groupId>
   <artifactId>file-split-ftp</artifactId>
-  <version>4.3.0.BUILD-SNAPSHOT</version>
+  <version>5.0.0.BUILD-SNAPSHOT</version>
   <name>File Split FTP</name>
   <description>File Split FTP</description>
   <url>http://projects.spring.io/spring-integration</url>
@@ -70,31 +70,25 @@
     <dependency>
       <groupId>org.springframework.integration</groupId>
       <artifactId>spring-integration-core</artifactId>
-      <version>4.3.6.BUILD-SNAPSHOT</version>
+      <version>5.0.0.BUILD-SNAPSHOT</version>
       <scope>compile</scope>
     </dependency>
     <dependency>
       <groupId>org.springframework.integration</groupId>
       <artifactId>spring-integration-ftp</artifactId>
-      <version>4.3.6.BUILD-SNAPSHOT</version>
+      <version>5.0.0.BUILD-SNAPSHOT</version>
       <scope>compile</scope>
     </dependency>
     <dependency>
       <groupId>org.springframework.integration</groupId>
       <artifactId>spring-integration-http</artifactId>
-      <version>4.3.6.BUILD-SNAPSHOT</version>
+      <version>5.0.0.BUILD-SNAPSHOT</version>
       <scope>compile</scope>
     </dependency>
     <dependency>
       <groupId>org.springframework.integration</groupId>
       <artifactId>spring-integration-mail</artifactId>
-      <version>4.3.6.BUILD-SNAPSHOT</version>
-      <scope>compile</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.springframework.integration</groupId>
-      <artifactId>spring-integration-java-dsl</artifactId>
-      <version>1.2.1.RELEASE</version>
+      <version>5.0.0.BUILD-SNAPSHOT</version>
       <scope>compile</scope>
     </dependency>
     <dependency>
@@ -130,7 +124,7 @@
     <dependency>
       <groupId>org.springframework</groupId>
       <artifactId>spring-test</artifactId>
-      <version>4.3.2.RELEASE</version>
+      <version>5.0.0.BUILD-SNAPSHOT</version>
       <scope>test</scope>
     </dependency>
     <dependency>
@@ -141,7 +135,7 @@
     <dependency>
       <groupId>org.springframework.integration</groupId>
       <artifactId>spring-integration-test</artifactId>
-      <version>4.3.6.BUILD-SNAPSHOT</version>
+      <version>5.0.0.BUILD-SNAPSHOT</version>
       <scope>test</scope>
     </dependency>
   </dependencies>

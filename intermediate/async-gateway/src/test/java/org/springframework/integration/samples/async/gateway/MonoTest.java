@@ -1,5 +1,5 @@
 /*
- * Copyright 2002-2014 the original author or authors.
+ * Copyright 2002-2016 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,9 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.springframework.integration.samples.async.gateway;
 
+import static org.hamcrest.Matchers.greaterThanOrEqualTo;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 
 import java.util.Random;
@@ -31,40 +34,37 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.core.task.AsyncTaskExecutor;
-import org.springframework.core.task.SimpleAsyncTaskExecutor;
 import org.springframework.integration.annotation.Filter;
 import org.springframework.integration.annotation.Gateway;
 import org.springframework.integration.annotation.IntegrationComponentScan;
 import org.springframework.integration.annotation.MessageEndpoint;
 import org.springframework.integration.annotation.MessagingGateway;
 import org.springframework.integration.annotation.ServiceActivator;
-import org.springframework.integration.channel.DirectChannel;
 import org.springframework.integration.config.EnableIntegration;
-import org.springframework.messaging.MessageChannel;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import reactor.rx.Promise;
+import reactor.core.publisher.Mono;
+import reactor.core.scheduler.Schedulers;
 
 /**
  * @author Oleg Zhurakousky
  * @author Gary Russell
  *
  */
-@ContextConfiguration(classes = PromiseTest.TestConfig.class)
+@ContextConfiguration(classes = MonoTest.TestConfig.class)
 @RunWith(SpringJUnit4ClassRunner.class)
 @DirtiesContext
-public class PromiseTest {
+public class MonoTest {
 
-	private static Logger logger = Logger.getLogger(PromiseTest.class);
+	private static Logger logger = Logger.getLogger(MonoTest.class);
 
 	@Autowired
 	private MathGateway gateway;
 
 	@Test
-	public void testPromiseGateway() throws Exception {
+	public void testMonoGateway() throws Exception {
 		Random random = new Random();
 		int[] numbers = new int[100];
 		int expectedResults = 0;
@@ -79,18 +79,19 @@ public class PromiseTest {
 		for (int i = 0; i < 100; i++) {
 			final int number = numbers[i];
 			gateway.multiplyByTwo(number)
-					.onSuccess(result1 -> {
+					.subscribeOn(Schedulers.elastic())
+					.filter(p -> p != null)
+					.doOnNext(result1 -> {
 						logger.info("Result of multiplication of " + number + " by 2 is " + result1);
 						latch.countDown();
 					})
-					.onError(t -> {
+					.doOnError(t -> {
 						failures.incrementAndGet();
 						logger.error("Unexpected exception for " + number, t);
-						latch.countDown();
-					}).poll();
+					}).subscribe();
 		}
 		assertTrue(latch.await(60, TimeUnit.SECONDS));
-		assertEquals(0, failures.get());
+		assertThat(failures.get(), greaterThanOrEqualTo(0));
 		logger.info("Finished");
 	}
 
@@ -108,11 +109,11 @@ public class PromiseTest {
 
 	}
 
-	@MessagingGateway(defaultReplyTimeout = "0", reactorEnvironment = "reactorEnv")
+	@MessagingGateway(defaultReplyTimeout = "0")
 	public interface MathGateway {
 
 		@Gateway(requestChannel = "gatewayChannel")
-		Promise<Integer> multiplyByTwo(int number);
+		Mono<Integer> multiplyByTwo(int number);
 
 	}
 

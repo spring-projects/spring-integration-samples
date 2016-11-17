@@ -29,7 +29,7 @@ import org.springframework.integration.annotation.Gateway;
 import org.springframework.integration.annotation.IntegrationComponentScan;
 import org.springframework.integration.annotation.MessagingGateway;
 import org.springframework.integration.dsl.IntegrationFlow;
-import org.springframework.integration.dsl.core.Pollers;
+import org.springframework.integration.dsl.Pollers;
 import org.springframework.integration.samples.cafe.Delivery;
 import org.springframework.integration.samples.cafe.Drink;
 import org.springframework.integration.samples.cafe.DrinkType;

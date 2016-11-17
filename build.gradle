@@ -8,7 +8,7 @@ buildscript {
 	}
 }
 plugins {
-	id "org.sonarqube" version "1.2"
+	id "org.sonarqube" version "2.1"
 }
 
 description = 'Spring Integration Samples'
@@ -147,15 +147,18 @@ subprojects { subproject ->
 		apply plugin: 'jacoco'
 
 		jacoco {
-			toolVersion = "0.7.2.201409121644"
+			toolVersion = "0.7.7.201606060606"
 		}
 
-		sourceCompatibility = 1.8
+		compileJava {
+			sourceCompatibility = 1.8
+			targetCompatibility = 1.8
+		}
 
 		ext {
-			activeMqVersion = '5.12.1'
-			apacheSshdVersion = '0.13.0'
-			aspectjVersion = '1.8.4'
+			activeMqVersion = '5.13.4'
+			apacheSshdVersion = '0.14.0'
+			aspectjVersion = '1.8.9'
 			commonsDigesterVersion = '2.0'
 			commonsDbcpVersion = '1.2.2'
 			commonsFileUploadVersion = '1.2.2'
@@ -181,7 +184,7 @@ subprojects { subproject ->
 			jodaTimeVersion = '1.6'
 			jtaVersion = '1.1'
 			jtdsVersion = '1.2.6'
-			jmsApiVersion = '1.1-rev-1'
+			jmsApiVersion = '2.0.1'
 			jrubyVersion = '1.7.12'
 			jpa21ApiVersion = '1.0.0.Final'
 			jpaApiVersion = '2.0.0'
@@ -192,17 +195,15 @@ subprojects { subproject ->
 			mockitoVersion = '1.10.19'
 			openJpaVersion = '2.4.0'
 			oracleDriverVersion = '11.2.0.3'
-			reactorVersion = '2.0.8.RELEASE'
 			postgresVersion = '9.1-901-1.jdbc4'
 			subethasmtpVersion = '1.2'
 			slf4jVersion = '1.7.11'
-			springIntegrationVersion = '4.3.6.BUILD-SNAPSHOT'
-			springIntegrationDslVersion = '1.2.1.RELEASE'
-			springIntegrationKafkaVersion = '2.1.0.RELEASE'
+			springIntegrationVersion = '5.0.0.BUILD-SNAPSHOT'
+			springIntegrationKafkaVersion = '3.0.0.BUILD-SNAPSHOT'
 			springIntegrationSplunkVersion = '1.1.0.RELEASE'
-			springKafkaVersion = '1.1.0.RELEASE'
-			springVersion = '4.3.2.RELEASE'
-			springSecurityVersion = '4.0.2.RELEASE'
+			springKafkaVersion = '1.1.2.BUILD-SNAPSHOT'
+			springVersion = '5.0.0.BUILD-SNAPSHOT'
+			springSecurityVersion = '4.2.0.RELEASE'
 			springWebFlowVersion = '2.3.3.RELEASE'
 			tilesJspVersion = '2.2.1'
 			validationApiVersion = '1.0.0.GA'
@@ -279,7 +280,7 @@ project('advanced-testing-examples') {
 	description = 'Advanced Testing Examples'
 
 	dependencies {
-		compile "javax.jms:jms-api:$jmsApiVersion"
+		compile "javax.jms:javax.jms-api:$jmsApiVersion"
 		compile "org.springframework.integration:spring-integration-jms:$springIntegrationVersion"
 		compile "org.springframework.integration:spring-integration-groovy:$springIntegrationVersion"
 		compile "log4j:log4j:$log4jVersion"
@@ -329,6 +330,7 @@ project('cafe-jms') {
 			exclude group: "org.springframework"
 		}
 		compile "org.springframework.integration:spring-integration-jms:$springIntegrationVersion"
+		compile "javax.jms:javax.jms-api:$jmsApiVersion"
 		compile "log4j:log4j:$log4jVersion"
 	}
 }
@@ -633,13 +635,10 @@ project('mqtt') {
 
 	apply plugin: 'org.springframework.boot'
 
-	sourceCompatibility = 1.8
-
 	dependencies {
 		compile 'org.springframework.boot:spring-boot-starter-integration'
 		compile "org.springframework.integration:spring-integration-stream:$springIntegrationVersion"
 		compile "org.springframework.integration:spring-integration-mqtt:$springIntegrationVersion"
-		compile "org.springframework.integration:spring-integration-java-dsl:$springIntegrationDslVersion"
 	}
 
 	springBoot {
@@ -662,8 +661,6 @@ project('si4demo') {
 
 	apply plugin: 'org.springframework.boot'
 
-	sourceCompatibility = 1.8
-
 	dependencies {
 		compile 'org.springframework.boot:spring-boot-starter-web'
 		compile 'org.springframework.boot:spring-boot-starter-integration'
@@ -671,7 +668,6 @@ project('si4demo') {
 		compile "org.springframework.integration:spring-integration-twitter"
 		compile "org.springframework.integration:spring-integration-http"
 		compile "org.springframework.integration:spring-integration-ip"
-		compile "org.springframework.integration:spring-integration-java-dsl:$springIntegrationDslVersion"
 		compile "javax.mail:javax.mail-api:$javaxMailVersion"
 		compile "com.sun.mail:javax.mail:$javaxMailVersion"
 		compile "com.rometools:rome:1.5.0"
@@ -693,14 +689,11 @@ project('cafe-dsl') {
 
 	apply plugin: 'org.springframework.boot'
 
-	sourceCompatibility = 1.8
-
 	dependencies {
 		compile project(":cafe-si")
 		compile 'org.springframework.boot:spring-boot-starter-integration'
 		compile "org.springframework.integration:spring-integration-core:$springIntegrationVersion"
 		compile "com.google.guava:guava:$guavaVersion"
-		compile "org.springframework.integration:spring-integration-java-dsl:$springIntegrationDslVersion"
 
 		testCompile 'org.springframework.boot:spring-boot-starter-test'
 	}
@@ -741,6 +734,7 @@ project('jms') {
 	mainClassName = 'org.springframework.integration.samples.jms.Main'
 
 	dependencies {
+		compile "javax.jms:javax.jms-api:$jmsApiVersion"
 		compile "org.springframework.integration:spring-integration-jms:$springIntegrationVersion"
 		compile "org.springframework.integration:spring-integration-stream:$springIntegrationVersion"
 		compile "org.apache.activemq:activemq-broker:$activeMqVersion"
@@ -778,7 +772,6 @@ project('jpa') {
 		compile "org.hibernate.javax.persistence:hibernate-jpa-2.1-api:$jpa21ApiVersion"
 
 		runtime "org.springframework:spring-instrument:$springVersion"
-		runtime "org.apache.openjpa:openjpa:$openJpaVersion"
 		runtime "org.hibernate:hibernate-entitymanager:$hibernateVersion"
 		runtime "org.eclipse.persistence:org.eclipse.persistence.jpa:$eclipseLinkVersion"
 
@@ -794,7 +787,9 @@ project('jpa') {
 
 	tasks.withType(JavaExec) {
 		standardInput = System.in
-		jvmArgs classpath.files.findAll{it.name ==~ /(spring-instrument.+)|(openjpa-${openJpaVersion}.+)/}.collect{"-javaagent:$it"}
+		jvmArgs classpath.files.findAll {
+			it.name ==~ /(spring-instrument.+)/}.collect{"-javaagent:$it"
+		}
 	}
 
 }
@@ -1003,11 +998,8 @@ project('xmpp') {
 project('async-gateway') {
 	description = 'Async Gateway Sample'
 
-	sourceCompatibility = 1.8
-
 	dependencies {
 		compile "org.springframework.integration:spring-integration-core:$springIntegrationVersion"
-		compile "io.projectreactor:reactor-stream:$reactorVersion"
 		compile "log4j:log4j:$log4jVersion"
 	}
 }
@@ -1344,12 +1336,9 @@ project('kafka-dsl') {
 
 	apply plugin: 'org.springframework.boot'
 
-	sourceCompatibility = 1.8
-
 	dependencies {
 		compile 'org.springframework.boot:spring-boot-starter-integration'
 		compile "org.springframework.integration:spring-integration-core:$springIntegrationVersion"
-		compile "org.springframework.integration:spring-integration-java-dsl:$springIntegrationDslVersion"
 		compile ("org.springframework.integration:spring-integration-kafka:$springIntegrationKafkaVersion")
 		compile ("org.springframework.kafka:spring-kafka-test:$springKafkaVersion") {
 			exclude group: 'org.slf4j'
@@ -1383,7 +1372,6 @@ project('file-split-ftp') {
 		compile "org.springframework.integration:spring-integration-ftp:$springIntegrationVersion"
 		compile "org.springframework.integration:spring-integration-http:$springIntegrationVersion"
 		compile "org.springframework.integration:spring-integration-mail:$springIntegrationVersion"
-		compile "org.springframework.integration:spring-integration-java-dsl:$springIntegrationDslVersion"
 		compile "javax.mail:javax.mail-api:$javaxMailVersion"
 		compile "com.sun.mail:javax.mail:$javaxMailVersion"
 
@@ -1409,7 +1397,6 @@ project('dynamic-tcp-client') {
 	dependencies {
 		compile 'org.springframework.boot:spring-boot-starter-integration'
 		compile "org.springframework.integration:spring-integration-ip:$springIntegrationVersion"
-		compile "org.springframework.integration:spring-integration-java-dsl:$springIntegrationDslVersion"
 
 		testCompile 'org.springframework.boot:spring-boot-starter-test'
 	}
