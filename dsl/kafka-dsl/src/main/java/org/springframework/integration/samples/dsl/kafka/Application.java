@@ -46,7 +46,7 @@ import org.springframework.kafka.core.ProducerFactory;
 import org.springframework.messaging.Message;
 
 import kafka.admin.AdminUtils;
-import kafka.common.TopicExistsException;
+import org.apache.kafka.common.errors.TopicExistsException;
 import kafka.utils.ZKStringSerializer$;
 import kafka.utils.ZkUtils;
 

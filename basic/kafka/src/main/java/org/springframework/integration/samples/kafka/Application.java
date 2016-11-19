@@ -53,7 +53,7 @@ import org.springframework.messaging.PollableChannel;
 import org.springframework.messaging.support.GenericMessage;
 
 import kafka.admin.AdminUtils;
-import kafka.common.TopicExistsException;
+import org.apache.kafka.common.errors.TopicExistsException;
 import kafka.utils.ZKStringSerializer$;
 import kafka.utils.ZkUtils;
 
