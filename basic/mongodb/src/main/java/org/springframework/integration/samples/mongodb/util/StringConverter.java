@@ -16,6 +16,8 @@
 
 package org.springframework.integration.samples.mongodb.util;
 
+import org.bson.Document;
+import org.bson.conversions.Bson;
 import org.springframework.data.mapping.context.MappingContext;
 import org.springframework.data.mongodb.MongoDbFactory;
 import org.springframework.data.mongodb.core.convert.DefaultDbRefResolver;
@@ -40,28 +42,30 @@ public class StringConverter extends MappingMongoConverter {
 	}
 
 	@Override
-	public void write(Object source, DBObject target) {
+	public void write(Object source, Bson target) {
+		Document document = (Document) target;
 		String strPerson = (String) source;
 		String[] parsedStrPerson = StringUtils.tokenizeToStringArray(strPerson, ",");
-		target.put("fname", parsedStrPerson[0]);
-		target.put("lname", parsedStrPerson[1]);
+		document.put("fname", parsedStrPerson[0]);
+		document.put("lname", parsedStrPerson[1]);
 		DBObject innerObject = new BasicDBObject();
 		innerObject.put("city", parsedStrPerson[2]);
 		innerObject.put("street", parsedStrPerson[3]);
 		innerObject.put("zip", parsedStrPerson[4]);
 		innerObject.put("state", parsedStrPerson[5]);
-		target.put("address", innerObject);
+		document.put("address", innerObject);
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public <S> S read(Class<S> clazz, DBObject source) {
-		return (S) ((source.get("fname") + ", ")
-				+ source.get("lname") + ", "
-				+ source.get("city") + ", "
-				+ source.get("street") + ", "
-				+ source.get("zip") + ", "
-				+ source.get("state") + ", ");
+	public <S> S read(Class<S> clazz, Bson source) {
+		Document document = (Document) source;
+		return (S) ((document.get("fname") + ", ")
+				+ document.get("lname") + ", "
+				+ document.get("city") + ", "
+				+ document.get("street") + ", "
+				+ document.get("zip") + ", "
+				+ document.get("state") + ", ");
 	}
 
 }
