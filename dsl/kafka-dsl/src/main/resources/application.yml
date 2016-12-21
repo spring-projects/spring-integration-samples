@@ -1,7 +1,19 @@
 kafka:
-  broker:
-    address: localhost:9092
   zookeeper:
     connect: localhost:2181
   topic: si.topic
   messageKey: si.key
+spring:
+  kafka:
+    consumer:
+      group-id: siTestGroup
+      enable-auto-commit: true
+#      auto-commit-interval: 100
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+    producer:
+      batch-size: 16384
+      buffer-memory: 33554432
+      retries: 0
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer

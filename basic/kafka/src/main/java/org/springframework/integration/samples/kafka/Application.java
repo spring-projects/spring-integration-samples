@@ -16,18 +16,17 @@
 
 package org.springframework.integration.samples.kafka;
 
-import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
 
 import org.I0Itec.zkclient.ZkClient;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.clients.producer.ProducerConfig;
-import org.apache.kafka.common.serialization.StringDeserializer;
-import org.apache.kafka.common.serialization.StringSerializer;
+import org.apache.kafka.common.errors.TopicExistsException;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.kafka.KafkaProperties;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.SmartLifecycle;
@@ -53,7 +52,6 @@ import org.springframework.messaging.PollableChannel;
 import org.springframework.messaging.support.GenericMessage;
 
 import kafka.admin.AdminUtils;
-import org.apache.kafka.common.errors.TopicExistsException;
 import kafka.utils.ZKStringSerializer$;
 import kafka.utils.ZkUtils;
 
@@ -69,9 +67,6 @@ public class Application {
 
 	@Value("${kafka.messageKey}")
 	private String messageKey;
-
-	@Value("${kafka.broker.address}")
-	private String brokerAddress;
 
 	@Value("${kafka.zookeeper.connect}")
 	private String zookeeperConnect;
@@ -96,51 +91,36 @@ public class Application {
 		System.exit(0);
 	}
 
+	@Bean
+	public ProducerFactory<?, ?> kafkaProducerFactory(KafkaProperties properties) {
+		Map<String, Object> producerProperties = properties.buildProducerProperties();
+		producerProperties.put(ProducerConfig.LINGER_MS_CONFIG, 1);
+		return new DefaultKafkaProducerFactory<>(producerProperties);
+	}
+
 	@ServiceActivator(inputChannel = "toKafka")
 	@Bean
-	public MessageHandler handler() throws Exception {
+	public MessageHandler handler(KafkaTemplate<String, String> kafkaTemplate) {
 		KafkaProducerMessageHandler<String, String> handler =
-				new KafkaProducerMessageHandler<>(kafkaTemplate());
+				new KafkaProducerMessageHandler<>(kafkaTemplate);
 		handler.setTopicExpression(new LiteralExpression(this.topic));
 		handler.setMessageKeyExpression(new LiteralExpression(this.messageKey));
 		return handler;
 	}
 
 	@Bean
-	public KafkaTemplate<String, String> kafkaTemplate() {
-		return new KafkaTemplate<>(producerFactory());
+	public ConsumerFactory<?, ?> kafkaConsumerFactory(KafkaProperties properties) {
+		Map<String, Object> consumerProperties = properties
+				.buildConsumerProperties();
+		consumerProperties.put(ConsumerConfig.SESSION_TIMEOUT_MS_CONFIG, 15000);
+		return new DefaultKafkaConsumerFactory<>(consumerProperties);
 	}
 
 	@Bean
-	public ProducerFactory<String, String> producerFactory() {
-		Map<String, Object> props = new HashMap<>();
-		props.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, this.brokerAddress);
-		props.put(ProducerConfig.RETRIES_CONFIG, 0);
-		props.put(ProducerConfig.BATCH_SIZE_CONFIG, 16384);
-		props.put(ProducerConfig.LINGER_MS_CONFIG, 1);
-		props.put(ProducerConfig.BUFFER_MEMORY_CONFIG, 33554432);
-		props.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
-		props.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
-		return new DefaultKafkaProducerFactory<>(props);
-	}
-
-	@Bean
-	public KafkaMessageListenerContainer<String, String> container() throws Exception {
-		return new KafkaMessageListenerContainer<>(consumerFactory(),
+	public KafkaMessageListenerContainer<String, String> container(
+			ConsumerFactory<String, String> kafkaConsumerFactory) {
+		return new KafkaMessageListenerContainer<>(kafkaConsumerFactory,
 				new ContainerProperties(new TopicPartitionInitialOffset(this.topic, 0)));
-	}
-
-	@Bean
-	public ConsumerFactory<String, String> consumerFactory() {
-		Map<String, Object> props = new HashMap<>();
-		props.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, this.brokerAddress);
-		props.put(ConsumerConfig.GROUP_ID_CONFIG, "siTestGroup");
-		props.put(ConsumerConfig.ENABLE_AUTO_COMMIT_CONFIG, true);
-		props.put(ConsumerConfig.AUTO_COMMIT_INTERVAL_MS_CONFIG, 100);
-		props.put(ConsumerConfig.SESSION_TIMEOUT_MS_CONFIG, 15000);
-		props.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
-		props.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
-		return new DefaultKafkaConsumerFactory<>(props);
 	}
 
 	@Bean
