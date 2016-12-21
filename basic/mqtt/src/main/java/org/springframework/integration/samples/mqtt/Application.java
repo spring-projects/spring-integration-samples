@@ -20,7 +20,6 @@ import org.apache.log4j.Logger;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
-import org.springframework.integration.annotation.IntegrationComponentScan;
 import org.springframework.integration.dsl.IntegrationFlow;
 import org.springframework.integration.dsl.IntegrationFlows;
 import org.springframework.integration.dsl.Pollers;
@@ -41,7 +40,6 @@ import org.springframework.messaging.MessageHandler;
  *
  */
 @SpringBootApplication
-@IntegrationComponentScan
 public class Application {
 
 	private static final Logger LOGGER = Logger.getLogger(Application.class);

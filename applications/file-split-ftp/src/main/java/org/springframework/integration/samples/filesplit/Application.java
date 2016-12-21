@@ -22,6 +22,7 @@ import java.io.StringWriter;
 
 import org.aopalliance.intercept.MethodInterceptor;
 import org.apache.commons.net.ftp.FTPFile;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -44,12 +45,9 @@ import org.springframework.integration.mail.dsl.Mail;
 import org.springframework.messaging.Message;
 import org.springframework.messaging.MessageHeaders;
 import org.springframework.messaging.MessagingException;
-import org.springframework.web.servlet.config.annotation.CorsRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 @SpringBootApplication
-@EnableIntegrationGraphController
+@EnableIntegrationGraphController(allowedOrigins = "http://localhost:8082")
 public class Application {
 
 	private static final String EMAIL_SUCCESS_SUFFIX = "emailSuccessSuffix";
@@ -218,18 +216,6 @@ public class Application {
 						new File(originalFile.getAbsolutePath() + headers.get(EMAIL_SUCCESS_SUFFIX) + ".email.failed"));
 			}
 			return null;
-		};
-	}
-
-	// Integration Graph CORS
-	@Bean
-	public WebMvcConfigurer corsConfigurer() {
-		return new WebMvcConfigurerAdapter() {
-
-			@Override
-			public void addCorsMappings(CorsRegistry registry) {
-				registry.addMapping("/integration").allowedOrigins("http://localhost:8082");
-			}
 		};
 	}
 
