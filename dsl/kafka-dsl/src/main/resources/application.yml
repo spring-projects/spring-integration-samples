@@ -8,7 +8,7 @@ spring:
     consumer:
       group-id: siTestGroup
       enable-auto-commit: true
-#      auto-commit-interval: 100
+      auto-commit-interval: 100
       value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
       key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
     producer:

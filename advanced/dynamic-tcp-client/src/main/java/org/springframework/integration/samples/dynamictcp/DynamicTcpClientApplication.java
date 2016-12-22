@@ -10,7 +10,6 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.Bean;
-import org.springframework.integration.annotation.IntegrationComponentScan;
 import org.springframework.integration.annotation.MessagingGateway;
 import org.springframework.integration.channel.QueueChannel;
 import org.springframework.integration.config.EnableMessageHistory;
@@ -28,7 +27,6 @@ import org.springframework.messaging.handler.annotation.Header;
 import org.springframework.util.Assert;
 
 @SpringBootApplication
-@IntegrationComponentScan
 @EnableMessageHistory
 public class DynamicTcpClientApplication {
 

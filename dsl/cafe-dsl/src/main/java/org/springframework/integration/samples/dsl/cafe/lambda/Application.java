@@ -26,7 +26,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.integration.annotation.Gateway;
-import org.springframework.integration.annotation.IntegrationComponentScan;
 import org.springframework.integration.annotation.MessagingGateway;
 import org.springframework.integration.dsl.IntegrationFlow;
 import org.springframework.integration.dsl.Pollers;
@@ -45,7 +44,6 @@ import com.google.common.util.concurrent.Uninterruptibles;
  * @since 3.0
  */
 @SpringBootApplication
-@IntegrationComponentScan
 public class Application {
 
 	public static void main(String[] args) throws Exception {
