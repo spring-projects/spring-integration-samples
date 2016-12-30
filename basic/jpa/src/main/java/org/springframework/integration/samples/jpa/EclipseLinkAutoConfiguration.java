@@ -29,6 +29,7 @@ import org.springframework.boot.autoconfigure.condition.SpringBootCondition;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.boot.autoconfigure.orm.jpa.JpaBaseConfiguration;
 import org.springframework.boot.autoconfigure.orm.jpa.JpaProperties;
+import org.springframework.boot.autoconfigure.transaction.TransactionManagerCustomizers;
 import org.springframework.context.annotation.ConditionContext;
 import org.springframework.context.annotation.Conditional;
 import org.springframework.context.annotation.Configuration;
@@ -56,8 +57,9 @@ import org.springframework.util.ClassUtils;
 public class EclipseLinkAutoConfiguration extends JpaBaseConfiguration {
 
 	public EclipseLinkAutoConfiguration(DataSource dataSource, JpaProperties properties,
-			ObjectProvider<JtaTransactionManager> jtaTransactionManagerProvider) {
-		super(dataSource, properties, jtaTransactionManagerProvider);
+			ObjectProvider<JtaTransactionManager> jtaTransactionManagerProvider,
+			ObjectProvider<TransactionManagerCustomizers> transactionManagerCustomizers) {
+		super(dataSource, properties, jtaTransactionManagerProvider, transactionManagerCustomizers);
 	}
 
 	@Override
