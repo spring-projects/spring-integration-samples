@@ -63,6 +63,26 @@
       <scope>compile</scope>
       <exclusions>
         <exclusion>
+          <artifactId>jboss-interceptors-api_1.1_spec</artifactId>
+          <groupId>org.jboss.spec.javax.interceptor</groupId>
+        </exclusion>
+        <exclusion>
+          <artifactId>jsr250-api</artifactId>
+          <groupId>javax.annotation</groupId>
+        </exclusion>
+        <exclusion>
+          <artifactId>cdi-api</artifactId>
+          <groupId>javax.enterprise</groupId>
+        </exclusion>
+        <exclusion>
+          <artifactId>el-api</artifactId>
+          <groupId>javax.el</groupId>
+        </exclusion>
+        <exclusion>
+          <artifactId>javax.inject</artifactId>
+          <groupId>javax.inject</groupId>
+        </exclusion>
+        <exclusion>
           <artifactId>commons-logging</artifactId>
           <groupId>commons-logging</groupId>
         </exclusion>
@@ -74,6 +94,26 @@
       <version>5.0.0.BUILD-SNAPSHOT</version>
       <scope>compile</scope>
       <exclusions>
+        <exclusion>
+          <artifactId>jboss-interceptors-api_1.1_spec</artifactId>
+          <groupId>org.jboss.spec.javax.interceptor</groupId>
+        </exclusion>
+        <exclusion>
+          <artifactId>jsr250-api</artifactId>
+          <groupId>javax.annotation</groupId>
+        </exclusion>
+        <exclusion>
+          <artifactId>cdi-api</artifactId>
+          <groupId>javax.enterprise</groupId>
+        </exclusion>
+        <exclusion>
+          <artifactId>el-api</artifactId>
+          <groupId>javax.el</groupId>
+        </exclusion>
+        <exclusion>
+          <artifactId>javax.inject</artifactId>
+          <groupId>javax.inject</groupId>
+        </exclusion>
         <exclusion>
           <artifactId>commons-logging</artifactId>
           <groupId>commons-logging</groupId>
@@ -87,17 +127,25 @@
       <scope>compile</scope>
       <exclusions>
         <exclusion>
-          <artifactId>commons-logging</artifactId>
-          <groupId>commons-logging</groupId>
+          <artifactId>jboss-interceptors-api_1.1_spec</artifactId>
+          <groupId>org.jboss.spec.javax.interceptor</groupId>
         </exclusion>
-      </exclusions>
-    </dependency>
-    <dependency>
-      <groupId>org.hibernate.javax.persistence</groupId>
-      <artifactId>hibernate-jpa-2.1-api</artifactId>
-      <version>1.0.0.Final</version>
-      <scope>compile</scope>
-      <exclusions>
+        <exclusion>
+          <artifactId>jsr250-api</artifactId>
+          <groupId>javax.annotation</groupId>
+        </exclusion>
+        <exclusion>
+          <artifactId>cdi-api</artifactId>
+          <groupId>javax.enterprise</groupId>
+        </exclusion>
+        <exclusion>
+          <artifactId>el-api</artifactId>
+          <groupId>javax.el</groupId>
+        </exclusion>
+        <exclusion>
+          <artifactId>javax.inject</artifactId>
+          <groupId>javax.inject</groupId>
+        </exclusion>
         <exclusion>
           <artifactId>commons-logging</artifactId>
           <groupId>commons-logging</groupId>
@@ -111,17 +159,57 @@
       <scope>runtime</scope>
       <exclusions>
         <exclusion>
+          <artifactId>jboss-interceptors-api_1.1_spec</artifactId>
+          <groupId>org.jboss.spec.javax.interceptor</groupId>
+        </exclusion>
+        <exclusion>
+          <artifactId>jsr250-api</artifactId>
+          <groupId>javax.annotation</groupId>
+        </exclusion>
+        <exclusion>
+          <artifactId>cdi-api</artifactId>
+          <groupId>javax.enterprise</groupId>
+        </exclusion>
+        <exclusion>
+          <artifactId>el-api</artifactId>
+          <groupId>javax.el</groupId>
+        </exclusion>
+        <exclusion>
+          <artifactId>javax.inject</artifactId>
+          <groupId>javax.inject</groupId>
+        </exclusion>
+        <exclusion>
           <artifactId>commons-logging</artifactId>
           <groupId>commons-logging</groupId>
         </exclusion>
       </exclusions>
     </dependency>
     <dependency>
-      <groupId>org.hibernate</groupId>
-      <artifactId>hibernate-entitymanager</artifactId>
-      <version>5.0.9.Final</version>
+      <groupId>org.hibernate.javax.persistence</groupId>
+      <artifactId>hibernate-jpa-2.1-api</artifactId>
+      <version>1.0.0.Final</version>
       <scope>runtime</scope>
       <exclusions>
+        <exclusion>
+          <artifactId>jboss-interceptors-api_1.1_spec</artifactId>
+          <groupId>org.jboss.spec.javax.interceptor</groupId>
+        </exclusion>
+        <exclusion>
+          <artifactId>jsr250-api</artifactId>
+          <groupId>javax.annotation</groupId>
+        </exclusion>
+        <exclusion>
+          <artifactId>cdi-api</artifactId>
+          <groupId>javax.enterprise</groupId>
+        </exclusion>
+        <exclusion>
+          <artifactId>el-api</artifactId>
+          <groupId>javax.el</groupId>
+        </exclusion>
+        <exclusion>
+          <artifactId>javax.inject</artifactId>
+          <groupId>javax.inject</groupId>
+        </exclusion>
         <exclusion>
           <artifactId>commons-logging</artifactId>
           <groupId>commons-logging</groupId>
@@ -134,6 +222,26 @@
       <version>2.4.2</version>
       <scope>runtime</scope>
       <exclusions>
+        <exclusion>
+          <artifactId>jboss-interceptors-api_1.1_spec</artifactId>
+          <groupId>org.jboss.spec.javax.interceptor</groupId>
+        </exclusion>
+        <exclusion>
+          <artifactId>jsr250-api</artifactId>
+          <groupId>javax.annotation</groupId>
+        </exclusion>
+        <exclusion>
+          <artifactId>cdi-api</artifactId>
+          <groupId>javax.enterprise</groupId>
+        </exclusion>
+        <exclusion>
+          <artifactId>el-api</artifactId>
+          <groupId>javax.el</groupId>
+        </exclusion>
+        <exclusion>
+          <artifactId>javax.inject</artifactId>
+          <groupId>javax.inject</groupId>
+        </exclusion>
         <exclusion>
           <artifactId>commons-logging</artifactId>
           <groupId>commons-logging</groupId>

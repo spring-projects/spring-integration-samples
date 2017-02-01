@@ -1,5 +1,5 @@
 /*
- * Copyright 2015 the original author or authors.
+ * Copyright 2015-2017 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,6 +19,7 @@ package org.springframework.integration.samples.barrier;
 import org.springframework.amqp.rabbit.connection.CachingConnectionFactory;
 import org.springframework.boot.Banner.Mode;
 import org.springframework.boot.SpringApplication;
+import org.springframework.boot.WebApplicationType;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.context.ConfigurableApplicationContext;
@@ -43,7 +44,7 @@ public class Application {
 
 		ConfigurableApplicationContext client
 			= new SpringApplicationBuilder("/META-INF/spring/integration/client-context.xml")
-				.web(false)
+				.web(WebApplicationType.NONE)
 				.bannerMode(Mode.OFF)
 				.run(args);
 		RequestGateway requestGateway = client.getBean("requestGateway", RequestGateway.class);

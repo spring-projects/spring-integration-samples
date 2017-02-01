@@ -1,14 +1,13 @@
 kafka:
-  zookeeper:
-    connect: localhost:2181
   topic: si.topic
+  newTopic: si.new.topic
   messageKey: si.key
 spring:
   kafka:
     consumer:
       group-id: siTestGroup
-      enable-auto-commit: true
-      auto-commit-interval: 100
+      auto-offset-reset: earliest
+      enable-auto-commit: false
       value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
       key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
     producer:
