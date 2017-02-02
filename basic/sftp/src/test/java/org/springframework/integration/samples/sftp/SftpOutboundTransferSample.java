@@ -1,5 +1,5 @@
 /*
- * Copyright 2002-2014 the original author or authors.
+ * Copyright 2002-2017 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.springframework.integration.samples.sftp;
 
 import java.io.File;
@@ -46,7 +47,8 @@ public class SftpOutboundTransferSample {
 		final String destinationFileName = sourceFileName +"_foo";
 
 		final ClassPathXmlApplicationContext ac =
-			new ClassPathXmlApplicationContext("/META-INF/spring/integration/SftpOutboundTransferSample-context.xml", SftpOutboundTransferSample.class);
+			new ClassPathXmlApplicationContext("/META-INF/spring/integration/SftpOutboundTransferSample-context.xml",
+					SftpOutboundTransferSample.class);
 		@SuppressWarnings("unchecked")
 		SessionFactory<LsEntry> sessionFactory = ac.getBean(CachingSessionFactory.class);
 		RemoteFileTemplate<LsEntry> template = new RemoteFileTemplate<LsEntry>(sessionFactory);
@@ -63,7 +65,8 @@ public class SftpOutboundTransferSample {
 			inputChannel.send(message);
 			Thread.sleep(2000);
 
-			Assert.isTrue(SftpTestUtils.fileExists(template, destinationFileName));
+			Assert.isTrue(SftpTestUtils.fileExists(template, destinationFileName),
+					String.format("File '%s' does not exist.", destinationFileName));
 
 			System.out.println(String.format("Successfully transferred '%s' file to a " +
 					"remote location under the name '%s'", sourceFileName, destinationFileName));

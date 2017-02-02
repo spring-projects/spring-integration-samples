@@ -95,7 +95,7 @@ public class Application {
 		addAnotherListenerForTopics(this.properties.getNewTopic());
 		headers = Collections.singletonMap(KafkaHeaders.TOPIC, this.properties.getNewTopic());
 		for (int i = 0; i < 10; i++) {
-		    toKafka.send(new GenericMessage<>("foo" + i, headers));
+		    toKafka.send(new GenericMessage<>("bar" + i, headers));
 		}
 		received = fromKafka.receive(10000);
 		count = 0;

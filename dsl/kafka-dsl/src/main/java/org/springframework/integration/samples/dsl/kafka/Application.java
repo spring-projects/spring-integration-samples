@@ -1,5 +1,5 @@
 /*
- * Copyright 2016 the original author or authors.
+ * Copyright 2016-2017 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,30 +16,30 @@
 
 package org.springframework.integration.samples.dsl.kafka;
 
-import java.util.Properties;
+import java.util.Map;
 
-import javax.annotation.PostConstruct;
+import org.apache.kafka.clients.consumer.ConsumerConfig;
 
-import org.I0Itec.zkclient.ZkClient;
-import org.apache.kafka.common.errors.TopicExistsException;
-
-import org.springframework.beans.factory.annotation.Value;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.WebApplicationType;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.kafka.KafkaProperties;
 import org.springframework.boot.builder.SpringApplicationBuilder;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.integration.annotation.Gateway;
 import org.springframework.integration.annotation.MessagingGateway;
 import org.springframework.integration.dsl.IntegrationFlow;
 import org.springframework.integration.dsl.IntegrationFlows;
+import org.springframework.integration.dsl.context.IntegrationFlowContext;
 import org.springframework.integration.kafka.dsl.Kafka;
 import org.springframework.kafka.core.ConsumerFactory;
+import org.springframework.kafka.core.DefaultKafkaConsumerFactory;
 import org.springframework.kafka.core.KafkaTemplate;
+import org.springframework.kafka.support.KafkaHeaders;
 import org.springframework.messaging.Message;
-
-import kafka.admin.AdminUtils;
-import kafka.utils.ZKStringSerializer$;
-import kafka.utils.ZkUtils;
+import org.springframework.messaging.handler.annotation.Header;
 
 /**
  * @author Gary Russell
@@ -47,57 +47,53 @@ import kafka.utils.ZkUtils;
  * @since 4.3
  */
 @SpringBootApplication
+@EnableConfigurationProperties(KafkaAppProperties.class)
 public class Application {
 
 	public static void main(String[] args) throws Exception {
 		ConfigurableApplicationContext context =
 				new SpringApplicationBuilder(Application.class)
-				.web(false)
+				.web(WebApplicationType.NONE)
 				.run(args);
+		context.getBean(Application.class).runDemo(context);
+		context.close();
+	}
 
+	private void runDemo(ConfigurableApplicationContext context) {
 		KafkaGateway kafkaGateway = context.getBean(KafkaGateway.class);
+		System.out.println("Sending 10 messages...");
 		for (int i = 0; i < 10; i++) {
 			String message = "foo" + i;
 			System.out.println("Send to Kafka: " + message);
-			kafkaGateway.sendToKafka(message);
+			kafkaGateway.sendToKafka(message, this.properties.getTopic());
 		}
 
-		Message<?> received = kafkaGateway.receiveFromKafka();
-		while (received != null) {
+		for (int i = 0; i < 10; i++) {
+			Message<?> received = kafkaGateway.receiveFromKafka();
 			System.out.println(received);
-			received = kafkaGateway.receiveFromKafka();
 		}
-
+		System.out.println("Adding an adapter for a second topic and sending 10 messages...");
+		addAnotherListenerForTopics(this.properties.getNewTopic());
+		for (int i = 0; i < 10; i++) {
+			String message = "bar" + i;
+			System.out.println("Send to Kafka: " + message);
+			kafkaGateway.sendToKafka(message, this.properties.getNewTopic());
+		}
+		for (int i = 0; i < 10; i++) {
+			Message<?> received = kafkaGateway.receiveFromKafka();
+			System.out.println(received);
+		}
 		context.close();
-		System.exit(0);
 	}
 
-	@Value("${kafka.topic}")
-	private String topic;
-
-	@Value("${kafka.messageKey}")
-	private String messageKey;
-
-	@Value("${kafka.zookeeper.connect}")
-	private String zookeeperConnect;
-
-	@PostConstruct
-	public void init() {
-		ZkClient zkClient = new ZkClient(this.zookeeperConnect, 6000, 6000, ZKStringSerializer$.MODULE$);
-		ZkUtils zkUtils = new ZkUtils(zkClient, null, false);
-		try {
-			AdminUtils.createTopic(zkUtils, topic, 1, 1, new Properties(), null);
-		}
-		catch (TopicExistsException e) {
-			// no-op
-		}
-	}
+	@Autowired
+	private KafkaAppProperties properties;
 
 	@MessagingGateway
 	public interface KafkaGateway {
 
 		@Gateway(requestChannel = "toKafka.input")
-		void sendToKafka(String payload);
+		void sendToKafka(String payload, @Header(KafkaHeaders.TOPIC) String topic);
 
 		@Gateway(replyChannel = "fromKafka", replyTimeout = 10000)
 		Message<?> receiveFromKafka();
@@ -108,16 +104,35 @@ public class Application {
 	public IntegrationFlow toKafka(KafkaTemplate<?, ?> kafkaTemplate) {
 		return f -> f
 				.handle(Kafka.outboundChannelAdapter(kafkaTemplate)
-						.topic(this.topic)
-						.messageKey(this.messageKey));
+						.messageKey(this.properties.getMessageKey()));
 	}
 
 	@Bean
 	public IntegrationFlow fromKafka(ConsumerFactory<?, ?> consumerFactory) {
 		return IntegrationFlows
-				.from(Kafka.messageDrivenChannelAdapter(consumerFactory, this.topic))
+				.from(Kafka.messageDrivenChannelAdapter(consumerFactory, this.properties.getTopic()))
 				.channel(c -> c.queue("fromKafka"))
 				.get();
+	}
+
+	@Autowired
+	private IntegrationFlowContext flowContext;
+
+	@Autowired
+	private KafkaProperties kafkaProperties;
+
+	public void addAnotherListenerForTopics(String... topics) {
+		Map<String, Object> consumerProperties = kafkaProperties.buildConsumerProperties();
+		// change the group id so we don't revoke the other partitions.
+		consumerProperties.put(ConsumerConfig.GROUP_ID_CONFIG,
+				consumerProperties.get(ConsumerConfig.GROUP_ID_CONFIG) + "x");
+		IntegrationFlow flow =
+			IntegrationFlows
+				.from(Kafka.messageDrivenChannelAdapter(
+						new DefaultKafkaConsumerFactory<String, String>(consumerProperties), topics))
+				.channel("fromKafka")
+				.get();
+		this.flowContext.registration(flow).register();
 	}
 
 }

@@ -1336,9 +1336,6 @@ project('kafka-dsl') {
 		compile 'org.springframework.boot:spring-boot-starter-integration'
 		compile "org.springframework.integration:spring-integration-core:$springIntegrationVersion"
 		compile ("org.springframework.integration:spring-integration-kafka:$springIntegrationKafkaVersion")
-		compile ("org.springframework.kafka:spring-kafka-test:$springKafkaVersion") {
-			exclude group: 'org.slf4j'
-		}
 		compile "log4j:log4j:$log4jVersion"
 		testCompile 'org.springframework.boot:spring-boot-starter-test'
 	}
