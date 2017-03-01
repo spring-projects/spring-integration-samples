@@ -55,7 +55,7 @@
     <dependency>
       <groupId>org.springframework.integration</groupId>
       <artifactId>spring-integration-ip</artifactId>
-      <version>4.3.7.RELEASE</version>
+      <version>4.3.8.RELEASE</version>
       <scope>compile</scope>
     </dependency>
     <dependency>
