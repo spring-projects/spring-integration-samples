@@ -1,5 +1,5 @@
 /*
- * Copyright 2002-2015 the original author or authors.
+ * Copyright 2002-2017 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,6 +20,7 @@ import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Scanner;
 
+import org.springframework.boot.WebApplicationType;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaAutoConfiguration;
 import org.springframework.boot.builder.SpringApplicationBuilder;
@@ -55,13 +56,13 @@ public class Main {
 		final Scanner scanner = new Scanner(System.in);
 
 		System.out.println("\n========================================================="
-						+ "\n                                                         "
-						+ "\n    Welcome to the Spring Integration JPA Sample!        "
-						+ "\n                                                         "
-						+ "\n    For more information please visit:                   "
-						+ "\n    http://www.springintegration.org/                    "
-						+ "\n                                                         "
-						+ "\n=========================================================" );
+				+ "\n                                                         "
+				+ "\n    Welcome to the Spring Integration JPA Sample!        "
+				+ "\n                                                         "
+				+ "\n    For more information please visit:                   "
+				+ "\n    http://www.springintegration.org/                    "
+				+ "\n                                                         "
+				+ "\n=========================================================");
 
 		System.out.println("Please enter a choice and press <enter>: ");
 		System.out.println("\t1. Use Hibernate");
@@ -70,21 +71,25 @@ public class Main {
 		System.out.println("\tq. Quit the application");
 		System.out.print("Enter you choice: ");
 
-		SpringApplicationBuilder springApplicationBuilder = new SpringApplicationBuilder(Main.class).web(false);
+		SpringApplicationBuilder springApplicationBuilder = new SpringApplicationBuilder(Main.class)
+				.web(WebApplicationType.NONE);
 
 		while (true) {
 			final String input = scanner.nextLine();
 
-			if("1".equals(input.trim())) {
+			if ("1".equals(input.trim())) {
 				springApplicationBuilder.sources(HibernateJpaAutoConfiguration.class);
 				break;
-			} else if("2".equals(input.trim())) {
+			}
+			else if ("2".equals(input.trim())) {
 				springApplicationBuilder.profiles("eclipseLink");
 				break;
-			} else if("q".equals(input.trim())) {
+			}
+			else if ("q".equals(input.trim())) {
 				System.out.println("Exiting application...bye.");
 				System.exit(0);
-			} else {
+			}
+			else {
 				System.out.println("Invalid choice\n\n");
 				System.out.print("Enter you choice: ");
 			}
@@ -129,12 +134,12 @@ public class Main {
 
 	}
 
-	private static void createPersonDetails(final Scanner scanner,PersonService service) {
-		while(true) {
+	private static void createPersonDetails(final Scanner scanner, PersonService service) {
+		while (true) {
 			System.out.print("\nEnter the Person's name:");
 			String name = null;
 
-			while(true) {
+			while (true) {
 
 				name = scanner.nextLine();
 
@@ -151,9 +156,9 @@ public class Main {
 			person = service.createPerson(person);
 			System.out.println("Created person record with id: " + person.getId());
 			System.out.print("Do you want to create another person? (y/n)");
-			String choice  = scanner.nextLine();
+			String choice = scanner.nextLine();
 
-			if(!"y".equalsIgnoreCase(choice)) {
+			if (!"y".equalsIgnoreCase(choice)) {
 				break;
 			}
 		}
@@ -161,22 +166,23 @@ public class Main {
 
 	private static void findPeople(final PersonService service) {
 
-			System.out.println("ID            NAME         CREATED");
-			System.out.println("==================================");
+		System.out.println("ID            NAME         CREATED");
+		System.out.println("==================================");
 
-			final List<Person> people = service.findPeople();
+		final List<Person> people = service.findPeople();
 
-			if(people != null && !people.isEmpty()) {
-				for(Person person : people) {
-					System.out.print(String.format("%d, %s, ", person.getId(), person.getName()));
-					System.out.println(DATE_FORMAT.format(person.getCreatedDateTime()));//NOSONAR
-				}
-			} else {
-				System.out.println(
-						String.format("No Person record found."));
+		if (people != null && !people.isEmpty()) {
+			for (Person person : people) {
+				System.out.print(String.format("%d, %s, ", person.getId(), person.getName()));
+				System.out.println(DATE_FORMAT.format(person.getCreatedDateTime()));//NOSONAR
 			}
+		}
+		else {
+			System.out.println(
+					String.format("No Person record found."));
+		}
 
-			System.out.println("==================================\n\n");
+		System.out.println("==================================\n\n");
 	}
 
 }
