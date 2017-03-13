@@ -107,7 +107,7 @@ public final class Main {
 			} else if ("3".equals(input)) {
 
 				final Map<String, Object> userData = new HashMap<String, Object>();
-				userData.put("sftp.username", "foo_map");
+				userData.put("username", "foo_map");
 
 				final Map<String, Object> enrichedUserData = service.findUserWithUsernameInMap(userData);
 

@@ -46,7 +46,7 @@ public class DynamicTcpClientApplication {
 	@MessagingGateway(defaultRequestChannel = "toTcp.input")
 	public interface ToTCP {
 
-		public void send(String data, @Header("sftp.host") String host, @Header("sftp.port") int port);
+		public void send(String data, @Header("host") String host, @Header("port") int port);
 
 	}
 
@@ -115,7 +115,7 @@ public class DynamicTcpClientApplication {
 		@Override
 		protected synchronized Collection<MessageChannel> determineTargetChannels(Message<?> message) {
 			MessageChannel channel = this.subFlows
-					.get(message.getHeaders().get("sftp.host", String.class) + message.getHeaders().get("sftp.port"));
+					.get(message.getHeaders().get("host", String.class) + message.getHeaders().get("port"));
 			if (channel == null) {
 				channel = createNewSubflow(message);
 			}
@@ -123,8 +123,8 @@ public class DynamicTcpClientApplication {
 		}
 
 		private MessageChannel createNewSubflow(Message<?> message) {
-			String host = (String) message.getHeaders().get("sftp.host");
-			Integer port = (Integer) message.getHeaders().get("sftp.port");
+			String host = (String) message.getHeaders().get("host");
+			Integer port = (Integer) message.getHeaders().get("port");
 			Assert.state(host != null && port != null, "host and/or port header missing");
 			String hostPort = host + port;
 
