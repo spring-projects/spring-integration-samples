@@ -16,30 +16,28 @@
 
 package org.springframework.integration.samples.sftp;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.math.BigInteger;
 import java.nio.ByteBuffer;
+import java.nio.file.Paths;
 import java.security.KeyFactory;
 import java.security.PublicKey;
 import java.security.spec.RSAPublicKeySpec;
+import java.util.Arrays;
 import java.util.Collections;
 
-import org.apache.sshd.SshServer;
-import org.apache.sshd.common.NamedFactory;
 import org.apache.sshd.common.file.virtualfs.VirtualFileSystemFactory;
-import org.apache.sshd.common.util.Base64;
-import org.apache.sshd.server.Command;
-import org.apache.sshd.server.PublickeyAuthenticator;
+import org.apache.sshd.server.SshServer;
 import org.apache.sshd.server.keyprovider.SimpleGeneratorHostKeyProvider;
-import org.apache.sshd.server.session.ServerSession;
-import org.apache.sshd.server.sftp.SftpSubsystem;
+import org.apache.sshd.server.subsystem.sftp.SftpSubsystemFactory;
 
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.context.SmartLifecycle;
 import org.springframework.core.io.ClassPathResource;
-import org.springframework.core.io.FileSystemResource;
 import org.springframework.integration.sftp.session.DefaultSftpSessionFactory;
+import org.springframework.util.Base64Utils;
 import org.springframework.util.StreamUtils;
 
 /**
@@ -71,24 +69,23 @@ public class EmbeddedSftpServer implements InitializingBean, SmartLifecycle {
 	@Override
 	public void afterPropertiesSet() throws Exception {
 		final PublicKey allowedKey = decodePublicKey();
-		this.server.setPublickeyAuthenticator(new PublickeyAuthenticator() {
-
-			@Override
-			public boolean authenticate(String username, PublicKey key, ServerSession session) {
-				return key.equals(allowedKey);
-			}
-
-		});
+		this.server.setPublickeyAuthenticator((username, key, session) -> key.equals(allowedKey));
 		this.server.setPort(this.port);
-		this.server.setKeyPairProvider(new SimpleGeneratorHostKeyProvider("hostkey.ser"));
-		this.server.setSubsystemFactories(Collections.<NamedFactory<Command>>singletonList(new SftpSubsystem.Factory()));
-		final String virtualDir = new FileSystemResource("").getFile().getAbsolutePath();
-		server.setFileSystemFactory(new VirtualFileSystemFactory(virtualDir));
+		this.server.setKeyPairProvider(new SimpleGeneratorHostKeyProvider(new File("hostkey.ser")));
+		this.server.setSubsystemFactories(Collections.singletonList(new SftpSubsystemFactory()));
+		final String pathname = System.getProperty("java.io.tmpdir") + File.separator + "sftptest" + File.separator;
+		new File(pathname).mkdirs();
+		server.setFileSystemFactory(new VirtualFileSystemFactory(Paths.get(pathname)));
 	}
 
 	private PublicKey decodePublicKey() throws Exception {
 		InputStream stream = new ClassPathResource("META-INF/keys/sftp_rsa.pub").getInputStream();
-		byte[] decodeBuffer = Base64.decodeBase64(StreamUtils.copyToByteArray(stream));
+		byte[] keyBytes = StreamUtils.copyToByteArray(stream);
+		// strip any newline chars
+		while (keyBytes[keyBytes.length - 1] == 0x0a || keyBytes[keyBytes.length - 1] == 0x0d) {
+			keyBytes = Arrays.copyOf(keyBytes, keyBytes.length - 1);
+		}
+		byte[] decodeBuffer = Base64Utils.decode(keyBytes);
 		ByteBuffer bb = ByteBuffer.wrap(decodeBuffer);
 		int len = bb.getInt();
 		byte[] type = new byte[len];
@@ -146,7 +143,7 @@ public class EmbeddedSftpServer implements InitializingBean, SmartLifecycle {
 			try {
 				server.stop(true);
 			}
-			catch (InterruptedException e) {
+			catch (Exception e) {
 				throw new IllegalStateException(e);
 			}
 			finally {
