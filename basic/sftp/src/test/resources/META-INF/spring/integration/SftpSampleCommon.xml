@@ -9,12 +9,23 @@
 
 	<context:property-placeholder location="classpath:user.properties"/>
 
-	<bean id="serverPort" class="java.lang.String">
-		<constructor-arg value="#{'${port}' == '-1' ? T(org.springframework.integration.samples.sftp.EmbeddedSftpServer).PORT : '${port}'}"/>
+	<bean id="sftpSessionFactory" class="org.springframework.integration.file.remote.session.CachingSessionFactory">
+		<constructor-arg ref="defaultSftpSessionFactory" />
+	</bean>
+
+	<bean id="defaultSftpSessionFactory"
+		  class="org.springframework.integration.sftp.session.DefaultSftpSessionFactory">
+		<property name="host" value="${sftp.host}"/>
+		<property name="privateKey" value="${sftp.private.keyfile}"/>
+		<property name="privateKeyPassphrase" value="${sftp.passphrase}"/>
+		<property name="port" value="${sftp.port}"/>
+		<property name="user" value="${sftp.username}"/>
+		<property name="allowUnknownKeys" value="true"/>
 	</bean>
 
 	<bean class="org.springframework.integration.samples.sftp.EmbeddedSftpServer">
-		<property name="port" value="#{serverPort}"/>
+		<property name="port" value="${sftp.port}"/>
+		<property name="defaultSftpSessionFactory" ref="defaultSftpSessionFactory"/>
 	</bean>
 
 </beans>

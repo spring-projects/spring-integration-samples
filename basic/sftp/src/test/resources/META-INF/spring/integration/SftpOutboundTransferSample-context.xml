@@ -9,20 +9,6 @@
 
 	<import resource="SftpSampleCommon.xml"/>
 
-	<bean id="sftpSessionFactory" class="org.springframework.integration.file.remote.session.CachingSessionFactory">
-		<constructor-arg ref="defaultSftpSessionFactory" />
-	</bean>
-
-	<bean id="defaultSftpSessionFactory"
-			class="org.springframework.integration.sftp.session.DefaultSftpSessionFactory">
-		<property name="host" value="${host}"/>
-		<property name="privateKey" value="${private.keyfile}"/>
-		<property name="privateKeyPassphrase" value="${passphrase}"/>
-		<property name="port" value="#{serverPort}"/>
-		<property name="user" value="${username}"/>
-		<property name="allowUnknownKeys" value="true"/>
-	</bean>
-
 	<int:channel id="inputChannel"/>
 
 	<int-sftp:outbound-channel-adapter id="sftpOutboundAdapter"

@@ -117,7 +117,7 @@ public class DynamicFtpChannelResolver {
 		StandardEnvironment env = new StandardEnvironment();
 		Properties props = new Properties();
 		// populate properties for customer
-		props.setProperty("host", "host.for." + customer);
+		props.setProperty("sftp.host", "host.for." + customer);
 		props.setProperty("user", "user");
 		props.setProperty("password", "password");
 		props.setProperty("remote.directory", "/tmp");

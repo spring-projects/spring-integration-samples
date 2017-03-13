@@ -12,20 +12,6 @@
 	<int:gateway id="gw" service-interface="org.springframework.integration.samples.sftp.ToSftpFlowGateway"
 		default-request-channel="inbound"/>
 
-	<bean id="sftpSessionFactory" class="org.springframework.integration.file.remote.session.CachingSessionFactory">
-		<constructor-arg ref="defaultSftpSessionFactory" />
-	</bean>
-
-	<bean id="defaultSftpSessionFactory"
-		class="org.springframework.integration.sftp.session.DefaultSftpSessionFactory">
-		<property name="host" value="${host}"/>
-		<property name="privateKey" value="${private.keyfile}"/>
-		<property name="privateKeyPassphrase" value="${passphrase}"/>
-		<property name="port" value="#{serverPort}"/>
-		<property name="user" value="${username}"/>
-		<property name="allowUnknownKeys" value="true"/>
-	</bean>
-
 	<int-sftp:outbound-gateway id="gatewayLS"
 		session-factory="sftpSessionFactory"
 		request-channel="inbound"

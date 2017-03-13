@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2015 the original author or authors.
+ * Copyright 2014-2017 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -39,7 +39,7 @@ import org.springframework.beans.factory.InitializingBean;
 import org.springframework.context.SmartLifecycle;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.FileSystemResource;
-import org.springframework.util.SocketUtils;
+import org.springframework.integration.sftp.session.DefaultSftpSessionFactory;
 import org.springframework.util.StreamUtils;
 
 /**
@@ -47,7 +47,10 @@ import org.springframework.util.StreamUtils;
  */
 public class EmbeddedSftpServer implements InitializingBean, SmartLifecycle {
 
-	public static final int PORT = SocketUtils.findAvailableTcpPort();
+	/**
+	 * Let OS to obtain the proper port
+	 */
+	public static final int PORT = 0;
 
 	private final SshServer server = SshServer.setUpDefaultServer();
 
@@ -55,8 +58,14 @@ public class EmbeddedSftpServer implements InitializingBean, SmartLifecycle {
 
 	private volatile boolean running;
 
+	private DefaultSftpSessionFactory defaultSftpSessionFactory;
+
 	public void setPort(int port) {
 		this.port = port;
+	}
+
+	public void setDefaultSftpSessionFactory(DefaultSftpSessionFactory defaultSftpSessionFactory) {
+		this.defaultSftpSessionFactory = defaultSftpSessionFactory;
 	}
 
 	@Override
@@ -116,8 +125,9 @@ public class EmbeddedSftpServer implements InitializingBean, SmartLifecycle {
 	@Override
 	public void start() {
 		try {
-			server.start();
-			this.running  = true;
+			this.server.start();
+			this.defaultSftpSessionFactory.setPort(this.server.getPort());
+			this.running = true;
 		}
 		catch (IOException e) {
 			throw new IllegalStateException(e);
@@ -149,5 +159,4 @@ public class EmbeddedSftpServer implements InitializingBean, SmartLifecycle {
 	public boolean isRunning() {
 		return this.running;
 	}
-
 }
