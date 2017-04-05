@@ -63,60 +63,28 @@
       <scope>compile</scope>
       <exclusions>
         <exclusion>
-          <artifactId>jboss-interceptors-api_1.1_spec</artifactId>
-          <groupId>org.jboss.spec.javax.interceptor</groupId>
-        </exclusion>
-        <exclusion>
-          <artifactId>jsr250-api</artifactId>
-          <groupId>javax.annotation</groupId>
-        </exclusion>
-        <exclusion>
-          <artifactId>cdi-api</artifactId>
-          <groupId>javax.enterprise</groupId>
-        </exclusion>
-        <exclusion>
-          <artifactId>el-api</artifactId>
-          <groupId>javax.el</groupId>
-        </exclusion>
-        <exclusion>
-          <artifactId>javax.inject</artifactId>
-          <groupId>javax.inject</groupId>
-        </exclusion>
-        <exclusion>
           <artifactId>commons-logging</artifactId>
           <groupId>commons-logging</groupId>
+        </exclusion>
+        <exclusion>
+          <artifactId>jboss-transaction-api_1.2_spec</artifactId>
+          <groupId>org.jboss.spec.javax.transaction</groupId>
         </exclusion>
       </exclusions>
     </dependency>
     <dependency>
       <groupId>org.springframework.integration</groupId>
       <artifactId>spring-integration-jpa</artifactId>
-      <version>5.0.0.BUILD-SNAPSHOT</version>
+      <version>5.0.0.M3</version>
       <scope>compile</scope>
       <exclusions>
         <exclusion>
-          <artifactId>jboss-interceptors-api_1.1_spec</artifactId>
-          <groupId>org.jboss.spec.javax.interceptor</groupId>
-        </exclusion>
-        <exclusion>
-          <artifactId>jsr250-api</artifactId>
-          <groupId>javax.annotation</groupId>
-        </exclusion>
-        <exclusion>
-          <artifactId>cdi-api</artifactId>
-          <groupId>javax.enterprise</groupId>
-        </exclusion>
-        <exclusion>
-          <artifactId>el-api</artifactId>
-          <groupId>javax.el</groupId>
-        </exclusion>
-        <exclusion>
-          <artifactId>javax.inject</artifactId>
-          <groupId>javax.inject</groupId>
-        </exclusion>
-        <exclusion>
           <artifactId>commons-logging</artifactId>
           <groupId>commons-logging</groupId>
+        </exclusion>
+        <exclusion>
+          <artifactId>jboss-transaction-api_1.2_spec</artifactId>
+          <groupId>org.jboss.spec.javax.transaction</groupId>
         </exclusion>
       </exclusions>
     </dependency>
@@ -127,28 +95,12 @@
       <scope>compile</scope>
       <exclusions>
         <exclusion>
-          <artifactId>jboss-interceptors-api_1.1_spec</artifactId>
-          <groupId>org.jboss.spec.javax.interceptor</groupId>
-        </exclusion>
-        <exclusion>
-          <artifactId>jsr250-api</artifactId>
-          <groupId>javax.annotation</groupId>
-        </exclusion>
-        <exclusion>
-          <artifactId>cdi-api</artifactId>
-          <groupId>javax.enterprise</groupId>
-        </exclusion>
-        <exclusion>
-          <artifactId>el-api</artifactId>
-          <groupId>javax.el</groupId>
-        </exclusion>
-        <exclusion>
-          <artifactId>javax.inject</artifactId>
-          <groupId>javax.inject</groupId>
-        </exclusion>
-        <exclusion>
           <artifactId>commons-logging</artifactId>
           <groupId>commons-logging</groupId>
+        </exclusion>
+        <exclusion>
+          <artifactId>jboss-transaction-api_1.2_spec</artifactId>
+          <groupId>org.jboss.spec.javax.transaction</groupId>
         </exclusion>
       </exclusions>
     </dependency>
@@ -159,28 +111,12 @@
       <scope>runtime</scope>
       <exclusions>
         <exclusion>
-          <artifactId>jboss-interceptors-api_1.1_spec</artifactId>
-          <groupId>org.jboss.spec.javax.interceptor</groupId>
-        </exclusion>
-        <exclusion>
-          <artifactId>jsr250-api</artifactId>
-          <groupId>javax.annotation</groupId>
-        </exclusion>
-        <exclusion>
-          <artifactId>cdi-api</artifactId>
-          <groupId>javax.enterprise</groupId>
-        </exclusion>
-        <exclusion>
-          <artifactId>el-api</artifactId>
-          <groupId>javax.el</groupId>
-        </exclusion>
-        <exclusion>
-          <artifactId>javax.inject</artifactId>
-          <groupId>javax.inject</groupId>
-        </exclusion>
-        <exclusion>
           <artifactId>commons-logging</artifactId>
           <groupId>commons-logging</groupId>
+        </exclusion>
+        <exclusion>
+          <artifactId>jboss-transaction-api_1.2_spec</artifactId>
+          <groupId>org.jboss.spec.javax.transaction</groupId>
         </exclusion>
       </exclusions>
     </dependency>
@@ -191,28 +127,12 @@
       <scope>runtime</scope>
       <exclusions>
         <exclusion>
-          <artifactId>jboss-interceptors-api_1.1_spec</artifactId>
-          <groupId>org.jboss.spec.javax.interceptor</groupId>
-        </exclusion>
-        <exclusion>
-          <artifactId>jsr250-api</artifactId>
-          <groupId>javax.annotation</groupId>
-        </exclusion>
-        <exclusion>
-          <artifactId>cdi-api</artifactId>
-          <groupId>javax.enterprise</groupId>
-        </exclusion>
-        <exclusion>
-          <artifactId>el-api</artifactId>
-          <groupId>javax.el</groupId>
-        </exclusion>
-        <exclusion>
-          <artifactId>javax.inject</artifactId>
-          <groupId>javax.inject</groupId>
-        </exclusion>
-        <exclusion>
           <artifactId>commons-logging</artifactId>
           <groupId>commons-logging</groupId>
+        </exclusion>
+        <exclusion>
+          <artifactId>jboss-transaction-api_1.2_spec</artifactId>
+          <groupId>org.jboss.spec.javax.transaction</groupId>
         </exclusion>
       </exclusions>
     </dependency>
@@ -223,28 +143,12 @@
       <scope>runtime</scope>
       <exclusions>
         <exclusion>
-          <artifactId>jboss-interceptors-api_1.1_spec</artifactId>
-          <groupId>org.jboss.spec.javax.interceptor</groupId>
-        </exclusion>
-        <exclusion>
-          <artifactId>jsr250-api</artifactId>
-          <groupId>javax.annotation</groupId>
-        </exclusion>
-        <exclusion>
-          <artifactId>cdi-api</artifactId>
-          <groupId>javax.enterprise</groupId>
-        </exclusion>
-        <exclusion>
-          <artifactId>el-api</artifactId>
-          <groupId>javax.el</groupId>
-        </exclusion>
-        <exclusion>
-          <artifactId>javax.inject</artifactId>
-          <groupId>javax.inject</groupId>
-        </exclusion>
-        <exclusion>
           <artifactId>commons-logging</artifactId>
           <groupId>commons-logging</groupId>
+        </exclusion>
+        <exclusion>
+          <artifactId>jboss-transaction-api_1.2_spec</artifactId>
+          <groupId>org.jboss.spec.javax.transaction</groupId>
         </exclusion>
       </exclusions>
     </dependency>
@@ -253,6 +157,12 @@
       <artifactId>junit</artifactId>
       <version>4.12</version>
       <scope>test</scope>
+      <exclusions>
+        <exclusion>
+          <artifactId>*</artifactId>
+          <groupId>org.hamcrest</groupId>
+        </exclusion>
+      </exclusions>
     </dependency>
     <dependency>
       <groupId>org.hamcrest</groupId>
@@ -265,6 +175,12 @@
       <artifactId>mockito-core</artifactId>
       <version>1.10.19</version>
       <scope>test</scope>
+      <exclusions>
+        <exclusion>
+          <artifactId>*</artifactId>
+          <groupId>org.hamcrest</groupId>
+        </exclusion>
+      </exclusions>
     </dependency>
     <dependency>
       <groupId>org.springframework</groupId>

@@ -70,25 +70,25 @@
     <dependency>
       <groupId>org.springframework.integration</groupId>
       <artifactId>spring-integration-core</artifactId>
-      <version>5.0.0.BUILD-SNAPSHOT</version>
+      <version>5.0.0.M3</version>
       <scope>compile</scope>
     </dependency>
     <dependency>
       <groupId>org.springframework.integration</groupId>
       <artifactId>spring-integration-ftp</artifactId>
-      <version>5.0.0.BUILD-SNAPSHOT</version>
+      <version>5.0.0.M3</version>
       <scope>compile</scope>
     </dependency>
     <dependency>
       <groupId>org.springframework.integration</groupId>
       <artifactId>spring-integration-http</artifactId>
-      <version>5.0.0.BUILD-SNAPSHOT</version>
+      <version>5.0.0.M3</version>
       <scope>compile</scope>
     </dependency>
     <dependency>
       <groupId>org.springframework.integration</groupId>
       <artifactId>spring-integration-mail</artifactId>
-      <version>5.0.0.BUILD-SNAPSHOT</version>
+      <version>5.0.0.M3</version>
       <scope>compile</scope>
     </dependency>
     <dependency>
@@ -108,6 +108,12 @@
       <artifactId>junit</artifactId>
       <version>4.12</version>
       <scope>test</scope>
+      <exclusions>
+        <exclusion>
+          <artifactId>*</artifactId>
+          <groupId>org.hamcrest</groupId>
+        </exclusion>
+      </exclusions>
     </dependency>
     <dependency>
       <groupId>org.hamcrest</groupId>
@@ -120,6 +126,12 @@
       <artifactId>mockito-core</artifactId>
       <version>1.10.19</version>
       <scope>test</scope>
+      <exclusions>
+        <exclusion>
+          <artifactId>*</artifactId>
+          <groupId>org.hamcrest</groupId>
+        </exclusion>
+      </exclusions>
     </dependency>
     <dependency>
       <groupId>org.springframework</groupId>
@@ -135,7 +147,7 @@
     <dependency>
       <groupId>org.springframework.integration</groupId>
       <artifactId>spring-integration-test</artifactId>
-      <version>5.0.0.BUILD-SNAPSHOT</version>
+      <version>5.0.0.M3</version>
       <scope>test</scope>
     </dependency>
   </dependencies>

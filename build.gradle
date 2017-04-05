@@ -42,96 +42,98 @@ subprojects { subproject ->
 	apply plugin: 'idea'
 	apply plugin: 'maven'
 
-	task generatePom << {
-		pom {
-			project {
-				name = project.description
-				description = project.description
-				url = linkHomepage
+	task generatePom {
+		doLast {
+			pom {
+				project {
+					name = project.description
+					description = project.description
+					url = linkHomepage
 
-				organization {
-					name = 'SpringIO'
-					url = 'https://spring.io'
-				}
+					organization {
+						name = 'SpringIO'
+						url = 'https://spring.io'
+					}
 
-				licenses {
-					license {
-						name 'The Apache Software License, Version 2.0'
-						url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
-						distribution 'repo'
-					}
-				}
-
-				scm {
-					url = linkScmUrl
-					connection = 'scm:git:' + linkScmConnection
-					developerConnection = 'scm:git:' + linkScmDevConnection
-				}
-
-				developers {
-					developer {
-						id = 'garyrussell'
-						name = 'Gary Russell'
-						email = 'grussell@pivotal.io'
-						roles = ["project lead"]
-					}
-					developer {
-						id = 'markfisher'
-						name = 'Mark Fisher'
-						email = 'mfisher@pivotal.io'
-						roles = ["project founder and lead emeritus"]
-					}
-					developer {
-						id = 'ghillert'
-						name = 'Gunnar Hillert'
-						email = 'ghillert@pivotal.io'
-					}
-					developer {
-						id = 'abilan'
-						name = 'Artem Bilan'
-						email = 'abilan@pivotal.io'
-					}
-				}
-
-				if (subproject.plugins.hasPlugin('java')) {
-					repositories {
-						repository {
-							id = 'repo.spring.io.milestone'
-							name = 'Spring Framework Maven Milestone Repository'
-							url = 'https://repo.spring.io/libs-milestone'
+					licenses {
+						license {
+							name 'The Apache Software License, Version 2.0'
+							url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+							distribution 'repo'
 						}
 					}
-				}
 
-				if (subproject.plugins.hasPlugin('org.springframework.boot')) {
-					parent {
-						groupId = 'org.springframework.boot'
-						artifactId = 'spring-boot-starter-parent'
-						version = springBootVersion
+					scm {
+						url = linkScmUrl
+						connection = 'scm:git:' + linkScmConnection
+						developerConnection = 'scm:git:' + linkScmDevConnection
 					}
-				}
-			}.withXml {
-				if (subproject.plugins.hasPlugin('jetty')) {
-					asNode().appendNode('packaging', 'war')
-					asNode().appendNode('build')
-							.appendNode('plugins')
-							.appendNode('plugin').with {
-									appendNode('groupId', 'org.mortbay.jetty')
-									appendNode('artifactId', 'jetty-maven-plugin')
-									appendNode('version', '8.1.14.v20131031')
-									appendNode('configuration')
-										.appendNode('webAppConfig')
-										.appendNode('contextPath', '/' + subproject.name)
+
+					developers {
+						developer {
+							id = 'garyrussell'
+							name = 'Gary Russell'
+							email = 'grussell@pivotal.io'
+							roles = ["project lead"]
+						}
+						developer {
+							id = 'markfisher'
+							name = 'Mark Fisher'
+							email = 'mfisher@pivotal.io'
+							roles = ["project founder and lead emeritus"]
+						}
+						developer {
+							id = 'ghillert'
+							name = 'Gunnar Hillert'
+							email = 'ghillert@pivotal.io'
+						}
+						developer {
+							id = 'abilan'
+							name = 'Artem Bilan'
+							email = 'abilan@pivotal.io'
+						}
 					}
-				}
-				if (subproject.plugins.hasPlugin('org.springframework.boot')) {
-					asNode().appendNode('build').appendNode('plugins')
-							.appendNode('plugin').with {
-									appendNode('groupId', 'org.springframework.boot')
-									appendNode('artifactId', 'spring-boot-maven-plugin')
+
+					if (subproject.plugins.hasPlugin('java')) {
+						repositories {
+							repository {
+								id = 'repo.spring.io.milestone'
+								name = 'Spring Framework Maven Milestone Repository'
+								url = 'https://repo.spring.io/libs-milestone'
 							}
-				}
-			}.writeTo('pom.xml')
+						}
+					}
+
+					if (subproject.plugins.hasPlugin('org.springframework.boot')) {
+						parent {
+							groupId = 'org.springframework.boot'
+							artifactId = 'spring-boot-starter-parent'
+							version = springBootVersion
+						}
+					}
+				}.withXml {
+					if (subproject.plugins.hasPlugin('jetty')) {
+						asNode().appendNode('packaging', 'war')
+						asNode().appendNode('build')
+								.appendNode('plugins')
+								.appendNode('plugin').with {
+							appendNode('groupId', 'org.mortbay.jetty')
+							appendNode('artifactId', 'jetty-maven-plugin')
+							appendNode('version', '8.1.14.v20131031')
+							appendNode('configuration')
+									.appendNode('webAppConfig')
+									.appendNode('contextPath', '/' + subproject.name)
+						}
+					}
+					if (subproject.plugins.hasPlugin('org.springframework.boot')) {
+						asNode().appendNode('build').appendNode('plugins')
+								.appendNode('plugin').with {
+							appendNode('groupId', 'org.springframework.boot')
+							appendNode('artifactId', 'spring-boot-maven-plugin')
+						}
+					}
+				}.writeTo('pom.xml')
+			}
 		}
 	}
 
@@ -145,9 +147,10 @@ subprojects { subproject ->
 
 		apply plugin: 'java'
 		apply plugin: 'jacoco'
+		apply plugin: 'io.spring.dependency-management'
 
 		jacoco {
-			toolVersion = "0.7.7.201606060606"
+			toolVersion = "0.7.8"
 		}
 
 		compileJava {
@@ -198,12 +201,12 @@ subprojects { subproject ->
 			postgresVersion = '9.1-901-1.jdbc4'
 			subethasmtpVersion = '1.2'
 			slf4jVersion = '1.7.11'
-			springIntegrationVersion = '5.0.0.BUILD-SNAPSHOT'
+			springIntegrationVersion = '5.0.0.M3'
 			springIntegrationKafkaVersion = '3.0.0.BUILD-SNAPSHOT'
 			springIntegrationSplunkVersion = '1.1.0.RELEASE'
 			springKafkaVersion = '2.0.0.BUILD-SNAPSHOT'
 			springVersion = '5.0.0.BUILD-SNAPSHOT'
-			springSecurityVersion = '4.2.0.RELEASE'
+			springSecurityVersion = '4.2.2.RELEASE'
 			springWebFlowVersion = '2.3.3.RELEASE'
 			tilesJspVersion = '2.2.1'
 			validationApiVersion = '1.0.0.GA'
@@ -246,22 +249,24 @@ subprojects { subproject ->
 			}
 		}
 
-		task checkTestConfigs << {
-			def configFiles = []
-			sourceSets.test.allSource.srcDirs.each {
-				fileTree(it).include('**/*.xml').exclude('**/log4j.xml').each { configFile ->
-					def configXml = new XmlParser(false, false).parse(configFile)
+		task checkTestConfigs {
+			doLast {
+				def configFiles = []
+				sourceSets.test.allSource.srcDirs.each {
+					fileTree(it).include('**/*.xml').exclude('**/log4j.xml').each { configFile ->
+						def configXml = new XmlParser(false, false).parse(configFile)
 
-					if (configXml.@'xsi:schemaLocation' ==~ /.*spring-[a-z-]*\d\.\d\.xsd.*/) {
-						configFiles << configFile
+						if (configXml.@'xsi:schemaLocation' ==~ /.*spring-[a-z-]*\d\.\d\.xsd.*/) {
+							configFiles << configFile
+						}
 					}
 				}
-			}
-			if (configFiles) {
-				throw new InvalidUserDataException('Hardcoded XSD version in the config files:\n' +
-						configFiles.collect { relativePath(it) }.join('\n') +
-						'\nPlease, use versionless schemaLocations for Spring XSDs to avoid issues with builds ' +
-						'on different versions of dependencies.')
+				if (configFiles) {
+					throw new InvalidUserDataException('Hardcoded XSD version in the config files:\n' +
+							configFiles.collect { relativePath(it) }.join('\n') +
+							'\nPlease, use versionless schemaLocations for Spring XSDs to avoid issues with builds ' +
+							'on different versions of dependencies.')
+				}
 			}
 		}
 
@@ -464,8 +469,8 @@ project('barrier') {
 		testCompile 'org.springframework.boot:spring-boot-starter-test'
 	}
 
-	springBoot {
-		mainClass = 'org.springframework.integration.samples.barrier.Application'
+	bootRun {
+		main = 'org.springframework.integration.samples.barrier.Application'
 	}
 
 	task run(type: JavaExec) {
@@ -589,8 +594,8 @@ project('splunk') {
 		testCompile 'org.springframework.boot:spring-boot-starter-test'
 	}
 
-	springBoot {
-		mainClass = 'org.springframework.integration.samples.splunk.Application'
+	bootRun {
+		main = 'org.springframework.integration.samples.splunk.Application'
 	}
 
 	task run(type: JavaExec) {
@@ -617,8 +622,8 @@ project('kafka') {
 		testCompile 'org.springframework.boot:spring-boot-starter-test'
 	}
 
-	springBoot {
-		mainClass = 'org.springframework.integration.samples.kafka.Application'
+	bootRun {
+		main = 'org.springframework.integration.samples.kafka.Application'
 	}
 
 	task run(type: JavaExec) {
@@ -638,8 +643,8 @@ project('mqtt') {
 		compile "org.springframework.integration:spring-integration-mqtt:$springIntegrationVersion"
 	}
 
-	springBoot {
-		mainClass = 'org.springframework.integration.samples.mqtt.Application'
+	bootRun {
+		main = 'org.springframework.integration.samples.mqtt.Application'
 	}
 
 	task run(type: JavaExec) {
@@ -672,8 +677,8 @@ project('si4demo') {
 		testCompile 'org.springframework.boot:spring-boot-starter-test'
 	}
 
-	springBoot {
-		mainClass = 'org.springframework.integration.samples.si4demo.dsl.Application'
+	bootRun {
+		main = 'org.springframework.integration.samples.si4demo.dsl.Application'
 	}
 
 	tasks.withType(JavaExec) {
@@ -694,8 +699,8 @@ project('cafe-dsl') {
 
 		testCompile 'org.springframework.boot:spring-boot-starter-test'
 	}
-	springBoot {
-		mainClass = 'org.springframework.integration.samples.dsl.cafe.lambda.Application'
+	bootRun {
+		main = 'org.springframework.integration.samples.dsl.cafe.lambda.Application'
 	}
 
 	task run(type: JavaExec) {
@@ -777,8 +782,8 @@ project('jpa') {
 	//Suppress openjpa annotation processor warnings
 	compileTestJava.options.compilerArgs = ["${xLintArg},-processing"]
 
-	springBoot {
-		mainClass = 'org.springframework.integration.samples.jpa.Main'
+	bootRun {
+		main = 'org.springframework.integration.samples.jpa.Main'
 	}
 
 	tasks.withType(JavaExec) {
@@ -1295,8 +1300,8 @@ project('web-sockets') {
 		testCompile 'org.springframework.boot:spring-boot-starter-test'
 	}
 
-	springBoot {
-		mainClass = 'org.springframework.integration.samples.websocket.standard.server.Application'
+	bootRun {
+		main = 'org.springframework.integration.samples.websocket.standard.server.Application'
 	}
 
 	tasks.withType(JavaExec) {
@@ -1318,8 +1323,8 @@ project('stomp-chat') {
 		testCompile 'org.springframework.boot:spring-boot-starter-test'
 	}
 
-	springBoot {
-		mainClass = 'org.springframework.integration.samples.chat.stomp.server.Application'
+	bootRun {
+		main = 'org.springframework.integration.samples.chat.stomp.server.Application'
 	}
 
 	tasks.withType(JavaExec) {
@@ -1339,8 +1344,8 @@ project('kafka-dsl') {
 		compile "log4j:log4j:$log4jVersion"
 		testCompile 'org.springframework.boot:spring-boot-starter-test'
 	}
-	springBoot {
-		mainClass = 'org.springframework.integration.samples.dsl.kafka.Application'
+	bootRun {
+		main = 'org.springframework.integration.samples.dsl.kafka.Application'
 	}
 
 	task run(type: JavaExec) {
@@ -1372,8 +1377,8 @@ project('file-split-ftp') {
 		testCompile "org.springframework.integration:spring-integration-test:$springIntegrationVersion"
 	}
 
-	springBoot {
-		mainClass = 'org.springframework.integration.samples.filesplit.Application'
+	bootRun {
+		main = 'org.springframework.integration.samples.filesplit.Application'
 	}
 
 	task run(type: JavaExec) {
@@ -1394,8 +1399,8 @@ project('dynamic-tcp-client') {
 		testCompile 'org.springframework.boot:spring-boot-starter-test'
 	}
 
-	springBoot {
-		mainClass = 'org.springframework.integration.samples.dynamictcp.DynamicTcpClientApplication'
+	bootRun {
+		main = 'org.springframework.integration.samples.dynamictcp.DynamicTcpClientApplication'
 	}
 
 	task run(type: JavaExec) {

@@ -1,5 +1,5 @@
 /*
- * Copyright 2002-2012 the original author or authors.
+ * Copyright 2002-2017 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.springframework.integration.samples.mailattachments.support;
 
 import java.io.File;
@@ -20,7 +21,7 @@ import java.io.File;
 import org.springframework.util.Assert;
 
 /**
- * Represents a part of the original email messsage. EmailFragments could be either
+ * Represents a part of the original email message. EmailFragments could be either
  * Email messages themselves or also attachments. The sample will use {@link EmailFragment}s
  * to ultimately write the various pieces that constitute an email message out to
  * the file system.
@@ -32,8 +33,10 @@ import org.springframework.util.Assert;
 public class EmailFragment {
 
 	private Object data;
+
 	private String filename;
-	private File   directory;
+
+	private File directory;
 
 	/**
 	 * Constructor.
@@ -45,9 +48,9 @@ public class EmailFragment {
 	public EmailFragment(File directory, String filename, Object data) {
 		super();
 
-		Assert.notNull(directory);
-		Assert.hasText(filename);
-		Assert.notNull(data);
+		Assert.notNull(directory, "'directory' must not be null");
+		Assert.hasText(filename, "'filename' must not be empty");
+		Assert.notNull(data, "'data' must not be null");
 
 		this.directory = directory;
 		this.filename = filename;
