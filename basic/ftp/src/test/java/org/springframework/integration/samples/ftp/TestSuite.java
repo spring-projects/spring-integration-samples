@@ -87,7 +87,7 @@ public class TestSuite {
 		ListenerFactory factory = new ListenerFactory();
 
 		factory.setPort(availableServerSocket);
-
+		factory.setIdleTimeout(600);
 		serverFactory.addListener("default", factory.createListener());
 
 		server = serverFactory.createServer();

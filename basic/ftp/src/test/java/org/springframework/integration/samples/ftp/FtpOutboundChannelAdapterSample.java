@@ -1,5 +1,5 @@
 /*
- * Copyright 2002-2016 the original author or authors.
+ * Copyright 2002-2017 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.springframework.integration.samples.ftp;
 
 import static org.junit.Assert.assertTrue;
@@ -76,7 +77,7 @@ public class FtpOutboundChannelAdapterSample {
 		assertTrue(new File(TestSuite.FTP_ROOT_DIR + File.separator + "a.txt").exists());
 		assertTrue(new File(TestSuite.FTP_ROOT_DIR + File.separator + "b.txt").exists());
 
-		LOGGER.info("Successfully transfered file 'a.txt' and 'b.txt' to a remote FTP location.");
+		LOGGER.info("Successfully transferred file 'a.txt' and 'b.txt' to a remote FTP location.");
 		ctx.close();
 	}
 

@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.springframework.integration.samples</groupId>
   <artifactId>cafe-si</artifactId>
@@ -56,7 +55,6 @@
     <dependency>
       <groupId>org.springframework.integration</groupId>
       <artifactId>spring-integration-stream</artifactId>
-      <version>5.0.0.M3</version>
       <scope>compile</scope>
     </dependency>
     <dependency>
@@ -104,7 +102,6 @@
     <dependency>
       <groupId>org.springframework</groupId>
       <artifactId>spring-test</artifactId>
-      <version>5.0.0.BUILD-SNAPSHOT</version>
       <scope>test</scope>
     </dependency>
   </dependencies>
@@ -114,5 +111,28 @@
       <name>Spring Framework Maven Milestone Repository</name>
       <url>https://repo.spring.io/libs-milestone</url>
     </repository>
+    <repository>
+      <id>repo.spring.io.snapshot</id>
+      <name>Spring Framework Maven Snapshot Repository</name>
+      <url>https://repo.spring.io/libs-snapshot</url>
+    </repository>
   </repositories>
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>org.springframework.integration</groupId>
+        <artifactId>spring-integration-bom</artifactId>
+        <version>5.0.0.BUILD-SNAPSHOT</version>
+        <scope>import</scope>
+        <type>pom</type>
+      </dependency>
+      <dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-framework-bom</artifactId>
+        <version>5.0.0.BUILD-SNAPSHOT</version>
+        <scope>import</scope>
+        <type>pom</type>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
 </project>

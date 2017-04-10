@@ -30,7 +30,7 @@
 		expression="payload"
 		reply-channel="toSplitter">
 		<int-ftp:request-handler-advice-chain>
-			<int:retry-advice />
+			<int:retry-advice/>
 		</int-ftp:request-handler-advice-chain>
 	</int-ftp:outbound-gateway>
 

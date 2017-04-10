@@ -9,13 +9,13 @@
 
 	<!-- This is a test context that injects a Mock JMS template into a JMS
 		inbound channel adapter. The inbound-channel-adapter provides or overrides
-		the 'real' adapter for testing purposes. If the flow imported flow throws
-		an exception, an ErrorMessage containg the exception will be sent to the
+		the 'real' adapter for testing purposes. If the flow imported throws
+		an exception, an ErrorMessage containing the exception will be sent to the
 		error channel for additional handling. -->
 
 	<import resource="classpath:integration-config.xml" />
 
-	<int-jms:inbound-channel-adapter jms-template="jmsTemplate" channel="inputChannel">
+	<int-jms:inbound-channel-adapter id="jmsInboundChannelAdapter" jms-template="jmsTemplate" channel="inputChannel">
 		<int:poller fixed-rate="500" max-messages-per-poll="1" error-channel="errorChannel" />
 	</int-jms:inbound-channel-adapter>
 

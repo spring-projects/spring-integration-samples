@@ -1,5 +1,5 @@
 /*
- * Copyright 2002-2016 the original author or authors.
+ * Copyright 2002-2017 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -36,6 +36,7 @@ import org.junit.runner.RunWith;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.integration.endpoint.SourcePollingChannelAdapter;
 import org.springframework.jms.core.JmsTemplate;
 import org.springframework.jms.support.converter.SimpleMessageConverter;
 import org.springframework.messaging.Message;
@@ -62,19 +63,22 @@ public class JmsMockTests {
 	private static final Logger LOGGER = Logger.getLogger(JmsMockTests.class);
 
 	@Autowired
-	JmsTemplate mockJmsTemplate;
+	private JmsTemplate mockJmsTemplate;
+
+	@Autowired
+	private SourcePollingChannelAdapter jmsInboundChannelAdapter;
 
 	@Autowired
 	@Qualifier("inputChannel")
-	MessageChannel inputChannel;
+	private MessageChannel inputChannel;
 
 	@Autowired
 	@Qualifier("outputChannel")
-	SubscribableChannel outputChannel;
+	private SubscribableChannel outputChannel;
 
 	@Autowired
 	@Qualifier("invalidMessageChannel")
-	SubscribableChannel invalidMessageChannel;
+	private SubscribableChannel invalidMessageChannel;
 
 	/**
 	 * This test verifies that a message received on a polling JMS inbound channel adapter is
@@ -110,7 +114,7 @@ public class JmsMockTests {
 	@Test
 	public void testReceiveInvalidMessage() throws JMSException, IOException, InterruptedException {
 		String msg = "whoops";
-		boolean sent = verifyJmsMessageReceivedOnOutputChannel(msg, invalidMessageChannel,new CountDownHandler() {
+		boolean sent = verifyJmsMessageReceivedOnOutputChannel(msg, invalidMessageChannel, new CountDownHandler() {
 
 			@Override
 			protected void verifyMessage(Message<?> message) {
@@ -176,6 +180,8 @@ public class JmsMockTests {
 		doReturn(text).when(message).getText();
 
 		expectedOutputChannel.subscribe(handler);
+
+		this.jmsInboundChannelAdapter.start();
 
 		boolean latchCountedToZero = latch.await(timeoutMillisec, TimeUnit.MILLISECONDS);
 

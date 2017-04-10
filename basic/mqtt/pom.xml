@@ -65,13 +65,11 @@
     <dependency>
       <groupId>org.springframework.integration</groupId>
       <artifactId>spring-integration-stream</artifactId>
-      <version>5.0.0.M3</version>
       <scope>compile</scope>
     </dependency>
     <dependency>
       <groupId>org.springframework.integration</groupId>
       <artifactId>spring-integration-mqtt</artifactId>
-      <version>5.0.0.M3</version>
       <scope>compile</scope>
     </dependency>
     <dependency>
@@ -107,7 +105,6 @@
     <dependency>
       <groupId>org.springframework</groupId>
       <artifactId>spring-test</artifactId>
-      <version>5.0.0.BUILD-SNAPSHOT</version>
       <scope>test</scope>
     </dependency>
   </dependencies>
@@ -116,6 +113,11 @@
       <id>repo.spring.io.milestone</id>
       <name>Spring Framework Maven Milestone Repository</name>
       <url>https://repo.spring.io/libs-milestone</url>
+    </repository>
+    <repository>
+      <id>repo.spring.io.snapshot</id>
+      <name>Spring Framework Maven Snapshot Repository</name>
+      <url>https://repo.spring.io/libs-snapshot</url>
     </repository>
   </repositories>
   <build>
@@ -126,4 +128,29 @@
       </plugin>
     </plugins>
   </build>
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>org.springframework.integration</groupId>
+        <artifactId>spring-integration-bom</artifactId>
+        <version>5.0.0.BUILD-SNAPSHOT</version>
+        <scope>import</scope>
+        <type>pom</type>
+      </dependency>
+      <dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-framework-bom</artifactId>
+        <version>5.0.0.BUILD-SNAPSHOT</version>
+        <scope>import</scope>
+        <type>pom</type>
+      </dependency>
+      <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-dependencies</artifactId>
+        <version>2.0.0.BUILD-SNAPSHOT</version>
+        <scope>import</scope>
+        <type>pom</type>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
 </project>
