@@ -18,12 +18,16 @@
 		<property name="password" value="${password}"/>
 	</bean>
 
+	<bean id="cachingSessionFactory" class="org.springframework.integration.file.remote.session.CachingSessionFactory">
+		<constructor-arg ref="ftpClientFactory"/>
+	</bean>
+
 	<int:channel id="ftpChannel"/>
 
 	<int-ftp:outbound-channel-adapter  id="ftpOutbound"
 				channel="ftpChannel"
 				remote-directory="/"
-				session-factory="ftpClientFactory">
+				session-factory="cachingSessionFactory">
 		<int-ftp:request-handler-advice-chain>
 			<int:retry-advice />
 		</int-ftp:request-handler-advice-chain>
