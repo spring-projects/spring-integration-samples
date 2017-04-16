@@ -4,7 +4,7 @@ Handler Advice Sample "retry-and-more"
 This sample shows how to use the 2.2.0 Handler Advice feature.
 
 
-##Stateless Retry Advice Demo
+## Stateless Retry Advice Demo
 
 This class (`StatelessRetryDemo`) demonstrates stateless retry.
 
@@ -24,7 +24,7 @@ __NOTE: Starting with Spring Integration 4.0, stateless retry has convenient nam
 It shows the retry advice declared (for each profile) as a top level bean `<int:handler-retry-advice id="retryAdvice">`. Declaring it as a top level bean allows it to be used in multiple places (or via profiles). You can also declare it within the advice chain using `<int:retry-advice/>` (with no 'id'). In that case, it cannot be reused in other advice chains.
 
 
-##Stateful Retry Advice Demo
+## Stateful Retry Advice Demo
 
 This class (`StatefulRetryDemo`) demonstrates stateful retry.
 
@@ -32,7 +32,7 @@ It is similar to the default version of the stateless retry but uses AMQP; you w
 
 NOTE: Starting with Spring Integration 4.0, __stateless retry__ has convenient namespace support; stateful retry requires the retry advice to be configured using `<bean/>` definitions as is shown here.
 
-##Circuit Breaker Advice Demo
+## Circuit Breaker Advice Demo
 
 This class (`CircuitBreakerDemo`) demonstrates the circuit breaker advice.
 
@@ -41,7 +41,7 @@ In this demo, the target service only succeeds in the last quarter of any minute
 You can observe the function of the advice by entering a number of messages over time, and watch the resulting messages.
 
 
-##Expression Evaluating Advice Demo
+## Expression Evaluating Advice Demo
 
 `FileTransferDeleteAfterSuccessDemo`
 
@@ -61,6 +61,6 @@ No real FTP is involved; mocks are used to simulate the transfer (success or fai
 In both cases simply add a file ending with .txt in ${java.io.tmpdir}/adviceDemo (e.g. touch /tmp/adviceDemo/x,txt) and the results will appear in the console.
 
 
-##Running the Demos
+## Running the Demos
 
 In each case, run the main method in each of the demonstration classes.
