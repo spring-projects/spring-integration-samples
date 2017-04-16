@@ -1,4 +1,4 @@
-#Spring Integration 4.0/4.1 Java Config/DSL Demo
+# Spring Integration 4.0/4.1 Java Config/DSL Demo
 
 This sample is the demo used in the [Spring Integration 4.0 Webinar](https://spring.io/blog/2014/05/15/webinar-replay-spring-integration-4-0-the-new-frontier) and SpringOne/2GX 2014.
 
@@ -36,13 +36,13 @@ Twitter now requires authentication to perform searches; visit the [twitter deve
 
 
 
-#SpringOne/2GX 2014
+# SpringOne/2GX 2014
 
 Additional examples were added to this project at __SpringOne2GX 2014__ - see the __springone__ package.
 
 This demonstrates moving from completely XML configuration, through Java Configuration, and ultimately to the DSL.
 
-##AXML
+## AXML
 
 This example is pure XML - it's a simple flow...
 
@@ -50,15 +50,15 @@ This example is pure XML - it's a simple flow...
 
 The transformer concatentates the payload to itself (String), the service upper cases the payload. The result is returned to the gateway. "foo" becomes "FOOFOO".
 
-##BXMLAndPojo
+## BXMLAndPojo
 
 This takes the same example and shows how to configure it using "classic" Spring Integration annotations, available since 2.0.
 
-##CNoXML
+## CNoXML
 
 This takes the same example and configures it using standard Java Configuration (available since 4.0). Many of the standard annotations are now available on __@Bean__ definitions; note that the output channel must be configured on the handler, not the annotation. __@IntegrationComponentScan__ detects __@MessagingGateway__ interfaces and creates gateways.
 
-##DBoot
+## DBoot
 
 This takes the same example as __C...__ and configures it using Spring Boot. The configuration is slightly more concise.
 
@@ -68,15 +68,15 @@ Note: Other applications in this project use the embedded web server (for http a
 					.web(false)
 					.run(args);
 
-##EDSL
+## EDSL
 
 This takes the same example and configures it using the Spring Integration Java DSL. It requires Spring Integration 4.1.0.M1 and DSL 1.0.0.M3.
 
-##FMail
+## FMail
 
 This adds a recipient list router and sends a copy of the payload to an SMTP Email server (add credentials to __application.yml__).
 
-##GIMAP
+## GIMAP
 
 This is a separate application that demonstrates the DSL configuring an IMAP idle channel adapter, to receive emails sent by __FEmail__.
 
