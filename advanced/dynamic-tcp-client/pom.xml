@@ -65,7 +65,7 @@
     <dependency>
       <groupId>org.springframework.integration</groupId>
       <artifactId>spring-integration-ip</artifactId>
-      <version>4.3.8.RELEASE</version>
+      <version>4.3.9.RELEASE</version>
       <scope>compile</scope>
     </dependency>
     <dependency>
@@ -95,7 +95,7 @@
     <dependency>
       <groupId>org.springframework</groupId>
       <artifactId>spring-test</artifactId>
-      <version>4.3.2.RELEASE</version>
+      <version>4.3.8.RELEASE</version>
       <scope>test</scope>
     </dependency>
     <dependency>
