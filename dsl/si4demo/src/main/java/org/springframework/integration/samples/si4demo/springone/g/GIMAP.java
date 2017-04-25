@@ -26,8 +26,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.integration.dsl.IntegrationFlow;
 import org.springframework.integration.dsl.IntegrationFlows;
-import org.springframework.integration.mail.dsl.Mail;
 import org.springframework.integration.mail.MailHeaders;
+import org.springframework.integration.mail.dsl.Mail;
 import org.springframework.integration.samples.si4demo.springone.GMailProperties;
 
 /**
@@ -70,7 +70,7 @@ public class GIMAP {
 						.put(MailHeaders.SUBJECT, "payload.subject")
 						.put(MailHeaders.FROM, "payload.from[0].toString()")))
 				.transform("payload.content")
-				.<String>handle(System.out::println)
+				.handle(System.out::println)
 				.get();
 	}
 
