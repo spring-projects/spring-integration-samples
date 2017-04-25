@@ -1,7 +1,6 @@
 buildscript {
 	repositories {
 		maven { url 'http://repo.spring.io/libs-snapshot' }
-		maven { url "http://repo.spring.io/libs-milestone" }
 	}
 	dependencies {
 		classpath "org.springframework.boot:spring-boot-gradle-plugin:$springBootVersion"
