@@ -1,5 +1,5 @@
 /*
- * Copyright 2002-2015 the original author or authors.
+ * Copyright 2002-2017 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.springframework.integration.samples.jms;
 
 import java.util.List;
@@ -29,6 +30,7 @@ import org.springframework.messaging.MessageChannel;
 /**
  * @author Gunnar Hillert
  * @author Gary Russell
+ * @author Artem Bilan
  */
 public class AggregatorDemoTest {
 
@@ -44,14 +46,14 @@ public class AggregatorDemoTest {
 
 		final GenericXmlApplicationContext applicationContext = new GenericXmlApplicationContext(configFilesGatewayDemo);
 
-		final MessageChannel stdinToJmsoutChannel = applicationContext.getBean("stdinToJmsoutChannel", MessageChannel.class);
+		final MessageChannel stdinToJmsOutChannel = applicationContext.getBean("stdinToJmsOutChannel", MessageChannel.class);
 
-		stdinToJmsoutChannel.send(MessageBuilder.withPayload("jms test").build());
+		stdinToJmsOutChannel.send(MessageBuilder.withPayload("jms test").build());
 
 		final QueueChannel queueChannel = applicationContext.getBean("queueChannel", QueueChannel.class);
 
 		@SuppressWarnings("unchecked")
-		Message<List<String>> reply = (Message<List<String>>) queueChannel.receive(20000);
+		Message<List<String>> reply = (Message<List<String>>) queueChannel.receive(600000);
 		Assert.assertNotNull(reply);
 		List<String> out = reply.getPayload();
 

@@ -13,10 +13,10 @@
 			http://www.springframework.org/schema/integration/stream
 			http://www.springframework.org/schema/integration/stream/spring-integration-stream.xsd">
 
-	<stream:stdin-channel-adapter id="stdin" channel="stdinToJmsoutChannel"/>
+	<stream:stdin-channel-adapter id="stdin" channel="stdinToJmsOutChannel"/>
 
-	<channel id="stdinToJmsoutChannel"/>
+	<channel id="stdinToJmsOutChannel"/>
 
-	<jms:outbound-channel-adapter id="jmsout" channel="stdinToJmsoutChannel" destination="requestQueue"/>
+	<jms:outbound-channel-adapter id="jmsout" channel="stdinToJmsOutChannel" destination="requestQueue"/>
 
 </beans:beans>

@@ -18,21 +18,25 @@ package org.springframework.integration.samples.advance.testing.jms;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
+import static org.mockito.BDDMockito.given;
 import static org.mockito.Matchers.anyString;
-import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 import java.io.IOException;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicReference;
 
 import javax.jms.JMSException;
 import javax.jms.TextMessage;
 
 import org.apache.log4j.Logger;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.invocation.InvocationOnMock;
+import org.mockito.stubbing.Answer;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -62,6 +66,8 @@ public class JmsMockTests {
 
 	private static final Logger LOGGER = Logger.getLogger(JmsMockTests.class);
 
+	private final AtomicReference<String> testMessageHolder = new AtomicReference<>();
+
 	@Autowired
 	private JmsTemplate mockJmsTemplate;
 
@@ -80,6 +86,25 @@ public class JmsMockTests {
 	@Qualifier("invalidMessageChannel")
 	private SubscribableChannel invalidMessageChannel;
 
+
+	@Before
+	public void setup() throws JMSException {
+		TextMessage message = mock(TextMessage.class);
+		when(this.mockJmsTemplate.getMessageConverter()).thenReturn(new SimpleMessageConverter());
+		when(this.mockJmsTemplate.receiveSelected(anyString())).thenReturn(message);
+
+
+		given(message.getText())
+				.willAnswer(new Answer<String>() {
+
+					@Override
+					public String answer(InvocationOnMock invocation) throws Throwable {
+						return testMessageHolder.get();
+					}
+
+				});
+	}
+
 	/**
 	 * This test verifies that a message received on a polling JMS inbound channel adapter is
 	 * routed to the designated channel and that the message payload is as expected
@@ -92,13 +117,13 @@ public class JmsMockTests {
 	public void testReceiveMessage() throws JMSException, InterruptedException, IOException {
 		String msg = "hello";
 
-		boolean sent = verifyJmsMessageReceivedOnOutputChannel(msg, outputChannel,new CountDownHandler() {
+		boolean sent = verifyJmsMessageReceivedOnOutputChannel(msg, outputChannel, new CountDownHandler() {
 
-			@Override
-			protected void verifyMessage(Message<?> message) {
-				assertEquals("hello",message.getPayload());
-		 	}
-		}
+					@Override
+					protected void verifyMessage(Message<?> message) {
+						assertEquals("hello", message.getPayload());
+					}
+				}
 		);
 		assertTrue("message not sent to expected output channel", sent);
 	}
@@ -116,12 +141,12 @@ public class JmsMockTests {
 		String msg = "whoops";
 		boolean sent = verifyJmsMessageReceivedOnOutputChannel(msg, invalidMessageChannel, new CountDownHandler() {
 
-			@Override
-			protected void verifyMessage(Message<?> message) {
-				assertEquals("invalid payload",message.getPayload());
-			}
+					@Override
+					protected void verifyMessage(Message<?> message) {
+						assertEquals("invalid payload", message.getPayload());
+					}
 
-		}
+				}
 		);
 		assertTrue("message not sent to expected output channel", sent);
 	}
@@ -168,16 +193,10 @@ public class JmsMockTests {
 		 * is also a mock.
 		 */
 
-		TextMessage message = mock(TextMessage.class);
-		when(this.mockJmsTemplate.getMessageConverter()).thenReturn(new SimpleMessageConverter());
-		when(this.mockJmsTemplate.receiveSelected(anyString())).thenReturn(message);
-
-		String text = (String) obj;
-
+		this.testMessageHolder.set((String) obj);
 		CountDownLatch latch = new CountDownLatch(1);
 		handler.setLatch(latch);
 
-		doReturn(text).when(message).getText();
 
 		expectedOutputChannel.subscribe(handler);
 
@@ -192,6 +211,7 @@ public class JmsMockTests {
 		return latchCountedToZero;
 
 	}
+
 	/*
 	 * A MessageHandler that uses a CountDownLatch to synchronize with the calling thread
 	 */
@@ -199,7 +219,7 @@ public class JmsMockTests {
 
 		CountDownLatch latch;
 
-		public final void setLatch(CountDownLatch latch){
+		public final void setLatch(CountDownLatch latch) {
 			this.latch = latch;
 		}
 

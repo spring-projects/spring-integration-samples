@@ -6,8 +6,6 @@
 	xmlns:int-stream="http://www.springframework.org/schema/integration/stream"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans
 			http://www.springframework.org/schema/beans/spring-beans.xsd
-			http://www.springframework.org/schema/context
-			http://www.springframework.org/schema/context/spring-context.xsd
 			http://www.springframework.org/schema/integration
 			http://www.springframework.org/schema/integration/spring-integration.xsd
 			http://www.springframework.org/schema/integration/jms
@@ -15,11 +13,9 @@
 			http://www.springframework.org/schema/integration/stream
 			http://www.springframework.org/schema/integration/stream/spring-integration-stream.xsd">
 
-	<int-stream:stdin-channel-adapter id="stdin" channel="stdinToJmsoutChannel"/>
+	<int-stream:stdin-channel-adapter id="stdin" channel="stdinToJmsOutChannel"/>
 
-	<int:channel id="stdinToJmsoutChannel"/>
-
-	<int:chain input-channel="stdinToJmsoutChannel">
+	<int:chain input-channel="stdinToJmsOutChannel">
 		<int:header-enricher>
 			<int:header name="jms_replyTo" ref="replyQueue" />
 		</int:header-enricher>
@@ -32,7 +28,7 @@
 	<int:channel id="jmsReplyChannel" />
 
 	<int:aggregator input-channel="jmsReplyChannel" output-channel="out"
-		group-timeout="5000"
+		group-timeout="20000"
 		expire-groups-upon-timeout="false"
 		send-partial-result-on-expiry="true"
 		discard-channel="logLateArrivers"

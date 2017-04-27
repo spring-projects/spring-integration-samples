@@ -15,11 +15,11 @@
 			http://www.springframework.org/schema/integration/stream
 			http://www.springframework.org/schema/integration/stream/spring-integration-stream.xsd">
 
-	<stream:stdin-channel-adapter id="stdin" channel="stdinToJmsoutChannel"/>
+	<stream:stdin-channel-adapter id="stdin" channel="stdinToJmsOutChannel"/>
 
-	<channel id="stdinToJmsoutChannel"/>
+	<channel id="stdinToJmsOutChannel"/>
 
-	<jms:outbound-gateway request-channel="stdinToJmsoutChannel"
+	<jms:outbound-gateway request-channel="stdinToJmsOutChannel"
 						  request-destination="requestQueue"
 						  reply-channel="jmsReplyChannel"/>
 

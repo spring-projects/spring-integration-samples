@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.springframework.integration.samples.tcpclientserver;
 
 import static org.hamcrest.Matchers.containsString;
@@ -53,7 +54,8 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
  * @since 2.1
  *
  */
-@ContextConfiguration(loader=CustomTestContextLoader.class, locations={"/META-INF/spring/integration/tcpClientServerDemo-conversion-context.xml"})
+@ContextConfiguration(loader = CustomTestContextLoader.class,
+		locations = { "/META-INF/spring/integration/tcpClientServerDemo-conversion-context.xml" })
 @RunWith(SpringJUnit4ClassRunner.class)
 @DirtiesContext
 public class TcpClientServerDemoTest {
@@ -84,15 +86,17 @@ public class TcpClientServerDemoTest {
 			results.add(i);
 			final int j = i;
 			executor.execute(new Runnable() {
+
 				@Override
 				public void run() {
 					String result = gw.send(j + "Hello world!"); // first 3 bytes is correlationid
 					assertEquals(j + "Hello world!:echo", result);
 					results.remove(j);
 					latch.countDown();
-				}});
+				}
+			});
 		}
-		assertTrue(latch.await(10, TimeUnit.SECONDS));
+		assertTrue(latch.await(20, TimeUnit.SECONDS));
 		assertEquals(0, results.size());
 	}
 
