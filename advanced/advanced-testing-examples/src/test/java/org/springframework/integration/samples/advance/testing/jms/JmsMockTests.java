@@ -35,6 +35,7 @@ import org.apache.log4j.Logger;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.Mockito;
 import org.mockito.invocation.InvocationOnMock;
 import org.mockito.stubbing.Answer;
 
@@ -89,6 +90,7 @@ public class JmsMockTests {
 
 	@Before
 	public void setup() throws JMSException {
+		Mockito.reset(this.mockJmsTemplate);
 		TextMessage message = mock(TextMessage.class);
 		when(this.mockJmsTemplate.getMessageConverter()).thenReturn(new SimpleMessageConverter());
 		when(this.mockJmsTemplate.receiveSelected(anyString())).thenReturn(message);
