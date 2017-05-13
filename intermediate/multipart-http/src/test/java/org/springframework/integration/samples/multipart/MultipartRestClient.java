@@ -27,33 +27,36 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
+
 /**
  * @author Oleg Zhurakousky
  *
  */
 public class MultipartRestClient {
 
-	private static Logger logger = Logger.getLogger(MultipartRestClient.class);
-	private static String uri = "http://localhost:8080/multipart-http/inboundAdapter.htm";
-	private static String resourcePath = "org/springframework/integration/samples/multipart/spring09_logo.png";
+    private static Logger logger = Logger.getLogger(MultipartRestClient.class);
+    private static String uri = "http://localhost:8080/multipart-http/inboundAdapter.htm";
+    private static String resourcePath = "org/springframework/integration/samples/multipart/spring09_logo.png";
 
-	/**
-	 * @param args
-	 */
-	public static void main(String[] args) throws Exception{
-		RestTemplate template = new RestTemplate();
-		Resource s2logo = new ClassPathResource(resourcePath);
-		MultiValueMap<String, Object> multipartMap = new LinkedMultiValueMap<String, Object>();
-		multipartMap.add("company", "SpringSource");
-		multipartMap.add("company-logo", s2logo);
-		logger.info("Created multipart request: " + multipartMap);
-		HttpHeaders headers = new HttpHeaders();
-		headers.setContentType(new MediaType("multipart", "form-data"));
-		HttpEntity<Object> request = new HttpEntity<Object>(multipartMap, headers);
-		logger.info("Posting request to: " + uri);
-		ResponseEntity<?> httpResponse = template.exchange(uri, HttpMethod.POST, request, Object.class);
-		if (!httpResponse.getStatusCode().equals(HttpStatus.OK)){
-			logger.error("Problems with the request. Http status: " + httpResponse.getStatusCode());
-		}
-	}
+    /**
+     * @param args
+     */
+    public static void main(final String[] args) throws Exception {
+        RestTemplate template = new RestTemplate();
+        Resource s2logo = new ClassPathResource(resourcePath);
+        MultiValueMap<String, Object> multipartMap = new LinkedMultiValueMap<String, Object>();
+        multipartMap.add("company", "SpringSource");
+        multipartMap.add("company-logo", s2logo);
+        logger.info("Created multipart request: " + multipartMap);
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(new MediaType("multipart", "form-data"));
+        HttpEntity<MultiValueMap<String, Object>> request = new HttpEntity<MultiValueMap<String, Object>>(multipartMap, headers);
+        logger.info("Posting request to: " + uri);
+        ResponseEntity<?> httpResponse = template.exchange(uri, HttpMethod.POST, request, Object.class);
+        // Use this if you expect response to be plain text
+        // ResponseEntity<String> httpResponse = template.postForEntity(uri, request, String.class);
+        if (!httpResponse.getStatusCode().equals(HttpStatus.OK)) {
+            logger.error("Problems with the request. Http status: " + httpResponse.getStatusCode());
+        }
+    }
 }
