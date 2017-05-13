@@ -1426,6 +1426,29 @@ project('dynamic-tcp-client') {
 	}
 }
 
+project('multi-tcp-clients') {
+	description = 'Multi TCP Client'
+
+	apply plugin: 'spring-boot'
+
+	dependencies {
+		compile 'org.springframework.boot:spring-boot-starter-integration'
+		compile "org.springframework.integration:spring-integration-ip:$springIntegrationVersion"
+
+		testCompile 'org.springframework.boot:spring-boot-starter-test'
+	}
+
+	springBoot {
+		mainClass = 'org.springframework.integration.samples.multitcp.App'
+	}
+
+	task run(type: JavaExec) {
+		main 'org.springframework.integration.samples.multitcp.App'
+		classpath = sourceSets.main.runtimeClasspath
+	}
+
+}
+
 
 sonarqube {
 	properties {

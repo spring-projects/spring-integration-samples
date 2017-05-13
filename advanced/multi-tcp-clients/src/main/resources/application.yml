@@ -1,0 +1,21 @@
+conn: 
+  servers: 
+    - 
+      id: 1
+      ip: 127.0.0.1
+      port: 4196
+      sotimeout: 10000
+      requestTimeout: 450
+      remoteTimeout: 450
+    - 
+      id: 2
+      ip: 127.0.0.1
+      port: 4196
+    - 
+      id: 3
+      ip: 127.0.0.1
+      port: 4196
+    - 
+      id: 4
+      ip: 127.0.0.1
+      port: 4196
