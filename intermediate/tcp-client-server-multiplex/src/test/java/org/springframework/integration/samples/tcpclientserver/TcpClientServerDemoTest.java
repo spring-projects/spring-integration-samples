@@ -1,5 +1,5 @@
 /*
- * Copyright 2002-2015 the original author or authors.
+ * Copyright 2002-2017 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -96,7 +96,7 @@ public class TcpClientServerDemoTest {
 				}
 			});
 		}
-		assertTrue(latch.await(20, TimeUnit.SECONDS));
+		assertTrue(latch.await(60, TimeUnit.SECONDS));
 		assertEquals(0, results.size());
 	}
 

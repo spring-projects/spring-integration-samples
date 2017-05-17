@@ -16,6 +16,8 @@
 
 package org.springframework.integration.samples.barrier;
 
+import java.util.Collections;
+
 import org.springframework.amqp.rabbit.connection.CachingConnectionFactory;
 import org.springframework.boot.Banner.Mode;
 import org.springframework.boot.SpringApplication;
@@ -42,11 +44,15 @@ public class Application {
 		connectionFactory.resetConnection();
 		// https://github.com/spring-projects/spring-boot/issues/3945
 
-		ConfigurableApplicationContext client
-			= new SpringApplicationBuilder("/META-INF/spring/integration/client-context.xml")
+		SpringApplication application = new SpringApplicationBuilder()
 				.web(WebApplicationType.NONE)
 				.bannerMode(Mode.OFF)
-				.run(args);
+				.application();
+
+		application.setSources(Collections.singleton("/META-INF/spring/integration/client-context.xml"));
+
+		ConfigurableApplicationContext client = application.run(args);
+
 		RequestGateway requestGateway = client.getBean("requestGateway", RequestGateway.class);
 		String request = "A,B,C";
 		System.out.println("\n\n++++++++++++ Sending: " + request + " ++++++++++++\n");
