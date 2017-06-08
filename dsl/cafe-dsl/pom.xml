@@ -71,7 +71,7 @@
     <dependency>
       <groupId>org.springframework.integration</groupId>
       <artifactId>spring-integration-core</artifactId>
-      <version>4.3.9.RELEASE</version>
+      <version>4.3.10.RELEASE</version>
       <scope>compile</scope>
     </dependency>
     <dependency>
@@ -83,7 +83,7 @@
     <dependency>
       <groupId>org.springframework.integration</groupId>
       <artifactId>spring-integration-java-dsl</artifactId>
-      <version>1.2.1.RELEASE</version>
+      <version>1.2.2.RELEASE</version>
       <scope>compile</scope>
     </dependency>
     <dependency>
@@ -107,7 +107,7 @@
     <dependency>
       <groupId>org.springframework</groupId>
       <artifactId>spring-test</artifactId>
-      <version>4.3.8.RELEASE</version>
+      <version>4.3.9.RELEASE</version>
       <scope>test</scope>
     </dependency>
     <dependency>
