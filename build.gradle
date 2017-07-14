@@ -218,7 +218,7 @@ subprojects { subproject ->
 			springIntegrationKafkaVersion = '3.0.0.M1'
 			springIntegrationSplunkVersion = '1.1.0.RELEASE'
 			springKafkaVersion = '2.0.0.M2'
-			springVersion = '5.0.0.RC1'
+			springVersion = '5.0.0.BUILD-SNAPSHOT'
 			springSecurityVersion = '4.2.2.RELEASE'
 			springWebFlowVersion = '2.3.3.RELEASE'
 			tilesJspVersion = '2.2.1'
