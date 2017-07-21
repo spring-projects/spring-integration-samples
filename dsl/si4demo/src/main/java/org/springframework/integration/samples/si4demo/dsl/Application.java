@@ -1,5 +1,5 @@
 /*
- * Copyright 2014 the original author or authors.
+ * Copyright 2014-2017 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.springframework.integration.samples.si4demo.dsl;
 
 import java.util.Scanner;
@@ -64,7 +65,10 @@ import org.springframework.social.twitter.api.impl.TwitterTemplate;
  * </pre>
  *
  * It also supports typing a hashtag into the console.
+ *
  * @author Gary Russell
+ * @author Artem Bilan
+ *
  * @since 4.0
  *
  */
@@ -114,7 +118,7 @@ public class Application {
 		mapping.setPathPatterns("/foo");
 		gateway.setRequestMapping(mapping);
 		gateway.setRequestChannel(requestChannel());
-		gateway.setRequestPayloadType(byte[].class);
+		gateway.setRequestPayloadTypeClass(byte[].class);
 		return gateway;
 	}
 
