@@ -3,16 +3,13 @@ buildscript {
 		maven { url 'http://repo.spring.io/libs-snapshot' }
 	}
 	dependencies {
+		classpath 'io.spring.gradle:dependency-management-plugin:1.0.2.RELEASE'
 		classpath "org.springframework.boot:spring-boot-gradle-plugin:$springBootVersion"
-		configurations.classpath.resolutionStrategy.eachDependency {
-			if (it.requested.name == 'dependency-management-plugin') {
-				it.useVersion '1.0.2.RELEASE'
-			}
-		}
+		classpath 'org.akhikhl.gretty:gretty:1.4.2'
 	}
 }
 plugins {
-	id "org.sonarqube" version "2.1"
+	id "org.sonarqube" version "2.5"
 }
 
 description = 'Spring Integration Samples'
@@ -121,7 +118,7 @@ subprojects { subproject ->
 						}
 					}
 				}.withXml {
-					if (subproject.plugins.hasPlugin('jetty')) {
+					if (subproject.plugins.hasPlugin('org.akhikhl.gretty')) {
 						asNode().appendNode('packaging', 'war')
 						asNode().appendNode('build')
 								.appendNode('plugins')
@@ -163,7 +160,7 @@ subprojects { subproject ->
 		apply plugin: 'io.spring.dependency-management'
 
 		jacoco {
-			toolVersion = "0.7.8"
+			toolVersion = "0.7.9"
 		}
 
 		compileJava {
@@ -211,14 +208,14 @@ subprojects { subproject ->
 			mockitoVersion = '1.10.19'
 			openJpaVersion = '2.4.0'
 			oracleDriverVersion = '11.2.0.3'
-			postgresVersion = '9.1-901-1.jdbc4'
+			postgresVersion = '42.0.0'
 			subethasmtpVersion = '1.2'
-			slf4jVersion = '1.7.11'
-			springIntegrationVersion = '5.0.0.BUILD-SNAPSHOT'
+			slf4jVersion = '1.7.22'
+			springIntegrationVersion = '5.0.0.M6'
 			springIntegrationKafkaVersion = '3.0.0.M1'
 			springIntegrationSplunkVersion = '1.1.0.RELEASE'
-			springKafkaVersion = '2.0.0.M2'
-			springVersion = '5.0.0.BUILD-SNAPSHOT'
+			springKafkaVersion = '2.0.0.M3'
+			springVersion = '5.0.0.RC3'
 			springSecurityVersion = '4.2.2.RELEASE'
 			springWebFlowVersion = '2.3.3.RELEASE'
 			tilesJspVersion = '2.2.1'
@@ -256,7 +253,7 @@ subprojects { subproject ->
 			reports {
 				xml.enabled false
 				csv.enabled false
-				html.destination "${buildDir}/reports/jacoco/html"
+				html.destination file("${buildDir}/reports/jacoco/html")
 			}
 		}
 
@@ -408,7 +405,7 @@ project('loan-broker') {
 project('loanshark') {
 	description = 'Loan Shark Sample'
 
-	apply plugin: 'jetty'
+	apply plugin: 'org.akhikhl.gretty'
 	apply plugin: 'eclipse-wtp'
 
 	dependencies {
@@ -583,7 +580,7 @@ project('http') {
 	description = 'HTTP Sample'
 
 	apply plugin: 'application'
-	apply plugin: 'jetty'
+	apply plugin: 'org.akhikhl.gretty'
 	apply plugin: 'eclipse-wtp'
 
 	mainClassName = 'org.springframework.integration.samples.http.HttpClientDemo'
@@ -958,7 +955,7 @@ project('twitter') {
 project('ws-inbound-gateway') {
 	description = 'WS Inbound Gateway Sample'
 
-	apply plugin: 'jetty'
+	apply plugin: 'org.akhikhl.gretty'
 	apply plugin: 'eclipse-wtp'
 
 	dependencies {
@@ -1078,7 +1075,7 @@ project('mail-attachments') {
 project('monitoring') {
 	description = 'Monitoring Application'
 
-	apply plugin: 'jetty'
+	apply plugin: 'org.akhikhl.gretty'
 	apply plugin: 'application'
 	apply plugin: 'eclipse-wtp'
 
@@ -1097,7 +1094,7 @@ project('monitoring') {
 project('multipart-http') {
 	description = 'HTTP Multipart Demo'
 
-	apply plugin: 'jetty'
+	apply plugin: 'org.akhikhl.gretty'
 	apply plugin: 'eclipse-wtp'
 
 	dependencies {
@@ -1113,7 +1110,7 @@ project('multipart-http') {
 project('rest-http') {
 	description = 'Spring Integration Rest HTTP Path Usage Demo'
 
-	apply plugin: 'jetty'
+	apply plugin: 'org.akhikhl.gretty'
 	apply plugin: 'eclipse-wtp'
 
 	dependencies {
@@ -1258,7 +1255,7 @@ project('stored-procedures-postgresql') {
 
 	dependencies {
 		compile "org.springframework.integration:spring-integration-jdbc"
-		compile "postgresql:postgresql:$postgresVersion"
+		compile "org.postgresql:postgresql:$postgresVersion"
 		compile "commons-dbcp:commons-dbcp:$commonsDbcpVersion"
 		compile "commons-pool:commons-pool:$commonsPoolVersion"
 		compile "log4j:log4j:$log4jVersion"
