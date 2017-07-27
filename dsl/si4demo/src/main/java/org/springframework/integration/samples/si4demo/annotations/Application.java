@@ -123,8 +123,8 @@ public class Application {
 //	}
 
 	@Bean
-	@Transformer(inputChannel="requestChannel", outputChannel="searchChannel")
-	public org.springframework.integration.transformer.Transformer converttoString() {
+	@Transformer(inputChannel = "requestChannel", outputChannel = "searchChannel")
+	public org.springframework.integration.transformer.Transformer convertToString() {
 		return new ObjectToStringTransformer();
 	}
 
@@ -134,7 +134,7 @@ public class Application {
 	}
 
 	@Bean
-	@ServiceActivator(inputChannel="searchChannel")
+	@ServiceActivator(inputChannel = "searchChannel")
 	public TwitterSearchOutboundGateway twitterGate() {
 		TwitterSearchOutboundGateway gateway = new TwitterSearchOutboundGateway(twitter());
 		gateway.setOutputChannel(toJsonChannel());
@@ -147,8 +147,8 @@ public class Application {
 	}
 
 	@Bean
-	@Transformer(inputChannel="toJsonChannel")
-	public org.springframework.integration.transformer.Transformer converttoJson() {
+	@Transformer(inputChannel = "toJsonChannel")
+	public org.springframework.integration.transformer.Transformer convertToJson() {
 		return new ObjectToJsonTransformer();
 	}
 

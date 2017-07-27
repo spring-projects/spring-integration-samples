@@ -245,6 +245,10 @@ subprojects { subproject ->
 			testCompile "org.springframework:spring-test"
 		}
 
+		configurations {
+			all*.exclude group: 'com.fasterxml.jackson.module', module: 'jackson-module-kotlin'
+		}
+
 		// enable all compiler warnings; individual projects may customize further
 		ext.xLintArg = '-Xlint:all,-options'
 		[compileJava, compileTestJava]*.options*.compilerArgs = [xLintArg]
