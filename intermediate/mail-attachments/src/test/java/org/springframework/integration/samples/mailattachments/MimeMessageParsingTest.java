@@ -1,5 +1,5 @@
 /*
- * Copyright 2002-2012 the original author or authors.
+ * Copyright 2002-2017 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -25,11 +25,15 @@ import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 
 import org.apache.commons.io.IOUtils;
-import org.apache.log4j.Logger;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.subethamail.wiser.Wiser;
+import org.subethamail.wiser.WiserMessage;
+
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.integration.samples.mailattachments.support.EmailFragment;
 import org.springframework.integration.samples.mailattachments.support.EmailParserUtils;
@@ -37,18 +41,17 @@ import org.springframework.integration.test.util.SocketUtils;
 import org.springframework.mail.MailParseException;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.mail.javamail.MimeMessageHelper;
-import org.subethamail.wiser.Wiser;
-import org.subethamail.wiser.WiserMessage;
 
 /**
  * Test to verify the correct parsing of Email Messages.
  *
  * @author Gunnar Hillert
+ * @author Gary Russell
  * @since 2.2
  */
 public class MimeMessageParsingTest {
 
-	private static final Logger LOGGER = Logger.getLogger(MimeMessageParsingTest.class);
+	private static final Log LOGGER = LogFactory.getLog(MimeMessageParsingTest.class);
 
 	private Wiser wiser;
 

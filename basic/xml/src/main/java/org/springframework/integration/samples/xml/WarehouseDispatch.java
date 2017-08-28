@@ -1,5 +1,5 @@
 /*
- * Copyright 2002-2010 the original author or authors.
+ * Copyright 2002-2017 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,15 +16,17 @@
 
 package org.springframework.integration.samples.xml;
 
-import org.apache.log4j.Logger;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.w3c.dom.Document;
 /**
- * 
+ *
  * @author Jonas Partner
+ * @author Gary Russell
  */
 public class WarehouseDispatch {
-	private static Logger logger = Logger.getLogger(WarehouseDispatch.class);
-	
+	private static Log logger = LogFactory.getLog(WarehouseDispatch.class);
+
 	public void dispatch(Document orderItem){
 		logger.info("Warehouse dispatching orderItem: \n" + XmlUtil.docAsString(orderItem));
 	}

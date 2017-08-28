@@ -1,4 +1,4 @@
-/* Copyright 2002-2008 the original author or authors.
+/* Copyright 2002-2017 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,19 +15,22 @@
 
 package org.springframework.integration.samples.errorhandling;
 
-import org.apache.log4j.Logger;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 import org.springframework.integration.annotation.MessageEndpoint;
 
 /**
  * This guest receives invitations, but returns them to sender with a wrong
  * address exception message.
- * 
+ *
  * @author Iwein Fuld
+ * @author Gary Russell
  */
 @MessageEndpoint
 public class PartyGuest {
-	private Logger logger = Logger.getLogger(PartyGuest.class);
-	
+	private final Log logger = LogFactory.getLog(PartyGuest.class);
+
 	public void onInvitation(Invitation invitation) {
 		logger.info("Guest is throwing exception");
 		throw new RuntimeException("Wrong address");

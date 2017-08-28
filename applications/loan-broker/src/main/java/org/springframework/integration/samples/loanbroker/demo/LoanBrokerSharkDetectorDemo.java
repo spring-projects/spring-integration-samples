@@ -1,5 +1,5 @@
 /*
- * Copyright 2002-2010 the original author or authors.
+ * Copyright 2002-2017 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,7 +18,9 @@ package org.springframework.integration.samples.loanbroker.demo;
 
 import java.util.List;
 
-import org.apache.log4j.Logger;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.integration.samples.loanbroker.LoanBrokerGateway;
@@ -31,10 +33,10 @@ import org.springframework.integration.samples.loanbroker.domain.LoanRequest;
  */
 public class LoanBrokerSharkDetectorDemo {
 
-	private static Logger logger = Logger.getLogger(LoanBrokerSharkDetectorDemo.class);
+	private static Log logger = LogFactory.getLog(LoanBrokerSharkDetectorDemo.class);
 
 	public static void main(String[] args) {
-		ConfigurableApplicationContext context = 
+		ConfigurableApplicationContext context =
 				new ClassPathXmlApplicationContext("META-INF/spring/integration/bootstrap-config/stubbed-loan-broker-multicast.xml");
 		LoanBrokerGateway broker = context.getBean("loanBrokerGateway", LoanBrokerGateway.class);
 		LoanRequest loanRequest = new LoanRequest();
@@ -46,6 +48,7 @@ public class LoanBrokerSharkDetectorDemo {
 		for (LoanQuote loanQuote : loanQuotes) {
 			logger.info(loanQuote);
 		}
+		context.close();
 	}
 
 }

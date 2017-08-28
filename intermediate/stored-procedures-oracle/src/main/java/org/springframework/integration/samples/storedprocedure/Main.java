@@ -1,5 +1,5 @@
 /*
- * Copyright 2002-2013 the original author or authors.
+ * Copyright 2002-2017 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,7 +18,8 @@ package org.springframework.integration.samples.storedprocedure;
 import java.util.List;
 import java.util.Scanner;
 
-import org.apache.log4j.Logger;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 import org.springframework.context.support.GenericXmlApplicationContext;
 import org.springframework.integration.model.CoffeeBeverage;
@@ -30,12 +31,13 @@ import org.springframework.integration.service.StringConversionService;
  * Starts the Spring Context and will initialize the Spring Integration routes.
  *
  * @author Gunnar Hillert
+ * @author Gary Russell
  * @version 1.0
  *
  */
 public final class Main {
 
-	private static final Logger LOGGER = Logger.getLogger(Main.class);
+	private static final Log LOGGER = LogFactory.getLog(Main.class);
 
 	private Main() { }
 
@@ -82,7 +84,7 @@ public final class Main {
 		}
 
 		System.out.println("Exiting application.");
-		System.exit(0);
+		scanner.close();
 
 	}
 
@@ -120,6 +122,7 @@ public final class Main {
 			System.out.print("To try again, please enter a string and press <enter>:");
 		}
 
+		scanner.close();
 		context.close();
 		System.out.println("Back to main menu.");
 
@@ -165,6 +168,7 @@ public final class Main {
 
 		}
 
+		scanner.close();
 		context.close();
 
 		System.out.println("Back to main menu.");

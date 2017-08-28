@@ -1,5 +1,5 @@
 /*
- * Copyright 2016 the original author or authors.
+ * Copyright 2016-2017 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,7 +15,8 @@
  */
 package org.springframework.integration.samples.mqtt;
 
-import org.apache.log4j.Logger;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -42,7 +43,7 @@ import org.springframework.messaging.MessageHandler;
 @SpringBootApplication
 public class Application {
 
-	private static final Logger LOGGER = Logger.getLogger(Application.class);
+	private static final Log LOGGER = LogFactory.getLog(Application.class);
 
 	/**
 	 * Load the Spring Integration Application Context

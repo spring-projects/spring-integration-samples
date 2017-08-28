@@ -1,5 +1,5 @@
 /*
- * Copyright 2002-2015 the original author or authors.
+ * Copyright 2002-2017 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,7 +18,8 @@ package org.springframework.integration.samples.rest.service;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.apache.log4j.Logger;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 import org.springframework.integration.samples.rest.domain.Employee;
 import org.springframework.integration.samples.rest.domain.EmployeeList;
@@ -36,7 +37,7 @@ import org.springframework.stereotype.Service;
 @Service("employeeSearchService")
 public class EmployeeSearchService {
 
-	private static Logger logger = Logger.getLogger(EmployeeSearchService.class);
+	private static Log logger = LogFactory.getLog(EmployeeSearchService.class);
 	/**
 	 * The API <code>getEmployee()</code> looks up the mapped in coming message header's id param
 	 * and fills the return object with the appropriate employee details. The return

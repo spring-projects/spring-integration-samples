@@ -31,7 +31,8 @@ import java.util.concurrent.atomic.AtomicReference;
 import javax.jms.JMSException;
 import javax.jms.TextMessage;
 
-import org.apache.log4j.Logger;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -65,7 +66,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @DirtiesContext(classMode = ClassMode.AFTER_EACH_TEST_METHOD)
 public class JmsMockTests {
 
-	private static final Logger LOGGER = Logger.getLogger(JmsMockTests.class);
+	private static final Log LOGGER = LogFactory.getLog(JmsMockTests.class);
 
 	private final AtomicReference<String> testMessageHolder = new AtomicReference<>();
 
@@ -234,6 +235,7 @@ public class JmsMockTests {
 		 * org.springframework.integration.core.MessageHandler#handleMessage
 		 * (org.springframework.integration.Message)
 		 */
+		@Override
 		public void handleMessage(Message<?> message) throws MessagingException {
 			verifyMessage(message);
 			latch.countDown();

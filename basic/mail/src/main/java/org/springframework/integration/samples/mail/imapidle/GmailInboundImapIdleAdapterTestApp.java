@@ -1,5 +1,5 @@
 /*
- * Copyright 2002-2012 the original author or authors.
+ * Copyright 2002-2017 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,26 +15,31 @@
  */
 package org.springframework.integration.samples.mail.imapidle;
 
-import org.apache.log4j.Logger;
-import org.springframework.context.ApplicationContext;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 import org.springframework.context.support.ClassPathXmlApplicationContext;
-import org.springframework.messaging.Message;
-import org.springframework.messaging.MessagingException;
 import org.springframework.integration.channel.DirectChannel;
+import org.springframework.messaging.Message;
 import org.springframework.messaging.MessageHandler;
+import org.springframework.messaging.MessagingException;
 
 /**
  * @author Oleg Zhurakousky
+ * @author Gary Russell
  *
  */
 public class GmailInboundImapIdleAdapterTestApp {
-	private static Logger logger = Logger.getLogger(GmailInboundImapIdleAdapterTestApp.class);
+	private static Log logger = LogFactory.getLog(GmailInboundImapIdleAdapterTestApp.class);
 
 
 	public static void main (String[] args) throws Exception {
-		ApplicationContext ac = new ClassPathXmlApplicationContext("/META-INF/spring/integration/gmail-imap-idle-config.xml");
+		@SuppressWarnings("resource")
+		ClassPathXmlApplicationContext ac = new ClassPathXmlApplicationContext(
+				"/META-INF/spring/integration/gmail-imap-idle-config.xml");
 		DirectChannel inputChannel = ac.getBean("receiveChannel", DirectChannel.class);
 		inputChannel.subscribe(new MessageHandler() {
+			@Override
 			public void handleMessage(Message<?> message) throws MessagingException {
 				logger.info("Message: " + message);
 			}

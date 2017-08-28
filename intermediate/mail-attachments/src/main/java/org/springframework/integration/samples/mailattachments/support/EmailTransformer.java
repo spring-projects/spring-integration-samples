@@ -1,5 +1,5 @@
 /*
- * Copyright 2002-2012 the original author or authors.
+ * Copyright 2002-2017 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,7 +18,9 @@ package org.springframework.integration.samples.mailattachments.support;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.log4j.Logger;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 import org.springframework.integration.annotation.Transformer;
 
 /**
@@ -26,12 +28,13 @@ import org.springframework.integration.annotation.Transformer;
  * a {@link List} of {@link EmailFragment}s.
  *
  * @author Gunnar Hillert
+ * @author Gary Russell
  * @since 2.2
  *
  */
 public class EmailTransformer {
 
-	private static final Logger LOGGER = Logger.getLogger(EmailTransformer.class);
+	private static final Log LOGGER = LogFactory.getLog(EmailTransformer.class);
 
 	@Transformer
 	public List<EmailFragment> transformit(javax.mail.Message mailMessage) {

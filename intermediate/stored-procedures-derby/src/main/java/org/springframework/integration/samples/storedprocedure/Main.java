@@ -1,5 +1,5 @@
 /*
- * Copyright 2002-2011 the original author or authors.
+ * Copyright 2002-2017 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,89 +18,83 @@ package org.springframework.integration.samples.storedprocedure;
 import java.util.List;
 import java.util.Scanner;
 
-import org.apache.log4j.Logger;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
-
 import org.springframework.integration.model.CoffeeBeverage;
 import org.springframework.integration.service.CoffeeService;
-
 
 /**
  * Starts the Spring Context and will initialize the Spring Integration routes.
  *
  * @author Gunnar Hillert
+ * @author Gary Russell
  * @since 2.1
  *
  */
 public final class Main {
 
-    private static final Logger LOGGER = Logger.getLogger(Main.class);
+	private static final Log LOGGER = LogFactory.getLog(Main.class);
 
-    private static final String LINE    = "\n=========================================================";
-    private static final String NEWLINE = "\n                                                         ";
+	private static final String LINE = "\n=========================================================";
 
-    private Main() { }
+	private static final String NEWLINE = "\n                                                         ";
 
-    /**
-     * Load the Spring Integration Application Context
-     *
-     * @param args - command line arguments
-     */
-    public static void main(final String... args) {
+	private Main() {
+	}
 
-        LOGGER.info(LINE
-                  + LINE
-                  + "\n    Welcome to Spring Integration Coffee Database!       "
-                  + NEWLINE
-                  + "\n    For more information please visit:                   "
-                  + "\n    http://www.springsource.org/spring-integration       "
-                  + NEWLINE
-                  + LINE );
+	/**
+	 * Load the Spring Integration Application Context
+	 *
+	 * @param args - command line arguments
+	 */
+	public static void main(final String... args) {
 
-        final AbstractApplicationContext context =
-                new ClassPathXmlApplicationContext("classpath:META-INF/spring/integration/*-context.xml");
+		LOGGER.info(LINE + LINE + "\n    Welcome to Spring Integration Coffee Database!       " + NEWLINE
+				+ "\n    For more information please visit:                   "
+				+ "\n    http://www.springsource.org/spring-integration       " + NEWLINE + LINE);
 
-        context.registerShutdownHook();
+		final AbstractApplicationContext context = new ClassPathXmlApplicationContext(
+				"classpath:META-INF/spring/integration/*-context.xml");
 
-        final Scanner scanner = new Scanner(System.in);
+		context.registerShutdownHook();
 
-        final CoffeeService service = context.getBean(CoffeeService.class);
+		final Scanner scanner = new Scanner(System.in);
 
-        LOGGER.info(LINE
-                  + NEWLINE
-                  + "\n    Please press 'q + Enter' to quit the application.    "
-                  + NEWLINE
-                  + LINE);
+		final CoffeeService service = context.getBean(CoffeeService.class);
 
-        System.out.print("Please enter 'list' and press <enter> to get a list of coffees.");
-        System.out.print("Enter a coffee id, e.g. '1' and press <enter> to get a description.\n\n");
+		LOGGER.info(LINE + NEWLINE + "\n    Please press 'q + Enter' to quit the application.    " + NEWLINE + LINE);
 
-        while (!scanner.hasNext("q")) {
+		System.out.print("Please enter 'list' and press <enter> to get a list of coffees.");
+		System.out.print("Enter a coffee id, e.g. '1' and press <enter> to get a description.\n\n");
 
-        	String input = scanner.nextLine();
+		while (!scanner.hasNext("q")) {
 
-        	if ("list".equalsIgnoreCase(input)) {
-        		List<CoffeeBeverage> coffeeBeverages = service.findAllCoffeeBeverages();
+			String input = scanner.nextLine();
 
-        		for (CoffeeBeverage coffeeBeverage : coffeeBeverages) {
-        			System.out.println(String.format("%s - %s", coffeeBeverage.getId(),
-        					                                    coffeeBeverage.getName()));
-        		}
+			if ("list".equalsIgnoreCase(input)) {
+				List<CoffeeBeverage> coffeeBeverages = service.findAllCoffeeBeverages();
 
-        	} else {
-        		System.out.println("Retrieving coffee information...");
-                String coffeeDescription = service.findCoffeeBeverage(Integer.valueOf(input));
+				for (CoffeeBeverage coffeeBeverage : coffeeBeverages) {
+					System.out.println(String.format("%s - %s", coffeeBeverage.getId(), coffeeBeverage.getName()));
+				}
 
-            	System.out.println(String.format("Searched for '%s' - Found: '%s'.", input, coffeeDescription));
-                System.out.print("To try again, please enter another coffee beaverage and press <enter>:\n\n");
-        	}
+			}
+			else {
+				System.out.println("Retrieving coffee information...");
+				String coffeeDescription = service.findCoffeeBeverage(Integer.valueOf(input));
 
-        }
+				System.out.println(String.format("Searched for '%s' - Found: '%s'.", input, coffeeDescription));
+				System.out.print("To try again, please enter another coffee beaverage and press <enter>:\n\n");
+			}
 
-        LOGGER.info("Exiting application...bye.");
+		}
 
-        System.exit(0);
+		LOGGER.info("Exiting application...bye.");
+		scanner.close();
+		context.close();
 
-    }
+	}
 }

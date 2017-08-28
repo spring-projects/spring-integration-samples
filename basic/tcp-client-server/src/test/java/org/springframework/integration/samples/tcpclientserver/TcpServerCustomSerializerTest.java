@@ -1,5 +1,5 @@
 /*
- * Copyright 2002-2012 the original author or authors.
+ * Copyright 2002-2017 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -26,20 +26,22 @@ import java.io.OutputStreamWriter;
 import java.io.Writer;
 import java.net.Socket;
 
-import org.apache.log4j.Logger;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.messaging.Message;
-import org.springframework.messaging.MessageChannel;
-import org.springframework.messaging.SubscribableChannel;
 import org.springframework.integration.handler.AbstractReplyProducingMessageHandler;
 import org.springframework.integration.ip.tcp.connection.AbstractServerConnectionFactory;
 import org.springframework.integration.ip.util.TestingUtilities;
 import org.springframework.integration.samples.tcpclientserver.support.CustomTestContextLoader;
+import org.springframework.messaging.Message;
+import org.springframework.messaging.MessageChannel;
+import org.springframework.messaging.SubscribableChannel;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -52,15 +54,16 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
  *
  * @author Christian Posta
  * @author Gunnar Hillert
+ * @author Gary Russell
  *
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(loader=CustomTestContextLoader.class,
-	locations = {"/META-INF/spring/integration/tcpServerCustomSerialize-context.xml"})
+@ContextConfiguration(loader = CustomTestContextLoader.class, locations = {
+		"/META-INF/spring/integration/tcpServerCustomSerialize-context.xml" })
 @DirtiesContext
 public class TcpServerCustomSerializerTest {
 
-	private static final Logger LOGGER = Logger.getLogger(TcpServerCustomSerializerTest.class);
+	private static final Log LOGGER = LogFactory.getLog(TcpServerCustomSerializerTest.class);
 
 	@Autowired
 	@Qualifier("incomingServerChannel")
@@ -84,7 +87,7 @@ public class TcpServerCustomSerializerTest {
 		// the reason we use a listener here is so we can assert truths on the
 		// message and/or payload
 		SubscribableChannel channel = (SubscribableChannel) incomingServerChannel;
-		channel.subscribe(new AbstractReplyProducingMessageHandler(){
+		channel.subscribe(new AbstractReplyProducingMessageHandler() {
 
 			@Override
 			protected Object handleRequestMessage(Message<?> requestMessage) {
@@ -124,16 +127,19 @@ public class TcpServerCustomSerializerTest {
 			String response = str.toString();
 			assertEquals(sourceMessage, response);
 
-		} catch (IOException e) {
+		}
+		catch (IOException e) {
 			LOGGER.error(e.getMessage(), e);
 			fail(String.format("Test (port: %s) ended with an exception: %s", availableServerSocket, e.getMessage()));
-		} finally {
+		}
+		finally {
 			try {
 				socket.close();
 				out.close();
 				in.close();
 
-			} catch (Exception e) {
+			}
+			catch (Exception e) {
 				// swallow exception
 			}
 

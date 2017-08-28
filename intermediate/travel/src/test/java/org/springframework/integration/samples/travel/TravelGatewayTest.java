@@ -1,5 +1,5 @@
 /*
- * Copyright 2002-2012 the original author or authors.
+ * Copyright 2002-2017 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,11 +15,13 @@
  */
 package org.springframework.integration.samples.travel;
 
-import org.apache.log4j.Logger;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.junit.Assert;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -28,6 +30,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
  * This test will test the weather service (does not require an API key).
  *
  * @author Gunnar Hillert
+ * @author Gary Russell
  * @since 2.2
  *
  */
@@ -38,7 +41,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @Ignore("The target WeatherWS is unreliable (INTSAMPLES-145), so uncomment if you'd like to test the real interaction")
 public class TravelGatewayTest {
 
-	private static final Logger LOGGER = Logger.getLogger(TravelGatewayTest.class);
+	private static final Log LOGGER = LogFactory.getLog(TravelGatewayTest.class);
 
 	@Autowired
 	private TravelGateway travelGateway;

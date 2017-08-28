@@ -1,5 +1,5 @@
 /*
- * Copyright 2002-2012 the original author or authors.
+ * Copyright 2002-2017 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,7 +16,9 @@
 
 package org.springframework.integration.samples.helloworld;
 
-import org.apache.log4j.Logger;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.messaging.MessageChannel;
@@ -36,10 +38,11 @@ import org.springframework.messaging.support.GenericMessage;
  *
  * @author Mark Fisher
  * @author Oleg Zhurakousky
+ * @author Gary Russell
  */
 public class HelloWorldApp {
 
-	private static Logger logger = Logger.getLogger(HelloWorldApp.class);
+	private static Log logger = LogFactory.getLog(HelloWorldApp.class);
 
 	public static void main(String[] args) {
 		AbstractApplicationContext context = new ClassPathXmlApplicationContext("/META-INF/spring/integration/helloWorldDemo.xml", HelloWorldApp.class);
@@ -47,6 +50,7 @@ public class HelloWorldApp {
 		PollableChannel outputChannel = context.getBean("outputChannel", PollableChannel.class);
 		inputChannel.send(new GenericMessage<String>("World"));
 		logger.info("==> HelloWorldDemo: " + outputChannel.receive(0).getPayload());
+		context.close();
 	}
 
 }

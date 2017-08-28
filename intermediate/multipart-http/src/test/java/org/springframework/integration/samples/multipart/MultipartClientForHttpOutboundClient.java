@@ -1,5 +1,5 @@
 /*
- * Copyright 2002-2010 the original author or authors.
+ * Copyright 2002-2017 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,27 +18,26 @@ package org.springframework.integration.samples.multipart;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.apache.log4j.Logger;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
-import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpStatus;
 /**
  * @author Oleg Zhurakousky
+ * @author Gary Russell
  *
  */
 public class MultipartClientForHttpOutboundClient {
 
-	private static Logger logger = Logger.getLogger(MultipartClientForHttpOutboundClient.class);
+	private static Log logger = LogFactory.getLog(MultipartClientForHttpOutboundClient.class);
 	private static String resourcePath = "org/springframework/integration/samples/multipart/spring09_logo.png";
 
-	/**
-	 * @param args
-	 */
 	public static void main(String[] args) throws Exception{
-		ApplicationContext context = new ClassPathXmlApplicationContext("/META-INF/spring/integration/http-outbound-config.xml");
+		ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(
+				"/META-INF/spring/integration/http-outbound-config.xml");
 		Resource s2logo = new ClassPathResource(resourcePath);
 		Map<String, Object> multipartMap = new HashMap<String, Object>();
 		multipartMap.put("company", new String[]{"SpringSource", "VMWare"});
@@ -47,5 +46,7 @@ public class MultipartClientForHttpOutboundClient {
 		MultipartRequestGateway requestGateway = context.getBean("requestGateway", MultipartRequestGateway.class);
 		HttpStatus reply = requestGateway.postMultipartRequest(multipartMap);
 		System.out.println("Replied with HttpStatus code: " + reply);
+		context.close();
 	}
+
 }
