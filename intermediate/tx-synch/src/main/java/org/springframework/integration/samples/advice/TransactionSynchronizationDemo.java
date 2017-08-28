@@ -1,5 +1,5 @@
 /*
- * Copyright 2002-2012 the original author or authors.
+ * Copyright 2002-2017 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,7 +15,9 @@
  */
 package org.springframework.integration.samples.advice;
 
-import org.apache.log4j.Logger;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
@@ -26,7 +28,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
  */
 public class TransactionSynchronizationDemo {
 
-	private static final Logger LOGGER = Logger.getLogger(TransactionSynchronizationDemo.class);
+	private static final Log LOGGER = LogFactory.getLog(TransactionSynchronizationDemo.class);
 
 	public static void main(String[] args) throws Exception {
 		LOGGER.info("\n========================================================="
@@ -58,6 +60,7 @@ public class TransactionSynchronizationDemo {
 				  + "\n=========================================================" );
 		System.out.println(System.getProperty("java.io.tmpdir") + "/txSynchDemo");
 		System.in.read();
-		System.exit(0);
+		context.close();
 	}
+
 }

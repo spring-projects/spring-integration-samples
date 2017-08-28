@@ -1,5 +1,5 @@
 /*
- * Copyright 2002-2010 the original author or authors.
+ * Copyright 2002-2017 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,7 +15,9 @@
  */
 package org.springframework.integration.samples.multipart;
 
-import org.apache.log4j.Logger;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpEntity;
@@ -29,17 +31,17 @@ import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 /**
  * @author Oleg Zhurakousky
+ * @author Gary Russell
  *
  */
 public class MultipartRestClient {
 
-	private static Logger logger = Logger.getLogger(MultipartRestClient.class);
+	private static Log logger = LogFactory.getLog(MultipartRestClient.class);
+
 	private static String uri = "http://localhost:8080/multipart-http/inboundAdapter.htm";
+
 	private static String resourcePath = "org/springframework/integration/samples/multipart/spring09_logo.png";
 
-	/**
-	 * @param args
-	 */
 	public static void main(String[] args) throws Exception{
 		RestTemplate template = new RestTemplate();
 		Resource s2logo = new ClassPathResource(resourcePath);

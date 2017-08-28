@@ -1,5 +1,5 @@
 /*
- * Copyright 2002-2010 the original author or authors.
+ * Copyright 2002-2017 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -25,7 +25,8 @@ import java.util.Map;
 
 import javax.xml.transform.stream.StreamResult;
 
-import org.apache.log4j.Logger;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -52,6 +53,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
  * RestHttpClientTest.java: Functional Test to test the REST HTTP Path usage. This test requires
  * rest-http application running in HTTP environment.
  * @author Vigil Bose
+ * @author Gary Russell
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations={"classpath*:META-INF/spring/integration/http-outbound-config.xml"})
@@ -60,7 +62,7 @@ public class RestHttpClientTest {
 	@Autowired
 	private RestTemplate restTemplate;
 	private HttpMessageConverterExtractor<EmployeeList> responseExtractor;
-	private static Logger logger = Logger.getLogger(RestHttpClientTest.class);
+	private static Log logger = LogFactory.getLog(RestHttpClientTest.class);
 	@Autowired
 	private Jaxb2Marshaller marshaller;
 	@Autowired

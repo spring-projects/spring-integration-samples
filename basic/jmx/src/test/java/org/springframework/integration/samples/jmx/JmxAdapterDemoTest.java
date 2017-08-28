@@ -1,5 +1,5 @@
 /*
- * Copyright 2002-2010 the original author or authors.
+ * Copyright 2002-2017 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,10 +17,12 @@
 package org.springframework.integration.samples.jmx;
 
 import org.junit.Test;
+
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 /**
  * @author Mark Fisher
+ * @author Gary Russell
  * @since 2.0
  */
 public class JmxAdapterDemoTest {
@@ -30,7 +32,7 @@ public class JmxAdapterDemoTest {
 		ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(
 				"/META-INF/spring/integration/JmxAdapterDemo-context.xml", JmxAdapterDemoTest.class);
 		Thread.sleep(20000);
-		context.stop();
+		context.close();
 	}
 
 }

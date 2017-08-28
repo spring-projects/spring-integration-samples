@@ -1,5 +1,5 @@
 /*
- * Copyright 2014 the original author or authors.
+ * Copyright 2014-2017 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,7 +15,8 @@
  */
 package org.springframework.integration.samples.amqp;
 
-import org.apache.log4j.Logger;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -29,7 +30,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
  */
 public final class SamplePubConfirmsReturns {
 
-	private static final Logger LOGGER = Logger.getLogger(SamplePubConfirmsReturns.class);
+	private static final Log LOGGER = LogFactory.getLog(SamplePubConfirmsReturns.class);
 
 	private SamplePubConfirmsReturns() { }
 

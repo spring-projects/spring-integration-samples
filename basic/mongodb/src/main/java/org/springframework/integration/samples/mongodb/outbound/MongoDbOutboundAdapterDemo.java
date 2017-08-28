@@ -1,5 +1,5 @@
 /*
- * Copyright 2002-2012 the original author or authors.
+ * Copyright 2002-2017 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,14 +16,15 @@
 package org.springframework.integration.samples.mongodb.outbound;
 
 import org.springframework.context.support.ClassPathXmlApplicationContext;
-import org.springframework.messaging.MessageChannel;
-import org.springframework.messaging.support.GenericMessage;
 import org.springframework.integration.samples.mongodb.domain.Address;
 import org.springframework.integration.samples.mongodb.domain.Person;
 import org.springframework.integration.samples.mongodb.util.DemoUtils;
+import org.springframework.messaging.MessageChannel;
+import org.springframework.messaging.support.GenericMessage;
 /**
 *
 * @author Oleg Zhurakousky
+* @author Gary Russell
 */
 public class MongoDbOutboundAdapterDemo {
 
@@ -38,6 +39,7 @@ public class MongoDbOutboundAdapterDemo {
 
 	public void runDefaultAdapter() throws Exception {
 
+		@SuppressWarnings("resource")
 		ClassPathXmlApplicationContext context =
 				new ClassPathXmlApplicationContext("mongodb-out-config.xml", MongoDbOutboundAdapterDemo.class);
 
@@ -49,6 +51,7 @@ public class MongoDbOutboundAdapterDemo {
 
 	public void runAdapterWithConveter() throws Exception {
 
+		@SuppressWarnings("resource")
 		ClassPathXmlApplicationContext context =
 				new ClassPathXmlApplicationContext("mongodb-out-config.xml", MongoDbOutboundAdapterDemo.class);
 

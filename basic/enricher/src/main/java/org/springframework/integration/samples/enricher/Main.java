@@ -1,5 +1,5 @@
 /*
- * Copyright 2002-2010 the original author or authors.
+ * Copyright 2002-2017 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,7 +19,9 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
 
-import org.apache.log4j.Logger;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.integration.samples.enricher.domain.User;
@@ -30,14 +32,16 @@ import org.springframework.integration.samples.enricher.service.UserService;
  * Starts the Spring Context and will initialize the Spring Integration routes.
  *
  * @author Gunnar Hillert
+ * @author Gary Russell
  * @version 1.0
  *
  */
 public final class Main {
 
-	private static final Logger LOGGER = Logger.getLogger(Main.class);
+	private static final Log LOGGER = LogFactory.getLog(Main.class);
 
 	private static final String LINE_SEPARATOR = "\n==========================================================================";
+
 	private static final String EMPTY_LINE     = "\n                                                                          ";
 
 	private Main() { }
@@ -123,7 +127,8 @@ public final class Main {
 
 		LOGGER.info("\n\nExiting application...bye.");
 
-		System.exit(0);
+		scanner.close();
+		context.close();
 
 	}
 

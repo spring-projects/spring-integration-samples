@@ -98,6 +98,7 @@ public class Main {
 		}
 
 		System.out.println("    Please type something and hit <enter>\n");
+		scanner.close();
 
 	}
 

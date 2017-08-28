@@ -1,5 +1,5 @@
 /*
- * Copyright 2002-2012 the original author or authors.
+ * Copyright 2002-2017 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,28 +18,33 @@ package org.springframework.integration.samples.cafe.annotation;
 
 import java.util.concurrent.atomic.AtomicInteger;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
+import org.springframework.integration.annotation.ServiceActivator;
 import org.springframework.integration.samples.cafe.Drink;
 import org.springframework.integration.samples.cafe.OrderItem;
-import org.apache.log4j.Logger;
-import org.springframework.integration.annotation.ServiceActivator;
 import org.springframework.stereotype.Component;
 
 /**
  * @author Mark Fisher
  * @author Marius Bogoevici
  * @author Tom McCuch
+ * @author Gary Russell
  */
 
 @Component
 public class Barista {
-	private static Logger logger = Logger.getLogger(Barista.class);
+
+	private static Log logger = LogFactory.getLog(Barista.class);
+
 	private long hotDrinkDelay = 5000;
 
 	private long coldDrinkDelay = 1000;
 
-	private AtomicInteger hotDrinkCounter = new AtomicInteger();
+	private final AtomicInteger hotDrinkCounter = new AtomicInteger();
 
-	private AtomicInteger coldDrinkCounter = new AtomicInteger();
+	private final AtomicInteger coldDrinkCounter = new AtomicInteger();
 
 
 	public void setHotDrinkDelay(long hotDrinkDelay) {

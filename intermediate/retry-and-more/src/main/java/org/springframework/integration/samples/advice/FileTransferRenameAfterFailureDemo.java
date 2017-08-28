@@ -1,5 +1,5 @@
 /*
- * Copyright 2002-2012 the original author or authors.
+ * Copyright 2002-2017 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,8 +17,9 @@ package org.springframework.integration.samples.advice;
 
 import static org.mockito.Mockito.when;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.apache.commons.net.ftp.FTPFile;
-import org.apache.log4j.Logger;
 
 import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -32,7 +33,7 @@ import org.springframework.integration.file.remote.session.SessionFactory;
  */
 public class FileTransferRenameAfterFailureDemo {
 
-	private static final Logger LOGGER = Logger.getLogger(FileTransferRenameAfterFailureDemo.class);
+	private static final Log LOGGER = LogFactory.getLog(FileTransferRenameAfterFailureDemo.class);
 
 	public static void main(String[] args) throws Exception {
 		LOGGER.info("\n========================================================="
