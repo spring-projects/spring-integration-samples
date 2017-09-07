@@ -28,7 +28,7 @@
 	<int:channel id="jmsReplyChannel" />
 
 	<int:aggregator input-channel="jmsReplyChannel" output-channel="out"
-		group-timeout="20000"
+		group-timeout="40000"
 		expire-groups-upon-timeout="false"
 		send-partial-result-on-expiry="true"
 		discard-channel="logLateArrivers"
