@@ -20,6 +20,7 @@ import static org.junit.Assert.assertTrue;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.StringWriter;
+import java.util.Base64;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -40,7 +41,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.http.client.ClientHttpRequest;
 import org.springframework.integration.samples.rest.domain.EmployeeList;
 import org.springframework.oxm.jaxb.Jaxb2Marshaller;
-import org.springframework.security.crypto.codec.Base64;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.web.client.HttpMessageConverterExtractor;
@@ -141,7 +141,7 @@ public class RestHttpClientTest {
 		String password = "spring";
 
 		String combinedUsernamePassword = username+":"+password;
-		byte[] base64Token = Base64.encode(combinedUsernamePassword.getBytes());
+		byte[] base64Token = Base64.getEncoder().encode(combinedUsernamePassword.getBytes());
 		String base64EncodedToken = new String (base64Token);
 		//adding Authorization header for HTTP Basic authentication
 		headers.add("Authorization","Basic  "+base64EncodedToken);

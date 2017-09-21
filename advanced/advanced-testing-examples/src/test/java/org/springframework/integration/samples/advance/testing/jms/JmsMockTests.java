@@ -18,8 +18,11 @@ package org.springframework.integration.samples.advance.testing.jms;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
+import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.ArgumentMatchers.isNull;
 import static org.mockito.BDDMockito.given;
-import static org.mockito.Matchers.anyString;
+import static org.mockito.BDDMockito.willAnswer;
+import static org.mockito.BDDMockito.willReturn;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -93,19 +96,16 @@ public class JmsMockTests {
 	public void setup() throws JMSException {
 		Mockito.reset(this.mockJmsTemplate);
 		TextMessage message = mock(TextMessage.class);
-		when(this.mockJmsTemplate.getMessageConverter()).thenReturn(new SimpleMessageConverter());
-		when(this.mockJmsTemplate.receiveSelected(anyString())).thenReturn(message);
+
+		willReturn(new SimpleMessageConverter())
+				.given(this.mockJmsTemplate).getMessageConverter();
+
+		willReturn(message)
+				.given(this.mockJmsTemplate).receiveSelected(isNull());
 
 
-		given(message.getText())
-				.willAnswer(new Answer<String>() {
-
-					@Override
-					public String answer(InvocationOnMock invocation) throws Throwable {
-						return testMessageHolder.get();
-					}
-
-				});
+		willAnswer((Answer<String>) invocation -> testMessageHolder.get())
+				.given(message).getText();
 	}
 
 	/**

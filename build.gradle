@@ -205,7 +205,7 @@ subprojects { subproject ->
 			junitVersion = '4.12'
 			jythonVersion = '2.5.3'
 			log4jVersion = '2.7'
-			mockitoVersion = '1.10.19'
+			mockitoVersion = '2.10.0'
 			openJpaVersion = '2.4.0'
 			oracleDriverVersion = '11.2.0.3'
 			postgresVersion = '42.0.0'
@@ -250,7 +250,7 @@ subprojects { subproject ->
 		}
 
 		// enable all compiler warnings; individual projects may customize further
-		ext.xLintArg = '-Xlint:all,-options'
+		ext.xLintArg = '-Xlint:all,-options,-processing'
 		[compileJava, compileTestJava]*.options*.compilerArgs = [xLintArg]
 
 		jacocoTestReport {
@@ -799,9 +799,6 @@ project('jpa') {
 
 		testCompile 'org.springframework.boot:spring-boot-starter-test'
 	}
-
-	//Suppress openjpa annotation processor warnings
-	compileTestJava.options.compilerArgs = ["${xLintArg},-processing"]
 
 /*	bootRun {
 		main = 'org.springframework.integration.samples.jpa.Main'

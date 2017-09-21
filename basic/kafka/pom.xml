@@ -71,7 +71,7 @@
     <dependency>
       <groupId>org.springframework.integration</groupId>
       <artifactId>spring-integration-kafka</artifactId>
-      <version>3.0.0.M1</version>
+      <version>3.0.0.M2</version>
       <scope>compile</scope>
       <exclusions>
         <exclusion>
@@ -98,7 +98,7 @@
     <dependency>
       <groupId>org.springframework.kafka</groupId>
       <artifactId>spring-kafka</artifactId>
-      <version>2.0.0.M3</version>
+      <version>2.0.0.RC1</version>
       <scope>compile</scope>
       <exclusions>
         <exclusion>
@@ -150,7 +150,7 @@
     <dependency>
       <groupId>org.mockito</groupId>
       <artifactId>mockito-core</artifactId>
-      <version>1.10.19</version>
+      <version>2.10.0</version>
       <scope>test</scope>
       <exclusions>
         <exclusion>
@@ -211,14 +211,14 @@
       <dependency>
         <groupId>org.springframework.integration</groupId>
         <artifactId>spring-integration-bom</artifactId>
-        <version>5.0.0.M6</version>
+        <version>5.0.0.M7</version>
         <scope>import</scope>
         <type>pom</type>
       </dependency>
       <dependency>
         <groupId>org.springframework</groupId>
         <artifactId>spring-framework-bom</artifactId>
-        <version>5.0.0.RC3</version>
+        <version>5.0.0.RC4</version>
         <scope>import</scope>
         <type>pom</type>
       </dependency>
