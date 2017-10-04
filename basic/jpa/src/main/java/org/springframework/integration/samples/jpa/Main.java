@@ -22,7 +22,7 @@ import java.util.Scanner;
 
 import org.springframework.boot.WebApplicationType;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaAutoConfiguration;
+import org.springframework.boot.autoconfigure.data.jpa.JpaRepositoriesAutoConfiguration;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.ImportResource;
@@ -40,7 +40,7 @@ import org.springframework.util.StringUtils;
  * @version 1.0
  *
  */
-@SpringBootApplication(exclude = HibernateJpaAutoConfiguration.class)
+@SpringBootApplication(exclude = JpaRepositoriesAutoConfiguration.class)
 @ImportResource("spring-integration-context.xml")
 public class Main {
 
@@ -64,38 +64,9 @@ public class Main {
 				+ "\n                                                         "
 				+ "\n=========================================================");
 
-		System.out.println("Please enter a choice and press <enter>: ");
-		System.out.println("\t1. Use Hibernate");
-		System.out.println("\t2. Use EclipseLink");
-
-		System.out.println("\tq. Quit the application");
-		System.out.print("Enter you choice: ");
-
-		SpringApplicationBuilder springApplicationBuilder = new SpringApplicationBuilder(Main.class)
-				.web(WebApplicationType.NONE);
-
-		while (true) {
-			final String input = scanner.nextLine();
-
-			if ("1".equals(input.trim())) {
-				springApplicationBuilder.sources(HibernateJpaAutoConfiguration.class);
-				break;
-			}
-			else if ("2".equals(input.trim())) {
-				springApplicationBuilder.profiles("eclipseLink");
-				break;
-			}
-			else if ("q".equals(input.trim())) {
-				System.out.println("Exiting application...bye.");
-				System.exit(0);
-			}
-			else {
-				System.out.println("Invalid choice\n\n");
-				System.out.print("Enter you choice: ");
-			}
-		}
-
-		ConfigurableApplicationContext context = springApplicationBuilder.run(args);
+		ConfigurableApplicationContext context = new SpringApplicationBuilder(Main.class)
+				.web(WebApplicationType.NONE)
+				.run(args);
 
 		final PersonService personService = context.getBean(PersonService.class);
 

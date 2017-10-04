@@ -783,10 +783,10 @@ project('jmx') {
 project('jpa') {
 	description = 'JPA Basic Sample'
 
-//	apply plugin: 'application'
+	apply plugin: 'application'
 	apply plugin: 'org.springframework.boot'
 
-//	mainClassName = 'org.springframework.integration.samples.jpa.Main'
+	mainClassName = 'org.springframework.integration.samples.jpa.Main'
 
 	dependencies {
 		compile 'org.springframework.boot:spring-boot-starter-data-jpa'
@@ -795,19 +795,12 @@ project('jpa') {
 
 		runtime "org.springframework:spring-instrument"
 		runtime "org.hibernate.javax.persistence:hibernate-jpa-2.1-api:$jpa21ApiVersion"
-		runtime "org.eclipse.persistence:org.eclipse.persistence.jpa:$eclipseLinkVersion"
 
 		testCompile 'org.springframework.boot:spring-boot-starter-test'
 	}
 
-/*	bootRun {
-		main = 'org.springframework.integration.samples.jpa.Main'
-	}*/
 	tasks.withType(JavaExec) {
 		standardInput = System.in
-		jvmArgs classpath.files.findAll {
-			it.name ==~ /(spring-instrument.+)/}.collect{"-javaagent:$it"
-		}
 	}
 
 }
