@@ -491,7 +491,7 @@ project('barrier') {
 	}
 
 	bootRun {
-		main = 'org.springframework.integration.samples.barrier.Application'
+		mainClassName = 'org.springframework.integration.samples.barrier.Application'
 	}
 
 	task run(type: JavaExec) {
@@ -616,7 +616,7 @@ project('splunk') {
 	}
 
 	bootRun {
-		main = 'org.springframework.integration.samples.splunk.Application'
+		mainClassName = 'org.springframework.integration.samples.splunk.Application'
 	}
 
 	task run(type: JavaExec) {
@@ -644,7 +644,7 @@ project('kafka') {
 	}
 
 	bootRun {
-		main = 'org.springframework.integration.samples.kafka.Application'
+		mainClassName = 'org.springframework.integration.samples.kafka.Application'
 	}
 
 	task run(type: JavaExec) {
@@ -665,7 +665,7 @@ project('mqtt') {
 	}
 
 	bootRun {
-		main = 'org.springframework.integration.samples.mqtt.Application'
+		mainClassName = 'org.springframework.integration.samples.mqtt.Application'
 	}
 
 	task run(type: JavaExec) {
@@ -699,7 +699,7 @@ project('si4demo') {
 	}
 
 	bootRun {
-		main = 'org.springframework.integration.samples.si4demo.dsl.Application'
+		mainClassName = 'org.springframework.integration.samples.si4demo.dsl.Application'
 	}
 
 	tasks.withType(JavaExec) {
@@ -721,7 +721,7 @@ project('cafe-dsl') {
 		testCompile 'org.springframework.boot:spring-boot-starter-test'
 	}
 	bootRun {
-		main = 'org.springframework.integration.samples.dsl.cafe.lambda.Application'
+		mainClassName = 'org.springframework.integration.samples.dsl.cafe.lambda.Application'
 	}
 
 	task run(type: JavaExec) {
@@ -1311,7 +1311,7 @@ project('web-sockets') {
 	}
 
 	bootRun {
-		main = 'org.springframework.integration.samples.websocket.standard.server.Application'
+		mainClassName = 'org.springframework.integration.samples.websocket.standard.server.Application'
 	}
 
 	tasks.withType(JavaExec) {
@@ -1334,7 +1334,7 @@ project('stomp-chat') {
 	}
 
 	bootRun {
-		main = 'org.springframework.integration.samples.chat.stomp.server.Application'
+		mainClassName = 'org.springframework.integration.samples.chat.stomp.server.Application'
 	}
 
 	tasks.withType(JavaExec) {
@@ -1355,7 +1355,7 @@ project('kafka-dsl') {
 		testCompile 'org.springframework.boot:spring-boot-starter-test'
 	}
 	bootRun {
-		main = 'org.springframework.integration.samples.dsl.kafka.Application'
+		mainClassName = 'org.springframework.integration.samples.dsl.kafka.Application'
 	}
 
 	task run(type: JavaExec) {
@@ -1387,7 +1387,7 @@ project('file-split-ftp') {
 	}
 
 	bootRun {
-		main = 'org.springframework.integration.samples.filesplit.Application'
+		mainClassName = 'org.springframework.integration.samples.filesplit.Application'
 	}
 
 	task run(type: JavaExec) {
@@ -1409,7 +1409,7 @@ project('dynamic-tcp-client') {
 	}
 
 	bootRun {
-		main = 'org.springframework.integration.samples.dynamictcp.DynamicTcpClientApplication'
+		mainClassName = 'org.springframework.integration.samples.dynamictcp.DynamicTcpClientApplication'
 	}
 
 	task run(type: JavaExec) {
