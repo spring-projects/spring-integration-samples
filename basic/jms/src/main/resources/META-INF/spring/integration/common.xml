@@ -14,6 +14,7 @@
 			</bean>
 		</property>
 		<property name="sessionCacheSize" value="10"/>
+		<property name="cacheConsumers" value="false"/>
 	</bean>
 
 	<bean id="requestQueue" class="org.apache.activemq.command.ActiveMQQueue">
