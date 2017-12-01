@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.springframework.integration.samples.tcpclientserver.support;
 
 import java.util.HashMap;
@@ -23,13 +24,14 @@ import org.apache.commons.logging.LogFactory;
 
 import org.springframework.context.support.GenericApplicationContext;
 import org.springframework.core.env.MapPropertySource;
-import org.springframework.integration.test.util.SocketUtils;
+import org.springframework.util.SocketUtils;
 import org.springframework.test.context.MergedContextConfiguration;
 import org.springframework.test.context.support.GenericXmlContextLoader;
 
 /**
  * @author Gunnar Hillert
  * @author Gary Russell
+ * @author Artem Bilan
  */
 public class CustomTestContextLoader extends GenericXmlContextLoader {
 
@@ -39,7 +41,7 @@ public class CustomTestContextLoader extends GenericXmlContextLoader {
 	protected void loadBeanDefinitions(GenericApplicationContext context,
 			MergedContextConfiguration mergedConfig) {
 
-		int availableServerSocket = SocketUtils.findAvailableServerSocket(5678);
+		int availableServerSocket = SocketUtils.findAvailableTcpPort(5678);
 
 		final Map<String, Object> sockets = new HashMap<String, Object>();
 		sockets.put("availableServerSocket", availableServerSocket);

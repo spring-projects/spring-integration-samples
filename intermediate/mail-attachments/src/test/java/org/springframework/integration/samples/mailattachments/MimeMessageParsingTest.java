@@ -37,7 +37,7 @@ import org.subethamail.wiser.WiserMessage;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.integration.samples.mailattachments.support.EmailFragment;
 import org.springframework.integration.samples.mailattachments.support.EmailParserUtils;
-import org.springframework.integration.test.util.SocketUtils;
+import org.springframework.util.SocketUtils;
 import org.springframework.mail.MailParseException;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.mail.javamail.MimeMessageHelper;
@@ -47,6 +47,8 @@ import org.springframework.mail.javamail.MimeMessageHelper;
  *
  * @author Gunnar Hillert
  * @author Gary Russell
+ * @author Artem Bilan
+ *
  * @since 2.2
  */
 public class MimeMessageParsingTest {
@@ -60,7 +62,7 @@ public class MimeMessageParsingTest {
 	@Before
 	public void startWiser() {
 
-		this.wiserPort = SocketUtils.findAvailableServerSocket(2500);
+		this.wiserPort = SocketUtils.findAvailableTcpPort(2500);
 
 		wiser = new Wiser();
 		wiser.setPort(this.wiserPort);

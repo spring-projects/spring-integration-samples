@@ -1,5 +1,5 @@
 /*
- * Copyright 2015 the original author or authors.
+ * Copyright 2015-2017 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.springframework.integration.samples.tcpclientserver;
 
 import static org.junit.Assert.assertEquals;
@@ -38,7 +39,7 @@ import org.springframework.integration.ip.tcp.connection.AbstractServerConnectio
 import org.springframework.integration.ip.tcp.connection.TcpNetClientConnectionFactory;
 import org.springframework.integration.ip.tcp.connection.TcpNetServerConnectionFactory;
 import org.springframework.integration.ip.util.TestingUtilities;
-import org.springframework.integration.test.util.SocketUtils;
+import org.springframework.util.SocketUtils;
 import org.springframework.messaging.MessageChannel;
 import org.springframework.messaging.MessageHandler;
 import org.springframework.test.context.ContextConfiguration;
@@ -57,6 +58,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
  *
  * @author Gary Russell
  * @author Gunnar Hillert
+ * @author Artem Bilan
  *
  */
 @ContextConfiguration(classes = TcpClientServerAnnotationDemoTest.Config.class)
@@ -85,7 +87,7 @@ public class TcpClientServerAnnotationDemoTest {
 	@Configuration
 	public static class Config {
 
-		private final int port = SocketUtils.findAvailableServerSocket();
+		private final int port = SocketUtils.findAvailableTcpPort();
 
 		@MessagingGateway(defaultRequestChannel="toTcp")
 		public interface Gateway {

@@ -108,7 +108,7 @@ public class Application {
 	}
 
 	@Bean
-	public IntegrationFlow fromKafka(ConsumerFactory<?, ?> consumerFactory) {
+	public IntegrationFlow fromKafkaFlow(ConsumerFactory<?, ?> consumerFactory) {
 		return IntegrationFlows
 				.from(Kafka.messageDrivenChannelAdapter(consumerFactory, this.properties.getTopic()))
 				.channel(c -> c.queue("fromKafka"))
