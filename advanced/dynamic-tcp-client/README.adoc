@@ -2,7 +2,7 @@
 
 Demonstrates a technique to dynamically add TCP clients on-demand, with caching and LRU removal.
 
-Uses the http://https://github.com/spring-projects/spring-integration-java-dsl[Spring Integration Java DSL] Runtime flow registration feature.
+Uses the https://docs.spring.io/spring-integration/reference/html/java-dsl.html#java-dsl-runtime-flows[Spring Integration Java DSL] Runtime flow registration feature.
 
 The code starts two inbound channel adapters on ports 1234 and 5678 and sends a message to each.
 
