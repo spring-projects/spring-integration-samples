@@ -1,5 +1,5 @@
 /*
- * Copyright 2002-2017 the original author or authors.
+ * Copyright 2002-2018 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,9 +22,9 @@ import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.TimeUnit;
 
 import org.junit.Before;
@@ -51,6 +51,8 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
  * Requires correlation data in the payload.
  *
  * @author Gary Russell
+ * @author Artem Bilan
+ *
  * @since 2.1
  *
  */
@@ -81,19 +83,15 @@ public class TcpClientServerDemoTest {
 	public void testMultiPlex() throws Exception {
 		TaskExecutor executor = new SimpleAsyncTaskExecutor();
 		final CountDownLatch latch = new CountDownLatch(100);
-		final Set<Integer> results = new HashSet<Integer>();
+		final BlockingQueue<Integer> results = new LinkedBlockingQueue<>();
 		for (int i = 100; i < 200; i++) {
 			results.add(i);
 			final int j = i;
-			executor.execute(new Runnable() {
-
-				@Override
-				public void run() {
-					String result = gw.send(j + "Hello world!"); // first 3 bytes is correlationid
-					assertEquals(j + "Hello world!:echo", result);
-					results.remove(j);
-					latch.countDown();
-				}
+			executor.execute(() -> {
+				String result = gw.send(j + "Hello world!"); // first 3 bytes is correlationid
+				assertEquals(j + "Hello world!:echo", result);
+				results.remove(j);
+				latch.countDown();
 			});
 		}
 		assertTrue(latch.await(60, TimeUnit.SECONDS));
