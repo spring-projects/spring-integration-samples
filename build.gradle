@@ -212,7 +212,7 @@ subprojects { subproject ->
 			subethasmtpVersion = '1.2'
 			slf4jVersion = '1.7.25'
 			springIntegrationVersion = '5.0.1.RELEASE'
-			springIntegrationKafkaVersion = '3.0.0.RELEASE'
+			springIntegrationKafkaVersion = '3.0.1.RELEASE'
 			springIntegrationSplunkVersion = '1.1.0.RELEASE'
 			springKafkaVersion = '2.0.3.RELEASE'
 			springVersion = '5.0.3.RELEASE'
