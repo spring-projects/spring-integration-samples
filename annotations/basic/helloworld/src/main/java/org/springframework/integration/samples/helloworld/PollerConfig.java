@@ -1,9 +1,6 @@
 package org.springframework.integration.samples.helloworld;
 
-import java.util.Map;
-
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.integration.annotation.InboundChannelAdapter;
 import org.springframework.integration.annotation.IntegrationComponentScan;
@@ -13,7 +10,8 @@ import org.springframework.integration.core.MessageSource;
 import org.springframework.integration.dsl.IntegrationFlow;
 import org.springframework.integration.dsl.IntegrationFlows;
 import org.springframework.integration.dsl.channel.MessageChannels;
-import org.springframework.integration.handler.GenericHandler;
+import org.springframework.integration.handler.LoggingHandler;
+import org.springframework.integration.handler.LoggingHandler.Level;
 import org.springframework.integration.scheduling.PollerMetadata;
 import org.springframework.integration.support.MessageBuilder;
 import org.springframework.messaging.Message;
@@ -35,7 +33,6 @@ import org.springframework.scheduling.support.PeriodicTrigger;
 @Configuration
 @EnableIntegration
 @IntegrationComponentScan
-@ComponentScan
 public class PollerConfig {
 	
 	@Bean
@@ -51,7 +48,8 @@ public class PollerConfig {
 		return pollerMetadata;
 	}
 
-	@InboundChannelAdapter(value = "logger", poller = @Poller(PollerMetadata.DEFAULT_POLLER))
+	@Bean
+	@InboundChannelAdapter(channel="logger", poller = @Poller(PollerMetadata.DEFAULT_POLLER))
 	public MessageSource<Long> inbound() {
 		MessageSource<Long> source = new MessageSource<Long>() {
 			public Message<Long> receive() {
@@ -63,14 +61,11 @@ public class PollerConfig {
 
 	@Bean
 	public IntegrationFlow systemTimeFlow(MessageChannel logger) {
+		LoggingHandler loggingHandler = new LoggingHandler(Level.INFO);
+		loggingHandler.setLoggerName("org.springframework.integration.samples.helloworld");
 		return IntegrationFlows
 				.from(logger)
-				.handle(new GenericHandler<Long>() {
-					public Long handle(Long payload, Map<String, Object> headers) {
-						System.out.println(payload);
-						return null;
-					}
-				})
+				.handle(loggingHandler)
 				.get();
 	}
 

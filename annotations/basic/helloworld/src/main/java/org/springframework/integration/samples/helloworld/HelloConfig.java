@@ -32,15 +32,11 @@ public class HelloConfig {
 
 	@Bean
 	public IntegrationFlow helloFlow(final HelloService helloService) {
-		return IntegrationFlows
-				.from(inputChannel())
-				.handle(new GenericHandler<String>() {
-					public Object handle(String arg0, Map<String, Object> arg1) {
-						return helloService.sayHello(arg0);
-					}
-				})
-				.channel(outputChannel())
-				.get();
+		return IntegrationFlows.from(inputChannel()).handle(new GenericHandler<String>() {
+			public Object handle(String arg0, Map<String, Object> arg1) {
+				return helloService.sayHello(arg0);
+			}
+		}).channel(outputChannel()).get();
 	}
 
 }
