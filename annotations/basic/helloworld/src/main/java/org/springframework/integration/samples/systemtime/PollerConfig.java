@@ -1,4 +1,4 @@
-package org.springframework.integration.samples.helloworld;
+package org.springframework.integration.samples.systemtime;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -62,7 +62,7 @@ public class PollerConfig {
 	@Bean
 	public IntegrationFlow systemTimeFlow(MessageChannel logger) {
 		LoggingHandler loggingHandler = new LoggingHandler(Level.INFO);
-		loggingHandler.setLoggerName("org.springframework.integration.samples.helloworld");
+		loggingHandler.setLoggerName("org.springframework.integration.samples.systemtime");
 		return IntegrationFlows
 				.from(logger)
 				.handle(loggingHandler)

@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.springframework.integration.samples.helloworld;
+package org.springframework.integration.samples.systemtime;
 
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
