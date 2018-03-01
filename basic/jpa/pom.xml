@@ -4,7 +4,7 @@
   <parent>
     <groupId>org.springframework.boot</groupId>
     <artifactId>spring-boot-starter-parent</artifactId>
-    <version>2.0.0.BUILD-SNAPSHOT</version>
+    <version>2.0.0.RELEASE</version>
   </parent>
   <groupId>org.springframework.integration.samples</groupId>
   <artifactId>jpa</artifactId>
@@ -66,10 +66,6 @@
           <artifactId>jackson-module-kotlin</artifactId>
           <groupId>com.fasterxml.jackson.module</groupId>
         </exclusion>
-        <exclusion>
-          <artifactId>jboss-transaction-api_1.2_spec</artifactId>
-          <groupId>org.jboss.spec.javax.transaction</groupId>
-        </exclusion>
       </exclusions>
     </dependency>
     <dependency>
@@ -80,10 +76,6 @@
         <exclusion>
           <artifactId>jackson-module-kotlin</artifactId>
           <groupId>com.fasterxml.jackson.module</groupId>
-        </exclusion>
-        <exclusion>
-          <artifactId>jboss-transaction-api_1.2_spec</artifactId>
-          <groupId>org.jboss.spec.javax.transaction</groupId>
         </exclusion>
       </exclusions>
     </dependency>
@@ -97,10 +89,6 @@
           <artifactId>jackson-module-kotlin</artifactId>
           <groupId>com.fasterxml.jackson.module</groupId>
         </exclusion>
-        <exclusion>
-          <artifactId>jboss-transaction-api_1.2_spec</artifactId>
-          <groupId>org.jboss.spec.javax.transaction</groupId>
-        </exclusion>
       </exclusions>
     </dependency>
     <dependency>
@@ -111,10 +99,6 @@
         <exclusion>
           <artifactId>jackson-module-kotlin</artifactId>
           <groupId>com.fasterxml.jackson.module</groupId>
-        </exclusion>
-        <exclusion>
-          <artifactId>jboss-transaction-api_1.2_spec</artifactId>
-          <groupId>org.jboss.spec.javax.transaction</groupId>
         </exclusion>
       </exclusions>
     </dependency>
@@ -127,26 +111,6 @@
         <exclusion>
           <artifactId>jackson-module-kotlin</artifactId>
           <groupId>com.fasterxml.jackson.module</groupId>
-        </exclusion>
-        <exclusion>
-          <artifactId>jboss-transaction-api_1.2_spec</artifactId>
-          <groupId>org.jboss.spec.javax.transaction</groupId>
-        </exclusion>
-      </exclusions>
-    </dependency>
-    <dependency>
-      <groupId>org.eclipse.persistence</groupId>
-      <artifactId>org.eclipse.persistence.jpa</artifactId>
-      <version>2.6.4</version>
-      <scope>runtime</scope>
-      <exclusions>
-        <exclusion>
-          <artifactId>jackson-module-kotlin</artifactId>
-          <groupId>com.fasterxml.jackson.module</groupId>
-        </exclusion>
-        <exclusion>
-          <artifactId>jboss-transaction-api_1.2_spec</artifactId>
-          <groupId>org.jboss.spec.javax.transaction</groupId>
         </exclusion>
       </exclusions>
     </dependency>
@@ -242,21 +206,21 @@
       <dependency>
         <groupId>org.springframework.integration</groupId>
         <artifactId>spring-integration-bom</artifactId>
-        <version>5.0.0.M7</version>
+        <version>5.0.3.RELEASE</version>
         <scope>import</scope>
         <type>pom</type>
       </dependency>
       <dependency>
         <groupId>org.springframework</groupId>
         <artifactId>spring-framework-bom</artifactId>
-        <version>5.0.0.RC4</version>
+        <version>5.0.4.RELEASE</version>
         <scope>import</scope>
         <type>pom</type>
       </dependency>
       <dependency>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-dependencies</artifactId>
-        <version>2.0.0.BUILD-SNAPSHOT</version>
+        <version>2.0.0.RELEASE</version>
         <scope>import</scope>
         <type>pom</type>
       </dependency>
