@@ -1,5 +1,5 @@
 /*
- * Copyright 2016-2017 the original author or authors.
+ * Copyright 2016-2018 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,6 +18,7 @@ package org.springframework.integration.samples.dsl.kafka;
 
 import java.util.Map;
 
+import org.apache.kafka.clients.admin.NewTopic;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -113,6 +114,20 @@ public class Application {
 				.from(Kafka.messageDrivenChannelAdapter(consumerFactory, this.properties.getTopic()))
 				.channel(c -> c.queue("fromKafka"))
 				.get();
+	}
+
+	/*
+	 * Boot's autoconfigured KafkaAdmin will provision the topics.
+	 */
+
+	@Bean
+	public NewTopic topic(KafkaAppProperties properties) {
+		return new NewTopic(properties.getTopic(), 1, (short) 1);
+	}
+
+	@Bean
+	public NewTopic newTopic(KafkaAppProperties properties) {
+		return new NewTopic(properties.getNewTopic(), 1, (short) 1);
 	}
 
 	@Autowired
