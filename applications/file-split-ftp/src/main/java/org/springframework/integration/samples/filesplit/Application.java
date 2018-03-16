@@ -71,7 +71,8 @@ public class Application {
 				Files.inboundAdapter(new File("/tmp/in"))
 						.preventDuplicates(false)
 						.patternFilter("*.txt"), e -> e.poller(Pollers.fixedDelay(5000)
-						.errorChannel("tfrErrors.input")))
+						.errorChannel("tfrErrors.input"))
+						.id("fileInboundChannelAdapter"))
 				.handle(Files.splitter(true, true))
 				.<Object, Class<?>>route(Object::getClass, m -> m
 						.channelMapping(FileSplitter.FileMarker.class, "markers.input")
@@ -133,7 +134,7 @@ public class Application {
 								.enrichHeaders(Mail.headers()
 										.subject("File successfully split and transferred")
 										.from("foo@bar")
-										.toFunction(m -> new String[]{"bar@baz"}))
+										.toFunction(m -> new String[] { "bar@baz" }))
 								.enrichHeaders(h -> h.header(EMAIL_SUCCESS_SUFFIX, ".success"))
 								.channel("toMail.input")));
 	}
@@ -176,7 +177,7 @@ public class Application {
 				.enrichHeaders(Mail.headers()
 						.subject("File split and transfer failed")
 						.from("foo@bar")
-						.toFunction(m -> new String[]{"bar@baz"}))
+						.toFunction(m -> new String[] { "bar@baz" }))
 				.enrichHeaders(h -> h.header(EMAIL_SUCCESS_SUFFIX, ".failed")
 						.headerExpression(FileHeaders.ORIGINAL_FILE, "payload.failedMessage.headers['"
 								+ FileHeaders.ORIGINAL_FILE + "']"))

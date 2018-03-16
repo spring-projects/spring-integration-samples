@@ -1,5 +1,5 @@
 /*
- * Copyright 2002-2016 the original author or authors.
+ * Copyright 2002-2018 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -44,8 +44,10 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
+import org.springframework.integration.endpoint.SourcePollingChannelAdapter;
 import org.springframework.integration.file.remote.session.Session;
 import org.springframework.integration.file.remote.session.SessionFactory;
+import org.springframework.integration.test.context.SpringIntegrationTest;
 import org.springframework.integration.test.mail.TestMailServer;
 import org.springframework.integration.test.mail.TestMailServer.SmtpServer;
 import org.springframework.integration.test.util.TestUtils;
@@ -55,12 +57,16 @@ import org.springframework.test.context.junit4.SpringRunner;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
+@SpringIntegrationTest(noAutoStartup = "fileInboundChannelAdapter")
 public class ApplicationTests {
 
 	private static final SmtpServer smtpServer = TestMailServer.smtp(0);
 
 	@Autowired
 	private Session<FTPFile> session;
+
+	@Autowired
+	private SourcePollingChannelAdapter fileInboundChannelAdapter;
 
 	@BeforeClass
 	public static void setup() {
@@ -74,6 +80,7 @@ public class ApplicationTests {
 	@Before
 	public void beforeTest() {
 		smtpServer.getMessages().clear();
+		this.fileInboundChannelAdapter.start();
 	}
 
 	@SuppressWarnings("unchecked")
