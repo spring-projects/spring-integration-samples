@@ -37,7 +37,6 @@ import org.springframework.integration.file.dsl.FileWritingMessageHandlerSpec;
 import org.springframework.integration.file.dsl.Files;
 import org.springframework.integration.file.remote.session.SessionFactory;
 import org.springframework.integration.file.splitter.FileSplitter;
-import org.springframework.integration.file.support.FileExistsMode;
 import org.springframework.integration.ftp.dsl.Ftp;
 import org.springframework.integration.ftp.session.DefaultFtpSessionFactory;
 import org.springframework.integration.http.config.EnableIntegrationGraphController;
@@ -94,8 +93,7 @@ public class Application {
 	public FileWritingMessageHandlerSpec fileOut() {
 		return Files.outboundAdapter("'/tmp/out'")
 				.appendNewLine(true)
-				.fileNameExpression("payload.substring(1, 4) + '.txt'")
-				.fileExistsMode(FileExistsMode.APPEND_NO_FLUSH); // files remain open for efficiency
+				.fileNameExpression("payload.substring(1, 4) + '.txt'");
 	}
 
 	/**
