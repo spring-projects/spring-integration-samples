@@ -79,16 +79,22 @@ public class ApplicationTests {
 	public void beforeTest() throws IOException {
 		smtpServer.getMessages().clear();
 
-		FileUtils.cleanDirectory(new File("/tmp/in"));
-		FileUtils.cleanDirectory(new File("/tmp/out"));
+		tearDown();
 
 		this.fileInboundChannelAdapter.start();
 	}
 
 	@After
 	public void tearDown() throws IOException {
-		FileUtils.cleanDirectory(new File("/tmp/in"));
-		FileUtils.cleanDirectory(new File("/tmp/out"));
+		File inDir = new File("/tmp/in");
+		if (inDir.exists()) {
+			FileUtils.cleanDirectory(inDir);
+		}
+
+		File outDir = new File("/tmp/out");
+		if (outDir.exists()) {
+			FileUtils.cleanDirectory(outDir);
+		}
 	}
 
 	@SuppressWarnings("unchecked")
