@@ -1,5 +1,5 @@
 /*
- * Copyright 2002-2012 the original author or authors.
+ * Copyright 2002-2018 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.springframework.integration.samples.tcpclientserver;
 
 import static org.junit.Assert.assertEquals;
@@ -20,10 +21,13 @@ import static org.junit.Assert.assertEquals;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.integration.endpoint.AbstractEndpoint;
+import org.springframework.integration.ip.tcp.connection.AbstractClientConnectionFactory;
 import org.springframework.integration.ip.tcp.connection.AbstractServerConnectionFactory;
 import org.springframework.integration.ip.util.TestingUtilities;
-import org.springframework.integration.samples.tcpclientserver.support.CustomTestContextLoader;
+import org.springframework.integration.test.context.SpringIntegrationTest;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -42,11 +46,13 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
  *
  * @author Gary Russell
  * @author Gunnar Hillert
+ * @author Artme Bilan
  *
  */
-@ContextConfiguration(loader=CustomTestContextLoader.class, locations={"/META-INF/spring/integration/tcpClientServerDemo-conversion-context.xml"})
+@ContextConfiguration("/META-INF/spring/integration/tcpClientServerDemo-conversion-context.xml")
 @RunWith(SpringJUnit4ClassRunner.class)
 @DirtiesContext
+@SpringIntegrationTest(noAutoStartup = "outGateway")
 public class TcpClientServerDemoWithConversionServiceTest {
 
 	@Autowired
@@ -55,9 +61,19 @@ public class TcpClientServerDemoWithConversionServiceTest {
 	@Autowired
 	AbstractServerConnectionFactory crLfServer;
 
+	@Autowired
+	AbstractClientConnectionFactory client;
+
+	@Autowired
+	AbstractEndpoint outGateway;
+
 	@Before
 	public void setup() {
-		TestingUtilities.waitListening(this.crLfServer, 10000L);
+		if (!this.outGateway.isRunning()) {
+			TestingUtilities.waitListening(this.crLfServer, 10000L);
+			this.client.setPort(this.crLfServer.getPort());
+			this.outGateway.start();
+		}
 	}
 
 	@Test

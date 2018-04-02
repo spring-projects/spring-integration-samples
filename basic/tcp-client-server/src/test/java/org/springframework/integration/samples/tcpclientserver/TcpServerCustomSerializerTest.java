@@ -1,5 +1,5 @@
 /*
- * Copyright 2002-2017 the original author or authors.
+ * Copyright 2002-2018 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.springframework.integration.samples.tcpclientserver;
 
 import static org.junit.Assert.assertEquals;
@@ -34,11 +35,9 @@ import org.junit.runner.RunWith;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.integration.handler.AbstractReplyProducingMessageHandler;
 import org.springframework.integration.ip.tcp.connection.AbstractServerConnectionFactory;
 import org.springframework.integration.ip.util.TestingUtilities;
-import org.springframework.integration.samples.tcpclientserver.support.CustomTestContextLoader;
 import org.springframework.messaging.Message;
 import org.springframework.messaging.MessageChannel;
 import org.springframework.messaging.SubscribableChannel;
@@ -55,11 +54,11 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
  * @author Christian Posta
  * @author Gunnar Hillert
  * @author Gary Russell
+ * @author Artem Bilan
  *
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(loader = CustomTestContextLoader.class, locations = {
-		"/META-INF/spring/integration/tcpServerCustomSerialize-context.xml" })
+@ContextConfiguration("/META-INF/spring/integration/tcpServerCustomSerialize-context.xml")
 @DirtiesContext
 public class TcpServerCustomSerializerTest {
 
@@ -68,9 +67,6 @@ public class TcpServerCustomSerializerTest {
 	@Autowired
 	@Qualifier("incomingServerChannel")
 	MessageChannel incomingServerChannel;
-
-	@Value("${availableServerSocket}")
-	int availableServerSocket;
 
 	@Autowired
 	AbstractServerConnectionFactory serverConnectionFactory;
@@ -111,7 +107,7 @@ public class TcpServerCustomSerializerTest {
 		BufferedReader in = null;
 
 		try {
-			socket = new Socket("localhost", availableServerSocket);
+			socket = new Socket("localhost", this.serverConnectionFactory.getPort());
 			out = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
 			out.write(sourceMessage);
 			out.flush();
@@ -130,7 +126,8 @@ public class TcpServerCustomSerializerTest {
 		}
 		catch (IOException e) {
 			LOGGER.error(e.getMessage(), e);
-			fail(String.format("Test (port: %s) ended with an exception: %s", availableServerSocket, e.getMessage()));
+			fail(String.format("Test (port: %s) ended with an exception: %s", this.serverConnectionFactory.getPort(),
+					e.getMessage()));
 		}
 		finally {
 			try {
