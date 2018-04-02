@@ -17,7 +17,7 @@
 	formatted with the Stx-Etx bytes. -->
 	<int-ip:tcp-connection-factory id="serverConnectionFactory"
 		type="server"
-		port="${availableServerSocket}"
+		port="${availableServerSocket:0}"
 		single-use="true"
 		so-linger="10000"
 		serializer="connectionSerializeDeserialize"

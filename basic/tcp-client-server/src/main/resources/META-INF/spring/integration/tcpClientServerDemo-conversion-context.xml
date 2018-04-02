@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xmlns:int="http://www.springframework.org/schema/integration"
-	xmlns:int-ip="http://www.springframework.org/schema/integration/ip"
-	xmlns:context="http://www.springframework.org/schema/context"
-	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   xmlns:int="http://www.springframework.org/schema/integration"
+	   xmlns:int-ip="http://www.springframework.org/schema/integration/ip"
+	   xmlns:context="http://www.springframework.org/schema/context"
+	   xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
 		http://www.springframework.org/schema/integration http://www.springframework.org/schema/integration/spring-integration.xsd
 		http://www.springframework.org/schema/integration/ip http://www.springframework.org/schema/integration/ip/spring-integration-ip.xsd">
@@ -15,69 +15,69 @@
 	</description>
 
 	<bean id="integrationConversionService"
-		class="org.springframework.context.support.ConversionServiceFactoryBean">
+		  class="org.springframework.context.support.ConversionServiceFactoryBean">
 		<property name="converters">
 			<list>
-				<bean class="org.springframework.integration.samples.tcpclientserver.ByteArrayToStringConverter" />
+				<bean class="org.springframework.integration.samples.tcpclientserver.ByteArrayToStringConverter"/>
 			</list>
 		</property>
 	</bean>
 
-	<context:property-placeholder />
+	<context:property-placeholder/>
 
 	<!-- Client side -->
 
 	<int:gateway id="gw"
-		service-interface="org.springframework.integration.samples.tcpclientserver.SimpleGateway"
-		default-request-channel="input"
-		default-reply-channel="reply"/>
+				 service-interface="org.springframework.integration.samples.tcpclientserver.SimpleGateway"
+				 default-request-channel="input"
+				 default-reply-channel="reply"/>
 
 	<int-ip:tcp-connection-factory id="client"
-		type="client"
-		host="localhost"
-		port="${availableServerSocket}"
-		single-use="true"
-		so-timeout="10000"
-		/>
+								   type="client"
+								   host="localhost"
+								   port="#{crLfServer.port}"
+								   single-use="true"
+								   so-timeout="10000"
+	/>
 
-	<int:channel id="input" />
+	<int:channel id="input"/>
 
 	<int-ip:tcp-outbound-gateway id="outGateway"
-		request-channel="input"
-		reply-channel="reply"
-		connection-factory="client"
-		request-timeout="10000"
-		reply-timeout="10000"
-		/>
+								 request-channel="input"
+								 reply-channel="reply"
+								 connection-factory="client"
+								 request-timeout="10000"
+								 reply-timeout="10000"
+	/>
 
 	<!-- dataType attribute invokes the conversion service -->
-	<int:channel id="reply" datatype="java.lang.String" />
+	<int:channel id="reply" datatype="java.lang.String"/>
 
 	<!-- Server side -->
 
 	<int-ip:tcp-connection-factory id="crLfServer"
-		type="server"
-		port="${availableServerSocket}"/>
+								   type="server"
+								   port="${availableServerSocket:0}"/>
 
 	<int-ip:tcp-inbound-gateway id="gatewayCrLf"
-		connection-factory="crLfServer"
-		request-channel="toSA"
-		error-channel="errorChannel"/>
+								connection-factory="crLfServer"
+								request-channel="toSA"
+								error-channel="errorChannel"/>
 
 	<!-- dataType attribute invokes the conversion service -->
-	<int:channel id="toSA" datatype="java.lang.String" />
+	<int:channel id="toSA" datatype="java.lang.String"/>
 
 	<int:service-activator input-channel="toSA"
-					ref="echoService"
-					method="test"
+						   ref="echoService"
+						   method="test"
 	/>
 
 	<bean id="echoService"
-		  class="org.springframework.integration.samples.tcpclientserver.EchoService" />
+		  class="org.springframework.integration.samples.tcpclientserver.EchoService"/>
 
 	<int:transformer id="errorHandler"
-		input-channel="errorChannel"
-		expression="payload.failedMessage.payload + ':' + payload.cause.message"/>
+					 input-channel="errorChannel"
+					 expression="payload.failedMessage.payload + ':' + payload.cause.message"/>
 
 </beans>
 
