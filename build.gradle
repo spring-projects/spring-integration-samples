@@ -5,7 +5,7 @@ buildscript {
 	dependencies {
 		classpath 'io.spring.gradle:dependency-management-plugin:1.0.4.RELEASE'
 		classpath "org.springframework.boot:spring-boot-gradle-plugin:$springBootVersion"
-		classpath 'org.akhikhl.gretty:gretty:1.4.2'
+		classpath 'org.akhikhl.gretty:gretty:2.0.0'
 	}
 }
 plugins {
@@ -409,7 +409,7 @@ project('loan-broker') {
 project('loanshark') {
 	description = 'Loan Shark Sample'
 
-	apply plugin: 'org.akhikhl.gretty'
+//	apply plugin: 'org.akhikhl.gretty'
 	apply plugin: 'eclipse-wtp'
 
 	dependencies {
@@ -585,7 +585,7 @@ project('http') {
 	description = 'HTTP Sample'
 
 	apply plugin: 'application'
-	apply plugin: 'org.akhikhl.gretty'
+//	apply plugin: 'org.akhikhl.gretty'
 	apply plugin: 'eclipse-wtp'
 
 	mainClassName = 'org.springframework.integration.samples.http.HttpClientDemo'
@@ -950,7 +950,7 @@ project('twitter') {
 project('ws-inbound-gateway') {
 	description = 'WS Inbound Gateway Sample'
 
-	apply plugin: 'org.akhikhl.gretty'
+//	apply plugin: 'org.akhikhl.gretty'
 	apply plugin: 'eclipse-wtp'
 
 	dependencies {
@@ -1070,7 +1070,7 @@ project('mail-attachments') {
 project('monitoring') {
 	description = 'Monitoring Application'
 
-	apply plugin: 'org.akhikhl.gretty'
+//	apply plugin: 'org.akhikhl.gretty'
 	apply plugin: 'application'
 	apply plugin: 'eclipse-wtp'
 
@@ -1089,7 +1089,7 @@ project('monitoring') {
 project('multipart-http') {
 	description = 'HTTP Multipart Demo'
 
-	apply plugin: 'org.akhikhl.gretty'
+//	apply plugin: 'org.akhikhl.gretty'
 	apply plugin: 'eclipse-wtp'
 
 	dependencies {
@@ -1105,7 +1105,7 @@ project('multipart-http') {
 project('rest-http') {
 	description = 'Spring Integration Rest HTTP Path Usage Demo'
 
-	apply plugin: 'org.akhikhl.gretty'
+//	apply plugin: 'org.akhikhl.gretty'
 	apply plugin: 'eclipse-wtp'
 
 	dependencies {
