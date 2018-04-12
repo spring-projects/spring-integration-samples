@@ -1,5 +1,5 @@
 /*
- * Copyright 2002-2017 the original author or authors.
+ * Copyright 2002-2018 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,6 +17,7 @@
 package org.springframework.integration.samples.jms;
 
 import java.util.List;
+import java.util.Map;
 
 import org.junit.Assert;
 import org.junit.Test;
@@ -24,6 +25,7 @@ import org.junit.Test;
 import org.springframework.context.support.GenericXmlApplicationContext;
 import org.springframework.integration.channel.QueueChannel;
 import org.springframework.integration.support.MessageBuilder;
+import org.springframework.jms.listener.DefaultMessageListenerContainer;
 import org.springframework.messaging.Message;
 import org.springframework.messaging.MessageChannel;
 
@@ -44,7 +46,25 @@ public class AggregatorDemoTest {
 
 		System.setProperty("spring.profiles.active", "testCase");
 
-		final GenericXmlApplicationContext applicationContext = new GenericXmlApplicationContext(configFilesGatewayDemo);
+		final GenericXmlApplicationContext applicationContext = new GenericXmlApplicationContext(
+				configFilesGatewayDemo);
+		Map<String, DefaultMessageListenerContainer> containers = applicationContext
+				.getBeansOfType(DefaultMessageListenerContainer.class);
+		// wait for containers to subscribe before sending a message.
+		containers.values().forEach(c -> {
+			int n = 0;
+			while (n++ < 100 && !c.isRegisteredWithDestination()) {
+				try {
+					Thread.sleep(100);
+				}
+				catch (InterruptedException e) {
+					Thread.currentThread().interrupt();
+				}
+			}
+			if (!c.isRegisteredWithDestination()) {
+				throw new IllegalStateException("Container failed to subscribe to topic");
+			}
+		});
 
 		final MessageChannel stdinToJmsOutChannel = applicationContext.getBean("stdinToJmsOutChannel", MessageChannel.class);
 
@@ -53,7 +73,7 @@ public class AggregatorDemoTest {
 		final QueueChannel queueChannel = applicationContext.getBean("queueChannel", QueueChannel.class);
 
 		@SuppressWarnings("unchecked")
-		Message<List<String>> reply = (Message<List<String>>) queueChannel.receive(600000);
+		Message<List<String>> reply = (Message<List<String>>) queueChannel.receive(20_000);
 		Assert.assertNotNull(reply);
 		List<String> out = reply.getPayload();
 
