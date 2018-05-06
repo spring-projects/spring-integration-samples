@@ -734,6 +734,33 @@ project('cafe-dsl') {
 	}
 }
 
+project('webflux') {
+	description = 'Webflux DSL Sample'
+
+	apply plugin: 'org.springframework.boot'
+
+	dependencies {
+		compile 'org.springframework.boot:spring-boot-starter-integration'
+		compile "org.springframework.boot:spring-boot-starter-webflux"
+		compile "org.springframework.integration:spring-integration-core"
+		compile "org.springframework.integration:spring-integration-webflux"
+
+		testCompile 'org.springframework.boot:spring-boot-starter-test'
+	}
+	bootRun {
+		main = 'org.springframework.integration.samples.dsl.webflux.WebFluxApplication'
+	}
+
+	task run(type: JavaExec) {
+		main 'org.springframework.integration.samples.dsl.webflux.WebFluxApplication'
+		classpath = sourceSets.main.runtimeClasspath
+	}
+
+	tasks.withType(JavaExec) {
+		standardInput = System.in
+	}
+}
+
 
 project('jdbc') {
 	description = 'JDBC Basic Sample'
