@@ -1,4 +1,4 @@
-package de.escalon.sample.webflux;
+package org.springframework.integration.samples.dsl.webflux;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

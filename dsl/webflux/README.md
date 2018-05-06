@@ -7,7 +7,7 @@ NOTE: at the time of this writing, [the WebFlux integration drops POST messages 
 ## Run the Sample
 
 * You need Java 8 to run this sample, because it is based on Lambdas.
-* running the `de.escalon.sample.webflux.WebFluxApplication` class from within STS (Right-click on
+* running the `WebFluxApplication` class from within STS (Right-click on
 Main class --> Run As --> Java Application)
 * or from the command line in the _webflux_ folder:
 

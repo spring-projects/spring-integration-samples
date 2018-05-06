@@ -1,4 +1,4 @@
-package de.escalon.sample.webflux;
+package org.springframework.integration.samples.dsl.webflux;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.TextNode;
