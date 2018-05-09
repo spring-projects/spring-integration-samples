@@ -58,16 +58,8 @@
       <scope>compile</scope>
       <exclusions>
         <exclusion>
-          <artifactId>spring-boot-starter-tomcat</artifactId>
-          <groupId>*</groupId>
-        </exclusion>
-        <exclusion>
           <artifactId>jackson-module-kotlin</artifactId>
           <groupId>com.fasterxml.jackson.module</groupId>
-        </exclusion>
-        <exclusion>
-          <artifactId>spring-boot-starter-jetty</artifactId>
-          <groupId>*</groupId>
         </exclusion>
       </exclusions>
     </dependency>
@@ -77,16 +69,8 @@
       <scope>compile</scope>
       <exclusions>
         <exclusion>
-          <artifactId>spring-boot-starter-tomcat</artifactId>
-          <groupId>*</groupId>
-        </exclusion>
-        <exclusion>
           <artifactId>jackson-module-kotlin</artifactId>
           <groupId>com.fasterxml.jackson.module</groupId>
-        </exclusion>
-        <exclusion>
-          <artifactId>spring-boot-starter-jetty</artifactId>
-          <groupId>*</groupId>
         </exclusion>
       </exclusions>
     </dependency>
@@ -96,16 +80,8 @@
       <scope>compile</scope>
       <exclusions>
         <exclusion>
-          <artifactId>spring-boot-starter-tomcat</artifactId>
-          <groupId>*</groupId>
-        </exclusion>
-        <exclusion>
           <artifactId>jackson-module-kotlin</artifactId>
           <groupId>com.fasterxml.jackson.module</groupId>
-        </exclusion>
-        <exclusion>
-          <artifactId>spring-boot-starter-jetty</artifactId>
-          <groupId>*</groupId>
         </exclusion>
       </exclusions>
     </dependency>
@@ -115,16 +91,8 @@
       <scope>compile</scope>
       <exclusions>
         <exclusion>
-          <artifactId>spring-boot-starter-tomcat</artifactId>
-          <groupId>*</groupId>
-        </exclusion>
-        <exclusion>
           <artifactId>jackson-module-kotlin</artifactId>
           <groupId>com.fasterxml.jackson.module</groupId>
-        </exclusion>
-        <exclusion>
-          <artifactId>spring-boot-starter-jetty</artifactId>
-          <groupId>*</groupId>
         </exclusion>
       </exclusions>
     </dependency>
@@ -134,16 +102,8 @@
       <scope>compile</scope>
       <exclusions>
         <exclusion>
-          <artifactId>spring-boot-starter-tomcat</artifactId>
-          <groupId>*</groupId>
-        </exclusion>
-        <exclusion>
           <artifactId>jackson-module-kotlin</artifactId>
           <groupId>com.fasterxml.jackson.module</groupId>
-        </exclusion>
-        <exclusion>
-          <artifactId>spring-boot-starter-jetty</artifactId>
-          <groupId>*</groupId>
         </exclusion>
       </exclusions>
     </dependency>
@@ -154,16 +114,8 @@
       <scope>compile</scope>
       <exclusions>
         <exclusion>
-          <artifactId>spring-boot-starter-tomcat</artifactId>
-          <groupId>*</groupId>
-        </exclusion>
-        <exclusion>
           <artifactId>jackson-module-kotlin</artifactId>
           <groupId>com.fasterxml.jackson.module</groupId>
-        </exclusion>
-        <exclusion>
-          <artifactId>spring-boot-starter-jetty</artifactId>
-          <groupId>*</groupId>
         </exclusion>
       </exclusions>
     </dependency>
@@ -173,16 +125,8 @@
       <scope>compile</scope>
       <exclusions>
         <exclusion>
-          <artifactId>spring-boot-starter-tomcat</artifactId>
-          <groupId>*</groupId>
-        </exclusion>
-        <exclusion>
           <artifactId>jackson-module-kotlin</artifactId>
           <groupId>com.fasterxml.jackson.module</groupId>
-        </exclusion>
-        <exclusion>
-          <artifactId>spring-boot-starter-jetty</artifactId>
-          <groupId>*</groupId>
         </exclusion>
       </exclusions>
     </dependency>
@@ -192,16 +136,8 @@
       <scope>compile</scope>
       <exclusions>
         <exclusion>
-          <artifactId>spring-boot-starter-tomcat</artifactId>
-          <groupId>*</groupId>
-        </exclusion>
-        <exclusion>
           <artifactId>jackson-module-kotlin</artifactId>
           <groupId>com.fasterxml.jackson.module</groupId>
-        </exclusion>
-        <exclusion>
-          <artifactId>spring-boot-starter-jetty</artifactId>
-          <groupId>*</groupId>
         </exclusion>
       </exclusions>
     </dependency>
@@ -211,16 +147,8 @@
       <scope>compile</scope>
       <exclusions>
         <exclusion>
-          <artifactId>spring-boot-starter-tomcat</artifactId>
-          <groupId>*</groupId>
-        </exclusion>
-        <exclusion>
           <artifactId>jackson-module-kotlin</artifactId>
           <groupId>com.fasterxml.jackson.module</groupId>
-        </exclusion>
-        <exclusion>
-          <artifactId>spring-boot-starter-jetty</artifactId>
-          <groupId>*</groupId>
         </exclusion>
       </exclusions>
     </dependency>
@@ -231,16 +159,8 @@
       <scope>compile</scope>
       <exclusions>
         <exclusion>
-          <artifactId>spring-boot-starter-tomcat</artifactId>
-          <groupId>*</groupId>
-        </exclusion>
-        <exclusion>
           <artifactId>jackson-module-kotlin</artifactId>
           <groupId>com.fasterxml.jackson.module</groupId>
-        </exclusion>
-        <exclusion>
-          <artifactId>spring-boot-starter-jetty</artifactId>
-          <groupId>*</groupId>
         </exclusion>
       </exclusions>
     </dependency>
@@ -251,16 +171,8 @@
       <scope>compile</scope>
       <exclusions>
         <exclusion>
-          <artifactId>spring-boot-starter-tomcat</artifactId>
-          <groupId>*</groupId>
-        </exclusion>
-        <exclusion>
           <artifactId>jackson-module-kotlin</artifactId>
           <groupId>com.fasterxml.jackson.module</groupId>
-        </exclusion>
-        <exclusion>
-          <artifactId>spring-boot-starter-jetty</artifactId>
-          <groupId>*</groupId>
         </exclusion>
       </exclusions>
     </dependency>
@@ -271,16 +183,8 @@
       <scope>compile</scope>
       <exclusions>
         <exclusion>
-          <artifactId>spring-boot-starter-tomcat</artifactId>
-          <groupId>*</groupId>
-        </exclusion>
-        <exclusion>
           <artifactId>jackson-module-kotlin</artifactId>
           <groupId>com.fasterxml.jackson.module</groupId>
-        </exclusion>
-        <exclusion>
-          <artifactId>spring-boot-starter-jetty</artifactId>
-          <groupId>*</groupId>
         </exclusion>
       </exclusions>
     </dependency>
@@ -291,16 +195,8 @@
       <scope>compile</scope>
       <exclusions>
         <exclusion>
-          <artifactId>spring-boot-starter-tomcat</artifactId>
-          <groupId>*</groupId>
-        </exclusion>
-        <exclusion>
           <artifactId>jackson-module-kotlin</artifactId>
           <groupId>com.fasterxml.jackson.module</groupId>
-        </exclusion>
-        <exclusion>
-          <artifactId>spring-boot-starter-jetty</artifactId>
-          <groupId>*</groupId>
         </exclusion>
       </exclusions>
     </dependency>
@@ -311,16 +207,8 @@
       <scope>compile</scope>
       <exclusions>
         <exclusion>
-          <artifactId>spring-boot-starter-tomcat</artifactId>
-          <groupId>*</groupId>
-        </exclusion>
-        <exclusion>
           <artifactId>jackson-module-kotlin</artifactId>
           <groupId>com.fasterxml.jackson.module</groupId>
-        </exclusion>
-        <exclusion>
-          <artifactId>spring-boot-starter-jetty</artifactId>
-          <groupId>*</groupId>
         </exclusion>
       </exclusions>
     </dependency>
@@ -331,16 +219,8 @@
       <scope>compile</scope>
       <exclusions>
         <exclusion>
-          <artifactId>spring-boot-starter-tomcat</artifactId>
-          <groupId>*</groupId>
-        </exclusion>
-        <exclusion>
           <artifactId>jackson-module-kotlin</artifactId>
           <groupId>com.fasterxml.jackson.module</groupId>
-        </exclusion>
-        <exclusion>
-          <artifactId>spring-boot-starter-jetty</artifactId>
-          <groupId>*</groupId>
         </exclusion>
       </exclusions>
     </dependency>
@@ -351,16 +231,8 @@
       <scope>compile</scope>
       <exclusions>
         <exclusion>
-          <artifactId>spring-boot-starter-tomcat</artifactId>
-          <groupId>*</groupId>
-        </exclusion>
-        <exclusion>
           <artifactId>jackson-module-kotlin</artifactId>
           <groupId>com.fasterxml.jackson.module</groupId>
-        </exclusion>
-        <exclusion>
-          <artifactId>spring-boot-starter-jetty</artifactId>
-          <groupId>*</groupId>
         </exclusion>
       </exclusions>
     </dependency>
@@ -371,16 +243,8 @@
       <scope>compile</scope>
       <exclusions>
         <exclusion>
-          <artifactId>spring-boot-starter-tomcat</artifactId>
-          <groupId>*</groupId>
-        </exclusion>
-        <exclusion>
           <artifactId>jackson-module-kotlin</artifactId>
           <groupId>com.fasterxml.jackson.module</groupId>
-        </exclusion>
-        <exclusion>
-          <artifactId>spring-boot-starter-jetty</artifactId>
-          <groupId>*</groupId>
         </exclusion>
       </exclusions>
     </dependency>
@@ -391,16 +255,8 @@
       <scope>compile</scope>
       <exclusions>
         <exclusion>
-          <artifactId>spring-boot-starter-tomcat</artifactId>
-          <groupId>*</groupId>
-        </exclusion>
-        <exclusion>
           <artifactId>jackson-module-kotlin</artifactId>
           <groupId>com.fasterxml.jackson.module</groupId>
-        </exclusion>
-        <exclusion>
-          <artifactId>spring-boot-starter-jetty</artifactId>
-          <groupId>*</groupId>
         </exclusion>
       </exclusions>
     </dependency>
@@ -411,16 +267,8 @@
       <scope>compile</scope>
       <exclusions>
         <exclusion>
-          <artifactId>spring-boot-starter-tomcat</artifactId>
-          <groupId>*</groupId>
-        </exclusion>
-        <exclusion>
           <artifactId>jackson-module-kotlin</artifactId>
           <groupId>com.fasterxml.jackson.module</groupId>
-        </exclusion>
-        <exclusion>
-          <artifactId>spring-boot-starter-jetty</artifactId>
-          <groupId>*</groupId>
         </exclusion>
       </exclusions>
     </dependency>
@@ -431,16 +279,8 @@
       <scope>compile</scope>
       <exclusions>
         <exclusion>
-          <artifactId>spring-boot-starter-tomcat</artifactId>
-          <groupId>*</groupId>
-        </exclusion>
-        <exclusion>
           <artifactId>jackson-module-kotlin</artifactId>
           <groupId>com.fasterxml.jackson.module</groupId>
-        </exclusion>
-        <exclusion>
-          <artifactId>spring-boot-starter-jetty</artifactId>
-          <groupId>*</groupId>
         </exclusion>
       </exclusions>
     </dependency>
@@ -451,16 +291,8 @@
       <scope>compile</scope>
       <exclusions>
         <exclusion>
-          <artifactId>spring-boot-starter-tomcat</artifactId>
-          <groupId>*</groupId>
-        </exclusion>
-        <exclusion>
           <artifactId>jackson-module-kotlin</artifactId>
           <groupId>com.fasterxml.jackson.module</groupId>
-        </exclusion>
-        <exclusion>
-          <artifactId>spring-boot-starter-jetty</artifactId>
-          <groupId>*</groupId>
         </exclusion>
       </exclusions>
     </dependency>
@@ -471,16 +303,8 @@
       <scope>compile</scope>
       <exclusions>
         <exclusion>
-          <artifactId>spring-boot-starter-tomcat</artifactId>
-          <groupId>*</groupId>
-        </exclusion>
-        <exclusion>
           <artifactId>jackson-module-kotlin</artifactId>
           <groupId>com.fasterxml.jackson.module</groupId>
-        </exclusion>
-        <exclusion>
-          <artifactId>spring-boot-starter-jetty</artifactId>
-          <groupId>*</groupId>
         </exclusion>
       </exclusions>
     </dependency>
@@ -491,16 +315,8 @@
       <scope>compile</scope>
       <exclusions>
         <exclusion>
-          <artifactId>spring-boot-starter-tomcat</artifactId>
-          <groupId>*</groupId>
-        </exclusion>
-        <exclusion>
           <artifactId>jackson-module-kotlin</artifactId>
           <groupId>com.fasterxml.jackson.module</groupId>
-        </exclusion>
-        <exclusion>
-          <artifactId>spring-boot-starter-jetty</artifactId>
-          <groupId>*</groupId>
         </exclusion>
       </exclusions>
     </dependency>
@@ -511,16 +327,8 @@
       <scope>compile</scope>
       <exclusions>
         <exclusion>
-          <artifactId>spring-boot-starter-tomcat</artifactId>
-          <groupId>*</groupId>
-        </exclusion>
-        <exclusion>
           <artifactId>jackson-module-kotlin</artifactId>
           <groupId>com.fasterxml.jackson.module</groupId>
-        </exclusion>
-        <exclusion>
-          <artifactId>spring-boot-starter-jetty</artifactId>
-          <groupId>*</groupId>
         </exclusion>
       </exclusions>
     </dependency>
@@ -628,34 +436,19 @@
       <url>https://repo.spring.io/libs-snapshot</url>
     </repository>
   </repositories>
-  <packaging>war</packaging>
-  <build>
-    <plugins>
-      <plugin>
-        <groupId>org.mortbay.jetty</groupId>
-        <artifactId>jetty-maven-plugin</artifactId>
-        <version>8.1.14.v20131031</version>
-        <configuration>
-          <webAppConfig>
-            <contextPath>/loanshark</contextPath>
-          </webAppConfig>
-        </configuration>
-      </plugin>
-    </plugins>
-  </build>
   <dependencyManagement>
     <dependencies>
       <dependency>
-        <groupId>org.springframework.integration</groupId>
-        <artifactId>spring-integration-bom</artifactId>
-        <version>5.0.3.RELEASE</version>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-framework-bom</artifactId>
+        <version>5.0.5.RELEASE</version>
         <scope>import</scope>
         <type>pom</type>
       </dependency>
       <dependency>
-        <groupId>org.springframework</groupId>
-        <artifactId>spring-framework-bom</artifactId>
-        <version>5.0.4.RELEASE</version>
+        <groupId>org.springframework.integration</groupId>
+        <artifactId>spring-integration-bom</artifactId>
+        <version>5.0.5.RELEASE</version>
         <scope>import</scope>
         <type>pom</type>
       </dependency>

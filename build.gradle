@@ -211,7 +211,7 @@ subprojects { subproject ->
 			postgresVersion = '42.0.0'
 			subethasmtpVersion = '1.2'
 			slf4jVersion = '1.7.25'
-			springIntegrationVersion = '5.0.4.RELEASE'
+			springIntegrationVersion = '5.0.5.RELEASE'
 			springIntegrationKafkaVersion = '3.0.3.RELEASE'
 			springIntegrationSplunkVersion = '1.1.0.RELEASE'
 			springKafkaVersion = '2.1.5.RELEASE'
