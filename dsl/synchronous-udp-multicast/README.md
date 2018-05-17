@@ -1,7 +1,7 @@
 Spring Integration Java DSL synchronous UDP multicast
 ==============
 
-This example demonstrates the use of `Http Inbound Components`, `Http Outbound Components` and `UDP Adapters` to create a UDP multicast synchronous gateway.
+This example demonstrates the use of `Http Inbound Components`, `Http Outbound Components`, `UDP Adapters` and `IntegrationFlowContext` class to create a UDP multicast synchronous gateway.
 
 ## Flow
 
