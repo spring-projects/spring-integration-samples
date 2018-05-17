@@ -23,25 +23,25 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  * @author Daniel Andres Pelaez Lopez
  */
 public class ExtendedMessage {
-    private final String replyChannelId;
-    private final String errorChannelId;
+    private final String replyOriginChannelId;
+    private final String errorOriginChannelId;
     private final String data;
 
     @JsonCreator
-    ExtendedMessage(@JsonProperty("replyChannelId") String replyChannelId,
-                    @JsonProperty("errorChannelId") String errorChannelId,
+    ExtendedMessage(@JsonProperty("replyOriginChannelId") String replyOriginChannelId,
+                    @JsonProperty("errorOriginChannelId") String errorOriginChannelId,
                     @JsonProperty("data") String data) {
-        this.replyChannelId = replyChannelId;
-        this.errorChannelId = errorChannelId;
+        this.replyOriginChannelId = replyOriginChannelId;
+        this.errorOriginChannelId = errorOriginChannelId;
         this.data = data;
     }
 
-    public String getReplyChannelId() {
-        return replyChannelId;
+    public String getReplyOriginChannelId() {
+        return replyOriginChannelId;
     }
 
-    public String getErrorChannelId() {
-        return errorChannelId;
+    public String getErrorOriginChannelId() {
+        return errorOriginChannelId;
     }
 
     public String getData() {

@@ -18,6 +18,7 @@ package org.springframework.integration.samples.dsl.synchronous.multicast.starte
 
 import org.springframework.integration.transformer.Transformer;
 import org.springframework.messaging.Message;
+import org.springframework.messaging.MessageHeaders;
 import org.springframework.messaging.support.MessageBuilder;
 
 /**
@@ -27,8 +28,8 @@ public class ExtendedMessageTransformer implements Transformer {
     @Override
     public Message<?> transform(Message<?> message) {
         return MessageBuilder
-                .withPayload(new ExtendedMessage((String) message.getHeaders().get("replyChannel"),
-                        (String) message.getHeaders().get("errorChannel"),
+                .withPayload(new ExtendedMessage((String) message.getHeaders().get(MessageHeaders.REPLY_CHANNEL),
+                        (String) message.getHeaders().get(MessageHeaders.ERROR_CHANNEL),
                         (String) message.getPayload()))
                 .copyHeaders(message.getHeaders())
                 .build();
