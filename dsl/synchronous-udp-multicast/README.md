@@ -7,14 +7,14 @@ This example demonstrates the use of `Http Inbound Components`, `Http Outbound C
 
 The idea is to send a UDP multicast message in an synchronous way, so, it waits until a response arrieves from any of the UDP nodes joined to the multicast group.
 
-                Client                                          Server
+           Client                         Server
     
     udpMulticastOutbound    -->>   udpMulticastInbound
-                                                                        |
-                                                                        |
-                                                                        v
-                                                                        v
-          httpInbound                <<--       httpOutbound                 
+                                            |
+                                            |
+                                            v
+                                            v
+          httpInbound       <<--       httpOutbound                 
     
     
 
