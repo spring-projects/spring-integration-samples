@@ -55,7 +55,7 @@ public class TestSplitterAggregator {
 	 * @throws InterruptedException
 	 */
 	@Test
-	public void testSearch() throws InterruptedException {
+	public void testSearch() {
 		CompositeResult result = searchRequestor.search(TestUtils.getCompositeCriteria());
 		assertEquals(2, result.getResults().size());
 	}
