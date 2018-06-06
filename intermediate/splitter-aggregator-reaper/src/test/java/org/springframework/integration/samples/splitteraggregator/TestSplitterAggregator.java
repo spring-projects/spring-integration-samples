@@ -51,8 +51,6 @@ public class TestSplitterAggregator {
 
 	/**
 	 * Test the happy path.
-	 *
-	 * @throws InterruptedException
 	 */
 	@Test
 	public void testSearch() {
