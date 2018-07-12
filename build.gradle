@@ -662,6 +662,8 @@ project('mqtt') {
 		compile 'org.springframework.boot:spring-boot-starter-integration'
 		compile "org.springframework.integration:spring-integration-stream"
 		compile "org.springframework.integration:spring-integration-mqtt"
+		testCompile 'org.springframework.boot:spring-boot-starter-test'
+		testCompile "org.springframework.integration:spring-integration-test"
 	}
 
 	bootRun {
