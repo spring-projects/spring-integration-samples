@@ -17,23 +17,24 @@
 package org.springframework.integration.samples.mqtt;
 
 import static org.assertj.core.api.Assertions.assertThat;
-
-import java.util.concurrent.CountDownLatch;
-import java.util.concurrent.TimeUnit;
-import java.util.concurrent.atomic.AtomicReference;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.spy;
+import static org.mockito.Mockito.verify;
+import static org.springframework.integration.test.mock.MockIntegration.mockMessageHandler;
 
 import org.junit.ClassRule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.ArgumentCaptor;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.integration.channel.AbstractMessageChannel;
 import org.springframework.integration.dsl.IntegrationFlow;
+import org.springframework.integration.test.context.MockIntegrationContext;
+import org.springframework.integration.test.context.SpringIntegrationTest;
+import org.springframework.integration.test.mock.MockIntegration;
 import org.springframework.messaging.Message;
-import org.springframework.messaging.MessageChannel;
-import org.springframework.messaging.support.ChannelInterceptor;
+import org.springframework.messaging.MessageHandler;
 import org.springframework.messaging.support.GenericMessage;
 import org.springframework.test.context.junit4.SpringRunner;
 
@@ -44,35 +45,30 @@ import org.springframework.test.context.junit4.SpringRunner;
  */
 @RunWith(SpringRunner.class)
 @SpringBootTest
+@SpringIntegrationTest
 public class ApplicationTest {
 
 	@ClassRule
 	public static final BrokerRunning brokerRunning = BrokerRunning.isRunning(1883);
 
 	@Autowired
-	private IntegrationFlow mqttOutFlow;
+	private MockIntegrationContext mockIntegrationContext;
 
 	@Autowired
-	@Qualifier("mqttInFlow.channel#1")
-	private AbstractMessageChannel inbound;
+	private IntegrationFlow mqttOutFlow;
 
 	@Test
 	public void test() throws Exception {
-		final AtomicReference<Object> payload = new AtomicReference<>();
-		final CountDownLatch latch = new CountDownLatch(1);
-		this.inbound.addInterceptor(new ChannelInterceptor() {
-
-			@Override
-			public Message<?> preSend(Message<?> message, MessageChannel channel) {
-				payload.set(message.getPayload());
-				latch.countDown();
-				return message;
-			}
-
-		});
+		ArgumentCaptor<Message<?>> captor = MockIntegration.messageArgumentCaptor();
+		MessageHandler mockMessageHandler = spy(mockMessageHandler(captor)).handleNext(m -> { });
+		this.mockIntegrationContext
+			.substituteMessageHandlerFor(
+					"mqttInFlow.org.springframework.integration.config.ConsumerEndpointFactoryBean#1",
+					mockMessageHandler);
 		this.mqttOutFlow.getInputChannel().send(new GenericMessage<>("foo"));
-		assertThat(latch.await(10, TimeUnit.SECONDS)).isTrue();
-		assertThat(payload.get()).isEqualTo("foo sent to MQTT, received from MQTT");
+		verify(mockMessageHandler).handleMessage(any());
+		assertThat(captor.getValue().getPayload())
+			.isEqualTo("foo sent to MQTT, received from MQTT");
 	}
 
 }
