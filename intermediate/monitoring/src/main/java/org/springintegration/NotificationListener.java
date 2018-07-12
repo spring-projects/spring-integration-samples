@@ -1,5 +1,5 @@
 /*
- * Copyright 2002-2012 the original author or authors.
+ * Copyright 2002-2018 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,7 +15,7 @@
  */
 package org.springintegration;
 
-import org.springframework.context.ApplicationContext;
+import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 /**
@@ -29,13 +29,15 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 public class NotificationListener {
 
 	public static void main(String[] args) throws Exception {
-		ApplicationContext ctx = new ClassPathXmlApplicationContext("classpath:/META-INF/spring/integration/remote-monitor-context.xml");
+		ConfigurableApplicationContext ctx =
+				new ClassPathXmlApplicationContext("classpath:/META-INF/spring/integration/remote-monitor-context.xml");
 		Gateway gw = ctx.getBean(Gateway.class);
 		int cmd = 0;
 		while (cmd != 'q') {
 			cmd = System.in.read();
 			gw.send((char) cmd);
 		}
+		ctx.close();
 	}
 
 	public static interface Gateway {
