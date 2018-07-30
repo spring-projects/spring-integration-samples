@@ -139,7 +139,6 @@ public class Application {
 	}
 
 	@Bean
-	@ConditionalOnMissingBean
 	public SessionFactory<FTPFile> ftp1() {
 		DefaultFtpSessionFactory ftp = new DefaultFtpSessionFactory();
 		ftp.setHost("host3");
@@ -149,7 +148,6 @@ public class Application {
 	}
 
 	@Bean
-	@ConditionalOnMissingBean
 	public SessionFactory<FTPFile> ftp2() {
 		DefaultFtpSessionFactory ftp = new DefaultFtpSessionFactory();
 		ftp.setHost("host3");
@@ -159,7 +157,6 @@ public class Application {
 	}
 
 	@Bean
-	@ConditionalOnMissingBean
 	public SessionFactory<FTPFile> ftp3() {
 		DefaultFtpSessionFactory ftp = new DefaultFtpSessionFactory();
 		ftp.setHost("host3");

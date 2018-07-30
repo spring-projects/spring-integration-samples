@@ -56,7 +56,7 @@ import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.junit4.SpringRunner;
 
 @RunWith(SpringRunner.class)
-@SpringBootTest(classes = { ApplicationTests.Config.class, Application.class })
+@SpringBootTest(properties = "spring.main.allow-bean-definition-overriding=true")
 @DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
 @SpringIntegrationTest(noAutoStartup = "fileInboundChannelAdapter")
 public class ApplicationTests {
