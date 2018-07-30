@@ -169,9 +169,9 @@ subprojects { subproject ->
 		}
 
 		ext {
-			activeMqVersion = '5.15.2'
+			activeMqVersion = '5.15.3'
 			apacheSshdVersion = '1.6.0'
-			aspectjVersion = '1.8.13'
+			aspectjVersion = '1.9.0'
 			commonsDigesterVersion = '2.0'
 			commonsDbcpVersion = '1.2.2'
 			commonsFileUploadVersion = '1.2.2'
@@ -205,18 +205,19 @@ subprojects { subproject ->
 			junitVersion = '4.12'
 			jythonVersion = '2.5.3'
 			log4jVersion = '2.7'
-			mockitoVersion = '2.10.0'
+			mockitoVersion = '2.18.0'
 			openJpaVersion = '2.4.0'
 			oracleDriverVersion = '11.2.0.3'
 			postgresVersion = '42.0.0'
 			subethasmtpVersion = '1.2'
 			slf4jVersion = '1.7.25'
-			springIntegrationVersion = '5.0.7.RELEASE'
-			springIntegrationKafkaVersion = '3.0.3.RELEASE'
+			springIntegrationVersion = '5.1.0.M1'
+			springIntegrationKafkaVersion = '3.1.0.M1'
+			springIntegrationSocialTwiterVersion = '1.0.0.M1'
 			springIntegrationSplunkVersion = '1.1.0.RELEASE'
-			springKafkaVersion = '2.1.8.RELEASE'
-			springVersion = '5.0.8.RELEASE'
-			springSecurityVersion = '5.0.6.RELEASE'
+			springKafkaVersion = '2.2.0.M1'
+			springVersion = '5.1.0.RC1'
+			springSecurityVersion = '5.1.0.M2'
 			springWebFlowVersion = '2.3.3.RELEASE'
 			tilesJspVersion = '2.2.1'
 			validationApiVersion = '1.0.0.GA'
@@ -688,7 +689,7 @@ project('si4demo') {
 		compile 'org.springframework.boot:spring-boot-starter-web'
 		compile 'org.springframework.boot:spring-boot-starter-integration'
 		compile "org.springframework.integration:spring-integration-mail"
-		compile "org.springframework.integration:spring-integration-twitter"
+		compile "org.springframework.integration:spring-integration-social-twitter:$springIntegrationSocialTwiterVersion"
 		compile "org.springframework.integration:spring-integration-http"
 		compile "org.springframework.integration:spring-integration-ip"
 		compile "javax.mail:javax.mail-api:$javaxMailVersion"
@@ -938,7 +939,7 @@ project('twitter') {
 	description = 'Twitter Basic Sample'
 
 	dependencies {
-		compile "org.springframework.integration:spring-integration-twitter"
+		compile "org.springframework.integration:spring-integration-social-twitter:$springIntegrationSocialTwiterVersion"
 		compile "org.apache.logging.log4j:log4j-core:$log4jVersion"
 	}
 
@@ -1078,7 +1079,7 @@ project('monitoring') {
 
 	dependencies {
 		compile "org.springframework.integration:spring-integration-jmx"
-		compile "org.springframework.integration:spring-integration-twitter"
+		compile "org.springframework.integration:spring-integration-social-twitter:$springIntegrationSocialTwiterVersion"
 		compile "org.springframework.integration:spring-integration-groovy"
 		compile "org.springframework:spring-webmvc"
 		compile "javax.servlet:jstl:$jstlVersion"

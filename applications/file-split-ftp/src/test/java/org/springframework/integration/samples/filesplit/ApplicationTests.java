@@ -56,7 +56,7 @@ import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.junit4.SpringRunner;
 
 @RunWith(SpringRunner.class)
-@SpringBootTest
+@SpringBootTest(classes = { ApplicationTests.Config.class, Application.class })
 @DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
 @SpringIntegrationTest(noAutoStartup = "fileInboundChannelAdapter")
 public class ApplicationTests {
@@ -200,30 +200,30 @@ public class ApplicationTests {
 	public static class Config {
 
 		@Bean
-		public SessionFactory<FTPFile> ftp1() throws IOException {
+		public SessionFactory<FTPFile> ftp1() {
 			return mockSf();
 		}
 
 		@Bean
-		public SessionFactory<FTPFile> ftp2() throws IOException {
+		public SessionFactory<FTPFile> ftp2() {
 			return mockSf();
 		}
 
 		@Bean
-		public SessionFactory<FTPFile> ftp3() throws IOException {
+		public SessionFactory<FTPFile> ftp3() {
 			return mockSf();
 		}
 
-		private SessionFactory<FTPFile> mockSf() throws IOException {
+		private SessionFactory<FTPFile> mockSf() {
 			@SuppressWarnings("unchecked")
 			SessionFactory<FTPFile> mocksf = mock(SessionFactory.class);
 			given(mocksf.getSession()).willReturn(mockSession());
 			return mocksf;
 		}
 
-		@SuppressWarnings("unchecked")
 		@Bean
-		public Session<FTPFile> mockSession() throws IOException {
+		@SuppressWarnings("unchecked")
+		public Session<FTPFile> mockSession() {
 			return mock(Session.class);
 		}
 

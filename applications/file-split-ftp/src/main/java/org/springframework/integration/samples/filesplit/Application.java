@@ -26,6 +26,7 @@ import org.apache.commons.net.ftp.FTPFile;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.mail.MailProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.integration.dsl.IntegrationFlow;
@@ -138,6 +139,7 @@ public class Application {
 	}
 
 	@Bean
+	@ConditionalOnMissingBean
 	public SessionFactory<FTPFile> ftp1() {
 		DefaultFtpSessionFactory ftp = new DefaultFtpSessionFactory();
 		ftp.setHost("host3");
@@ -147,6 +149,7 @@ public class Application {
 	}
 
 	@Bean
+	@ConditionalOnMissingBean
 	public SessionFactory<FTPFile> ftp2() {
 		DefaultFtpSessionFactory ftp = new DefaultFtpSessionFactory();
 		ftp.setHost("host3");
@@ -156,6 +159,7 @@ public class Application {
 	}
 
 	@Bean
+	@ConditionalOnMissingBean
 	public SessionFactory<FTPFile> ftp3() {
 		DefaultFtpSessionFactory ftp = new DefaultFtpSessionFactory();
 		ftp.setHost("host3");
