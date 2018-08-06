@@ -1,5 +1,5 @@
 /*
- * Copyright 2016-2017 the original author or authors.
+ * Copyright 2016-2018 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,6 +17,7 @@ package org.springframework.integration.samples.mqtt;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.eclipse.paho.client.mqttv3.MqttConnectOptions;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -78,9 +79,11 @@ public class Application {
 	@Bean
 	public MqttPahoClientFactory mqttClientFactory() {
 		DefaultMqttPahoClientFactory factory = new DefaultMqttPahoClientFactory();
-		factory.setServerURIs("tcp://localhost:1883");
-		factory.setUserName("guest");
-		factory.setPassword("guest");
+		MqttConnectOptions options = new MqttConnectOptions();
+		options.setServerURIs(new String[] { "tcp://localhost:1883" });
+		options.setUserName("guest");
+		options.setPassword("guest".toCharArray());
+		factory.setConnectionOptions(options);
 		return factory;
 	}
 
