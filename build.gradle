@@ -902,6 +902,29 @@ project('tcp-amqp') {
 	}
 }
 
+project('tcp-broadcast') {
+	description = 'TCP Client Broadcast Sample'
+
+	apply plugin: 'org.springframework.boot'
+
+	dependencies {
+		compile 'org.springframework.boot:spring-boot-starter-web'
+		compile 'org.springframework.boot:spring-boot-starter-integration'
+		compile "org.springframework.integration:spring-integration-ip"
+
+		testCompile 'org.springframework.boot:spring-boot-starter-test'
+	}
+
+	bootRun {
+		main = 'org.springframework.integration.samples.tcpbroadcast.Application'
+	}
+
+	task run(type: JavaExec) {
+		main 'org.springframework.integration.samples.tcpbroadcast.Application'
+		classpath = sourceSets.main.runtimeClasspath
+	}
+}
+
 project('tcp-client-server') {
 	description = 'TCP Client Server Sample'
 

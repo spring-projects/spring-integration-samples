@@ -1,0 +1,24 @@
+== TCP Sample
+
+This sample demonstrates broadcasting a message received by a web controller to all connected TCP clients.
+
+`curl -X POST http://localhost:8080/broadcast/foo` will send 'foo' to 5 connected clients.
+
+The TCP server listens on port 1234.
+
+
+`2018-11-19 12:01:48.546  INFO 98411 --- [           main] com.example.TcpBroadcastApplication      : Started TcpBroadcastApplication in 1.904 seconds (JVM running for 2.345)`
+`connected! from client# 5`
+`connected! from client# 4`
+`connected! from client# 3`
+`connected! from client# 2`
+`connected! from client# 1`
+
+`curl -X POST http://localhost:8080/broadcast/foo`
+
+`foo from client# 4`
+`foo from client# 5`
+`foo from client# 2`
+`foo from client# 1`
+`foo from client# 3`
+
