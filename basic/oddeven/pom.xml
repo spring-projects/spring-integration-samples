@@ -3,7 +3,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.springframework.integration.samples</groupId>
   <artifactId>oddeven</artifactId>
-  <version>5.1.0.BUILD-SNAPSHOT</version>
+  <version>5.1.1.BUILD-SNAPSHOT</version>
   <name>Odd-Even Sample</name>
   <description>Odd-Even Sample</description>
   <url>http://projects.spring.io/spring-integration</url>
@@ -148,14 +148,14 @@
       <dependency>
         <groupId>org.springframework</groupId>
         <artifactId>spring-framework-bom</artifactId>
-        <version>5.1.0.RELEASE</version>
+        <version>5.1.2.RELEASE</version>
         <scope>import</scope>
         <type>pom</type>
       </dependency>
       <dependency>
         <groupId>org.springframework.integration</groupId>
         <artifactId>spring-integration-bom</artifactId>
-        <version>5.1.0.RC2</version>
+        <version>5.1.0.RELEASE</version>
         <scope>import</scope>
         <type>pom</type>
       </dependency>
