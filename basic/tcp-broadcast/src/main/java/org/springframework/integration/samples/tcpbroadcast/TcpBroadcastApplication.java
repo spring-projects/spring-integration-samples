@@ -19,6 +19,8 @@ package org.springframework.integration.samples.tcpbroadcast;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.Socket;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.TimeUnit;
 import java.util.stream.IntStream;
 
 import javax.net.SocketFactory;
@@ -31,19 +33,21 @@ import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.DependsOn;
+import org.springframework.context.event.EventListener;
 import org.springframework.core.task.TaskExecutor;
 import org.springframework.integration.dsl.IntegrationFlow;
 import org.springframework.integration.dsl.IntegrationFlows;
 import org.springframework.integration.ip.IpHeaders;
 import org.springframework.integration.ip.dsl.Tcp;
 import org.springframework.integration.ip.tcp.connection.AbstractServerConnectionFactory;
+import org.springframework.integration.ip.tcp.connection.TcpConnectionServerListeningEvent;
 import org.springframework.integration.ip.tcp.serializer.ByteArrayCrLfSerializer;
 import org.springframework.messaging.handler.annotation.Header;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import org.springframework.stereotype.Component;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @SpringBootApplication
@@ -53,6 +57,8 @@ public class TcpBroadcastApplication {
 
 	@Configuration
 	public static class Config {
+
+		private final CountDownLatch listenLatch = new CountDownLatch(1);
 
 		/*
 		 * Server connection factory.
@@ -102,13 +108,21 @@ public class TcpBroadcastApplication {
 		}
 
 		/*
-		 * Start 5 clients.
+		 * Wait for server to start listenng and start 5 clients.
 		 */
 		@Bean
 		public ApplicationRunner runner(TaskExecutor exec, Broadcaster caster) {
 			return args -> {
+				if (!this.listenLatch.await(10, TimeUnit.SECONDS)) {
+					throw new IllegalStateException("Failed to start listening");
+				}
 				IntStream.range(1, 6).forEach(i -> exec.execute(new Client()));
 			};
+		}
+
+		@EventListener
+		public void serverStarted(TcpConnectionServerListeningEvent event) {
+			this.listenLatch.countDown();
 		}
 
 	}
@@ -137,7 +151,7 @@ public class TcpBroadcastApplication {
 			return "sent: " + what;
 		}
 
-		@GetMapping("/shutdown")
+		@RequestMapping("/shutdown")
 		public void shutDown() {
 			this.applicationContext.close();
 		}

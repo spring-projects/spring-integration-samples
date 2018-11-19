@@ -1,4 +1,4 @@
-== TCP Sample
+== TCP Broadcast Sample
 
 This sample demonstrates broadcasting a message received by a web controller to all connected TCP clients.
 
@@ -22,3 +22,6 @@ The TCP server listens on port 1234.
 `foo from client# 1`
 `foo from client# 3`
 
+To shut down the application:
+
+`curl http://localhost:8080/shutdown`
