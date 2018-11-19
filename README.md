@@ -68,6 +68,7 @@ This is a good place to get started. The samples here are technically motivated 
 * **quote** - Example demoing core EIP support using **Channel Adapter (Inbound and Stdout)**, **Poller** with Interval Trigers, **Service Activator**
 * **sftp** - Demonstrating SFTP support using **SFTP Inbound / Outbound Channel Adapters**
 * **tcp-amqp** - Demonstrates basic functionality of bridging the **Spring Integration TCP Adapters** with **Spring Integration AMQP Adapters**
+* **tcp-broadcast** - Demonstrates broadcasting a message to multiple connected TCP clients.
 * **tcp-client-server** - Demonstrates socket communication using **TcpOutboundGateway**, **TcpInboundGateway** and also uses a **Gateway** and a **Service Activator**
 * **testing-examples** - A series of test cases that show techniques to **test** Spring Integration applications.
 * **twitter** - Illustrates Twitter support using the **Twitter Inbound Channel Adapter**, **Twitter Inbound Search Channel Adapter**, **Twitter Outbound Channel Adapter**
