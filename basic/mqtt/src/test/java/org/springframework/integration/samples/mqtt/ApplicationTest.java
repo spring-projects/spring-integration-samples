@@ -18,8 +18,8 @@ package org.springframework.integration.samples.mqtt;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.verify;
+import static org.springframework.integration.test.mock.MockIntegration.messageArgumentCaptor;
 import static org.springframework.integration.test.mock.MockIntegration.mockMessageHandler;
 
 import org.junit.ClassRule;
@@ -32,7 +32,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.integration.dsl.IntegrationFlow;
 import org.springframework.integration.test.context.MockIntegrationContext;
 import org.springframework.integration.test.context.SpringIntegrationTest;
-import org.springframework.integration.test.mock.MockIntegration;
 import org.springframework.messaging.Message;
 import org.springframework.messaging.MessageHandler;
 import org.springframework.messaging.support.GenericMessage;
@@ -59,8 +58,8 @@ public class ApplicationTest {
 
 	@Test
 	public void test() throws Exception {
-		ArgumentCaptor<Message<?>> captor = MockIntegration.messageArgumentCaptor();
-		MessageHandler mockMessageHandler = spy(mockMessageHandler(captor)).handleNext(m -> { });
+		ArgumentCaptor<Message<?>> captor = messageArgumentCaptor();
+		MessageHandler mockMessageHandler = mockMessageHandler(captor).handleNext(m -> { });
 		this.mockIntegrationContext
 			.substituteMessageHandlerFor(
 					"mqttInFlow.org.springframework.integration.config.ConsumerEndpointFactoryBean#1",
