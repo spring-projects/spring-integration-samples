@@ -916,11 +916,11 @@ project('tcp-broadcast') {
 	}
 
 	bootRun {
-		main = 'org.springframework.integration.samples.tcpbroadcast.Application'
+		main = 'org.springframework.integration.samples.tcpbroadcast.TcpBroadcastApplication'
 	}
 
 	task run(type: JavaExec) {
-		main 'org.springframework.integration.samples.tcpbroadcast.Application'
+		main 'org.springframework.integration.samples.tcpbroadcast.TcpBroadcastApplication'
 		classpath = sourceSets.main.runtimeClasspath
 	}
 }
