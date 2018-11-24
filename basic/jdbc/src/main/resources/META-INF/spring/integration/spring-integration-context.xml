@@ -22,32 +22,29 @@
 	<int:channel id="findPersonRequestChannel"/>
 	<int:channel id="findPersonReplyChannel"/>
 
-
 	<int:gateway id="personService" service-interface="org.springframework.integration.samples.jdbc.service.PersonService">
 		<int:method name="createPerson"
 					request-channel="createPersonRequestChannel"
 					request-timeout="5000"
 					reply-channel="createPersonReplyChannel"
-					reply-timeout="5000"/>
+					reply-timeout="0"/>
 		<int:method name="findPersonByName"
 					request-channel="findPersonRequestChannel"
 					request-timeout="5000"
 					reply-channel="findPersonReplyChannel"
-					reply-timeout="5000"/>
+					reply-timeout="0"/>
 	</int:gateway>
 
 	<int-jdbc:outbound-gateway data-source="datasource"
 		requires-reply="false"
-		update="UPDATE DUMMY SET DUMMY_VALUE='test'"
 		request-channel="findPersonRequestChannel"
 		query="select * from Person where lower(name)=lower(:payload)"
 		reply-channel="findPersonReplyChannel" row-mapper="personResultMapper"
-		max-rows-per-poll="100">
+		max-rows="100">
 	</int-jdbc:outbound-gateway>
 
-
-
 	<bean id="personResultMapper" class="org.springframework.integration.samples.jdbc.domain.PersonMapper"/>
+
 	<int-jdbc:outbound-gateway data-source="datasource"
 								request-channel="createPersonRequestChannel"
 								reply-channel="createPersonReplyChannel"
