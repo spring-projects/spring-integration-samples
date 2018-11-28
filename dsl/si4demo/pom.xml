@@ -4,7 +4,7 @@
   <parent>
     <groupId>org.springframework.boot</groupId>
     <artifactId>spring-boot-starter-parent</artifactId>
-    <version>2.0.3.RELEASE</version>
+    <version>2.0.6.RELEASE</version>
   </parent>
   <groupId>org.springframework.integration.samples</groupId>
   <artifactId>si4demo</artifactId>
@@ -251,21 +251,21 @@
       <dependency>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-dependencies</artifactId>
-        <version>2.0.3.RELEASE</version>
+        <version>2.0.6.RELEASE</version>
         <scope>import</scope>
         <type>pom</type>
       </dependency>
       <dependency>
         <groupId>org.springframework</groupId>
         <artifactId>spring-framework-bom</artifactId>
-        <version>5.0.9.RELEASE</version>
+        <version>5.0.11.RELEASE</version>
         <scope>import</scope>
         <type>pom</type>
       </dependency>
       <dependency>
         <groupId>org.springframework.integration</groupId>
         <artifactId>spring-integration-bom</artifactId>
-        <version>5.0.8.RELEASE</version>
+        <version>5.0.10.RELEASE</version>
         <scope>import</scope>
         <type>pom</type>
       </dependency>

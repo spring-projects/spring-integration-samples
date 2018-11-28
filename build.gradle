@@ -9,7 +9,7 @@ buildscript {
 	}
 }
 plugins {
-	id "org.sonarqube" version "2.6.1"
+	id "org.sonarqube" version "2.6.2"
 }
 
 description = 'Spring Integration Samples'
@@ -160,7 +160,7 @@ subprojects { subproject ->
 		apply plugin: 'io.spring.dependency-management'
 
 		jacoco {
-			toolVersion = "0.7.9"
+			toolVersion = "0.8.2"
 		}
 
 		compileJava {
@@ -211,12 +211,12 @@ subprojects { subproject ->
 			postgresVersion = '42.0.0'
 			subethasmtpVersion = '1.2'
 			slf4jVersion = '1.7.25'
-			springIntegrationVersion = '5.0.8.RELEASE'
+			springIntegrationVersion = '5.0.10.RELEASE'
 			springIntegrationKafkaVersion = '3.0.3.RELEASE'
 			springIntegrationSplunkVersion = '1.1.0.RELEASE'
 			springKafkaVersion = '2.1.10.RELEASE'
-			springVersion = '5.0.9.RELEASE'
-			springSecurityVersion = '5.0.7.RELEASE'
+			springVersion = '5.0.11.RELEASE'
+			springSecurityVersion = '5.0.10.RELEASE'
 			springWebFlowVersion = '2.3.3.RELEASE'
 			tilesJspVersion = '2.2.1'
 			validationApiVersion = '1.0.0.GA'
