@@ -174,7 +174,7 @@ subprojects { subproject ->
 			aspectjVersion = '1.9.0'
 			commonsDigesterVersion = '2.0'
 			commonsDbcpVersion = '1.2.2'
-			commonsFileUploadVersion = '1.2.2'
+			commonsFileUploadVersion = '1.4'
 			commonsIoVersion = '2.4'
 			commonsLangVersion = '2.6'
 			commonsPoolVersion = '1.5.4'
