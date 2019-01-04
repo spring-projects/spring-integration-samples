@@ -190,7 +190,7 @@ subprojects { subproject ->
 			groovyVersion = '2.3.0'
 			hsqldbVersion = '2.3.2'
 			h2Version = '1.4.194'
-			jacksonVersion = '2.9.6'
+			jacksonVersion = '2.9.8'
 			jasyptVersion = '1.7'
 			javaxInjectVersion = '1'
 			javaxMailVersion = '1.5.5'
