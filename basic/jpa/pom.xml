@@ -4,7 +4,7 @@
   <parent>
     <groupId>org.springframework.boot</groupId>
     <artifactId>spring-boot-starter-parent</artifactId>
-    <version>1.4.2.RELEASE</version>
+    <version>1.5.18.RELEASE</version>
   </parent>
   <groupId>org.springframework.integration.samples</groupId>
   <artifactId>jpa</artifactId>
@@ -63,6 +63,10 @@
       <scope>compile</scope>
       <exclusions>
         <exclusion>
+          <artifactId>xml-apis</artifactId>
+          <groupId>xml-apis</groupId>
+        </exclusion>
+        <exclusion>
           <artifactId>commons-logging</artifactId>
           <groupId>commons-logging</groupId>
         </exclusion>
@@ -71,9 +75,13 @@
     <dependency>
       <groupId>org.springframework.integration</groupId>
       <artifactId>spring-integration-jpa</artifactId>
-      <version>4.3.10.RELEASE</version>
+      <version>4.3.19.RELEASE</version>
       <scope>compile</scope>
       <exclusions>
+        <exclusion>
+          <artifactId>xml-apis</artifactId>
+          <groupId>xml-apis</groupId>
+        </exclusion>
         <exclusion>
           <artifactId>commons-logging</artifactId>
           <groupId>commons-logging</groupId>
@@ -87,6 +95,10 @@
       <scope>compile</scope>
       <exclusions>
         <exclusion>
+          <artifactId>xml-apis</artifactId>
+          <groupId>xml-apis</groupId>
+        </exclusion>
+        <exclusion>
           <artifactId>commons-logging</artifactId>
           <groupId>commons-logging</groupId>
         </exclusion>
@@ -99,6 +111,10 @@
       <scope>compile</scope>
       <exclusions>
         <exclusion>
+          <artifactId>xml-apis</artifactId>
+          <groupId>xml-apis</groupId>
+        </exclusion>
+        <exclusion>
           <artifactId>commons-logging</artifactId>
           <groupId>commons-logging</groupId>
         </exclusion>
@@ -107,9 +123,13 @@
     <dependency>
       <groupId>org.springframework</groupId>
       <artifactId>spring-instrument</artifactId>
-      <version>4.3.9.RELEASE</version>
+      <version>4.3.22.RELEASE</version>
       <scope>runtime</scope>
       <exclusions>
+        <exclusion>
+          <artifactId>xml-apis</artifactId>
+          <groupId>xml-apis</groupId>
+        </exclusion>
         <exclusion>
           <artifactId>commons-logging</artifactId>
           <groupId>commons-logging</groupId>
@@ -123,6 +143,10 @@
       <scope>runtime</scope>
       <exclusions>
         <exclusion>
+          <artifactId>xml-apis</artifactId>
+          <groupId>xml-apis</groupId>
+        </exclusion>
+        <exclusion>
           <artifactId>commons-logging</artifactId>
           <groupId>commons-logging</groupId>
         </exclusion>
@@ -135,6 +159,10 @@
       <scope>runtime</scope>
       <exclusions>
         <exclusion>
+          <artifactId>xml-apis</artifactId>
+          <groupId>xml-apis</groupId>
+        </exclusion>
+        <exclusion>
           <artifactId>commons-logging</artifactId>
           <groupId>commons-logging</groupId>
         </exclusion>
@@ -146,6 +174,10 @@
       <version>2.4.2</version>
       <scope>runtime</scope>
       <exclusions>
+        <exclusion>
+          <artifactId>xml-apis</artifactId>
+          <groupId>xml-apis</groupId>
+        </exclusion>
         <exclusion>
           <artifactId>commons-logging</artifactId>
           <groupId>commons-logging</groupId>
@@ -173,7 +205,7 @@
     <dependency>
       <groupId>org.springframework</groupId>
       <artifactId>spring-test</artifactId>
-      <version>4.3.9.RELEASE</version>
+      <version>4.3.22.RELEASE</version>
       <scope>test</scope>
     </dependency>
     <dependency>

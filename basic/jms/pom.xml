@@ -56,25 +56,25 @@
     <dependency>
       <groupId>org.springframework.integration</groupId>
       <artifactId>spring-integration-jms</artifactId>
-      <version>4.3.10.RELEASE</version>
+      <version>4.3.19.RELEASE</version>
       <scope>compile</scope>
     </dependency>
     <dependency>
       <groupId>org.springframework.integration</groupId>
       <artifactId>spring-integration-stream</artifactId>
-      <version>4.3.10.RELEASE</version>
+      <version>4.3.19.RELEASE</version>
       <scope>compile</scope>
     </dependency>
     <dependency>
       <groupId>org.apache.activemq</groupId>
       <artifactId>activemq-broker</artifactId>
-      <version>5.12.1</version>
+      <version>5.15.0</version>
       <scope>compile</scope>
     </dependency>
     <dependency>
       <groupId>org.apache.activemq</groupId>
       <artifactId>activemq-kahadb-store</artifactId>
-      <version>5.12.1</version>
+      <version>5.15.0</version>
       <scope>compile</scope>
     </dependency>
     <dependency>
@@ -104,13 +104,13 @@
     <dependency>
       <groupId>org.springframework</groupId>
       <artifactId>spring-test</artifactId>
-      <version>4.3.9.RELEASE</version>
+      <version>4.3.22.RELEASE</version>
       <scope>test</scope>
     </dependency>
     <dependency>
       <groupId>org.springframework.integration</groupId>
       <artifactId>spring-integration-test</artifactId>
-      <version>4.3.10.RELEASE</version>
+      <version>4.3.19.RELEASE</version>
       <scope>test</scope>
     </dependency>
   </dependencies>
