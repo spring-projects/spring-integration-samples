@@ -32,7 +32,7 @@ allprojects {
 	repositories {
 		maven { url 'http://repo.spring.io/libs-snapshot' }
 		maven { url 'http://repo.spring.io/libs-milestone' }
-//			maven { url 'http://repo.spring.io/libs-staging-local' }
+			maven { url 'http://repo.spring.io/libs-staging-local' }
 	}
 
 }
@@ -211,7 +211,7 @@ subprojects { subproject ->
 			postgresVersion = '42.0.0'
 			subethasmtpVersion = '1.2'
 			slf4jVersion = '1.7.25'
-			springIntegrationVersion = '5.0.11.RELEASE'
+			springIntegrationVersion = '5.0.12.RELEASE'
 			springIntegrationKafkaVersion = '3.0.3.RELEASE'
 			springIntegrationSplunkVersion = '1.1.0.RELEASE'
 			springKafkaVersion = '2.1.10.RELEASE'
