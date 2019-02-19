@@ -191,7 +191,6 @@ subprojects { subproject ->
 			hsqldbVersion = '2.3.2'
 			h2Version = '1.4.194'
 			jacksonVersion = '2.9.8'
-			jasyptVersion = '1.7'
 			javaxInjectVersion = '1'
 			javaxMailVersion = '1.5.5'
 			jodaTimeVersion = '1.6'
@@ -1149,7 +1148,6 @@ project('rest-http') {
 		compile "com.fasterxml.jackson.core:jackson-databind:$jacksonVersion"
 		compile "org.springframework.security:spring-security-web:$springSecurityVersion"
 		compile "org.springframework.security:spring-security-config:$springSecurityVersion"
-		compile "org.jasypt:jasypt:$jasyptVersion"
 		compile "org.apache.logging.log4j:log4j-core:$log4jVersion"
 	}
 

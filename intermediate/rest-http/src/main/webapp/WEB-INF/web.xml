@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<web-app xmlns="http://java.sun.com/xml/ns/j2ee"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_5.xsd"
-         version="2.5">
-         
+<web-app xmlns="http://java.sun.com/xml/ns/javaee"
+		 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		 xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+		 version="3.0">
+
         <display-name>Spring Integration Rest HTTP Path Usage Demo</display-name>
-         
+
         <context-param>
 	        <param-name>contextConfigLocation</param-name>
 	        <param-value>
 	             <!-- Spring application context declaration -->
-	              /WEB-INF/config/web-application-config.xml	              
+	              /WEB-INF/config/web-application-config.xml
 	        </param-value>
     	</context-param>
-    	
+
     	<!--
 		Key of the system property that should specify the root directory of this
 		web app. Applied by WebAppRootListener or Log4jConfigListener.
@@ -22,7 +22,7 @@
 			<param-name>webAppRootKey</param-name>
 			<param-value>rest-http.root</param-value>
 		</context-param>
-	  
+
     	<!--
 		Location of the Log4J config file, for initialization and refresh checks.
 		Applied by Log4jConfigListener.
@@ -31,25 +31,7 @@
 			<param-name>log4jConfigLocation</param-name>
 			<param-value>/WEB-INF/classes/log4j.properties</param-value>
 		</context-param>
-		
-    	<!--
-			- Configures Log4J for this web app.
-			- As this context specifies a context-param "log4jConfigLocation", its file path
-			- is used to load the Log4J configuration, including periodic refresh checks.
-			-
-			- Would fall back to default Log4J initialization (non-refreshing) if no special
-			- context-params are given.
-			-
-			- Exports a "web app root key", i.e. a system property that specifies the root
-			- directory of this web app, for usage in log file paths.
-			- This web app specifies "rest-http.root" (see log4j.properties file).
-		-->
-		<!-- Leave the listener commented-out if using JBoss -->
-	
-		<listener>
-			<listener-class>org.springframework.web.util.Log4jConfigListener</listener-class>
-		</listener>
-	  
+
 	    <!--
 			- Loads the root application context of this web app at startup,
 			- by default from "/WEB-INF/applicationContext.xml".
@@ -66,7 +48,7 @@
     	<listener>
 		        <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
 		</listener>
-		
+
     	<filter>
 		    <filter-name>charEncodingFilter</filter-name>
 		    <filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
@@ -91,7 +73,7 @@
 		    <filter-name>springSecurityFilterChain</filter-name>
 		    <url-pattern>/*</url-pattern>
 		</filter-mapping>
-		
+
 		<servlet>
 			<servlet-name>Spring Integration Rest HTTP Path Usage</servlet-name>
 		    <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
@@ -105,5 +87,5 @@
 		    <servlet-name>Spring Integration Rest HTTP Path Usage</servlet-name>
 		    <url-pattern>/*</url-pattern>
 		</servlet-mapping>
-		 
-</web-app>         
+
+</web-app>
