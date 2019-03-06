@@ -1,6 +1,6 @@
 buildscript {
 	repositories {
-		maven { url 'http://repo.spring.io/libs-snapshot' }
+		maven { url 'https://repo.spring.io/libs-snapshot' }
 	}
 	dependencies {
 		classpath 'io.spring.gradle:dependency-management-plugin:1.0.5.RELEASE'
@@ -18,7 +18,7 @@ apply plugin: 'base'
 apply plugin: 'idea'
 
 ext {
-	linkHomepage = 'http://projects.spring.io/spring-integration'
+	linkHomepage = 'https://projects.spring.io/spring-integration'
 	linkCi = 'https://build.spring.io/browse/INTSAMPLES'
 	linkIssue = 'https://jira.spring.io/browse/INTSAMPLES'
 	linkScmUrl = 'https://github.com/spring-projects/spring-integration-samples'
@@ -30,9 +30,9 @@ allprojects {
 	group = 'org.springframework.integration.samples'
 
 	repositories {
-		maven { url 'http://repo.spring.io/libs-snapshot' }
-		maven { url 'http://repo.spring.io/libs-milestone' }
-//			maven { url 'http://repo.spring.io/libs-staging-local' }
+		maven { url 'https://repo.spring.io/libs-snapshot' }
+		maven { url 'https://repo.spring.io/libs-milestone' }
+//			maven { url 'https://repo.spring.io/libs-staging-local' }
 	}
 
 }
@@ -59,7 +59,7 @@ subprojects { subproject ->
 					licenses {
 						license {
 							name 'The Apache Software License, Version 2.0'
-							url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+							url 'https://www.apache.org/licenses/LICENSE-2.0.txt'
 							distribution 'repo'
 						}
 					}
