@@ -5,7 +5,7 @@
   <groupId>org.springframework.integration.samples</groupId>
   <artifactId>basic</artifactId>
   <version>5.1.1.BUILD-SNAPSHOT</version>
-  <url>http://projects.spring.io/spring-integration</url>
+  <url>https://projects.spring.io/spring-integration</url>
   <organization>
     <name>SpringIO</name>
     <url>https://spring.io</url>
@@ -13,7 +13,7 @@
   <licenses>
     <license>
       <name>The Apache Software License, Version 2.0</name>
-      <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+      <url>https://www.apache.org/licenses/LICENSE-2.0.txt</url>
       <distribution>repo</distribution>
     </license>
   </licenses>
