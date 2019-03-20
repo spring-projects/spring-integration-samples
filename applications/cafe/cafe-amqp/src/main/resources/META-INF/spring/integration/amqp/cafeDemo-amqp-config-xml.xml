@@ -4,11 +4,11 @@
 		xmlns:rabbit="http://www.springframework.org/schema/rabbit"
 		xmlns:cloud="http://schema.cloudfoundry.org/spring"
 		xsi:schemaLocation="http://www.springframework.org/schema/beans
-			http://www.springframework.org/schema/beans/spring-beans.xsd
+			https://www.springframework.org/schema/beans/spring-beans.xsd
 			http://schema.cloudfoundry.org/spring
-			http://schema.cloudfoundry.org/spring/cloudfoundry-spring.xsd
+			https://schema.cloudfoundry.org/spring/cloudfoundry-spring.xsd
 			http://www.springframework.org/schema/rabbit
-			http://www.springframework.org/schema/rabbit/spring-rabbit.xsd">
+			https://www.springframework.org/schema/rabbit/spring-rabbit.xsd">
 
 	<!-- Set up the AmqpTemplate/RabbitTemplate: -->
 	<rabbit:template id="amqpTemplate" connection-factory="rabbitConnectionFactory" reply-timeout="10000" />

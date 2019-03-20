@@ -2,8 +2,8 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns:int="http://www.springframework.org/schema/integration"
-	xsi:schemaLocation="http://www.springframework.org/schema/integration http://www.springframework.org/schema/integration/spring-integration.xsd
-		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+	xsi:schemaLocation="http://www.springframework.org/schema/integration https://www.springframework.org/schema/integration/spring-integration.xsd
+		http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd">
 
     <int:channel id="findUserEnricherChannel"/>
     <int:channel id="findUserByUsernameEnricherChannel"/>
@@ -13,8 +13,8 @@
     <int:channel id="findUserByUsernameServiceChannel"/>
 
     <!-- See also:
-        http://static.springsource.org/spring-integration/reference/htmlsingle/#gateway-proxy
-        http://www.eaipatterns.com/MessagingGateway.html -->
+        https://docs.spring.io/spring-integration/reference/htmlsingle/#gateway-proxy
+        https://www.enterpriseintegrationpatterns.com/MessagingGateway.html -->
     <int:gateway id="userGateway" default-request-timeout="5000"
                  default-reply-timeout="5000"
                  service-interface="org.springframework.integration.samples.enricher.service.UserService">

@@ -4,9 +4,9 @@
 	   xmlns:security="http://www.springframework.org/schema/security"
 	xsi:schemaLocation="
            http://www.springframework.org/schema/beans
-           http://www.springframework.org/schema/beans/spring-beans.xsd
+           https://www.springframework.org/schema/beans/spring-beans.xsd
            http://www.springframework.org/schema/security
-           http://www.springframework.org/schema/security/spring-security.xsd">
+           https://www.springframework.org/schema/security/spring-security.xsd">
 
 	<security:global-method-security
 		secured-annotations="enabled" />
