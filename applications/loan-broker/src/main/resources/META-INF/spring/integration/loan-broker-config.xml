@@ -4,11 +4,11 @@
 	xmlns:util="http://www.springframework.org/schema/util"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans
-			http://www.springframework.org/schema/beans/spring-beans.xsd
+			https://www.springframework.org/schema/beans/spring-beans.xsd
 			http://www.springframework.org/schema/util
-			http://www.springframework.org/schema/util/spring-util.xsd
+			https://www.springframework.org/schema/util/spring-util.xsd
 			http://www.springframework.org/schema/integration
-			http://www.springframework.org/schema/integration/spring-integration.xsd">
+			https://www.springframework.org/schema/integration/spring-integration.xsd">
 
 	<gateway id="loanBrokerGateway"
 			default-request-channel="loanRequestsChannel"

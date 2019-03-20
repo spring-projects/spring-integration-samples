@@ -6,12 +6,12 @@
 	xmlns:context="http://www.springframework.org/schema/context"
 	xmlns:int-jmx="http://www.springframework.org/schema/integration/jmx"
 	xmlns:int-groovy="http://www.springframework.org/schema/integration/groovy"
-	xsi:schemaLocation="http://www.springframework.org/schema/integration http://www.springframework.org/schema/integration/spring-integration.xsd
-		http://www.springframework.org/schema/integration/jmx http://www.springframework.org/schema/integration/jmx/spring-integration-jmx.xsd
-		http://www.springframework.org/schema/integration/groovy http://www.springframework.org/schema/integration/groovy/spring-integration-groovy.xsd
-		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
-		http://www.springframework.org/schema/integration/twitter http://www.springframework.org/schema/integration/twitter/spring-integration-twitter.xsd
-		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+	xsi:schemaLocation="http://www.springframework.org/schema/integration https://www.springframework.org/schema/integration/spring-integration.xsd
+		http://www.springframework.org/schema/integration/jmx https://www.springframework.org/schema/integration/jmx/spring-integration-jmx.xsd
+		http://www.springframework.org/schema/integration/groovy https://www.springframework.org/schema/integration/groovy/spring-integration-groovy.xsd
+		http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/integration/twitter https://www.springframework.org/schema/integration/twitter/spring-integration-twitter.xsd
+		http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd">
 
 	<context:mbean-server/>
 

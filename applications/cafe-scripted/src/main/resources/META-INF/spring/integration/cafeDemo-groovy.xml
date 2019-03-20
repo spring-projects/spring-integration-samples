@@ -4,10 +4,10 @@
 	xmlns:beans="http://www.springframework.org/schema/beans"
 	xmlns:stream="http://www.springframework.org/schema/integration/stream"
 	xmlns:script="http://www.springframework.org/schema/integration/scripting"
-	xsi:schemaLocation="http://www.springframework.org/schema/integration http://www.springframework.org/schema/integration/spring-integration.xsd
-		http://www.springframework.org/schema/integration/script http://www.springframework.org/schema/integration/script.xsd
-		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
-		http://www.springframework.org/schema/integration/scripting http://www.springframework.org/schema/integration/scripting/spring-integration-scripting.xsd">
+	xsi:schemaLocation="http://www.springframework.org/schema/integration https://www.springframework.org/schema/integration/spring-integration.xsd
+		http://www.springframework.org/schema/integration/script https://www.springframework.org/schema/integration/script.xsd
+		http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/integration/scripting https://www.springframework.org/schema/integration/scripting/spring-integration-scripting.xsd">
 	
 	<splitter input-channel="orders" output-channel="drinks">
 		<script:script lang="groovy">payload.items</script:script>	 
