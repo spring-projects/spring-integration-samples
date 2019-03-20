@@ -9,7 +9,7 @@ buildscript {
 	}
 }
 plugins {
-	id "org.sonarqube" version "2.6.1"
+	id "org.sonarqube" version "2.7"
 }
 
 description = 'Spring Integration Samples'
@@ -169,30 +169,28 @@ subprojects { subproject ->
 		}
 
 		ext {
-			activeMqVersion = '5.15.3'
-			apacheSshdVersion = '1.6.0'
-			aspectjVersion = '1.9.0'
+			activeMqVersion = '5.15.8'
+			apacheSshdVersion = '2.2.0'
+			aspectjVersion = '1.9.2'
 			commonsDigesterVersion = '2.0'
 			commonsDbcpVersion = '1.2.2'
 			commonsFileUploadVersion = '1.4'
-			commonsIoVersion = '2.4'
+			commonsIoVersion = '2.6'
 			commonsLangVersion = '2.6'
 			commonsPoolVersion = '1.5.4'
 			c3p0Version = '0.9.1.2'
-			derbyVersion = '10.10.1.1'
-			eclipseLinkVersion = '2.6.4'
+			derbyVersion = '10.14.2.0'
 			hamcrestVersion = '1.3'
-			hibernateVersion = '5.2.10.Final'
+			hibernateVersion = '5.4.1.Final'
 			hibernateValidatorVersion = '5.4.1.Final'
 			ftpServerVersion = '1.1.1'
 			flexjsonVersion = '2.0'
-			guavaVersion = '16.0.1'
-			groovyVersion = '2.3.0'
-			hsqldbVersion = '2.3.2'
-			h2Version = '1.4.194'
+			groovyVersion = '2.5.6'
+			hsqldbVersion = '2.4.1'
+			h2Version = '1.4.197'
 			jacksonVersion = '2.9.8'
 			javaxInjectVersion = '1'
-			javaxMailVersion = '1.5.5'
+			javaxMailVersion = '1.6.2'
 			jodaTimeVersion = '1.6'
 			jtaVersion = '1.1'
 			jtdsVersion = '1.2.6'
@@ -202,20 +200,20 @@ subprojects { subproject ->
 			jpaApiVersion = '2.0.0'
 			jstlVersion = '1.2'
 			junitVersion = '4.12'
-			jythonVersion = '2.5.3'
+			jythonVersion = '2.7.0'
 			log4jVersion = '2.7'
-			mockitoVersion = '2.18.0'
+			mockitoVersion = '2.24.0'
 			openJpaVersion = '2.4.0'
 			oracleDriverVersion = '11.2.0.3'
-			postgresVersion = '42.0.0'
+			postgresVersion = '42.2.5'
 			subethasmtpVersion = '1.2'
 			slf4jVersion = '1.7.25'
-			springIntegrationVersion = '5.1.3.RELEASE'
-			springIntegrationKafkaVersion = '3.1.1.RELEASE'
+			springIntegrationVersion = '5.2.0.BUILD-SNAPSHOT'
+			springIntegrationKafkaVersion = '3.2.0.BUILD-SNAPSHOT'
 			springIntegrationSocialTwiterVersion = '1.0.0.RELEASE'
 			springIntegrationSplunkVersion = '1.1.0.RELEASE'
-			springKafkaVersion = '2.2.3.RELEASE'
-			springVersion = '5.1.5.RELEASE'
+			springKafkaVersion = '2.3.0.BUILD-SNAPSHOT'
+			springVersion = '5.2.0.BUILD-SNAPSHOT'
 			springSecurityVersion = '5.1.4.RELEASE'
 			springWebFlowVersion = '2.3.3.RELEASE'
 			tilesJspVersion = '2.2.1'
@@ -718,7 +716,6 @@ project('cafe-dsl') {
 		compile project(":cafe-si")
 		compile 'org.springframework.boot:spring-boot-starter-integration'
 		compile "org.springframework.integration:spring-integration-core"
-		compile "com.google.guava:guava:$guavaVersion"
 
 		testCompile 'org.springframework.boot:spring-boot-starter-test'
 	}
@@ -881,8 +878,8 @@ project('sftp') {
 
 	dependencies {
 		compile "org.springframework.integration:spring-integration-sftp"
-		compile "org.apache.sshd:sshd-core:$apacheSshdVersion"
 		compile "org.apache.logging.log4j:log4j-core:$log4jVersion"
+		testCompile "org.apache.sshd:sshd-sftp:$apacheSshdVersion"
 	}
 }
 

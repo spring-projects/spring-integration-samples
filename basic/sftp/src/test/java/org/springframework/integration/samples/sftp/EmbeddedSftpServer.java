@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2017 the original author or authors.
+ * Copyright 2014-2019 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -71,8 +71,8 @@ public class EmbeddedSftpServer implements InitializingBean, SmartLifecycle {
 		final PublicKey allowedKey = decodePublicKey();
 		this.server.setPublickeyAuthenticator((username, key, session) -> key.equals(allowedKey));
 		this.server.setPort(this.port);
-		this.server.setKeyPairProvider(new SimpleGeneratorHostKeyProvider(new File("hostkey.ser")));
-		this.server.setSubsystemFactories(Collections.singletonList(new SftpSubsystemFactory()));
+		this.server.setKeyPairProvider(new SimpleGeneratorHostKeyProvider(new File("hostkey.ser").toPath()));
+		server.setSubsystemFactories(Collections.singletonList(new SftpSubsystemFactory()));
 		final String pathname = System.getProperty("java.io.tmpdir") + File.separator + "sftptest" + File.separator;
 		new File(pathname).mkdirs();
 		server.setFileSystemFactory(new VirtualFileSystemFactory(Paths.get(pathname)));
