@@ -70,6 +70,7 @@ This is a good place to get started. The samples here are technically motivated 
 * **tcp-amqp** - Demonstrates basic functionality of bridging the **Spring Integration TCP Adapters** with **Spring Integration AMQP Adapters**
 * **tcp-broadcast** - Demonstrates broadcasting a message to multiple connected TCP clients.
 * **tcp-client-server** - Demonstrates socket communication using **TcpOutboundGateway**, **TcpInboundGateway** and also uses a **Gateway** and a **Service Activator**
+* **tcp-with-headers** - Demonstrates sending headers along with the payload over TCP using JSON.
 * **testing-examples** - A series of test cases that show techniques to **test** Spring Integration applications.
 * **twitter** - Illustrates Twitter support using the **Twitter Inbound Channel Adapter**, **Twitter Inbound Search Channel Adapter**, **Twitter Outbound Channel Adapter**
 * **ws-inbound-gateway** - Example showing basic functionality of the **Web Service Gateway**
