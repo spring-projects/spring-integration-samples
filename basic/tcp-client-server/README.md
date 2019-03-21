@@ -32,7 +32,7 @@ Alternatively, you can also execute the **Main** method in class *org.springfram
 	          TCP-Client-Server Sample!
 
 	    For more information please visit:
-	    http://www.springintegration.org/
+	    https://www.springsource.org/spring-integration/
 
 	=========================================================
 	Detect open server socket...using port 5680
@@ -141,12 +141,12 @@ You can run the example by executing JUnit test **TcpServerCustomSerializerTest*
 A simple client server test using entirely annotation-based configuration is shown in **TcpClientServerAnnotationDemoTest**.
 
 
-[ByteArrayCrLfSerializer]: http://static.springsource.org/spring-integration/api/org/springframework/integration/ip/tcp/serializer/ByteArrayCrLfSerializer.html
-[ByteArrayStxEtxSerializer]: http://static.springsource.org/spring-integration/api/org/springframework/integration/ip/tcp/serializer/ByteArrayStxEtxSerializer.html
-[control character]: http://en.wikipedia.org/wiki/Control_character
-[Conversion Service]: http://static.springsource.org/spring/docs/current/javadoc-api/org/springframework/core/convert/ConversionService.html
-[CRLF]: http://en.wikipedia.org/wiki/Newline
-[Deserializer]: http://static.springsource.org/spring/docs/current/javadoc-api/org/springframework/core/serializer/Deserializer.html
-[Serializer]: http://static.springsource.org/spring/docs/current/javadoc-api/org/springframework/core/serializer/Serializer.html
-[Telnet]: http://en.wikipedia.org/wiki/Telnet
-[Transmission Control Protocol]: http://en.wikipedia.org/wiki/Transmission_Control_Protocol
+[ByteArrayCrLfSerializer]: https://docs.spring.io/spring-integration/api/org/springframework/integration/ip/tcp/serializer/ByteArrayCrLfSerializer.html
+[ByteArrayStxEtxSerializer]: https://docs.spring.io/spring-integration/api/org/springframework/integration/ip/tcp/serializer/ByteArrayStxEtxSerializer.html
+[control character]: https://en.wikipedia.org/wiki/Control_character
+[Conversion Service]: https://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/core/convert/ConversionService.html
+[CRLF]: https://en.wikipedia.org/wiki/Newline
+[Deserializer]: https://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/core/serializer/Deserializer.html
+[Serializer]: https://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/core/serializer/Serializer.html
+[Telnet]: https://en.wikipedia.org/wiki/Telnet
+[Transmission Control Protocol]: https://en.wikipedia.org/wiki/Transmission_Control_Protocol

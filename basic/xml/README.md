@@ -11,7 +11,7 @@ This example demonstrates the following aspects of the [Extensible Markup Langua
 ## Running the Sample
 
 To run the sample, execute the class **org.springframework.integration.samples.xml.BookOrderProcessingTestApp**. 
-Alternatively, you can run the sample using [Gradle Application Plugin](http://www.gradle.org/docs/current/userguide/application_plugin.html) by executing:
+Alternatively, you can run the sample using [Gradle Application Plugin](https://www.gradle.org/docs/current/userguide/application_plugin.html) by executing:
 
     $ gradlew :xml:run
 
@@ -35,6 +35,6 @@ You should see the following output:
 		</bb:order>
 	</bb:bigBooksOrder>
 	
-[Extensible Markup Language]: http://en.wikipedia.org/wiki/XML
-[XPath]: http://en.wikipedia.org/wiki/XPath
-[XSLT]: http://en.wikipedia.org/wiki/XSLT
+[Extensible Markup Language]: https://en.wikipedia.org/wiki/XML
+[XPath]: https://en.wikipedia.org/wiki/XPath
+[XSLT]: https://en.wikipedia.org/wiki/XSLT

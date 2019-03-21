@@ -18,7 +18,7 @@ package org.springframework.integration.samples.travel;
 public class WeatherRequestTransformer {
 
 	public String transform(City city){
-		return "<weat:GetCityWeatherByZIP xmlns:weat=\"http://ws.cdyne.com/WeatherWS/\">" +
+		return "<weat:GetCityWeatherByZIP xmlns:weat=\"https://ws.cdyne.com/WeatherWS/\">" +
 				"	<weat:ZIP>" + city.getPostalCode() + "</weat:ZIP>" +
 				"</weat:GetCityWeatherByZIP>";
 	}

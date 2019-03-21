@@ -54,7 +54,7 @@ public final class Main {
 
 		LOGGER.info(LINE + LINE + "\n    Welcome to Spring Integration Coffee Database!       " + NEWLINE
 				+ "\n    For more information please visit:                   "
-				+ "\n    http://www.springsource.org/spring-integration       " + NEWLINE + LINE);
+				+ "\n    https://www.springsource.org/spring-integration       " + NEWLINE + LINE);
 
 		final AbstractApplicationContext context = new ClassPathXmlApplicationContext(
 				"classpath:META-INF/spring/integration/*-context.xml");

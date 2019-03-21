@@ -52,7 +52,7 @@ public final class TravelUtils {
 		transformer.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, "yes");
 		transformer.setOutputProperty(OutputKeys.ENCODING, "UTF-8");
 		transformer.setOutputProperty(OutputKeys.INDENT, "yes");
-		transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", String.valueOf(2));
+		transformer.setOutputProperty("{https://xml.apache.org/xslt}indent-amount", String.valueOf(2));
 		StreamResult streamResult = new StreamResult(new StringWriter());
 		Source source = new StringSource(result);
 		transformer.transform(source, streamResult);

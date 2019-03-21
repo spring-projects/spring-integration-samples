@@ -56,7 +56,7 @@ public class Main {
 				+ "\n    Welcome to Spring Integration Coffee Database!       "
 				+ NEWLINE
 				+ "\n    For more information please visit:                   "
-				+ "\n    http://www.springsource.org/spring-integration       "
+				+ "\n    https://www.springsource.org/spring-integration       "
 				+ NEWLINE
 				+ LINE );
 

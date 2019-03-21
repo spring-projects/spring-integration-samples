@@ -25,7 +25,7 @@ In both cases, you can use Telnet or curl to search twitter
 
 The DSL  version also accepts typing in a hashtag for the search in the console. The DSL version also adds a filter to only allow hashtags starting with `#spring`, and only returns the first tweet.
 
-Twitter now requires authentication to perform searches; visit the [twitter developer site](http://dev.twitter.com) to set up the application and enter the keys/secrets in _application.yml_ on the classpath. An 'empty' yaml file is provided in _src/main/resources:
+Twitter now requires authentication to perform searches; visit the [twitter developer site](https://dev.twitter.com) to set up the application and enter the keys/secrets in _application.yml_ on the classpath. An 'empty' yaml file is provided in _src/main/resources:
 
     twitter:
       oauth:
