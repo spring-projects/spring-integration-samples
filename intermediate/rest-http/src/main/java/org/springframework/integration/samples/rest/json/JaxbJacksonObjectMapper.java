@@ -25,7 +25,7 @@ import com.fasterxml.jackson.databind.introspect.JacksonAnnotationIntrospector;
  * JaxbJacksonObjectMapper.java: This is the custom JAXB JSON ObjectMapper
  * <p>
  * NOTE: The source code is provided by Gunnar Hillert in his blog posted at
- * http://hillert.blogspot.com/2011/01/marshal-json-data-using-jackson-in.html.
+ * https://hillert.blogspot.com/2011/01/marshal-json-data-using-jackson-in.html.
  * I modified a little bit to use the latest {@link DeserializationConfig} API
  * instead of deprecated ones.
  * <p>

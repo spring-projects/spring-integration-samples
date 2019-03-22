@@ -20,7 +20,7 @@ You should see the following output:
 	          Welcome to Spring Integration!                 
                                                          
 	    For more information please visit:                   
-	    http://www.springsource.org/spring-integration       
+	    https://www.springsource.org/spring-integration       
                                                          
 	=========================================================
 	13:47:56.039 INFO  [main][org.springframework.integration.store.MessageGroupStoreReaper] started org.springframework.integration.store.MessageGroupStoreReaper@4b85c17
@@ -36,15 +36,15 @@ You should see the following output:
 
 # Credits
 
-We would like to thank Christopher Hunt ([@huntchr](http://twitter.com/huntchr)) for contributing this sample.
+We would like to thank Christopher Hunt ([@huntchr](https://twitter.com/huntchr)) for contributing this sample.
 
 --------------------------------------------------------------------------------
 
 For help please take a look at the Spring Integration documentation:
 
-http://www.springsource.org/spring-integration
+https://www.springsource.org/spring-integration
 
-[aggregating]: http://static.springsource.org/spring-integration/reference/html/messaging-routing-chapter.html#aggregator
-[Enterprise Integration Patterns]: http://www.eaipatterns.com/
-[message store reaper]: http://static.springsource.org/spring-integration/reference/html/messaging-routing-chapter.html#aggregator-config
-[splitting]: http://static.springsource.org/spring-integration/reference/html/messaging-routing-chapter.html#splitter
+[aggregating]: https://docs.spring.io/spring-integration/reference/html/#aggregator
+[Enterprise Integration Patterns]: https://www.enterpriseintegrationpatterns.com/
+[message store reaper]: https://docs.spring.io/spring-integration/reference/html/#reaper
+[splitting]: https://docs.spring.io/spring-integration/reference/html/#splitter

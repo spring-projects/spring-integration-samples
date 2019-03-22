@@ -54,7 +54,7 @@ However, you will need to configure OAuth and set the values in the OAuth proper
 To use OAuth authentication/authorization with Twitter you must create a new Application on the Twitter Developer's site.
 Follow the directions below to create a new application and obtain the consumer keys and the access token:
 
-* Go to [http://dev.twitter.com/](http://dev.twitter.com/)
+* Go to [https://dev.twitter.com/](https://dev.twitter.com/)
 * Log in to your account
 * Go to *My applications*.
 * Click on 'Create a new application' link and fill out all required fields on the form provided;
@@ -80,8 +80,8 @@ NOTE: the above values are samples only.
 
 For help please see the Spring Integration documentation:
 
-http://www.springsource.org/spring-integration
+https://www.springsource.org/spring-integration
 
-[MBeans]: http://docs.oracle.com/javase/tutorial/jmx/mbeans/index.html
-[SpringSource Developer YouTube Channel]: http://www.youtube.com/SpringSourceDev
-[VisualVM]: http://visualvm.java.net/
+[MBeans]: https://docs.oracle.com/javase/tutorial/jmx/mbeans/index.html
+[SpringSource Developer YouTube Channel]: https://www.youtube.com/SpringSourceDev
+[VisualVM]: https://visualvm.java.net/

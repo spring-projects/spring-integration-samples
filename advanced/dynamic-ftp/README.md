@@ -17,7 +17,4 @@ Notice in the config file, how an **expression-based router** is used to invoke 
 		expression="@channelResolver.resolve(headers['customer'])"/>
 		
 
-This sample shows the technique for outbound adapters. Refer to [this forum thread][1] and its [links][2] for a similar technique for dynamic inbound endpoints.
-
-[1]: http://forum.spring.io/forum/spring-projects/integration/119081-dynamic-inbound-channel-adapter-creation
-[2]: http://forum.spring.io/forum/spring-projects/integration/117523-starting-multiple-consumers?p=589517#post589517
+This sample shows the technique for outbound adapters. 

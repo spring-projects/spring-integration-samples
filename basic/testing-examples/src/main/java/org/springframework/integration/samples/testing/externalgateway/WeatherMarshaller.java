@@ -85,7 +85,7 @@ public class WeatherMarshaller implements Marshaller, Unmarshaller, Initializing
 
 	public void marshal(Object zip, Result result) throws IOException,
 			XmlMappingException {
-		String xmlString = "<weat:GetCityWeatherByZIP xmlns:weat=\"http://ws.cdyne.com/WeatherWS/\">" +
+		String xmlString = "<weat:GetCityWeatherByZIP xmlns:weat=\"https://ws.cdyne.com/WeatherWS/\">" +
 							"	<weat:ZIP>" + zip + "</weat:ZIP>" +
 							"</weat:GetCityWeatherByZIP>";
 		try {
@@ -125,6 +125,6 @@ public class WeatherMarshaller implements Marshaller, Unmarshaller, Initializing
 	}
 
 	public void afterPropertiesSet() throws Exception {
-		namespacePrefixes.put("p", "http://ws.cdyne.com/WeatherWS/");
+		namespacePrefixes.put("p", "https://ws.cdyne.com/WeatherWS/");
 	}
 }

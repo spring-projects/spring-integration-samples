@@ -1,17 +1,17 @@
 /**
  * PeriodicalUpdater - jQuery plugin for timed, decaying ajax calls
  *
- * http://www.360innovate.co.uk/blog/2009/03/periodicalupdater-for-jquery/
- * http://enfranchisedmind.com/blog/posts/jquery-periodicalupdater-ajax-polling/
+ * https://www.360innovate.co.uk/blog/2009/03/periodicalupdater-for-jquery/
+ * https://nofluffjuststuff.com/blog/robert_fischer/2009/06/jquery_periodicalupdater.html
  *
  * Copyright (c) 2009 by the following:
- *  Frank White (http://customcode.info)
- *  Robert Fischer (http://smokejumperit.com)
- *  360innovate (http://www.360innovate.co.uk)
+ *  Frank White (https://customcode.info)
+ *  Robert Fischer (https://blog.enfranchisedmind.com/posts/author/candide/?coming_from=smokejumperit.com)
+ *  360innovate (https://www.360innovate.co.uk)
  *
  * Dual licensed under the MIT and GPL licenses:
- * http://www.opensource.org/licenses/mit-license.php
- * http://www.gnu.org/licenses/gpl.html
+ * https://www.opensource.org/licenses/mit-license.php
+ * https://www.gnu.org/licenses/gpl.html
  *
  */
 

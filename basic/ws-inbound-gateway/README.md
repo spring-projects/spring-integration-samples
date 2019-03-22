@@ -12,4 +12,4 @@ To use the *Gateway*, you can run the tests that are located within the **src/te
 	</SOAP-ENV:Body>
 	</SOAP-ENV:Envelope>
 
-[Spring Web Services]: http://www.springsource.org/spring-web-services
+[Spring Web Services]: https://spring.io/projects/spring-ws

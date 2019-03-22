@@ -56,7 +56,7 @@ As you can see from the example below, the configuration of MongoDb Inbound Chan
 		<int:poller fixed-rate="60000" max-messages-per-poll="1"/>
 	</int-mongodb:inbound-channel-adapter>
 
-Notice the **query** attribute which allows you to provide JSON queries represented as simple String. 	For more information on MongoDb queries please refer to [MongoDb documentation](http://www.mongodb.org/display/DOCS/Querying)
+Notice the **query** attribute which allows you to provide JSON queries represented as simple String. 	For more information on MongoDb queries please refer to [MongoDb documentation](https://www.mongodb.org/display/DOCS/Querying)
 In the above case we are selecting all documents where *state* element of the *address* element is **'CA'**. As you may have guessed the MongoDb Inbound Channel Adapter returns List by default, so you can easily configure a very basic splitter downstream (as in this example)	to process one message at the time. Run the **MongoDbInboundAdapterDemo** and you should see the results in the console:
 
 	04:37:30.720 WARN  . . . { "_id" : { "$oid" : "50601bca0364063859066bcd"} , "_class" : "org.springframework.integration.samples.mongodb.domain.Person" , "fname" : "John" , "lname" : "Doe" , "address" : { "street" : "3401 Hillview Ave" , "city" : "Palo Alto" , "zip" : "94304" , "state" : "CA"}}
@@ -65,4 +65,4 @@ In the above case we are selecting all documents where *state* element of the *a
 However, if you know that your query can only return a single result you can avoid returning List by configuring **expect-single-result** attribute setting its value to *true*.
 
 Also, you may wish to do some post-processing to the successfully processed data that was read from the MongoDb. For example; you may want to move or remove a document after its been processed.
-You can do this using Transaction Synchronization feature that was added with *Spring Integration 2.2* and which will be discussed in the next blog in this series expected in a few days (from Gary Russell). However the impatient once can get more details now by reading MongoDb Inbound Channel Adapter section of the reference manual [http://static.springsource.org/spring-integration/docs/2.2.0.RC3/reference/htmlsingle/#mongodb-inbound-channel-adapter](http://static.springsource.org/spring-integration/docs/2.2.0.RC3/reference/htmlsingle/#mongodb-inbound-channel-adapter).
+You can do this using Transaction Synchronization feature that was added with *Spring Integration 2.2* and which will be discussed in the next blog in this series expected in a few days (from Gary Russell). However the impatient once can get more details now by reading MongoDb Inbound Channel Adapter section of the reference manual [https://docs.spring.io/spring-integration/reference/html/#mongodb-inbound-channel-adapter](https://docs.spring.io/spring-integration/reference/html/#mongodb-inbound-channel-adapter).

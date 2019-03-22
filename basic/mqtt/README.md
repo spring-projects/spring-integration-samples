@@ -13,7 +13,7 @@ dispatched to the MQTT topic. In return that message is retrieved by Spring Inte
 # How to Run the Sample
 
 If you imported the example into your IDE, you can just run class **org.springframework.integration.samples.mqtt.Application**.
-For example in [SpringSource Tool Suite](http://www.springsource.com/developer/sts) (STS) do:
+For example in [SpringSource Tool Suite](https://www.springsource.com/developer/sts) (STS) do:
 
 * Right-click on SampleSimple class --> Run As --> Spring Boot App
 
