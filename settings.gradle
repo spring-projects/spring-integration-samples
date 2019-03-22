@@ -4,12 +4,14 @@ rootProject.name = 'spring-integration-samples'
 	def projectDir = new File(rootDir, it)
 	include ":${it}"
 	projectDir.eachDir { dir ->
-		include ":${dir.name}"
-		project(":${dir.name}").projectDir = new File(projectDir.absolutePath, dir.name)
-		if ('cafe' == dir.name) {
-			dir.eachDir { cafe ->
-				include ":${cafe.name}"
-				project(":${cafe.name}").projectDir = new File(dir.absolutePath, cafe.name)
+		if (!dir.name.startsWith('.')) {
+			include ":${dir.name}"
+			project(":${dir.name}").projectDir = new File(projectDir.absolutePath, dir.name)
+			if ('cafe' == dir.name) {
+				dir.eachDir { cafe ->
+					include ":${cafe.name}"
+					project(":${cafe.name}").projectDir = new File(dir.absolutePath, cafe.name)
+				}
 			}
 		}
 	}
