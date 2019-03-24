@@ -726,7 +726,7 @@ project('cafe-dsl') {
 	}
 
 	task run(type: JavaExec) {
-		main 'org.springframework.integration.samples.dsl.cafe.nonlambda.Application'
+		main 'org.springframework.integration.samples.dsl.cafe.lambda.Application'
 		classpath = sourceSets.main.runtimeClasspath
 	}
 
