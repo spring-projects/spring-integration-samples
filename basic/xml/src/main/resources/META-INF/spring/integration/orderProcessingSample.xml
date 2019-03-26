@@ -4,13 +4,13 @@
 	xmlns:si="http://www.springframework.org/schema/integration" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns:util="http://www.springframework.org/schema/util"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans
-			http://www.springframework.org/schema/beans/spring-beans.xsd
+			https://www.springframework.org/schema/beans/spring-beans.xsd
 			http://www.springframework.org/schema/integration
-			http://www.springframework.org/schema/integration/spring-integration.xsd
+			https://www.springframework.org/schema/integration/spring-integration.xsd
 			http://www.springframework.org/schema/integration/xml
-			http://www.springframework.org/schema/integration/xml/spring-integration-xml.xsd
+			https://www.springframework.org/schema/integration/xml/spring-integration-xml.xsd
 			http://www.springframework.org/schema/util
-			http://www.springframework.org/schema/util/spring-util.xsd">
+			https://www.springframework.org/schema/util/spring-util.xsd">
 
 	<si:channel id="ordersChannel" />
 	<si:channel id="stockCheckerChannel" />
@@ -22,7 +22,7 @@
 	<!-- map of namespace prefix to URI -->
 	<util:map id="orderNamespaceMap">
 		<entry key="orderNs" value="http://www.example.org/orders" />
-		<entry key="productNs" value="http://www.example.org/prodcuts" />
+		<entry key="productNs" value="https://www.example.org/prodcuts" />
 	</util:map>
 
 	<!-- split the inbound order into a number of orderItem documents that can be processed separately -->
