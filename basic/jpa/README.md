@@ -20,5 +20,5 @@ Hibernate works out of the box and there are 2 options on how to execute the sam
 
 For help please take a look at the Spring Integration documentation:
 
-http://www.springsource.org/spring-integration
+https://www.springsource.org/spring-integration
 

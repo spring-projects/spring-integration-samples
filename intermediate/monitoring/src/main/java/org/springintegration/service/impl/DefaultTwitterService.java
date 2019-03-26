@@ -59,7 +59,7 @@ public class DefaultTwitterService implements TwitterService {
 	private IntegrationMBeanExporter exporter;
 	/**
 	 * Constructor that initializes the 'twitterMessages' Map as a simple LRU
-	 * cache. @See http://blogs.oracle.com/swinger/entry/collections_trick_i_lru_cache
+	 * cache. @See https://blogs.oracle.com/swinger/entry/collections_trick_i_lru_cache
 	 */
 	public DefaultTwitterService() {
 

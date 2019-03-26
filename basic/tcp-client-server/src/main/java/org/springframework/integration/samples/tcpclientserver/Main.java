@@ -72,7 +72,7 @@ public final class Main {
 				+ "\n          TCP-Client-Server Sample!                      "
 				+ "\n                                                         "
 				+ "\n    For more information please visit:                   "
-				+ "\n    http://www.springintegration.org/                    "
+				+ "\n    https://www.springsource.org/spring-integration/                    "
 				+ "\n                                                         "
 				+ "\n=========================================================");
 

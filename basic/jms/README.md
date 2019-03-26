@@ -36,7 +36,7 @@ The console output should look like:
 	    Welcome to the Spring Integration JMS Sample!
 
 	    For more information please visit:
-	    http://www.springintegration.org/
+	    https://www.springsource.org/spring-integration/
 
 	=========================================================
 	16:48:21.158 INFO  [org.springframework.integration.samples.jms.Main.main()][org.springframework.integration.samples.jms.ActiveMqTestUtils] Refreshing ActiveMQ data directory.

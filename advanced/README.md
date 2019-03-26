@@ -1,7 +1,7 @@
 Advanced Samples
 ================
 
-This category targets advanced developers who are well familiar with the [Spring Integration](http://www.springsource.org/spring-integration) framework but are looking to extend it to address a specific custom need by extending from Spring Integration's public API. 
+This category targets advanced developers who are well familiar with the [Spring Integration](https://www.springsource.org/spring-integration) framework but are looking to extend it to address a specific custom need by extending from Spring Integration's public API. 
 
 For example; if you are looking for samples showing you how to implement a custom **Channel** or **Consumer** (event-based or polling-based), or if you trying to figure out what is the most appropriate way to implement a custom **BeanParser** on top of the Spring Integration BeanParser hierarchy when implementing custom namespaces, this would be the right place to look.
 
