@@ -40,14 +40,14 @@ Here you see, we are using *Spring Expression Language* (SpEL) to bind the value
 
 ## MapQuest
 
-This sample uses the [MapQuest API][], specifically the [MapQuest Traffic Web Service][]. As such you must setup an API Key. Therefore, please create a MapQuest developer account. This can be done at: http://developer.mapquest.com/.
+This sample uses the [MapQuest API][], specifically the [MapQuest Traffic Web Service][]. As such you must setup an API Key. Therefore, please create a MapQuest developer account. This can be done at: https://developer.mapquest.com/.
 
-¡**Important**! - Please be aware that the API key you received from MapQuest is URL encoded. As such you must decode the key, so you can use it with Spring Integration. For example you can use the service on the following site to decode the API key: http://meyerweb.com/eric/tools/dencoder/
+¡**Important**! - Please be aware that the API key you received from MapQuest is URL encoded. As such you must decode the key, so you can use it with Spring Integration. For example you can use the service on the following site to decode the API key: https://meyerweb.com/eric/tools/dencoder/
 
 ## Running the Sample
 
 To run the sample execute **Main** in package **org.springframework.integration.samples.travel**. 
-You can also execute that class using the [Gradle Application Plugin](http://www.gradle.org/docs/current/userguide/application_plugin.html):
+You can also execute that class using the [Gradle Application Plugin](https://www.gradle.org/docs/current/userguide/application_plugin.html):
 
     $ gradlew :travel:run -Dmapquest.apikey="your_mapquest_api_key_url_decoded"
 
@@ -58,7 +58,7 @@ You should see the following output:
 	    Welcome to the Spring Integration Travel App!
 
 	    For more information please visit:
-	    http://www.springintegration.org/
+	    https://www.springsource.org/spring-integration/
 
 	=========================================================
 	Please select the city, for which you would like to get traffic and weather information:
@@ -76,8 +76,8 @@ You should see the following output:
 * Added support for multiple cities (Atlanta, Boston, San Francisco)
 
 
-[MapQuest API]: http://www.mapquestapi.com/
-[MapQuest Traffic Web Service]: http://platform.beta.mapquest.com/traffic/
+[MapQuest API]: https://www.mapquestapi.com/
+[MapQuest Traffic Web Service]: https://platform.beta.mapquest.com/traffic/
 
 
 

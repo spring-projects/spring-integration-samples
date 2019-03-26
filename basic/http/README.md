@@ -14,7 +14,7 @@ The sample consists of two parts:
 
 #### Command Line Using Gradle
 
-The easiest way to run the **server** is to use the [Gradle Jetty Plugin](http://www.gradle.org/docs/current/userguide/jetty_plugin.html).
+The easiest way to run the **server** is to use the [Gradle Jetty Plugin](https://www.gradle.org/docs/current/userguide/jetty_plugin.html).
  Simply execute:
 
     $ gradlew :http:jettyRun
@@ -28,7 +28,7 @@ The resulting war-file will be located in the **target** folder.
 
 #### Using an IDE such as SpringSource Tool Suite™ (STS)
 
-If you are using [STS](http://www.springsource.com/developer/sts) and the project is imported as an Eclipse project into your workspace, you can just execute **Run on Server**. This will start the **server** application. 
+If you are using [STS](https://www.springsource.com/developer/sts) and the project is imported as an Eclipse project into your workspace, you can just execute **Run on Server**. This will start the **server** application. 
 
 ### Client
 
@@ -38,7 +38,7 @@ In order to run the **client** using Gradle, execute:
 
     $ gradlew :http:run
 
-This will package the application and run it using the [Gradle Application Plugin](http://www.gradle.org/docs/current/userguide/application_plugin.html)
+This will package the application and run it using the [Gradle Application Plugin](https://www.gradle.org/docs/current/userguide/application_plugin.html)
 
 #### Using an IDE such as SpringSource Tool Suite™ (STS)
 

@@ -34,7 +34,7 @@ public class TransactionSynchronizationDemo {
 				  + "\n          Welcome to Spring Integration!                 "
 				  + "\n                                                         "
 				  + "\n    For more information please visit:                   "
-				  + "\n    http://www.springsource.org/spring-integration       "
+				  + "\n    https://www.springsource.org/spring-integration       "
 				  + "\n                                                         "
 				  + "\n=========================================================" );
 
