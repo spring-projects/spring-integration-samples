@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xmlns:int="http://www.springframework.org/schema/integration"
-	xmlns:int-twitter="http://www.springframework.org/schema/integration/twitter"
-	xmlns:context="http://www.springframework.org/schema/context"
-	xmlns:int-jmx="http://www.springframework.org/schema/integration/jmx"
-	xmlns:int-groovy="http://www.springframework.org/schema/integration/groovy"
-	xsi:schemaLocation="http://www.springframework.org/schema/integration http://www.springframework.org/schema/integration/spring-integration.xsd
-		http://www.springframework.org/schema/integration/jmx http://www.springframework.org/schema/integration/jmx/spring-integration-jmx.xsd
-		http://www.springframework.org/schema/integration/groovy http://www.springframework.org/schema/integration/groovy/spring-integration-groovy.xsd
-		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
-		http://www.springframework.org/schema/integration/twitter http://www.springframework.org/schema/integration/twitter/spring-integration-twitter.xsd
-		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+<beans xmlns="https://www.springframework.org/schema/beans"
+	xmlns:xsi="https://www.w3.org/2001/XMLSchema-instance"
+	xmlns:int="https://www.springframework.org/schema/integration"
+	xmlns:int-twitter="https://www.springframework.org/schema/integration/twitter"
+	xmlns:context="https://www.springframework.org/schema/context"
+	xmlns:int-jmx="https://www.springframework.org/schema/integration/jmx"
+	xmlns:int-groovy="https://www.springframework.org/schema/integration/groovy"
+	xsi:schemaLocation="https://www.springframework.org/schema/integration https://www.springframework.org/schema/integration/spring-integration.xsd
+		https://www.springframework.org/schema/integration/jmx https://www.springframework.org/schema/integration/jmx/spring-integration-jmx.xsd
+		https://www.springframework.org/schema/integration/groovy https://www.springframework.org/schema/integration/groovy/spring-integration-groovy.xsd
+		https://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
+		https://www.springframework.org/schema/integration/twitter https://www.springframework.org/schema/integration/twitter/spring-integration-twitter.xsd
+		https://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd">
 
 	<context:mbean-server/>
 
