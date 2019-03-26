@@ -13,15 +13,15 @@ Access to a *Microsoft SQL Server* or *Microsoft SQL Server Express* database in
 
 This sample was tested against: **Microsoft SQL Server 2008 R2 RTM - Express** (Which can be downloaded and used for free). The sample should also work for newer versions (including the full version) of *Microsoft SQL Server*. You can download *Microsoft SQL Server Express 2008: SQL Server Express*:
 
-* [http://www.microsoft.com/en-us/download/details.aspx?id=23650](http://www.microsoft.com/en-us/download/details.aspx?id=23650)
+* [https://www.microsoft.com/en-us/download/details.aspx?id=23650](https://www.microsoft.com/en-us/download/details.aspx?id=23650)
 
 If you have trouble accessing a remote instance of *Microsoft SQL Server Express*, see:
 
-* [http://support.microsoft.com/default.aspx?scid=kb;EN-US;914277#method2](http://support.microsoft.com/default.aspx?scid=kb;EN-US;914277#method2)
+* [https://support.microsoft.com/default.aspx?scid=kb;EN-US;914277#method2](https://support.microsoft.com/default.aspx?scid=kb;EN-US;914277#method2)
 
 ## JDBC Driver
 
-This sample uses the [jTDS](http://jtds.sourceforge.net) driver, which is considered to be faster than [Microsoft's JDBC driver](http://msdn.microsoft.com/en-us/sqlserver/aa937724.aspx). Nevertheless, the sample should work with either driver.
+This sample uses the [jTDS](http://jtds.sourceforge.net) driver, which is considered to be faster than [Microsoft's JDBC driver](https://msdn.microsoft.com/en-us/sqlserver/aa937724.aspx). Nevertheless, the sample should work with either driver.
 
 #### Creating the Stored Procedure
 
@@ -117,5 +117,5 @@ You may have to update the *Microsoft SQL Server* properties in:
 
 For help please take a look at the Spring Integration documentation:
 
-http://www.springsource.org/spring-integration
+https://www.springsource.org/spring-integration
 

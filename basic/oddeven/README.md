@@ -37,7 +37,7 @@ The following Spring Integration components are being used:
 ## Running the Samples
 
 To run the two samples, simply execute either **CronOddEvenDemo** or **IntervalOddEvenDemoTestApp** in package **org.springframework.integration.samples.oddeven**. 
-You can also execute those two samples using the [Gradle Application Plugin](http://www.gradle.org/docs/current/userguide/application_plugin.html):
+You can also execute those two samples using the [Gradle Application Plugin](https://www.gradle.org/docs/current/userguide/application_plugin.html):
 
     $ gradlew :oddeven:runCronOddEvenDemo
 
