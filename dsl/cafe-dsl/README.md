@@ -1,7 +1,7 @@
 #Cafe Demo: Spring Integration Java DSL
 
 This sample demonstrates the classical Cafe Demo, but it is based on [Spring Integration Java DSL](https://github.com/spring-projects/spring-integration-extensions/wiki/Spring-Integration-Java-DSL-Reference)
- and [Spring Boot](http://projects.spring.io/spring-boot).
+ and [Spring Boot](https://projects.spring.io/spring-boot).
 
 See the `cafe` project **README.md** for more details about the domain and the Cafe algorithm.
 

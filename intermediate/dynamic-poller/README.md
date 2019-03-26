@@ -12,7 +12,7 @@ When changing the polling period, the change to the trigger will occur after the
 You can run the application by either:
 
 * running the "Main" class from within STS (Right-click on Main class --> Run As --> Java Application)
-* or from the command line using the [Gradle](http://www.gradle.org):
+* or from the command line using the [Gradle](https://www.gradle.org):
     
     $ gradlew :dynamic-poller:runHelloWorldApp
 
@@ -24,7 +24,7 @@ You should see output like the following:
 	 Welcome to the Spring Integration Dynamic Poller Sample! 
                                                           
 	    For more information please visit:                    
-	    http://www.springsource.org/spring-integration        
+	    https://www.springsource.org/spring-integration        
                                                           
 	==========================================================
 	INFO : org.springframework.integration.samples.poller.Main - 

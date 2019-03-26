@@ -13,10 +13,10 @@ This example demonstrates how emails including their attachments can be processe
 
 # Getting Started
 
-In order to use this sample you must have access to a mail-server. You can either use an external server (e.g. GMail) or you can also easily setup your own mail server using Apache James 3.0 (http://james.apache.org/). You can find instructions for setting up a basic instance at:
+In order to use this sample you must have access to a mail-server. You can either use an external server (e.g. GMail) or you can also easily setup your own mail server using Apache James 3.0 (https://james.apache.org/). You can find instructions for setting up a basic instance at:
 
-* http://james.apache.org/server/3/quick-start.html
-* http://hillert.blogspot.com/2011/05/testing-email-notifications-with-apache.html
+* https://james.apache.org/server/3/quick-start.html
+* https://hillert.blogspot.com/2011/05/testing-email-notifications-with-apache.html
 
 In **src/main/resources/META-INF/spring/integration/spring-integration-context.xml** change the following to reflect the settings for your mail server.
 
@@ -37,5 +37,5 @@ Once started, the configured mail server will be polled for new email messages e
 
 For help please take a look at the Spring Integration documentation:
 
-http://www.springsource.org/spring-integration
+https://www.springsource.org/spring-integration
 

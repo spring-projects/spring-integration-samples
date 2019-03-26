@@ -32,5 +32,5 @@ Once the application has started, please execute the various Content Enricher ex
 
 For help please take a look at the Spring Integration documentation:
 
-http://www.springsource.org/spring-integration
+https://www.springsource.org/spring-integration
 

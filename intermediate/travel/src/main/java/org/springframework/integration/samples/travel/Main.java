@@ -56,7 +56,7 @@ public final class Main {
 						+ "\n    Welcome to the Spring Integration Travel App!        "
 						+ "\n                                                         "
 						+ "\n    For more information please visit:                   "
-						+ "\n    http://www.springintegration.org/                    "
+						+ "\n    https://www.springsource.org/spring-integration/                    "
 						+ "\n                                                         "
 						+ "\n=========================================================" );
 
