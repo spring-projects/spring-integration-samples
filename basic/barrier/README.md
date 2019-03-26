@@ -29,7 +29,7 @@ The last flow drains the messages and allows the auto-delete queue to be removed
 
     $ gradlew :barrier:run
 
-This will package the application and run it using the [Gradle Application Plugin](http://www.gradle.org/docs/current/userguide/application_plugin.html)
+This will package the application and run it using the [Gradle Application Plugin](https://www.gradle.org/docs/current/userguide/application_plugin.html)
 
 #### Using an IDE such as SpringSource Tool Suite™ (STS)
 

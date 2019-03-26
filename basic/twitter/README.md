@@ -12,7 +12,7 @@ In order to run this sample you need to configure [OAuth][] and set the values i
 To use [OAuth][] authentication/authorization with Twitter you must create a new Application on the Twitter Developers site. 
 Follow the directions below to create a new application and obtain the consumer keys and the access token:
 
-* Go to [http://dev.twitter.com/](http://dev.twitter.com/)
+* Go to [https://dev.twitter.com/](https://dev.twitter.com/)
 * Log in to your account
 * Go to *My applications*. 
 * Click on 'Create a new application' link and fill out all required fields on the form provided; 
@@ -35,4 +35,4 @@ NOTE: the above values are not real ;)
 Now you are ready to execute the samples. Just run each sample and look for the output produced by the inbound adapters (**TwitterSearchSample.java** and **TwitterTimelineUpdateSample.java**)
 The outbound adapter sample (**TwitterSendUpdatesSample.java**) will not produce any output. Instead within seconds you should see your tweet.
 
-[OAuth]: http://en.wikipedia.org/wiki/OAuth
+[OAuth]: https://en.wikipedia.org/wiki/OAuth

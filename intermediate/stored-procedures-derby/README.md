@@ -26,5 +26,5 @@ Just make sure you have Gradle set up and that the project builds successfully.
 
 For help please take a look at the Spring Integration documentation:
 
-http://www.springsource.org/spring-integration
+https://www.springsource.org/spring-integration
 

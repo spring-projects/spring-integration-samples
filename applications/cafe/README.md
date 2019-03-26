@@ -60,11 +60,11 @@ Upon running any of the alternatives, you should see the output similar to this:
    			
 Happy integration :-)
 
-[ActiveMQ]: http://activemq.apache.org/
-[AMQP]: http://en.wikipedia.org/wiki/Advanced_Message_Queuing_Protocol
-[café]: http://en.wikipedia.org/wiki/Caf%C3%A9
-[Enterprise Integration Patterns]: http://www.eaipatterns.com/eaipatterns.html
-[Gregor Hohpe]: http://www.eaipatterns.com/gregor.html
-[JMS]: http://en.wikipedia.org/wiki/Java_Message_Service
-[RabbitMQ]: http://www.rabbitmq.com/
-[Starbucks Does Not Use Two-Phase Commit]: http://www.eaipatterns.com/ramblings/18_starbucks.html
+[ActiveMQ]: https://activemq.apache.org/
+[AMQP]: https://en.wikipedia.org/wiki/Advanced_Message_Queuing_Protocol
+[café]: https://en.wikipedia.org/wiki/Caf%25C3%25A9
+[Enterprise Integration Patterns]: https://www.enterpriseintegrationpatterns.com/eaipatterns.html
+[Gregor Hohpe]: https://www.enterpriseintegrationpatterns.com/gregor.html
+[JMS]: https://en.wikipedia.org/wiki/Java_Message_Service
+[RabbitMQ]: https://www.rabbitmq.com/
+[Starbucks Does Not Use Two-Phase Commit]: https://www.enterpriseintegrationpatterns.com/ramblings/18_starbucks.html

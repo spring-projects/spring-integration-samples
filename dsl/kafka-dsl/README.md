@@ -9,7 +9,7 @@ Start Apache Zookeeper and Apache Kafka according to the documentation for the A
 
     $ gradlew :kafka:run
 
-This will package the application and run it using the [Gradle Application Plugin](http://www.gradle.org/docs/current/userguide/application_plugin.html)
+This will package the application and run it using the [Gradle Application Plugin](https://www.gradle.org/docs/current/userguide/application_plugin.html)
 
 #### Using an IDE such as SpringSource Tool Suite™ (STS)
 

@@ -22,7 +22,7 @@ Nevertheless, the example should work with other versions as well.
 
 ### JDBC Driver Installation for Oracle
 
-- Go to [http://www.oracle.com/technetwork/indexes/downloads/index.html](http://www.oracle.com/technetwork/indexes/downloads/index.html)
+- Go to [https://www.oracle.com/technetwork/indexes/downloads/index.html](https://www.oracle.com/technetwork/indexes/downloads/index.html)
 - Under "JDBC Drivers", download the appropriate driver relevant to your Oracle and JDK version (This sample was tested using "Oracle Database 11g Release 2 JDBC Drivers")
 - Once downloaded, install the driver to your local Maven repository:
 
@@ -30,7 +30,7 @@ Nevertheless, the example should work with other versions as well.
 
 - Now you can uncomment the `ojdbc6` dependency in the build.gradle file for `stored-procedures-oracle` project.
  
-After that you can run the sample application using [Gradle Application Plugin](http://www.gradle.org/docs/current/userguide/application_plugin.html):
+After that you can run the sample application using [Gradle Application Plugin](https://www.gradle.org/docs/current/userguide/application_plugin.html):
 
     $ gradlew :stored-procedures-oracle:run
 
@@ -127,7 +127,7 @@ You should see the following output:
 	     Stored Procedure/Function Sample for Oracle
 
 	    For more information please visit:
-	    http://www.springsource.org/spring-integration
+	    https://www.springsource.org/spring-integration
 
 	=========================================================
 	Please enter a choice and press <enter>:
@@ -222,7 +222,7 @@ You should see the following output:
 	     Stored Procedure/Function Sample for Oracle
 
 	    For more information please visit:
-	    http://www.springsource.org/spring-integration
+	    https://www.springsource.org/spring-integration
 
 	=========================================================
 	Please enter a choice and press <enter>:
@@ -246,6 +246,6 @@ This sample also periodically polls the Oracle database using a **Stored Procedu
 
 For help please take a look at the Spring Integration documentation:
 
-http://www.springsource.org/spring-integration
+https://www.springsource.org/spring-integration
 
 [Stored Procedure Sample for PostgreSql]: https://github.com/ghillert/spring-integration-samples/tree/master/intermediate/stored-procedures-postgresql

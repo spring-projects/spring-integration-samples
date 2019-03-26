@@ -23,7 +23,7 @@ import org.springframework.web.servlet.view.json.MappingJackson2JsonView;
  * ExtendedMappingJacksonJsonView.java: This class extends the Spring's MappingJacksonJsonView
  * <p>
  * Note: The source code for this class is taken from the forum posted by AhungerArtist
- *       at http://forum.springsource.org/archive/index.php/t-84006.html
+ *       at https://forum.spring.io/archive/index.php/t-84006.html
  * <p>
  * @author Vigil Bose
  * @author Gary Russell

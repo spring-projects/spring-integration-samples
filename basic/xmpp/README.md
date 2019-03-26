@@ -18,5 +18,5 @@ You'll also need to test it with your friend or have two Google accounts setup.
 To test **SendInstantMessageSample.java**, first log on to the account identified via **send.to.user** property and make sure that that account is in your buddy list. Then run the demo.
 To test **ReceiveInstantMessageSample.java**, first log on to the account identified via **send.to.user** property. Then run the demo. Now any instant messages sent to your account appear in the console.
 
-[Google Talk]: http://www.google.com/talk/
-[Extensible Messaging and Presence Protocol]: http://en.wikipedia.org/wiki/Extensible_Messaging_and_Presence_Protocol
+[Google Talk]: https://www.google.com/talk/
+[Extensible Messaging and Presence Protocol]: https://en.wikipedia.org/wiki/Extensible_Messaging_and_Presence_Protocol

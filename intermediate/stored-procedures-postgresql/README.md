@@ -85,5 +85,5 @@ Please configure the necessary credentials in order to connect to your database 
 
 For help please take a look at the Spring Integration documentation:
 
-http://www.springsource.org/spring-integration
+https://www.springsource.org/spring-integration
 
