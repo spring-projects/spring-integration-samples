@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xmlns:int="http://www.springframework.org/schema/integration"
-	xmlns:int-file="http://www.springframework.org/schema/integration/file"
-	xmlns:int-mail="http://www.springframework.org/schema/integration/mail"
-	xmlns:util="http://www.springframework.org/schema/util"
+<beans xmlns="https://www.springframework.org/schema/beans"
+	xmlns:xsi="https://www.w3.org/2001/XMLSchema-instance"
+	xmlns:int="https://www.springframework.org/schema/integration"
+	xmlns:int-file="https://www.springframework.org/schema/integration/file"
+	xmlns:int-mail="https://www.springframework.org/schema/integration/mail"
+	xmlns:util="https://www.springframework.org/schema/util"
 	xsi:schemaLocation="
-		http://www.springframework.org/schema/integration      http://www.springframework.org/schema/integration/spring-integration.xsd
-		http://www.springframework.org/schema/integration/mail http://www.springframework.org/schema/integration/mail/spring-integration-mail.xsd
-		http://www.springframework.org/schema/integration/file http://www.springframework.org/schema/integration/file/spring-integration-file.xsd
-		http://www.springframework.org/schema/beans            http://www.springframework.org/schema/beans/spring-beans.xsd
-		http://www.springframework.org/schema/util             http://www.springframework.org/schema/util/spring-util.xsd">
+		https://www.springframework.org/schema/integration      https://www.springframework.org/schema/integration/spring-integration.xsd
+		https://www.springframework.org/schema/integration/mail https://www.springframework.org/schema/integration/mail/spring-integration-mail.xsd
+		https://www.springframework.org/schema/integration/file https://www.springframework.org/schema/integration/file/spring-integration-file.xsd
+		https://www.springframework.org/schema/beans            https://www.springframework.org/schema/beans/spring-beans.xsd
+		https://www.springframework.org/schema/util             https://www.springframework.org/schema/util/spring-util.xsd">
 
 	<int-mail:inbound-channel-adapter id="poll-for-email"
 		channel="inboundChannel"
