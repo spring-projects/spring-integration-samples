@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<beans xmlns:int="http://www.springframework.org/schema/integration"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xmlns="http://www.springframework.org/schema/beans"
-	xmlns:int-jms="http://www.springframework.org/schema/integration/jms"
-	xmlns:int-stream="http://www.springframework.org/schema/integration/stream"
-	xsi:schemaLocation="http://www.springframework.org/schema/beans
-			http://www.springframework.org/schema/beans/spring-beans.xsd
-			http://www.springframework.org/schema/context
-			http://www.springframework.org/schema/context/spring-context.xsd
-			http://www.springframework.org/schema/integration
-			http://www.springframework.org/schema/integration/spring-integration.xsd
-			http://www.springframework.org/schema/integration/jms
-			http://www.springframework.org/schema/integration/jms/spring-integration-jms.xsd
-			http://www.springframework.org/schema/integration/stream
-			http://www.springframework.org/schema/integration/stream/spring-integration-stream.xsd">
+<beans xmlns:int="https://www.springframework.org/schema/integration"
+	xmlns:xsi="https://www.w3.org/2001/XMLSchema-instance"
+	xmlns="https://www.springframework.org/schema/beans"
+	xmlns:int-jms="https://www.springframework.org/schema/integration/jms"
+	xmlns:int-stream="https://www.springframework.org/schema/integration/stream"
+	xsi:schemaLocation="https://www.springframework.org/schema/beans
+			https://www.springframework.org/schema/beans/spring-beans.xsd
+			https://www.springframework.org/schema/context
+			https://www.springframework.org/schema/context/spring-context.xsd
+			https://www.springframework.org/schema/integration
+			https://www.springframework.org/schema/integration/spring-integration.xsd
+			https://www.springframework.org/schema/integration/jms
+			https://www.springframework.org/schema/integration/jms/spring-integration-jms.xsd
+			https://www.springframework.org/schema/integration/stream
+			https://www.springframework.org/schema/integration/stream/spring-integration-stream.xsd">
 
 	<int-stream:stdin-channel-adapter id="stdin" channel="stdinToJmsoutChannel"/>
 

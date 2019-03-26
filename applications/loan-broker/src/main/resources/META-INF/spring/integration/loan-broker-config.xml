@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<beans:beans xmlns="http://www.springframework.org/schema/integration"
-	xmlns:beans="http://www.springframework.org/schema/beans"
-	xmlns:util="http://www.springframework.org/schema/util"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://www.springframework.org/schema/beans
-			http://www.springframework.org/schema/beans/spring-beans.xsd
-			http://www.springframework.org/schema/util
-			http://www.springframework.org/schema/util/spring-util.xsd
-			http://www.springframework.org/schema/integration
-			http://www.springframework.org/schema/integration/spring-integration.xsd">
+<beans:beans xmlns="https://www.springframework.org/schema/integration"
+	xmlns:beans="https://www.springframework.org/schema/beans"
+	xmlns:util="https://www.springframework.org/schema/util"
+	xmlns:xsi="https://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="https://www.springframework.org/schema/beans
+			https://www.springframework.org/schema/beans/spring-beans.xsd
+			https://www.springframework.org/schema/util
+			https://www.springframework.org/schema/util/spring-util.xsd
+			https://www.springframework.org/schema/integration
+			https://www.springframework.org/schema/integration/spring-integration.xsd">
 
 	<gateway id="loanBrokerGateway"
 			default-request-channel="loanRequestsChannel"

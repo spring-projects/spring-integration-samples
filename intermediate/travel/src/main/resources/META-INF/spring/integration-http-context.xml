@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xmlns:int="http://www.springframework.org/schema/integration"
-	xmlns:int-http="http://www.springframework.org/schema/integration/http"
-	xsi:schemaLocation="http://www.springframework.org/schema/integration http://www.springframework.org/schema/integration/spring-integration.xsd
-		http://www.springframework.org/schema/integration/http http://www.springframework.org/schema/integration/http/spring-integration-http.xsd
-		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+<beans xmlns="https://www.springframework.org/schema/beans"
+	xmlns:xsi="https://www.w3.org/2001/XMLSchema-instance"
+	xmlns:int="https://www.springframework.org/schema/integration"
+	xmlns:int-http="https://www.springframework.org/schema/integration/http"
+	xsi:schemaLocation="https://www.springframework.org/schema/integration https://www.springframework.org/schema/integration/spring-integration.xsd
+		https://www.springframework.org/schema/integration/http https://www.springframework.org/schema/integration/http/spring-integration-http.xsd
+		https://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd">
 
 	<beans profile="mapquest">
 
@@ -14,7 +14,7 @@
 				<int:header name="mapquestapikey" value="#{environment['mapquest.apikey']}"/>
 			</int:header-enricher>
 			<int-http:outbound-gateway
-				url="http://localhost:8084/traffic/v1/incidents?key={apikey}&amp;boundingBox={boundingBox}&amp;filters=construction,incidents&amp;inFormat=kvp&amp;outFormat=xml"
+				url="https://localhost:8084/traffic/v1/incidents?key={apikey}&amp;boundingBox={boundingBox}&amp;filters=construction,incidents&amp;inFormat=kvp&amp;outFormat=xml"
 				http-method="GET"
 				expected-response-type="java.lang.String">
 				<int-http:uri-variable name="apikey" expression="headers.mapquestapikey"/>
