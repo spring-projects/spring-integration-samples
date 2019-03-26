@@ -77,11 +77,11 @@ The REST Endpoint is using [Spring Security][]. The security credentials are:
 
 They are stored in `src/main/resources/users.properties`.
 
-[Apache Tomcat]: http://tomcat.apache.org/
-[cURL]: http://en.wikipedia.org/wiki/CURL
-[Jetty]: http://www.eclipse.org/jetty/
-[JUnit]: http://junit.org/
-[Gradle]: http://www.gradle.org
-[RestTemplate]: http://static.springsource.org/spring/docs/current/javadoc-api/org/springframework/web/client/RestTemplate.html
-[Spring Security]: http://www.springsource.org/spring-security
-[Spring Tool Suite]: http://www.springsource.org/sts
+[Apache Tomcat]: https://tomcat.apache.org/
+[cURL]: https://en.wikipedia.org/wiki/CURL
+[Jetty]: https://www.eclipse.org/jetty/
+[JUnit]: https://junit.org/
+[Gradle]: https://www.gradle.org
+[RestTemplate]: https://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/web/client/RestTemplate.html
+[Spring Security]: https://www.springsource.org/spring-security
+[Spring Tool Suite]: https://www.springsource.org/sts
