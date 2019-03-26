@@ -85,7 +85,7 @@ public class WeatherMarshaller implements Marshaller, Unmarshaller, Initializing
 
 	public void marshal(Object zip, Result result) throws IOException,
 			XmlMappingException {
-		String xmlString = "<weat:GetCityWeatherByZIP xmlns:weat=\"http://ws.cdyne.com/WeatherWS/\">" +
+		String xmlString = "<weat:GetCityWeatherByZIP xmlns:weat=\"https://ws.cdyne.com/WeatherWS/\">" +
 							"	<weat:ZIP>" + zip + "</weat:ZIP>" +
 							"</weat:GetCityWeatherByZIP>";
 		try {
@@ -115,16 +115,16 @@ public class WeatherMarshaller implements Marshaller, Unmarshaller, Initializing
 			xformer.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, "yes");
 			xformer.setOutputProperty(OutputKeys.ENCODING, "UTF-8");
 			xformer.setOutputProperty(OutputKeys.INDENT, "yes");
-			xformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", String.valueOf(2));
+			xformer.setOutputProperty("{https://xml.apache.org/xslt}indent-amount", String.valueOf(2));
 		} catch (Exception ex) {
 			throw new IllegalStateException(ex);
 		}
 		xformer.setOutputProperty(OutputKeys.INDENT, "yes");
-		xformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "4");
+		xformer.setOutputProperty("{https://xml.apache.org/xslt}indent-amount", "4");
 		return xformer;
 	}
 
 	public void afterPropertiesSet() throws Exception {
-		namespacePrefixes.put("p", "http://ws.cdyne.com/WeatherWS/");
+		namespacePrefixes.put("p", "https://ws.cdyne.com/WeatherWS/");
 	}
 }

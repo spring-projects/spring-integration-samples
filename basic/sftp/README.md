@@ -12,7 +12,7 @@ In order to run this sample for the 'real' SFTP Server you need to:
 2. update user.properties file with appropriate values
 3. run the sample
 
-By default this sample uses an [Apache MINA](http://mina.apache.org/sshd-project) embedded `SshServer` with predefined 
+By default this sample uses an [Apache MINA](https://mina.apache.org/sshd-project) embedded `SshServer` with predefined 
 private and public keys.
 Note, the embedded Server is started only when the `port` property remains as `-1`. In this case the target port
 for the Embedded Server is selected randomly. For a real SFTP server you should specify correct `host/port` properties.

@@ -15,13 +15,13 @@ A very simple example that show you how easy it is to invoke a service based on 
 Fahrenheit (90F) to Celsius (32.2C) and the result is printed to the console:
 
 ````
-<?xml version="1.0" encoding="UTF-8"?><FahrenheitToCelsiusResponse xmlns="http://tempuri.org/"><FahrenheitToCelsiusResult>32.2222222222222</FahrenheitToCelsiusResult></FahrenheitToCelsiusResponse>````
+<?xml version="1.0" encoding="UTF-8"?><FahrenheitToCelsiusResponse xmlns="https://www.bing.com/"><FahrenheitToCelsiusResult>32.2222222222222</FahrenheitToCelsiusResult></FahrenheitToCelsiusResponse>````
 
 ## Running the Sample
 
 To run the sample simply execute **WebServiceDemoTestApp** in package *org.springframework.integration.samples.ws*. 
-You can also execute that class using the [Gradle Application Plugin](http://www.gradle.org/docs/current/userguide/application_plugin.html):
+You can also execute that class using the [Gradle Application Plugin](https://www.gradle.org/docs/current/userguide/application_plugin.html):
 
     $ gradlew :ws-outbound-gateway:run
 
-[Simple Object Access Protocol]: http://en.wikipedia.org/wiki/SOAP
+[Simple Object Access Protocol]: https://en.wikipedia.org/wiki/SOAP
