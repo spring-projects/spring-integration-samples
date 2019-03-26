@@ -6,15 +6,15 @@
 	xmlns:int-http="http://www.springframework.org/schema/integration/http"
 	xmlns:int-mail="http://www.springframework.org/schema/integration/mail"
 	xmlns:int-ws="http://www.springframework.org/schema/integration/ws"
-	xsi:schemaLocation="http://www.springframework.org/schema/integration/http http://www.springframework.org/schema/integration/http/spring-integration-http.xsd
-		http://www.springframework.org/schema/integration/ws http://www.springframework.org/schema/integration/ws/spring-integration-ws.xsd
-		http://www.springframework.org/schema/integration/mail http://www.springframework.org/schema/integration/mail/spring-integration-mail.xsd
-		http://www.springframework.org/schema/integration http://www.springframework.org/schema/integration/spring-integration.xsd
-		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
-		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+	xsi:schemaLocation="http://www.springframework.org/schema/integration/http https://www.springframework.org/schema/integration/http/spring-integration-http.xsd
+		http://www.springframework.org/schema/integration/ws https://www.springframework.org/schema/integration/ws/spring-integration-ws.xsd
+		http://www.springframework.org/schema/integration/mail https://www.springframework.org/schema/integration/mail/spring-integration-mail.xsd
+		http://www.springframework.org/schema/integration https://www.springframework.org/schema/integration/spring-integration.xsd
+		http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd">
 	
     <int-http:outbound-gateway id="trafficService" 
-	                  url="http://local.yahooapis.com/MapsService/V1/trafficData?appid=YdnDemo&amp;zip={zipCode}" 
+	                  url="https://local.yahooapis.com/MapsService/V1/trafficData?appid=YdnDemo&amp;zip={zipCode}" 
 		              request-channel="trafficRequestChannel"
 		              reply-channel="trafficResponseChannel" 
 		              http-method="GET" 
@@ -26,7 +26,7 @@
 	<int-ws:header-enricher id="soapHeaderEnricher"
 						    input-channel="weatherRequestChannel"
 		                    output-channel="weatherServiceChannel">
-		<int-ws:soap-action value="http://ws.cdyne.com/WeatherWS/GetCityWeatherByZIP" />
+		<int-ws:soap-action value="https://ws.cdyne.com/WeatherWS/GetCityWeatherByZIP" />
 	</int-ws:header-enricher>
 
 	<int:channel id="weatherServiceChannel" />
@@ -36,7 +36,7 @@
 					  		 reply-channel="weatherResponseChannel" 			 
 					  		 marshaller="marshaller"
 					  		 unmarshaller="marshaller"
-					  		 uri="http://ws.cdyne.com/WeatherWS/Weather.asmx"/> 
+					  		 uri="https://ws.cdyne.com/WeatherWS/Weather.asmx"/> 
 
 	<int:channel id="weatherResponseChannel"/>
 
