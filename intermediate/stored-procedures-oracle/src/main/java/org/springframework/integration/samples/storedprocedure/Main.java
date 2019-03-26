@@ -54,7 +54,7 @@ public final class Main {
 				  + "\n     Stored Procedure/Function Sample for Oracle         "
 				  + "\n                                                         "
 				  + "\n    For more information please visit:                   "
-				  + "\n    http://www.springsource.org/spring-integration       "
+				  + "\n    https://www.springsource.org/spring-integration       "
 				  + "\n                                                         "
 				  + "\n=========================================================" );
 

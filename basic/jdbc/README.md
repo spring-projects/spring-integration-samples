@@ -66,5 +66,5 @@ For executing the program and see the results, execute the junit test case
 
 For help please take a look at the Spring Integration documentation:
 
-http://www.springsource.org/spring-integration
+https://www.springsource.org/spring-integration
 

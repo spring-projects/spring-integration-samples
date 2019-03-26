@@ -100,7 +100,7 @@ public class TcpServerConnectionDeserializeTest {
 	 * Show, explicitly, how the stream would look if you had to manually create it.
 	 *
 	 * See more about TCP synchronous communication for more about framing the stream
-	 * with STX/ETX:  http://en.wikipedia.org/wiki/Binary_Synchronous_Communications
+	 * with STX/ETX:  https://en.wikipedia.org/wiki/Binary_Synchronous_Communications
 	 *
 	 * @param content
 	 * @return a string that is wrapped with the STX/ETX framing bytes

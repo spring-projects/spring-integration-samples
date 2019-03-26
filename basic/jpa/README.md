@@ -12,9 +12,9 @@ The first example demonstrates the use of an JPA Outbound gateway to retrieve a 
 
 You have the option to choose between the following 3 persistence providers:
 
-* [Hibernate](http://www.hibernate.org/)
-* [OpenJPA](http://openjpa.apache.org/)
-* [EclipseLink](http://www.eclipse.org/eclipselink/)
+* [Hibernate](https://hibernate.org/)
+* [OpenJPA](https://openjpa.apache.org/)
+* [EclipseLink](https://www.eclipse.org/eclipselink/)
 
 # Getting Started
 
@@ -24,7 +24,7 @@ Hibernate works out of the box and there are 2 options on how to execute the sam
 * or from the command line:
     $ gradlew :jpa:run
 
-For **OpenJPA** and **EclipseLink** to work, you must provide a [Java Agent](http://docs.oracle.com/javase/6/docs/api/java/lang/instrument/package-summary.html).
+For **OpenJPA** and **EclipseLink** to work, you must provide a [Java Agent](https://docs.oracle.com/javase/6/docs/api/java/lang/instrument/package-summary.html).
 When using the Gradle Application Plugin, this is taken care of for you behind the scenes automatically. However,
 when running the sample from within STS start the Main class with the following JVM flags:
 
@@ -37,5 +37,5 @@ With these flags you will be able to use all 3 persistence providers at once.
 
 For help please take a look at the Spring Integration documentation:
 
-http://www.springsource.org/spring-integration
+https://www.springsource.org/spring-integration
 
