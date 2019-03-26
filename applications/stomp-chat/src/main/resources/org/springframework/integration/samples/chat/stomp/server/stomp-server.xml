@@ -7,19 +7,19 @@
 	   xmlns:task="http://www.springframework.org/schema/task" xmlns:util="http://www.springframework.org/schema/util"
 	   xmlns:int-groovy="http://www.springframework.org/schema/integration/groovy"
 	   xsi:schemaLocation="http://www.springframework.org/schema/beans
-	   http://www.springframework.org/schema/beans/spring-beans.xsd
+	   https://www.springframework.org/schema/beans/spring-beans.xsd
 	   http://www.springframework.org/schema/integration
-			http://www.springframework.org/schema/integration/spring-integration.xsd
+			https://www.springframework.org/schema/integration/spring-integration.xsd
 			http://www.springframework.org/schema/integration/event
-			http://www.springframework.org/schema/integration/event/spring-integration-event.xsd
+			https://www.springframework.org/schema/integration/event/spring-integration-event.xsd
 			http://www.springframework.org/schema/integration/websocket
-			http://www.springframework.org/schema/integration/websocket/spring-integration-websocket.xsd
+			https://www.springframework.org/schema/integration/websocket/spring-integration-websocket.xsd
 			http://www.springframework.org/schema/task
-			http://www.springframework.org/schema/task/spring-task.xsd
+			https://www.springframework.org/schema/task/spring-task.xsd
 			http://www.springframework.org/schema/util
-			http://www.springframework.org/schema/util/spring-util.xsd
+			https://www.springframework.org/schema/util/spring-util.xsd
 			http://www.springframework.org/schema/integration/groovy
-			http://www.springframework.org/schema/integration/groovy/spring-integration-groovy.xsd">
+			https://www.springframework.org/schema/integration/groovy/spring-integration-groovy.xsd">
 
 	<int:wire-tap channel="logger"/>
 
