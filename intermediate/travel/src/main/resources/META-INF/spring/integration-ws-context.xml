@@ -3,12 +3,12 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns:int-ws="http://www.springframework.org/schema/integration/ws"
 	xmlns:int="http://www.springframework.org/schema/integration"
-	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
-		http://www.springframework.org/schema/integration/ws http://www.springframework.org/schema/integration/ws/spring-integration-ws.xsd
-		http://www.springframework.org/schema/integration http://www.springframework.org/schema/integration/spring-integration.xsd">
+	xsi:schemaLocation="http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/integration/ws https://www.springframework.org/schema/integration/ws/spring-integration-ws.xsd
+		http://www.springframework.org/schema/integration https://www.springframework.org/schema/integration/spring-integration.xsd">
 
 	<int-ws:header-enricher input-channel="weatherChannel" output-channel="weatherServiceChannel">
-		<int-ws:soap-action value="http://ws.cdyne.com/WeatherWS/GetCityWeatherByZIP" />
+		<int-ws:soap-action value="https://ws.cdyne.com/WeatherWS/GetCityWeatherByZIP" />
 	</int-ws:header-enricher>
 
 	<int:channel id="weatherServiceChannel" />
