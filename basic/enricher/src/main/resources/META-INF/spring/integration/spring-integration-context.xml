@@ -13,7 +13,7 @@
     <int:channel id="findUserByUsernameServiceChannel"/>
 
     <!-- See also:
-        https://docs.spring.io/spring-integration/reference/htmlsingle/#gateway-proxy
+        https://docs.spring.io/spring-integration/reference/html/#gateway
         https://www.enterpriseintegrationpatterns.com/MessagingGateway.html -->
     <int:gateway id="userGateway" default-request-timeout="5000"
                  default-reply-timeout="5000"

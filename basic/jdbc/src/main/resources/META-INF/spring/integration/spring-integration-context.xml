@@ -14,7 +14,7 @@
 	</jdbc:embedded-database>
 
 	<!-- See also:
-		https://docs.spring.io/spring-integration/reference/htmlsingle/#gateway-proxy
+		https://docs.spring.io/spring-integration/reference/html/#gateway
 		https://www.enterpriseintegrationpatterns.com/MessagingGateway.html -->
 
 	<int:channel id="createPersonRequestChannel"/>

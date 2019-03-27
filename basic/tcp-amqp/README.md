@@ -53,7 +53,7 @@ Data typed into the telnet terminal will be echoed to the [netcat][] terminal, v
 
 For further help please take a look at the Spring Integration documentation:
 
-* [https://docs.spring.io/spring-integration/reference/htmlsingle/#amqp](https://docs.spring.io/spring-integration/reference/htmlsingle/#amqp)
+* [https://docs.spring.io/spring-integration/reference/html/#amqp](https://docs.spring.io/spring-integration/reference/html/#amqp)
 
 Some further resources:
 
