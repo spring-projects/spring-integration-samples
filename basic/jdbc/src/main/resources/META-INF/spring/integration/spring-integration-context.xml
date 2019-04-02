@@ -8,23 +8,23 @@
 		http://www.springframework.org/schema/integration https://www.springframework.org/schema/integration/spring-integration.xsd
 		http://www.springframework.org/schema/integration/jdbc https://www.springframework.org/schema/integration/jdbc/spring-integration-jdbc.xsd
 		http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd">
-    
+
     <jdbc:embedded-database id="datasource" type="H2">
-        <jdbc:script location="classpath:setup-tables.sql"/>        
+        <jdbc:script location="classpath:setup-tables.sql"/>
     </jdbc:embedded-database>
 
     <!-- See also:
         https://docs.spring.io/spring-integration/reference/htmlsingle/#gateway-proxy
         https://www.enterpriseintegrationpatterns.com/MessagingGateway.html -->
-        
+
     <int:channel id="createPersonRequestChannel"/>
     <int:channel id="createPersonReplyChannel"/>
     <int:channel id="findPersonRequestChannel"/>
     <int:channel id="findPersonReplyChannel"/>
-    
-        
+
+
     <int:gateway id="personService" service-interface="org.springframework.integration.samples.jdbc.service.PersonService">
-    	<int:method name="createPerson" 
+    	<int:method name="createPerson"
     				request-channel="createPersonRequestChannel"
     				request-timeout="5000"
     				reply-channel="createPersonReplyChannel"
@@ -33,39 +33,39 @@
     				request-channel="findPersonRequestChannel"
     				request-timeout="5000"
     				reply-channel="findPersonReplyChannel"
-    				reply-timeout="5000"/>			
+    				reply-timeout="5000"/>
     </int:gateway>
 
     <int-jdbc:outbound-gateway data-source="datasource"
         update="UPDATE DUMMY SET DUMMY_VALUE='test'"
-                               request-channel="findPersonRequestChannel" 
+                               request-channel="findPersonRequestChannel"
                                query="select * from Person where lower(name)=lower(:payload)"
                                reply-channel="findPersonReplyChannel" row-mapper="personResultMapper"
                                max-rows-per-poll="100">
     </int-jdbc:outbound-gateway>
-        
-       
-	
+
+
+
 	<bean id="personResultMapper" class="org.springframework.integration.samples.jdbc.domain.PersonMapper"/>
-	<int-jdbc:outbound-gateway data-source="datasource" 
+	<int-jdbc:outbound-gateway data-source="datasource"
 								request-channel="createPersonRequestChannel"
 								reply-channel="createPersonReplyChannel"
-								update="insert into Person (name,gender,dateOfBirth) 
+								update="insert into Person (name,gender,dateOfBirth)
 										values
 										(:name,:gender,:dateOfBirth)"
-								query="select * from Person where id = :id"		
+								query="select * from Person where id = :id"
 								request-sql-parameter-source-factory="requestSource"
 								reply-sql-parameter-source-factory="replySource"
 								row-mapper="personResultMapper"
 								keys-generated="true"/>
-	
+
 	<bean id="replySource" class="org.springframework.integration.jdbc.ExpressionEvaluatingSqlParameterSourceFactory">
 		<property name="parameterExpressions">
 			<map>
-				<entry key="id" value="#this['SCOPE_IDENTITY()']"/>				
+				<entry key="id" value="#this.ID"/>
 			</map>
 		</property>
-	</bean>	
+	</bean>
 
 	<bean id="requestSource" class="org.springframework.integration.jdbc.ExpressionEvaluatingSqlParameterSourceFactory">
 		<property name="parameterExpressions">
@@ -75,6 +75,6 @@
 				<entry key="dateOfBirth" value="payload.dateOfBirth"/>
 			</map>
 		</property>
-	</bean>	
+	</bean>
 
 </beans>
