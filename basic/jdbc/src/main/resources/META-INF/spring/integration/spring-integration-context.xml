@@ -60,7 +60,7 @@
 	<bean id="replySource" class="org.springframework.integration.jdbc.ExpressionEvaluatingSqlParameterSourceFactory">
 		<property name="parameterExpressions">
 			<map>
-				<entry key="id" value="#this['SCOPE_IDENTITY()']"/>
+				<entry key="id" value="#this.ID"/>
 			</map>
 		</property>
 	</bean>
