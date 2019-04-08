@@ -22,6 +22,9 @@ import static org.mockito.Mockito.verify;
 import static org.springframework.integration.test.mock.MockIntegration.messageArgumentCaptor;
 import static org.springframework.integration.test.mock.MockIntegration.mockMessageHandler;
 
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.TimeUnit;
+
 import org.junit.ClassRule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -58,14 +61,16 @@ public class ApplicationTest {
 	private IntegrationFlow mqttOutFlow;
 
 	@Test
-	public void test() {
+	public void test() throws InterruptedException {
 		ArgumentCaptor<Message<?>> captor = messageArgumentCaptor();
-		MessageHandler mockMessageHandler = mockMessageHandler(captor).handleNext(m -> { });
+		CountDownLatch receiveLatch = new CountDownLatch(1);
+		MessageHandler mockMessageHandler = mockMessageHandler(captor).handleNext(m -> receiveLatch.countDown());
 		this.mockIntegrationContext
 				.substituteMessageHandlerFor(
 						"mqttInFlow.org.springframework.integration.config.ConsumerEndpointFactoryBean#1",
 						mockMessageHandler);
 		this.mqttOutFlow.getInputChannel().send(new GenericMessage<>("foo"));
+		assertThat(receiveLatch.await(10, TimeUnit.SECONDS)).isTrue();
 		verify(mockMessageHandler).handleMessage(any());
 		assertThat(captor.getValue().getPayload())
 				.isEqualTo("foo sent to MQTT, received from MQTT");
