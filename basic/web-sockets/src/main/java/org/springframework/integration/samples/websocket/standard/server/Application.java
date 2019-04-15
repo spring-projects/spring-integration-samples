@@ -1,5 +1,5 @@
 /*
- * Copyright 2014 the original author or authors.
+ * Copyright 2014-2019 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,7 +19,6 @@ package org.springframework.integration.samples.websocket.standard.server;
 import java.text.DateFormat;
 import java.util.Collections;
 import java.util.Date;
-import java.util.Iterator;
 import java.util.concurrent.Executors;
 
 import org.springframework.boot.SpringApplication;
@@ -42,7 +41,6 @@ import org.springframework.integration.transformer.HeaderEnricher;
 import org.springframework.integration.transformer.support.ExpressionEvaluatingHeaderValueMessageProcessor;
 import org.springframework.integration.websocket.ServerWebSocketContainer;
 import org.springframework.integration.websocket.outbound.WebSocketOutboundMessageHandler;
-import org.springframework.messaging.Message;
 import org.springframework.messaging.MessageChannel;
 import org.springframework.messaging.MessageHandler;
 import org.springframework.messaging.simp.SimpMessageHeaderAccessor;
@@ -50,6 +48,7 @@ import org.springframework.messaging.support.GenericMessage;
 
 /**
  * @author Artem Bilan
+ *
  * @since 3.0
  */
 @Configuration
@@ -71,14 +70,7 @@ public class Application {
 	@Bean
 	@InboundChannelAdapter(value = "splitChannel", poller = @Poller(fixedDelay = "1000", maxMessagesPerPoll = "1"))
 	public MessageSource<?> webSocketSessionsMessageSource() {
-		return new MessageSource<Iterator<String>>() {
-
-			@Override
-			public Message<Iterator<String>> receive() {
-				return new GenericMessage<Iterator<String>>(serverWebSocketContainer().getSessions().keySet().iterator());
-			}
-
-		};
+		return () -> new GenericMessage<>(serverWebSocketContainer().getSessions().keySet().iterator());
 	}
 
 	@Bean
@@ -103,15 +95,16 @@ public class Application {
 	@Transformer(inputChannel = "headerEnricherChannel", outputChannel = "transformChannel")
 	public HeaderEnricher headerEnricher() {
 		return new HeaderEnricher(Collections.singletonMap(SimpMessageHeaderAccessor.SESSION_ID_HEADER,
-				new ExpressionEvaluatingHeaderValueMessageProcessor<Object>("payload", null)));
+				new ExpressionEvaluatingHeaderValueMessageProcessor<>("payload", null)));
 	}
 
 	@Bean
 	@Transformer(inputChannel = "transformChannel", outputChannel = "sendTimeChannel")
 	public AbstractPayloadTransformer<?, ?> transformer() {
 		return new AbstractPayloadTransformer<Object, Object>() {
+
 			@Override
-			protected Object transformPayload(Object payload) throws Exception {
+			protected Object transformPayload(Object payload) {
 				return DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.DEFAULT).format(new Date());
 			}
 
