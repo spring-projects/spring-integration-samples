@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xmlns:int="http://www.springframework.org/schema/integration"
-	xmlns:int-jms="http://www.springframework.org/schema/integration/jms"
-	xsi:schemaLocation="http://www.springframework.org/schema/integration https://www.springframework.org/schema/integration/spring-integration.xsd
+	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   xmlns:int="http://www.springframework.org/schema/integration"
+	   xmlns:int-jms="http://www.springframework.org/schema/integration/jms"
+	   xsi:schemaLocation="http://www.springframework.org/schema/integration https://www.springframework.org/schema/integration/spring-integration.xsd
 		http://www.springframework.org/schema/integration/jms https://www.springframework.org/schema/integration/jms/spring-integration-jms.xsd
 		http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd">
 
@@ -13,14 +13,17 @@
 		an exception, an ErrorMessage containing the exception will be sent to the
 		error channel for additional handling. -->
 
-	<import resource="classpath:integration-config.xml" />
+	<import resource="classpath:integration-config.xml"/>
 
-	<int-jms:inbound-channel-adapter id="jmsInboundChannelAdapter" jms-template="jmsTemplate" channel="inputChannel">
-		<int:poller fixed-rate="500" max-messages-per-poll="1" error-channel="errorChannel" />
+	<int-jms:inbound-channel-adapter id="jmsInboundChannelAdapter"
+									 jms-template="jmsTemplate"
+									 channel="inputChannel"
+									 auto-startup="false">
+		<int:poller fixed-rate="500" max-messages-per-poll="1" error-channel="errorChannel"/>
 	</int-jms:inbound-channel-adapter>
 
 	<bean id="jmsTemplate" class="org.mockito.Mockito" factory-method="mock">
-		<constructor-arg value="org.springframework.jms.core.JmsTemplate" />
+		<constructor-arg value="org.springframework.jms.core.JmsTemplate"/>
 	</bean>
 
 </beans>
