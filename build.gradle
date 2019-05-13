@@ -9,7 +9,7 @@ buildscript {
 	}
 }
 plugins {
-	id "org.sonarqube" version "2.6.1"
+	id "org.sonarqube" version "2.7"
 }
 
 description = 'Spring Integration Samples'
@@ -32,7 +32,7 @@ allprojects {
 	repositories {
 		maven { url 'https://repo.spring.io/libs-snapshot' }
 		maven { url 'https://repo.spring.io/libs-milestone' }
-//			maven { url 'https://repo.spring.io/libs-staging-local' }
+//		maven { url 'https://repo.spring.io/libs-staging-local' }
 	}
 
 }
@@ -210,12 +210,12 @@ subprojects { subproject ->
 			postgresVersion = '42.0.0'
 			subethasmtpVersion = '1.2'
 			slf4jVersion = '1.7.25'
-			springIntegrationVersion = '5.1.4.RELEASE'
+			springIntegrationVersion = '5.1.5.RELEASE'
 			springIntegrationKafkaVersion = '3.1.2.RELEASE'
 			springIntegrationSocialTwiterVersion = '1.0.1.BUILD-SNAPSHOT'
 			springIntegrationSplunkVersion = '1.2.0.BUILD-SNAPSHOT'
-			springKafkaVersion = '2.2.5.RELEASE'
-			springVersion = '5.1.6.RELEASE'
+			springKafkaVersion = '2.2.6.RELEASE'
+			springVersion = '5.1.7.RELEASE'
 			springSecurityVersion = '5.1.5.RELEASE'
 			springWebFlowVersion = '2.3.3.RELEASE'
 			tilesJspVersion = '2.2.1'
