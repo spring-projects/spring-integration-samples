@@ -26,7 +26,7 @@
 
 	<!-- Do some error handling -->
 	<int:transformer input-channel="errorChannel"
-		output-channel="invalidMessageChannel" expression="payload.cause.cause.message" />
+		output-channel="invalidMessageChannel" expression="payload.cause.message" />
 
 	<int:channel id="invalidMessageChannel" />
 </beans>
