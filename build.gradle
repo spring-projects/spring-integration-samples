@@ -188,7 +188,7 @@ subprojects { subproject ->
 			groovyVersion = '2.5.6'
 			hsqldbVersion = '2.4.1'
 			h2Version = '1.4.197'
-			jacksonVersion = '2.9.8'
+			jacksonVersion = '2.9.9.20190807'
 			javaxInjectVersion = '1'
 			javaxMailVersion = '1.6.2'
 			jodaTimeVersion = '1.6'
@@ -329,7 +329,8 @@ project('cafe-si') {
 
 	dependencies {
 		compile "org.springframework.integration:spring-integration-stream"
-		compile "com.fasterxml.jackson.core:jackson-databind:$jacksonVersion"
+		compile platform("com.fasterxml.jackson:jackson-bom:$jacksonVersion")
+		compile 'com.fasterxml.jackson.core:jackson-databind'
 		compile "org.apache.logging.log4j:log4j-core:$log4jVersion"
 	}
 }
@@ -1122,7 +1123,8 @@ project('multipart-http') {
 	dependencies {
 		compile "org.springframework.integration:spring-integration-http"
 		compile "org.springframework:spring-webmvc"
-		compile "com.fasterxml.jackson.core:jackson-databind:$jacksonVersion"
+		compile platform("com.fasterxml.jackson:jackson-bom:$jacksonVersion")
+		compile 'com.fasterxml.jackson.core:jackson-databind'
 		compile "commons-fileupload:commons-fileupload:$commonsFileUploadVersion"
 		compile "commons-io:commons-io:$commonsIoVersion"
 		compile "org.apache.logging.log4j:log4j-core:$log4jVersion"
@@ -1144,7 +1146,8 @@ project('rest-http') {
 		compile "org.springframework:spring-jdbc"
 		compile "org.springframework:spring-context"
 		compile "org.springframework:spring-aop"
-		compile "com.fasterxml.jackson.core:jackson-databind:$jacksonVersion"
+		compile platform("com.fasterxml.jackson:jackson-bom:$jacksonVersion")
+		compile 'com.fasterxml.jackson.core:jackson-databind'
 		compile "org.springframework.security:spring-security-web:$springSecurityVersion"
 		compile "org.springframework.security:spring-security-config:$springSecurityVersion"
 		compile "org.apache.logging.log4j:log4j-core:$log4jVersion"
@@ -1453,7 +1456,8 @@ project('tcp-with-headers') {
 	dependencies {
 		compile 'org.springframework.boot:spring-boot-starter-integration'
 		compile "org.springframework.integration:spring-integration-ip"
-		compile "com.fasterxml.jackson.core:jackson-databind:$jacksonVersion"
+		compile platform("com.fasterxml.jackson:jackson-bom:$jacksonVersion")
+		compile 'com.fasterxml.jackson.core:jackson-databind'
 
 		testCompile 'org.springframework.boot:spring-boot-starter-test'
 	}
