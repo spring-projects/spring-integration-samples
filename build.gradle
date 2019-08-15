@@ -117,6 +117,17 @@ subprojects { subproject ->
 							version = springBootVersion
 						}
 					}
+					else if (jacksonProjects.contains(subproject.name)) {
+						parent {
+							groupId = 'com.fasterxml.jackson'
+							artifactId = 'jackson-bom'
+							version = jacksonVersion
+						}
+					}
+				}.whenConfigured {
+					p -> p.dependencies = p.dependencies.findAll {
+						dep -> dep.artifactId != "jackson-bom"
+					}
 				}.withXml {
 					if (subproject.plugins.hasPlugin('org.akhikhl.gretty')) {
 						asNode().appendNode('packaging', 'war')
@@ -140,10 +151,6 @@ subprojects { subproject ->
 					}
 					if (subproject.plugins.hasPlugin('io.spring.dependency-management')) {
 						dependencyManagement.pomConfigurer.configurePom(asNode())
-					}
-				}.whenConfigured {
-					p -> p.dependencies = p.dependencies.findAll {
-						dep -> dep.artifactId != "jackson-bom"
 					}
 				}.writeTo('pom.xml')
 			}
@@ -192,7 +199,7 @@ subprojects { subproject ->
 			groovyVersion = '2.5.6'
 			hsqldbVersion = '2.4.1'
 			h2Version = '1.4.197'
-			jacksonVersion = '2.9.9.20190807'
+//			jacksonVersion - in gradle properties
 			javaxInjectVersion = '1'
 			javaxMailVersion = '1.6.2'
 			jodaTimeVersion = '1.6'
@@ -212,6 +219,7 @@ subprojects { subproject ->
 			postgresVersion = '42.2.5'
 			subethasmtpVersion = '1.2'
 			slf4jVersion = '1.7.25'
+//			springBootVersion - in gradle properties
 			springIntegrationVersion = '5.2.0.M4'
 			springIntegrationKafkaVersion = '3.2.0.M3'
 			springIntegrationSocialTwiterVersion = '1.0.1.BUILD-SNAPSHOT'
