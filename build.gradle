@@ -141,6 +141,10 @@ subprojects { subproject ->
 					if (subproject.plugins.hasPlugin('io.spring.dependency-management')) {
 						dependencyManagement.pomConfigurer.configurePom(asNode())
 					}
+				}.whenConfigured {
+					p -> p.dependencies = p.dependencies.findAll {
+						dep -> dep.artifactId != "jackson-bom"
+					}
 				}.writeTo('pom.xml')
 			}
 
