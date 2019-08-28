@@ -18,7 +18,6 @@ package org.springframework.integration.samples.barrier;
 
 import java.util.Collections;
 
-import org.springframework.amqp.rabbit.connection.CachingConnectionFactory;
 import org.springframework.boot.Banner.Mode;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.WebApplicationType;
@@ -37,12 +36,6 @@ public class Application {
 
 	public static void main(String[] args) throws Exception {
 		ConfigurableApplicationContext server = SpringApplication.run(Application.class, args);
-
-		// https://github.com/spring-projects/spring-boot/issues/3945
-		CachingConnectionFactory connectionFactory = server.getBean(CachingConnectionFactory.class);
-		connectionFactory.setPublisherConfirms(true);
-		connectionFactory.resetConnection();
-		// https://github.com/spring-projects/spring-boot/issues/3945
 
 		SpringApplication application = new SpringApplicationBuilder()
 				.web(WebApplicationType.NONE)
