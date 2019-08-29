@@ -17,6 +17,10 @@
 							error-channel="errorChannel"
 							supported-methods="POST"/>
 
+	<!--
+		This one is just a dummy inbound adapter, so you call the appl from a browser with a simple GET
+		(http://localhost:8080/getGateway) to see the result. It always uses A,B,C as the request.
+	-->
 	<int-http:inbound-gateway request-channel="createPayload"
 							path="/getGateway"
 							error-channel="errorChannel"
@@ -70,7 +74,7 @@
 	<int-amqp:inbound-channel-adapter channel="nullChannel"
 		queue-names="barrier.sample.queue"
 		connection-factory="rabbitConnectionFactory" />
-	
+
 	<!-- Infrastructure -->
 
 	<rabbit:queue name="barrier.sample.queue" auto-delete="true" />
