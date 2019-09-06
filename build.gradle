@@ -32,7 +32,7 @@ allprojects {
 	repositories {
 		maven { url 'https://repo.spring.io/libs-snapshot' }
 		maven { url 'https://repo.spring.io/libs-milestone' }
-			maven { url 'https://repo.spring.io/libs-staging-local' }
+//			maven { url 'https://repo.spring.io/libs-staging-local' }
 	}
 
 }
@@ -208,13 +208,13 @@ subprojects { subproject ->
 			postgresVersion = '42.2.5'
 			subethasmtpVersion = '1.2'
 			slf4jVersion = '1.7.25'
-			springIntegrationVersion = '5.2.0.M4'
-			springIntegrationKafkaVersion = '3.2.0.M3'
+			springIntegrationVersion = '5.2.0.RC1'
+			springIntegrationKafkaVersion = '3.2.0.RC1'
 			springIntegrationSocialTwiterVersion = '1.0.1.BUILD-SNAPSHOT'
 			springIntegrationSplunkVersion = '1.2.0.BUILD-SNAPSHOT'
-			springKafkaVersion = '2.3.0.M4'
-			springVersion = '5.2.0.RC1'
-			springSecurityVersion = '5.2.0.M4'
+			springKafkaVersion = '2.3.0.RC1'
+			springVersion = '5.2.0.RC2'
+			springSecurityVersion = '5.2.0.RC1'
 			springWebFlowVersion = '2.3.3.RELEASE'
 			tilesJspVersion = '2.2.1'
 			validationApiVersion = '1.0.0.GA'
