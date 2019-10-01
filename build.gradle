@@ -187,8 +187,8 @@ subprojects { subproject ->
 			flexjsonVersion = '2.0'
 			groovyVersion = '2.5.6'
 			hsqldbVersion = '2.4.1'
-			h2Version = '1.4.197'
-			jacksonVersion = '2.9.8'
+			h2Version = '1.4.199'
+			jacksonVersion = '2.10.0'
 			javaxInjectVersion = '1'
 			javaxMailVersion = '1.6.2'
 			jodaTimeVersion = '1.6'
@@ -201,20 +201,20 @@ subprojects { subproject ->
 			jstlVersion = '1.2'
 			junitVersion = '4.12'
 			jythonVersion = '2.7.0'
-			log4jVersion = '2.7'
-			mockitoVersion = '2.24.0'
+			log4jVersion = '2.12.1'
+			mockitoVersion = '3.0.0'
 			openJpaVersion = '2.4.0'
 			oracleDriverVersion = '11.2.0.3'
 			postgresVersion = '42.2.5'
 			subethasmtpVersion = '1.2'
 			slf4jVersion = '1.7.25'
-			springIntegrationVersion = '5.2.0.RC1'
-			springIntegrationKafkaVersion = '3.2.0.RC1'
+			springIntegrationVersion = '5.2.0.RELEASE'
+			springIntegrationKafkaVersion = '3.2.0.RELEASE'
 			springIntegrationSocialTwiterVersion = '1.0.1.BUILD-SNAPSHOT'
 			springIntegrationSplunkVersion = '1.2.0.BUILD-SNAPSHOT'
-			springKafkaVersion = '2.3.0.RC1'
-			springVersion = '5.2.0.RC2'
-			springSecurityVersion = '5.2.0.RC1'
+			springKafkaVersion = '2.3.0.RELEASE'
+			springVersion = '5.2.0.RELEASE'
+			springSecurityVersion = '5.2.0.RELEASE'
 			springWebFlowVersion = '2.3.3.RELEASE'
 			tilesJspVersion = '2.2.1'
 			validationApiVersion = '1.0.0.GA'
@@ -228,6 +228,7 @@ subprojects { subproject ->
 			imports {
 				mavenBom "org.springframework.integration:spring-integration-bom:$springIntegrationVersion"
 				mavenBom "org.springframework:spring-framework-bom:$springVersion"
+				mavenBom "com.fasterxml.jackson:jackson-bom:$jacksonVersion"
 			}
 		}
 
@@ -329,7 +330,7 @@ project('cafe-si') {
 
 	dependencies {
 		compile "org.springframework.integration:spring-integration-stream"
-		compile "com.fasterxml.jackson.core:jackson-databind:$jacksonVersion"
+		compile 'com.fasterxml.jackson.core:jackson-databind'
 		compile "org.apache.logging.log4j:log4j-core:$log4jVersion"
 	}
 }
@@ -1122,7 +1123,7 @@ project('multipart-http') {
 	dependencies {
 		compile "org.springframework.integration:spring-integration-http"
 		compile "org.springframework:spring-webmvc"
-		compile "com.fasterxml.jackson.core:jackson-databind:$jacksonVersion"
+		compile 'com.fasterxml.jackson.core:jackson-databind'
 		compile "commons-fileupload:commons-fileupload:$commonsFileUploadVersion"
 		compile "commons-io:commons-io:$commonsIoVersion"
 		compile "org.apache.logging.log4j:log4j-core:$log4jVersion"
@@ -1144,7 +1145,7 @@ project('rest-http') {
 		compile "org.springframework:spring-jdbc"
 		compile "org.springframework:spring-context"
 		compile "org.springframework:spring-aop"
-		compile "com.fasterxml.jackson.core:jackson-databind:$jacksonVersion"
+		compile 'com.fasterxml.jackson.core:jackson-databind'
 		compile "org.springframework.security:spring-security-web:$springSecurityVersion"
 		compile "org.springframework.security:spring-security-config:$springSecurityVersion"
 		compile "org.apache.logging.log4j:log4j-core:$log4jVersion"
@@ -1453,7 +1454,7 @@ project('tcp-with-headers') {
 	dependencies {
 		compile 'org.springframework.boot:spring-boot-starter-integration'
 		compile "org.springframework.integration:spring-integration-ip"
-		compile "com.fasterxml.jackson.core:jackson-databind:$jacksonVersion"
+		compile 'com.fasterxml.jackson.core:jackson-databind'
 
 		testCompile 'org.springframework.boot:spring-boot-starter-test'
 	}

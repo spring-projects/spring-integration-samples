@@ -1,5 +1,5 @@
 /*
- * Copyright 2002-2012 the original author or authors.
+ * Copyright 2002-2019 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,13 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.springframework.integration.samples.mongodb.util;
 
-import com.mongodb.MongoClient;
+import com.mongodb.client.MongoClients;
 
 import org.springframework.data.mongodb.MongoDbFactory;
 import org.springframework.data.mongodb.core.MongoTemplate;
-import org.springframework.data.mongodb.core.SimpleMongoDbFactory;
+import org.springframework.data.mongodb.core.SimpleMongoClientDbFactory;
 
 /**
  *
@@ -27,8 +28,8 @@ import org.springframework.data.mongodb.core.SimpleMongoDbFactory;
  */
 public class DemoUtils {
 
-	public static MongoDbFactory prepareMongoFactory(String... additionalCollectionToDrop) throws Exception{
-		MongoDbFactory mongoDbFactory = new SimpleMongoDbFactory(new MongoClient(), "test");
+	public static MongoDbFactory prepareMongoFactory(String... additionalCollectionToDrop) throws Exception {
+		MongoDbFactory mongoDbFactory = new SimpleMongoClientDbFactory(MongoClients.create(), "test");
 		MongoTemplate template = new MongoTemplate(mongoDbFactory);
 		template.dropCollection("messages");
 		template.dropCollection("data");
