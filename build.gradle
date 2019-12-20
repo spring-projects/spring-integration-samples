@@ -722,13 +722,9 @@ project('cafe-dsl') {
 
 		testCompile 'org.springframework.boot:spring-boot-starter-test'
 	}
+
 	bootRun {
 		main = 'org.springframework.integration.samples.dsl.cafe.lambda.Application'
-	}
-
-	task run(type: JavaExec) {
-		main 'org.springframework.integration.samples.dsl.cafe.nonlambda.Application'
-		classpath = sourceSets.main.runtimeClasspath
 	}
 
 	tasks.withType(JavaExec) {

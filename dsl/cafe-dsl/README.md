@@ -12,7 +12,4 @@ See the `cafe` project **README.md** for more details about the domain and the C
 Main class --> Run As --> Java Application)
 * or from the command line:
 
-    $ gradlew :cafe-dsl:run
-
-There is the second similar sample - `org.springframework.integration.samples.dsl.cafe.nonlambda.Application`, which
-demonstrates how Spring Integration Java DSL can be used from pre Java 8 environment.
+    $ gradlew :cafe-dsl:bootRun
