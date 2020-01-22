@@ -3,7 +3,7 @@ buildscript {
 		maven { url 'https://repo.spring.io/libs-snapshot' }
 	}
 	dependencies {
-		classpath 'io.spring.gradle:dependency-management-plugin:1.0.8.RELEASE'
+		classpath 'io.spring.gradle:dependency-management-plugin:1.0.9.RELEASE'
 		classpath "org.springframework.boot:spring-boot-gradle-plugin:$springBootVersion"
 		classpath "gradle.plugin.org.gretty:gretty:2.3.1"
 	}
@@ -72,10 +72,16 @@ subprojects { subproject ->
 
 					developers {
 						developer {
+							id = 'abilan'
+							name = 'Artem Bilan'
+							email = 'abilan@pivotal.io'
+							roles = ["project lead"]
+						}
+						developer {
 							id = 'garyrussell'
 							name = 'Gary Russell'
 							email = 'grussell@pivotal.io'
-							roles = ["project lead"]
+							roles = ["lead emeritus"]
 						}
 						developer {
 							id = 'markfisher'
@@ -87,11 +93,6 @@ subprojects { subproject ->
 							id = 'ghillert'
 							name = 'Gunnar Hillert'
 							email = 'ghillert@pivotal.io'
-						}
-						developer {
-							id = 'abilan'
-							name = 'Artem Bilan'
-							email = 'abilan@pivotal.io'
 						}
 					}
 
@@ -208,13 +209,13 @@ subprojects { subproject ->
 			postgresVersion = '42.2.9'
 			subethasmtpVersion = '1.2'
 			slf4jVersion = '1.7.25'
-			springIntegrationVersion = '5.2.3.RELEASE'
+			springIntegrationVersion = '5.3.0.M1'
 			springIntegrationKafkaVersion = '3.2.1.RELEASE'
 			springIntegrationSocialTwiterVersion = '1.0.1.BUILD-SNAPSHOT'
 			springIntegrationSplunkVersion = '1.2.0.BUILD-SNAPSHOT'
-			springKafkaVersion = '2.3.5.RELEASE'
+			springKafkaVersion = '2.4.1.RELEASE'
 			springVersion = '5.2.3.RELEASE'
-			springSecurityVersion = '5.2.1.RELEASE'
+			springSecurityVersion = '5.3.0.M1'
 			springWebFlowVersion = '2.3.3.RELEASE'
 			tilesJspVersion = '2.2.1'
 			validationApiVersion = '1.0.0.GA'
@@ -268,28 +269,6 @@ subprojects { subproject ->
 			}
 		}
 
-		task checkTestConfigs {
-			doLast {
-				def configFiles = []
-				sourceSets.test.allSource.srcDirs.each {
-					fileTree(it).include('**/*.xml').exclude('**/log4j2.xml').each { configFile ->
-						def configXml = new XmlParser(false, false).parse(configFile)
-
-						if (configXml.@'xsi:schemaLocation' ==~ /.*spring-[a-z-]*\d\.\d\.xsd.*/) {
-							configFiles << configFile
-						}
-					}
-				}
-				if (configFiles) {
-					throw new InvalidUserDataException('Hardcoded XSD version in the config files:\n' +
-							configFiles.collect { relativePath(it) }.join('\n') +
-							'\nPlease, use versionless schemaLocations for Spring XSDs to avoid issues with builds ' +
-							'on different versions of dependencies.')
-				}
-			}
-		}
-
-		test.dependsOn checkTestConfigs
 		build.dependsOn jacocoTestReport
 	}
 
@@ -1465,7 +1444,6 @@ project('tcp-with-headers') {
 		standardInput = System.in
 	}
 }
-
 
 sonarqube {
 	properties {
