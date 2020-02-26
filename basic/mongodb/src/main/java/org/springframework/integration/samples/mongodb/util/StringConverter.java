@@ -18,8 +18,9 @@ package org.springframework.integration.samples.mongodb.util;
 
 import org.bson.Document;
 import org.bson.conversions.Bson;
+
 import org.springframework.data.mapping.context.MappingContext;
-import org.springframework.data.mongodb.MongoDbFactory;
+import org.springframework.data.mongodb.MongoDatabaseFactory;
 import org.springframework.data.mongodb.core.convert.DefaultDbRefResolver;
 import org.springframework.data.mongodb.core.convert.MappingMongoConverter;
 import org.springframework.data.mongodb.core.mapping.MongoPersistentEntity;
@@ -36,7 +37,7 @@ import com.mongodb.DBObject;
 public class StringConverter extends MappingMongoConverter {
 
 	public StringConverter(
-			MongoDbFactory mongoDbFactory,
+			MongoDatabaseFactory mongoDbFactory,
 			MappingContext<? extends MongoPersistentEntity<?>, MongoPersistentProperty> mappingContext) {
 		super(new DefaultDbRefResolver(mongoDbFactory), mappingContext);
 	}

@@ -4,11 +4,11 @@
   <parent>
     <groupId>org.springframework.boot</groupId>
     <artifactId>spring-boot-starter-parent</artifactId>
-    <version>2.2.2.BUILD-SNAPSHOT</version>
+    <version>2.3.0.BUILD-SNAPSHOT</version>
   </parent>
   <groupId>org.springframework.integration.samples</groupId>
   <artifactId>mqtt</artifactId>
-  <version>5.2.0.BUILD-SNAPSHOT</version>
+  <version>5.3.0.BUILD-SNAPSHOT</version>
   <name>MQTT Basic Sample</name>
   <description>MQTT Basic Sample</description>
   <url>https://projects.spring.io/spring-integration</url>
@@ -25,11 +25,19 @@
   </licenses>
   <developers>
     <developer>
+      <id>abilan</id>
+      <name>Artem Bilan</name>
+      <email>abilan@pivotal.io</email>
+      <roles>
+        <role>project lead</role>
+      </roles>
+    </developer>
+    <developer>
       <id>garyrussell</id>
       <name>Gary Russell</name>
       <email>grussell@pivotal.io</email>
       <roles>
-        <role>project lead</role>
+        <role>lead emeritus</role>
       </roles>
     </developer>
     <developer>
@@ -44,11 +52,6 @@
       <id>ghillert</id>
       <name>Gunnar Hillert</name>
       <email>ghillert@pivotal.io</email>
-    </developer>
-    <developer>
-      <id>abilan</id>
-      <name>Artem Bilan</name>
-      <email>abilan@pivotal.io</email>
     </developer>
   </developers>
   <scm>
@@ -121,7 +124,7 @@
     <dependency>
       <groupId>org.mockito</groupId>
       <artifactId>mockito-core</artifactId>
-      <version>3.2.0</version>
+      <version>3.2.4</version>
       <scope>test</scope>
       <exclusions>
         <exclusion>
@@ -193,7 +196,7 @@
       <dependency>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-dependencies</artifactId>
-        <version>2.2.2.BUILD-SNAPSHOT</version>
+        <version>2.3.0.BUILD-SNAPSHOT</version>
         <scope>import</scope>
         <type>pom</type>
       </dependency>
@@ -207,14 +210,14 @@
       <dependency>
         <groupId>org.springframework</groupId>
         <artifactId>spring-framework-bom</artifactId>
-        <version>5.2.2.RELEASE</version>
+        <version>5.2.3.RELEASE</version>
         <scope>import</scope>
         <type>pom</type>
       </dependency>
       <dependency>
         <groupId>org.springframework.integration</groupId>
         <artifactId>spring-integration-bom</artifactId>
-        <version>5.2.2.RELEASE</version>
+        <version>5.3.0.M2</version>
         <scope>import</scope>
         <type>pom</type>
       </dependency>

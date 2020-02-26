@@ -204,12 +204,13 @@ subprojects { subproject ->
 			jythonVersion = '2.7.0'
 			log4jVersion = '2.12.1'
 			mockitoVersion = '3.2.4'
+			mongoDriverVersion = '4.0.0-beta1'
 			openJpaVersion = '2.4.0'
 			oracleDriverVersion = '11.2.0.3'
 			postgresVersion = '42.2.9'
 			subethasmtpVersion = '1.2'
 			slf4jVersion = '1.7.25'
-			springIntegrationVersion = '5.3.0.M1'
+			springIntegrationVersion = '5.3.0.M2'
 			springIntegrationKafkaVersion = '3.2.1.RELEASE'
 			springIntegrationSocialTwiterVersion = '1.0.1.BUILD-SNAPSHOT'
 			springIntegrationSplunkVersion = '1.2.0.BUILD-SNAPSHOT'
@@ -809,6 +810,7 @@ project('mongodb') {
 	dependencies {
 		compile "org.springframework.integration:spring-integration-mongodb"
 		compile "org.apache.logging.log4j:log4j-core:$log4jVersion"
+		compile "org.mongodb:mongodb-driver-sync:$mongoDriverVersion"
 	}
 
 	task runMongoDbInboundAdapterDemo(type: JavaExec) {

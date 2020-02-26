@@ -16,11 +16,11 @@
 
 package org.springframework.integration.samples.mongodb.util;
 
-import com.mongodb.client.MongoClients;
-
-import org.springframework.data.mongodb.MongoDbFactory;
+import org.springframework.data.mongodb.MongoDatabaseFactory;
 import org.springframework.data.mongodb.core.MongoTemplate;
-import org.springframework.data.mongodb.core.SimpleMongoClientDbFactory;
+import org.springframework.data.mongodb.core.SimpleMongoClientDatabaseFactory;
+
+import com.mongodb.client.MongoClients;
 
 /**
  *
@@ -28,8 +28,8 @@ import org.springframework.data.mongodb.core.SimpleMongoClientDbFactory;
  */
 public class DemoUtils {
 
-	public static MongoDbFactory prepareMongoFactory(String... additionalCollectionToDrop) throws Exception {
-		MongoDbFactory mongoDbFactory = new SimpleMongoClientDbFactory(MongoClients.create(), "test");
+	public static MongoDatabaseFactory prepareMongoFactory(String... additionalCollectionToDrop) throws Exception {
+		MongoDatabaseFactory mongoDbFactory = new SimpleMongoClientDatabaseFactory(MongoClients.create(), "test");
 		MongoTemplate template = new MongoTemplate(mongoDbFactory);
 		template.dropCollection("messages");
 		template.dropCollection("data");
@@ -38,4 +38,5 @@ public class DemoUtils {
 		}
 		return mongoDbFactory;
 	}
+
 }

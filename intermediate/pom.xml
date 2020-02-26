@@ -4,7 +4,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.springframework.integration.samples</groupId>
   <artifactId>intermediate</artifactId>
-  <version>5.2.0.BUILD-SNAPSHOT</version>
+  <version>5.3.0.BUILD-SNAPSHOT</version>
   <url>https://projects.spring.io/spring-integration</url>
   <organization>
     <name>SpringIO</name>
@@ -19,11 +19,19 @@
   </licenses>
   <developers>
     <developer>
+      <id>abilan</id>
+      <name>Artem Bilan</name>
+      <email>abilan@pivotal.io</email>
+      <roles>
+        <role>project lead</role>
+      </roles>
+    </developer>
+    <developer>
       <id>garyrussell</id>
       <name>Gary Russell</name>
       <email>grussell@pivotal.io</email>
       <roles>
-        <role>project lead</role>
+        <role>lead emeritus</role>
       </roles>
     </developer>
     <developer>
@@ -38,11 +46,6 @@
       <id>ghillert</id>
       <name>Gunnar Hillert</name>
       <email>ghillert@pivotal.io</email>
-    </developer>
-    <developer>
-      <id>abilan</id>
-      <name>Artem Bilan</name>
-      <email>abilan@pivotal.io</email>
     </developer>
   </developers>
   <scm>
