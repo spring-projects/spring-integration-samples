@@ -93,7 +93,8 @@ public class Application {
 																" prepared cold drink #" +
 																this.coldDrinkCounter.incrementAndGet() +
 																" for order #" + p.getOrderNumber() + ": " + p)
-												.handle(m -> System.out.println(m.getPayload())))))
+												.handle(m -> System.out.println(m.getPayload()))))
+								.bridge())
 						.subFlowMapping(false, sf -> sf
 								.channel(c -> c.queue(10))
 								.publishSubscribeChannel(c -> c
@@ -104,8 +105,8 @@ public class Application {
 																" prepared hot drink #" +
 																this.hotDrinkCounter.incrementAndGet() +
 																" for order #" + p.getOrderNumber() + ": " + p)
-												.handle(m -> System.out.println(m.getPayload())))))
-						.defaultOutputToParentFlow())
+												.handle(m -> System.out.println(m.getPayload()))))
+								.bridge()))
 				.<OrderItem, Drink>transform(orderItem ->
 						new Drink(orderItem.getOrderNumber(),
 								orderItem.getDrinkType(),
