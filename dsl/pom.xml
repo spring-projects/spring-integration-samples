@@ -140,7 +140,7 @@
       <dependency>
         <groupId>org.springframework.integration</groupId>
         <artifactId>spring-integration-bom</artifactId>
-        <version>5.3.0.M2</version>
+        <version>5.3.0.M3</version>
         <scope>import</scope>
         <type>pom</type>
       </dependency>
