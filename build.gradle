@@ -937,7 +937,6 @@ project('testcontainers-rabbitmq') {
 			exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
 		}
 		testCompile 'org.springframework.integration:spring-integration-test'
-		testCompile 'org.springframework.integration:spring-integration-test-support'
 		testCompile 'org.springframework.amqp:spring-rabbit-test'
 		testCompile 'org.springframework.cloud:spring-cloud-starter'
 
