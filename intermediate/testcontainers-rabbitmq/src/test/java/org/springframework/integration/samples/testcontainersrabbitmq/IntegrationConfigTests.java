@@ -1,11 +1,22 @@
+/*
+ * Copyright 2002-2020 the original author or authors.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      https://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package org.springframework.integration.samples.testcontainersrabbitmq;
 
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.springframework.amqp.core.Binding;
-import org.springframework.amqp.core.BindingBuilder;
-import org.springframework.amqp.core.Queue;
-import org.springframework.amqp.core.TopicExchange;
+import org.springframework.amqp.core.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -17,19 +28,15 @@ import org.springframework.integration.test.context.SpringIntegrationTest;
 import org.springframework.messaging.Message;
 import org.springframework.messaging.MessageChannel;
 import org.springframework.messaging.support.MessageBuilder;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-import java.util.Optional;
 import java.util.UUID;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.NONE;
 
-@ExtendWith( SpringExtension.class )
-@SpringBootTest( webEnvironment = NONE )
+@SpringBootTest
 @SpringIntegrationTest
-@Import({ Receiver.class, IntegrationConfigTest.Config.class })
-class IntegrationConfigTest {
+@Import({ Receiver.class, IntegrationConfigTests.Config.class })
+class IntegrationConfigTests {
 
     @Autowired
     @Qualifier( "request.input" )
@@ -41,7 +48,7 @@ class IntegrationConfigTest {
         MessagingTemplate messagingTemplate = new MessagingTemplate();
 
         UUID requestId = UUID.randomUUID();
-        Request fakeRequest = new Request( requestId, Optional.of( 1 ) );
+        Request fakeRequest = new Request( requestId, 1 );
 
         Message<?> receive =
                 messagingTemplate
@@ -49,7 +56,7 @@ class IntegrationConfigTest {
                                 MessageBuilder
                                         .withPayload( fakeRequest )
                                         .setHeader( "Content-Type", "application/json" )
-                                        .setHeader( "request-correlation-id", UUID.randomUUID().toString() )
+//                                        .setHeader( "request-correlation-id", UUID.randomUUID().toString() )
                                         .build()
                         );
         assertThat( receive ).isNotNull();
@@ -71,13 +78,17 @@ class IntegrationConfigTest {
         @Bean
         TopicExchange topicExchange() {
 
-            return new TopicExchange( TOPIC_EXCHANGE );
+            return ExchangeBuilder
+                    .topicExchange( TOPIC_EXCHANGE )
+                    .build();
         }
 
         @Bean
         Queue resultsQueue() {
 
-            return new Queue( RESULTS_QUEUE, false );
+            return QueueBuilder
+                    .nonDurable( RESULTS_QUEUE )
+                    .build();
         }
 
         @Bean

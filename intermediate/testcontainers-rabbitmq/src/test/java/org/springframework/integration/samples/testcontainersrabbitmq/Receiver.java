@@ -1,6 +1,22 @@
+/*
+ * Copyright 2002-2020 the original author or authors.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      https://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package org.springframework.integration.samples.testcontainersrabbitmq;
 
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.amqp.rabbit.annotation.Exchange;
 import org.springframework.amqp.rabbit.annotation.Queue;
 import org.springframework.amqp.rabbit.annotation.QueueBinding;
@@ -12,14 +28,14 @@ import org.springframework.messaging.support.MessageBuilder;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
 
-@Slf4j
 @Component
 public class Receiver {
+
+    private static final Logger log = LoggerFactory.getLogger( Receiver.class );
 
     private static final Map<Integer, String> messages;
 
@@ -48,26 +64,27 @@ public class Receiver {
             )
     )
     @SendTo( "downstream.results" )
-    public Message<Response> handleMessage( Request request, @Header( "request-correlation-id" ) String correlationId ) throws IOException {
+    public Response handleMessage( Request request ) {
 
         log.info( "handleMessage : received message [{}]", request );
 
         Integer messageId;
-        if( request.getMessageId().isPresent() ) {
+        if( null != request.getMessageId() ) {
 
-            messageId = request.getMessageId().get();
+            messageId = request.getMessageId();
 
         } else {
 
             messageId = new Random().ints( 1, 5 ).findFirst().getAsInt();
+
         }
 
         Response fakeResponse = new Response( request.getId(), messages.get( messageId ) );
-
-        return MessageBuilder
-                .withPayload( fakeResponse )
-                .setHeader( "request-correlation-id", correlationId )
-                .build();
+        return fakeResponse;
+//        return MessageBuilder
+//                .withPayload( fakeResponse )
+//                .setHeader( "request-correlation-id", correlationId )
+//                .build();
     }
 
 }

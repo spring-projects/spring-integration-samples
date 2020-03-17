@@ -9,7 +9,3 @@ spring:
     username: ${embedded.rabbitmq.user}
     password: ${embedded.rabbitmq.password}
     virtual-host: ${embedded.rabbitmq.vhost}
-
-embedded:
-  rabbitmq:
-    enabled: true

@@ -210,6 +210,7 @@ subprojects { subproject ->
 			postgresVersion = '42.2.9'
 			subethasmtpVersion = '1.2'
 			slf4jVersion = '1.7.25'
+			springCloudVersion ='Hoxton.SR3'
 			springIntegrationVersion = '5.3.0.M3'
 			springIntegrationKafkaVersion = '3.2.1.RELEASE'
 			springIntegrationSocialTwiterVersion = '1.0.1.BUILD-SNAPSHOT'
@@ -218,6 +219,7 @@ subprojects { subproject ->
 			springVersion = '5.2.4.RELEASE'
 			springSecurityVersion = '5.3.0.RC1'
 			springWebFlowVersion = '2.3.3.RELEASE'
+			testcontainersVersion = '1.13.0'
 			tilesJspVersion = '2.2.1'
 			validationApiVersion = '1.0.0.GA'
 		}
@@ -915,6 +917,45 @@ project('tcp-client-server') {
 		compile "org.springframework.integration:spring-integration-test"
 		compile "org.apache.logging.log4j:log4j-core:$log4jVersion"
 	}
+}
+
+project('testcontainers-rabbitmq') {
+	description = 'Testcontainers RabbitMQ Sample'
+
+	apply plugin: 'org.springframework.boot'
+
+	bootRun {
+		main = 'org.springframework.integration.samples.testcontainersrabbitmq.TestcontainersRabbitmqApplication'
+	}
+
+	dependencies {
+		compile "org.springframework.boot:spring-boot-starter-integration"
+		compile "org.springframework.integration:spring-integration-amqp"
+		compile "org.springframework.boot:spring-boot-starter-json"
+
+		testCompile('org.springframework.boot:spring-boot-starter-test') {
+			exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
+		}
+		testCompile 'org.springframework.integration:spring-integration-test'
+		testCompile 'org.springframework.integration:spring-integration-test-support'
+		testCompile 'org.springframework.amqp:spring-rabbit-test'
+		testCompile 'org.springframework.cloud:spring-cloud-starter'
+
+		testCompile "org.testcontainers:junit-jupiter:$testcontainersVersion"
+		testCompile "com.playtika.testcontainers:embedded-rabbitmq:1.42"
+
+	}
+
+	dependencyManagement {
+		imports {
+			mavenBom "org.springframework.cloud:spring-cloud-dependencies:$springCloudVersion"
+		}
+	}
+
+	test {
+		useJUnitPlatform()
+	}
+
 }
 
 project('testing-examples') {
