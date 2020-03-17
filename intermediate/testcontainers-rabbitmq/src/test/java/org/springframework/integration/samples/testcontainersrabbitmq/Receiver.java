@@ -21,10 +21,7 @@ import org.springframework.amqp.rabbit.annotation.Exchange;
 import org.springframework.amqp.rabbit.annotation.Queue;
 import org.springframework.amqp.rabbit.annotation.QueueBinding;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
-import org.springframework.messaging.Message;
-import org.springframework.messaging.handler.annotation.Header;
 import org.springframework.messaging.handler.annotation.SendTo;
-import org.springframework.messaging.support.MessageBuilder;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
@@ -79,12 +76,7 @@ public class Receiver {
 
         }
 
-        Response fakeResponse = new Response( request.getId(), messages.get( messageId ) );
-        return fakeResponse;
-//        return MessageBuilder
-//                .withPayload( fakeResponse )
-//                .setHeader( "request-correlation-id", correlationId )
-//                .build();
+        return new Response( request.getId(), messages.get( messageId ) );
     }
 
 }

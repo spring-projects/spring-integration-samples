@@ -56,7 +56,6 @@ class IntegrationConfigTests {
                                 MessageBuilder
                                         .withPayload( fakeRequest )
                                         .setHeader( "Content-Type", "application/json" )
-//                                        .setHeader( "request-correlation-id", UUID.randomUUID().toString() )
                                         .build()
                         );
         assertThat( receive ).isNotNull();
