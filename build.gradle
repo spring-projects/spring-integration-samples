@@ -161,7 +161,7 @@ subprojects { subproject ->
 		apply plugin: 'io.spring.dependency-management'
 
 		jacoco {
-			toolVersion = "0.7.9"
+			toolVersion = "0.8.5"
 		}
 
 		compileJava {
@@ -211,7 +211,7 @@ subprojects { subproject ->
 			subethasmtpVersion = '1.2'
 			slf4jVersion = '1.7.25'
 			springCloudVersion ='Hoxton.SR3'
-			springIntegrationVersion = '5.3.0.M3'
+			springIntegrationVersion = '5.3.0.M4'
 			springIntegrationKafkaVersion = '3.2.1.RELEASE'
 			springIntegrationSocialTwiterVersion = '1.0.1.BUILD-SNAPSHOT'
 			springIntegrationSplunkVersion = '1.2.0.BUILD-SNAPSHOT'
