@@ -6,7 +6,7 @@ This example demonstrates how to use standard framework components to encode the
 It takes console input and, if the input starts with a lower case, uppercases it and vice versa.
 Whether to upper case or lower case the input is conveyed in a header 'type'.
 
-Run from your favorite IDE, or from the command line `./gradlew :dynamic-tcp-client:run`.
+Run from your favorite IDE, or from the command line `./gradlew :tcp-with-headers:run`.
 
 Here is an example run...
 
