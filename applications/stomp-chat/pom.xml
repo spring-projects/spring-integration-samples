@@ -4,7 +4,7 @@
   <parent>
     <groupId>org.springframework.boot</groupId>
     <artifactId>spring-boot-starter-parent</artifactId>
-    <version>2.1.8.RELEASE</version>
+    <version>2.1.13.RELEASE</version>
   </parent>
   <groupId>org.springframework.integration.samples</groupId>
   <artifactId>stomp-chat</artifactId>
@@ -193,21 +193,21 @@
       <dependency>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-dependencies</artifactId>
-        <version>2.1.8.RELEASE</version>
+        <version>2.1.13.RELEASE</version>
         <scope>import</scope>
         <type>pom</type>
       </dependency>
       <dependency>
         <groupId>org.springframework</groupId>
         <artifactId>spring-framework-bom</artifactId>
-        <version>5.1.11.RELEASE</version>
+        <version>5.1.15.RELEASE</version>
         <scope>import</scope>
         <type>pom</type>
       </dependency>
       <dependency>
         <groupId>org.springframework.integration</groupId>
         <artifactId>spring-integration-bom</artifactId>
-        <version>5.1.9.RELEASE</version>
+        <version>5.1.10.RELEASE</version>
         <scope>import</scope>
         <type>pom</type>
       </dependency>
