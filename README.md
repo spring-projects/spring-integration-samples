@@ -97,7 +97,8 @@ This category targets developers who are already more familiar with the Spring I
 * **stored-procedures-ms** Provides an example of the stored procedure Outbound Gateway using *Microsoft SQL Server*
 * **stored-procedures-oracle** Provides an example of the stored procedure Outbound Gateway using *ORACLE XE*
 * **stored-procedures-postgresql** Provides an example of the stored procedure Outbound Gateway using *[PostgreSQL](https://www.postgresql.org/)*
-* **tcp-client-server-multiplex** - Demonstrates the use of *Collaborating Channel Adapters*
+* **tcp-async-bi-directional** - Demonstrates the use of *Collaborating Channel Adapters* for arbitrary async messaging (not request/reply) between peers.
+* **tcp-client-server-multiplex** - Demonstrates the use of *Collaborating Channel Adapters* with multiple in-flight requests/responses over a single connection.
 * **travel** - More sophisticated example showing the retrieval of weather (SOAP Web Service) and traffic (HTTP Service) reports using real services
 * **tx-synch** Provides a sample demonstrating the use of transaction synchronization, renaming an input file to a different filename, depending on whether the transaction commits, or rolls back.
 
