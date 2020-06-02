@@ -19,6 +19,8 @@ package org.springframework.integration.samples.tcpasyncbi;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
 /**
+ * Properties for the sample.
+ *
  * @author Gary Russell
  * @since 5.3
  *

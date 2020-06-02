@@ -19,16 +19,24 @@ import org.springframework.messaging.MessageChannel;
 import org.springframework.messaging.support.ChannelInterceptor;
 
 @SpringBootTest
-@SpringIntegrationTest(noAutoStartup = "clientOut.org.springframework.integration.config.SourcePollingChannelAdapterFactoryBean#0")
+@SpringIntegrationTest(noAutoStartup = { "client1Adapter", "client2Adapter" })
 class TcpAsyncBiDirectionalApplicationTests {
 
 	@Autowired
-	@Qualifier("clientOut.org.springframework.integration.config.SourcePollingChannelAdapterFactoryBean#0")
-	private SourcePollingChannelAdapter adapter;
+	@Qualifier("client1Adapter")
+	private SourcePollingChannelAdapter adapter1;
 
 	@Autowired
-	@Qualifier("clientIn.channel#0")
-	private AbstractMessageChannel clientIn;
+	@Qualifier("client2Adapter")
+	private SourcePollingChannelAdapter adapter2;
+
+	@Autowired
+	@Qualifier("client1In.channel#0")
+	private AbstractMessageChannel client1In;
+
+	@Autowired
+	@Qualifier("client2In.channel#0")
+	private AbstractMessageChannel client2In;
 
 	@Autowired
 	@Qualifier("serverIn.channel#0")
@@ -37,7 +45,8 @@ class TcpAsyncBiDirectionalApplicationTests {
 	@Test
 	void testBothReceive() throws InterruptedException {
 		CountDownLatch serverLatch = new CountDownLatch(1);
-		CountDownLatch clientLatch = new CountDownLatch(1);
+		CountDownLatch client1Latch = new CountDownLatch(1);
+		CountDownLatch client2Latch = new CountDownLatch(1);
 		this.serverIn.addInterceptor(new ChannelInterceptor() {
 
 			@Override
@@ -48,19 +57,31 @@ class TcpAsyncBiDirectionalApplicationTests {
 			}
 
 		});
-		this.clientIn.addInterceptor(new ChannelInterceptor() {
+		this.client1In.addInterceptor(new ChannelInterceptor() {
 
 			@Override
 			@Nullable
 			public Message<?> preSend(Message<?> message, MessageChannel channel) {
-				clientLatch.countDown();
+				client1Latch.countDown();
 				return message;
 			}
 
 		});
-		this.adapter.start();
+		this.client2In.addInterceptor(new ChannelInterceptor() {
+
+			@Override
+			@Nullable
+			public Message<?> preSend(Message<?> message, MessageChannel channel) {
+				client2Latch.countDown();
+				return message;
+			}
+
+		});
+		this.adapter1.start();
+		this.adapter2.start();
 		assertThat(serverLatch.await(10, TimeUnit.SECONDS)).isTrue();
-		assertThat(clientLatch.await(10, TimeUnit.SECONDS)).isTrue();
+		assertThat(client1Latch.await(10, TimeUnit.SECONDS)).isTrue();
+		assertThat(client2Latch.await(10, TimeUnit.SECONDS)).isTrue();
 	}
 
 }
