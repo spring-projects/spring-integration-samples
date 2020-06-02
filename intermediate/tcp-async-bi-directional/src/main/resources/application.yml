@@ -1,0 +1,5 @@
+tcp:
+  server-port: 1234
+#logging:
+#  level:
+#    org.springframework.integration: debug

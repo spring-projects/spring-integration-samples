@@ -1301,6 +1301,34 @@ project('stored-procedures-postgresql') {
 	}
 }
 
+project('tcp-async-bi-directional') {
+	description = 'Bi-Directional TCP Sample'
+
+	apply plugin: 'org.springframework.boot'
+
+	dependencies {
+		compile 'org.springframework.boot:spring-boot-starter-integration'
+		compile "org.springframework.integration:spring-integration-ip"
+
+		testCompile 'org.springframework.boot:spring-boot-starter-test'
+		testCompile "org.springframework.integration:spring-integration-test"
+	}
+
+	bootRun {
+		main = 'org.springframework.integration.samples.tcpasyncbi.TcpAsyncBiDirectionalApplication'
+	}
+
+	task run(type: JavaExec) {
+		main 'org.springframework.integration.samples.tcpasyncbi.TcpAsyncBiDirectionalApplication'
+		classpath = sourceSets.main.runtimeClasspath
+	}
+
+	test {
+		useJUnitPlatform()
+	}
+
+}
+
 project('tcp-client-server-multiplex') {
 	description = 'TCP Client Server Multiplexing Sample'
 
