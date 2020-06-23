@@ -598,7 +598,7 @@ project('splunk') {
 	}
 
 	springBoot  {
-		main = 'org.springframework.integration.samples.splunk.Application'
+        mainClassName = 'org.springframework.integration.samples.splunk.Application'
 	}
 
 	task run(type: JavaExec) {
