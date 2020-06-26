@@ -16,10 +16,20 @@
 
 package org.springframework.integration.samples.barrier;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
+import java.util.Collections;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.integration.channel.AbstractMessageChannel;
+import org.springframework.integration.channel.QueueChannel;
+import org.springframework.messaging.MessageChannel;
+import org.springframework.messaging.MessageHeaders;
+import org.springframework.messaging.support.GenericMessage;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 /**
@@ -30,8 +40,18 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE, classes = Application.class)
 public class ApplicationTests {
 
+	@Autowired
+	MessageChannel receiveChannel;
+
+	@Autowired
+	AbstractMessageChannel release;
+
 	@Test
-	public void contextLoads() {
+	public void contextLoads() throws InterruptedException {
+		QueueChannel replies = new QueueChannel();
+		receiveChannel.send(
+				new GenericMessage<>("A,B,C", Collections.singletonMap(MessageHeaders.REPLY_CHANNEL, replies)));
+		assertThat(replies.receive(10_000)).isNotNull();
 	}
 
 }

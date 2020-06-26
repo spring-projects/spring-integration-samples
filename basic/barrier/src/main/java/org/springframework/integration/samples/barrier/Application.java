@@ -37,6 +37,11 @@ public class Application {
 	public static void main(String[] args) throws Exception {
 		ConfigurableApplicationContext server = SpringApplication.run(Application.class, args);
 
+		runClient(args);
+		server.close();
+	}
+
+	static void runClient(String[] args) {
 		SpringApplication application = new SpringApplicationBuilder()
 				.web(WebApplicationType.NONE)
 				.bannerMode(Mode.OFF)
@@ -52,8 +57,6 @@ public class Application {
 		String reply = requestGateway.echo(request);
 		System.out.println("\n\n++++++++++++ Replied with: " + reply + " ++++++++++++\n");
 		client.close();
-		server.close();
-		System.exit(0); // AMQP-519
 	}
 
 
