@@ -15,9 +15,9 @@
  */
 package org.springframework.integration.samples.testing.router;
 
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertThat;
 import static org.springframework.integration.test.matcher.PayloadMatcher.hasPayload;
 
 import org.junit.Test;
@@ -32,51 +32,51 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 
 /**
- * 
+ *
  * Shows how to test a router; the router is configured to route to direct
  * channel names. The configuration would
  * be a fragment of a larger flow. Since the output channels are direct,
- * they have no subscribers outside the context of a larger flow. So, 
+ * they have no subscribers outside the context of a larger flow. So,
  * in this test case, we bridge them to {@link QueueChannel}s to
  * facilitate easy testing.
- * 
+ *
  * @author Gary Russell
  * @since 2.0.2
  */
 @ContextConfiguration	// default context name is <ClassName>-context.xml
 @RunWith(SpringJUnit4ClassRunner.class)
 public class PetRouterTests {
-	
+
 	@Autowired
 	MessageChannel inputChannel;
-	
+
 	@Autowired
 	QueueChannel testFelineChannel;
-	
+
 	@Autowired
 	QueueChannel testCanineChannel;
-	
+
 	@Autowired
 	QueueChannel testUnknownPetTypeChannel;
-	
+
 	@Test
 	public void unitTestClassCat() {
 		String payload = "CAT:Fluffy";
 		assertEquals("felineChannel", new PetRouter().route(payload));
 	}
-	
+
 	@Test
 	public void unitTestClassDog() {
 		String payload = "DOG:Fido";
 		assertEquals("canineChannel", new PetRouter().route(payload));
 	}
-	
+
 	@Test
 	public void unitTestClassLizard() {
 		String payload = "LIZARD:Scaly";
 		assertEquals("unknownPetTypeChannel", new PetRouter().route(payload));
 	}
-	
+
 	@Test
 	public void testCat() {
 		String payload = "CAT:Fluffy";

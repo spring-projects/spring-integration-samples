@@ -32,7 +32,7 @@ allprojects {
 	repositories {
 		maven { url 'https://repo.spring.io/libs-snapshot' }
 		maven { url 'https://repo.spring.io/libs-milestone' }
-//			maven { url 'https://repo.spring.io/libs-staging-local' }
+			maven { url 'https://repo.spring.io/libs-staging-local' }
 	}
 
 }
@@ -196,7 +196,7 @@ subprojects { subproject ->
 			jtaVersion = '1.1'
 			jtdsVersion = '1.2.6'
 			jmsApiVersion = '2.0.1'
-			jrubyVersion = '1.7.12'
+			jrubyVersion = '9.2.11.1'
 			jpa21ApiVersion = '1.0.0.Final'
 			jpaApiVersion = '2.0.0'
 			jstlVersion = '1.2'
@@ -210,14 +210,12 @@ subprojects { subproject ->
 			postgresVersion = '42.2.9'
 			subethasmtpVersion = '1.2'
 			slf4jVersion = '1.7.25'
-			springCloudVersion ='Hoxton.SR3'
-			springIntegrationVersion = '5.3.1.RELEASE'
-			springIntegrationKafkaVersion = '3.3.0.RELEASE'
+			springCloudVersion ='2020.0.0-M2'
+			springIntegrationVersion = '5.4.0-M1'
 			springIntegrationSocialTwiterVersion = '1.0.1.BUILD-SNAPSHOT'
 			springIntegrationSplunkVersion = '1.2.0.BUILD-SNAPSHOT'
-			springKafkaVersion = '2.5.2.RELEASE'
-			springVersion = '5.2.7.RELEASE'
-			springSecurityVersion = '5.3.3.RELEASE'
+			springVersion = '5.3.0-M1'
+			springSecurityVersion = '5.4.0-M1'
 			springWebFlowVersion = '2.3.3.RELEASE'
 			testcontainersVersion = '1.13.0'
 			tilesJspVersion = '2.2.1'
@@ -245,7 +243,7 @@ subprojects { subproject ->
 			testCompile("org.mockito:mockito-core:$mockitoVersion") {
 				exclude group: 'org.hamcrest'
 			}
-			testCompile "org.springframework:spring-test"
+			testCompile "org.springframework.integration:spring-integration-test"
 		}
 
 		configurations {
@@ -349,7 +347,7 @@ project('cafe-scripted') {
 		compile "org.springframework.integration:spring-integration-groovy"
 		compile "org.springframework.integration:spring-integration-rmi"
 		compile "org.springframework.integration:spring-integration-jmx"
-		compile "org.jruby:jruby:$jrubyVersion"
+		compile "org.jruby:jruby-complete:$jrubyVersion"
 		compile "org.python:jython-standalone:$jythonVersion"
 		compile "org.codehaus.groovy:groovy-all:$groovyVersion"
 		compile "org.apache.logging.log4j:log4j-core:$log4jVersion"
@@ -614,11 +612,10 @@ project('kafka') {
 
 	dependencies {
 		compile 'org.springframework.boot:spring-boot-starter-integration'
-		compile ("org.springframework.integration:spring-integration-kafka:$springIntegrationKafkaVersion") {
+		compile ('org.springframework.integration:spring-integration-kafka') {
 			exclude group: 'org.slf4j'
 		}
 		compile "org.springframework.integration:spring-integration-core"
-		compile "org.springframework.kafka:spring-kafka:$springKafkaVersion"
 
 		compile "org.apache.logging.log4j:log4j-core:$log4jVersion"
 
@@ -1422,7 +1419,7 @@ project('kafka-dsl') {
 	dependencies {
 		compile 'org.springframework.boot:spring-boot-starter-integration'
 		compile "org.springframework.integration:spring-integration-core"
-		compile ("org.springframework.integration:spring-integration-kafka:$springIntegrationKafkaVersion")
+		compile ('org.springframework.integration:spring-integration-kafka')
 		compile "org.apache.logging.log4j:log4j-core:$log4jVersion"
 		testCompile 'org.springframework.boot:spring-boot-starter-test'
 	}

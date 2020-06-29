@@ -15,10 +15,10 @@
  */
 package org.springframework.integration.samples.testing.filter;
 
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 import static org.springframework.integration.test.matcher.PayloadMatcher.hasPayload;
 
@@ -34,30 +34,30 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 
 /**
- * 
- * Shows how to test a filter. 
+ *
+ * Shows how to test a filter.
  * The filter has direct input and output channels. The filter configuration would
  * be a fragment of a larger flow. Since the output channel is direct,
- * it has no subscribers outside the context of a larger flow. So, 
+ * it has no subscribers outside the context of a larger flow. So,
  * in this test case, we bridge it to a {@link QueueChannel} to
  * facilitate easy testing.
- * 
+ *
  * Similarly, we bridge the discard channel which is configured on the second
  * filter instance.
- * 
+ *
  * @author Gary Russell
  * @since 2.0.2
  */
 @ContextConfiguration	// default context name is <ClassName>-context.xml
 @RunWith(SpringJUnit4ClassRunner.class)
 public class PetFilterTests {
-	
+
 	@Autowired
 	MessageChannel inputChannel;
-	
+
 	@Autowired
 	MessageChannel inputChannel2;
-	
+
 	@Autowired
 	QueueChannel testChannel;
 
@@ -72,19 +72,19 @@ public class PetFilterTests {
 		String payload = "CAT:Fluffy";
 		assertFalse(new PetFilter().dogsOnly(payload));
 	}
-	
+
 	@Test
 	public void unitTestClassDog() {
 		String payload = "DOG:Fido";
 		assertTrue(new PetFilter().dogsOnly(payload));
 	}
-	
+
 	@Test
 	public void unitTestClassLizard() {
 		String payload = "LIZARD:Scaly";
 		assertFalse(new PetFilter().dogsOnly(payload));
 	}
-	
+
 	@Test
 	public void testCat() {
 		String payload = "CAT:Fluffy";
@@ -112,7 +112,7 @@ public class PetFilterTests {
 		Message<?> outMessage = testChannel.receive(0);
 		assertNull("Expected no output message", outMessage);
 	}
-	
+
 	@Test
 	public void testCatDiscard() {
 		String payload = "CAT:Fluffy";

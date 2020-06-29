@@ -16,8 +16,8 @@
 
 package org.springframework.integration.samples.async.gateway;
 
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.greaterThanOrEqualTo;
-import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 
 import java.util.Random;
@@ -53,12 +53,12 @@ import reactor.core.scheduler.Schedulers;
  * @author Gary Russell
  *
  */
-@ContextConfiguration(classes = MonoTest.TestConfig.class)
+@ContextConfiguration(classes = MonoGatewayTests.TestConfig.class)
 @RunWith(SpringJUnit4ClassRunner.class)
 @DirtiesContext
-public class MonoTest {
+public class MonoGatewayTests {
 
-	private static Log logger = LogFactory.getLog(MonoTest.class);
+	private static Log logger = LogFactory.getLog(MonoGatewayTests.class);
 
 	@Autowired
 	private MathGateway gateway;
@@ -79,7 +79,7 @@ public class MonoTest {
 		for (int i = 0; i < 100; i++) {
 			final int number = numbers[i];
 			gateway.multiplyByTwo(number)
-					.subscribeOn(Schedulers.elastic())
+					.subscribeOn(Schedulers.boundedElastic())
 					.filter(p -> p != null)
 					.doOnNext(result1 -> {
 						logger.info("Result of multiplication of " + number + " by 2 is " + result1);

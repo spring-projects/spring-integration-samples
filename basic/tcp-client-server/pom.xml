@@ -3,7 +3,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.springframework.integration.samples</groupId>
   <artifactId>tcp-client-server</artifactId>
-  <version>5.3.0.RELEASE</version>
+  <version>5.4.0</version>
   <name>TCP Client Server Sample</name>
   <description>TCP Client Server Sample</description>
   <url>https://projects.spring.io/spring-integration</url>
@@ -145,17 +145,6 @@
         </exclusion>
       </exclusions>
     </dependency>
-    <dependency>
-      <groupId>org.springframework</groupId>
-      <artifactId>spring-test</artifactId>
-      <scope>test</scope>
-      <exclusions>
-        <exclusion>
-          <artifactId>jackson-module-kotlin</artifactId>
-          <groupId>com.fasterxml.jackson.module</groupId>
-        </exclusion>
-      </exclusions>
-    </dependency>
   </dependencies>
   <repositories>
     <repository>
@@ -181,14 +170,14 @@
       <dependency>
         <groupId>org.springframework</groupId>
         <artifactId>spring-framework-bom</artifactId>
-        <version>5.2.7.RELEASE</version>
+        <version>5.3.0-M1</version>
         <scope>import</scope>
         <type>pom</type>
       </dependency>
       <dependency>
         <groupId>org.springframework.integration</groupId>
         <artifactId>spring-integration-bom</artifactId>
-        <version>5.3.1.RELEASE</version>
+        <version>5.4.0-M1</version>
         <scope>import</scope>
         <type>pom</type>
       </dependency>

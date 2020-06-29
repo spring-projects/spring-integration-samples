@@ -66,7 +66,7 @@ class ClientPeer {
 
 	@Bean
 	public IntegrationFlow client1Out(AbstractClientConnectionFactory client1) {
-		return IntegrationFlows.from(() -> "Hello from client1", e -> e.id("client1Adapter")
+		return IntegrationFlows.fromSupplier(() -> "Hello from client1", e -> e.id("client1Adapter")
 						.poller(Pollers.fixedDelay(3000)))
 				.handle(Tcp.outboundAdapter(client1))
 				.get();
@@ -87,7 +87,7 @@ class ClientPeer {
 
 	@Bean
 	public IntegrationFlow client2Out(AbstractClientConnectionFactory client2) {
-		return IntegrationFlows.from(() -> "Hello from client2", e -> e.id("client2Adapter")
+		return IntegrationFlows.fromSupplier(() -> "Hello from client2", e -> e.id("client2Adapter")
 						.poller(Pollers.fixedDelay(2000)))
 				.handle(Tcp.outboundAdapter(client2))
 				.get();
@@ -123,7 +123,7 @@ class ServerPeer {
 
 	@Bean
 	public IntegrationFlow serverOut(AbstractServerConnectionFactory server) {
-		return IntegrationFlows.from(() -> "seed", e -> e.poller(Pollers.fixedDelay(5000)))
+		return IntegrationFlows.fromSupplier(() -> "seed", e -> e.poller(Pollers.fixedDelay(5000)))
 				.split(this.clients, "iterator")
 				.enrichHeaders(h -> h.headerExpression(IpHeaders.CONNECTION_ID, "payload"))
 				.transform(p -> "Hello from server")

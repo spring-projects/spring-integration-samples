@@ -15,8 +15,8 @@
  */
 package org.springframework.integration.samples.testing.gateway;
 
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertThat;
 import static org.springframework.integration.test.matcher.HeaderMatcher.hasHeader;
 import static org.springframework.integration.test.matcher.PayloadMatcher.hasPayload;
 
@@ -31,15 +31,15 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 
 /**
- * 
+ *
  * Shows how to test a gateway to ensure the message injected
  * into the Spring Integration flow is what we expected.
  * The gateway uses a direct input channel. The configuration would
  * be a fragment of a larger flow. Since the input channel is direct,
- * it has no subscribers outside the context of a larger flow. So, 
+ * it has no subscribers outside the context of a larger flow. So,
  * in this test case, we bridge it to a {@link QueueChannel} to
  * facilitate easy testing.
- * 
+ *
  * @author Gary Russell
  * @since 2.0.2
  *
@@ -47,13 +47,13 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @ContextConfiguration	// default context name is <ClassName>-context.xml
 @RunWith(SpringJUnit4ClassRunner.class)
 public class GatewayTests {
-	
+
 	@Autowired
 	QueueChannel testChannel;
-	
+
 	@Autowired
 	VoidGateway gateway;
-	
+
 	@Test
 	public void testTrueHeader() {
 		String payload = "XXXABCXXX";

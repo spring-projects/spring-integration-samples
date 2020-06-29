@@ -30,6 +30,7 @@ import org.springframework.scripting.support.ResourceScriptSource;
  *
  */
 public class ScriptTests {
+
 	@Test
 	public void testRuby() {
 		ScriptExecutor executor = ScriptExecutorFactory.getScriptExecutor("ruby");

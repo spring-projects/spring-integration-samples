@@ -3,7 +3,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.springframework.integration.samples</groupId>
   <artifactId>jmx</artifactId>
-  <version>5.3.0.RELEASE</version>
+  <version>5.4.0</version>
   <name>JMX Basic Sample</name>
   <description>JMX Basic Sample</description>
   <url>https://projects.spring.io/spring-integration</url>
@@ -134,8 +134,8 @@
       </exclusions>
     </dependency>
     <dependency>
-      <groupId>org.springframework</groupId>
-      <artifactId>spring-test</artifactId>
+      <groupId>org.springframework.integration</groupId>
+      <artifactId>spring-integration-test</artifactId>
       <scope>test</scope>
       <exclusions>
         <exclusion>
@@ -169,14 +169,14 @@
       <dependency>
         <groupId>org.springframework</groupId>
         <artifactId>spring-framework-bom</artifactId>
-        <version>5.2.7.RELEASE</version>
+        <version>5.3.0-M1</version>
         <scope>import</scope>
         <type>pom</type>
       </dependency>
       <dependency>
         <groupId>org.springframework.integration</groupId>
         <artifactId>spring-integration-bom</artifactId>
-        <version>5.3.1.RELEASE</version>
+        <version>5.4.0-M1</version>
         <scope>import</scope>
         <type>pom</type>
       </dependency>

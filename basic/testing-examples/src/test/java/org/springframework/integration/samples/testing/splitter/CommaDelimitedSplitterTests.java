@@ -15,10 +15,10 @@
  */
 package org.springframework.integration.samples.testing.splitter;
 
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertThat;
 import static org.springframework.integration.test.matcher.PayloadMatcher.hasPayload;
 
 import java.util.List;
@@ -35,15 +35,15 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 
 /**
- * 
+ *
  * Shows how to test a custom splitter. Unit test for the class and
  * tests for the integration subflow.
  * The splitter has direct input and output channels. The splitter would
  * be a fragment of a larger flow. Since the output channel is direct,
- * it has no subscribers outside the context of a larger flow. So, 
+ * it has no subscribers outside the context of a larger flow. So,
  * in this test case, we bridge it to a {@link QueueChannel} to
  * facilitate easy testing.
- * 
+ *
  * @author Gary Russell
  * @since 2.0.2
  *
@@ -51,10 +51,10 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @ContextConfiguration	// default context name is <ClassName>-context.xml
 @RunWith(SpringJUnit4ClassRunner.class)
 public class CommaDelimitedSplitterTests {
-	
+
 	@Autowired
 	MessageChannel inputChannel;
-	
+
 	@Autowired
 	QueueChannel testChannel;
 
@@ -66,7 +66,7 @@ public class CommaDelimitedSplitterTests {
 		assertEquals("b", splits.get(1));
 		assertEquals("c", splits.get(2));
 	}
-	
+
 	@Test
 	public void unitTestClass2() {
 		List<String> splits = new CommaDelimitedSplitter().split("   a    ,,    c ");
