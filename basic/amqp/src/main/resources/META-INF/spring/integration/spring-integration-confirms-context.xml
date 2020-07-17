@@ -60,7 +60,8 @@
 
 	<!-- Infrastructure -->
 
-	<rabbit:connection-factory id="connectionFactory" host="localhost" publisher-confirms="true" publisher-returns="true" />
+	<rabbit:connection-factory id="connectionFactory" host="localhost" confirm-type="CORRELATED"
+		publisher-returns="true" />
 
 	<rabbit:template id="amqpTemplate" connection-factory="connectionFactory" mandatory="true" /> <!-- for nacks -->
 
