@@ -32,7 +32,7 @@ import org.springframework.context.annotation.ImportResource;
 @ImportResource("/META-INF/spring/integration/errorhandling-context.xml")
 public class ErrorHandlingApplication {
 
-	public static void main(String[] args) throws Exception {
+	public static void main(String[] args) {
 		ConfigurableApplicationContext test = new SpringApplicationBuilder(ErrorHandlingApplication.class)
 				.web(WebApplicationType.NONE)
 				.run(args);

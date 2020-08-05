@@ -34,7 +34,7 @@ import org.springframework.context.annotation.ImportResource;
 @ImportResource("/META-INF/spring/integration/server-context.xml")
 public class Application {
 
-	public static void main(String[] args) throws Exception {
+	public static void main(String[] args) {
 		ConfigurableApplicationContext server = SpringApplication.run(Application.class, args);
 
 		runClient(args);
