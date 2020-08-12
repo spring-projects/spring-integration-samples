@@ -32,7 +32,7 @@ allprojects {
 	repositories {
 		maven { url 'https://repo.spring.io/libs-snapshot' }
 		maven { url 'https://repo.spring.io/libs-milestone' }
-			maven { url 'https://repo.spring.io/libs-staging-local' }
+//			maven { url 'https://repo.spring.io/libs-staging-local' }
 	}
 
 }
@@ -170,52 +170,52 @@ subprojects { subproject ->
 		}
 
 		ext {
-			activeMqVersion = '5.15.13'
-			apacheSshdVersion = '2.4.0'
-			aspectjVersion = '1.9.5'
+			activeMqVersion = '5.16.0'
+			apacheSshdVersion = '2.5.1'
+			aspectjVersion = '1.9.6'
 			commonsDigesterVersion = '2.0'
-			commonsDbcpVersion = '1.2.2'
+			commonsDbcpVersion = '2.7.0'
 			commonsFileUploadVersion = '1.4'
-			commonsIoVersion = '2.6'
+			commonsIoVersion = '2.7'
 			commonsLangVersion = '2.6'
 			commonsPoolVersion = '1.5.4'
 			c3p0Version = '0.9.1.2'
 			derbyVersion = '10.14.2.0'
-			hamcrestVersion = '1.3'
-			hibernateVersion = '5.4.17.Final'
+			hamcrestVersion = '2.2'
+			hibernateVersion = '5.4.20.Final'
 			hibernateValidatorVersion = '6.1.2.Final'
 			ftpServerVersion = '1.1.1'
 			flexjsonVersion = '2.0'
-			groovyVersion = '2.5.10'
-			hsqldbVersion = '2.5.0'
+			groovyVersion = '3.0.5'
+			hsqldbVersion = '2.5.1'
 			h2Version = '1.4.200'
-			jacksonVersion = '2.11.0'
+			jacksonVersion = '2.11.1'
 			javaxInjectVersion = '1'
 			javaxMailVersion = '1.6.2'
 			jodaTimeVersion = '1.6'
 			jtaVersion = '1.1'
 			jtdsVersion = '1.2.6'
 			jmsApiVersion = '2.0.1'
-			jrubyVersion = '9.2.11.1'
+			jrubyVersion = '9.2.13.0'
 			jpa21ApiVersion = '1.0.0.Final'
-			jpaApiVersion = '2.0.0'
+			jpaApiVersion = '2.2.1'
 			jstlVersion = '1.2'
 			junitVersion = '4.13'
-			jythonVersion = '2.7.0'
+			jythonVersion = '2.7.2'
 			log4jVersion = '2.13.3'
-			mockitoVersion = '3.2.4'
-			mongoDriverVersion = '4.0.4'
+			mockitoVersion = '3.4.6'
+			mongoDriverVersion = '4.1.0'
 			openJpaVersion = '2.4.0'
 			oracleDriverVersion = '11.2.0.3'
-			postgresVersion = '42.2.9'
+			postgresVersion = '42.2.14'
 			subethasmtpVersion = '1.2'
 			slf4jVersion = '1.7.25'
 			springCloudVersion ='2020.0.0-SNAPSHOT'
-			springIntegrationVersion = '5.4.0-SNAPSHOT'
+			springIntegrationVersion = '5.4.0-M2'
 			springIntegrationSocialTwiterVersion = '1.0.1.BUILD-SNAPSHOT'
 			springIntegrationSplunkVersion = '1.2.0.BUILD-SNAPSHOT'
-			springVersion = '5.3.0-SNAPSHOT'
-			springSecurityVersion = '5.4.0-SNAPSHOT'
+			springVersion = '5.3.0-M2'
+			springSecurityVersion = '5.4.0-RC1'
 			springWebFlowVersion = '2.3.3.RELEASE'
 			testcontainersVersion = '1.13.0'
 			tilesJspVersion = '2.2.1'
@@ -239,7 +239,7 @@ subprojects { subproject ->
 			testCompile("junit:junit:$junitVersion") {
 				exclude group: 'org.hamcrest'
 			}
-			testCompile "org.hamcrest:hamcrest-all:$hamcrestVersion"
+			testCompile "org.hamcrest:hamcrest-library:$hamcrestVersion"
 			testCompile("org.mockito:mockito-core:$mockitoVersion") {
 				exclude group: 'org.hamcrest'
 			}
@@ -402,7 +402,7 @@ project('loanshark') {
 		compile "org.springframework:spring-tx"
 		compile "org.springframework:spring-context"
 		compile "commons-fileupload:commons-fileupload:$commonsFileUploadVersion"
-		compile "commons-dbcp:commons-dbcp:$commonsDbcpVersion"
+		compile "org.apache.commons:commons-dbcp2:$commonsDbcpVersion"
 		compile "commons-digester:commons-digester:$commonsDigesterVersion"
 		compile "commons-pool:commons-pool:$commonsPoolVersion"
 		compile "org.apache.tiles:tiles-jsp:$tilesJspVersion"
@@ -1181,7 +1181,7 @@ project('retry-and-more') {
 		compile("org.mockito:mockito-core:$mockitoVersion") {
 			exclude group: 'org.hamcrest'
 		}
-		compile "org.hamcrest:hamcrest-all:$hamcrestVersion"
+		compile "org.hamcrest:hamcrest-library:$hamcrestVersion"
 		compile "org.apache.logging.log4j:log4j-core:$log4jVersion"
 	}
 
@@ -1292,7 +1292,7 @@ project('stored-procedures-postgresql') {
 	dependencies {
 		compile "org.springframework.integration:spring-integration-jdbc"
 		compile "org.postgresql:postgresql:$postgresVersion"
-		compile "commons-dbcp:commons-dbcp:$commonsDbcpVersion"
+		compile "org.apache.commons:commons-dbcp2:$commonsDbcpVersion"
 		compile "commons-pool:commons-pool:$commonsPoolVersion"
 		compile "org.apache.logging.log4j:log4j-core:$log4jVersion"
 	}

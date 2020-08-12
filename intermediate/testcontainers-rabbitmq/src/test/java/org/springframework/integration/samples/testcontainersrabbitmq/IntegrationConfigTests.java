@@ -16,6 +16,7 @@
 
 package org.springframework.integration.samples.testcontainersrabbitmq;
 
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import org.springframework.amqp.core.*;
@@ -38,6 +39,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 @SpringBootTest
 @SpringIntegrationTest
 @Import({ Receiver.class, IntegrationConfigTests.Config.class })
+@Disabled
 class IntegrationConfigTests {
 
 	@Autowired
