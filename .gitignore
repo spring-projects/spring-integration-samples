@@ -15,7 +15,7 @@ derby.log
 activemq-data
 .settings/
 .sts4-cache
-
+out
 /.gradle
 build/
 /classes
