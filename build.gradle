@@ -3,7 +3,7 @@ buildscript {
 		maven { url 'https://repo.spring.io/libs-snapshot' }
 	}
 	dependencies {
-		classpath 'io.spring.gradle:dependency-management-plugin:1.0.9.RELEASE'
+		classpath 'io.spring.gradle:dependency-management-plugin:1.0.10.RELEASE'
 		classpath "org.springframework.boot:spring-boot-gradle-plugin:$springBootVersion"
 		classpath "gradle.plugin.org.gretty:gretty:2.3.1"
 	}
@@ -74,25 +74,20 @@ subprojects { subproject ->
 						developer {
 							id = 'abilan'
 							name = 'Artem Bilan'
-							email = 'abilan@pivotal.io'
+							email = 'abilan@vmware.com'
 							roles = ["project lead"]
 						}
 						developer {
 							id = 'garyrussell'
 							name = 'Gary Russell'
-							email = 'grussell@pivotal.io'
+							email = 'grussell@vmware.com'
 							roles = ["lead emeritus"]
 						}
 						developer {
 							id = 'markfisher'
 							name = 'Mark Fisher'
-							email = 'mfisher@pivotal.io'
+							email = 'mfisher@vmware.com'
 							roles = ["project founder and lead emeritus"]
-						}
-						developer {
-							id = 'ghillert'
-							name = 'Gunnar Hillert'
-							email = 'ghillert@pivotal.io'
 						}
 					}
 
@@ -211,11 +206,11 @@ subprojects { subproject ->
 			subethasmtpVersion = '1.2'
 			slf4jVersion = '1.7.25'
 			springCloudVersion ='2020.0.0-SNAPSHOT'
-			springIntegrationVersion = '5.4.0-M2'
+			springIntegrationVersion = '5.4.0-M3'
 			springIntegrationSocialTwiterVersion = '1.0.1.BUILD-SNAPSHOT'
 			springIntegrationSplunkVersion = '1.2.0.BUILD-SNAPSHOT'
-			springVersion = '5.3.0-M2'
-			springSecurityVersion = '5.4.0-RC1'
+			springVersion = '5.3.0-RC1'
+			springSecurityVersion = '5.4.0'
 			springWebFlowVersion = '2.3.3.RELEASE'
 			testcontainersVersion = '1.13.0'
 			tilesJspVersion = '2.2.1'

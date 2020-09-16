@@ -21,7 +21,7 @@
     <developer>
       <id>abilan</id>
       <name>Artem Bilan</name>
-      <email>abilan@pivotal.io</email>
+      <email>abilan@vmware.com</email>
       <roles>
         <role>project lead</role>
       </roles>
@@ -29,7 +29,7 @@
     <developer>
       <id>garyrussell</id>
       <name>Gary Russell</name>
-      <email>grussell@pivotal.io</email>
+      <email>grussell@vmware.com</email>
       <roles>
         <role>lead emeritus</role>
       </roles>
@@ -37,15 +37,10 @@
     <developer>
       <id>markfisher</id>
       <name>Mark Fisher</name>
-      <email>mfisher@pivotal.io</email>
+      <email>mfisher@vmware.com</email>
       <roles>
         <role>project founder and lead emeritus</role>
       </roles>
-    </developer>
-    <developer>
-      <id>ghillert</id>
-      <name>Gunnar Hillert</name>
-      <email>ghillert@pivotal.io</email>
     </developer>
   </developers>
   <scm>
