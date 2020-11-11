@@ -3,7 +3,7 @@ buildscript {
 		maven { url 'https://repo.spring.io/libs-snapshot' }
 	}
 	dependencies {
-		classpath 'io.spring.gradle:dependency-management-plugin:1.0.9.RELEASE'
+		classpath 'io.spring.gradle:dependency-management-plugin:1.0.10.RELEASE'
 		classpath "org.springframework.boot:spring-boot-gradle-plugin:$springBootVersion"
 		classpath "gradle.plugin.org.gretty:gretty:2.3.1"
 	}
@@ -211,12 +211,12 @@ subprojects { subproject ->
 			subethasmtpVersion = '1.2'
 			slf4jVersion = '1.7.25'
 			springCloudVersion ='Hoxton.SR3'
-			springIntegrationVersion = '5.3.3.RELEASE'
+			springIntegrationVersion = '5.3.4.RELEASE'
 			springIntegrationKafkaVersion = '3.3.1.RELEASE'
 			springIntegrationSocialTwiterVersion = '1.0.1.BUILD-SNAPSHOT'
 			springIntegrationSplunkVersion = '1.2.0.BUILD-SNAPSHOT'
-			springKafkaVersion = '2.5.4.RELEASE'
-			springVersion = '5.2.9.RELEASE'
+			springKafkaVersion = '2.5.8.RELEASE'
+			springVersion = '5.2.11.RELEASE'
 			springSecurityVersion = '5.3.5.RELEASE'
 			springWebFlowVersion = '2.3.3.RELEASE'
 			testcontainersVersion = '1.13.0'
