@@ -86,7 +86,7 @@ subprojects { subproject ->
 						developer {
 							id = 'markfisher'
 							name = 'Mark Fisher'
-							email = 'mfisher@vmware.com'
+							email = 'markfisher@vmware.com'
 							roles = ["project founder and lead emeritus"]
 						}
 					}
@@ -206,10 +206,10 @@ subprojects { subproject ->
 			subethasmtpVersion = '1.2'
 			slf4jVersion = '1.7.25'
 			springCloudVersion ='2020.0.0-SNAPSHOT'
-			springIntegrationVersion = '5.4.0'
+			springIntegrationVersion = '5.4.1'
 			springIntegrationSocialTwiterVersion = '1.0.1.BUILD-SNAPSHOT'
 			springIntegrationSplunkVersion = '1.2.0.BUILD-SNAPSHOT'
-			springVersion = '5.3.0'
+			springVersion = '5.3.1'
 			springSecurityVersion = '5.4.1'
 			springWebFlowVersion = '2.3.3.RELEASE'
 			testcontainersVersion = '1.13.0'
