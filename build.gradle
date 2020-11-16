@@ -30,8 +30,9 @@ allprojects {
 	group = 'org.springframework.integration.samples'
 
 	repositories {
-		maven { url 'https://repo.spring.io/libs-snapshot' }
+		mavenCentral()
 		maven { url 'https://repo.spring.io/libs-milestone' }
+		maven { url 'https://repo.spring.io/libs-snapshot' }
 //			maven { url 'https://repo.spring.io/libs-staging-local' }
 	}
 
@@ -72,7 +73,7 @@ subprojects { subproject ->
 
 					developers {
 						developer {
-							id = 'abilan'
+							id = 'artembilan'
 							name = 'Artem Bilan'
 							email = 'abilan@vmware.com'
 							roles = ["project lead"]

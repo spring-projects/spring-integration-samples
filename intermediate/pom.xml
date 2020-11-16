@@ -19,7 +19,7 @@
   </licenses>
   <developers>
     <developer>
-      <id>abilan</id>
+      <id>artembilan</id>
       <name>Artem Bilan</name>
       <email>abilan@vmware.com</email>
       <roles>
@@ -37,7 +37,7 @@
     <developer>
       <id>markfisher</id>
       <name>Mark Fisher</name>
-      <email>mfisher@vmware.com</email>
+      <email>markfisher@vmware.com</email>
       <roles>
         <role>project founder and lead emeritus</role>
       </roles>
