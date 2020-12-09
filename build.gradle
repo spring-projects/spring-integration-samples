@@ -180,16 +180,17 @@ subprojects { subproject ->
 			c3p0Version = '0.9.1.2'
 			derbyVersion = '10.14.2.0'
 			hamcrestVersion = '2.2'
-			hibernateVersion = '5.4.20.Final'
+			hibernateVersion = '5.4.25.Final'
 			hibernateValidatorVersion = '6.1.2.Final'
 			ftpServerVersion = '1.1.1'
 			flexjsonVersion = '2.0'
-			groovyVersion = '3.0.5'
+			groovyVersion = '3.0.7'
 			hsqldbVersion = '2.5.1'
 			h2Version = '1.4.200'
 			jacksonVersion = '2.11.1'
 			javaxInjectVersion = '1'
 			javaxMailVersion = '1.6.2'
+			jaxbVersion = '2.3.3'
 			jodaTimeVersion = '1.6'
 			jtaVersion = '1.1'
 			jtdsVersion = '1.2.6'
@@ -202,18 +203,18 @@ subprojects { subproject ->
 			jythonVersion = '2.7.2'
 			log4jVersion = '2.13.3'
 			mockitoVersion = '3.4.6'
-			mongoDriverVersion = '4.1.0'
+			mongoDriverVersion = '4.1.1'
 			openJpaVersion = '2.4.0'
 			oracleDriverVersion = '11.2.0.3'
 			postgresVersion = '42.2.14'
 			subethasmtpVersion = '1.2'
 			slf4jVersion = '1.7.25'
 			springCloudVersion ='2020.0.0-SNAPSHOT'
-			springIntegrationVersion = '5.4.1'
+			springIntegrationVersion = '5.4.2'
 			springIntegrationSocialTwiterVersion = '1.0.1.BUILD-SNAPSHOT'
 			springIntegrationSplunkVersion = '1.2.0.BUILD-SNAPSHOT'
-			springVersion = '5.3.1'
-			springSecurityVersion = '5.4.1'
+			springVersion = '5.3.2'
+			springSecurityVersion = '5.4.2'
 			springWebFlowVersion = '2.3.3.RELEASE'
 			testcontainersVersion = '1.13.0'
 			tilesJspVersion = '2.2.1'
@@ -1160,6 +1161,7 @@ project('rest-http') {
 		compile "org.springframework.security:spring-security-web:$springSecurityVersion"
 		compile "org.springframework.security:spring-security-config:$springSecurityVersion"
 		compile "org.apache.logging.log4j:log4j-core:$log4jVersion"
+		compile "com.sun.xml.bind:jaxb-impl:$jaxbVersion"
 	}
 
 	test {

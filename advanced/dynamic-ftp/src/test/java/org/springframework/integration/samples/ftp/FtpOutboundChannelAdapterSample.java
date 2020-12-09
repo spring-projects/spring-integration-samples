@@ -53,7 +53,8 @@ public class FtpOutboundChannelAdapterSample {
 		}
 		catch (MessagingException e) {
 			assertThat(e.getCause().getCause().getCause(), instanceOf(UnknownHostException.class));
-			assertTrue(e.getCause().getCause().getCause().getMessage().startsWith("host.for.cust1"));
+			System.out.println(e.getCause().getCause().getCause().getMessage());
+			assertTrue(e.getCause().getCause().getCause().getMessage().contains("host.for.cust1"));
 		}
 		// send another so we can see in the log we don't create the ac again.
 		try {
@@ -61,7 +62,7 @@ public class FtpOutboundChannelAdapterSample {
 		}
 		catch (MessagingException e) {
 			assertThat(e.getCause().getCause().getCause(), instanceOf(UnknownHostException.class));
-			assertTrue(e.getCause().getCause().getCause().getMessage().startsWith("host.for.cust1"));
+			assertTrue(e.getCause().getCause().getCause().getMessage().contains("host.for.cust1"));
 		}
 		// send to a different customer; again, check the log to see a new ac is built
 		message = MessageBuilder.withPayload(file)
@@ -71,7 +72,7 @@ public class FtpOutboundChannelAdapterSample {
 		}
 		catch (MessagingException e) {
 			assertThat(e.getCause().getCause().getCause(), instanceOf(UnknownHostException.class));
-			assertTrue(e.getCause().getCause().getCause().getMessage().startsWith("host.for.cust2"));
+			assertTrue(e.getCause().getCause().getCause().getMessage().contains("host.for.cust2"));
 		}
 
 		// send to a different customer; again, check the log to see a new ac is built
@@ -83,7 +84,7 @@ public class FtpOutboundChannelAdapterSample {
 		}
 		catch (MessagingException e) {
 			assertThat(e.getCause().getCause().getCause(), instanceOf(UnknownHostException.class));
-			assertTrue(e.getCause().getCause().getCause().getMessage().startsWith("host.for.cust3"));
+			assertTrue(e.getCause().getCause().getCause().getMessage().contains("host.for.cust3"));
 		}
 
 		//send to cust1 again, since this one has been invalidated before, we should
@@ -95,7 +96,7 @@ public class FtpOutboundChannelAdapterSample {
 		}
 		catch (MessagingException e) {
 			assertThat(e.getCause().getCause().getCause(), instanceOf(UnknownHostException.class));
-			assertEquals("host.for.cust1", e.getCause().getCause().getCause().getMessage());
+			assertTrue(e.getCause().getCause().getCause().getMessage().contains("host.for.cust1"));
 		}
 
 		ctx.close();
