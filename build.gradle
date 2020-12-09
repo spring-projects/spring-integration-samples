@@ -1,5 +1,6 @@
 buildscript {
 	repositories {
+		mavenCentral()
 		maven { url 'https://repo.spring.io/libs-snapshot' }
 	}
 	dependencies {
@@ -30,6 +31,7 @@ allprojects {
 	group = 'org.springframework.integration.samples'
 
 	repositories {
+		mavenCentral()
 		maven { url 'https://repo.spring.io/libs-snapshot' }
 		maven { url 'https://repo.spring.io/libs-milestone' }
 //			maven { url 'https://repo.spring.io/libs-staging-local' }
@@ -169,7 +171,7 @@ subprojects { subproject ->
 		}
 
 		ext {
-			activeMqVersion = '5.15.11'
+			activeMqVersion = '5.15.13'
 			apacheSshdVersion = '2.2.0'
 			aspectjVersion = '1.9.5'
 			commonsDigesterVersion = '2.0'
@@ -181,7 +183,7 @@ subprojects { subproject ->
 			c3p0Version = '0.9.1.2'
 			derbyVersion = '10.14.2.0'
 			hamcrestVersion = '1.3'
-			hibernateVersion = '5.4.13.Final'
+			hibernateVersion = '5.4.25.Final'
 			hibernateValidatorVersion = '5.4.3.Final'
 			ftpServerVersion = '1.1.1'
 			flexjsonVersion = '2.0'
@@ -208,13 +210,13 @@ subprojects { subproject ->
 			postgresVersion = '42.2.9'
 			subethasmtpVersion = '1.2'
 			slf4jVersion = '1.7.25'
-			springIntegrationVersion = '5.2.9.RELEASE'
+			springIntegrationVersion = '5.2.10.RELEASE'
 			springIntegrationKafkaVersion = '3.2.1.RELEASE'
 			springIntegrationSocialTwiterVersion = '1.0.1.BUILD-SNAPSHOT'
 			springIntegrationSplunkVersion = '1.2.0.BUILD-SNAPSHOT'
-			springKafkaVersion = '2.3.12.RELEASE'
-			springVersion = '5.2.10.RELEASE'
-			springSecurityVersion = '5.2.5.RELEASE'
+			springKafkaVersion = '2.3.13.RELEASE'
+			springVersion = '5.2.12.RELEASE'
+			springSecurityVersion = '5.2.8.RELEASE'
 			springWebFlowVersion = '2.3.3.RELEASE'
 			tilesJspVersion = '2.2.1'
 			validationApiVersion = '1.0.0.GA'
