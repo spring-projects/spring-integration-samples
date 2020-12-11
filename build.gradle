@@ -1,5 +1,7 @@
 buildscript {
 	repositories {
+		mavenCentral()
+		maven { url 'https://plugins.gradle.org/m2' }
 		maven { url 'https://repo.spring.io/libs-snapshot' }
 		maven { url "https://repo.spring.io/libs-milestone" }
 	}
@@ -29,6 +31,7 @@ allprojects {
 	group = 'org.springframework.integration.samples'
 
 	repositories {
+		mavenCentral()
 		maven { url 'https://repo.spring.io/libs-snapshot' }
 		maven { url 'https://repo.spring.io/libs-milestone' }
 //			maven { url 'https://repo.spring.io/libs-staging-local' }
@@ -196,7 +199,7 @@ subprojects { subproject ->
 			postgresVersion = '9.1-901-1.jdbc4'
 			subethasmtpVersion = '1.2'
 			slf4jVersion = '1.7.25'
-			springIntegrationVersion = '4.3.23.RELEASE'
+			springIntegrationVersion = '4.3.24.RELEASE'
 			springIntegrationDslVersion = '1.2.3.RELEASE'
 			springIntegrationKafkaVersion = '2.3.1.RELEASE'
 			springIntegrationSplunkVersion = '1.1.0.RELEASE'

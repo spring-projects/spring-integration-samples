@@ -19,3 +19,4 @@ activemq-data
 /.gradle
 build/
 /classes
+/advanced/dynamic-ftp/out/
