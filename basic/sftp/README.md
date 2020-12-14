@@ -21,7 +21,7 @@ NOTE: The test cases will create/delete a directory `si.sftp.sample`.
 	
 ## INBOUND CHANNEL ADAPTER
 	
-To run the NBOUND CHANNEL ADAPTER sample execute **SftpInboundReceiveSample** test. You will see that based on configuration it will access the sample remote directory which contains 3 files and will attempt to securely copy them to a local directory which will be generated. The output should look like this:
+To run the INBOUND CHANNEL ADAPTER sample execute **SftpInboundReceiveSample** test. You will see that based on configuration it will access the sample remote directory which contains 3 files and will attempt to securely copy them to a local directory which will be generated. The output should look like this:
 
 	Received first file message: [Payload=local-dir/a.txt][Headers={timestamp=1290066001349, id=9dca686a-cfd4-4d96-a1a7-761feb005e43}]
 	Received second file message: [Payload=local-dir/b.txt][Headers={timestamp=1290066001650, id=d33a475d-fa71-4c5b-b73e-3147969f1c6f}]
