@@ -1,6 +1,7 @@
 buildscript {
 	repositories {
 		mavenCentral()
+		maven { url 'https://plugins.gradle.org/m2' }
 		maven { url 'https://repo.spring.io/libs-snapshot' }
 	}
 	dependencies {
@@ -210,7 +211,7 @@ subprojects { subproject ->
 			postgresVersion = '42.2.9'
 			subethasmtpVersion = '1.2'
 			slf4jVersion = '1.7.25'
-			springIntegrationVersion = '5.2.10.RELEASE'
+			springIntegrationVersion = '5.2.11.RELEASE'
 			springIntegrationKafkaVersion = '3.2.1.RELEASE'
 			springIntegrationSocialTwiterVersion = '1.0.1.BUILD-SNAPSHOT'
 			springIntegrationSplunkVersion = '1.2.0.BUILD-SNAPSHOT'
