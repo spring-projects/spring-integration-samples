@@ -182,7 +182,7 @@
       <dependency>
         <groupId>org.springframework.integration</groupId>
         <artifactId>spring-integration-bom</artifactId>
-        <version>5.4.3</version>
+        <version>5.5.0-M1</version>
         <scope>import</scope>
         <type>pom</type>
       </dependency>
