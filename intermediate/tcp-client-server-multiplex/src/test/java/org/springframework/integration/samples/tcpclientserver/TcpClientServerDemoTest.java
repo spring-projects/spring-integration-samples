@@ -28,7 +28,6 @@ import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.TimeUnit;
 
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -61,7 +60,6 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 		locations = { "/META-INF/spring/integration/tcpClientServerDemo-conversion-context.xml" })
 @RunWith(SpringJUnit4ClassRunner.class)
 @DirtiesContext
-@Ignore
 public class TcpClientServerDemoTest {
 
 	@Autowired
