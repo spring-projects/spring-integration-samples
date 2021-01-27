@@ -38,7 +38,7 @@ public final class DerbyStoredProcedures {
 	public static void findCoffee(int coffeeId, String[] coffeeDescription)
 			throws SQLException {
 		Connection connection = null;
-		PreparedStatement statement = null;
+		PreparedStatement statement = null; // NOSONAR JdbcUtils
 
 		try {
 			connection = DriverManager.getConnection("jdbc:default:connection");
@@ -46,7 +46,7 @@ public final class DerbyStoredProcedures {
 			statement = connection.prepareStatement(sql);
 			statement.setLong(1, coffeeId);
 
-			ResultSet resultset = statement.executeQuery();
+			ResultSet resultset = statement.executeQuery(); // NOSONAR JdbcUtils
 			resultset.next();
 			coffeeDescription[0] = resultset.getString("COFFEE_DESCRIPTION");
 
@@ -61,7 +61,7 @@ public final class DerbyStoredProcedures {
 	public static void findAllCoffeeBeverages(ResultSet[] coffeeBeverages)
 			throws SQLException {
 
-		Connection connection = null;
+		Connection connection = null; // NOSONAR JdbcUtils
 		PreparedStatement statement = null;
 
 		try {
@@ -76,4 +76,5 @@ public final class DerbyStoredProcedures {
 		}
 
 	}
+
 }

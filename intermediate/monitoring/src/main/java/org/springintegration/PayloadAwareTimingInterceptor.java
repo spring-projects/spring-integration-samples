@@ -37,7 +37,7 @@ import org.springframework.util.StopWatch;
 @ManagedResource
 public class PayloadAwareTimingInterceptor implements ChannelInterceptor {
 
-	private final ThreadLocal<StopWatchHolder> stopWatchHolder = new ThreadLocal<PayloadAwareTimingInterceptor.StopWatchHolder>();
+	private static final ThreadLocal<StopWatchHolder> stopWatchHolder = new ThreadLocal<PayloadAwareTimingInterceptor.StopWatchHolder>();
 
 	private final Map<Class<?>, Stats> statsMap = new ConcurrentHashMap<Class<?>, PayloadAwareTimingInterceptor.Stats>();
 
@@ -59,13 +59,13 @@ public class PayloadAwareTimingInterceptor implements ChannelInterceptor {
 	public Message<?> preSend(Message<?> message, MessageChannel channel) {
 		StopWatch stopWatch = new StopWatch();
 		stopWatch.start();
-		this.stopWatchHolder.set(new StopWatchHolder(stopWatch, message.getPayload().getClass()));
+		stopWatchHolder.set(new StopWatchHolder(stopWatch, message.getPayload().getClass()));
 		return message;
 	}
 
 	@Override
 	public void postSend(Message<?> message, MessageChannel channel, boolean sent) {
-		StopWatchHolder holder = this.stopWatchHolder.get();
+		StopWatchHolder holder = stopWatchHolder.get();
 		if (holder != null) {
 			holder.getStopWatch().stop();
 			Stats stats = this.statsMap.get(holder.getType());
@@ -125,7 +125,7 @@ public class PayloadAwareTimingInterceptor implements ChannelInterceptor {
 		}
 	}
 
-	private class Stats {
+	private static final class Stats {
 
 		private long count;
 
@@ -159,6 +159,6 @@ public class PayloadAwareTimingInterceptor implements ChannelInterceptor {
 			return "Stats [count=" + count + ", average=" + average + ", lastTime=" + lastTime + "]";
 		}
 
-
 	}
+
 }
