@@ -37,7 +37,7 @@ public final class DerbyStoredProcedures {
 
 	public static void findCoffee(int coffeeId, String[] coffeeDescription)
 			throws SQLException {
-		Connection connection = null;
+		Connection connection = null; // NOSONAR JdbcUtils
 		PreparedStatement statement = null; // NOSONAR JdbcUtils
 
 		try {

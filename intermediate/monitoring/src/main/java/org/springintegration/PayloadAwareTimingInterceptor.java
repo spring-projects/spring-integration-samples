@@ -101,7 +101,7 @@ public class PayloadAwareTimingInterceptor implements ChannelInterceptor {
 		return this.statsMap.get(Class.forName(className)).getAverage();
 	}
 
-	private class StopWatchHolder {
+	private static class StopWatchHolder {
 
 		private final StopWatch stopWatch;
 
