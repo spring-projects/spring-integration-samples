@@ -248,4 +248,4 @@ For help please take a look at the Spring Integration documentation:
 
 https://www.springsource.org/spring-integration
 
-[Stored Procedure Sample for PostgreSql]: https://github.com/ghillert/spring-integration-samples/tree/master/intermediate/stored-procedures-postgresql
+[Stored Procedure Sample for PostgreSql]: https://github.com/ghillert/spring-integration-samples/tree/main/intermediate/stored-procedures-postgresql

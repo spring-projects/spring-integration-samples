@@ -7,8 +7,8 @@ There are two demo applications from the webinar:
 __org.springframework.integration.samples.javaconfig.annotations.Application__ is a Spring Boot application using 
 Spring Integration 4.0 Java configuration features.
 
-__org.springframework.integration.samples.javaconfig.dsl.Application__ is the equivalent application using the new Java 
-DSL that is currently being developed in the [extensions github repository](https://github.com/spring-projects/spring-integration-extensions/tree/master/spring-integration-java-dsl)
+__org.springframework.integration.samples.javaconfig.dsl.Application__ is the equivalent application using Java DSL.
+
 
 In both cases, you can use Telnet or curl to search twitter
 
