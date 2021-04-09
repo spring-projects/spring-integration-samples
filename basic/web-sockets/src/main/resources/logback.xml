@@ -15,5 +15,6 @@
 
 	<logger name="org.springframework" level="WARN" />
 	<logger name="org.springframework.integration" level="ERROR" />
+	<logger name="wsLog" level="INFO" />
 
 </configuration>

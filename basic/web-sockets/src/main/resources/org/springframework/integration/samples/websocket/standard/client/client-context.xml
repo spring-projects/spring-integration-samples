@@ -20,6 +20,6 @@
 	<int-websocket:inbound-channel-adapter container="clientWebSocketContainer"
 										   channel="webSocketInputChannel"/>
 
-	<int:logging-channel-adapter id="webSocketInputChannel"/>
+	<int:logging-channel-adapter id="webSocketInputChannel" logger-name="wsLog"/>
 
 </beans>
