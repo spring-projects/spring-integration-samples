@@ -175,14 +175,14 @@
       <dependency>
         <groupId>org.springframework</groupId>
         <artifactId>spring-framework-bom</artifactId>
-        <version>5.3.5</version>
+        <version>5.3.6</version>
         <scope>import</scope>
         <type>pom</type>
       </dependency>
       <dependency>
         <groupId>org.springframework.integration</groupId>
         <artifactId>spring-integration-bom</artifactId>
-        <version>5.5.0-M3</version>
+        <version>5.5.0-RC1</version>
         <scope>import</scope>
         <type>pom</type>
       </dependency>
