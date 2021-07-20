@@ -48,7 +48,7 @@ public class AccumulatorTests {
 		accumulator.accumulate(new SharkQuote("fred", 6.0d));
 		accumulator.accumulate(new SharkQuote("fred", 6.2d));
 		LoanShark shark = (LoanShark) LoanShark.findLoanSharksByName("fred").getSingleResult();
-		assertEquals(new Long(2), shark.getCounter());
-		assertEquals(new Double(6.1), shark.getAverageRate());
+		assertEquals(Long.valueOf(2), shark.getCounter());
+		assertEquals(Double.valueOf(6.1), shark.getAverageRate());
 	}
 }

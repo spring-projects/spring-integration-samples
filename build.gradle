@@ -33,8 +33,9 @@ allprojects {
 
 	repositories {
 		mavenCentral()
-		maven { url 'https://repo.spring.io/libs-milestone' }
-		maven { url 'https://repo.spring.io/libs-snapshot' }
+		maven { url 'https://repo.spring.io/release' }
+		maven { url 'https://repo.spring.io/milestone' }
+		maven { url 'https://repo.spring.io/snapshot' }
 //		maven { url 'https://repo.spring.io/libs-staging-local' }
 	}
 
@@ -168,28 +169,28 @@ subprojects { subproject ->
 		}
 
 		ext {
-			activeMqVersion = '5.16.1'
-			apacheSshdVersion = '2.5.1'
-			aspectjVersion = '1.9.6'
+			activeMqVersion = '5.16.2'
+			apacheSshdVersion = '2.7.0'
+			aspectjVersion = '1.9.7'
 			commonsDigesterVersion = '2.0'
 			commonsDbcpVersion = '2.8.0'
 			commonsFileUploadVersion = '1.4'
-			commonsIoVersion = '2.8.0'
+			commonsIoVersion = '2.11.0'
 			commonsLangVersion = '2.6'
 			commonsPoolVersion = '1.5.4'
 			c3p0Version = '0.9.1.2'
 			derbyVersion = '10.14.2.0'
 			hamcrestVersion = '2.2'
-			hibernateVersion = '5.4.30.Final'
+			hibernateVersion = '5.5.4.Final'
 			hibernateValidatorVersion = '6.1.2.Final'
 			ftpServerVersion = '1.1.1'
 			flexjsonVersion = '2.0'
-			groovyVersion = '3.0.7'
-			hsqldbVersion = '2.5.1'
+			groovyVersion = '3.0.8'
+			hsqldbVersion = '2.6.0'
 			h2Version = '1.4.200'
 			jacksonVersion = '2.12.1'
 			javaxInjectVersion = '1'
-			javaxMailVersion = '1.6.5'
+			javaxMailVersion = '1.6.7'
 			jaxbVersion = '2.3.3'
 			jodaTimeVersion = '1.6'
 			jtaVersion = '1.1'
@@ -202,18 +203,18 @@ subprojects { subproject ->
 			junitVersion = '4.13.2'
 			jythonVersion = '2.7.2'
 			log4jVersion = '2.14.0'
-			mockitoVersion = '3.7.7'
-			mongoDriverVersion = '4.2.0'
+			mockitoVersion = '3.11.2'
+			mongoDriverVersion = '4.3.0'
 			openJpaVersion = '2.4.0'
 			oracleDriverVersion = '19.3.0.0'
 			postgresVersion = '42.2.14'
 			subethasmtpVersion = '1.2'
 			slf4jVersion = '1.7.30'
-			springCloudVersion ='2020.0.0-SNAPSHOT'
-			springIntegrationVersion = '5.5.1'
+			springCloudVersion ='2021.0.0-SNAPSHOT'
+			springIntegrationVersion = '5.5.2'
 			springIntegrationSocialTwiterVersion = '1.0.1.BUILD-SNAPSHOT'
 			springIntegrationSplunkVersion = '1.2.0.BUILD-SNAPSHOT'
-			springVersion = '5.3.8'
+			springVersion = '5.3.9'
 			springSecurityVersion = '5.5.1'
 			springWebFlowVersion = '2.3.3.RELEASE'
 			testcontainersVersion = '1.15.2'

@@ -87,7 +87,7 @@
     <dependency>
       <groupId>org.apache.activemq</groupId>
       <artifactId>activemq-broker</artifactId>
-      <version>5.16.1</version>
+      <version>5.16.2</version>
       <scope>compile</scope>
       <exclusions>
         <exclusion>
@@ -99,7 +99,7 @@
     <dependency>
       <groupId>org.apache.activemq</groupId>
       <artifactId>activemq-kahadb-store</artifactId>
-      <version>5.16.1</version>
+      <version>5.16.2</version>
       <scope>compile</scope>
       <exclusions>
         <exclusion>
@@ -155,7 +155,7 @@
     <dependency>
       <groupId>org.mockito</groupId>
       <artifactId>mockito-core</artifactId>
-      <version>3.7.7</version>
+      <version>3.11.2</version>
       <scope>test</scope>
       <exclusions>
         <exclusion>
@@ -204,14 +204,14 @@
       <dependency>
         <groupId>org.springframework</groupId>
         <artifactId>spring-framework-bom</artifactId>
-        <version>5.3.8</version>
+        <version>5.3.9</version>
         <scope>import</scope>
         <type>pom</type>
       </dependency>
       <dependency>
         <groupId>org.springframework.integration</groupId>
         <artifactId>spring-integration-bom</artifactId>
-        <version>5.5.1</version>
+        <version>5.5.2</version>
         <scope>import</scope>
         <type>pom</type>
       </dependency>
