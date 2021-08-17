@@ -211,7 +211,7 @@ subprojects { subproject ->
 			subethasmtpVersion = '1.2'
 			slf4jVersion = '1.7.30'
 			springCloudVersion ='2021.0.0-SNAPSHOT'
-			springIntegrationVersion = '5.5.2'
+			springIntegrationVersion = '5.5.3'
 			springIntegrationSocialTwiterVersion = '1.0.1.BUILD-SNAPSHOT'
 			springIntegrationSplunkVersion = '1.2.0.BUILD-SNAPSHOT'
 			springVersion = '5.3.9'
