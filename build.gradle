@@ -202,7 +202,7 @@ subprojects { subproject ->
 			jstlVersion = '1.2'
 			junitVersion = '4.13.2'
 			jythonVersion = '2.7.2'
-			log4jVersion = '2.14.0'
+			log4jVersion = '2.14.1'
 			mockitoVersion = '3.11.2'
 			mongoDriverVersion = '4.3.0'
 			openJpaVersion = '2.4.0'
@@ -211,11 +211,11 @@ subprojects { subproject ->
 			subethasmtpVersion = '1.2'
 			slf4jVersion = '1.7.30'
 			springCloudVersion ='2021.0.0-SNAPSHOT'
-			springIntegrationVersion = '5.5.4'
+			springIntegrationVersion = '5.5.5'
 			springIntegrationSocialTwiterVersion = '1.0.1.BUILD-SNAPSHOT'
 			springIntegrationSplunkVersion = '1.2.0.BUILD-SNAPSHOT'
-			springVersion = '5.3.10'
-			springSecurityVersion = '5.5.2'
+			springVersion = '5.3.11'
+			springSecurityVersion = '5.5.3'
 			springWebFlowVersion = '2.3.3.RELEASE'
 			testcontainersVersion = '1.15.2'
 			tilesJspVersion = '2.2.1'
@@ -472,7 +472,7 @@ project('barrier') {
 	}
 
 	springBoot {
-		mainClassName = 'org.springframework.integration.samples.barrier.Application'
+		mainClass = 'org.springframework.integration.samples.barrier.Application'
 	}
 
 	task run(type: JavaExec) {
@@ -599,7 +599,7 @@ project('http') {
 	}
 
 	springBoot  {
-        mainClassName = 'org.springframework.integration.samples.splunk.Application'
+        mainClass = 'org.springframework.integration.samples.splunk.Application'
 	}
 
 	task run(type: JavaExec) {
@@ -626,7 +626,7 @@ project('kafka') {
 	}
 
 	springBoot {
-		mainClassName = 'org.springframework.integration.samples.kafka.Application'
+		mainClass = 'org.springframework.integration.samples.kafka.Application'
 	}
 
 	task run(type: JavaExec) {
@@ -649,7 +649,7 @@ project('mqtt') {
 	}
 
 	springBoot {
-		mainClassName = 'org.springframework.integration.samples.mqtt.Application'
+		mainClass = 'org.springframework.integration.samples.mqtt.Application'
 	}
 
 	task run(type: JavaExec) {
@@ -684,7 +684,7 @@ project('si4demo') {
 	}
 
 	springBoot {
-		mainClassName = 'org.springframework.integration.samples.si4demo.dsl.Application'
+		mainClass = 'org.springframework.integration.samples.si4demo.dsl.Application'
 	}
 
 	tasks.withType(JavaExec) {
@@ -706,7 +706,7 @@ project('cafe-dsl') {
 	}
 
 	springBoot {
-		mainClassName = 'org.springframework.integration.samples.dsl.cafe.lambda.Application'
+		mainClass = 'org.springframework.integration.samples.dsl.cafe.lambda.Application'
 	}
 
 	tasks.withType(JavaExec) {
@@ -897,7 +897,7 @@ project('tcp-broadcast') {
 	}
 
 	springBoot {
-		mainClassName = 'org.springframework.integration.samples.tcpbroadcast.TcpBroadcastApplication'
+		mainClass = 'org.springframework.integration.samples.tcpbroadcast.TcpBroadcastApplication'
 	}
 
 	task run(type: JavaExec) {
@@ -927,7 +927,7 @@ project('testcontainers-rabbitmq') {
 	apply plugin: 'org.springframework.boot'
 
 	springBoot {
-		mainClassName = 'org.springframework.integration.samples.testcontainersrabbitmq.TestcontainersRabbitmqApplication'
+		mainClass = 'org.springframework.integration.samples.testcontainersrabbitmq.TestcontainersRabbitmqApplication'
 	}
 
 	dependencies {
@@ -1253,10 +1253,6 @@ project('stored-procedures-oracle') {
 
 	mainClassName = 'org.springframework.integration.samples.storedprocedure.Main'
 
-	repositories {
-		mavenLocal() //Oracle JDBC Driver
-	}
-
 	dependencies {
 		compile 'org.springframework.integration:spring-integration-jdbc'
 		compile "com.oracle.ojdbc:ojdbc8:$oracleDriverVersion"
@@ -1317,7 +1313,7 @@ project('tcp-async-bi-directional') {
 	}
 
 	springBoot {
-		mainClassName = 'org.springframework.integration.samples.tcpasyncbi.TcpAsyncBiDirectionalApplication'
+		mainClass = 'org.springframework.integration.samples.tcpasyncbi.TcpAsyncBiDirectionalApplication'
 	}
 
 	task run(type: JavaExec) {
@@ -1385,7 +1381,7 @@ project('web-sockets') {
 	}
 
 	springBoot {
-		mainClassName = 'org.springframework.integration.samples.websocket.standard.server.Application'
+		mainClass = 'org.springframework.integration.samples.websocket.standard.server.Application'
 	}
 
 	tasks.withType(JavaExec) {
@@ -1408,7 +1404,7 @@ project('stomp-chat') {
 	}
 
 	springBoot {
-		mainClassName = 'org.springframework.integration.samples.chat.stomp.server.Application'
+		mainClass = 'org.springframework.integration.samples.chat.stomp.server.Application'
 	}
 
 	tasks.withType(JavaExec) {
@@ -1430,7 +1426,7 @@ project('kafka-dsl') {
 	}
 
 	springBoot {
-		mainClassName = 'org.springframework.integration.samples.dsl.kafka.Application'
+		mainClass = 'org.springframework.integration.samples.dsl.kafka.Application'
 	}
 
 	task run(type: JavaExec) {
@@ -1463,7 +1459,7 @@ project('file-split-ftp') {
 	}
 
 	springBoot {
-		mainClassName = 'org.springframework.integration.samples.filesplit.Application'
+		mainClass = 'org.springframework.integration.samples.filesplit.Application'
 	}
 
 	task run(type: JavaExec) {
@@ -1485,7 +1481,7 @@ project('dynamic-tcp-client') {
 	}
 
 	springBoot {
-		mainClassName = 'org.springframework.integration.samples.dynamictcp.DynamicTcpClientApplication'
+		mainClass = 'org.springframework.integration.samples.dynamictcp.DynamicTcpClientApplication'
 	}
 
 	task run(type: JavaExec) {
@@ -1508,7 +1504,7 @@ project('tcp-with-headers') {
 	}
 
 	springBoot {
-		mainClassName = 'org.springframework.integration.samples.tcpheaders.TcpWithHeadersApplication'
+		mainClass = 'org.springframework.integration.samples.tcpheaders.TcpWithHeadersApplication'
 	}
 
 	task run(type: JavaExec) {
