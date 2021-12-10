@@ -202,7 +202,7 @@ subprojects { subproject ->
 			jstlVersion = '1.2'
 			junitVersion = '4.13.2'
 			jythonVersion = '2.7.2'
-			log4jVersion = '2.14.1'
+			log4jVersion = '2.15.0'
 			mockitoVersion = '3.11.2'
 			mongoDriverVersion = '4.3.0'
 			openJpaVersion = '2.4.0'
