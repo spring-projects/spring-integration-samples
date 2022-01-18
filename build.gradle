@@ -32,8 +32,8 @@ allprojects {
 
 	repositories {
 		mavenCentral()
-		maven { url 'https://repo.spring.io/libs-snapshot' }
-		maven { url 'https://repo.spring.io/libs-milestone' }
+		maven { url 'https://repo.spring.io/release' }
+		maven { url 'https://repo.spring.io/milestone' }
 //			maven { url 'https://repo.spring.io/libs-staging-local' }
 	}
 
@@ -172,7 +172,7 @@ subprojects { subproject ->
 		}
 
 		ext {
-			activeMqVersion = '5.15.13'
+			activeMqVersion = '5.15.15'
 			apacheSshdVersion = '2.4.0'
 			aspectjVersion = '1.9.5'
 			commonsDigesterVersion = '2.0'
@@ -213,7 +213,7 @@ subprojects { subproject ->
 			subethasmtpVersion = '1.2'
 			slf4jVersion = '1.7.25'
 			springCloudVersion ='Hoxton.SR9'
-			springIntegrationVersion = '5.3.9.RELEASE'
+			springIntegrationVersion = '5.3.10.RELEASE'
 			springIntegrationKafkaVersion = '3.3.1.RELEASE'
 			springIntegrationSocialTwiterVersion = '1.0.1.BUILD-SNAPSHOT'
 			springIntegrationSplunkVersion = '1.2.0.BUILD-SNAPSHOT'
