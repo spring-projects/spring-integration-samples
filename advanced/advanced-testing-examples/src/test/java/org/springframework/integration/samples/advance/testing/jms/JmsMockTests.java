@@ -18,21 +18,15 @@ package org.springframework.integration.samples.advance.testing.jms;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
-import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.ArgumentMatchers.isNull;
-import static org.mockito.BDDMockito.given;
 import static org.mockito.BDDMockito.willAnswer;
 import static org.mockito.BDDMockito.willReturn;
 import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
 
 import java.io.IOException;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicReference;
-
-import javax.jms.JMSException;
-import javax.jms.TextMessage;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -40,7 +34,6 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
-import org.mockito.invocation.InvocationOnMock;
 import org.mockito.stubbing.Answer;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -57,6 +50,9 @@ import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.annotation.DirtiesContext.ClassMode;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+
+import jakarta.jms.JMSException;
+import jakarta.jms.TextMessage;
 
 /**
  * @author David Turanski
@@ -165,7 +161,7 @@ public class JmsMockTests {
 	 * @throws InterruptedException
 	 */
 	protected boolean verifyJmsMessageReceivedOnOutputChannel(Object obj, SubscribableChannel expectedOutputChannel,
-			CountDownHandler handler) throws JMSException, InterruptedException {
+			CountDownHandler handler) throws InterruptedException {
 		return verifyJmsMessageOnOutputChannel(obj, expectedOutputChannel, handler, 7000);
 	}
 
@@ -184,8 +180,7 @@ public class JmsMockTests {
 	 * @throws InterruptedException
 	 */
 	protected boolean verifyJmsMessageOnOutputChannel(Object obj, SubscribableChannel expectedOutputChannel,
-			CountDownHandler handler, int timeoutMillisec) throws JMSException,
-			InterruptedException {
+			CountDownHandler handler, int timeoutMillisec) throws InterruptedException {
 
 		if (!(obj instanceof String)) {
 			throw new IllegalArgumentException("Only TextMessage is currently supported");

@@ -48,7 +48,7 @@ public class ControlBusMain {
 					logger.error("Interrupted", e);
 				}
 
-				totalDeliveries = (Integer)waiterMonitor.sendControlScript("waiter.totalDeliveries");
+				totalDeliveries = waiterMonitor.sendControlScript("waiter.totalDeliveries");
 
 				logger.info("Total cafe deliveries: " + totalDeliveries);
 

@@ -13,15 +13,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.springframework.integration.samples.tcpclientserver;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+
 import org.springframework.core.serializer.Deserializer;
 import org.springframework.core.serializer.Serializer;
 
@@ -49,12 +51,14 @@ import org.springframework.core.serializer.Serializer;
  * @author Christian Posta
  * @author Gunnar Hillert
  */
-public class CustomSerializerDeserializer implements Serializer<CustomOrder>, Deserializer<CustomOrder>{
+public class CustomSerializerDeserializer implements Serializer<CustomOrder>, Deserializer<CustomOrder> {
 
 	protected final Log logger = LogFactory.getLog(this.getClass());
 
 	private static final int ORDER_NUMBER_LENGTH = 3;
+
 	private static final int SENDER_NAME_LENGTH = 10;
+
 	private static final int MESSAGE_LENGTH_LENGTH = 6;
 
 	/**
@@ -115,7 +119,7 @@ public class CustomSerializerDeserializer implements Serializer<CustomOrder>, De
 		for (int i = 0; i < length; ++i) {
 			c = inputStream.read();
 			checkClosure(c);
-			builder.append((char)c);
+			builder.append((char) c);
 		}
 
 		return builder.toString();
@@ -145,4 +149,5 @@ public class CustomSerializerDeserializer implements Serializer<CustomOrder>, De
 			throw new IOException("Socket closed during message assembly");
 		}
 	}
+
 }

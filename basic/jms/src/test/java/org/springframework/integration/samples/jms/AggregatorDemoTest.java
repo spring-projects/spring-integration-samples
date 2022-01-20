@@ -19,8 +19,8 @@ package org.springframework.integration.samples.jms;
 import java.util.List;
 import java.util.Map;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 import org.springframework.context.support.GenericXmlApplicationContext;
 import org.springframework.integration.channel.QueueChannel;
@@ -34,7 +34,7 @@ import org.springframework.messaging.MessageChannel;
  * @author Gary Russell
  * @author Artem Bilan
  */
-public class AggregatorDemoTest {
+public class AggregatorDemoTest extends ActiveMQMultiContextTests {
 
 	private final static String[] configFilesGatewayDemo = {
 		"/META-INF/spring/integration/common.xml",
@@ -42,7 +42,7 @@ public class AggregatorDemoTest {
 	};
 
 	@Test
-	public void testGatewayDemo() throws InterruptedException {
+	public void testGatewayDemo() {
 
 		System.setProperty("spring.profiles.active", "testCase");
 
@@ -74,10 +74,10 @@ public class AggregatorDemoTest {
 
 		@SuppressWarnings("unchecked")
 		Message<List<String>> reply = (Message<List<String>>) queueChannel.receive(20_000);
-		Assert.assertNotNull(reply);
+		Assertions.assertNotNull(reply);
 		List<String> out = reply.getPayload();
 
-		Assert.assertEquals("[JMS TEST, JMS TEST]", out.toString());
+		Assertions.assertEquals("[JMS TEST, JMS TEST]", out.toString());
 
 		applicationContext.close();
 	}

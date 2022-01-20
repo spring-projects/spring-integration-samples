@@ -16,8 +16,8 @@
 
 package org.springframework.integration.samples.jms;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 import org.springframework.context.support.GenericXmlApplicationContext;
 import org.springframework.messaging.Message;
@@ -28,7 +28,7 @@ import org.springframework.integration.support.MessageBuilder;
 /**
  * @author Gunnar Hillert
  */
-public class ChannelAdapterDemoTest {
+public class ChannelAdapterDemoTest extends ActiveMQMultiContextTests {
 
 	private final static String[] configFilesChannelAdapterDemo = {
 		"/META-INF/spring/integration/common.xml",
@@ -51,9 +51,9 @@ public class ChannelAdapterDemoTest {
 
 		@SuppressWarnings("unchecked")
 		Message<String> reply = (Message<String>) queueChannel.receive(20000);
-		Assert.assertNotNull(reply);
+		Assertions.assertNotNull(reply);
 		String out = reply.getPayload();
-		Assert.assertEquals("jms test", out);
+		Assertions.assertEquals("jms test", out);
 
 		applicationContext.close();
 	}

@@ -39,8 +39,8 @@ public class Waiter {
 	}
 
 	@ManagedOperation
-	public int getTotalDeliveries() {
-		return this.totalDeliveries.get();
+	public String getTotalDeliveries() {
+		return this.totalDeliveries.toString();
 	}
 
 }

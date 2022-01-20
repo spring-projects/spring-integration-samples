@@ -17,7 +17,8 @@
 package org.springframework.integration.samples.jms;
 
 import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 import org.springframework.context.support.GenericXmlApplicationContext;
 import org.springframework.messaging.Message;
@@ -28,7 +29,7 @@ import org.springframework.integration.support.MessageBuilder;
 /**
  * @author Gunnar Hillert
  */
-public class GatewayDemoTest {
+public class GatewayDemoTest  extends ActiveMQMultiContextTests {
 
 	private final static String[] configFilesGatewayDemo = {
 		"/META-INF/spring/integration/common.xml",
@@ -37,7 +38,7 @@ public class GatewayDemoTest {
 	};
 
 	@Test
-	public void testGatewayDemo() throws InterruptedException {
+	public void testGatewayDemo() {
 
 		System.setProperty("spring.profiles.active", "testCase");
 
@@ -51,10 +52,10 @@ public class GatewayDemoTest {
 
 		@SuppressWarnings("unchecked")
 		Message<String> reply = (Message<String>) queueChannel.receive(20000);
-		Assert.assertNotNull(reply);
+		Assertions.assertNotNull(reply);
 		String out = reply.getPayload();
 
-		Assert.assertEquals("JMS response: JMS TEST", out);
+		Assertions.assertEquals("JMS response: JMS TEST", out);
 
 		applicationContext.close();
 	}

@@ -1,31 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xmlns:integration="http://www.springframework.org/schema/integration"
-	xsi:schemaLocation="http://www.springframework.org/schema/beans
+	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   xmlns:integration="http://www.springframework.org/schema/integration"
+	   xmlns:util="http://www.springframework.org/schema/util"
+	   xsi:schemaLocation="http://www.springframework.org/schema/beans
 			https://www.springframework.org/schema/beans/spring-beans.xsd
 			http://www.springframework.org/schema/integration
-			https://www.springframework.org/schema/integration/spring-integration.xsd">
+			https://www.springframework.org/schema/integration/spring-integration.xsd
+			http://www.springframework.org/schema/util https://www.springframework.org/schema/util/spring-util.xsd">
 
-	<bean id="jmsConnectionFactory" class="org.springframework.jms.connection.CachingConnectionFactory">
-		<property name="targetConnectionFactory">
-			<bean class="org.apache.activemq.ActiveMQConnectionFactory">
-				<property name="brokerURL" value="vm://localhost?broker.persistent=false"/>
-			</bean>
-		</property>
-		<property name="sessionCacheSize" value="10"/>
-		<property name="cacheConsumers" value="false"/>
-	</bean>
+	<util:constant id="jmsConnectionFactory"
+				   static-field="org.springframework.integration.samples.jms.ActiveMQMultiContextTests.connectionFactory"/>
 
-	<bean id="requestQueue" class="org.apache.activemq.command.ActiveMQQueue">
+	<bean id="requestQueue" class="org.apache.activemq.artemis.jms.client.ActiveMQQueue">
 		<constructor-arg value="queue.demo"/>
 	</bean>
 
-	<bean id="requestTopic" class="org.apache.activemq.command.ActiveMQTopic">
+	<bean id="requestTopic" class="org.apache.activemq.artemis.jms.client.ActiveMQTopic">
 		<constructor-arg value="topic.demo"/>
 	</bean>
 
-	<bean id="replyQueue" class="org.apache.activemq.command.ActiveMQQueue">
+	<bean id="replyQueue" class="org.apache.activemq.artemis.jms.client.ActiveMQQueue">
 		<constructor-arg value="queue.reply"/>
 	</bean>
 

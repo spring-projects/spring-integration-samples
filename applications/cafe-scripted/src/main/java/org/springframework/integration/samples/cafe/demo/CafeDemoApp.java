@@ -42,7 +42,7 @@ public class CafeDemoApp {
 
 	public static void main(String[] args) {
 
-		List<String> languages = Arrays.asList(new String[]{"groovy","ruby","javascript","python"});
+		List<String> languages = Arrays.asList(new String[]{"groovy","ruby","python"});
 		if (args.length != 1) {
 			usage();
 		}
@@ -70,7 +70,7 @@ public class CafeDemoApp {
 
 
 	private static void usage() {
-		System.out.println("missing or invalid commannd line argument [groovy,ruby,javascript,python]");
+		System.out.println("missing or invalid command line argument [groovy,ruby,python]");
 		System.exit(1);
 	}
 }

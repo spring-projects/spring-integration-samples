@@ -15,8 +15,6 @@
  */
 package org.springframework.integration.samples.loanbroker.loanshark.web;
 
-import javax.validation.Valid;
-
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.core.convert.support.GenericConversionService;
 import org.springframework.http.HttpStatus;
@@ -33,6 +31,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import jakarta.validation.Valid;
 
 @RequestMapping("/loansharks")
 @Controller

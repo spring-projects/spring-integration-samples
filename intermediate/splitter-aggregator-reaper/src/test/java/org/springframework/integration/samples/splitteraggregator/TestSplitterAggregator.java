@@ -18,10 +18,10 @@ package org.springframework.integration.samples.splitteraggregator;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 
-import javax.inject.Inject;
-
 import org.junit.Test;
 import org.junit.runner.RunWith;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.integration.samples.splitteraggregator.support.TestUtils;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ContextConfiguration;
@@ -40,13 +40,13 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
 public class TestSplitterAggregator {
 
-	@Inject
+	@Autowired
 	SearchRequestor searchRequestor;
 
-	@Inject
+	@Autowired
 	SearchA searchA;
 
-	@Inject
+	@Autowired
 	SearchB searchB;
 
 	/**

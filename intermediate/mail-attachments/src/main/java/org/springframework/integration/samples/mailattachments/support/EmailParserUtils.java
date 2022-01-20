@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.springframework.integration.samples.mailattachments.support;
 
 import java.io.ByteArrayOutputStream;
@@ -21,25 +22,27 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
 
-import javax.mail.BodyPart;
-import javax.mail.MessagingException;
-import javax.mail.Multipart;
-import javax.mail.Part;
-import javax.mail.internet.ContentType;
-import javax.mail.internet.MimeBodyPart;
-import javax.mail.internet.ParseException;
-
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import org.springframework.util.Assert;
 
+import jakarta.mail.BodyPart;
+import jakarta.mail.MessagingException;
+import jakarta.mail.Multipart;
+import jakarta.mail.Part;
+import jakarta.mail.internet.ContentType;
+import jakarta.mail.internet.MimeBodyPart;
+import jakarta.mail.internet.ParseException;
+
 /**
  * Utility Class for parsing mail messages.
  *
  * @author Gunnar Hillert
  * @author Gary Russell
+ * @author Artem Bilan
+ *
  * @since 2.2
  *
  */
@@ -61,15 +64,15 @@ public final class EmailParserUtils {
 	 * which will contain the mail message's content.
 	 *
 	 * If the mail message is an instance of {@link Multipart} then we delegate
-	 * to {@link #handleMultipart(File, Multipart, javax.mail.Message, List)}.
+	 * to {@link #handleMultipart(File, Multipart, Message, List)}.
 	 *
 	 * @param directory The directory for storing the message. If null this is the root message.
 	 * @param mailMessage The mail message to be parsed. Must not be null.
 	 * @param emailFragments Must not be null.
 	 */
 	public static void handleMessage(final File directory,
-										final javax.mail.Message mailMessage,
-										final List<EmailFragment> emailFragments) {
+			final jakarta.mail.Message mailMessage,
+			final List<EmailFragment> emailFragments) {
 
 		Assert.notNull(mailMessage, "The mail message to be parsed must not be null.");
 		Assert.notNull(emailFragments, "The collection of emailfragments must not be null.");
@@ -80,9 +83,11 @@ public final class EmailParserUtils {
 		try {
 			content = mailMessage.getContent();
 			subject = mailMessage.getSubject();
-		} catch (IOException e) {
+		}
+		catch (IOException e) {
 			throw new IllegalStateException("Error while retrieving the email contents.", e);
-		} catch (MessagingException e) {
+		}
+		catch (MessagingException e) {
 			throw new IllegalStateException("Error while retrieving the email contents.", e);
 		}
 
@@ -90,7 +95,8 @@ public final class EmailParserUtils {
 
 		if (directory == null) {
 			directoryToUse = new File(subject);
-		} else {
+		}
+		else {
 			directoryToUse = new File(directory, subject);
 		}
 
@@ -110,21 +116,21 @@ public final class EmailParserUtils {
 	/**
 	 * Parses any {@link Multipart} instances that contain text or Html attachments,
 	 * {@link InputStream} instances, additional instances of {@link Multipart}
-	 * or other attached instances of {@link javax.mail.Message}.
+	 * or other attached instances of {@link jakarta.mail.Message}.
 	 *
 	 * Will create the respective {@link EmailFragment}s representing those attachments.
 	 *
-	 * Instances of {@link javax.mail.Message} are delegated to
-	 * {@link #handleMessage(File, javax.mail.Message, List)}. Further instances
+	 * Instances of {@link jakarta.mail.Message} are delegated to
+	 * {@link #handleMessage(File, jakarta.mail.Message, List)}. Further instances
 	 * of {@link Multipart} are delegated to
-	 * {@link #handleMultipart(File, Multipart, javax.mail.Message, List)}.
+	 * {@link #handleMultipart(File, Multipart, jakarta.mail.Message, List)}.
 	 *
 	 * @param directory Must not be null
 	 * @param multipart Must not be null
 	 * @param mailMessage Must not be null
 	 * @param emailFragments Must not be null
 	 */
-	public static void handleMultipart(File directory, Multipart multipart, javax.mail.Message mailMessage, List<EmailFragment> emailFragments) {
+	public static void handleMultipart(File directory, Multipart multipart, jakarta.mail.Message mailMessage, List<EmailFragment> emailFragments) {
 
 		Assert.notNull(directory, "The directory must not be null.");
 		Assert.notNull(multipart, "The multipart object to be parsed must not be null.");
@@ -164,9 +170,9 @@ public final class EmailParserUtils {
 			try {
 
 				contentType = bp.getContentType();
-				filename    = bp.getFileName();
+				filename = bp.getFileName();
 				disposition = bp.getDisposition();
-				subject     = mailMessage.getSubject();
+				subject = mailMessage.getSubject();
 
 				if (filename == null && bp instanceof MimeBodyPart) {
 					filename = ((MimeBodyPart) bp).getContentID();
@@ -179,7 +185,7 @@ public final class EmailParserUtils {
 
 			if (LOGGER.isInfoEnabled()) {
 				LOGGER.info(String.format("BodyPart - Content Type: '%s', filename: '%s', disposition: '%s', subject: '%s'",
-							 new Object[]{contentType, filename, disposition, subject}));
+						new Object[]{ contentType, filename, disposition, subject }));
 			}
 
 			if (Part.ATTACHMENT.equalsIgnoreCase(disposition)) {
@@ -246,8 +252,8 @@ public final class EmailParserUtils {
 				emailFragments.add(new EmailFragment(directory, filename, bis.toByteArray()));
 
 			}
-			else if (content instanceof javax.mail.Message)  {
-				handleMessage(directory, (javax.mail.Message) content, emailFragments);
+			else if (content instanceof jakarta.mail.Message) {
+				handleMessage(directory, (jakarta.mail.Message) content, emailFragments);
 			}
 			else if (content instanceof Multipart) {
 				final Multipart mp2 = (Multipart) content;
@@ -258,4 +264,5 @@ public final class EmailParserUtils {
 			}
 		}
 	}
+
 }

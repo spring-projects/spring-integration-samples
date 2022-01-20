@@ -1,7 +1,7 @@
 Cafe Demo - Scripted Implementation
 ===================================
 
-This is the scripted implementation of the classic **cafe** sample application. You can choose among **javascript**, **groovy**, **ruby**, and **python** scripting languages. The functionality is basically identical in all cases to the original cafe demo. 
+This is the scripted implementation of the classic **cafe** sample application. You can choose among **groovy**, **ruby**, and **python** scripting languages. The functionality is basically identical in all cases to the original cafe demo. 
 
 # Instructions for running the CafeDemo sample
 

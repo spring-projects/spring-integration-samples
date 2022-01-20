@@ -14,9 +14,13 @@ package org.springframework.integration.samples.cafe;
 
 /**
  * Send a groovy script to the control bus and return the result
+ *
  * @author David Turanski
- * 
+ * @author Artem Bilan
+ *
  */
 public interface WaiterMonitor {
-	Object sendControlScript(String script);
+
+	Integer sendControlScript(String script);
+
 }

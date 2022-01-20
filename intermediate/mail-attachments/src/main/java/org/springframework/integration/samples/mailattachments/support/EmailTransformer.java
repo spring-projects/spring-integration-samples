@@ -37,9 +37,9 @@ public class EmailTransformer {
 	private static final Log LOGGER = LogFactory.getLog(EmailTransformer.class);
 
 	@Transformer
-	public List<EmailFragment> transformit(javax.mail.Message mailMessage) {
+	public List<EmailFragment> transformit(jakarta.mail.Message mailMessage) {
 
-		final List<EmailFragment> emailFragments = new ArrayList<EmailFragment>();
+		final List<EmailFragment> emailFragments = new ArrayList<>();
 
 		EmailParserUtils.handleMessage(null, mailMessage, emailFragments);
 
