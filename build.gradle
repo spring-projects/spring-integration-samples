@@ -258,9 +258,11 @@ subprojects { subproject ->
 			openJpaVersion = '2.4.0'
 			oracleDriverVersion = '19.3.0.0'
 			postgresVersion = '42.2.14'
+			projectreactorTestVersion = '3.4.15'
 			slf4jVersion = '1.7.30'
 			springCloudVersion = '2022.0.0-SNAPSHOT'
-			springIntegrationVersion = '6.0.0-M1'
+			springGraphqlVersion = '1.0.0-M5'
+			springIntegrationVersion = '6.0.0-SNAPSHOT'
 			springIntegrationSocialTwiterVersion = '1.0.1.BUILD-SNAPSHOT'
 			springIntegrationSplunkVersion = '1.2.0.BUILD-SNAPSHOT'
 			springVersion = '6.0.0-M2'
@@ -1131,6 +1133,26 @@ project('file-processing') {
 		api 'org.springframework.integration:spring-integration-file'
 		api "org.apache.logging.log4j:log4j-core:$log4jVersion"
 	}
+}
+
+project('graphql') {
+	description = 'GraphQL Sample'
+
+	apply plugin: 'application'
+
+	mainClassName = 'org.springframework.integration.samples.graphql.Main'
+
+	dependencies {
+		api 'org.springframework:spring-webflux'
+		api "org.springframework.integration:spring-integration-graphql:$springIntegrationVersion"
+
+		testImplementation "io.projectreactor:reactor-test:$projectreactorTestVersion"
+	}
+
+	test {
+		useJUnitPlatform()
+	}
+
 }
 
 project('mail-attachments') {

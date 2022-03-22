@@ -1,0 +1,17 @@
+type Query {
+    orders: [Order]
+    orderById(orderId: ID): Order
+    customers: [Customer]
+}
+
+type Order {
+    orderId: ID
+    amount: Float
+    customerId: ID
+}
+
+type Customer {
+    customerId: ID
+    name: String
+    ordersByCustomer: [Order]
+}
