@@ -38,7 +38,7 @@ allprojects {
 		maven { url 'https://repo.spring.io/release' }
 		maven { url 'https://repo.spring.io/milestone' }
 		maven { url 'https://repo.spring.io/snapshot' }
-//		maven { url 'https://repo.spring.io/libs-staging-local' }
+		maven { url 'https://repo.spring.io/libs-staging-local' }
 	}
 
 }
@@ -260,11 +260,11 @@ subprojects { subproject ->
 			postgresVersion = '42.2.14'
 			slf4jVersion = '1.7.30'
 			springCloudVersion = '2022.0.0-SNAPSHOT'
-			springIntegrationVersion = '6.0.0-M1'
+			springIntegrationVersion = '6.0.0-M2'
 			springIntegrationSocialTwiterVersion = '1.0.1.BUILD-SNAPSHOT'
 			springIntegrationSplunkVersion = '1.2.0.BUILD-SNAPSHOT'
-			springVersion = '6.0.0-M2'
-			springSecurityVersion = '6.0.0-M1'
+			springVersion = '6.0.0-M3'
+			springSecurityVersion = '6.0.0-M2'
 			springWebFlowVersion = '2.3.3.RELEASE'
 			testcontainersVersion = '1.16.2'
 			tilesJspVersion = '2.2.1'
@@ -1494,6 +1494,7 @@ project('file-split-ftp') {
 
 		testImplementation 'org.springframework.boot:spring-boot-starter-test'
 		testImplementation 'org.springframework.integration:spring-integration-test'
+		testImplementation "com.icegreen:greenmail:2.0.0-alpha-2"
 	}
 
 	springBoot {

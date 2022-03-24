@@ -27,6 +27,7 @@
 	<int:channel id="input"/>
 
 	<int-ip:tcp-outbound-gateway id="outGateway"
+								 auto-startup="false"
 								 request-channel="input"
 								 reply-channel="clientBytes2StringChannel"
 								 connection-factory="client"
@@ -40,7 +41,7 @@
 
 	<int-ip:tcp-connection-factory id="crLfServer"
 								   type="server"
-								   port="${availableServerSocket:0}"/>
+								   port="0"/>
 
 	<int-ip:tcp-inbound-gateway id="gatewayCrLf"
 								connection-factory="crLfServer"

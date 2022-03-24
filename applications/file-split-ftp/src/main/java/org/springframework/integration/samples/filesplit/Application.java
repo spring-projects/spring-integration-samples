@@ -1,5 +1,5 @@
 /*
- * Copyright 2002-2018 the original author or authors.
+ * Copyright 2002-2022 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -26,7 +26,6 @@ import org.apache.commons.net.ftp.FTPFile;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.mail.MailProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.integration.dsl.IntegrationFlow;
@@ -34,6 +33,7 @@ import org.springframework.integration.dsl.IntegrationFlows;
 import org.springframework.integration.dsl.Pollers;
 import org.springframework.integration.file.FileHeaders;
 import org.springframework.integration.file.FileWritingMessageHandler;
+import org.springframework.integration.file.dsl.FileWritingMessageHandlerSpec;
 import org.springframework.integration.file.dsl.Files;
 import org.springframework.integration.file.remote.session.SessionFactory;
 import org.springframework.integration.file.splitter.FileSplitter;
@@ -67,11 +67,11 @@ public class Application {
 	@Bean
 	public IntegrationFlow fromFile() {
 		return IntegrationFlows.from(
-				Files.inboundAdapter(new File("/tmp/in"))
-						.preventDuplicates(false)
-						.patternFilter("*.txt"), e -> e.poller(Pollers.fixedDelay(5000)
-						.errorChannel("tfrErrors.input"))
-						.id("fileInboundChannelAdapter"))
+						Files.inboundAdapter(new File("/tmp/in"))
+								.preventDuplicates(false)
+								.patternFilter("*.txt"), e -> e.poller(Pollers.fixedDelay(5000)
+										.errorChannel("tfrErrors.input"))
+								.id("fileInboundChannelAdapter"))
 				.handle(Files.splitter(true, true))
 				.<Object, Class<?>>route(Object::getClass, m -> m
 						.channelMapping(FileSplitter.FileMarker.class, "markers.input")
@@ -90,11 +90,10 @@ public class Application {
 	}
 
 	@Bean
-	public FileWritingMessageHandler fileOut() {
+	public FileWritingMessageHandlerSpec fileOut() {
 		return Files.outboundAdapter("'/tmp/out'")
 				.appendNewLine(true)
-				.fileNameExpression("payload.substring(1, 4) + '.txt'")
-				.get();
+				.fileNameExpression("payload.substring(1, 4) + '.txt'");
 	}
 
 	/**
@@ -106,7 +105,7 @@ public class Application {
 	@Bean
 	public IntegrationFlow markers() {
 		return f -> f.<FileSplitter.FileMarker>filter(m -> m.getMark().equals(FileSplitter.FileMarker.Mark.END),
-				e -> e.id("markerFilter"))
+						e -> e.id("markerFilter"))
 				.publishSubscribeChannel(s -> s
 
 						// first trigger file flushes
@@ -133,7 +132,7 @@ public class Application {
 								.enrichHeaders(Mail.headers()
 										.subject("File successfully split and transferred")
 										.from("foo@bar")
-										.toFunction(m -> new String[] { "bar@baz" }))
+										.toFunction(m -> new String[]{ "bar@baz" }))
 								.enrichHeaders(h -> h.header(EMAIL_SUCCESS_SUFFIX, ".success"))
 								.channel("toMail.input")));
 	}
@@ -176,12 +175,12 @@ public class Application {
 				.enrichHeaders(Mail.headers()
 						.subject("File split and transfer failed")
 						.from("foo@bar")
-						.toFunction(m -> new String[] { "bar@baz" }))
+						.toFunction(m -> new String[]{ "bar@baz" }))
 				.enrichHeaders(h -> h.header(EMAIL_SUCCESS_SUFFIX, ".failed")
 						.headerExpression(FileHeaders.ORIGINAL_FILE, "payload.failedMessage.headers['"
 								+ FileHeaders.ORIGINAL_FILE + "']"))
 				.<MessagingException, String>transform(p ->
-						p.getFailedMessage().getPayload().toString() + "\n" + getStackTraceAsString(p))
+						p.getFailedMessage().getPayload() + "\n" + getStackTraceAsString(p))
 				.channel("toMail.input");
 	}
 
@@ -189,7 +188,7 @@ public class Application {
 	public IntegrationFlow toMail() {
 		return f -> f
 				.handle(Mail.outboundAdapter(this.mailProperties.getHost())
-//						.javaMailProperties(b -> b.put("mail.debug", "true"))
+								//						.javaMailProperties(b -> b.put("mail.debug", "true"))
 								.port(this.mailProperties.getPort())
 								.credentials(this.mailProperties.getUsername(), this.mailProperties.getPassword()),
 						e -> e.id("mailOut").advice(afterMailAdvice()));

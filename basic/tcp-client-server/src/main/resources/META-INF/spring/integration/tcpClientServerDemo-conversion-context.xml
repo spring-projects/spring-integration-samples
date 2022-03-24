@@ -57,7 +57,7 @@
 
 	<int-ip:tcp-connection-factory id="crLfServer"
 								   type="server"
-								   port="${availableServerSocket:0}"/>
+								   port="0"/>
 
 	<int-ip:tcp-inbound-gateway id="gatewayCrLf"
 								connection-factory="crLfServer"

@@ -36,7 +36,7 @@
 	<ip:tcp-connection-factory id="client"
 		type="client"
 		host="localhost"
-		port="${availableServerSocket}"
+		port="#{server.port}"
 		single-use="false"
 		serializer="fastestWireFormatSerializer"
 		deserializer="fastestWireFormatSerializer"
@@ -47,6 +47,7 @@
 	<ip:tcp-outbound-channel-adapter id="outAdapter.client"
 		order="2"
 		channel="input"
+		auto-startup="false"
 		connection-factory="client" /> <!-- Collaborator -->
 
 	<!-- Also send a copy to the custom aggregator for correlation and
@@ -56,9 +57,10 @@
 	<bridge input-channel="input" output-channel="toAggregator.client"
 			order="1"/>
 
-	<!-- Asynch receive reply -->
+	<!-- Async receive reply -->
 	<ip:tcp-inbound-channel-adapter id="inAdapter.client"
 		channel="toAggregator.client"
+		auto-startup="false"
 		connection-factory="client" /> <!-- Collaborator -->
 
 	<!-- dataType attribute invokes the conversion service, if necessary -->
@@ -84,7 +86,7 @@
 
 	<ip:tcp-connection-factory id="server"
 		type="server"
-		port="${availableServerSocket}"
+		port="0"
 		using-nio="true"
 		serializer="fastestWireFormatSerializer"
 		deserializer="fastestWireFormatSerializer" />

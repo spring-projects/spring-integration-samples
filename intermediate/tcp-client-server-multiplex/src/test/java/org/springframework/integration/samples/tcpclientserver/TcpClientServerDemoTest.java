@@ -1,5 +1,5 @@
 /*
- * Copyright 2002-2018 the original author or authors.
+ * Copyright 2002-2022 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,31 +16,28 @@
 
 package org.springframework.integration.samples.tcpclientserver;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.containsString;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.TimeUnit;
 
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.core.task.SimpleAsyncTaskExecutor;
 import org.springframework.core.task.TaskExecutor;
+import org.springframework.integration.endpoint.AbstractEndpoint;
+import org.springframework.integration.ip.tcp.connection.AbstractClientConnectionFactory;
 import org.springframework.integration.ip.tcp.connection.AbstractServerConnectionFactory;
 import org.springframework.integration.ip.util.TestingUtilities;
-import org.springframework.integration.samples.tcpclientserver.support.CustomTestContextLoader;
 import org.springframework.messaging.MessagingException;
 import org.springframework.test.annotation.DirtiesContext;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 
 
 /**
@@ -56,9 +53,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
  * @since 2.1
  *
  */
-@ContextConfiguration(loader = CustomTestContextLoader.class,
-		locations = { "/META-INF/spring/integration/tcpClientServerDemo-conversion-context.xml" })
-@RunWith(SpringJUnit4ClassRunner.class)
+@SpringJUnitConfig(locations = "/META-INF/spring/integration/tcpClientServerDemo-conversion-context.xml")
 @DirtiesContext
 public class TcpClientServerDemoTest {
 
@@ -68,15 +63,31 @@ public class TcpClientServerDemoTest {
 	@Autowired
 	AbstractServerConnectionFactory crLfServer;
 
-	@Before
+	@Autowired
+	AbstractClientConnectionFactory client;
+
+	@Autowired
+	@Qualifier("outAdapter.client")
+	AbstractEndpoint outAdapterClient;
+
+	@Autowired
+	@Qualifier("inAdapter.client")
+	AbstractEndpoint inAdapterClient;
+
+	@BeforeEach
 	public void setup() {
-		TestingUtilities.waitListening(this.crLfServer, 10000L);
+		if (!this.outAdapterClient.isRunning()) {
+			TestingUtilities.waitListening(this.crLfServer, 10000L);
+			this.client.setPort(this.crLfServer.getPort());
+			this.outAdapterClient.start();
+			this.inAdapterClient.start();
+		}
 	}
 
 	@Test
 	public void testHappyDay() {
 		String result = gw.send("999Hello world!"); // first 3 bytes is correlationid
-		assertEquals("999Hello world!:echo", result);
+		assertThat(result).isEqualTo("999Hello world!:echo");
 	}
 
 	@Test
@@ -88,36 +99,28 @@ public class TcpClientServerDemoTest {
 			results.add(i);
 			final int j = i;
 			executor.execute(() -> {
-				String result = gw.send(j + "Hello world!"); // first 3 bytes is correlationid
-				assertEquals(j + "Hello world!:echo", result);
+				String result = gw.send(j + "Hello world!"); // first 3 bytes is correlationId
+				assertThat(result).isEqualTo(j + "Hello world!:echo");
 				results.remove(j);
 				latch.countDown();
 			});
 		}
-		assertTrue(latch.await(60, TimeUnit.SECONDS));
-		assertEquals(0, results.size());
+		assertThat(latch.await(60, TimeUnit.SECONDS)).isTrue();
+		assertThat(results).hasSize(0);
 	}
 
 	@Test
 	public void testTimeoutThrow() {
-		try {
-			gw.send("TIMEOUT_TEST_THROW");
-			fail("expected exception");
-		}
-		catch (MessagingException e) {
-			assertThat(e.getMessage(), containsString("No response received for TIMEOUT_TEST"));
-		}
+		assertThatExceptionOfType(MessagingException.class)
+				.isThrownBy(() -> gw.send("TIMEOUT_TEST_THROW"))
+				.withMessageContaining("No response received for TIMEOUT_TEST");
 	}
 
 	@Test
 	public void testTimeoutReturn() {
-		try {
-			gw.send("TIMEOUT_TEST_RETURN");
-			fail("expected exception");
-		}
-		catch (MessagingException e) {
-			assertThat(e.getMessage(), containsString("No response received for TIMEOUT_TEST"));
-		}
+		assertThatExceptionOfType(MessagingException.class)
+				.isThrownBy(() -> gw.send("TIMEOUT_TEST_RETURN"))
+				.withMessageContaining("No response received for TIMEOUT_TEST");
 	}
 
 }

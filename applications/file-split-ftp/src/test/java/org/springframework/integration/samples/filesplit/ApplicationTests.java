@@ -1,5 +1,5 @@
 /*
- * Copyright 2002-2018 the original author or authors.
+ * Copyright 2002-2022 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -30,15 +30,14 @@ import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.List;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.net.ftp.FTPFile;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -49,19 +48,22 @@ import org.springframework.integration.endpoint.SourcePollingChannelAdapter;
 import org.springframework.integration.file.remote.session.Session;
 import org.springframework.integration.file.remote.session.SessionFactory;
 import org.springframework.integration.test.context.SpringIntegrationTest;
-import org.springframework.integration.test.mail.TestMailServer;
-import org.springframework.integration.test.mail.TestMailServer.SmtpServer;
 import org.springframework.integration.test.util.TestUtils;
 import org.springframework.test.annotation.DirtiesContext;
-import org.springframework.test.context.junit4.SpringRunner;
 
-@RunWith(SpringRunner.class)
+import com.icegreen.greenmail.store.FolderException;
+import com.icegreen.greenmail.util.GreenMail;
+import com.icegreen.greenmail.util.ServerSetup;
+import com.icegreen.greenmail.util.ServerSetupTest;
+import jakarta.mail.internet.InternetAddress;
+import jakarta.mail.internet.MimeMessage;
+
 @SpringBootTest(properties = "spring.main.allow-bean-definition-overriding=true")
 @DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
 @SpringIntegrationTest(noAutoStartup = "fileInboundChannelAdapter")
 public class ApplicationTests {
 
-	private static final SmtpServer smtpServer = TestMailServer.smtp(0);
+	private static GreenMail mailServer;
 
 	@Autowired
 	private Session<FTPFile> session;
@@ -69,23 +71,31 @@ public class ApplicationTests {
 	@Autowired
 	private SourcePollingChannelAdapter fileInboundChannelAdapter;
 
-	@BeforeClass
+	@BeforeAll
 	public static void setup() {
+		ServerSetup smtp = ServerSetupTest.SMTP.dynamicPort();
+		smtp.setServerStartupTimeout(10000);
+		mailServer = new GreenMail(smtp);
+		mailServer.setUser("bar@bar@baz", "user", "pw");
+		mailServer.start();
 		// Configure the boot property to send email to the test email server.
-		System.setProperty("spring.mail.port", Integer.toString(smtpServer.getPort()));
+		System.setProperty("spring.mail.port", Integer.toString(mailServer.getSmtp().getPort()));
 	}
 
-	@Before
-	public void beforeTest() throws IOException {
-		smtpServer.getMessages().clear();
+	@AfterAll
+	static void tearDown() {
+		mailServer.stop();
+	}
 
-		tearDown();
-
+	@BeforeEach
+	public void beforeTest() throws FolderException, IOException {
+		mailServer.purgeEmailFromAllMailboxes();
+		cleanup();
 		this.fileInboundChannelAdapter.start();
 	}
 
-	@After
-	public void tearDown() throws IOException {
+	@AfterEach
+	public void cleanup() throws IOException {
 		File inDir = new File("/tmp/in");
 		if (inDir.exists()) {
 			FileUtils.cleanDirectory(inDir);
@@ -97,22 +107,21 @@ public class ApplicationTests {
 		}
 	}
 
-	@SuppressWarnings("unchecked")
 	@Test
 	public void testSuccess() throws Exception {
-		String message = runTest(false);
-		assertThat(message).contains("File successfully split and transferred");
-		assertThat(message).contains(TestUtils.applySystemFileSeparator("/tmp/in/foo.txt"));
+		MimeMessage message = runTest(false);
+		assertThat(message.getSubject()).isEqualTo("File successfully split and transferred");
+		assertThat(message.getContent()).asString().contains(TestUtils.applySystemFileSeparator("/tmp/in/foo.txt"));
 	}
 
 	@Test
 	public void testFailure() throws Exception {
 		willThrow(new RuntimeException("fail test exception"))
 				.given(this.session).write(any(InputStream.class), eq("foo/002.txt.writing"));
-		String message = runTest(true);
-		assertThat(message).contains("File split and transfer failed");
-		assertThat(message).contains("fail test exception");
-		assertThat(message).contains(TestUtils.applySystemFileSeparator("/tmp/out/002.txt"));
+		MimeMessage message = runTest(true);
+		assertThat(message.getSubject()).isEqualTo("File split and transfer failed");
+		assertThat(message.getContent()).asString().contains("fail test exception");
+		assertThat(message.getContent()).asString().contains(TestUtils.applySystemFileSeparator("/tmp/out/002.txt"));
 	}
 
 	/*
@@ -121,7 +130,7 @@ public class ApplicationTests {
 	 * Verify the input file was renamed based on success/failure.
 	 * Verify the email was sent.
 	 */
-	private String runTest(boolean fail) throws Exception {
+	private MimeMessage runTest(boolean fail) throws Exception {
 		File in = new File("/tmp/in/", "foo");
 		FileOutputStream fos = new FileOutputStream(in);
 		fos.write("*002,foo,bar\n*006,baz,qux\n*009,fiz,buz\n".getBytes());
@@ -175,20 +184,18 @@ public class ApplicationTests {
 			verify(this.session).rename("foo/009.txt.writing", "foo/009.txt");
 		}
 
-		String message = verifyMail();
-		assertThat(message).contains("From: foo@bar");
-		assertThat(message).contains("To: bar@baz");
+		MimeMessage message = verifyMail();
+		assertThat(message.getFrom()).containsOnly(new InternetAddress("foo@bar"));
+		assertThat(message.getRecipients(MimeMessage.RecipientType.TO)).containsOnly(new InternetAddress("bar@baz"));
 		return message;
 	}
 
-	public String verifyMail() throws Exception {
-		List<String> messages = smtpServer.getMessages();
-		int n = 0;
-		while (n++ < 100 && messages.size() < 1) {
-			Thread.sleep(100);
-		}
-		assertThat(messages).hasSize(1);
-		return messages.get(0);
+	public MimeMessage verifyMail() {
+		mailServer.waitForIncomingEmail(10000, 1);
+		MimeMessage[] mail = mailServer.getReceivedMessagesForDomain("baz");
+		assertThat(mail).hasSize(1);
+		MimeMessage message = mail[0];
+		return message;
 	}
 
 	/**

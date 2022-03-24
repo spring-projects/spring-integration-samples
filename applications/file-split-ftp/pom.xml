@@ -118,6 +118,12 @@
       <scope>test</scope>
     </dependency>
     <dependency>
+      <groupId>com.icegreen</groupId>
+      <artifactId>greenmail</artifactId>
+      <version>2.0.0-alpha-2</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
       <groupId>org.junit.jupiter</groupId>
       <artifactId>junit-jupiter-engine</artifactId>
       <scope>runtime</scope>
@@ -159,14 +165,14 @@
       <dependency>
         <groupId>org.springframework</groupId>
         <artifactId>spring-framework-bom</artifactId>
-        <version>6.0.0-M2</version>
+        <version>6.0.0-M3</version>
         <scope>import</scope>
         <type>pom</type>
       </dependency>
       <dependency>
         <groupId>org.springframework.integration</groupId>
         <artifactId>spring-integration-bom</artifactId>
-        <version>6.0.0-M1</version>
+        <version>6.0.0-M2</version>
         <scope>import</scope>
         <type>pom</type>
       </dependency>

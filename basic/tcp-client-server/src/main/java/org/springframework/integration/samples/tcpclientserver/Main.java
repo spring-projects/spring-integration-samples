@@ -1,5 +1,5 @@
 /*
- * Copyright 2002-2018 the original author or authors.
+ * Copyright 2002-2022 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,15 +16,14 @@
 
 package org.springframework.integration.samples.tcpclientserver;
 
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Scanner;
 
-import org.springframework.context.support.GenericXmlApplicationContext;
-import org.springframework.core.env.MapPropertySource;
+import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.integration.endpoint.AbstractEndpoint;
+import org.springframework.integration.ip.tcp.connection.AbstractClientConnectionFactory;
 import org.springframework.integration.ip.tcp.connection.AbstractServerConnectionFactory;
 import org.springframework.integration.ip.util.TestingUtilities;
-import org.springframework.util.SocketUtils;
 
 /**
  * Demonstrates the use of a gateway as an entry point into the integration flow.
@@ -50,12 +49,11 @@ import org.springframework.util.SocketUtils;
  */
 public final class Main {
 
-	private static final String AVAILABLE_SERVER_SOCKET = "availableServerSocket";
-
 	/**
 	 * Prevent instantiation.
 	 */
-	private Main() {}
+	private Main() {
+	}
 
 	/**
 	 * Load the Spring Integration Application Context
@@ -66,22 +64,28 @@ public final class Main {
 
 		final Scanner scanner = new Scanner(System.in);
 
-		System.out.println("\n========================================================="
-				+ "\n                                                         "
-				+ "\n    Welcome to the Spring Integration                    "
-				+ "\n          TCP-Client-Server Sample!                      "
-				+ "\n                                                         "
-				+ "\n    For more information please visit:                   "
-				+ "\n    https://www.springsource.org/spring-integration/                    "
-				+ "\n                                                         "
-				+ "\n=========================================================");
+		System.out.println("""
 
-		final GenericXmlApplicationContext context = Main.setupContext();
+				=========================================================
+				                                                        \s
+				    Welcome to the Spring Integration                   \s
+				          TCP-Client-Server Sample!                     \s
+				                                                        \s
+				    For more information please visit:                  \s
+				    https://www.springsource.org/spring-integration/    \s
+				                                                        \s
+				=========================================================""");
+
+		final ConfigurableApplicationContext context = Main.setupContext();
 		final SimpleGateway gateway = context.getBean(SimpleGateway.class);
 		final AbstractServerConnectionFactory crLfServer = context.getBean(AbstractServerConnectionFactory.class);
+		final AbstractClientConnectionFactory client = context.getBean(AbstractClientConnectionFactory.class);
+		final AbstractEndpoint outGateway = context.getBean("outGateway", AbstractEndpoint.class);
 
 		System.out.print("Waiting for server to accept connections...");
 		TestingUtilities.waitListening(crLfServer, 10000L);
+		client.setPort(crLfServer.getPort());
+		outGateway.start();
 		System.out.println("running.\n\n");
 
 		System.out.println("Please enter some text and press <enter>: ");
@@ -107,32 +111,13 @@ public final class Main {
 		}
 
 		System.out.println("Exiting application...bye.");
+		context.close();
 		System.exit(0);
 
 	}
 
-	public static GenericXmlApplicationContext setupContext() {
-		final GenericXmlApplicationContext context = new GenericXmlApplicationContext();
-
-		if (System.getProperty(AVAILABLE_SERVER_SOCKET) == null) {
-			System.out.print("Detect open server socket...");
-			int availableServerSocket = SocketUtils.findAvailableTcpPort(5678);
-
-			final Map<String, Object> sockets = new HashMap<>();
-			sockets.put(AVAILABLE_SERVER_SOCKET, availableServerSocket);
-
-			final MapPropertySource propertySource = new MapPropertySource("sockets", sockets);
-
-			context.getEnvironment().getPropertySources().addLast(propertySource);
-		}
-
-		System.out.println("using port " + context.getEnvironment().getProperty(AVAILABLE_SERVER_SOCKET));
-
-		context.load("classpath:META-INF/spring/integration/tcpClientServerDemo-context.xml");
-		context.registerShutdownHook();
-		context.refresh();
-
-		return context;
+	public static ConfigurableApplicationContext setupContext() {
+		return new ClassPathXmlApplicationContext("META-INF/spring/integration/tcpClientServerDemo-context.xml");
 	}
 
 }
