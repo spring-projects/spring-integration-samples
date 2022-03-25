@@ -1,12 +1,6 @@
 Spring Integration Samples
 ==========================
 
-# Note
-
-This (main) branch requires Spring Integration 5.0 or above. For samples running against earlier versions of Spring Integration, use the __SI4.3.x__ and other branches.
-
-# Introduction
-
 Welcome to the **Spring Integration Samples** repository which provides **50+ samples** to help you learn [Spring Integration][]. To simplify your experience, the *Spring Integration* samples are split into 4 distinct categories:
 
 * Basic
@@ -21,15 +15,14 @@ Inside of each category you'll find a **README.md** file, which will contain a m
 
 *Happy Integration!*
 
+## Note
+
+This (main) branch requires Spring Integration 5.0 or above. For samples running against earlier versions of Spring Integration, use the __SI4.3.x__ and other branches.
+
 ## Related GitHub projects
 
 * [Spring Integration][]
-* [Spring Integration Extensions][]
-* [Spring Integration Templates][]
-* [Spring Integration Java Dsl][]
-* [Spring Integration Dsl Groovy][]
-* [Spring Integration Dsl Scala][]
-* [Spring Integration Pattern Catalog][]
+
 
 ## Community Sample Projects
 
@@ -132,12 +125,6 @@ See the [Spring Integration Contributor Guidelines](https://github.com/spring-pr
 For more information, please visit the Spring Integration website at: [https://projects.spring.io/spring-integration/](https://projects.spring.io/spring-integration/)
 
 [Spring Integration]: https://github.com/spring-projects/spring-integration
-[Spring Integration Extensions]: https://github.com/spring-projects/spring-integration-extensions
-[Spring Integration Templates]: https://github.com/spring-projects/spring-integration-templates/tree/master/si-sts-templates
-[Spring Integration Java Dsl]: https://github.com/spring-projects/spring-integration-java-dsl
-[Spring Integration Dsl Groovy]: https://github.com/spring-projects/spring-integration-dsl-groovy
-[Spring Integration Dsl Scala]: https://github.com/spring-projects/spring-integration-dsl-scala
-[Spring Integration Pattern Catalog]: https://github.com/spring-projects/spring-integration-pattern-catalog
 
 [message store reaper]: https://docs.spring.io/spring-integration/api/org/springframework/integration/store/MessageGroupStoreReaper.html
 
