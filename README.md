@@ -1,16 +1,6 @@
 Spring Integration Samples
 ==========================
 
-# Note
-
-This (main) branch requires Spring Integration 6.0 or above. 
-For samples running against earlier versions of Spring Integration, use the __5.5.x__ and other branches.
-
-The project requires now Java 17 or above.
-To open the project in the IDE, use its `import` option against a `build.gradle` file from the root project directory.
-
-# Introduction
-
 Welcome to the **Spring Integration Samples** repository which provides **50+ samples** to help you learn [Spring Integration][]. To simplify your experience, the *Spring Integration* samples are split into 4 distinct categories:
 
 * Basic
@@ -24,6 +14,14 @@ Inside of each category you'll find a **README.md** file, which will contain a m
 | For additional samples, please also checkout the [Spring Integration Extensions][] project as it also provides numerous samples.
 
 *Happy Integration!*
+
+# Note
+
+This (main) branch requires Spring Integration 6.0 or above. 
+For samples running against earlier versions of Spring Integration, use the __5.5.x__ and other branches.
+
+The project requires now Java 17 or above.
+To open the project in the IDE, use its `import` option against a `build.gradle` file from the root project directory.
 
 ## Related GitHub projects
 
