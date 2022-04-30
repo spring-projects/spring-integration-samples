@@ -14,4 +14,4 @@ cache:
     - $HOME/.gradle/wrapper/
 install: true
 script:
-    - ./gradlew check --refresh-dependencies --no-daemon
+    - ./gradlew check --refresh-dependencies
