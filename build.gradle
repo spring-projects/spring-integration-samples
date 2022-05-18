@@ -260,7 +260,7 @@ subprojects { subproject ->
 			postgresVersion = '42.3.3'
 			slf4jVersion = '1.7.30'
 			springCloudVersion = '2022.0.0-SNAPSHOT'
-			springIntegrationVersion = '6.0.0-SNAPSHOT'
+			springIntegrationVersion = '6.0.0-M3'
 			springIntegrationSocialTwiterVersion = '1.0.1.BUILD-SNAPSHOT'
 			springIntegrationSplunkVersion = '1.2.0.BUILD-SNAPSHOT'
 			springVersion = '6.0.0-SNAPSHOT'
