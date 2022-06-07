@@ -26,7 +26,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 public class CoffeeServiceStartupTest {
 
     @Test
-    public void testStartupOfSpringInegrationContext() throws Exception{
+    public void testStartupOfSpringIntegrationContext() throws Exception{
         final ApplicationContext context
             = new ClassPathXmlApplicationContext("/META-INF/spring/integration/spring-integration-context.xml",
                                                   CoffeeServiceStartupTest.class);

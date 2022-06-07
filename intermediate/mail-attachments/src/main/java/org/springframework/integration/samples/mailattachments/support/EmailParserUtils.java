@@ -75,7 +75,7 @@ public final class EmailParserUtils {
 			final List<EmailFragment> emailFragments) {
 
 		Assert.notNull(mailMessage, "The mail message to be parsed must not be null.");
-		Assert.notNull(emailFragments, "The collection of emailfragments must not be null.");
+		Assert.notNull(emailFragments, "The collection of email fragments must not be null.");
 
 		final Object content;
 		final String subject;
@@ -135,7 +135,7 @@ public final class EmailParserUtils {
 		Assert.notNull(directory, "The directory must not be null.");
 		Assert.notNull(multipart, "The multipart object to be parsed must not be null.");
 		Assert.notNull(mailMessage, "The mail message to be parsed must not be null.");
-		Assert.notNull(emailFragments, "The collection of emailfragments must not be null.");
+		Assert.notNull(emailFragments, "The collection of email fragments must not be null.");
 
 		final int count;
 
@@ -189,7 +189,7 @@ public final class EmailParserUtils {
 			}
 
 			if (Part.ATTACHMENT.equalsIgnoreCase(disposition)) {
-				LOGGER.info(String.format("Handdling attachment '%s', type: '%s'", filename, contentType));
+				LOGGER.info(String.format("Handling attachment '%s', type: '%s'", filename, contentType));
 			}
 
 			final Object content;
@@ -208,7 +208,7 @@ public final class EmailParserUtils {
 
 				if (Part.ATTACHMENT.equalsIgnoreCase(disposition)) {
 					emailFragments.add(new EmailFragment(directory, i + "-" + filename, content));
-					LOGGER.info(String.format("Handdling attachment '%s', type: '%s'", filename, contentType));
+					LOGGER.info(String.format("Handling attachment '%s', type: '%s'", filename, contentType));
 				}
 				else {
 

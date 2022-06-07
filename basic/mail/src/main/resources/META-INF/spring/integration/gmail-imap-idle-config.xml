@@ -12,7 +12,7 @@
 	<int:channel id="receiveChannel" />
 	<!-- replace 'userid and 'password' with the real values -->
 	<int-mail:imap-idle-channel-adapter id="customAdapter"
-			store-uri="imaps://[userid]:[pasword]@imap.gmail.com:993/inbox"
+			store-uri="imaps://[userid]:[password]@imap.gmail.com:993/inbox"
 			channel="receiveChannel"
 			auto-startup="true"
 			should-delete-messages="false"

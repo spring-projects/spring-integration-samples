@@ -112,7 +112,7 @@ public final class Main {
 		while (!scanner.hasNext("q")) {
 			String input = scanner.nextLine();
 
-			System.out.println("Converting String to Uppcase using Stored Procedure...");
+			System.out.println("Converting String to Uppercase using Stored Procedure...");
 			String inputUpperCase = service.convertToUpperCase(input);
 
 			System.out.println("Retrieving Numeric value via Sql Function...");

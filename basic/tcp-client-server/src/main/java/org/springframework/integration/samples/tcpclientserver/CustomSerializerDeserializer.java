@@ -75,8 +75,8 @@ public class CustomSerializerDeserializer implements Serializer<CustomOrder>, De
 		byte[] senderName = object.getSender().getBytes();
 		outputStream.write(senderName);
 
-		String lenghtPadded = pad(6, object.getMessage().length());
-		byte[] length = lenghtPadded.getBytes();
+		String lengthPadded = pad(6, object.getMessage().length());
+		byte[] length = lengthPadded.getBytes();
 		outputStream.write(length);
 
 		outputStream.write(object.getMessage().getBytes());

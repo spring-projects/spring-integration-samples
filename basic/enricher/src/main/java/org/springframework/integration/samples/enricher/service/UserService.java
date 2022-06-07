@@ -38,7 +38,7 @@ public interface UserService {
 
     /**
      * Retrieves a user based on the provided username that is provided as a Map
-     * entry using the mapkey 'username'. Map object is routed to the
+     * entry using the key 'username'. Map object is routed to the
      * "findUserWithMapChannel" channel.
      */
 	Map<String, Object> findUserWithUsernameInMap(Map<String, Object> userdata);

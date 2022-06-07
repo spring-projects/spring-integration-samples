@@ -48,7 +48,7 @@ This example is pure XML - it's a simple flow...
 
     gateway -> transformer -> service-activator
 
-The transformer concatentates the payload to itself (String), the service upper cases the payload. The result is returned to the gateway. "foo" becomes "FOOFOO".
+The transformer concatenates the payload to itself (String), the service upper cases the payload. The result is returned to the gateway. "foo" becomes "FOOFOO".
 
 ## BXMLAndPojo
 
@@ -79,4 +79,3 @@ This adds a recipient list router and sends a copy of the payload to an SMTP Ema
 ## GIMAP
 
 This is a separate application that demonstrates the DSL configuring an IMAP idle channel adapter, to receive emails sent by __FEmail__.
-

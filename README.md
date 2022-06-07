@@ -62,7 +62,7 @@ This is a good place to get started. The samples here are technically motivated 
 * **mongodb** - Shows how to persist a Message payload to a **MongoDb** document store and how to read documents from **MongoDb**
 * **oddeven** - Example combining the functionality of **Inbound Channel Adapter**, **Filter**, **Router** and **Poller**
 * **jpa** - This sample illustrates how the JPA Components can be used
-* **quote** - Example demoing core EIP support using **Channel Adapter (Inbound and Stdout)**, **Poller** with Interval Trigers, **Service Activator**
+* **quote** - Example demoing core EIP support using **Channel Adapter (Inbound and Stdout)**, **Poller** with Interval Triggers, **Service Activator**
 * **sftp** - Demonstrating SFTP support using **SFTP Inbound / Outbound Channel Adapters**
 * **tcp-amqp** - Demonstrates basic functionality of bridging the **Spring Integration TCP Adapters** with **Spring Integration AMQP Adapters**
 * **tcp-broadcast** - Demonstrates broadcasting a message to multiple connected TCP clients.

@@ -39,7 +39,7 @@ NOTE: You can see that we are using *SpEL* via the **remote-filename-generator-e
 
 ## OUTBOUND GATEWAY
 
-Run the **FtpOutoundGateway** sample as a JUnit test; it creates 2 files, retrieves and removes them over ftp. It cleans up by removing the retrieved files. The test assumes full access to the filesystem via **/tmp** where the test files are created. Requires **sshd** to be running on localhost.
+Run the **FtpOutboundGateway** sample as a JUnit test; it creates 2 files, retrieves and removes them over ftp. It cleans up by removing the retrieved files. The test assumes full access to the filesystem via **/tmp** where the test files are created. Requires **sshd** to be running on localhost.
 
 This sample uses a property **private.keyfile** to point to the location of your private key. Requires setting of **user**, **private.keyfile** and, optionally, **passphrase** in **user.properties**.
 	

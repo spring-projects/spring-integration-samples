@@ -83,7 +83,7 @@ public class EmployeeSearchService {
 		}
 		catch (Exception e) {
 			setReturnStatusAndMessage("1", "System Error", employeeList, responseHeaderMap);
-			logger.error("System error occured :" + e);
+			logger.error("System error occurred :" + e);
 		}
 		Message<EmployeeList> message = new GenericMessage<EmployeeList>(employeeList, responseHeaderMap);
 		return message;
@@ -109,5 +109,3 @@ public class EmployeeSearchService {
 	}
 
 }
-
-

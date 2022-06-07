@@ -24,7 +24,7 @@ To run this configuration, start an instance of ActiveMQ with the openwire/TCP c
    1. **CafeDemoAppBaristaColdActiveMQ - starts the ColdDrink Barista
    2. **CafeDemoAppBaristaHotActiveMQ  - starts the HotDrink Barista
    3. **CafeDemoAppOperationsActiveMQ  - starts the Cafe Operations (order splitter, drink router, etc).
-   4. **CafeDemoAppAcitveMQ            - places the orders
+   4. **CafeDemoAppActiveMQ            - places the orders
 
 ### JMS backed components
 

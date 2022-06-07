@@ -135,7 +135,7 @@ You should see the following output:
 		2. Execute Sample 2 (Coffee Service)
 		q. Quit the application
 
-Select **Opion 1**.
+Select **Option 1**.
 
 	=========================================================
 
@@ -230,7 +230,7 @@ You should see the following output:
 		2. Execute Sample 2 (Coffee Service)
 		q. Quit the application
 
-Select **Opion 2**.
+Select **Option 2**.
 
 This should result in the following output:
 
