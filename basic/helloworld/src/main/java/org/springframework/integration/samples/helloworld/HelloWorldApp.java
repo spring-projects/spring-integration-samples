@@ -42,7 +42,7 @@ import org.springframework.messaging.support.GenericMessage;
  */
 public class HelloWorldApp {
 
-	private static Log logger = LogFactory.getLog(HelloWorldApp.class);
+	private static final Log logger = LogFactory.getLog(HelloWorldApp.class);
 
 	public static void main(String[] args) {
 		AbstractApplicationContext context = new ClassPathXmlApplicationContext("/META-INF/spring/integration/helloWorldDemo.xml", HelloWorldApp.class);

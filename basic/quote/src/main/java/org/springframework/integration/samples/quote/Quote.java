@@ -23,9 +23,9 @@ import java.math.BigDecimal;
  */
 public class Quote {
 
-	private String ticker;
+	private final String ticker;
 
-	private BigDecimal price;
+	private final BigDecimal price;
 
 	public Quote(String ticker, BigDecimal price) {
 		this.ticker = ticker;

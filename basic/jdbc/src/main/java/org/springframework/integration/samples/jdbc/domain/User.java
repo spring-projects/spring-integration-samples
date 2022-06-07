@@ -13,9 +13,9 @@
 package org.springframework.integration.samples.jdbc.domain;
 
 public class User {
-    private String username;
-    private String password;
-    private String email;
+    private final String username;
+    private final String password;
+    private final String email;
 
     public User(String username, String password, String email) {
         super();

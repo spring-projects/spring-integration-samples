@@ -47,9 +47,9 @@ public class WeatherMarshaller implements Marshaller, Unmarshaller, Initializing
 
 	private static final TransformerFactory transformerFactory = TransformerFactory.newInstance();
 
-	private Map<String, String> namespacePrefixes = new HashMap<String, String>();
+	private final Map<String, String> namespacePrefixes = new HashMap<String, String>();
 
-	private String xpathPrefix = "/p:GetCityWeatherByZIPResponse/p:GetCityWeatherByZIPResult/";
+	private static final String XPATH_PREFIX = "/p:GetCityWeatherByZIPResponse/p:GetCityWeatherByZIPResult/";
 
 	public Object unmarshal(Source source) throws IOException, XmlMappingException {
 
@@ -63,16 +63,16 @@ public class WeatherMarshaller implements Marshaller, Unmarshaller, Initializing
 			throw new MarshallingFailureException("Failed to unmarshal SOAP Response", e);
 		}
 		Weather weather = new Weather();
-		String expression = xpathPrefix + "p:City";
+		String expression = XPATH_PREFIX + "p:City";
 		String city = XPathExpressionFactory.createXPathExpression(expression, namespacePrefixes).evaluateAsString(result.getNode());
 		weather.setCity(city);
-		expression = xpathPrefix + "p:State";
+		expression = XPATH_PREFIX + "p:State";
 		String state = XPathExpressionFactory.createXPathExpression(expression, namespacePrefixes).evaluateAsString(result.getNode());
 		weather.setState(state);
-		expression = xpathPrefix + "p:Temperature";
+		expression = XPATH_PREFIX + "p:Temperature";
 		String temperature = XPathExpressionFactory.createXPathExpression(expression, namespacePrefixes).evaluateAsString(result.getNode());
 		weather.setTemperature(temperature);
-		expression = xpathPrefix + "p:Description";
+		expression = XPATH_PREFIX + "p:Description";
 		String description = XPathExpressionFactory.createXPathExpression(expression, namespacePrefixes).evaluateAsString(result.getNode());
 		weather.setDescription(description);
 		return weather;

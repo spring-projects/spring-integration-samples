@@ -27,9 +27,9 @@ import java.util.Map;
 public enum Gender {
 
 	MALE("M"),FEMALE("F");
-	private static Map<String, Gender> map;
-	
-	private String identifier;
+	private static final Map<String, Gender> map;
+
+	private final String identifier;
 
 	private Gender(String identifier) {
 		this.identifier = identifier;
@@ -37,12 +37,12 @@ public enum Gender {
 
 	public String getIdentifier() {
 		return identifier;
-	}	
-	
+	}
+
 	public static Gender getGenderByIdentifier(String identifier) {
 		return map.get(identifier);
 	}
-	
+
 	static {
 		map = new HashMap<String, Gender>();
 		for(Gender gender:EnumSet.allOf(Gender.class)) {

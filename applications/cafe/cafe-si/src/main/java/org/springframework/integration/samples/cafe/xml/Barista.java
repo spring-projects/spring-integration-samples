@@ -33,7 +33,7 @@ import org.springframework.integration.samples.cafe.OrderItem;
 
 public class Barista {
 
-	private static Log logger = LogFactory.getLog(Barista.class);
+	private static final Log logger = LogFactory.getLog(Barista.class);
 
 	private long hotDrinkDelay = 5000;
 

@@ -25,9 +25,9 @@ import java.util.List;
  */
 public class Order {
 
-	private List<OrderItem> orderItems = new ArrayList<OrderItem>();
+	private final List<OrderItem> orderItems = new ArrayList<OrderItem>();
 
-	private int number;
+	private final int number;
 
 	public Order(int number) {
 		this.number = number;
@@ -44,7 +44,7 @@ public class Order {
 	public List<OrderItem> getItems() {
 		return this.orderItems;
 	}
-	
+
 	public String toString() {
 		return "Order number " + number;
 	}

@@ -33,7 +33,7 @@ import org.springframework.integration.samples.loanbroker.domain.LoanRequest;
  */
 public class LoanBrokerSharkDetectorDemo {
 
-	private static Log logger = LogFactory.getLog(LoanBrokerSharkDetectorDemo.class);
+	private static final Log logger = LogFactory.getLog(LoanBrokerSharkDetectorDemo.class);
 
 	public static void main(String[] args) {
 		ConfigurableApplicationContext context =

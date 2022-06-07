@@ -36,8 +36,8 @@ import org.apache.ftpserver.usermanager.impl.WritePermission;
  *
  */
 public class TestUserManager extends AbstractUserManager {
-	private BaseUser testUser;
-	private BaseUser anonUser;
+	private final BaseUser testUser;
+	private final BaseUser anonUser;
 
 	private static final String TEST_USERNAME = "demo";
 	private static final String TEST_PASSWORD = "demo";

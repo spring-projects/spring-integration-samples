@@ -32,7 +32,7 @@ import org.springframework.messaging.MessagingException;
  */
 public class GmailInboundPop3AdapterTestApp {
 
-	private static Log logger = LogFactory.getLog(GmailInboundPop3AdapterTestApp.class);
+	private static final Log logger = LogFactory.getLog(GmailInboundPop3AdapterTestApp.class);
 
 	public static void main (String[] args) throws Exception {
 		@SuppressWarnings("resource")

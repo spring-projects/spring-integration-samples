@@ -32,13 +32,13 @@ import org.springframework.http.HttpStatus;
  */
 public class MultipartClientForHttpOutboundClient {
 
-	private static Log logger = LogFactory.getLog(MultipartClientForHttpOutboundClient.class);
-	private static String resourcePath = "org/springframework/integration/samples/multipart/spring09_logo.png";
+	private static final Log logger = LogFactory.getLog(MultipartClientForHttpOutboundClient.class);
+	private static final String RESOURCE_PATH = "org/springframework/integration/samples/multipart/spring09_logo.png";
 
 	public static void main(String[] args) throws Exception{
 		ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(
 				"/META-INF/spring/integration/http-outbound-config.xml");
-		Resource s2logo = new ClassPathResource(resourcePath);
+		Resource s2logo = new ClassPathResource(RESOURCE_PATH);
 		Map<String, Object> multipartMap = new HashMap<String, Object>();
 		multipartMap.put("company", new String[]{"SpringSource", "VMWare"});
 		multipartMap.put("company-logo", s2logo);

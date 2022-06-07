@@ -30,7 +30,7 @@ import org.springframework.messaging.MessagingException;
  *
  */
 public class GmailInboundImapIdleAdapterTestApp {
-	private static Log logger = LogFactory.getLog(GmailInboundImapIdleAdapterTestApp.class);
+	private static final Log logger = LogFactory.getLog(GmailInboundImapIdleAdapterTestApp.class);
 
 
 	public static void main (String[] args) throws Exception {

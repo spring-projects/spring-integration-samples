@@ -68,7 +68,7 @@ public class RestHttpClientTest {
 
 	private HttpMessageConverterExtractor<EmployeeList> responseExtractor;
 
-	private static Log logger = LogFactory.getLog(RestHttpClientTest.class);
+	private static final Log logger = LogFactory.getLog(RestHttpClientTest.class);
 
 	@Autowired
 	private Jaxb2Marshaller marshaller;
