@@ -40,8 +40,8 @@ import org.w3c.dom.Node;
  * @since SpringOne2GX - 2010, Chicago
  */
 public class TrafficHttpConverter implements HttpMessageConverter<Traffic> {
-	private List<MediaType> supportedMediaTypes = Collections.emptyList();
-	
+	private final List<MediaType> supportedMediaTypes = Collections.emptyList();
+
 	public boolean canRead(Class<?> clazz, MediaType mediaType) {
 		return Traffic.class.equals(clazz);
 	}

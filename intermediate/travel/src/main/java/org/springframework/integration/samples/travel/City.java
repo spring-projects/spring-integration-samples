@@ -31,10 +31,10 @@ public enum City {
 	BOSTON(2, "Boston", "02201", "42.636182,-71.651862,42.080413,-70.467446"),
 	SAN_FRANCISCO(3, "San Francisco", "94102", "38.052886,-123.009856,37.497117,-121.82544");
 
-	private Integer id;
-	private String name;
-	private String boundingBox;
-	private String postalCode;
+	private final Integer id;
+	private final String name;
+	private final String boundingBox;
+	private final String postalCode;
 
 	private City(Integer id, String name, String postalCode, String boundingBox) {
 		this.id = id;

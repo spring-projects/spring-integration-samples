@@ -28,7 +28,7 @@ import org.springframework.util.LinkedMultiValueMap;
  *
  */
 public class MultipartReceiver {
-	private static Log logger = LogFactory.getLog(MultipartReceiver.class);
+	private static final Log logger = LogFactory.getLog(MultipartReceiver.class);
 
 	@SuppressWarnings("rawtypes")
 	public void receive(LinkedMultiValueMap<String, Object> multipartRequest){

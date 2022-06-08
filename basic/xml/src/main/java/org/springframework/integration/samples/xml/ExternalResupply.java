@@ -25,7 +25,7 @@ import org.w3c.dom.Document;
  * @author Gary Russell
  */
 public class ExternalResupply {
-	private static Log logger = LogFactory.getLog(ExternalResupply.class);
+	private static final Log logger = LogFactory.getLog(ExternalResupply.class);
 
 	public void orderResupply(Document resupplyOrder) {
 		logger.info("Placing resupply order: \n" + XmlUtil.docAsString(resupplyOrder));

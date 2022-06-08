@@ -31,7 +31,7 @@ import org.springframework.jmx.export.annotation.ManagedResource;
 @ManagedResource
 public class Waiter {
 
-	private AtomicInteger totalDeliveries = new AtomicInteger();
+	private final AtomicInteger totalDeliveries = new AtomicInteger();
 
 	public Delivery prepareDelivery(List<Drink> drinks) {
 		totalDeliveries.getAndIncrement();

@@ -34,7 +34,7 @@ import org.springframework.integration.annotation.ServiceActivator;
  */
 @MessageEndpoint
 public class OddLogger {
-	private static Log logger = LogFactory.getLog(OddLogger.class);
+	private static final Log logger = LogFactory.getLog(OddLogger.class);
 
 	@ServiceActivator
 	public void log(int i) {

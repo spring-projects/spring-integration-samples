@@ -44,7 +44,7 @@ import org.springframework.stereotype.Service;
 public class DefaultTwitterService implements TwitterService {
 
 	/** Holds a collection of polled Twitter messages */
-	private Map<Long, TwitterMessage> twitterMessages;
+	private final Map<Long, TwitterMessage> twitterMessages;
 
 	@Autowired
 	private MessageChannel controlBusChannel;

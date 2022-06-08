@@ -30,7 +30,7 @@ import org.springframework.integration.samples.cafe.WaiterMonitor;
  *
  */
 public class ControlBusMain {
-	private static Log logger = LogFactory.getLog(ControlBusMain.class);
+	private static final Log logger = LogFactory.getLog(ControlBusMain.class);
 
 	public static void main(String[] args)  {
 

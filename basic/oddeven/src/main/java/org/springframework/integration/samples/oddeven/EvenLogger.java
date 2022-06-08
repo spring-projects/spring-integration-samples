@@ -34,7 +34,7 @@ import org.springframework.integration.annotation.ServiceActivator;
  */
 @MessageEndpoint
 public class EvenLogger {
-	private static Log logger = LogFactory.getLog(EvenLogger.class);
+	private static final Log logger = LogFactory.getLog(EvenLogger.class);
 
 	@ServiceActivator
 	public void log(int i) {

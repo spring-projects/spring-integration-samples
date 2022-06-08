@@ -25,9 +25,9 @@ import org.apache.commons.lang3.builder.ToStringStyle;
  */
 public class CustomOrder {
 
-	private int number;
+	private final int number;
 
-	private String sender;
+	private final String sender;
 
 	private String message;
 

@@ -41,7 +41,7 @@ import org.springframework.xml.transform.StringSource;
  */
 public class InContainerTests {
 
-	private static Log logger = LogFactory.getLog(InContainerTests.class);
+	private static final Log logger = LogFactory.getLog(InContainerTests.class);
 	private static final String WS_URI = "http://localhost:8080/ws-inbound-gateway/echoservice";
 	private final WebServiceTemplate template = new WebServiceTemplate();
 

@@ -25,7 +25,7 @@ import org.w3c.dom.Document;
  * @author Gary Russell
  */
 public class WarehouseDispatch {
-	private static Log logger = LogFactory.getLog(WarehouseDispatch.class);
+	private static final Log logger = LogFactory.getLog(WarehouseDispatch.class);
 
 	public void dispatch(Document orderItem){
 		logger.info("Warehouse dispatching orderItem: \n" + XmlUtil.docAsString(orderItem));

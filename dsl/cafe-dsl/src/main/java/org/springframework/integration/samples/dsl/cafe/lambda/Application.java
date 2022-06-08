@@ -68,9 +68,9 @@ public class Application {
 
 	}
 
-	private AtomicInteger hotDrinkCounter = new AtomicInteger();
+	private final AtomicInteger hotDrinkCounter = new AtomicInteger();
 
-	private AtomicInteger coldDrinkCounter = new AtomicInteger();
+	private final AtomicInteger coldDrinkCounter = new AtomicInteger();
 
 	@Bean(name = PollerMetadata.DEFAULT_POLLER)
 	public PollerMetadata poller() {

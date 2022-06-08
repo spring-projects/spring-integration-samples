@@ -25,7 +25,7 @@ import java.util.Collection;
  * 
  */
 public class CompositeResult extends Result {
-	private Collection<Result> results = new ArrayList<Result>();
+	private final Collection<Result> results = new ArrayList<Result>();
 
 	public Collection<Result> getResults() {
 		return results;

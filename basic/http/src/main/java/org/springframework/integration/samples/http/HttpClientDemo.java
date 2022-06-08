@@ -27,7 +27,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
  */
 public class HttpClientDemo {
 
-	private static Log logger = LogFactory.getLog(HttpClientDemo.class);
+	private static final Log logger = LogFactory.getLog(HttpClientDemo.class);
 
 	public static void main(String[] args) {
 		ConfigurableApplicationContext context = new ClassPathXmlApplicationContext(

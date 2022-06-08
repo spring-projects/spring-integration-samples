@@ -58,7 +58,7 @@ import reactor.core.scheduler.Schedulers;
 @DirtiesContext
 public class MonoGatewayTests {
 
-	private static Log logger = LogFactory.getLog(MonoGatewayTests.class);
+	private static final Log logger = LogFactory.getLog(MonoGatewayTests.class);
 
 	@Autowired
 	private MathGateway gateway;

@@ -59,7 +59,7 @@ import org.springframework.util.concurrent.ListenableFutureCallback;
 @DirtiesContext
 public class ListenableFutureTest {
 
-	private static Log logger = LogFactory.getLog(ListenableFutureTest.class);
+	private static final Log logger = LogFactory.getLog(ListenableFutureTest.class);
 
 	@Autowired
 	private MathGateway gateway;

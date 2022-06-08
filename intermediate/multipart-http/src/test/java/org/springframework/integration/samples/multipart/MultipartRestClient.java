@@ -36,15 +36,15 @@ import org.springframework.web.client.RestTemplate;
  */
 public class MultipartRestClient {
 
-	private static Log logger = LogFactory.getLog(MultipartRestClient.class);
+	private static final Log logger = LogFactory.getLog(MultipartRestClient.class);
 
-	private static String uri = "http://localhost:8080/multipart-http/inboundAdapter.htm";
+	private static final String URI = "http://localhost:8080/multipart-http/inboundAdapter.htm";
 
-	private static String resourcePath = "org/springframework/integration/samples/multipart/spring09_logo.png";
+	private static final String RESOURCE_PATH = "org/springframework/integration/samples/multipart/spring09_logo.png";
 
 	public static void main(String[] args) throws Exception{
 		RestTemplate template = new RestTemplate();
-		Resource s2logo = new ClassPathResource(resourcePath);
+		Resource s2logo = new ClassPathResource(RESOURCE_PATH);
 		MultiValueMap<String, Object> multipartMap = new LinkedMultiValueMap<String, Object>();
 		multipartMap.add("company", "SpringSource");
 		multipartMap.add("company-logo", s2logo);
@@ -52,8 +52,8 @@ public class MultipartRestClient {
 		HttpHeaders headers = new HttpHeaders();
 		headers.setContentType(new MediaType("multipart", "form-data"));
 		HttpEntity<Object> request = new HttpEntity<Object>(multipartMap, headers);
-		logger.info("Posting request to: " + uri);
-		ResponseEntity<?> httpResponse = template.exchange(uri, HttpMethod.POST, request, Object.class);
+		logger.info("Posting request to: " + URI);
+		ResponseEntity<?> httpResponse = template.exchange(URI, HttpMethod.POST, request, Object.class);
 		if (!httpResponse.getStatusCode().equals(HttpStatus.OK)){
 			logger.error("Problems with the request. Http status: " + httpResponse.getStatusCode());
 		}

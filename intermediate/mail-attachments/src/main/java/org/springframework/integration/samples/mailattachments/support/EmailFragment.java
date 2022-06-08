@@ -32,11 +32,11 @@ import org.springframework.util.Assert;
  */
 public class EmailFragment {
 
-	private Object data;
+	private final Object data;
 
-	private String filename;
+	private final String filename;
 
-	private File directory;
+	private final File directory;
 
 	/**
 	 * Constructor.
