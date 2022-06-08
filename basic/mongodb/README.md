@@ -5,7 +5,7 @@ Spring Integration - MongoDb Sample
 
 The *MongoDb Outbound Channel Adapter* allows you to write the Message payload to a MongoDb document store. You can see the simplest configuration of the MongoDb Channel Adapter below:
 
-    <int-mongodb:outbound-channel-adapter id="deafultAdapter"/>
+    <int-mongodb:outbound-channel-adapter id="defaultAdapter"/>
 
 It will be initialized with the default instance of the **MongoDbFactory** (the default bean name is 'mongoDbFactory') otherwise you can provide its 
 reference via **mongodb-factory** attribute.

@@ -32,7 +32,7 @@
 	<int:transaction-synchronization-factory id="syncFactory">
 		<int:after-commit expression="payload.renameTo(payload.absolutePath + '.SUCCEEDED') ? payload + ' renamed after success' : payload + 'failed to rename after success'"
 			channel="infoLogger" />
-		<int:after-rollback expression="payload.renameTo(payload.absolutePath + '.FAILED') ? payload + ' renamed after faiure' : payload + 'failed to rename after failure'"
+		<int:after-rollback expression="payload.renameTo(payload.absolutePath + '.FAILED') ? payload + ' renamed after failure' : payload + 'failed to rename after failure'"
 			channel="errorLogger" />
 	</int:transaction-synchronization-factory>
 

@@ -32,9 +32,9 @@ public class MongoDbOutboundAdapterDemo {
 	 * @param args
 	 */
 	public static void main(String[] args) throws Exception {
-		DemoUtils.prepareMongoFactory(); // will clean up MOngoDb
+		DemoUtils.prepareMongoFactory(); // will clean up MongoDB
 		new MongoDbOutboundAdapterDemo().runDefaultAdapter();
-//		new MongoDbOutboundAdapterDemo().runAdapterWithConveter();
+//		new MongoDbOutboundAdapterDemo().runAdapterWithConverter();
 	}
 
 	public void runDefaultAdapter() throws Exception {
@@ -43,13 +43,13 @@ public class MongoDbOutboundAdapterDemo {
 		ClassPathXmlApplicationContext context =
 				new ClassPathXmlApplicationContext("mongodb-out-config.xml", MongoDbOutboundAdapterDemo.class);
 
-		MessageChannel messageChannel = context.getBean("deafultAdapter", MessageChannel.class);
+		MessageChannel messageChannel = context.getBean("defaultAdapter", MessageChannel.class);
 		messageChannel.send(new GenericMessage<Person>(this.createPersonA()));
 		messageChannel.send(new GenericMessage<Person>(this.createPersonB()));
 		messageChannel.send(new GenericMessage<Person>(this.createPersonC()));
 	}
 
-	public void runAdapterWithConveter() throws Exception {
+	public void runAdapterWithConverter() throws Exception {
 
 		@SuppressWarnings("resource")
 		ClassPathXmlApplicationContext context =

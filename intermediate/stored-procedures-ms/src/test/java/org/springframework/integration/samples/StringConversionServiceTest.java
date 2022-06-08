@@ -30,7 +30,7 @@ import org.springframework.integration.service.StringConversionService;
 public class StringConversionServiceTest {
 
 	@Test
-	public void testStartupOfSpringInegrationContext() throws Exception{
+	public void testStartupOfSpringIntegrationContext() throws Exception{
 		new ClassPathXmlApplicationContext("/META-INF/spring/integration/spring-integration-context.xml",
 												  StringConversionServiceTest.class);
 		Thread.sleep(2000);

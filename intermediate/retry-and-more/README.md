@@ -48,7 +48,7 @@ You can observe the function of the advice by entering a number of messages over
 `FileTransferRenameAfterFailureDemo`
 
 
-These classes show how to configure expressions to be evaluated after either succes, or failure; the application context is defined in expression-advice-context-xml.
+These classes show how to configure expressions to be evaluated after either success, or failure; the application context is defined in expression-advice-context-xml.
 
 It is a simulation of an application with a file inbound adapter -> ftp outbound adapter.
 

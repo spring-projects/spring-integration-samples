@@ -19,7 +19,7 @@ import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 /**
- * This class demonstrates the use a Spring Integration jmx adadpers to receive
+ * This class demonstrates the use a Spring Integration jmx adapters to receive
  * notifications, poll attributes, and invoke operations on a Remote JMX MBeanServer.
  *
  * @author Gary Russell

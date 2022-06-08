@@ -33,7 +33,7 @@ public class CafeDemoAppUtilities {
 	/**
 	 *
 	 * @param path path to the file
-	 * @param targetClass the class who's classloader we will use to laod the context file
+	 * @param targetClass the class who's classloader we will use to load the context file
 	 * @param profile a profile name
 	 * @return the spring context
 	 */

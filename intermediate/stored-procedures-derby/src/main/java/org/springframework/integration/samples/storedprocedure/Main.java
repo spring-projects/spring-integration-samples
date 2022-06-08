@@ -87,7 +87,7 @@ public final class Main {
 				String coffeeDescription = service.findCoffeeBeverage(Integer.valueOf(input));
 
 				System.out.println(String.format("Searched for '%s' - Found: '%s'.", input, coffeeDescription));
-				System.out.print("To try again, please enter another coffee beaverage and press <enter>:\n\n");
+				System.out.print("To try again, please enter another coffee beverage and press <enter>:\n\n");
 			}
 
 		}

@@ -8,7 +8,7 @@
 - `marks` filters on EOF marker (drops SOF)
 - pubsub [flush files], [ftp (x3)], [email result]
 - Exceptions go to `tfrErrors` - sends failure email
-- input file is renamed, based on final dispostion
+- input file is renamed, based on final disposition
 
 Test cases are provided for happy path and failure scenarios
 

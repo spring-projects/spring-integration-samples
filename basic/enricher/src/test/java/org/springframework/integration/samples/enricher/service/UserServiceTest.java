@@ -29,7 +29,7 @@ import org.springframework.integration.samples.enricher.domain.User;
 public class UserServiceTest {
 
 	@Test
-	public void testStartupOfSpringInegrationContext() throws Exception {
+	public void testStartupOfSpringIntegrationContext() throws Exception {
 		final ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(
 				"/META-INF/spring/integration/spring-integration-context.xml", UserServiceTest.class);
 		Thread.sleep(2000);

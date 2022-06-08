@@ -108,7 +108,7 @@ public class TcpBroadcastApplication {
 		}
 
 		/*
-		 * Wait for server to start listenng and start 5 clients.
+		 * Wait for server to start listening and start 5 clients.
 		 */
 		@Bean
 		public ApplicationRunner runner(TaskExecutor exec, Broadcaster caster) {

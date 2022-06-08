@@ -24,7 +24,7 @@
 
 	<!--After we've converted the orders to json, we send it on its way through a JMS outbound
 	channel adapter. This is a one-way fire and forget approach. The processing will continue
-	on the otherside of the JMS queue to which the channel adapter is connected -->
+	on the other side of the JMS queue to which the channel adapter is connected -->
 	<bean id="cafeOrdersQueue" class="org.apache.activemq.command.ActiveMQQueue">
 		<constructor-arg value="org.springframework.integration.samples.cafe.orders"/>
 	</bean>
