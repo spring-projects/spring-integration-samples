@@ -19,7 +19,7 @@
 									 jms-template="jmsTemplate"
 									 channel="inputChannel"
 									 auto-startup="false">
-		<int:poller fixed-rate="500" max-messages-per-poll="1" error-channel="errorChannel"/>
+		<int:poller fixed-delay="500" max-messages-per-poll="1" error-channel="errorChannel"/>
 	</int-jms:inbound-channel-adapter>
 
 	<bean id="jmsTemplate" class="org.mockito.Mockito" factory-method="mock">
