@@ -211,7 +211,6 @@ subprojects { subproject ->
 			subethasmtpVersion = '1.2'
 			slf4jVersion = '1.7.30'
 			springCloudVersion ='2021.0.0-SNAPSHOT'
-			springIntegrationVersion = '5.5.12'
 			springIntegrationSocialTwiterVersion = '1.0.1.BUILD-SNAPSHOT'
 			springIntegrationSplunkVersion = '1.2.0.BUILD-SNAPSHOT'
 			springVersion = '5.3.20'
@@ -222,13 +221,15 @@ subprojects { subproject ->
 			validationApiVersion = '1.0.0.GA'
 		}
 
+		ext['spring-integration.version'] = '5.5.13'
+
 		sourceSets.each {
 			it.resources.srcDirs = ["src/${it.name}/resources", "src/${it.name}/java"]
 		}
 
 		dependencyManagement {
 			imports {
-				mavenBom "org.springframework.integration:spring-integration-bom:$springIntegrationVersion"
+				mavenBom "org.springframework.integration:spring-integration-bom:${ext['spring-integration.version']}"
 				mavenBom "org.springframework:spring-framework-bom:$springVersion"
 				mavenBom "com.fasterxml.jackson:jackson-bom:$jacksonVersion"
 			}
