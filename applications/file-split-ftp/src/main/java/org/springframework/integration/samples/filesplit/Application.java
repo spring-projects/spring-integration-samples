@@ -66,7 +66,7 @@ public class Application {
 	 */
 	@Bean
 	public IntegrationFlow fromFile() {
-		return IntegrationFlows.from(
+		return IntegrationFlow.from(
 						Files.inboundAdapter(new File("/tmp/in"))
 								.preventDuplicates(false)
 								.patternFilter("*.txt"), e -> e.poller(Pollers.fixedDelay(5000)

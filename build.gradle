@@ -232,7 +232,7 @@ subprojects { subproject ->
 			c3p0Version = '0.9.5.5'
 			derbyVersion = '10.14.2.0'
 			hamcrestVersion = '2.2'
-			hibernateVersion = '5.6.3.Final'
+			hibernateVersion = '6.1.1.Final'
 			hibernateValidatorVersion = '7.0.2.Final'
 			ftpServerVersion = '1.1.2'
 			flexjsonVersion = '2.0'
@@ -252,15 +252,15 @@ subprojects { subproject ->
 			junitVersion = '4.13.2'
 			junitJupiterVersion = '5.8.2'
 			jythonVersion = '2.7.2'
-			log4jVersion = '2.17.1'
+			log4jVersion = '2.17.2'
 			mockitoVersion = '4.2.0'
-			mongoDriverVersion = '4.4.1'
+			mongoDriverVersion = '4.7.0-beta0'
 			openJpaVersion = '2.4.0'
 			oracleDriverVersion = '19.3.0.0'
 			postgresVersion = '42.3.3'
 			slf4jVersion = '1.7.30'
 			springCloudVersion = '2022.0.0-SNAPSHOT'
-			springIntegrationVersion = '6.0.0-M3'
+			springIntegrationVersion = '6.0.0-SNAPSHOT'
 			springIntegrationSocialTwiterVersion = '1.0.1.BUILD-SNAPSHOT'
 			springIntegrationSplunkVersion = '1.2.0.BUILD-SNAPSHOT'
 			springVersion = '6.0.0-SNAPSHOT'
@@ -464,7 +464,7 @@ project('loanshark') {
 		api "net.sf.flexjson:flexjson:$flexjsonVersion"
 		api "org.hibernate:hibernate-validator:$hibernateValidatorVersion"
 		api "org.eclipse.persistence:org.eclipse.persistence.jpa:$jpaApiVersion"
-		api "org.hibernate:hibernate-core-jakarta:$hibernateVersion"
+		api "org.hibernate.orm:hibernate-core:$hibernateVersion"
 		api "org.springframework.webflow:spring-js:$springWebFlowVersion"
 		api "org.slf4j:slf4j-api:$slf4jVersion"
 
@@ -1565,4 +1565,3 @@ sonarqube {
 		property 'sonar.links.scm_dev', linkScmDevConnection
 	}
 }
-

@@ -1,5 +1,5 @@
 /*
- * Copyright 2002-2017 the original author or authors.
+ * Copyright 2002-2022 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,8 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.springframework.integration.samples.poller;
 
+import java.time.Duration;
 import java.util.Scanner;
 
 import org.apache.commons.logging.Log;
@@ -22,12 +24,15 @@ import org.apache.commons.logging.LogFactory;
 
 import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.integration.util.DynamicPeriodicTrigger;
 
 /**
  * Starts the Spring Context and will initialize the Spring Integration routes.
  *
  * @author Gunnar Hillert
  * @author Gary Russell
+ * @author Artem Bilan
+ *
  * @version 1.0
  *
  */
@@ -85,7 +90,7 @@ public final class Main {
 
 				System.out.println(String.format("Setting trigger period to '%s' ms", triggerPeriod));
 
-				trigger.setPeriod(triggerPeriod);
+				trigger.setDuration(Duration.ofMillis(triggerPeriod));
 
 			}
 			catch (Exception e) {

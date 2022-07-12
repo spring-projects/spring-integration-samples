@@ -1,5 +1,5 @@
 /*
- * Copyright 2002-2010 the original author or authors.
+ * Copyright 2002-2022 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,6 +16,7 @@
 
 package org.springframework.integration.samples.jmx;
 
+import java.time.Duration;
 import java.util.concurrent.Future;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -28,6 +29,8 @@ import org.springframework.stereotype.Component;
 
 /**
  * @author Mark Fisher
+ * @author Artme Bilan
+ *
  * @since 2.0
  */
 @Component
@@ -52,11 +55,8 @@ public class StopWatch implements InitializingBean {
 	@ManagedOperation
 	public void start() {
 		this.scheduler.initialize();
-		this.future = this.scheduler.scheduleAtFixedRate(new Runnable() {
-			public void run() {
-				seconds.incrementAndGet();
-			}
-		}, 1000);
+		this.future =
+				this.scheduler.scheduleAtFixedRate(seconds::incrementAndGet, Duration.ofSeconds(1));
 	}
 
 	@ManagedOperation

@@ -14,8 +14,8 @@
 	</int:inbound-channel-adapter>
 
 	<bean id="dynamicTrigger"
-		class="org.springframework.integration.samples.poller.DynamicPeriodicTrigger">
-		<constructor-arg name="period" value="5000" />
+		class="org.springframework.integration.util.DynamicPeriodicTrigger">
+		<constructor-arg name="duration" value="#{T(java.time.Duration).ofMillis(5000)}" />
 	</bean>
 
 	<int:logging-channel-adapter id="logger"
