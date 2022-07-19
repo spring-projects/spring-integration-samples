@@ -221,7 +221,7 @@ subprojects { subproject ->
 			validationApiVersion = '1.0.0.GA'
 		}
 
-		ext['spring-integration.version'] = '5.5.13'
+		ext['spring-integration.version'] = '5.5.14'
 
 		sourceSets.each {
 			it.resources.srcDirs = ["src/${it.name}/resources", "src/${it.name}/java"]
@@ -1527,4 +1527,3 @@ sonarqube {
 		property 'sonar.links.scm_dev', linkScmDevConnection
 	}
 }
-
