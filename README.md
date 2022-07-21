@@ -56,12 +56,11 @@ This is a good place to get started. The samples here are technically motivated 
 * **jdbc** - Illustrates the usage of the Jdbc Adapters, including object persistence and retrieval
 * **jms** - Demonstrates **JMS** support available with Spring Integration
 * **jmx** - Demonstrates **JMX** support using a **JMX Attribute Polling Channel** and **JMX Operation Invoking Channel Adapter**
-* **jpa** - Shows the usage of the JPA Components can be used
+* **jpa** - Shows the usage of the JPA Components
 * **mail** - Example showing **IMAP** and **POP3** support
 * **mqtt** - Demonstrates the functionality of inbound and outbound **MQTT Adapters**
 * **mongodb** - Shows how to persist a Message payload to a **MongoDb** document store and how to read documents from **MongoDb**
 * **oddeven** - Example combining the functionality of **Inbound Channel Adapter**, **Filter**, **Router** and **Poller**
-* **jpa** - This sample illustrates how the JPA Components can be used
 * **quote** - Example demoing core EIP support using **Channel Adapter (Inbound and Stdout)**, **Poller** with Interval Triggers, **Service Activator**
 * **sftp** - Demonstrating SFTP support using **SFTP Inbound / Outbound Channel Adapters**
 * **tcp-amqp** - Demonstrates basic functionality of bridging the **Spring Integration TCP Adapters** with **Spring Integration AMQP Adapters**
