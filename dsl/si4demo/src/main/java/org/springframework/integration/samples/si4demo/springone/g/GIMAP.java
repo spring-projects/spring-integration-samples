@@ -25,7 +25,6 @@ import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.integration.dsl.IntegrationFlow;
-import org.springframework.integration.dsl.IntegrationFlows;
 import org.springframework.integration.mail.MailHeaders;
 import org.springframework.integration.mail.dsl.Mail;
 import org.springframework.integration.samples.si4demo.springone.GMailProperties;
@@ -56,16 +55,16 @@ public class GIMAP {
 
 	@Bean
 	IntegrationFlow imapIdle() {
-		return IntegrationFlows.from(Mail.imapIdleAdapter(
-							"imaps://"
-							+ gmail.getUser().replaceAll("@", "%40")
-							+ ":"
-							+ gmail.getPassword()
-							+ "@imap.gmail.com:993/INBOX")
+		return IntegrationFlow.from(Mail.imapIdleAdapter(
+								"imaps://"
+										+ gmail.getUser().replaceAll("@", "%40")
+										+ ":"
+										+ gmail.getPassword()
+										+ "@imap.gmail.com:993/INBOX")
 						.id("imapIn")
 						.autoStartup(true)
 						.javaMailProperties(p ->
-							 p.put("mail.debug", "false")))
+								p.put("mail.debug", "false")))
 				.enrichHeaders(s -> s.headerExpressions(h -> h
 						.put(MailHeaders.SUBJECT, "payload.subject")
 						.put(MailHeaders.FROM, "payload.from[0].toString()")))

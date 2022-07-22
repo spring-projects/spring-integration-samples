@@ -26,7 +26,6 @@ import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.DependsOn;
 import org.springframework.integration.dsl.IntegrationFlow;
-import org.springframework.integration.dsl.IntegrationFlows;
 import org.springframework.integration.handler.LoggingHandler.Level;
 import org.springframework.integration.ip.dsl.Tcp;
 import org.springframework.integration.ip.tcp.connection.MessageConvertingTcpMessageMapper;
@@ -46,13 +45,13 @@ public class TcpWithHeadersApplication {
 
 	public interface TcpExchanger {
 
-		public String exchange(String data, @Header("type") String type);
+		String exchange(String data, @Header("type") String type);
 
 	}
 
 	@Bean
 	public IntegrationFlow client(@Value("${tcp.port:1234}") int port) {
-		return IntegrationFlows.from(TcpExchanger.class)
+		return IntegrationFlow.from(TcpExchanger.class)
 				.handle(Tcp.outboundGateway(Tcp.netClient("localhost", port)
 						.deserializer(jsonMapping())
 						.serializer(jsonMapping())
@@ -64,16 +63,16 @@ public class TcpWithHeadersApplication {
 
 	@Bean
 	public IntegrationFlow server(@Value("${tcp.port:1234}") int port) {
-		return IntegrationFlows.from(Tcp.inboundGateway(Tcp.netServer(port)
+		return IntegrationFlow.from(Tcp.inboundGateway(Tcp.netServer(port)
 						.deserializer(jsonMapping())
 						.serializer(jsonMapping())
 						.mapper(mapper())))
 				.log(Level.INFO, "exampleLogger", "'Received type header:' + headers['type']")
 				.route("headers['type']", r -> r
 						.subFlowMapping("upper",
-								subFlow -> subFlow.transform(String.class, p -> p.toUpperCase()))
+								subFlow -> subFlow.transform(String.class, String::toUpperCase))
 						.subFlowMapping("lower",
-								subFlow -> subFlow.transform(String.class, p -> p.toLowerCase())))
+								subFlow -> subFlow.transform(String.class, String::toLowerCase)))
 				.get();
 	}
 
@@ -99,14 +98,15 @@ public class TcpWithHeadersApplication {
 			ConfigurableApplicationContext context) {
 
 		return args -> {
-			System.out.println("Enter some text; if it starts with a lower case character,\n"
-					+ "it will be uppercased by the server; otherwise it will be lowercased;\n"
-					+ "enter 'quit' to end");
+			System.out.println("""
+					Enter some text; if it starts with a lower case character,
+					it will be upper-cased by the server; otherwise it will be lower-cased;
+					enter 'quit' to end""");
 			Scanner scanner = new Scanner(System.in);
 			String request;
 			if (scanner.hasNextLine()) {
 				request = scanner.nextLine();
-				while (!"quit".equals(request.toLowerCase())) {
+				while (!"quit".equalsIgnoreCase(request)) {
 					if (StringUtils.hasText(request)) {
 						String result = exchanger.exchange(request,
 								Character.isLowerCase(request.charAt(0)) ? "upper" : "lower");

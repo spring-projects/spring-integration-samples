@@ -32,7 +32,6 @@ import org.springframework.integration.annotation.IntegrationComponentScan;
 import org.springframework.integration.annotation.MessagingGateway;
 import org.springframework.integration.channel.DirectChannel;
 import org.springframework.integration.dsl.IntegrationFlow;
-import org.springframework.integration.dsl.IntegrationFlows;
 import org.springframework.integration.http.inbound.HttpRequestHandlingMessagingGateway;
 import org.springframework.integration.http.inbound.RequestMapping;
 import org.springframework.integration.ip.tcp.TcpInboundGateway;
@@ -129,7 +128,7 @@ public class Application {
 	@Bean
 	@DependsOn("errorFlow")
 	public IntegrationFlow flow() {
-		return IntegrationFlows.from("requestChannel")
+		return IntegrationFlow.from("requestChannel")
 				.transform(new ObjectToStringTransformer())
 				.filter((String p) -> p.startsWith("#spring"),
 						f -> f.discardChannel("rejected"))
@@ -141,15 +140,14 @@ public class Application {
 
 	@Bean
 	public IntegrationFlow errorFlow() {
-		return IntegrationFlows.from("rejected")
+		return IntegrationFlow.from("rejected")
 				.transform("'Error: hashtag must start with #spring; got' + payload")
 				.get();
 	}
 
 	@Bean
 	public TwitterSearchOutboundGateway twitterGate() {
-		TwitterSearchOutboundGateway gateway = new TwitterSearchOutboundGateway(twitter());
-		return gateway;
+		return new TwitterSearchOutboundGateway(twitter());
 	}
 
 	@Bean

@@ -35,7 +35,6 @@ import org.springframework.expression.common.LiteralExpression;
 import org.springframework.integration.annotation.ServiceActivator;
 import org.springframework.integration.channel.QueueChannel;
 import org.springframework.integration.dsl.IntegrationFlow;
-import org.springframework.integration.dsl.IntegrationFlows;
 import org.springframework.integration.dsl.context.IntegrationFlowContext;
 import org.springframework.integration.kafka.dsl.Kafka;
 import org.springframework.integration.kafka.inbound.KafkaMessageDrivenChannelAdapter;
@@ -70,8 +69,8 @@ public class Application {
 	public static void main(String[] args) throws Exception {
 		ConfigurableApplicationContext context
 				= new SpringApplicationBuilder(Application.class)
-					.web(WebApplicationType.NONE)
-					.run(args);
+				.web(WebApplicationType.NONE)
+				.run(args);
 		context.getBean(Application.class).runDemo(context);
 		context.close();
 	}
@@ -96,12 +95,12 @@ public class Application {
 		addAnotherListenerForTopics(this.properties.getNewTopic());
 		headers = Collections.singletonMap(KafkaHeaders.TOPIC, this.properties.getNewTopic());
 		for (int i = 0; i < 10; i++) {
-		    toKafka.send(new GenericMessage<>("bar" + i, headers));
+			toKafka.send(new GenericMessage<>("bar" + i, headers));
 		}
 		received = fromKafka.receive(10000);
 		count = 0;
 		while (received != null) {
-		    System.out.println(received);
+			System.out.println(received);
 			received = fromKafka.receive(++count < 10 ? 10000 : 1000);
 		}
 	}
@@ -139,7 +138,7 @@ public class Application {
 
 	@Bean
 	public KafkaMessageDrivenChannelAdapter<String, String>
-				adapter(KafkaMessageListenerContainer<String, String> container) {
+	adapter(KafkaMessageListenerContainer<String, String> container) {
 		KafkaMessageDrivenChannelAdapter<String, String> kafkaMessageDrivenChannelAdapter =
 				new KafkaMessageDrivenChannelAdapter<>(container);
 		kafkaMessageDrivenChannelAdapter.setOutputChannel(fromKafka());
@@ -177,11 +176,11 @@ public class Application {
 		consumerProperties.put(ConsumerConfig.GROUP_ID_CONFIG,
 				consumerProperties.get(ConsumerConfig.GROUP_ID_CONFIG) + "x");
 		IntegrationFlow flow =
-			IntegrationFlows
-				.from(Kafka.messageDrivenChannelAdapter(
-						new DefaultKafkaConsumerFactory<String, String>(consumerProperties), topics))
-				.channel("fromKafka")
-				.get();
+				IntegrationFlow
+						.from(Kafka.messageDrivenChannelAdapter(
+								new DefaultKafkaConsumerFactory<String, String>(consumerProperties), topics))
+						.channel("fromKafka")
+						.get();
 		this.flowContext.registration(flow).register();
 	}
 

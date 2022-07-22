@@ -26,7 +26,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.event.EventListener;
 import org.springframework.integration.dsl.IntegrationFlow;
-import org.springframework.integration.dsl.IntegrationFlows;
 import org.springframework.integration.dsl.Pollers;
 import org.springframework.integration.dsl.Transformers;
 import org.springframework.integration.ip.IpHeaders;
@@ -66,7 +65,7 @@ class ClientPeer {
 
 	@Bean
 	public IntegrationFlow client1Out(AbstractClientConnectionFactory client1) {
-		return IntegrationFlows.fromSupplier(() -> "Hello from client1", e -> e.id("client1Adapter")
+		return IntegrationFlow.fromSupplier(() -> "Hello from client1", e -> e.id("client1Adapter")
 						.poller(Pollers.fixedDelay(3000)))
 				.handle(Tcp.outboundAdapter(client1))
 				.get();
@@ -74,7 +73,7 @@ class ClientPeer {
 
 	@Bean
 	public IntegrationFlow client1In(AbstractClientConnectionFactory client1) {
-		return IntegrationFlows.from(Tcp.inboundAdapter(client1))
+		return IntegrationFlow.from(Tcp.inboundAdapter(client1))
 				.transform(Transformers.objectToString())
 				.log(msg -> "client1: " + msg.getPayload())
 				.get();
@@ -87,7 +86,7 @@ class ClientPeer {
 
 	@Bean
 	public IntegrationFlow client2Out(AbstractClientConnectionFactory client2) {
-		return IntegrationFlows.fromSupplier(() -> "Hello from client2", e -> e.id("client2Adapter")
+		return IntegrationFlow.fromSupplier(() -> "Hello from client2", e -> e.id("client2Adapter")
 						.poller(Pollers.fixedDelay(2000)))
 				.handle(Tcp.outboundAdapter(client2))
 				.get();
@@ -95,7 +94,7 @@ class ClientPeer {
 
 	@Bean
 	public IntegrationFlow client2In(AbstractClientConnectionFactory client2) {
-		return IntegrationFlows.from(Tcp.inboundAdapter(client2))
+		return IntegrationFlow.from(Tcp.inboundAdapter(client2))
 				.transform(Transformers.objectToString())
 				.log(msg -> "client2: " + msg.getPayload())
 				.get();
@@ -115,7 +114,7 @@ class ServerPeer {
 
 	@Bean
 	public IntegrationFlow serverIn(AbstractServerConnectionFactory server) {
-		return IntegrationFlows.from(Tcp.inboundAdapter(server))
+		return IntegrationFlow.from(Tcp.inboundAdapter(server))
 				.transform(Transformers.objectToString())
 				.log(msg -> "server: " + msg.getPayload())
 				.get();
@@ -123,7 +122,7 @@ class ServerPeer {
 
 	@Bean
 	public IntegrationFlow serverOut(AbstractServerConnectionFactory server) {
-		return IntegrationFlows.fromSupplier(() -> "seed", e -> e.poller(Pollers.fixedDelay(5000)))
+		return IntegrationFlow.fromSupplier(() -> "seed", e -> e.poller(Pollers.fixedDelay(5000)))
 				.split(this.clients, "iterator")
 				.enrichHeaders(h -> h.headerExpression(IpHeaders.CONNECTION_ID, "payload"))
 				.transform(p -> "Hello from server")

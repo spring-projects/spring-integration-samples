@@ -36,7 +36,6 @@ import org.springframework.context.annotation.DependsOn;
 import org.springframework.context.event.EventListener;
 import org.springframework.core.task.TaskExecutor;
 import org.springframework.integration.dsl.IntegrationFlow;
-import org.springframework.integration.dsl.IntegrationFlows;
 import org.springframework.integration.ip.IpHeaders;
 import org.springframework.integration.ip.dsl.Tcp;
 import org.springframework.integration.ip.tcp.connection.AbstractServerConnectionFactory;
@@ -73,7 +72,7 @@ public class TcpBroadcastApplication {
 		 */
 		@Bean
 		public IntegrationFlow tcpServer(AbstractServerConnectionFactory serverFactory) {
-			return IntegrationFlows.from(Tcp.inboundAdapter(serverFactory))
+			return IntegrationFlow.from(Tcp.inboundAdapter(serverFactory))
 					.transform(p -> "connected!")
 					.channel("toTcp.input")
 					.get();
@@ -84,9 +83,9 @@ public class TcpBroadcastApplication {
 		 */
 		@Bean
 		public IntegrationFlow gateway() {
-			return IntegrationFlows.from(Sender.class)
-				.channel("toTcp.input")
-				.get();
+			return IntegrationFlow.from(Sender.class)
+					.channel("toTcp.input")
+					.get();
 		}
 
 		/*
@@ -155,6 +154,7 @@ public class TcpBroadcastApplication {
 		public void shutDown() {
 			this.applicationContext.close();
 		}
+
 	}
 
 	@Component
@@ -188,7 +188,7 @@ public class TcpBroadcastApplication {
 				socket = SocketFactory.getDefault().createSocket("localhost", PORT);
 				socket.getOutputStream().write("hello\r\n".getBytes());
 				InputStream is = socket.getInputStream();
-				while(true) {
+				while (true) {
 					System.out.println(new String(deserializer.deserialize(is)) + " from client# " + instance);
 				}
 			}

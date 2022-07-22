@@ -26,7 +26,6 @@ import org.springframework.integration.annotation.IntegrationComponentScan;
 import org.springframework.integration.annotation.MessagingGateway;
 import org.springframework.integration.channel.DirectChannel;
 import org.springframework.integration.dsl.IntegrationFlow;
-import org.springframework.integration.dsl.IntegrationFlows;
 import org.springframework.messaging.MessageChannel;
 
 /**
@@ -42,13 +41,13 @@ public class EDSL {
 	public static void main(String[] args) throws Exception {
 		ConfigurableApplicationContext ctx =
 				new SpringApplicationBuilder(EDSL.class)
-					.web(WebApplicationType.NONE)
-					.run(args);
+						.web(WebApplicationType.NONE)
+						.run(args);
 		System.out.println(ctx.getBean(FooService.class).foo("foo"));
 		ctx.close();
 	}
 
-	@MessagingGateway(defaultRequestChannel="foo")
+	@MessagingGateway(defaultRequestChannel = "foo")
 	public static interface FooService {
 
 		String foo(String request);
@@ -62,10 +61,10 @@ public class EDSL {
 
 	@Bean
 	IntegrationFlow flow() {
-		return IntegrationFlows.from(foo())
-			.transform("payload + payload")
-			.handle(String.class, (p, h) -> p.toUpperCase())
-			.get();
+		return IntegrationFlow.from(foo())
+				.transform("payload + payload")
+				.handle(String.class, (p, h) -> p.toUpperCase())
+				.get();
 	}
 
 }

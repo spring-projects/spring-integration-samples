@@ -29,7 +29,6 @@ import org.springframework.integration.annotation.IntegrationComponentScan;
 import org.springframework.integration.annotation.MessagingGateway;
 import org.springframework.integration.channel.DirectChannel;
 import org.springframework.integration.dsl.IntegrationFlow;
-import org.springframework.integration.dsl.IntegrationFlows;
 import org.springframework.integration.mail.dsl.Mail;
 import org.springframework.integration.samples.si4demo.springone.GMailProperties;
 import org.springframework.messaging.MessageChannel;
@@ -57,7 +56,7 @@ public class FMail {
 		ctx.close();
 	}
 
-	@MessagingGateway(defaultRequestChannel="foo.input")
+	@MessagingGateway(defaultRequestChannel = "foo.input")
 	public static interface FooService {
 
 		String foo(String request);
@@ -67,11 +66,11 @@ public class FMail {
 	@Bean
 	IntegrationFlow foo() {
 		return f -> f
-			.transform("payload + payload")
-			.handle(String.class, (p, h) -> p.toUpperCase())
-			.routeToRecipients(r ->
-				r.recipient("bridgeToNowhere", "true")
-				 .recipient("smtpChannel", "true"));
+				.transform("payload + payload")
+				.handle(String.class, (p, h) -> p.toUpperCase())
+				.routeToRecipients(r ->
+						r.recipient("bridgeToNowhere", "true")
+								.recipient("smtpChannel", "true"));
 	}
 
 	@BridgeTo
@@ -87,17 +86,17 @@ public class FMail {
 
 	@Bean
 	IntegrationFlow smtp() {
-		return IntegrationFlows.from(smtpChannel())
+		return IntegrationFlow.from(smtpChannel())
 				.enrichHeaders(Mail.headers()
 						.subject("SpringOne 2014")
 						.to("sispringone@gmail.com")
 						.from("sispringone@gmail.com"))
 				.handle(Mail.outboundAdapter("smtp.gmail.com")
-						.port(465)
-						.protocol("smtps")
-						.credentials(gmail.getUser(), gmail.getPassword())
-						.javaMailProperties(p ->
-							 p.put("mail.debug", "false"))
+								.port(465)
+								.protocol("smtps")
+								.credentials(gmail.getUser(), gmail.getPassword())
+								.javaMailProperties(p ->
+										p.put("mail.debug", "false"))
 						, e -> e.id("smtpOut"))
 				.get();
 	}

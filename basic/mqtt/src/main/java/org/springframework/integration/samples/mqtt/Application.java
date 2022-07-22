@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.springframework.integration.samples.mqtt;
 
 import org.apache.commons.logging.Log;
@@ -23,7 +24,6 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.integration.dsl.IntegrationFlow;
-import org.springframework.integration.dsl.IntegrationFlows;
 import org.springframework.integration.dsl.Pollers;
 import org.springframework.integration.endpoint.MessageProducerSupport;
 import org.springframework.integration.handler.LoggingHandler;
@@ -54,24 +54,24 @@ public class Application {
 	public static void main(final String... args) {
 
 		LOGGER.info("\n========================================================="
-				  + "\n                                                         "
-				  + "\n          Welcome to Spring Integration!                 "
-				  + "\n                                                         "
-				  + "\n    For more information please visit:                   "
-				  + "\n    https://spring.io/projects/spring-integration        "
-				  + "\n                                                         "
-				  + "\n=========================================================" );
+				+ "\n                                                         "
+				+ "\n          Welcome to Spring Integration!                 "
+				+ "\n                                                         "
+				+ "\n    For more information please visit:                   "
+				+ "\n    https://spring.io/projects/spring-integration        "
+				+ "\n                                                         "
+				+ "\n=========================================================");
 
 		LOGGER.info("\n========================================================="
-				  + "\n                                                          "
-				  + "\n    This is the MQTT Sample -                             "
-				  + "\n                                                          "
-				  + "\n    Please enter some text and press return. The entered  "
-				  + "\n    Message will be sent to the configured MQTT topic,    "
-				  + "\n    then again immediately retrieved from the Message     "
-				  + "\n    Broker and ultimately printed to the command line.    "
-				  + "\n                                                          "
-				  + "\n=========================================================" );
+				+ "\n                                                          "
+				+ "\n    This is the MQTT Sample -                             "
+				+ "\n                                                          "
+				+ "\n    Please enter some text and press return. The entered  "
+				+ "\n    Message will be sent to the configured MQTT topic,    "
+				+ "\n    then again immediately retrieved from the Message     "
+				+ "\n    Broker and ultimately printed to the command line.    "
+				+ "\n                                                          "
+				+ "\n=========================================================");
 
 		SpringApplication.run(Application.class, args);
 	}
@@ -80,7 +80,7 @@ public class Application {
 	public MqttPahoClientFactory mqttClientFactory() {
 		DefaultMqttPahoClientFactory factory = new DefaultMqttPahoClientFactory();
 		MqttConnectOptions options = new MqttConnectOptions();
-		options.setServerURIs(new String[] { "tcp://localhost:1883" });
+		options.setServerURIs(new String[]{ "tcp://localhost:1883" });
 		options.setUserName("guest");
 		options.setPassword("guest".toCharArray());
 		factory.setConnectionOptions(options);
@@ -91,7 +91,7 @@ public class Application {
 
 	@Bean
 	public IntegrationFlow mqttOutFlow() {
-		return IntegrationFlows.from(CharacterStreamReadingMessageSource.stdin(),
+		return IntegrationFlow.from(CharacterStreamReadingMessageSource.stdin(),
 						e -> e.poller(Pollers.fixedDelay(1000)))
 				.transform(p -> p + " sent to MQTT")
 				.handle(mqttOutbound())
@@ -110,7 +110,7 @@ public class Application {
 
 	@Bean
 	public IntegrationFlow mqttInFlow() {
-		return IntegrationFlows.from(mqttInbound())
+		return IntegrationFlow.from(mqttInbound())
 				.transform(p -> p + ", received from MQTT")
 				.handle(logger())
 				.get();

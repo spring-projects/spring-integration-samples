@@ -32,7 +32,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.integration.annotation.Gateway;
 import org.springframework.integration.annotation.MessagingGateway;
 import org.springframework.integration.dsl.IntegrationFlow;
-import org.springframework.integration.dsl.IntegrationFlows;
 import org.springframework.integration.dsl.context.IntegrationFlowContext;
 import org.springframework.integration.kafka.dsl.Kafka;
 import org.springframework.kafka.core.ConsumerFactory;
@@ -54,8 +53,8 @@ public class Application {
 	public static void main(String[] args) throws Exception {
 		ConfigurableApplicationContext context =
 				new SpringApplicationBuilder(Application.class)
-				.web(WebApplicationType.NONE)
-				.run(args);
+						.web(WebApplicationType.NONE)
+						.run(args);
 		context.getBean(Application.class).runDemo(context);
 		context.close();
 	}
@@ -110,7 +109,7 @@ public class Application {
 
 	@Bean
 	public IntegrationFlow fromKafkaFlow(ConsumerFactory<?, ?> consumerFactory) {
-		return IntegrationFlows
+		return IntegrationFlow
 				.from(Kafka.messageDrivenChannelAdapter(consumerFactory, this.properties.getTopic()))
 				.channel(c -> c.queue("fromKafka"))
 				.get();
@@ -142,11 +141,11 @@ public class Application {
 		consumerProperties.put(ConsumerConfig.GROUP_ID_CONFIG,
 				consumerProperties.get(ConsumerConfig.GROUP_ID_CONFIG) + "x");
 		IntegrationFlow flow =
-			IntegrationFlows
-				.from(Kafka.messageDrivenChannelAdapter(
-						new DefaultKafkaConsumerFactory<String, String>(consumerProperties), topics))
-				.channel("fromKafka")
-				.get();
+				IntegrationFlow
+						.from(Kafka.messageDrivenChannelAdapter(
+								new DefaultKafkaConsumerFactory<String, String>(consumerProperties), topics))
+						.channel("fromKafka")
+						.get();
 		this.flowContext.registration(flow).register();
 	}
 
