@@ -1,5 +1,5 @@
 /*
- * Copyright 2002-2017 the original author or authors.
+ * Copyright 2002-2022 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,20 +13,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.springframework.integration.samples.async.gateway;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.Random;
+import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -44,28 +44,25 @@ import org.springframework.integration.channel.DirectChannel;
 import org.springframework.integration.config.EnableIntegration;
 import org.springframework.messaging.MessageChannel;
 import org.springframework.test.annotation.DirtiesContext;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.util.concurrent.ListenableFuture;
-import org.springframework.util.concurrent.ListenableFutureCallback;
+import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 
 /**
  * @author Oleg Zhurakousky
  * @author Gary Russell
+ * @author Artem Bilan
  *
  */
-@ContextConfiguration(classes = ListenableFutureTest.TestConfig.class)
-@RunWith(SpringJUnit4ClassRunner.class)
+@SpringJUnitConfig
 @DirtiesContext
-public class ListenableFutureTest {
+public class CompletableFutureTest {
 
-	private static final Log logger = LogFactory.getLog(ListenableFutureTest.class);
+	private static final Log logger = LogFactory.getLog(CompletableFutureTest.class);
 
 	@Autowired
 	private MathGateway gateway;
 
 	@Test
-	public void testAsyncGateway() throws Exception{
+	public void testAsyncGateway() throws Exception {
 		Random random = new Random();
 		int[] numbers = new int[100];
 		int expectedResults = 0;
@@ -79,26 +76,21 @@ public class ListenableFutureTest {
 		final AtomicInteger failures = new AtomicInteger();
 		for (int i = 0; i < 100; i++) {
 			final int number = numbers[i];
-			ListenableFuture<Integer> result = gateway.multiplyByTwo(number);
-			ListenableFutureCallback<Integer> callback = new ListenableFutureCallback<Integer>() {
+			CompletableFuture<Integer> result = gateway.multiplyByTwo(number);
 
-				@Override
-				public void onSuccess(Integer result) {
+			result.whenComplete((integer, throwable) -> {
+				if (throwable == null) {
 					logger.info("Result of multiplication of " + number + " by 2 is " + result);
-					latch.countDown();
 				}
-
-				@Override
-				public void onFailure(Throwable t) {
+				else {
 					failures.incrementAndGet();
-					logger.error("Unexpected exception for " + number, t);
-					latch.countDown();
+					logger.error("Unexpected exception for " + number, throwable);
 				}
-			};
-			result.addCallback(callback);
+				latch.countDown();
+			});
 		}
-		assertTrue(latch.await(60, TimeUnit.SECONDS));
-		assertEquals(0, failures.get());
+		assertThat(latch.await(60, TimeUnit.SECONDS)).isTrue();
+		assertThat(failures.get()).isEqualTo(0);
 		logger.info("Finished");
 	}
 
@@ -114,7 +106,7 @@ public class ListenableFutureTest {
 		}
 
 		@Bean
-		@ServiceActivator(inputChannel="mathServiceChannel")
+		@ServiceActivator(inputChannel = "mathServiceChannel")
 		public MathService mathService() {
 			return new MathService();
 		}
@@ -132,14 +124,14 @@ public class ListenableFutureTest {
 	public interface MathGateway {
 
 		@Gateway(requestChannel = "gatewayChannel")
-		ListenableFuture<Integer> multiplyByTwo(int number);
+		CompletableFuture<Integer> multiplyByTwo(int number);
 
 	}
 
 	@MessageEndpoint
 	public static class Gt100Filter {
 
-		@Filter(inputChannel="gatewayChannel", outputChannel="mathServiceChannel")
+		@Filter(inputChannel = "gatewayChannel", outputChannel = "mathServiceChannel")
 		public boolean filter(int i) {
 			return i > 100;
 		}
