@@ -257,7 +257,7 @@ subprojects { subproject ->
 			mongoDriverVersion = '4.7.0-beta0'
 			openJpaVersion = '2.4.0'
 			oracleDriverVersion = '19.3.0.0'
-			postgresVersion = '42.3.3'
+			postgresVersion = '42.4.1'
 			slf4jVersion = '1.7.30'
 			springCloudVersion = '2022.0.0-SNAPSHOT'
 			springIntegrationVersion = '6.0.0-SNAPSHOT'
