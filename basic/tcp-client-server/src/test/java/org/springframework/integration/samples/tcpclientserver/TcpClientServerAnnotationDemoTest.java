@@ -18,10 +18,8 @@ package org.springframework.integration.samples.tcpclientserver;
 
 import static org.junit.Assert.assertEquals;
 
-import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -47,6 +45,7 @@ import org.springframework.messaging.MessageChannel;
 import org.springframework.messaging.MessageHandler;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 
@@ -65,8 +64,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
  * @author Artem Bilan
  *
  */
-@ContextConfiguration(classes = TcpClientServerAnnotationDemoTest.Config.class)
-@RunWith(SpringJUnit4ClassRunner.class)
+@SpringJUnitConfig
 @DirtiesContext
 @SpringIntegrationTest(noAutoStartup = "*tcpOutGate*")
 public class TcpClientServerAnnotationDemoTest {
@@ -81,10 +79,10 @@ public class TcpClientServerAnnotationDemoTest {
 	AbstractClientConnectionFactory client;
 
 	@Autowired
-	@Qualifier("tcpClientServerAnnotationDemoTest.Config.tcpOutGate.serviceActivator")
+	@Qualifier("tcpOutGate.serviceActivator")
 	AbstractEndpoint outGateway;
 
-	@Before
+	@BeforeEach
 	public void setup() {
 		if (!this.outGateway.isRunning()) {
 			TestingUtilities.waitListening(this.crLfServer, 10000L);
