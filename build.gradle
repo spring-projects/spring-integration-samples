@@ -221,7 +221,7 @@ subprojects { subproject ->
 
 		ext {
 			apacheSshdVersion = '2.8.0'
-			artemisVersion = '2.20.0'
+			artemisVersion = '2.24.0'
 			aspectjVersion = '1.9.8.RC3'
 			commonsDigesterVersion = '2.1'
 			commonsDbcpVersion = '2.9.0'
