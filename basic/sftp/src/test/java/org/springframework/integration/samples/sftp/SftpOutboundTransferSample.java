@@ -18,7 +18,8 @@ package org.springframework.integration.samples.sftp;
 
 import java.io.File;
 
-import org.junit.Test;
+import org.apache.sshd.sftp.client.SftpClient;
+import org.junit.jupiter.api.Test;
 
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.integration.file.remote.RemoteFileTemplate;
@@ -28,8 +29,6 @@ import org.springframework.integration.support.MessageBuilder;
 import org.springframework.messaging.Message;
 import org.springframework.messaging.MessageChannel;
 import org.springframework.util.Assert;
-
-import com.jcraft.jsch.ChannelSftp.LsEntry;
 
 /**
  *
@@ -41,17 +40,17 @@ import com.jcraft.jsch.ChannelSftp.LsEntry;
 public class SftpOutboundTransferSample {
 
 	@Test
-	public void testOutbound() throws Exception{
+	public void testOutbound() throws Exception {
 
 		final String sourceFileName = "README.md";
-		final String destinationFileName = sourceFileName +"_foo";
+		final String destinationFileName = sourceFileName + "_foo";
 
 		final ClassPathXmlApplicationContext ac =
-			new ClassPathXmlApplicationContext("/META-INF/spring/integration/SftpOutboundTransferSample-context.xml",
-					SftpOutboundTransferSample.class);
+				new ClassPathXmlApplicationContext("/META-INF/spring/integration/SftpOutboundTransferSample-context.xml",
+						SftpOutboundTransferSample.class);
 		@SuppressWarnings("unchecked")
-		SessionFactory<LsEntry> sessionFactory = ac.getBean(CachingSessionFactory.class);
-		RemoteFileTemplate<LsEntry> template = new RemoteFileTemplate<LsEntry>(sessionFactory);
+		SessionFactory<SftpClient.DirEntry> sessionFactory = ac.getBean(CachingSessionFactory.class);
+		RemoteFileTemplate<SftpClient.DirEntry> template = new RemoteFileTemplate<>(sessionFactory);
 		SftpTestUtils.createTestFiles(template); // Just the directory
 
 		try {

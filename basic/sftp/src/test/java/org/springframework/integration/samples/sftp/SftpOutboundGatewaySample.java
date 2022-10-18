@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.springframework.integration.samples.sftp;
 
 import static org.junit.Assert.assertEquals;
@@ -21,7 +22,8 @@ import static org.junit.Assert.assertTrue;
 import java.io.File;
 import java.util.List;
 
-import org.junit.Test;
+import org.apache.sshd.sftp.client.SftpClient;
+import org.junit.jupiter.api.Test;
 
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -29,23 +31,23 @@ import org.springframework.integration.file.remote.RemoteFileTemplate;
 import org.springframework.integration.file.remote.session.CachingSessionFactory;
 import org.springframework.integration.file.remote.session.SessionFactory;
 
-import com.jcraft.jsch.ChannelSftp.LsEntry;
-
 /**
  * Demonstrates use of the outbound gateway to use ls, get and rm.
  * Creates a temporary directory with 2 files; retrieves and removes them.
+ *
  * @author Gary Russell
+ *
  * @since 2.1
  *
  */
 public class SftpOutboundGatewaySample {
 
 	@Test
-	public void testLsGetRm() throws Exception {
+	public void testLsGetRm() {
 		ConfigurableApplicationContext ctx = new ClassPathXmlApplicationContext(
 				"classpath:/META-INF/spring/integration/SftpOutboundGatewaySample-context.xml");
 		ToSftpFlowGateway toFtpFlow = ctx.getBean(ToSftpFlowGateway.class);
-		RemoteFileTemplate<LsEntry> template = null;
+		RemoteFileTemplate<SftpClient.DirEntry> template = null;
 		String file1 = "1.ftptest";
 		String file2 = "2.ftptest";
 		File tmpDir = new File(System.getProperty("java.io.tmpdir"));
@@ -56,8 +58,8 @@ public class SftpOutboundGatewaySample {
 			new File(tmpDir, file2).delete();
 
 			@SuppressWarnings("unchecked")
-			SessionFactory<LsEntry> sessionFactory = ctx.getBean(CachingSessionFactory.class);
-			template = new RemoteFileTemplate<LsEntry>(sessionFactory);
+			SessionFactory<SftpClient.DirEntry> sessionFactory = ctx.getBean(CachingSessionFactory.class);
+			template = new RemoteFileTemplate<>(sessionFactory);
 			SftpTestUtils.createTestFiles(template, file1, file2);
 
 			// execute the flow (ls, get, rm, aggregate results)
@@ -80,6 +82,3 @@ public class SftpOutboundGatewaySample {
 	}
 
 }
-
-
-

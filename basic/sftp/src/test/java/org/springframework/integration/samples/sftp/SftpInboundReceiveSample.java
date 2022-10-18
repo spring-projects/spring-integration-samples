@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.springframework.integration.samples.sftp;
 
 import static org.junit.Assert.assertNotNull;
@@ -21,7 +22,8 @@ import static org.junit.Assert.assertTrue;
 
 import java.io.File;
 
-import org.junit.Test;
+import org.apache.sshd.sftp.client.SftpClient;
+import org.junit.jupiter.api.Test;
 
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -32,8 +34,6 @@ import org.springframework.integration.file.remote.session.SessionFactory;
 import org.springframework.messaging.Message;
 import org.springframework.messaging.PollableChannel;
 
-import com.jcraft.jsch.ChannelSftp.LsEntry;
-
 /**
  * @author Oleg Zhurakousky
  * @author Gary Russell
@@ -42,10 +42,10 @@ import com.jcraft.jsch.ChannelSftp.LsEntry;
 public class SftpInboundReceiveSample {
 
 	@Test
-	public void runDemo(){
+	public void runDemo() {
 		ConfigurableApplicationContext context =
 				new ClassPathXmlApplicationContext("/META-INF/spring/integration/SftpInboundReceiveSample-context.xml", this.getClass());
-		RemoteFileTemplate<LsEntry> template = null;
+		RemoteFileTemplate<SftpClient.DirEntry> template = null;
 		String file1 = "a.txt";
 		String file2 = "b.txt";
 		String file3 = "c.bar";
@@ -54,8 +54,8 @@ public class SftpInboundReceiveSample {
 		try {
 			PollableChannel localFileChannel = context.getBean("receiveChannel", PollableChannel.class);
 			@SuppressWarnings("unchecked")
-			SessionFactory<LsEntry> sessionFactory = context.getBean(CachingSessionFactory.class);
-			template = new RemoteFileTemplate<LsEntry>(sessionFactory);
+			SessionFactory<SftpClient.DirEntry> sessionFactory = context.getBean(CachingSessionFactory.class);
+			template = new RemoteFileTemplate<>(sessionFactory);
 			SftpTestUtils.createTestFiles(template, file1, file2, file3);
 
 			SourcePollingChannelAdapter adapter = context.getBean(SourcePollingChannelAdapter.class);

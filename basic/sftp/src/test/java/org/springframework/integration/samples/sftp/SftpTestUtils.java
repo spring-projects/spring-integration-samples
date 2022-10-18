@@ -22,13 +22,10 @@ import static org.hamcrest.Matchers.containsString;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 
+import org.apache.sshd.sftp.client.SftpClient;
+
 import org.springframework.integration.file.remote.RemoteFileTemplate;
 import org.springframework.integration.file.remote.SessionCallback;
-
-import com.jcraft.jsch.ChannelSftp;
-import com.jcraft.jsch.ChannelSftp.LsEntry;
-import com.jcraft.jsch.SftpATTRS;
-import com.jcraft.jsch.SftpException;
 
 /**
  * @author Gary Russell
@@ -39,10 +36,10 @@ import com.jcraft.jsch.SftpException;
  */
 public class SftpTestUtils {
 
-	public static void createTestFiles(RemoteFileTemplate<LsEntry> template, final String... fileNames) {
+	public static void createTestFiles(RemoteFileTemplate<SftpClient.DirEntry> template, final String... fileNames) {
 		if (template != null) {
 			final ByteArrayInputStream stream = new ByteArrayInputStream("foo".getBytes());
-			template.execute((SessionCallback<LsEntry, Void>) session -> {
+			template.execute((SessionCallback<SftpClient.DirEntry, Void>) session -> {
 				try {
 					session.mkdir("si.sftp.sample");
 				}
@@ -58,14 +55,15 @@ public class SftpTestUtils {
 		}
 	}
 
-	public static void cleanUp(RemoteFileTemplate<LsEntry> template, final String... fileNames) {
+	public static void cleanUp(RemoteFileTemplate<SftpClient.DirEntry> template, final String... fileNames) {
 		if (template != null) {
-			template.execute((SessionCallback<LsEntry, Void>) session -> {
+			template.execute((SessionCallback<SftpClient.DirEntry, Void>) session -> {
 				for (int i = 0; i < fileNames.length; i++) {
 					try {
 						session.remove("si.sftp.sample/" + fileNames[i]);
 					}
-					catch (IOException e) {}
+					catch (IOException e) {
+					}
 				}
 
 				// should be empty
@@ -75,20 +73,20 @@ public class SftpTestUtils {
 		}
 	}
 
-	public static boolean fileExists(RemoteFileTemplate<LsEntry> template, final String... fileNames) {
+	public static boolean fileExists(RemoteFileTemplate<SftpClient.DirEntry> template, final String... fileNames) {
 		if (template != null) {
 			return template.execute(session -> {
-				ChannelSftp channel = (ChannelSftp) session.getClientInstance();
-				for (int i = 0; i < fileNames.length; i++) {
+				SftpClient channel = (SftpClient) session.getClientInstance();
+				for (String fileName : fileNames) {
 					try {
-						SftpATTRS stat = channel.stat("si.sftp.sample/" + fileNames[i]);
+						var stat = channel.stat("si.sftp.sample/" + fileName);
 						if (stat == null) {
-							System.out.println("stat returned null for " + fileNames[i]);
+							System.out.println("stat returned null for " + fileName);
 							return false;
 						}
 					}
-					catch (SftpException e) {
-						System.out.println("Remote file not present: " + e.getMessage() + ": " + fileNames[i]);
+					catch (IOException e) {
+						System.out.println("Remote file not present: " + e.getMessage() + ": " + fileName);
 						return false;
 					}
 				}
