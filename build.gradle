@@ -909,6 +909,10 @@ project('sftp') {
 		api "org.apache.logging.log4j:log4j-core:$log4jVersion"
 		testImplementation "org.apache.sshd:sshd-sftp:$apacheSshdVersion"
 	}
+
+	test {
+		useJUnitPlatform()
+	}
 }
 
 project('tcp-amqp') {
