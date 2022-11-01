@@ -237,7 +237,7 @@ subprojects { subproject ->
 			ftpServerVersion = '1.1.2'
 			flexjsonVersion = '2.0'
 			groovyVersion = '4.0.6'
-			hsqldbVersion = '2.7.0'
+			hsqldbVersion = '2.7.1'
 			h2Version = '2.1.214'
 			jacksonVersion = '2.13.4'
 			mailVersion = '2.0.1'
