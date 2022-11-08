@@ -260,11 +260,11 @@ subprojects { subproject ->
 			postgresVersion = '42.5.0'
 			slf4jVersion = '1.7.30'
 			springCloudVersion = '2022.0.0-SNAPSHOT'
-			springIntegrationVersion = '6.0.0-RC1'
+			springIntegrationVersion = '6.0.0-RC2'
 			set('spring-integration.version', "$springIntegrationVersion")
 			springIntegrationSocialTwiterVersion = '1.0.1.BUILD-SNAPSHOT'
 			springIntegrationSplunkVersion = '1.2.0.BUILD-SNAPSHOT'
-			springVersion = '6.0.0-RC1'
+			springVersion = '6.0.0-RC3'
 			springSecurityVersion = '6.0.0-RC1'
 			springWebFlowVersion = '2.3.3.RELEASE'
 			testcontainersVersion = '1.17.5'
