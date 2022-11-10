@@ -18,17 +18,14 @@ package org.springframework.integration.samples.sftp;
 
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Collections;
-import java.util.List;
 
-import org.apache.sshd.common.config.keys.AuthorizedKeyEntry;
-import org.apache.sshd.common.config.keys.PublicKeyEntryResolver;
 import org.apache.sshd.common.file.virtualfs.VirtualFileSystemFactory;
 import org.apache.sshd.server.SshServer;
-import org.apache.sshd.server.auth.pubkey.KeySetPublickeyAuthenticator;
 import org.apache.sshd.server.auth.pubkey.PublickeyAuthenticator;
+import org.apache.sshd.server.config.keys.AuthorizedKeysAuthenticator;
 import org.apache.sshd.server.keyprovider.SimpleGeneratorHostKeyProvider;
 import org.apache.sshd.sftp.server.SftpSubsystemFactory;
 
@@ -75,16 +72,8 @@ public class EmbeddedSftpServer implements InitializingBean, SmartLifecycle {
 	}
 
 	private PublickeyAuthenticator getPublickeyAuthenticator() throws Exception {
-		InputStream stream = new ClassPathResource("META-INF/keys/sftp_rsa.pub").getInputStream();
-		List<AuthorizedKeyEntry> keys = AuthorizedKeyEntry.readAuthorizedKeys(stream, true);
-		return new KeySetPublickeyAuthenticator(null, keys.stream().map(keyEntry -> {
-			try {
-				return keyEntry.resolvePublicKey(null, PublicKeyEntryResolver.IGNORING);
-			}
-			catch (Exception e) {
-				throw new RuntimeException(e);
-			}
-		}).toList());
+		Path path = new ClassPathResource("META-INF/keys/sftp_known_hosts").getFile().toPath();
+		return new AuthorizedKeysAuthenticator(path);
 	}
 
 	@Override
