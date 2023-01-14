@@ -315,7 +315,9 @@ subprojects { subproject ->
 		}
 
 		test {
-			useJUnitPlatform()
+			if (!['file-split-ftp', 'tcp-client-server-multiplex'].contains(it.project.name)) {
+				useJUnitPlatform()
+			}
 			// suppress all console output during testing unless running `gradle -i`
 			logging.captureStandardOutput(LogLevel.INFO)
 			jacoco {
