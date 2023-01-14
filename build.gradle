@@ -519,6 +519,7 @@ project('barrier') {
 		api 'org.springframework.integration:spring-integration-amqp'
 		api 'org.springframework.integration:spring-integration-http'
 
+		testImplementation 'org.springframework.amqp:spring-rabbit-junit'
 		testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	}
 
