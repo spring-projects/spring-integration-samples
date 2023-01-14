@@ -315,6 +315,7 @@ subprojects { subproject ->
 		}
 
 		test {
+			useJUnitPlatform()
 			// suppress all console output during testing unless running `gradle -i`
 			logging.captureStandardOutput(LogLevel.INFO)
 			jacoco {
@@ -909,10 +910,6 @@ project('sftp') {
 		api "org.apache.logging.log4j:log4j-core:$log4jVersion"
 		testImplementation "org.apache.sshd:sshd-sftp:$apacheSshdVersion"
 	}
-
-	test {
-		useJUnitPlatform()
-	}
 }
 
 project('tcp-amqp') {
@@ -1001,11 +998,6 @@ project('testcontainers-rabbitmq') {
 			mavenBom "org.springframework.cloud:spring-cloud-dependencies:$springCloudVersion"
 		}
 	}
-
-	test {
-		useJUnitPlatform()
-	}
-
 }
 
 project('testing-examples') {
@@ -1366,11 +1358,6 @@ project('tcp-async-bi-directional') {
 		main 'org.springframework.integration.samples.tcpasyncbi.TcpAsyncBiDirectionalApplication'
 		classpath = sourceSets.main.runtimeClasspath
 	}
-
-	test {
-		useJUnitPlatform()
-	}
-
 }
 
 project('tcp-client-server-multiplex') {
