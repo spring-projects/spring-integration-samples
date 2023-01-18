@@ -7,7 +7,7 @@ buildscript {
 		maven { url 'https://repo.spring.io/snapshot' }
 	}
 	dependencies {
-		classpath 'io.spring.gradle:dependency-management-plugin:1.0.11.RELEASE'
+		classpath 'io.spring.gradle:dependency-management-plugin:1.1.0'
 		classpath "org.springframework.boot:spring-boot-gradle-plugin:$springBootVersion"
 		classpath 'gradle.plugin.org.gretty:gretty:2.3.1'
 	}
@@ -220,9 +220,9 @@ subprojects { subproject ->
 		}
 
 		ext {
-			apacheSshdVersion = '2.9.1'
-			artemisVersion = '2.26.0'
-			aspectjVersion = '1.9.9.1'
+			apacheSshdVersion = '2.9.2'
+			artemisVersion = '2.27.1'
+			aspectjVersion = '1.9.19'
 			commonsDigesterVersion = '2.1'
 			commonsDbcpVersion = '2.9.0'
 			commonsFileUploadVersion = '1.4'
@@ -232,14 +232,14 @@ subprojects { subproject ->
 			c3p0Version = '0.9.5.5'
 			derbyVersion = '10.16.1.1'
 			hamcrestVersion = '2.2'
-			hibernateVersion = '6.1.5.Final'
+			hibernateVersion = '6.1.6.Final'
 			hibernateValidatorVersion = '8.0.0.Final'
-			ftpServerVersion = '1.1.2'
+			ftpServerVersion = '1.2.0'
 			flexjsonVersion = '2.0'
-			groovyVersion = '4.0.6'
+			groovyVersion = '4.0.7'
 			hsqldbVersion = '2.7.1'
 			h2Version = '2.1.214'
-			jacksonVersion = '2.13.4'
+			jacksonVersion = '2.14.1'
 			mailVersion = '2.0.1'
 			jaxbVersion = '2.3.3'
 			jodaTimeVersion = '1.6'
@@ -257,14 +257,14 @@ subprojects { subproject ->
 			mongoDriverVersion = '4.7.2'
 			openJpaVersion = '2.4.0'
 			oracleDriverVersion = '19.3.0.0'
-			postgresVersion = '42.5.0'
+			postgresVersion = '42.5.1'
 			slf4jVersion = '1.7.30'
 			springCloudVersion = '2022.0.0'
-			springIntegrationVersion = '6.0.1'
+			springIntegrationVersion = '6.0.2'
 			set('spring-integration.version', "$springIntegrationVersion")
 			springIntegrationSocialTwiterVersion = '1.0.1.BUILD-SNAPSHOT'
 			springIntegrationSplunkVersion = '1.2.0.BUILD-SNAPSHOT'
-			springVersion = '6.0.3'
+			springVersion = '6.0.4'
 			springSecurityVersion = '6.0.1'
 			springWebFlowVersion = '2.3.3.RELEASE'
 			testcontainersVersion = '1.17.6'
