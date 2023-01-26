@@ -30,7 +30,7 @@
 
 	<gateway id="gw"
 		service-interface="org.springframework.integration.samples.tcpclientserver.SimpleGateway"
-		default-reply-timeout="1000"
+		default-reply-timeout="2000"
 		default-request-channel="input" />
 
 	<ip:tcp-connection-factory id="client"
