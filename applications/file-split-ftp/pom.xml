@@ -4,7 +4,6 @@
   <groupId>org.springframework.integration.samples</groupId>
   <artifactId>file-split-ftp</artifactId>
   <version>6.0.0</version>
-  <packaging>pom</packaging>
   <url>https://github.com/spring-projects/spring-integration-samples</url>
   <organization>
     <name>Spring IO</name>
