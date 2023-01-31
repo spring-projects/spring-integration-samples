@@ -140,6 +140,7 @@ subprojects { subproject ->
 										}
 							}
 							if (subproject.plugins.hasPlugin('org.springframework.boot')) {
+								asNode().get('packaging').first().value = 'jar'
 								def plugins = asNode().build?.find()?.plugins?.find()
 								if (!plugins) {
 									plugins = asNode().appendNode('build').appendNode('plugins')
@@ -149,8 +150,7 @@ subprojects { subproject ->
 											appendNode('groupId', 'org.springframework.boot')
 											appendNode('artifactId', 'spring-boot-maven-plugin')
 										}
-							}
-							if (subproject.plugins.hasPlugin('org.springframework.boot')) {
+
 								asNode().appendNode('parent').with {
 									appendNode('groupId', 'org.springframework.boot')
 									appendNode('artifactId', 'spring-boot-starter-parent')
@@ -240,7 +240,7 @@ subprojects { subproject ->
 			hsqldbVersion = '2.7.1'
 			h2Version = '2.1.214'
 			jacksonVersion = '2.14.1'
-			mailVersion = '2.0.1'
+			mailVersion = '1.0.0'
 			jaxbVersion = '2.3.3'
 			jodaTimeVersion = '1.6'
 			jtaVersion = '2.0.0'
@@ -630,7 +630,7 @@ project('http') {
 		api 'org.springframework:spring-webmvc'
 		api "commons-fileupload:commons-fileupload:$commonsFileUploadVersion"
 		api "commons-io:commons-io:$commonsIoVersion"
-		api "com.sun.mail:jakarta.mail:$mailVersion"
+		api "org.eclipse.angus:jakarta.mail:$mailVersion"
 		api "org.apache.logging.log4j:log4j-core:$log4jVersion"
 	}
 
@@ -725,7 +725,7 @@ project('si4demo') {
 		api "org.springframework.integration:spring-integration-social-twitter:$springIntegrationSocialTwiterVersion"
 		api 'org.springframework.integration:spring-integration-http'
 		api 'org.springframework.integration:spring-integration-ip'
-		api "com.sun.mail:jakarta.mail:$mailVersion"
+		api "org.eclipse.angus:jakarta.mail:$mailVersion"
 		api 'com.rometools:rome:1.18.0'
 
 		testImplementation 'org.springframework.boot:spring-boot-starter-test'
@@ -840,7 +840,7 @@ project('mail') {
 	dependencies {
 		api 'org.springframework.integration:spring-integration-mail'
 		api 'org.springframework:spring-context'
-		api "com.sun.mail:jakarta.mail:$mailVersion"
+		api "org.eclipse.angus:jakarta.mail:$mailVersion"
 		api "org.apache.logging.log4j:log4j-core:$log4jVersion"
 	}
 
@@ -1141,7 +1141,7 @@ project('mail-attachments') {
 	dependencies {
 		api 'org.springframework.integration:spring-integration-mail'
 		api 'org.springframework.integration:spring-integration-file'
-		api "com.sun.mail:jakarta.mail:$mailVersion"
+		api "org.eclipse.angus:jakarta.mail:$mailVersion"
 		api "commons-io:commons-io:$commonsIoVersion"
 		api "org.apache.logging.log4j:log4j-core:$log4jVersion"
 
@@ -1484,11 +1484,15 @@ project('file-split-ftp') {
 		api 'org.springframework.integration:spring-integration-ftp'
 		api 'org.springframework.integration:spring-integration-http'
 		api 'org.springframework.integration:spring-integration-mail'
-		api "com.sun.mail:jakarta.mail:$mailVersion"
+		api "org.eclipse.angus:jakarta.mail:$mailVersion"
 
 		testImplementation 'org.springframework.boot:spring-boot-starter-test'
 		testImplementation 'org.springframework.integration:spring-integration-test'
-		testImplementation "com.icegreen:greenmail:2.0.0-alpha-2"
+		testImplementation ('com.icegreen:greenmail:2.0.0-alpha-2') {
+			exclude group: 'com.sun.mail'
+			exclude group: 'jakarta.activation'
+		}
+
 	}
 
 	springBoot {
