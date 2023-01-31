@@ -344,7 +344,7 @@
       <dependency>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-dependencies</artifactId>
-        <version>3.0.2-SNAPSHOT</version>
+        <version>3.0.2</version>
         <scope>import</scope>
         <type>pom</type>
       </dependency>
@@ -389,7 +389,7 @@
   <parent>
     <groupId>org.springframework.boot</groupId>
     <artifactId>spring-boot-starter-parent</artifactId>
-    <version>3.0.2-SNAPSHOT</version>
+    <version>3.0.2</version>
   </parent>
   <repositories>
     <repository>
