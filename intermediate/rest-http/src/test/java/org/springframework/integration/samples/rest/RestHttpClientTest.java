@@ -1,5 +1,5 @@
 /*
- * Copyright 2002-2019 the original author or authors.
+ * Copyright 2002-2023 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,11 +16,7 @@
 
 package org.springframework.integration.samples.rest;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-
 import java.io.ByteArrayOutputStream;
-import java.io.IOException;
 import java.io.StringWriter;
 import java.util.Base64;
 import java.util.HashMap;
@@ -28,11 +24,11 @@ import java.util.Map;
 
 import javax.xml.transform.stream.StreamResult;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
@@ -43,13 +39,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.http.client.ClientHttpRequest;
 import org.springframework.integration.samples.rest.domain.EmployeeList;
 import org.springframework.oxm.jaxb.Jaxb2Marshaller;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 import org.springframework.web.client.HttpMessageConverterExtractor;
-import org.springframework.web.client.RequestCallback;
 import org.springframework.web.client.RestTemplate;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * RestHttpClientTest.java: Functional Test to test the REST HTTP Path usage. This test requires
@@ -59,8 +53,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
  * @author Gary Russell
  * @author Artem Bilan
  */
-@RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = { "classpath*:META-INF/spring/integration/http-outbound-config.xml" })
+@SpringJUnitConfig(locations = "classpath*:META-INF/spring/integration/http-outbound-config.xml")
 public class RestHttpClientTest {
 
 	@Autowired
@@ -76,24 +69,19 @@ public class RestHttpClientTest {
 	@Autowired
 	private ObjectMapper jaxbJacksonObjectMapper;
 
-	@Before
+	@BeforeEach
 	public void setUp() {
 		responseExtractor = new HttpMessageConverterExtractor<>(EmployeeList.class, restTemplate
 				.getMessageConverters());
 
 		Map<String, Object> properties = new HashMap<>();
-		properties.put(javax.xml.bind.Marshaller.JAXB_ENCODING, "UTF-8");
-		properties.put(javax.xml.bind.Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
+		properties.put(jakarta.xml.bind.Marshaller.JAXB_ENCODING, "UTF-8");
+		properties.put(jakarta.xml.bind.Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
 		marshaller.setMarshallerProperties(properties);
 	}
 
-	/**
-	 *
-	 * @throws Exception
-	 */
 	@Test
 	public void testGetEmployeeAsXml() {
-
 		Map<String, Object> employeeSearchMap = getEmployeeSearchMap("0");
 
 		final String fullUrl = "http://localhost:8080/rest-http/services/employee/{id}/search";
@@ -111,7 +99,7 @@ public class RestHttpClientTest {
 
 		marshaller.marshal(employeeList, sr);
 		logger.info(sr.getWriter().toString());
-		assertTrue(employeeList.getEmployee().size() > 0);
+		assertThat(employeeList.getEmployee()).hasSizeGreaterThan(0);
 	}
 
 	private Map<String, Object> getEmployeeSearchMap(String id) {
@@ -134,10 +122,10 @@ public class RestHttpClientTest {
 				.exchange(fullUrl, HttpMethod.GET, request, EmployeeList.class, employeeSearchMap);
 		logger.info("Return Status :" + httpResponse.getHeaders().get("X-Return-Status"));
 		logger.info("Return Status Message :" + httpResponse.getHeaders().get("X-Return-Status-Msg"));
-		assertEquals(httpResponse.getStatusCode(), HttpStatus.OK);
+		assertThat(httpResponse.getStatusCode()).isEqualTo(HttpStatus.OK);
 		ByteArrayOutputStream out = new ByteArrayOutputStream();
 		jaxbJacksonObjectMapper.writeValue(out, httpResponse.getBody());
-		logger.info(new String(out.toByteArray()));
+		logger.info(out.toString());
 	}
 
 	private HttpHeaders getHttpHeadersWithUserCredentials(ClientHttpRequest request) {
@@ -159,5 +147,3 @@ public class RestHttpClientTest {
 	}
 
 }
-
-
