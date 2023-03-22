@@ -87,7 +87,7 @@
     <dependency>
       <groupId>org.apache.groovy</groupId>
       <artifactId>groovy-jsr223</artifactId>
-      <version>4.0.9</version>
+      <version>4.0.10</version>
       <scope>compile</scope>
     </dependency>
     <dependency>
@@ -159,14 +159,14 @@
       <dependency>
         <groupId>org.springframework</groupId>
         <artifactId>spring-framework-bom</artifactId>
-        <version>6.0.5</version>
+        <version>6.0.7</version>
         <scope>import</scope>
         <type>pom</type>
       </dependency>
       <dependency>
         <groupId>org.springframework.integration</groupId>
         <artifactId>spring-integration-bom</artifactId>
-        <version>6.0.3</version>
+        <version>6.0.4</version>
         <scope>import</scope>
         <type>pom</type>
       </dependency>
