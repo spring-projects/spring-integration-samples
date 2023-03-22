@@ -210,18 +210,18 @@ subprojects { subproject ->
 			postgresVersion = '42.2.14'
 			subethasmtpVersion = '1.2'
 			slf4jVersion = '1.7.30'
-			springCloudVersion ='2021.0.0-SNAPSHOT'
+			springCloudVersion ='2021.0.5'
 			springIntegrationSocialTwiterVersion = '1.0.1.BUILD-SNAPSHOT'
 			springIntegrationSplunkVersion = '1.2.0.BUILD-SNAPSHOT'
-			springVersion = '5.3.20'
+			springVersion = '5.3.23'
 			springSecurityVersion = '5.5.7'
 			springWebFlowVersion = '2.3.3.RELEASE'
-			testcontainersVersion = '1.16.2'
+			testcontainersVersion = '1.17.6'
 			tilesJspVersion = '2.2.1'
 			validationApiVersion = '1.0.0.GA'
 		}
 
-		ext['spring-integration.version'] = '5.5.16'
+		ext['spring-integration.version'] = '5.5.17'
 
 		sourceSets.each {
 			it.resources.srcDirs = ["src/${it.name}/resources", "src/${it.name}/java"]
