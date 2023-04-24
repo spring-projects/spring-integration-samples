@@ -21,7 +21,7 @@ The `org.springframework.integration.samples.websocket.standard.client.Applicati
 ## Browser Client
    
 The `index.html` in the `src/main/resources/static` directory of this project demonstrates a JavaScript `SockJS` client, which connects
-to our server and just prints its messages in the middle of page.
+to our server and just prints its messages in the middle of page. It can be reached at http://localhost:8080/index.html.
  
 ## Test Case
 

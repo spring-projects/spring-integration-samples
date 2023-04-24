@@ -1,12 +1,21 @@
 SFTP Sample
 ===========
 
+# Overview
 This example demonstrates the following aspects of the SFTP support available with Spring Integration:
 
 1. SFTP Inbound Channel Adapter (transfers files from remote to local directory)
 2. SFTP Outbound Channel Adapter (transfers files from local to the remote directory)
 
-In order to run this sample for the 'real' SFTP Server you need to:
+## How to Run the Sample
+
+If you imported the example into your IDE, you can just run samples from **org.springframework.integration.samples.sftp**.
+
+Alternatively, you can execute all the samples from the command line:
+
+>$ ./gradlew :sftp:check
+
+## In order to run this sample for the 'real' SFTP Server you need to:
 
 1. generate private/public keys. Below is simple directions what needs to be done
 2. update user.properties file with appropriate values

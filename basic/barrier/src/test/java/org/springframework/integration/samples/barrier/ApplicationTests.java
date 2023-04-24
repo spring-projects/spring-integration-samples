@@ -22,6 +22,7 @@ import java.util.Collections;
 
 import org.junit.jupiter.api.Test;
 
+import org.springframework.amqp.rabbit.junit.RabbitAvailable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.integration.channel.AbstractMessageChannel;
@@ -37,6 +38,7 @@ import org.springframework.messaging.support.GenericMessage;
  * @since 4.2
  */
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE, classes = Application.class)
+@RabbitAvailable
 public class ApplicationTests {
 
 	@Autowired

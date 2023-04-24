@@ -128,6 +128,7 @@ public class Application {
 	@ServiceActivator(inputChannel = "sendTimeChannel")
 	public MessageHandler loggingChannelAdapter() {
 		LoggingHandler loggingHandler = new LoggingHandler("info");
+		loggingHandler.setLoggerName("wsLog");
 		loggingHandler.setLogExpressionString(
 				"'The time ' + payload + ' has been sent to the WebSocketSession ' + headers.simpSessionId");
 		return loggingHandler;

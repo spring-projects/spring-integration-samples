@@ -7,7 +7,7 @@ buildscript {
 		maven { url 'https://repo.spring.io/snapshot' }
 	}
 	dependencies {
-		classpath 'io.spring.gradle:dependency-management-plugin:1.0.11.RELEASE'
+		classpath 'io.spring.gradle:dependency-management-plugin:1.1.0'
 		classpath "org.springframework.boot:spring-boot-gradle-plugin:$springBootVersion"
 		classpath 'gradle.plugin.org.gretty:gretty:2.3.1'
 	}
@@ -140,6 +140,7 @@ subprojects { subproject ->
 										}
 							}
 							if (subproject.plugins.hasPlugin('org.springframework.boot')) {
+								asNode().get('packaging').first().value = 'jar'
 								def plugins = asNode().build?.find()?.plugins?.find()
 								if (!plugins) {
 									plugins = asNode().appendNode('build').appendNode('plugins')
@@ -149,8 +150,7 @@ subprojects { subproject ->
 											appendNode('groupId', 'org.springframework.boot')
 											appendNode('artifactId', 'spring-boot-maven-plugin')
 										}
-							}
-							if (subproject.plugins.hasPlugin('org.springframework.boot')) {
+
 								asNode().appendNode('parent').with {
 									appendNode('groupId', 'org.springframework.boot')
 									appendNode('artifactId', 'spring-boot-starter-parent')
@@ -205,7 +205,7 @@ subprojects { subproject ->
 		}
 
 		jacoco {
-			toolVersion = '0.8.7'
+			toolVersion = '0.8.8'
 		}
 
 		compileJava {
@@ -220,54 +220,54 @@ subprojects { subproject ->
 		}
 
 		ext {
-			apacheSshdVersion = '2.9.1'
-			artemisVersion = '2.26.0'
-			aspectjVersion = '1.9.9.1'
+			apacheSshdVersion = '2.9.2'
+			artemisVersion = '2.27.1'
+			aspectjVersion = '1.9.19'
 			commonsDigesterVersion = '2.1'
 			commonsDbcpVersion = '2.9.0'
-			commonsFileUploadVersion = '1.4'
+			commonsFileUploadVersion = '1.5'
 			commonsIoVersion = '2.11.0'
 			commonsLangVersion = '3.12.0'
 			commonsPoolVersion = '2.11.1'
 			c3p0Version = '0.9.5.5'
 			derbyVersion = '10.16.1.1'
 			hamcrestVersion = '2.2'
-			hibernateVersion = '6.1.4.Final'
-			hibernateValidatorVersion = '7.0.2.Final'
-			ftpServerVersion = '1.1.2'
+			hibernateVersion = '6.1.7.Final'
+			hibernateValidatorVersion = '8.0.0.Final'
+			ftpServerVersion = '1.2.0'
 			flexjsonVersion = '2.0'
-			groovyVersion = '4.0.6'
-			hsqldbVersion = '2.7.0'
+			groovyVersion = '4.0.10'
+			hsqldbVersion = '2.7.1'
 			h2Version = '2.1.214'
-			jacksonVersion = '2.13.4'
-			mailVersion = '2.0.1'
-			jaxbVersion = '2.3.3'
+			jacksonVersion = '2.14.2'
+			mailVersion = '1.0.0'
+			jaxbVersion = '4.0.2'
 			jodaTimeVersion = '1.6'
 			jtaVersion = '2.0.0'
 			jtdsVersion = '1.2.6'
-			jmsApiVersion = '3.0.0'
+			jmsApiVersion = '3.1.0'
 			jrubyVersion = '9.2.14.0'
 			jpaApiVersion = '3.0.2'
 			jstlVersion = '1.2'
 			junitVersion = '4.13.2'
-			junitJupiterVersion = '5.9.1'
+			junitJupiterVersion = '5.9.2'
 			jythonVersion = '2.7.3'
 			log4jVersion = '2.19.0'
-			mockitoVersion = '4.8.0'
-			mongoDriverVersion = '4.7.2'
+			mockitoVersion = '4.10.0'
+			mongoDriverVersion = '4.8.2'
 			openJpaVersion = '2.4.0'
 			oracleDriverVersion = '19.3.0.0'
-			postgresVersion = '42.5.0'
+			postgresVersion = '42.5.4'
 			slf4jVersion = '1.7.30'
-			springCloudVersion = '2022.0.0-SNAPSHOT'
-			springIntegrationVersion = '6.0.0-RC1'
+			springCloudVersion = '2022.0.1'
+			springIntegrationVersion = '6.0.5'
 			set('spring-integration.version', "$springIntegrationVersion")
 			springIntegrationSocialTwiterVersion = '1.0.1.BUILD-SNAPSHOT'
 			springIntegrationSplunkVersion = '1.2.0.BUILD-SNAPSHOT'
-			springVersion = '6.0.0-RC1'
-			springSecurityVersion = '6.0.0-RC1'
-			springWebFlowVersion = '2.3.3.RELEASE'
-			testcontainersVersion = '1.17.5'
+			springVersion = '6.0.8'
+			springSecurityVersion = '6.0.3'
+			springWebFlowVersion = '2.4.8.RELEASE'
+			testcontainersVersion = '1.17.6'
 			tilesJspVersion = '2.2.1'
 		}
 
@@ -315,6 +315,7 @@ subprojects { subproject ->
 		}
 
 		test {
+			useJUnitPlatform()
 			// suppress all console output during testing unless running `gradle -i`
 			logging.captureStandardOutput(LogLevel.INFO)
 			jacoco {
@@ -518,6 +519,7 @@ project('barrier') {
 		api 'org.springframework.integration:spring-integration-amqp'
 		api 'org.springframework.integration:spring-integration-http'
 
+		testImplementation 'org.springframework.amqp:spring-rabbit-junit'
 		testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	}
 
@@ -628,7 +630,7 @@ project('http') {
 		api 'org.springframework:spring-webmvc'
 		api "commons-fileupload:commons-fileupload:$commonsFileUploadVersion"
 		api "commons-io:commons-io:$commonsIoVersion"
-		api "com.sun.mail:jakarta.mail:$mailVersion"
+		api "org.eclipse.angus:jakarta.mail:$mailVersion"
 		api "org.apache.logging.log4j:log4j-core:$log4jVersion"
 	}
 
@@ -723,7 +725,7 @@ project('si4demo') {
 		api "org.springframework.integration:spring-integration-social-twitter:$springIntegrationSocialTwiterVersion"
 		api 'org.springframework.integration:spring-integration-http'
 		api 'org.springframework.integration:spring-integration-ip'
-		api "com.sun.mail:jakarta.mail:$mailVersion"
+		api "org.eclipse.angus:jakarta.mail:$mailVersion"
 		api 'com.rometools:rome:1.18.0'
 
 		testImplementation 'org.springframework.boot:spring-boot-starter-test'
@@ -838,7 +840,7 @@ project('mail') {
 	dependencies {
 		api 'org.springframework.integration:spring-integration-mail'
 		api 'org.springframework:spring-context'
-		api "com.sun.mail:jakarta.mail:$mailVersion"
+		api "org.eclipse.angus:jakarta.mail:$mailVersion"
 		api "org.apache.logging.log4j:log4j-core:$log4jVersion"
 	}
 
@@ -997,11 +999,6 @@ project('testcontainers-rabbitmq') {
 			mavenBom "org.springframework.cloud:spring-cloud-dependencies:$springCloudVersion"
 		}
 	}
-
-	test {
-		useJUnitPlatform()
-	}
-
 }
 
 project('testing-examples') {
@@ -1144,7 +1141,7 @@ project('mail-attachments') {
 	dependencies {
 		api 'org.springframework.integration:spring-integration-mail'
 		api 'org.springframework.integration:spring-integration-file'
-		api "com.sun.mail:jakarta.mail:$mailVersion"
+		api "org.eclipse.angus:jakarta.mail:$mailVersion"
 		api "commons-io:commons-io:$commonsIoVersion"
 		api "org.apache.logging.log4j:log4j-core:$log4jVersion"
 
@@ -1362,11 +1359,6 @@ project('tcp-async-bi-directional') {
 		main 'org.springframework.integration.samples.tcpasyncbi.TcpAsyncBiDirectionalApplication'
 		classpath = sourceSets.main.runtimeClasspath
 	}
-
-	test {
-		useJUnitPlatform()
-	}
-
 }
 
 project('tcp-client-server-multiplex') {
@@ -1492,11 +1484,15 @@ project('file-split-ftp') {
 		api 'org.springframework.integration:spring-integration-ftp'
 		api 'org.springframework.integration:spring-integration-http'
 		api 'org.springframework.integration:spring-integration-mail'
-		api "com.sun.mail:jakarta.mail:$mailVersion"
+		api "org.eclipse.angus:jakarta.mail:$mailVersion"
 
 		testImplementation 'org.springframework.boot:spring-boot-starter-test'
 		testImplementation 'org.springframework.integration:spring-integration-test'
-		testImplementation "com.icegreen:greenmail:2.0.0-alpha-2"
+		testImplementation ('com.icegreen:greenmail:2.0.0-alpha-2') {
+			exclude group: 'com.sun.mail'
+			exclude group: 'jakarta.activation'
+		}
+
 	}
 
 	springBoot {

@@ -1,5 +1,5 @@
 /*
- * Copyright 2002-2022 the original author or authors.
+ * Copyright 2002-2023 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,9 +15,6 @@
  */
 
 package org.springframework.integration.samples.tcpclientserver;
-
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.CountDownLatch;
@@ -39,12 +36,15 @@ import org.springframework.messaging.MessagingException;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
+
 
 /**
  * Demonstrates the use of a gateway as an entry point into the integration flow,
  * with two pairs of collaborating channel adapters (client and server), which
  * enables multiplexing multiple messages over the same connection.
- *
+ * <p>
  * Requires correlation data in the payload.
  *
  * @author Gary Russell
@@ -113,7 +113,7 @@ public class TcpClientServerDemoTest {
 	public void testTimeoutThrow() {
 		assertThatExceptionOfType(MessagingException.class)
 				.isThrownBy(() -> gw.send("TIMEOUT_TEST_THROW"))
-				.withMessageContaining("No response received for TIMEOUT_TEST");
+				.withStackTraceContaining("No response received for TIMEOUT_TEST");
 	}
 
 	@Test

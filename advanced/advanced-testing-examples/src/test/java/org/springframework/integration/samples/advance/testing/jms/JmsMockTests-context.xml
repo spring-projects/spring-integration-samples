@@ -23,7 +23,7 @@
 	</int-jms:inbound-channel-adapter>
 
 	<bean id="jmsTemplate" class="org.mockito.Mockito" factory-method="mock">
-		<constructor-arg value="org.springframework.jms.core.JmsTemplate"/>
+		<constructor-arg value="org.springframework.jms.core.JmsTemplate" type="java.lang.Class"/>
 	</bean>
 
 </beans>
