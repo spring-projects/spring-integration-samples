@@ -9,11 +9,11 @@ buildscript {
 	dependencies {
 		classpath 'io.spring.gradle:dependency-management-plugin:1.1.0'
 		classpath "org.springframework.boot:spring-boot-gradle-plugin:$springBootVersion"
-		classpath 'gradle.plugin.org.gretty:gretty:2.3.1'
+		classpath 'org.gretty:gretty:4.0.3'
 	}
 }
 plugins {
-	id 'org.sonarqube' version '2.8'
+	id 'org.sonarqube' version '4.0.0.2929'
 }
 
 description = 'Spring Integration Samples'
@@ -221,7 +221,7 @@ subprojects { subproject ->
 
 		ext {
 			apacheSshdVersion = '2.9.2'
-			artemisVersion = '2.27.1'
+			artemisVersion = '2.28.0'
 			aspectjVersion = '1.9.19'
 			commonsDigesterVersion = '2.1'
 			commonsDbcpVersion = '2.9.0'
@@ -232,15 +232,14 @@ subprojects { subproject ->
 			c3p0Version = '0.9.5.5'
 			derbyVersion = '10.16.1.1'
 			hamcrestVersion = '2.2'
-			hibernateVersion = '6.1.7.Final'
+			hibernateVersion = '6.2.2.Final'
 			hibernateValidatorVersion = '8.0.0.Final'
 			ftpServerVersion = '1.2.0'
 			flexjsonVersion = '2.0'
-			groovyVersion = '4.0.10'
+			groovyVersion = '4.0.12'
 			hsqldbVersion = '2.7.1'
 			h2Version = '2.1.214'
-			jacksonVersion = '2.14.2'
-			mailVersion = '1.0.0'
+			jacksonVersion = '2.15.0'
 			jaxbVersion = '4.0.2'
 			jodaTimeVersion = '1.6'
 			jtaVersion = '2.0.0'
@@ -250,24 +249,25 @@ subprojects { subproject ->
 			jpaApiVersion = '3.0.2'
 			jstlVersion = '1.2'
 			junitVersion = '4.13.2'
-			junitJupiterVersion = '5.9.2'
+			junitJupiterVersion = '5.9.3'
 			jythonVersion = '2.7.3'
-			log4jVersion = '2.19.0'
-			mockitoVersion = '4.10.0'
-			mongoDriverVersion = '4.8.2'
+			log4jVersion = '2.20.0'
+			mailVersion = '1.0.0'
+			mockitoVersion = '5.3.1'
+			mongoDriverVersion = '4.9.1'
 			openJpaVersion = '2.4.0'
 			oracleDriverVersion = '19.3.0.0'
-			postgresVersion = '42.5.4'
+			postgresVersion = '42.6.0'
 			slf4jVersion = '1.7.30'
-			springCloudVersion = '2022.0.1'
-			springIntegrationVersion = '6.0.5'
+			springCloudVersion = '2022.0.2'
+			springIntegrationVersion = '6.1.0'
 			set('spring-integration.version', "$springIntegrationVersion")
 			springIntegrationSocialTwiterVersion = '1.0.1.BUILD-SNAPSHOT'
 			springIntegrationSplunkVersion = '1.2.0.BUILD-SNAPSHOT'
-			springVersion = '6.0.8'
-			springSecurityVersion = '6.0.3'
+			springVersion = '6.0.9'
+			springSecurityVersion = '6.1.0'
 			springWebFlowVersion = '2.4.8.RELEASE'
-			testcontainersVersion = '1.17.6'
+			testcontainersVersion = '1.18.1'
 			tilesJspVersion = '2.2.1'
 		}
 
@@ -306,13 +306,15 @@ subprojects { subproject ->
 		[compileJava, compileTestJava]*.options*.compilerArgs = [xLintArg]
 
 		jacocoTestReport {
+			onlyIf { System.properties['sonar.host.url'] }
+			dependsOn test
 			reports {
-				xml.enabled true
-				csv.enabled false
-				html.enabled false
-				xml.destination file("${buildDir}/reports/jacoco/test/jacocoTestReport.xml")
+				xml.required = true
+				html.required = false
 			}
 		}
+
+		rootProject.tasks['sonarqube'].dependsOn jacocoTestReport
 
 		test {
 			useJUnitPlatform()

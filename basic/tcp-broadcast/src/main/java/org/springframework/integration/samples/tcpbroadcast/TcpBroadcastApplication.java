@@ -38,6 +38,7 @@ import org.springframework.core.task.TaskExecutor;
 import org.springframework.integration.dsl.IntegrationFlow;
 import org.springframework.integration.ip.IpHeaders;
 import org.springframework.integration.ip.dsl.Tcp;
+import org.springframework.integration.ip.dsl.TcpNetServerConnectionFactorySpec;
 import org.springframework.integration.ip.tcp.connection.AbstractServerConnectionFactory;
 import org.springframework.integration.ip.tcp.connection.TcpConnectionServerListeningEvent;
 import org.springframework.integration.ip.tcp.serializer.ByteArrayCrLfSerializer;
@@ -63,8 +64,8 @@ public class TcpBroadcastApplication {
 		 * Server connection factory.
 		 */
 		@Bean
-		public AbstractServerConnectionFactory serverFactory() {
-			return Tcp.netServer(PORT).get();
+		public TcpNetServerConnectionFactorySpec serverFactory() {
+			return Tcp.netServer(PORT);
 		}
 
 		/*
