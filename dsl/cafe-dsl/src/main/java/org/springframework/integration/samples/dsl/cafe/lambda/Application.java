@@ -28,6 +28,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.integration.annotation.Gateway;
 import org.springframework.integration.annotation.MessagingGateway;
 import org.springframework.integration.dsl.IntegrationFlow;
+import org.springframework.integration.dsl.PollerSpec;
 import org.springframework.integration.dsl.Pollers;
 import org.springframework.integration.samples.cafe.Delivery;
 import org.springframework.integration.samples.cafe.Drink;
@@ -73,8 +74,8 @@ public class Application {
 	private final AtomicInteger coldDrinkCounter = new AtomicInteger();
 
 	@Bean(name = PollerMetadata.DEFAULT_POLLER)
-	public PollerMetadata poller() {
-		return Pollers.fixedDelay(1000).get();
+	public PollerSpec poller() {
+		return Pollers.fixedDelay(1000);
 	}
 
 	@Bean

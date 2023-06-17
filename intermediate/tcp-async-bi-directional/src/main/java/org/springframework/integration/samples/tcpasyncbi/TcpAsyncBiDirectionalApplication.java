@@ -30,6 +30,8 @@ import org.springframework.integration.dsl.Pollers;
 import org.springframework.integration.dsl.Transformers;
 import org.springframework.integration.ip.IpHeaders;
 import org.springframework.integration.ip.dsl.Tcp;
+import org.springframework.integration.ip.dsl.TcpNetClientConnectionFactorySpec;
+import org.springframework.integration.ip.dsl.TcpNetServerConnectionFactorySpec;
 import org.springframework.integration.ip.tcp.connection.AbstractClientConnectionFactory;
 import org.springframework.integration.ip.tcp.connection.AbstractServerConnectionFactory;
 import org.springframework.integration.ip.tcp.connection.TcpConnectionCloseEvent;
@@ -59,8 +61,8 @@ public class TcpAsyncBiDirectionalApplication {
 class ClientPeer {
 
 	@Bean
-	public AbstractClientConnectionFactory client1(SampleProperties properties) {
-		return Tcp.netClient("localhost", properties.getServerPort()).get();
+	public TcpNetClientConnectionFactorySpec client1(SampleProperties properties) {
+		return Tcp.netClient("localhost", properties.getServerPort());
 	}
 
 	@Bean
@@ -80,8 +82,8 @@ class ClientPeer {
 	}
 
 	@Bean
-	public AbstractClientConnectionFactory client2(SampleProperties properties) {
-		return Tcp.netClient("localhost", properties.getServerPort()).get();
+	public TcpNetClientConnectionFactorySpec client2(SampleProperties properties) {
+		return Tcp.netClient("localhost", properties.getServerPort());
 	}
 
 	@Bean
@@ -108,8 +110,8 @@ class ServerPeer {
 	private final Set<String> clients = ConcurrentHashMap.newKeySet();
 
 	@Bean
-	public AbstractServerConnectionFactory server(SampleProperties properties) {
-		return Tcp.netServer(properties.getServerPort()).get();
+	public TcpNetServerConnectionFactorySpec server(SampleProperties properties) {
+		return Tcp.netServer(properties.getServerPort());
 	}
 
 	@Bean
