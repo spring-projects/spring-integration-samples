@@ -238,7 +238,7 @@ subprojects { subproject ->
 			flexjsonVersion = '2.0'
 			groovyVersion = '4.0.12'
 			hsqldbVersion = '2.7.1'
-			h2Version = '2.1.214'
+			h2Version = '2.2.220'
 			jacksonVersion = '2.15.0'
 			jaxbVersion = '4.0.2'
 			jodaTimeVersion = '1.6'
