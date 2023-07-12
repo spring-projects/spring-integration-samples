@@ -266,7 +266,7 @@ subprojects { subproject ->
 			springIntegrationSplunkVersion = '1.2.0.BUILD-SNAPSHOT'
 			springVersion = '6.0.10'
 			springSecurityVersion = '6.1.1'
-			springWebFlowVersion = '2.4.8.RELEASE'
+			springWebFlowVersion = '3.0.0'
 			testcontainersVersion = '1.18.1'
 			tilesJspVersion = '2.2.1'
 		}
@@ -469,7 +469,7 @@ project('loanshark') {
 		api "org.hibernate:hibernate-validator:$hibernateValidatorVersion"
 		api "org.eclipse.persistence:org.eclipse.persistence.jpa:$jpaApiVersion"
 		api "org.hibernate.orm:hibernate-core:$hibernateVersion"
-		api "org.springframework.webflow:spring-js:$springWebFlowVersion"
+		api "org.springframework.webflow:spring-js-resources:$springWebFlowVersion"
 		api "org.slf4j:slf4j-api:$slf4jVersion"
 
 		runtimeOnly "org.apache.logging.log4j:log4j-core:$log4jVersion"
