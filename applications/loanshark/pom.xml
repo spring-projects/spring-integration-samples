@@ -172,8 +172,8 @@
     </dependency>
     <dependency>
       <groupId>org.springframework.webflow</groupId>
-      <artifactId>spring-js</artifactId>
-      <version>2.4.8.RELEASE</version>
+      <artifactId>spring-js-resources</artifactId>
+      <version>3.0.0</version>
       <scope>compile</scope>
     </dependency>
     <dependency>
@@ -325,14 +325,14 @@
       <dependency>
         <groupId>org.springframework</groupId>
         <artifactId>spring-framework-bom</artifactId>
-        <version>6.0.10</version>
+        <version>6.0.11</version>
         <scope>import</scope>
         <type>pom</type>
       </dependency>
       <dependency>
         <groupId>org.springframework.integration</groupId>
         <artifactId>spring-integration-bom</artifactId>
-        <version>6.1.1</version>
+        <version>6.1.2</version>
         <scope>import</scope>
         <type>pom</type>
       </dependency>
