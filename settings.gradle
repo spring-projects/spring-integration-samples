@@ -1,3 +1,15 @@
+pluginManagement {
+	repositories {
+		gradlePluginPortal()
+		maven { url 'https://repo.spring.io/release' }
+	}
+}
+
+plugins {
+	id 'com.gradle.enterprise' version '3.14.1'
+	id 'io.spring.ge.conventions' version '0.0.13'
+}
+
 rootProject.name = 'spring-integration-samples'
 
 ['advanced', 'applications', 'basic', 'intermediate', 'dsl'].each {
