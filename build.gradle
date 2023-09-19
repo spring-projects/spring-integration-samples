@@ -100,12 +100,12 @@ subprojects { subproject ->
 							repository {
 								id = 'repo.spring.io.milestone'
 								name = 'Spring Framework Maven Milestone Repository'
-								url = 'https://repo.spring.io/libs-milestone'
+								url = 'https://repo.spring.io/milestone'
 							}
 							repository {
 								id = 'repo.spring.io.snapshot'
 								name = 'Spring Framework Maven Snapshot Repository'
-								url = 'https://repo.spring.io/libs-snapshot'
+								url = 'https://repo.spring.io/snapshot'
 							}
 						}
 					}
@@ -169,7 +169,7 @@ subprojects { subproject ->
 		}
 
 		ext {
-			activeMqVersion = '5.16.2'
+			activeMqVersion = '5.17.5'
 			apacheSshdVersion = '2.7.0'
 			aspectjVersion = '1.9.7'
 			commonsDigesterVersion = '2.0'
@@ -185,7 +185,7 @@ subprojects { subproject ->
 			hibernateValidatorVersion = '6.1.2.Final'
 			ftpServerVersion = '1.1.1'
 			flexjsonVersion = '2.0'
-			groovyVersion = '3.0.8'
+			groovyVersion = '3.0.19'
 			hsqldbVersion = '2.6.0'
 			h2Version = '1.4.200'
 			jacksonVersion = '2.12.1'
@@ -213,15 +213,15 @@ subprojects { subproject ->
 			springCloudVersion ='2021.0.5'
 			springIntegrationSocialTwiterVersion = '1.0.1.BUILD-SNAPSHOT'
 			springIntegrationSplunkVersion = '1.2.0.BUILD-SNAPSHOT'
-			springVersion = '5.3.23'
-			springSecurityVersion = '5.5.7'
+			springVersion = '5.3.30'
+			springSecurityVersion = '5.5.8'
 			springWebFlowVersion = '2.3.3.RELEASE'
-			testcontainersVersion = '1.17.6'
+			testcontainersVersion = '1.19.0'
 			tilesJspVersion = '2.2.1'
 			validationApiVersion = '1.0.0.GA'
 		}
 
-		ext['spring-integration.version'] = '5.5.17'
+		ext['spring-integration.version'] = '5.5.19'
 
 		sourceSets.each {
 			it.resources.srcDirs = ["src/${it.name}/resources", "src/${it.name}/java"]
