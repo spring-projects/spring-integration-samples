@@ -169,12 +169,12 @@
     <repository>
       <id>repo.spring.io.milestone</id>
       <name>Spring Framework Maven Milestone Repository</name>
-      <url>https://repo.spring.io/libs-milestone</url>
+      <url>https://repo.spring.io/milestone</url>
     </repository>
     <repository>
       <id>repo.spring.io.snapshot</id>
       <name>Spring Framework Maven Snapshot Repository</name>
-      <url>https://repo.spring.io/libs-snapshot</url>
+      <url>https://repo.spring.io/snapshot</url>
     </repository>
   </repositories>
   <dependencyManagement>
@@ -189,14 +189,14 @@
       <dependency>
         <groupId>org.springframework</groupId>
         <artifactId>spring-framework-bom</artifactId>
-        <version>5.3.23</version>
+        <version>5.3.30</version>
         <scope>import</scope>
         <type>pom</type>
       </dependency>
       <dependency>
         <groupId>org.springframework.integration</groupId>
         <artifactId>spring-integration-bom</artifactId>
-        <version>5.5.17</version>
+        <version>5.5.19</version>
         <scope>import</scope>
         <type>pom</type>
       </dependency>
