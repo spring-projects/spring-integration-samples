@@ -121,6 +121,7 @@ subprojects { subproject ->
 							url = linkIssue
 						}
 						withXml {
+							asNode().appendNode('properties')appendNode('java.version', java.sourceCompatibility)
 							if (subproject.plugins.hasPlugin('org.akhikhl.gretty')) {
 								asNode().appendNode('packaging', 'war')
 								def plugins = asNode().build?.find()?.plugins?.find()

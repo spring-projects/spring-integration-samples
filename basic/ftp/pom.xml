@@ -163,6 +163,9 @@
       </dependency>
     </dependencies>
   </dependencyManagement>
+  <properties>
+    <java.version>17</java.version>
+  </properties>
   <repositories>
     <repository>
       <id>repo.spring.io.milestone</id>
