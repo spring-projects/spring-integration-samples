@@ -1,0 +1,40 @@
+name: Pull Request Build
+
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+
+      - uses: actions/checkout@v4
+        with:
+          show-progress: false
+
+      - name: Set up JDK
+        uses: actions/setup-java@v3
+        with:
+          distribution: adopt
+          java-version: 17
+          cache: gradle
+
+      - name: Build PR
+        uses: burrunan/gradle-cache-action@v1
+        with:
+          debug: false
+          concurrent: true
+          gradle-build-scan-report: false
+          arguments: check
+
+      - name: Capture Test Results
+        if: failure()
+        uses: actions/upload-artifact@v3
+        with:
+          name: test-results
+          path: '*/build/reports/tests/**/*.*'
+          retention-days: 3

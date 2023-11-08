@@ -1,0 +1,29 @@
+name: CI SNAPSHOT
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+
+env:
+  GRADLE_ENTERPRISE_CACHE_USERNAME: ${{ secrets.GRADLE_ENTERPRISE_CACHE_USER }}
+  GRADLE_ENTERPRISE_CACHE_PASSWORD: ${{ secrets.GRADLE_ENTERPRISE_CACHE_PASSWORD }}
+  GRADLE_ENTERPRISE_ACCESS_KEY: ${{ secrets.GRADLE_ENTERPRISE_SECRET_ACCESS_KEY }}
+
+jobs:
+  build_snapshot:
+    runs-on: ubuntu-latest
+    name: CI Build SNAPSHOT for ${{ github.ref_name }}
+    steps:
+
+      - uses: actions/checkout@v4
+        with:
+          show-progress: false
+
+      - name: Set up Gradle
+        uses: spring-io/spring-gradle-build-action@v2
+
+      - name: Build
+        run: ./gradlew check
+
