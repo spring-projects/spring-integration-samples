@@ -1,5 +1,5 @@
 /*
- * Copyright 2016-2018 the original author or authors.
+ * Copyright 2016-2023 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -44,13 +44,14 @@ import org.springframework.messaging.handler.annotation.Header;
 /**
  * @author Gary Russell
  * @author Artem Bilan
+ *
  * @since 4.3
  */
 @SpringBootApplication
 @EnableConfigurationProperties(KafkaAppProperties.class)
 public class Application {
 
-	public static void main(String[] args) throws Exception {
+	public static void main(String[] args) {
 		ConfigurableApplicationContext context =
 				new SpringApplicationBuilder(Application.class)
 						.web(WebApplicationType.NONE)
@@ -136,8 +137,8 @@ public class Application {
 	private KafkaProperties kafkaProperties;
 
 	public void addAnotherListenerForTopics(String... topics) {
-		Map<String, Object> consumerProperties = kafkaProperties.buildConsumerProperties();
-		// change the group id so we don't revoke the other partitions.
+		Map<String, Object> consumerProperties = kafkaProperties.buildConsumerProperties(null);
+		// change the group id, so we don't revoke the other partitions.
 		consumerProperties.put(ConsumerConfig.GROUP_ID_CONFIG,
 				consumerProperties.get(ConsumerConfig.GROUP_ID_CONFIG) + "x");
 		IntegrationFlow flow =

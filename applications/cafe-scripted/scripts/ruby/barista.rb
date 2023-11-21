@@ -1,14 +1,14 @@
-  require 'java'
+require 'java'
   
-  import org.springframework.integration.samples.cafe.Drink
+java_import org.springframework.integration.samples.cafe.Drink
   
-  orderItem = payload
+orderItem = payload
   
-  puts "ruby: preparing #{orderItem} for order #{orderItem.order.number}"
+puts "ruby: preparing #{orderItem} for order #{orderItem.order.number}"
 
-  sleep(timeToPrepare.to_f) 
+sleep(timeToPrepare.to_f)
     
-  Drink.new(orderItem.getOrder().getNumber(), orderItem.getDrinkType(), orderItem.isIced(),
+Drink.new(orderItem.getOrder().getNumber(), orderItem.getDrinkType(), orderItem.isIced(),
               orderItem.getShots())
   
 

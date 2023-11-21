@@ -1,5 +1,5 @@
 /*
- * Copyright 2002-2018 the original author or authors.
+ * Copyright 2002-2023 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -31,15 +31,17 @@ import org.springframework.util.StopWatch;
  * based on message payload types.
  *
  * @author Gary Russell
+ * @author Artem Bilan
+ *
  * @since 2.2
  *
  */
 @ManagedResource
 public class PayloadAwareTimingInterceptor implements ChannelInterceptor {
 
-	private static final ThreadLocal<StopWatchHolder> stopWatchHolder = new ThreadLocal<PayloadAwareTimingInterceptor.StopWatchHolder>();
+	private static final ThreadLocal<StopWatchHolder> stopWatchHolder = new ThreadLocal<>();
 
-	private final Map<Class<?>, Stats> statsMap = new ConcurrentHashMap<Class<?>, PayloadAwareTimingInterceptor.Stats>();
+	private final Map<Class<?>, Stats> statsMap = new ConcurrentHashMap<>();
 
 	/**
 	 *
@@ -67,12 +69,12 @@ public class PayloadAwareTimingInterceptor implements ChannelInterceptor {
 	public void postSend(Message<?> message, MessageChannel channel, boolean sent) {
 		StopWatchHolder holder = stopWatchHolder.get();
 		if (holder != null) {
-			holder.getStopWatch().stop();
-			Stats stats = this.statsMap.get(holder.getType());
+			holder.stopWatch().stop();
+			Stats stats = this.statsMap.get(holder.type());
 			if (stats == null) {
 				stats = this.statsMap.get(Object.class);
 			}
-			stats.add(holder.getStopWatch().getLastTaskTimeMillis());
+			stats.add(holder.stopWatch().lastTaskInfo().getTimeMillis());
 		}
 	}
 
@@ -101,28 +103,8 @@ public class PayloadAwareTimingInterceptor implements ChannelInterceptor {
 		return this.statsMap.get(Class.forName(className)).getAverage();
 	}
 
-	private static class StopWatchHolder {
+	private record StopWatchHolder(StopWatch stopWatch, Class<?> type) {
 
-		private final StopWatch stopWatch;
-
-		private final Class<?> type;
-
-		/**
-		 * @param stopWatch
-		 * @param type
-		 */
-		public StopWatchHolder(StopWatch stopWatch, Class<?> type) {
-			this.stopWatch = stopWatch;
-			this.type = type;
-		}
-
-		public StopWatch getStopWatch() {
-			return stopWatch;
-		}
-
-		public Class<?> getType() {
-			return type;
-		}
 	}
 
 	private static final class Stats {

@@ -1,5 +1,5 @@
 /*
- * Copyright 2002-2011 the original author or authors.
+ * Copyright 2002-2023 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -10,23 +10,25 @@
  * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the
  * specific language governing permissions and limitations under the License.
  */
-package org.springframework.integration.samples.cafe;
 
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
+package org.springframework.integration.samples.cafe;
 
 import java.util.HashMap;
 import java.util.Map;
 
-import org.junit.Ignore;
 import org.junit.Test;
 
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.integration.scripting.ScriptExecutor;
 import org.springframework.integration.scripting.jsr223.ScriptExecutorFactory;
 import org.springframework.scripting.support.ResourceScriptSource;
+
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
+
 /**
  * @author David Turanski
+ * @author Artem Bilan
  *
  */
 public class ScriptTests {
@@ -37,7 +39,7 @@ public class ScriptTests {
 
 		Order order = new Order(0);
 		order.addItem(DrinkType.LATTE, 2, false);
-		Map<String, Object> variables = new HashMap<String, Object>();
+		Map<String, Object> variables = new HashMap<>();
 		variables.put("payload", order.getItems().get(0));
 		variables.put("timeToPrepare", 1L);
 
@@ -49,12 +51,11 @@ public class ScriptTests {
 	}
 
 	@Test
-	@Ignore
 	public void testPython() {
 		ScriptExecutor executor = ScriptExecutorFactory.getScriptExecutor("python");
 		Order order = new Order(0);
 		order.addItem(DrinkType.LATTE, 2, false);
-		Map<String, Object> variables = new HashMap<String, Object>();
+		Map<String, Object> variables = new HashMap<>();
 		variables.put("payload", order.getItems().get(0));
 		variables.put("timeToPrepare", "1");
 

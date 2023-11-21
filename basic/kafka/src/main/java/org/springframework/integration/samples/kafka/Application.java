@@ -1,5 +1,5 @@
 /*
- * Copyright 2015-2018 the original author or authors.
+ * Copyright 2015-2023 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -57,6 +57,8 @@ import org.springframework.messaging.support.GenericMessage;
 
 /**
  * @author Gary Russell
+ * @author Artem Bilan
+ *
  * @since 4.2
  */
 @SpringBootApplication
@@ -66,7 +68,7 @@ public class Application {
 	@Autowired
 	private KafkaAppProperties properties;
 
-	public static void main(String[] args) throws Exception {
+	public static void main(String[] args) {
 		ConfigurableApplicationContext context
 				= new SpringApplicationBuilder(Application.class)
 				.web(WebApplicationType.NONE)
@@ -107,7 +109,7 @@ public class Application {
 
 	@Bean
 	public ProducerFactory<?, ?> kafkaProducerFactory(KafkaProperties properties) {
-		Map<String, Object> producerProperties = properties.buildProducerProperties();
+		Map<String, Object> producerProperties = properties.buildProducerProperties(null);
 		producerProperties.put(ProducerConfig.LINGER_MS_CONFIG, 1);
 		return new DefaultKafkaProducerFactory<>(producerProperties);
 	}
@@ -123,8 +125,7 @@ public class Application {
 
 	@Bean
 	public ConsumerFactory<?, ?> kafkaConsumerFactory(KafkaProperties properties) {
-		Map<String, Object> consumerProperties = properties
-				.buildConsumerProperties();
+		Map<String, Object> consumerProperties = properties.buildConsumerProperties(null);
 		consumerProperties.put(ConsumerConfig.SESSION_TIMEOUT_MS_CONFIG, 15000);
 		return new DefaultKafkaConsumerFactory<>(consumerProperties);
 	}
@@ -171,8 +172,8 @@ public class Application {
 	private KafkaProperties kafkaProperties;
 
 	public void addAnotherListenerForTopics(String... topics) {
-		Map<String, Object> consumerProperties = kafkaProperties.buildConsumerProperties();
-		// change the group id so we don't revoke the other partitions.
+		Map<String, Object> consumerProperties = kafkaProperties.buildConsumerProperties(null);
+		// change the group id, so we don't revoke the other partitions.
 		consumerProperties.put(ConsumerConfig.GROUP_ID_CONFIG,
 				consumerProperties.get(ConsumerConfig.GROUP_ID_CONFIG) + "x");
 		IntegrationFlow flow =

@@ -1,5 +1,5 @@
 /*
- * Copyright 2002-2022 the original author or authors.
+ * Copyright 2002-2023 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -108,7 +108,10 @@ public class Application {
 				.publishSubscribeChannel(s -> s
 
 						// first trigger file flushes
-						.subscribe(sf -> sf.transform("'/tmp/out/.*\\.txt'", e -> e.id("toTriggerPattern"))
+						.subscribe(sf -> sf
+								.transformWith(transformer -> transformer
+										.id("toTriggerPattern")
+										.expression("'/tmp/out/.*\\.txt'"))
 								.trigger("fileOut", e -> e.id("flusher")))
 
 						// send the first file
@@ -131,7 +134,7 @@ public class Application {
 								.enrichHeaders(Mail.headers()
 										.subject("File successfully split and transferred")
 										.from("foo@bar")
-										.toFunction(m -> new String[]{ "bar@baz" }))
+										.toFunction(m -> new String[] {"bar@baz"}))
 								.enrichHeaders(h -> h.header(EMAIL_SUCCESS_SUFFIX, ".success"))
 								.channel("toMail.input")));
 	}
@@ -174,7 +177,7 @@ public class Application {
 				.enrichHeaders(Mail.headers()
 						.subject("File split and transfer failed")
 						.from("foo@bar")
-						.toFunction(m -> new String[]{ "bar@baz" }))
+						.toFunction(m -> new String[] {"bar@baz"}))
 				.enrichHeaders(h -> h.header(EMAIL_SUCCESS_SUFFIX, ".failed")
 						.headerExpression(FileHeaders.ORIGINAL_FILE, "payload.failedMessage.headers['"
 								+ FileHeaders.ORIGINAL_FILE + "']"))

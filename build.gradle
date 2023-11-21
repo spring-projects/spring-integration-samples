@@ -6,7 +6,7 @@ buildscript {
 		maven { url 'https://repo.spring.io/snapshot' }
 	}
 	dependencies {
-		classpath 'io.spring.gradle:dependency-management-plugin:1.1.0'
+		classpath 'io.spring.gradle:dependency-management-plugin:1.1.4'
 		classpath "org.springframework.boot:spring-boot-gradle-plugin:$springBootVersion"
 		classpath 'org.gretty:gretty:4.0.3'
 	}
@@ -216,54 +216,54 @@ subprojects { subproject ->
 		}
 
 		ext {
-			apacheSshdVersion = '2.9.2'
-			artemisVersion = '2.28.0'
-			aspectjVersion = '1.9.19'
+			apacheSshdVersion = '2.11.0'
+			artemisVersion = '2.31.2'
+			aspectjVersion = '1.9.20.1'
 			commonsDigesterVersion = '2.1'
-			commonsDbcpVersion = '2.9.0'
+			commonsDbcpVersion = '2.11.0'
 			commonsFileUploadVersion = '1.5'
-			commonsIoVersion = '2.11.0'
+			commonsIoVersion = '2.15.0'
 			commonsLangVersion = '3.12.0'
 			commonsPoolVersion = '2.11.1'
 			c3p0Version = '0.9.5.5'
 			derbyVersion = '10.16.1.1'
 			hamcrestVersion = '2.2'
-			hibernateVersion = '6.2.2.Final'
+			hibernateVersion = '6.3.1.Final'
 			hibernateValidatorVersion = '8.0.0.Final'
 			ftpServerVersion = '1.2.0'
 			flexjsonVersion = '2.0'
-			groovyVersion = '4.0.12'
-			hsqldbVersion = '2.7.1'
-			h2Version = '2.2.220'
-			jacksonVersion = '2.15.0'
-			jaxbVersion = '4.0.2'
+			groovyVersion = '4.0.15'
+			hsqldbVersion = '2.7.2'
+			h2Version = '2.2.224'
+			jacksonVersion = '2.15.3'
+			jaxbVersion = '4.0.4'
 			jodaTimeVersion = '1.6'
 			jtaVersion = '2.0.0'
 			jtdsVersion = '1.2.6'
 			jmsApiVersion = '3.1.0'
-			jrubyVersion = '9.2.14.0'
-			jpaApiVersion = '3.0.2'
+			jrubyVersion = '9.4.3.0'
+			jpaApiVersion = '3.1.0'
 			jstlVersion = '1.2'
 			junitVersion = '4.13.2'
-			junitJupiterVersion = '5.9.3'
+			junitJupiterVersion = '5.10.1'
 			jythonVersion = '2.7.3'
-			log4jVersion = '2.20.0'
-			mailVersion = '1.0.0'
-			mockitoVersion = '5.3.1'
-			mongoDriverVersion = '4.9.1'
+			log4jVersion = '2.21.1'
+			mailVersion = '2.0.2'
+			mockitoVersion = '5.7.0'
+			mongoDriverVersion = '4.11.1'
 			openJpaVersion = '2.4.0'
-			oracleDriverVersion = '19.3.0.0'
+			oracleDriverVersion = '23.3.0.23.09'
 			postgresVersion = '42.6.0'
 			slf4jVersion = '1.7.30'
-			springCloudVersion = '2022.0.2'
-			springIntegrationVersion = '6.1.5'
+			springCloudVersion = '2022.0.4'
+			springIntegrationVersion = '6.2.0'
 			set('spring-integration.version', "$springIntegrationVersion")
 			springIntegrationSocialTwiterVersion = '1.0.1.BUILD-SNAPSHOT'
 			springIntegrationSplunkVersion = '1.2.0.BUILD-SNAPSHOT'
-			springVersion = '6.0.11'
-			springSecurityVersion = '6.1.2'
+			springVersion = '6.1.0'
+			springSecurityVersion = '6.2.0'
 			springWebFlowVersion = '3.0.0'
-			testcontainersVersion = '1.18.3'
+			testcontainersVersion = '1.19.2'
 			tilesJspVersion = '2.2.1'
 		}
 
@@ -446,7 +446,7 @@ project('loanshark') {
 		api "org.hsqldb:hsqldb:$hsqldbVersion"
 		api "net.sf.flexjson:flexjson:$flexjsonVersion"
 		api "org.hibernate:hibernate-validator:$hibernateValidatorVersion"
-		api "org.eclipse.persistence:org.eclipse.persistence.jpa:$jpaApiVersion"
+		api "jakarta.persistence:jakarta.persistence-api:$jpaApiVersion"
 		api "org.hibernate.orm:hibernate-core:$hibernateVersion"
 		api "org.springframework.webflow:spring-js-resources:$springWebFlowVersion"
 		api "org.slf4j:slf4j-api:$slf4jVersion"
@@ -707,7 +707,7 @@ project('si4demo') {
 		api 'org.springframework.integration:spring-integration-http'
 		api 'org.springframework.integration:spring-integration-ip'
 		api "org.eclipse.angus:jakarta.mail:$mailVersion"
-		api 'com.rometools:rome:1.18.0'
+		api 'com.rometools:rome:2.1.0'
 
 		testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	}
@@ -804,7 +804,7 @@ project('jpa') {
 		api "com.h2database:h2:$h2Version"
 
 		runtimeOnly 'org.springframework:spring-instrument'
-		runtimeOnly "org.eclipse.persistence:org.eclipse.persistence.jpa:$jpaApiVersion"
+		runtimeOnly "jakarta.persistence:jakarta.persistence-api:$jpaApiVersion"
 
 		testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	}
@@ -1275,7 +1275,7 @@ project('stored-procedures-oracle') {
 
 	dependencies {
 		api 'org.springframework.integration:spring-integration-jdbc'
-		api "com.oracle.ojdbc:ojdbc8:$oracleDriverVersion"
+		api "com.oracle.database.jdbc:ojdbc11:$oracleDriverVersion"
 		api "org.apache.logging.log4j:log4j-core:$log4jVersion"
 	}
 
@@ -1469,7 +1469,7 @@ project('file-split-ftp') {
 
 		testImplementation 'org.springframework.boot:spring-boot-starter-test'
 		testImplementation 'org.springframework.integration:spring-integration-test'
-		testImplementation ('com.icegreen:greenmail:2.0.0-alpha-2') {
+		testImplementation ('com.icegreen:greenmail:2.1.0-alpha-3') {
 			exclude group: 'com.sun.mail'
 			exclude group: 'jakarta.activation'
 		}
