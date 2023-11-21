@@ -5,6 +5,7 @@ on:
   push:
     branches:
       - main
+      - 6.1.x
 
 env:
   GRADLE_ENTERPRISE_CACHE_USERNAME: ${{ secrets.GRADLE_ENTERPRISE_CACHE_USER }}
