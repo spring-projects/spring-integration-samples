@@ -256,7 +256,7 @@ subprojects { subproject ->
 			postgresVersion = '42.6.0'
 			slf4jVersion = '1.7.30'
 			springCloudVersion = '2022.0.2'
-			springIntegrationVersion = '6.1.3'
+			springIntegrationVersion = '6.1.5'
 			set('spring-integration.version', "$springIntegrationVersion")
 			springIntegrationSocialTwiterVersion = '1.0.1.BUILD-SNAPSHOT'
 			springIntegrationSplunkVersion = '1.2.0.BUILD-SNAPSHOT'
