@@ -221,7 +221,7 @@ subprojects { subproject ->
 			validationApiVersion = '1.0.0.GA'
 		}
 
-		ext['spring-integration.version'] = '5.5.19'
+		ext['spring-integration.version'] = '5.5.20'
 
 		sourceSets.each {
 			it.resources.srcDirs = ["src/${it.name}/resources", "src/${it.name}/java"]
