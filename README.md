@@ -1,7 +1,7 @@
 Spring Integration Samples
 ==========================
 
-[![Revved up by Gradle Enterprise](https://img.shields.io/badge/Revved%20up%20by-Gradle%20Enterprise-06A0CE?logo=Gradle&labelColor=02303A)](https://ge.spring.io/scans?search.rootProjectNames=spring-integration-samples)
+[![Revved up by Develocity](https://img.shields.io/badge/Revved%20up%20by-Develocity-06A0CE?logo=Gradle&labelColor=02303A)](https://ge.spring.io/scans?search.rootProjectNames=spring-integration-samples)
 
 Welcome to the **Spring Integration Samples** repository which provides **50+ samples** to help you learn [Spring Integration][]. To simplify your experience, the *Spring Integration* samples are split into 4 distinct categories:
 
