@@ -216,7 +216,6 @@ subprojects { subproject ->
 		}
 
 		ext {
-			apacheSshdVersion = '2.11.0'
 			artemisVersion = '2.31.2'
 			aspectjVersion = '1.9.20.1'
 			commonsDigesterVersion = '2.1'
@@ -890,7 +889,6 @@ project('sftp') {
 	dependencies {
 		api 'org.springframework.integration:spring-integration-sftp'
 		api "org.apache.logging.log4j:log4j-core:$log4jVersion"
-		testImplementation "org.apache.sshd:sshd-sftp:$apacheSshdVersion"
 	}
 }
 
