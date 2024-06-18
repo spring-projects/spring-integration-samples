@@ -49,7 +49,7 @@ public abstract class ActiveMQMultiContextTests {
 	private static final EmbeddedActiveMQ broker = new EmbeddedActiveMQ();
 
 	static {
-		amqFactory.setDeserializationWhiteList(ObjectInputStreamWithClassLoader.CATCH_ALL_WILDCARD);
+		amqFactory.setDeserializationAllowList(ObjectInputStreamWithClassLoader.CATCH_ALL_WILDCARD);
 		amqFactory.setRetryInterval(0);
 	}
 
