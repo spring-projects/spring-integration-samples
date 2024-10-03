@@ -75,6 +75,7 @@ This is a good place to get started. The samples here are technically motivated 
 * **ws-outbound-gateway** - Shows outbound web services support using the **Web Service Outbound Gateway**, **Content Enricher**, Composed Message Processor (**Chain**)
 * **xml** - Example demonstrates various aspects of the **Xml** support using an **XPath Splitter**, **XPath Router**, **XSLT Transformer** as well as **XPath Expression** support
 * **xmpp** - Show the support for [**XMPP**](https://en.wikipedia.org/wiki/Extensible_Messaging_and_Presence_Protocol) (formerly known as Jabber) using e.g. GoogleTalk
+* **zip** - Show the support for zip files manipulations
 
 ## Intermediate
 

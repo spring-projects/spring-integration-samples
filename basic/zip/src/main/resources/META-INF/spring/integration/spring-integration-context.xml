@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:int="http://www.springframework.org/schema/integration"
+	xmlns:int-file="http://www.springframework.org/schema/integration/file"
+	xmlns:int-zip="http://www.springframework.org/schema/integration/zip"
+	xsi:schemaLocation="http://www.springframework.org/schema/integration https://www.springframework.org/schema/integration/spring-integration.xsd
+		http://www.springframework.org/schema/integration/file https://www.springframework.org/schema/integration/file/spring-integration-file.xsd
+		http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/integration/zip https://www.springframework.org/schema/integration/zip/spring-integration-zip.xsd">
+
+	<int-file:inbound-channel-adapter id="zipFilesIn"
+		directory="file:input-zip">
+		<int:poller id="poller" fixed-rate="5000" max-messages-per-poll="10" />
+	</int-file:inbound-channel-adapter>
+
+	<int-file:inbound-channel-adapter id="uncompressedFilesIn" directory="file:input-uncompressed">
+		<int:poller id="poller" fixed-rate="5000" max-messages-per-poll="10" />
+	</int-file:inbound-channel-adapter>
+
+	<int-zip:zip-transformer id="zipFiles" input-channel="uncompressedFilesIn"
+		output-channel="zipFilesOut" />
+
+	<int:chain id="unzipFiles" input-channel="zipFilesIn" output-channel="decompressedFilesOut">
+		<int-zip:unzip-transformer result-type="BYTE_ARRAY"/>
+		<int:splitter>
+			<bean class="org.springframework.integration.zip.splitter.UnZipResultSplitter"/>
+		</int:splitter>
+	</int:chain>
+
+	<int-file:outbound-channel-adapter
+		id="decompressedFilesOut" directory="file:target/output/decompressedFilesOut"
+		delete-source-files="true" />
+
+	<int-file:outbound-channel-adapter
+		id="zipFilesOut" directory="file:target/output/zipFilesOut"
+		delete-source-files="true" />
+
+</beans>

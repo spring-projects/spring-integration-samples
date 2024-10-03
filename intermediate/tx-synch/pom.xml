@@ -3,7 +3,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.springframework.integration.samples</groupId>
   <artifactId>tx-synch</artifactId>
-  <version>6.2.0</version>
+  <version>6.4.0</version>
   <url>https://github.com/spring-projects/spring-integration-samples</url>
   <organization>
     <name>Spring IO</name>
@@ -20,7 +20,7 @@
     <developer>
       <id>artembilan</id>
       <name>Artem Bilan</name>
-      <email>abilan@vmware.com</email>
+      <email>artem.bilan@broadcom.com</email>
       <roles>
         <role>project lead</role>
       </roles>
@@ -28,7 +28,7 @@
     <developer>
       <id>garyrussell</id>
       <name>Gary Russell</name>
-      <email>grussell@vmware.com</email>
+      <email>github@gprussell.net</email>
       <roles>
         <role>project lead emeritus</role>
       </roles>
@@ -36,7 +36,7 @@
     <developer>
       <id>markfisher</id>
       <name>Mark Fisher</name>
-      <email>markfisher@vmware.com</email>
+      <email>mark.ryan.fisher@gmail.com</email>
       <roles>
         <role>project founder and lead emeritus</role>
       </roles>
@@ -71,7 +71,7 @@
     <dependency>
       <groupId>org.apache.logging.log4j</groupId>
       <artifactId>log4j-core</artifactId>
-      <version>2.21.1</version>
+      <version>2.23.1</version>
       <scope>compile</scope>
     </dependency>
     <dependency>
@@ -89,7 +89,7 @@
     <dependency>
       <groupId>org.mockito</groupId>
       <artifactId>mockito-core</artifactId>
-      <version>5.7.0</version>
+      <version>5.12.0</version>
       <scope>test</scope>
     </dependency>
     <dependency>
@@ -123,28 +123,28 @@
       <dependency>
         <groupId>org.junit</groupId>
         <artifactId>junit-bom</artifactId>
-        <version>5.10.1</version>
+        <version>5.11.1</version>
         <scope>import</scope>
         <type>pom</type>
       </dependency>
       <dependency>
         <groupId>com.fasterxml.jackson</groupId>
         <artifactId>jackson-bom</artifactId>
-        <version>2.15.3</version>
+        <version>2.18.0</version>
         <scope>import</scope>
         <type>pom</type>
       </dependency>
       <dependency>
         <groupId>org.springframework</groupId>
         <artifactId>spring-framework-bom</artifactId>
-        <version>6.1.0</version>
+        <version>6.2.0-SNAPSHOT</version>
         <scope>import</scope>
         <type>pom</type>
       </dependency>
       <dependency>
         <groupId>org.springframework.integration</groupId>
         <artifactId>spring-integration-bom</artifactId>
-        <version>6.2.0</version>
+        <version>6.4.0-SNAPSHOT</version>
         <scope>import</scope>
         <type>pom</type>
       </dependency>

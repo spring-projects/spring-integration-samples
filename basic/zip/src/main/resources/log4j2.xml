@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="WARN">
+	<Appenders>
+		<Console name="STDOUT" target="SYSTEM_OUT">
+			<PatternLayout pattern="%d %p [%t] [%c] - %m%n" />
+		</Console>
+	</Appenders>
+	<Loggers>
+		<Logger name="org.springframework.integration" level="warn"/>
+		<Logger name="org.springframework.integration.file" level="debug"/>
+		<Logger name="org.springframework.integration.zip" level="debug"/>
+		<Logger name="org.springframework.integration.samples.zip" level="info"/>
+		<Root level="warn">
+			<AppenderRef ref="STDOUT" />
+		</Root>
+	</Loggers>
+</Configuration>

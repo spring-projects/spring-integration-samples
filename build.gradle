@@ -30,6 +30,7 @@ allprojects {
 	group = 'org.springframework.integration.samples'
 
 	repositories {
+		mavenLocal()
 		mavenCentral()
 		maven { url 'https://repo.spring.io/milestone' }
 		maven { url 'https://repo.spring.io/snapshot' }
@@ -52,7 +53,6 @@ subprojects { subproject ->
 	if (!(subproject.name in ['advanced', 'applications', 'basic', 'intermediate', 'dsl', 'cafe'])) {
 
 		apply plugin: 'java-library'
-		apply plugin: 'jacoco'
 		apply plugin: 'io.spring.dependency-management'
 		apply plugin: 'maven-publish'
 
@@ -97,19 +97,19 @@ subprojects { subproject ->
 							developer {
 								id = 'artembilan'
 								name = 'Artem Bilan'
-								email = 'abilan@vmware.com'
+								email = 'artem.bilan@broadcom.com'
 								roles = ['project lead']
 							}
 							developer {
 								id = 'garyrussell'
 								name = 'Gary Russell'
-								email = 'grussell@vmware.com'
+								email = 'github@gprussell.net'
 								roles = ['project lead emeritus']
 							}
 							developer {
 								id = 'markfisher'
 								name = 'Mark Fisher'
-								email = 'markfisher@vmware.com'
+								email = 'mark.ryan.fisher@gmail.com'
 								roles = ['project founder and lead emeritus']
 							}
 						}
@@ -200,10 +200,6 @@ subprojects { subproject ->
 			}
 		}
 
-		jacoco {
-			toolVersion = '0.8.8'
-		}
-
 		compileJava {
 			sourceCompatibility = JavaVersion.VERSION_17
 			targetCompatibility = JavaVersion.VERSION_17
@@ -231,10 +227,11 @@ subprojects { subproject ->
 			hibernateValidatorVersion = '8.0.0.Final'
 			ftpServerVersion = '1.2.0'
 			flexjsonVersion = '2.0'
-			groovyVersion = '4.0.21'
+			graalvmVersion = '24.0.2'
+			groovyVersion = '4.0.23'
 			hsqldbVersion = '2.7.3'
 			h2Version = '2.2.224'
-			jacksonVersion = '2.17.1'
+			jacksonVersion = '2.18.0'
 			jaxbVersion = '4.0.5'
 			jodaTimeVersion = '1.6'
 			jtaVersion = '2.0.0'
@@ -244,8 +241,7 @@ subprojects { subproject ->
 			jpaApiVersion = '3.1.0'
 			jstlVersion = '1.2'
 			junitVersion = '4.13.2'
-			junitJupiterVersion = '5.10.2'
-			jythonVersion = '2.7.3'
+			junitJupiterVersion = '5.11.1'
 			log4jVersion = '2.23.1'
 			mailVersion = '2.0.3'
 			mockitoVersion = '5.12.0'
@@ -382,7 +378,8 @@ project('cafe-scripted') {
 		api 'org.springframework.integration:spring-integration-jmx'
 		api 'org.springframework.integration:spring-integration-rsocket'
 		api "org.jruby:jruby-complete:$jrubyVersion"
-		api "org.python:jython-standalone:$jythonVersion"
+		api "org.graalvm.sdk:graal-sdk:$graalvmVersion"
+		api "org.graalvm.polyglot:python:$graalvmVersion"
 		api "org.apache.groovy:groovy-jsr223:$groovyVersion"
 		api "org.apache.logging.log4j:log4j-core:$log4jVersion"
 	}
@@ -1526,6 +1523,23 @@ project('tcp-with-headers') {
 	task run(type: JavaExec) {
 		main 'org.springframework.integration.samples.tcpheaders.TcpWithHeadersApplication'
 		classpath = sourceSets.main.runtimeClasspath
+	}
+
+	tasks.withType(JavaExec) {
+		standardInput = System.in
+	}
+}
+
+project('zip') {
+	description = 'Zip Channel Adapters Sample'
+
+	apply plugin: 'application'
+
+	mainClassName = 'org.springframework.integration.samples.zip.Main'
+
+	dependencies {
+		api 'org.springframework.integration:spring-integration-zip'
+		api "org.apache.logging.log4j:log4j-slf4j2-impl:$log4jVersion"
 	}
 
 	tasks.withType(JavaExec) {

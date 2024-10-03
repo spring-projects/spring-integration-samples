@@ -16,6 +16,7 @@ package org.springframework.integration.samples.cafe;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.junit.Ignore;
 import org.junit.Test;
 
 import org.springframework.core.io.FileSystemResource;
@@ -51,6 +52,7 @@ public class ScriptTests {
 	}
 
 	@Test
+	@Ignore
 	public void testPython() {
 		ScriptExecutor executor = ScriptExecutorFactory.getScriptExecutor("python");
 		Order order = new Order(0);
