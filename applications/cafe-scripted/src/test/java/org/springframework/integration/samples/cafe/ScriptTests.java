@@ -16,21 +16,17 @@ package org.springframework.integration.samples.cafe;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.junit.Ignore;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.integration.scripting.ScriptExecutor;
 import org.springframework.integration.scripting.jsr223.ScriptExecutorFactory;
 import org.springframework.scripting.support.ResourceScriptSource;
 
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
-
 /**
  * @author David Turanski
  * @author Artem Bilan
- *
  */
 public class ScriptTests {
 
@@ -46,13 +42,11 @@ public class ScriptTests {
 
 		Object obj = executor.executeScript(
 				new ResourceScriptSource(new FileSystemResource("scripts/ruby/barista.rb")), variables);
-		assertNotNull(obj);
-		assertTrue(obj instanceof Drink);
-
+		Assertions.assertNotNull(obj);
+		Assertions.assertInstanceOf(Drink.class, obj);
 	}
 
 	@Test
-	@Ignore
 	public void testPython() {
 		ScriptExecutor executor = ScriptExecutorFactory.getScriptExecutor("python");
 		Order order = new Order(0);
@@ -63,8 +57,8 @@ public class ScriptTests {
 
 		Object obj = executor.executeScript(new ResourceScriptSource(
 				new FileSystemResource("scripts/python/barista.py")), variables);
-		assertNotNull(obj);
-		assertTrue(obj instanceof Drink);
-
+		Assertions.assertNotNull(obj);
+		Assertions.assertInstanceOf(Drink.class, obj);
 	}
+
 }
