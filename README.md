@@ -40,7 +40,7 @@ Below is a short description of each category.
 
 ## DSL
 
-This directory holds demos/samples for Spring Integration 4.0 Java Configuration as well as the Java DSL Extension.
+This directory holds demos/samples for Spring Integration Java Configuration as well as the Java DSL Extension.
 
 ## Basic
 
