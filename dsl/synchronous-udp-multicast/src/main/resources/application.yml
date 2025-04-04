@@ -1,0 +1,4 @@
+synchronous:
+  multicast:
+    group: 224.0.0.1
+    port: 2000
