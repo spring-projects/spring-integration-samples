@@ -61,6 +61,7 @@ This is a good place to get started. The samples here are technically motivated 
 * **jpa** - Shows the usage of the JPA Components
 * **mail** - Example showing **IMAP** and **POP3** support
 * **mqtt** - Demonstrates the functionality of inbound and outbound **MQTT Adapters**
+* **mqtt5** - Demonstrates the functionality of inbound and outbound **MQTT5 Adapters**
 * **mongodb** - Shows how to persist a Message payload to a **MongoDb** document store and how to read documents from **MongoDb**
 * **oddeven** - Example combining the functionality of **Inbound Channel Adapter**, **Filter**, **Router** and **Poller**
 * **quote** - Example demoing core EIP support using **Channel Adapter (Inbound and Stdout)**, **Poller** with Interval Triggers, **Service Activator**
