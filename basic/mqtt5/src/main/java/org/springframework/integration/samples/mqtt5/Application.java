@@ -21,6 +21,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import org.eclipse.paho.mqttv5.client.MqttConnectionOptions;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
@@ -43,6 +44,12 @@ import java.nio.charset.StandardCharsets;
  */
 @SpringBootApplication
 public class Application {
+
+	@Value("${mqtt.broker.host:localhost}")
+	private String mqttHost;
+
+	@Value("${mqtt.broker.port:1883}")
+	private int mqttPort;
 
 	private static final Log LOGGER = LogFactory.getLog(Application.class);
 
@@ -79,7 +86,7 @@ public class Application {
 	@Bean
 	public MqttConnectionOptions mqttConnectionOptions() {
 		MqttConnectionOptions options = new MqttConnectionOptions();
-		options.setServerURIs(new String[]{ "tcp://localhost:1883" });
+		options.setServerURIs(new String[]{ String.format("tcp://%s:%d", mqttHost, mqttPort) });
 		options.setUserName("guest");
 		options.setPassword("guest".getBytes(StandardCharsets.UTF_8));
 		return options;
