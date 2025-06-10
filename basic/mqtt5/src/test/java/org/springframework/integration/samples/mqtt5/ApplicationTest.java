@@ -1,6 +1,7 @@
 package org.springframework.integration.samples.mqtt5;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.verify;
 import static org.springframework.integration.test.mock.MockIntegration.messageArgumentCaptor;
@@ -52,9 +53,8 @@ public class ApplicationTest {
 
 		mqttOutFlow.getInputChannel().send(new GenericMessage<>("foo"));
 
-		assertThat(receiveLatch.await(10, TimeUnit.SECONDS)).isTrue();
+		assertTrue(receiveLatch.await(10, TimeUnit.SECONDS));
 		verify(mockMessageHandler).handleMessage(any());
-		assertThat(captor.getValue().getPayload())
-				.isEqualTo("foo sent to MQTT5, received from MQTT5");
+		assertEquals("foo sent to MQTT5, received from MQTT5",captor.getValue().getPayload());
 	}
 }
