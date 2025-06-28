@@ -6,12 +6,6 @@
  * You may obtain a copy of the License at
  *
  *      https://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
  */
 package org.springframework.integration.samples.splitteraggregator;
 
@@ -46,14 +40,16 @@ public final class Main {
 	 */
 	public static void main(final String... args) {
 
-		LOGGER.info("\n========================================================="
-				  + "\n                                                         "
-				  + "\n          Welcome to Spring Integration!                 "
-				  + "\n                                                         "
-				  + "\n    For more information please visit:                   "
-				  + "\n    https://www.springsource.org/spring-integration       "
-				  + "\n                                                         "
-				  + "\n=========================================================" );
+		LOGGER.info("""
+				
+				=========================================================
+				                                                         
+				          Welcome to Spring Integration!                 
+				                                                         
+				    For more information please visit:                   
+				    https://www.springsource.org/spring-integration       
+				                                                         
+				=========================================================""");
 
 		final AbstractApplicationContext context =
 				new ClassPathXmlApplicationContext("classpath:META-INF/spring/integration/*-context.xml");
@@ -66,13 +62,14 @@ public final class Main {
 
 		final Scanner scanner = new Scanner(System.in);
 
-		System.out.println("Please enter a choice and press <enter>: ");
-		System.out.println("\t1. Submit 2 search queries, 2 results returned.");
-		System.out.println("\t2. Submit 2 search queries, 1 search query takes too long, 1 result returned.");
-		System.out.println("\t3. Submit 2 search queries, 2 search queries take too long, 0 results returned.");
-
-		System.out.println("\tq. Quit the application");
-		System.out.print("Enter your choice: ");
+		System.out.println("""
+				Please enter a choice and press <enter>: 
+				\t1. Submit 2 search queries, 2 results returned.
+				\t2. Submit 2 search queries, 1 search query takes too long, 1 result returned.
+				\t3. Submit 2 search queries, 2 search queries take too long, 0 results returned.
+				
+				\tq. Quit the application
+				Enter your choice: """);
 
 		while (true) {
 			final String input = scanner.nextLine();

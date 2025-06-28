@@ -6,12 +6,6 @@
  * You may obtain a copy of the License at
  *
  *      https://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
  */
 
 package org.springframework.integration.samples.jms;
@@ -28,16 +22,16 @@ import org.springframework.integration.support.MessageBuilder;
 /**
  * @author Gunnar Hillert
  */
-public class ChannelAdapterDemoTest extends ActiveMQMultiContextTests {
+class ChannelAdapterDemoTest extends ActiveMQMultiContextTests {
 
-	private final static String[] configFilesChannelAdapterDemo = {
+	private static final String[] configFilesChannelAdapterDemo = {
 		"/META-INF/spring/integration/common.xml",
 		"/META-INF/spring/integration/inboundChannelAdapter.xml",
 		"/META-INF/spring/integration/outboundChannelAdapter.xml"
 	};
 
 	@Test
-	public void testChannelAdapterDemo() throws InterruptedException {
+	void testChannelAdapterDemo() throws InterruptedException {
 
 		System.setProperty("spring.profiles.active", "testCase");
 

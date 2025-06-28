@@ -6,12 +6,6 @@
  * You may obtain a copy of the License at
  *
  *      https://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
  */
 
 package org.springframework.integration.samples.async.gateway;
@@ -54,7 +48,7 @@ import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
  */
 @SpringJUnitConfig
 @DirtiesContext
-public class CompletableFutureTest {
+class CompletableFutureTest {
 
 	private static final Log logger = LogFactory.getLog(CompletableFutureTest.class);
 
@@ -62,7 +56,7 @@ public class CompletableFutureTest {
 	private MathGateway gateway;
 
 	@Test
-	public void testAsyncGateway() throws Exception {
+	void testAsyncGateway() throws Exception {
 		Random random = new Random();
 		int[] numbers = new int[100];
 		int expectedResults = 0;
@@ -90,7 +84,7 @@ public class CompletableFutureTest {
 			});
 		}
 		assertThat(latch.await(60, TimeUnit.SECONDS)).isTrue();
-		assertThat(failures.get()).isEqualTo(0);
+		assertThat(failures.get().isZero()).isTrue();
 		logger.info("Finished");
 	}
 
@@ -98,21 +92,21 @@ public class CompletableFutureTest {
 	@ComponentScan
 	@EnableIntegration
 	@IntegrationComponentScan
-	public static class TestConfig {
+	static class TestConfig {
 
 		@Bean
-		public MessageChannel gatewayChannel() {
+		MessageChannel gatewayChannel() {
 			return new DirectChannel();
 		}
 
 		@Bean
 		@ServiceActivator(inputChannel = "mathServiceChannel")
-		public MathService mathService() {
+		MathService mathService() {
 			return new MathService();
 		}
 
 		@Bean
-		public AsyncTaskExecutor exec() {
+		AsyncTaskExecutor exec() {
 			SimpleAsyncTaskExecutor simpleAsyncTaskExecutor = new SimpleAsyncTaskExecutor();
 			simpleAsyncTaskExecutor.setThreadNamePrefix("exec-");
 			return simpleAsyncTaskExecutor;
@@ -121,7 +115,7 @@ public class CompletableFutureTest {
 	}
 
 	@MessagingGateway(defaultReplyTimeout = "0", asyncExecutor = "exec")
-	public interface MathGateway {
+	interface MathGateway {
 
 		@Gateway(requestChannel = "gatewayChannel")
 		CompletableFuture<Integer> multiplyByTwo(int number);
@@ -129,10 +123,10 @@ public class CompletableFutureTest {
 	}
 
 	@MessageEndpoint
-	public static class Gt100Filter {
+	static class Gt100Filter {
 
 		@Filter(inputChannel = "gatewayChannel", outputChannel = "mathServiceChannel")
-		public boolean filter(int i) {
+		boolean filter(int i) {
 			return i > 100;
 		}
 

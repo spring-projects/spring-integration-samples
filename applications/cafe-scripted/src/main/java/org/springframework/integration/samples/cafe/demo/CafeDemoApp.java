@@ -6,18 +6,15 @@
  * You may obtain a copy of the License at
  *
  *      https://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
  */
 
 package org.springframework.integration.samples.cafe.demo;
 
 import java.util.Arrays;
 import java.util.List;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.util.StringUtils;
@@ -39,10 +36,11 @@ import org.springframework.util.StringUtils;
  */
 public class CafeDemoApp {
 
+	private static final Log LOGGER = LogFactory.getLog(CafeDemoApp.class);
 
 	public static void main(String[] args) {
 
-		List<String> languages = Arrays.asList(new String[]{"groovy","ruby","python"});
+		List<String> languages = Arrays.asList("groovy", "ruby", "python");
 		if (args.length != 1) {
 			usage();
 		}
@@ -70,7 +68,7 @@ public class CafeDemoApp {
 
 
 	private static void usage() {
-		System.out.println("missing or invalid command line argument [groovy,ruby,python]");
+		LOGGER.error("missing or invalid command line argument [groovy,ruby,python]");
 		System.exit(1);
 	}
 }

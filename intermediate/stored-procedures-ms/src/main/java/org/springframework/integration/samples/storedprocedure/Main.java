@@ -6,12 +6,6 @@
  * You may obtain a copy of the License at
  *
  *      https://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
  */
 package org.springframework.integration.samples.storedprocedure;
 
@@ -46,14 +40,16 @@ public final class Main {
 	 */
 	public static void main(final String... args) {
 
-		LOGGER.info("\n========================================================="
-				  + "\n                                                         "
-				  + "\n          Welcome to Spring Integration!                 "
-				  + "\n                                                         "
-				  + "\n    For more information please visit:                   "
-				  + "\n    https://www.springsource.org/spring-integration       "
-				  + "\n                                                         "
-				  + "\n=========================================================" );
+		LOGGER.info("""
+				
+				=========================================================
+				                                                         
+				          Welcome to Spring Integration!                 
+				                                                         
+				    For more information please visit:                   
+				    https://www.springsource.org/spring-integration       
+				                                                         
+				========================================================="" );
 
 		final AbstractApplicationContext context =
 				new ClassPathXmlApplicationContext("classpath:META-INF/spring/integration/*-context.xml");
@@ -64,25 +60,27 @@ public final class Main {
 
 		final StringConversionService service = context.getBean(StringConversionService.class);
 
-		LOGGER.info("\n========================================================="
-				  + "\n                                                         "
-				  + "\n    Please press 'q + Enter' to quit the application.    "
-				  + "\n                                                         "
-				  + "\n=========================================================" );
+		LOGGER.info("""
+				
+				=========================================================
+				                                                         
+				    Please press 'q + Enter' to quit the application.    
+				                                                         
+				=========================================================""");
 
-		System.out.print("Please enter a string and press <enter>: ");
+		LOGGER.info("Please enter a string and press <enter>: ");
 
 		while (!scanner.hasNext("q")) {
 			String input = scanner.nextLine();
 
-			System.out.println("Converting String to Uppercase using Stored Procedure...");
+			LOGGER.info("Converting String to Uppercase using Stored Procedure...");
 			String inputUpperCase = service.convertToUpperCase(input);
 
-			System.out.println("Retrieving Numeric value via Sql Function...");
+			LOGGER.info("Retrieving Numeric value via Sql Function...");
 			Integer number = service.getNumber();
 
-			System.out.println(String.format("Converted '%s' - End Result: '%s_%s'.", input, inputUpperCase, number));
-			System.out.print("To try again, please enter a string and press <enter>:");
+			LOGGER.info(String.format("Converted '%s' - End Result: '%s_%s'.", input, inputUpperCase, number));
+			LOGGER.info("To try again, please enter a string and press <enter>:");
 		}
 
 		LOGGER.info("Exiting application...bye.");

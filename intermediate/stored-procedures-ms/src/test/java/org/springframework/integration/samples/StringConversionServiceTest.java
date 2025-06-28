@@ -17,7 +17,6 @@
 package org.springframework.integration.samples;
 
 import org.junit.Assert;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -26,14 +25,16 @@ import org.springframework.integration.service.StringConversionService;
 /**
  * Verify that the Spring Integration Application Context starts successfully.
  */
-@Ignore
 public class StringConversionServiceTest {
 
 	@Test
 	public void testStartupOfSpringIntegrationContext() throws Exception{
-		new ClassPathXmlApplicationContext("/META-INF/spring/integration/spring-integration-context.xml",
+		ApplicationContext context = new ClassPathXmlApplicationContext("/META-INF/spring/integration/spring-integration-context.xml",
 												  StringConversionServiceTest.class);
 		Thread.sleep(2000);
+		Assert.assertNotNull(context);
+		Assert.assertTrue(context.containsBean("stringConversionService")); // Add assertion
+
 	}
 
 	@Test

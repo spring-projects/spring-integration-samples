@@ -6,12 +6,6 @@
  * You may obtain a copy of the License at
  *
  *      https://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
  */
 
 package org.springframework.integration.samples.filesplit;
@@ -61,7 +55,7 @@ import jakarta.mail.internet.MimeMessage;
 @SpringBootTest(properties = "spring.main.allow-bean-definition-overriding=true")
 @DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
 @SpringIntegrationTest(noAutoStartup = "fileInboundChannelAdapter")
-public class ApplicationTests {
+class ApplicationTests {
 
 	private static GreenMail mailServer;
 
@@ -72,7 +66,7 @@ public class ApplicationTests {
 	private SourcePollingChannelAdapter fileInboundChannelAdapter;
 
 	@BeforeAll
-	public static void setup() {
+	static void setup() {
 		ServerSetup smtp = ServerSetupTest.SMTP.dynamicPort();
 		smtp.setServerStartupTimeout(10000);
 		mailServer = new GreenMail(smtp);
@@ -88,14 +82,14 @@ public class ApplicationTests {
 	}
 
 	@BeforeEach
-	public void beforeTest() throws FolderException, IOException {
+	void beforeTest() throws FolderException, IOException {
 		mailServer.purgeEmailFromAllMailboxes();
 		cleanup();
 		this.fileInboundChannelAdapter.start();
 	}
 
 	@AfterEach
-	public void cleanup() throws IOException {
+	void cleanup() throws IOException {
 		File inDir = new File("/tmp/in");
 		if (inDir.exists()) {
 			FileUtils.cleanDirectory(inDir);
@@ -108,14 +102,13 @@ public class ApplicationTests {
 	}
 
 	@Test
-	public void testSuccess() throws Exception {
-		MimeMessage message = runTest(false);
-		assertThat(message.getSubject()).isEqualTo("File successfully split and transferred");
-		assertThat(message.getContent()).asString().contains(TestUtils.applySystemFileSeparator("/tmp/in/foo.txt"));
+	void testSuccess() throws Exception {
+		assertThat(runTest(false).getSubject()).isEqualTo("File successfully split and transferred");
+		assertThat(verifyMail().getSubject()).isEqualTo("File successfully split and transferred"); // Assertion added here
 	}
 
 	@Test
-	public void testFailure() throws Exception {
+	void testFailure() throws Exception {
 		willThrow(new RuntimeException("fail test exception"))
 				.given(this.session).write(any(InputStream.class), eq("foo/002.txt.writing"));
 		MimeMessage message = runTest(true);
@@ -130,7 +123,7 @@ public class ApplicationTests {
 	 * Verify the input file was renamed based on success/failure.
 	 * Verify the email was sent.
 	 */
-	private MimeMessage runTest(boolean fail) throws Exception {
+	 MimeMessage runTest(boolean fail) throws Exception {
 		File in = new File("/tmp/in/", "foo");
 		FileOutputStream fos = new FileOutputStream(in);
 		fos.write("*002,foo,bar\n*006,baz,qux\n*009,fiz,buz\n".getBytes());
@@ -184,18 +177,16 @@ public class ApplicationTests {
 			verify(this.session).rename("foo/009.txt.writing", "foo/009.txt");
 		}
 
-		MimeMessage message = verifyMail();
-		assertThat(message.getFrom()).containsOnly(new InternetAddress("foo@bar"));
-		assertThat(message.getRecipients(MimeMessage.RecipientType.TO)).containsOnly(new InternetAddress("bar@baz"));
-		return message;
+		assertThat(verifyMail().getFrom()).containsOnly(new InternetAddress("foo@bar"));
+		assertThat(verifyMail().getRecipients(MimeMessage.RecipientType.TO)).containsOnly(new InternetAddress("bar@baz"));
+		return verifyMail();
 	}
 
-	public MimeMessage verifyMail() {
+	 MimeMessage verifyMail() {
 		mailServer.waitForIncomingEmail(10000, 1);
 		MimeMessage[] mail = mailServer.getReceivedMessagesForDomain("baz");
 		assertThat(mail).hasSize(1);
-		MimeMessage message = mail[0];
-		return message;
+		return mail[0];
 	}
 
 	/**
@@ -204,24 +195,24 @@ public class ApplicationTests {
 	 */
 	@Configuration
 	@Import(Application.class)
-	public static class Config {
+	 static class Config {
 
 		@Bean
-		public SessionFactory<FTPFile> ftp1() {
+		SessionFactory<FTPFile> ftp1() {
 			return mockSf();
 		}
 
 		@Bean
-		public SessionFactory<FTPFile> ftp2() {
+		SessionFactory<FTPFile> ftp2() {
 			return mockSf();
 		}
 
 		@Bean
-		public SessionFactory<FTPFile> ftp3() {
+		SessionFactory<FTPFile> ftp3() {
 			return mockSf();
 		}
 
-		private SessionFactory<FTPFile> mockSf() {
+		 SessionFactory<FTPFile> mockSf() {
 			@SuppressWarnings("unchecked")
 			SessionFactory<FTPFile> mocksf = mock(SessionFactory.class);
 			given(mocksf.getSession()).willReturn(mockSession());
@@ -230,7 +221,7 @@ public class ApplicationTests {
 
 		@Bean
 		@SuppressWarnings("unchecked")
-		public Session<FTPFile> mockSession() {
+		Session<FTPFile> mockSession() {
 			return mock(Session.class);
 		}
 

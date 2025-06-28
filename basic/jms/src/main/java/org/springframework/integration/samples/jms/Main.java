@@ -6,12 +6,6 @@
  * You may obtain a copy of the License at
  *
  *      https://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
  */
 
 package org.springframework.integration.samples.jms;
@@ -56,21 +50,27 @@ public class Main {
 
 		final Scanner scanner = new Scanner(System.in);
 
-		System.out.println("\n========================================================="
-				+ "\n                                                         "
-				+ "\n    Welcome to the Spring Integration JMS Sample!        "
-				+ "\n                                                         "
-				+ "\n    For more information please visit:                   "
-				+ "\n    https://www.springsource.org/spring-integration/                    "
-				+ "\n                                                         "
-				+ "\n=========================================================" );
+		System.out.println("""
+
+				=========================================================
+				                                                         
+				    Welcome to the Spring Integration JMS Sample!        
+				                                                         
+				    For more information please visit:                   
+				    https://www.springsource.org/spring-integration/                    
+				                                                         
+				=========================================================""");
 
 		ActiveMqTestUtils.prepare();
 
-		System.out.println("\n    Which Demo would you like to run? <enter>:\n");
-		System.out.println("\t1. Channel Adapter Demo");
-		System.out.println("\t2. Gateway Demo");
-		System.out.println("\t3. Aggregation Demo");
+		System.out.println("""
+				
+				    Which Demo would you like to run? <enter>:
+				
+				\t1. Channel Adapter Demo
+				\t2. Gateway Demo
+				\t3. Aggregation Demo
+				""");
 
 		while (true) {
 			final String input = scanner.nextLine();

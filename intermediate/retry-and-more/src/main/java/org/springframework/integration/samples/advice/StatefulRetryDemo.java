@@ -6,12 +6,6 @@
  * You may obtain a copy of the License at
  *
  *      https://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
  */
 package org.springframework.integration.samples.advice;
 
@@ -31,30 +25,34 @@ public class StatefulRetryDemo {
 	private static final Log LOGGER = LogFactory.getLog(StatefulRetryDemo.class);
 
 	public static void main(String[] args) throws Exception {
-		LOGGER.info("\n========================================================="
-				  + "\n                                                         "
-				  + "\n          Welcome to Spring Integration!                 "
-				  + "\n                                                         "
-				  + "\n    For more information please visit:                   "
-				  + "\n    https://www.springsource.org/spring-integration       "
-				  + "\n                                                         "
-				  + "\n=========================================================" );
+		LOGGER.info("""
+				
+				=========================================================
+				                                                         
+				          Welcome to Spring Integration!                 
+				                                                         
+				    For more information please visit:                   
+				    https://www.springsource.org/spring-integration       
+				                                                         
+				=========================================================""");
 
 		final AbstractApplicationContext context =
 				new ClassPathXmlApplicationContext("classpath:META-INF/spring/integration/stateful-retry-advice-context.xml");
 
 		context.registerShutdownHook();
 
-		LOGGER.info("\n========================================================="
-				  + "\n                                                          "
-				  + "\n    This is the Stateful Sample -                        "
-				  + "\n                                                          "
-				  + "\n    Please enter some text and press return.              "
-				  + "\n    'fail 2' will fail twice, then succeed                "
-				  + "\n    'fail 3' will fail and never succeed                  "
-				  + "\n    Demo will terminate in 60 seconds.                    "
-				  + "\n                                                          "
-				  + "\n=========================================================" );
+		LOGGER.info("""
+				
+				=========================================================
+				                                                          
+				    This is the Stateful Sample -
+				                                                          
+				    Please enter some text and press return.
+				    'fail 2' will fail twice, then succeed
+				    'fail 3' will fail and never succeed
+				    Demo will terminate in 60 seconds.
+				                                                          
+				=========================================================""");
 
 		Thread.sleep(60000);
 		context.close();

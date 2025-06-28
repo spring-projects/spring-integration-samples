@@ -6,12 +6,6 @@
  * You may obtain a copy of the License at
  *
  *      https://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
  */
 package org.springframework.integration.samples.mongodb.outbound;
 
@@ -34,7 +28,6 @@ public class MongoDbOutboundAdapterDemo {
 	public static void main(String[] args) throws Exception {
 		DemoUtils.prepareMongoFactory(); // will clean up MongoDB
 		new MongoDbOutboundAdapterDemo().runDefaultAdapter();
-//		new MongoDbOutboundAdapterDemo().runAdapterWithConverter();
 	}
 
 	public void runDefaultAdapter() throws Exception {
@@ -44,6 +37,9 @@ public class MongoDbOutboundAdapterDemo {
 				new ClassPathXmlApplicationContext("mongodb-out-config.xml", MongoDbOutboundAdapterDemo.class);
 
 		MessageChannel messageChannel = context.getBean("defaultAdapter", MessageChannel.class);
+		if (messageChannel == null) {
+			throw new BeanNotFoundException("defaultAdapter bean not found.");
+		}
 		messageChannel.send(new GenericMessage<Person>(this.createPersonA()));
 		messageChannel.send(new GenericMessage<Person>(this.createPersonB()));
 		messageChannel.send(new GenericMessage<Person>(this.createPersonC()));
@@ -56,6 +52,9 @@ public class MongoDbOutboundAdapterDemo {
 				new ClassPathXmlApplicationContext("mongodb-out-config.xml", MongoDbOutboundAdapterDemo.class);
 
 		MessageChannel messageChannel = context.getBean("adapterWithConverter", MessageChannel.class);
+		if (messageChannel == null) {
+			throw new BeanNotFoundException("adapterWithConverter bean not found.");
+		}
 		messageChannel.send(new GenericMessage<String>("John, Dow, Palo Alto, 3401 Hillview Ave, 94304, CA"));
 	}
 
@@ -102,5 +101,14 @@ public class MongoDbOutboundAdapterDemo {
 		person.setAddress(address);
 
 		return person;
+	}
+
+	@SuppressWarnings("serial")
+	private static class BeanNotFoundException extends RuntimeException {
+
+		public BeanNotFoundException(String message) {
+			super(message);
+		}
+
 	}
 }

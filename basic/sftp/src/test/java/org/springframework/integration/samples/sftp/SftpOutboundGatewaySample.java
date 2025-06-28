@@ -40,10 +40,10 @@ import org.springframework.integration.file.remote.session.SessionFactory;
  * @since 2.1
  *
  */
-public class SftpOutboundGatewaySample {
+class SftpOutboundGatewaySample {
 
 	@Test
-	public void testLsGetRm() {
+	void testLsGetRm() {
 		ConfigurableApplicationContext ctx = new ClassPathXmlApplicationContext(
 				"classpath:/META-INF/spring/integration/SftpOutboundGatewaySample-context.xml");
 		ToSftpFlowGateway toFtpFlow = ctx.getBean(ToSftpFlowGateway.class);

@@ -6,12 +6,6 @@
  * You may obtain a copy of the License at
  *
  *      https://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
  */
 package org.springframework.integration.samples.advice;
 
@@ -36,14 +30,16 @@ public class FileTransferRenameAfterFailureDemo {
 	private static final Log LOGGER = LogFactory.getLog(FileTransferRenameAfterFailureDemo.class);
 
 	public static void main(String[] args) throws Exception {
-		LOGGER.info("\n========================================================="
-				  + "\n                                                         "
-				  + "\n          Welcome to Spring Integration!                 "
-				  + "\n                                                         "
-				  + "\n    For more information please visit:                   "
-				  + "\n    https://www.springsource.org/spring-integration       "
-				  + "\n                                                         "
-				  + "\n=========================================================" );
+		LOGGER.info("""
+				
+				=========================================================
+				                                                         
+				          Welcome to Spring Integration!                 
+				                                                         
+				    For more information please visit:                   
+				    https://www.springsource.org/spring-integration       
+				                                                         
+				=========================================================""");
 
 		final AbstractApplicationContext context =
 				new ClassPathXmlApplicationContext("classpath:META-INF/spring/integration/expression-advice-context.xml");
@@ -57,19 +53,22 @@ public class FileTransferRenameAfterFailureDemo {
 		when(sessionFactory.getSession()).thenThrow(new RuntimeException("Force Failure"));
 		fileInbound.start();
 
-		LOGGER.info("\n========================================================="
-				  + "\n                                                          "
-				  + "\n    This is the Expression Advice Sample -                "
-				  + "\n                                                          "
-				  + "\n    Press 'Enter' to terminate.                           "
-				  + "\n                                                          "
-				  + "\n    Place a file in "+ System.getProperty("java.io.tmpdir") +"/adviceDemo ending   "
-				  + "\n    with .txt                                             "
-				  + "\n    The demo simulates a file transfer failure followed   "
-				  + "\n    by the Advice renaming the file; the result of the    "
-				  + "\n    rename is logged.                                     "
-				  + "\n                                                          "
-				  + "\n=========================================================" );
+		LOGGER.info("""
+				
+				=========================================================
+				                                                          
+				    This is the Expression Advice Sample -                
+				                                                          
+				    Press 'Enter' to terminate.                           
+				                                                          
+				    Place a file in """ + System.getProperty("java.io.tmpdir") + """
+				/adviceDemo ending
+				    with .txt
+				    The demo simulates a file transfer failure followed
+				    by the Advice renaming the file; the result of the
+				    rename is logged.
+				                                                          
+				=========================================================""");
 
 		System.in.read();
 		context.close();

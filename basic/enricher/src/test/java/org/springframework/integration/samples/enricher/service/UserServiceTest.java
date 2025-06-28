@@ -17,6 +17,8 @@
 package org.springframework.integration.samples.enricher.service;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
@@ -33,6 +35,8 @@ public class UserServiceTest {
 		final ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(
 				"/META-INF/spring/integration/spring-integration-context.xml", UserServiceTest.class);
 		Thread.sleep(2000);
+		assertNotNull(context);
+		assertTrue(context.containsBean("userService")); // Add assertion
 		context.close();
 	}
 

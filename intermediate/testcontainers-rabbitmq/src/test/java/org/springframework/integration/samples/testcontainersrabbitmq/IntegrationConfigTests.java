@@ -6,20 +6,23 @@
  * You may obtain a copy of the License at
  *
  *      https://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
  */
 
 package org.springframework.integration.samples.testcontainersrabbitmq;
 
+import java.util.UUID;
+
+import static org.assertj.core.api.Assertions.assertThat;
+
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
-import org.springframework.amqp.core.*;
+import org.springframework.amqp.core.Binding;
+import org.springframework.amqp.core.BindingBuilder;
+import org.springframework.amqp.core.ExchangeBuilder;
+import org.springframework.amqp.core.Queue;
+import org.springframework.amqp.core.QueueBuilder;
+import org.springframework.amqp.core.TopicExchange;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -32,10 +35,6 @@ import org.springframework.messaging.Message;
 import org.springframework.messaging.MessageChannel;
 import org.springframework.messaging.support.MessageBuilder;
 
-import java.util.UUID;
-
-import static org.assertj.core.api.Assertions.assertThat;
-
 @SpringBootTest
 @SpringIntegrationTest
 @Import({ Receiver.class, IntegrationConfigTests.Config.class })
@@ -47,7 +46,7 @@ class IntegrationConfigTests {
 	private MessageChannel requestInput;
 
 	@Test
-	public void test() {
+	void test() {
 		MessagingTemplate messagingTemplate = new MessagingTemplate();
 		UUID requestId = UUID.randomUUID();
 		Request fakeRequest = new Request(requestId, 1);
@@ -70,13 +69,13 @@ class IntegrationConfigTests {
 	}
 
 	@TestConfiguration
-	public static class Config {
+	static class Config {
 
-		public static final String TOPIC_EXCHANGE = "downstream";
+		static final String TOPIC_EXCHANGE = "downstream";
 
-		public static final String RESULTS_QUEUE = "downstream.results";
+		static final String RESULTS_QUEUE = "downstream.results";
 
-		public static final String RESULTS_ROUTING_KEY = "downstream.results.#";
+		static final String RESULTS_ROUTING_KEY = "downstream.results.#";
 
 		@Bean
 		TopicExchange topicExchange() {

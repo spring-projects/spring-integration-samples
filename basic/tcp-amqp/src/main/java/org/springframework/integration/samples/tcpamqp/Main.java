@@ -40,31 +40,35 @@ public final class Main {
 	 */
 	public static void main(final String... args) throws Exception {
 
-		LOGGER.info("\n========================================================="
-				  + "\n														 "
-				  + "\n		  Welcome to Spring Integration!				 "
-				  + "\n														 "
-				  + "\n	For more information please visit:				   "
-				  + "\n	https://www.springsource.org/spring-integration	   "
-				  + "\n														 "
-				  + "\n=========================================================" );
+		LOGGER.info("""
+				
+				=========================================================
+				                                                         
+				          Welcome to Spring Integration!                 
+				                                                         
+				    For more information please visit:                   
+				    https://www.springsource.org/spring-integration       
+				                                                         
+				=========================================================""");
 
 		final AbstractApplicationContext context =
 				new ClassPathXmlApplicationContext("classpath:META-INF/spring/integration/*-context.xml");
 
-		LOGGER.info("\n========================================================="
-				  + "\n														  "
-				  + "\n	This is the TCP-AMQP Sample -						 "
-				  + "\n														  "
-				  + "\n	Start a netcat, listening on port 11112 -			 "
-				  + "\n	netcat -l 11112									   "
-				  + "\n														  "
-				  + "\n	In another terminal, telnet to localhost 11111		"
-				  + "\n	Enter text and you will see it echoed to the netcat   "
-				  + "\n														  "
-				  + "\n	Press Enter in this console to terminate			  "
-				  + "\n														  "
-				  + "\n=========================================================" );
+		LOGGER.info("""
+				
+				=========================================================
+				                                                          
+				    This is the TCP-AMQP Sample -
+				                                                          
+				    Start a netcat, listening on port 11112 -
+				    netcat -l 11112
+				                                                          
+				    In another terminal, telnet to localhost 11111
+				    Enter text and you will see it echoed to the netcat
+				                                                          
+				    Press Enter in this console to terminate
+				                                                          
+				=========================================================""");
 
 		System.in.read();
 		context.close();

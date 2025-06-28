@@ -6,12 +6,6 @@
  * You may obtain a copy of the License at
  *
  *      https://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
  */
 package org.springframework.integration.samples.travel;
 
@@ -53,14 +47,16 @@ public final class Main {
 
 		final Scanner scanner = new Scanner(System.in);
 
-		System.out.println("\n========================================================="
-						+ "\n                                                         "
-						+ "\n    Welcome to the Spring Integration Travel App!        "
-						+ "\n                                                         "
-						+ "\n    For more information please visit:                   "
-						+ "\n    https://www.springsource.org/spring-integration/                    "
-						+ "\n                                                         "
-						+ "\n=========================================================" );
+		System.out.println("""
+
+				=========================================================
+				                                                         
+				    Welcome to the Spring Integration Travel App!        
+				                                                         
+				    For more information please visit:                   
+				    https://www.springsource.org/spring-integration/                    
+				                                                         
+				=========================================================""");
 
 		System.out.println("Please select the city, for which you would like to get traffic and weather information:");
 
@@ -84,27 +80,37 @@ public final class Main {
 
 				final String weatherReply = travelGateway.getWeatherByCity(city);
 
-				System.out.println("\n========================================================="
-								+ "\n    Weather:"
-								+ "\n=========================================================" );
+				System.out.println("""
+
+						=========================================================
+						    Weather:
+						=========================================================""");
 				System.out.println(weatherReply);
 
 				if (mapQuestApiKeyDefined) {
 					final String trafficReply = travelGateway.getTrafficByCity(city);
 
-					System.out.println("\n========================================================="
-									+ "\n    Traffic:"
-									+ "\n=========================================================" );
+					System.out.println("""
+
+							=========================================================
+							    Traffic:
+							=========================================================""");
 					System.out.println(trafficReply);
 				}
 				else {
 					LOGGER.warn("Skipping Traffic Information call. Did you setup your MapQuest API Key? " +
-							"e.g. by calling:\n\n    $ mvn exec:java -Dmapquest.apikey=\"your_mapquest_api_key_url_decoded\"");
+							"""
+							e.g. by calling:
+
+							    $ mvn exec:java -Dmapquest.apikey="your_mapquest_api_key_url_decoded"
+							""");
 				}
 
-				System.out.println("\n========================================================="
-								+ "\n    Done."
-								+ "\n=========================================================" );
+				System.out.println("""
+
+						=========================================================
+						    Done.
+						=========================================""");
 				System.out.print("Enter your choice: ");
 			}
 		}

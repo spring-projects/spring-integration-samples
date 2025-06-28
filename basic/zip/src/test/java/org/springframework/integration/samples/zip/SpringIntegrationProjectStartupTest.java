@@ -16,13 +16,12 @@
 
 package org.springframework.integration.samples.zip;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 import org.junit.jupiter.api.Test;
 
-import org.springframework.context.ApplicationContext;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
-
-import org.springframework.integration.samples.zip.SpringIntegrationUtils;
 
 /**
  * Verify that the Spring Integration Application Context starts successfully.
@@ -32,15 +31,16 @@ import org.springframework.integration.samples.zip.SpringIntegrationUtils;
  *
  * @since 6.4
  */
-public class SpringIntegrationProjectStartupTest {
+class SpringIntegrationProjectStartupTest {
 
 	@Test
-	public void testStartupOfSpringIntegrationContext() throws Exception{
+	void testStartupOfSpringIntegrationContext() throws Exception{
 		try(ConfigurableApplicationContext context
 			= new ClassPathXmlApplicationContext("/META-INF/spring/integration/spring-integration-context.xml",
 												  SpringIntegrationProjectStartupTest.class)) {
 			SpringIntegrationUtils.displayDirectories(context);
-			Thread.sleep(2000);
+			assertThat(context.isActive()).isTrue();
+			assertThat(context.containsBean("fileWritingMessageHandler")).isTrue();
 		}
 	}
 

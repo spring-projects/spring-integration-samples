@@ -6,18 +6,13 @@
  * You may obtain a copy of the License at
  *
  *      https://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
  */
 
 package org.springframework.integration.samples.jms;
 
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -34,15 +29,15 @@ import org.springframework.messaging.MessageChannel;
  * @author Gary Russell
  * @author Artem Bilan
  */
-public class AggregatorDemoTest extends ActiveMQMultiContextTests {
+class AggregatorDemoTest extends ActiveMQMultiContextTests {
 
-	private final static String[] configFilesGatewayDemo = {
+	private static final String[] configFilesGatewayDemo = {
 		"/META-INF/spring/integration/common.xml",
 		"/META-INF/spring/integration/aggregation.xml"
 	};
 
 	@Test
-	public void testGatewayDemo() {
+	void testGatewayDemo() throws InterruptedException {
 
 		System.setProperty("spring.profiles.active", "testCase");
 
@@ -50,21 +45,12 @@ public class AggregatorDemoTest extends ActiveMQMultiContextTests {
 				configFilesGatewayDemo);
 		Map<String, DefaultMessageListenerContainer> containers = applicationContext
 				.getBeansOfType(DefaultMessageListenerContainer.class);
+
 		// wait for containers to subscribe before sending a message.
-		containers.values().forEach(c -> {
-			int n = 0;
-			while (n++ < 100 && !c.isRegisteredWithDestination()) {
-				try {
-					Thread.sleep(100);
-				}
-				catch (InterruptedException e) {
-					Thread.currentThread().interrupt();
-				}
-			}
-			if (!c.isRegisteredWithDestination()) {
-				throw new IllegalStateException("Container failed to subscribe to topic");
-			}
-		});
+		for (DefaultMessageListenerContainer c : containers.values()) {
+			Assertions.assertTrue(waitForContainerSubscription(c, 10, TimeUnit.SECONDS),
+					"Container failed to subscribe to topic");
+		}
 
 		final MessageChannel stdinToJmsOutChannel = applicationContext.getBean("stdinToJmsOutChannel", MessageChannel.class);
 
@@ -73,13 +59,29 @@ public class AggregatorDemoTest extends ActiveMQMultiContextTests {
 		final QueueChannel queueChannel = applicationContext.getBean("queueChannel", QueueChannel.class);
 
 		@SuppressWarnings("unchecked")
-		Message<List<String>> reply = (Message<List<String>>) queueChannel.receive(20_000);
+		Message<List<String>> reply = (Message<List<String>>) queueChannel.receive(20, TimeUnit.SECONDS);
 		Assertions.assertNotNull(reply);
 		List<String> out = reply.getPayload();
 
 		Assertions.assertEquals("[JMS TEST, JMS TEST]", out.toString());
 
 		applicationContext.close();
+	}
+
+	private boolean waitForContainerSubscription(DefaultMessageListenerContainer container, long timeout, TimeUnit unit)
+			throws InterruptedException {
+
+		long timeoutMillis = unit.toMillis(timeout);
+		long startTime = System.currentTimeMillis();
+
+		while (System.currentTimeMillis() - startTime < timeoutMillis) {
+			if (container.isRegisteredWithDestination()) {
+				return true;
+			}
+			Thread.sleep(100);
+		}
+
+		return false;
 	}
 
 }

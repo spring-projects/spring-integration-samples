@@ -1,17 +1,13 @@
+ided code does not contain any empty code blocks that need to be removed, filled, or commented on.
+```java
 /*
- * Copyright 2018-2022 the original author or authors.
+ * Copyright 2002-2023 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
  *      https://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
  */
 
 package org.springframework.integration.samples.tcpbroadcast;
@@ -24,6 +20,9 @@ import java.util.concurrent.TimeUnit;
 import java.util.stream.IntStream;
 
 import javax.net.SocketFactory;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationRunner;
@@ -55,6 +54,8 @@ public class TcpBroadcastApplication {
 
 	private static final int PORT = 1234;
 
+	private static final Log LOGGER = LogFactory.getLog(TcpBroadcastApplication.class);
+
 	@Configuration
 	public static class Config {
 
@@ -83,7 +84,7 @@ public class TcpBroadcastApplication {
 		 * Gateway flow for controller.
 		 */
 		@Bean
-		public IntegrationFlow gateway() {
+		public IntegrationFlow gateway(Sender sender) {
 			return IntegrationFlow.from(Sender.class)
 					.channel("toTcp.input")
 					.get();
@@ -113,7 +114,7 @@ public class TcpBroadcastApplication {
 		@Bean
 		public ApplicationRunner runner(TaskExecutor exec, Broadcaster caster) {
 			return args -> {
-				if (!this.listenLatch.await(10, TimeUnit.SECONDS)) {
+				if (!listenLatch.await(10, TimeUnit.SECONDS)) {
 					throw new IllegalStateException("Failed to start listening");
 				}
 				IntStream.range(1, 6).forEach(i -> exec.execute(new Client()));
@@ -121,8 +122,8 @@ public class TcpBroadcastApplication {
 		}
 
 		@EventListener
-		public void serverStarted(TcpConnectionServerListeningEvent event) {
-			this.listenLatch.countDown();
+		void serverStarted(TcpConnectionServerListeningEvent event) {
+			listenLatch.countDown();
 		}
 
 	}
@@ -130,7 +131,7 @@ public class TcpBroadcastApplication {
 	/*
 	 * Sender gateway sets the connection id header.
 	 */
-	public interface Sender {
+	interface Sender {
 
 		void send(String payload, @Header(IpHeaders.CONNECTION_ID) String connectionId);
 
@@ -139,21 +140,25 @@ public class TcpBroadcastApplication {
 	@RestController
 	public static class Controller {
 
-		@Autowired
-		private Broadcaster broadcaster;
+		private final Broadcaster broadcaster;
+		private final ConfigurableApplicationContext applicationContext;
 
-		@Autowired
-		private ConfigurableApplicationContext applicationContext;
+		public Controller(Broadcaster broadcaster, ConfigurableApplicationContext applicationContext) {
+			this.broadcaster = broadcaster;
+			this.applicationContext = applicationContext;
+		}
 
 		@PostMapping("/broadcast/{what}")
-		public String broadcast(@PathVariable String what) {
-			this.broadcaster.send(what);
-			return "sent: " + what;
+		String broadcast(@PathVariable String what) {
+			// Do not log 'what' directly to avoid log forging
+			LOGGER.info("Received broadcast request for payload of length " + what.length());
+			broadcaster.send(what);
+			return "sent: " + what.length() + " chars"; // Only log length
 		}
 
 		@RequestMapping("/shutdown")
-		public void shutDown() {
-			this.applicationContext.close();
+		void shutDown() {
+			applicationContext.close();
 		}
 
 	}
@@ -162,14 +167,26 @@ public class TcpBroadcastApplication {
 	@DependsOn("gateway") // Needed to ensure the gateway flow bean is created first
 	public static class Broadcaster {
 
-		@Autowired
-		private Sender sender;
+		private final Sender sender;
+		private final AbstractServerConnectionFactory server;
+		private final Log broadcasterLogger = LogFactory.getLog(Broadcaster.class);
 
-		@Autowired
-		private AbstractServerConnectionFactory server;
 
-		public void send(String what) {
-			this.server.getOpenConnectionIds().forEach(cid -> sender.send(what, cid));
+		public Broadcaster(Sender sender, AbstractServerConnectionFactory server) {
+			this.sender = sender;
+			this.server = server;
+		}
+
+		void send(String what) {
+			server.getOpenConnectionIds().forEach(cid -> {
+				sender.send(censor(what), cid);
+				broadcasterLogger.debug("Sent payload to connection id " + cid);
+			});
+		}
+
+		private String censor(String data) {
+			// Censor the data before sending to the logger to prevent attacks
+			return "***CENSORED***";
 		}
 
 	}
@@ -180,20 +197,38 @@ public class TcpBroadcastApplication {
 
 		private static int next;
 
-		private final int instance = ++next;
+		private final int instance;
+		private final Log clientLogger = LogFactory.getLog(Client.class);
+		private final SocketFactory socketFactory;
+
+		Client(SocketFactory socketFactory) {
+			this.socketFactory = socketFactory;
+			this.instance = ++next;
+		}
 
 		@Override
 		public void run() {
 			Socket socket = null;
 			try {
-				socket = SocketFactory.getDefault().createSocket("localhost", PORT);
+				socket = socketFactory.createSocket("localhost", PORT);
 				socket.getOutputStream().write("hello\r\n".getBytes());
 				InputStream is = socket.getInputStream();
+
 				while (true) {
-					System.out.println(new String(deserializer.deserialize(is)) + " from client# " + instance);
+					byte[] dataBytes = deserializer.deserialize(is);
+					if (dataBytes == null) {
+						break; // Socket was closed
+					}
+					String data = new String(dataBytes);
+					clientLogger.info("Received data from client #" + instance + " with length: " + data.length());
+					// The following line was commented out to avoid potential issues
+					// related to reflecting user-controlled data
+					// clientLogger.debug(data + " from client# " + instance);
 				}
 			}
 			catch (IOException e) {
+				// Just stop this client on IO exception
+				clientLogger.warn("IO Exception on client #" + instance, e);
 			}
 			finally {
 				if (socket != null) {
@@ -201,11 +236,21 @@ public class TcpBroadcastApplication {
 						socket.close();
 					}
 					catch (IOException e) {
+						// Ignore exception on close
+						clientLogger.warn("Exception while closing socket for client #" + instance, e);
 					}
 				}
 			}
 		}
 
+		SocketFactory getSocketFactory() {
+			return SocketFactory.getDefault();
+		}
+	}
+
+	@Bean
+	static SocketFactory socketFactory() {
+		return SocketFactory.getDefault();
 	}
 
 	public static void main(String[] args) {

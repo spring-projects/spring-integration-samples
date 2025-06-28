@@ -6,17 +6,10 @@
  * You may obtain a copy of the License at
  *
  *      https://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
  */
 
 package org.springframework.integration.samples.jms;
 
-import org.junit.Assert;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -29,16 +22,16 @@ import org.springframework.integration.support.MessageBuilder;
 /**
  * @author Gunnar Hillert
  */
-public class GatewayDemoTest  extends ActiveMQMultiContextTests {
+class GatewayDemoTest extends ActiveMQMultiContextTests {
 
-	private final static String[] configFilesGatewayDemo = {
+	private static final String[] configFilesGatewayDemo = {
 		"/META-INF/spring/integration/common.xml",
 		"/META-INF/spring/integration/inboundGateway.xml",
 		"/META-INF/spring/integration/outboundGateway.xml"
 	};
 
 	@Test
-	public void testGatewayDemo() {
+	void testGatewayDemo() {
 
 		System.setProperty("spring.profiles.active", "testCase");
 

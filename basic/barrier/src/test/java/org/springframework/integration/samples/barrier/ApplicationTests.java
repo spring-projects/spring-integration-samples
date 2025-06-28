@@ -6,12 +6,6 @@
  * You may obtain a copy of the License at
  *
  *      https://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
  */
 
 package org.springframework.integration.samples.barrier;
@@ -39,7 +33,7 @@ import org.springframework.messaging.support.GenericMessage;
  */
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE, classes = Application.class)
 @RabbitAvailable
-public class ApplicationTests {
+class ApplicationTests {
 
 	@Autowired
 	MessageChannel receiveChannel;
@@ -48,7 +42,7 @@ public class ApplicationTests {
 	AbstractMessageChannel release;
 
 	@Test
-	public void contextLoads() {
+	void contextLoads() {
 		QueueChannel replies = new QueueChannel();
 		receiveChannel.send(
 				new GenericMessage<>("A,B,C", Collections.singletonMap(MessageHeaders.REPLY_CHANNEL, replies)));

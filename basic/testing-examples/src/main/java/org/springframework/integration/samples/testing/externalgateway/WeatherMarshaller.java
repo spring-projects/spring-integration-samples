@@ -30,10 +30,12 @@ import javax.xml.transform.dom.DOMSource;
 import org.w3c.dom.Document;
 
 import org.springframework.beans.factory.InitializingBean;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.oxm.Marshaller;
 import org.springframework.oxm.MarshallingFailureException;
 import org.springframework.oxm.Unmarshaller;
 import org.springframework.oxm.XmlMappingException;
+import org.springframework.stereotype.Component;
 import org.springframework.xml.transform.StringResult;
 import org.springframework.xml.transform.StringSource;
 import org.springframework.xml.xpath.XPathExpressionFactory;
@@ -43,13 +45,21 @@ import org.springframework.xml.xpath.XPathExpressionFactory;
  * @author Mark Fisher
  * @since SpringOne2GX - 2010, Chicago
  */
+@Component
 public class WeatherMarshaller implements Marshaller, Unmarshaller, InitializingBean {
 
 	private static final TransformerFactory transformerFactory = TransformerFactory.newInstance();
 
 	private final Map<String, String> namespacePrefixes = new HashMap<String, String>();
 
-	private static final String XPATH_PREFIX = "/p:GetCityWeatherByZIPResponse/p:GetCityWeatherByZIPResult/";
+	private String xPathPrefix;
+
+	@Value("${weather.service.uri:https://ws.cdyne.com/WeatherWS/}") // Default value if not provided
+	private String weatherServiceUri;
+
+	public WeatherMarshaller(@Value("${weather.xpath.prefix:/p:GetCityWeatherByZIPResponse/p:GetCityWeatherByZIPResult/}") String xPathPrefix) {
+		this.xPathPrefix = xPathPrefix;
+	}
 
 	public Object unmarshal(Source source) throws IOException, XmlMappingException {
 
@@ -63,16 +73,16 @@ public class WeatherMarshaller implements Marshaller, Unmarshaller, Initializing
 			throw new MarshallingFailureException("Failed to unmarshal SOAP Response", e);
 		}
 		Weather weather = new Weather();
-		String expression = XPATH_PREFIX + "p:City";
+		String expression = xPathPrefix + "p:City";
 		String city = XPathExpressionFactory.createXPathExpression(expression, namespacePrefixes).evaluateAsString(result.getNode());
 		weather.setCity(city);
-		expression = XPATH_PREFIX + "p:State";
+		expression = xPathPrefix + "p:State";
 		String state = XPathExpressionFactory.createXPathExpression(expression, namespacePrefixes).evaluateAsString(result.getNode());
 		weather.setState(state);
-		expression = XPATH_PREFIX + "p:Temperature";
+		expression = xPathPrefix + "p:Temperature";
 		String temperature = XPathExpressionFactory.createXPathExpression(expression, namespacePrefixes).evaluateAsString(result.getNode());
 		weather.setTemperature(temperature);
-		expression = XPATH_PREFIX + "p:Description";
+		expression = xPathPrefix + "p:Description";
 		String description = XPathExpressionFactory.createXPathExpression(expression, namespacePrefixes).evaluateAsString(result.getNode());
 		weather.setDescription(description);
 		return weather;
@@ -85,7 +95,7 @@ public class WeatherMarshaller implements Marshaller, Unmarshaller, Initializing
 
 	public void marshal(Object zip, Result result) throws IOException,
 			XmlMappingException {
-		String xmlString = "<weat:GetCityWeatherByZIP xmlns:weat=\"https://ws.cdyne.com/WeatherWS/\">" +
+		String xmlString = "<weat:GetCityWeatherByZIP xmlns:weat=\"" + weatherServiceUri + "\">" +
 							"	<weat:ZIP>" + zip + "</weat:ZIP>" +
 							"</weat:GetCityWeatherByZIP>";
 		try {

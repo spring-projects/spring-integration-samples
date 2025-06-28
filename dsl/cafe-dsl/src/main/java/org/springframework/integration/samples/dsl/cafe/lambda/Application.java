@@ -6,20 +6,18 @@
  * You may obtain a copy of the License at
  *
  *      https://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
  */
 
 package org.springframework.integration.samples.dsl.cafe.lambda;
 
+import java.io.IOException;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -45,6 +43,8 @@ import org.springframework.integration.stream.CharacterStreamWritingMessageHandl
 @SpringBootApplication
 public class Application {
 
+	private static final Log LOGGER = LogFactory.getLog(Application.class);
+
 	public static void main(String[] args) throws Exception {
 		ConfigurableApplicationContext ctx = SpringApplication.run(Application.class, args);
 
@@ -56,13 +56,26 @@ public class Application {
 			cafe.placeOrder(order);
 		}
 
-		System.out.println("Hit 'Enter' to terminate");
-		System.in.read();
-		ctx.close();
+		LOGGER.info("Hit 'Enter' to terminate");
+		waitForEnter(ctx);
+	}
+
+	private static void waitForEnter(ConfigurableApplicationContext ctx) {
+		try {
+			//System.in.read();
+			LOGGER.info("Press enter to terminate");
+			System.in.read();
+		}
+		catch (IOException e) {
+			LOGGER.error("Error reading from System.in", e);
+		}
+		finally {
+			ctx.close();
+		}
 	}
 
 	@MessagingGateway
-	public interface Cafe {
+	interface Cafe {
 
 		@Gateway(requestChannel = "orders.input")
 		void placeOrder(Order order);
@@ -74,40 +87,18 @@ public class Application {
 	private final AtomicInteger coldDrinkCounter = new AtomicInteger();
 
 	@Bean(name = PollerMetadata.DEFAULT_POLLER)
-	public PollerSpec poller() {
+	PollerSpec poller() {
 		return Pollers.fixedDelay(1000);
 	}
 
 	@Bean
-	public IntegrationFlow orders() {
+	IntegrationFlow orders() {
 		return f -> f
 				.split(Order.class, Order::getItems)
 				.channel(c -> c.executor(Executors.newCachedThreadPool()))
-				.<OrderItem, Boolean>route(OrderItem::isIced, mapping -> mapping
-						.subFlowMapping(true, sf -> sf
-								.channel(c -> c.queue(10))
-								.publishSubscribeChannel(c -> c
-										.subscribe(s -> s.handle(m -> sleepUninterruptibly(1, TimeUnit.SECONDS)))
-										.subscribe(sub -> sub
-												.<OrderItem, String>transform(p ->
-														Thread.currentThread().getName() +
-																" prepared cold drink #" +
-																this.coldDrinkCounter.incrementAndGet() +
-																" for order #" + p.getOrderNumber() + ": " + p)
-												.handle(m -> System.out.println(m.getPayload()))))
-								.bridge())
-						.subFlowMapping(false, sf -> sf
-								.channel(c -> c.queue(10))
-								.publishSubscribeChannel(c -> c
-										.subscribe(s -> s.handle(m -> sleepUninterruptibly(5, TimeUnit.SECONDS)))
-										.subscribe(sub -> sub
-												.<OrderItem, String>transform(p ->
-														Thread.currentThread().getName() +
-																" prepared hot drink #" +
-																this.hotDrinkCounter.incrementAndGet() +
-																" for order #" + p.getOrderNumber() + ": " + p)
-												.handle(m -> System.out.println(m.getPayload()))))
-								.bridge()))
+				.route(OrderItem.class, OrderItem::isIced, mapping -> mapping
+						.subFlowMapping(true, this::buildColdDrinkSubFlow)
+						.subFlowMapping(false, this::buildHotDrinkSubFlow))
 				.<OrderItem, Drink>transform(orderItem ->
 						new Drink(orderItem.getOrderNumber(),
 								orderItem.getDrinkType(),
@@ -121,6 +112,30 @@ public class Application {
 										.collect(Collectors.toList())))
 						.correlationStrategy(m -> ((Drink) m.getPayload()).getOrderNumber()))
 				.handle(CharacterStreamWritingMessageHandler.stdout());
+	}
+
+	private void buildColdDrinkSubFlow(IntegrationFlow.Builder sf) {
+		buildDrinkSubFlow(sf, true, coldDrinkCounter, 1, "cold");
+	}
+
+	private void buildHotDrinkSubFlow(IntegrationFlow.Builder sf) {
+		buildDrinkSubFlow(sf, false, hotDrinkCounter, 5, "hot");
+	}
+
+	private static void buildDrinkSubFlow(IntegrationFlow.Builder sf, boolean isIced,
+															 AtomicInteger drinkCounter, long sleepTime, String drinkType) {
+		sf
+				.channel(c -> c.queue(10))
+				.publishSubscribeChannel(c -> c
+						.subscribe(s -> s.handle(m -> sleepUninterruptibly(sleepTime, TimeUnit.SECONDS)))
+						.subscribe(sub -> sub
+								.<OrderItem, String>transform(p ->
+										Thread.currentThread().getName() +
+												" prepared " + drinkType + " drink #" +
+												(isIced ? "" : "") +
+												" for order #" + p.getOrderNumber() + ": " + p)
+								.handle(m -> LOGGER.info(m.getPayload()))))
+				.bridge();
 	}
 
 	private static void sleepUninterruptibly(long sleepFor, TimeUnit unit) {

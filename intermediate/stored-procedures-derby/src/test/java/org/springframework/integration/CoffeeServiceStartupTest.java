@@ -16,6 +16,9 @@
 
 package org.springframework.integration;
 
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
+
 import org.junit.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -31,6 +34,8 @@ public class CoffeeServiceStartupTest {
             = new ClassPathXmlApplicationContext("/META-INF/spring/integration/spring-integration-context.xml",
                                                   CoffeeServiceStartupTest.class);
         Thread.sleep(2000);
+		assertNotNull(context);
+		assertTrue(context.containsBean("coffeeService")); // Added assertion
     }
 
 }

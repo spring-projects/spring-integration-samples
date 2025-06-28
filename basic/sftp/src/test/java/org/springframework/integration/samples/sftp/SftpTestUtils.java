@@ -1,3 +1,5 @@
+e no empty blocks in the provided code.
+```java
 /*
  * Copyright 2014-2017 the original author or authors.
  *
@@ -63,6 +65,7 @@ public class SftpTestUtils {
 						session.remove("si.sftp.sample/" + fileNames[i]);
 					}
 					catch (IOException e) {
+						// Ignore exceptions during cleanup
 					}
 				}
 

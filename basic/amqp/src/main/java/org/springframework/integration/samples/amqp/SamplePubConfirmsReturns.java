@@ -1,18 +1,13 @@
 /*
- * Copyright 2014-2017 the original author or authors.
+ * Copyright 2002-2017 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
  *      https://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
  */
+
 package org.springframework.integration.samples.amqp;
 
 import org.apache.commons.logging.Log;
@@ -41,14 +36,16 @@ public final class SamplePubConfirmsReturns {
 	 */
 	public static void main(final String... args) {
 
-		LOGGER.info("\n========================================================="
-				  + "\n                                                         "
-				  + "\n          Welcome to Spring Integration!                 "
-				  + "\n                                                         "
-				  + "\n    For more information please visit:                   "
-				  + "\n    https://www.springsource.org/spring-integration       "
-				  + "\n                                                         "
-				  + "\n=========================================================" );
+		LOGGER.info("""
+				
+				=========================================================
+				                                                         
+				          Welcome to Spring Integration!                 
+				                                                         
+				    For more information please visit:                   
+				    https://www.springsource.org/spring-integration       
+				                                                         
+				=========================================================""");
 
 		@SuppressWarnings("resource")
 		final AbstractApplicationContext context =
@@ -56,21 +53,23 @@ public final class SamplePubConfirmsReturns {
 
 		context.registerShutdownHook();
 
-		LOGGER.info("\n========================================================="
-				  + "\n                                                          "
-				  + "\n    This is the AMQP Sample with confirms/returns -       "
-				  + "\n                                                          "
-				  + "\n    Please enter some text and press return. The entered  "
-				  + "\n    Message will be sent to the configured RabbitMQ Queue,"
-				  + "\n    then again immediately retrieved from the Message     "
-				  + "\n    Broker and ultimately printed to the command line.    "
-				  + "\n    Send 'fail' to demonstrate a return because the       "
-				  + "\n    message couldn't be routed to a queue.                "
-				  + "\n    Send 'nack' to demonstrate a NACK because the         "
-				  + "\n    exchange doesn't exist, causing the channel to be     "
-				  + "\n    closed in error by the broker.                        "
-				  + "\n                                                          "
-				  + "\n=========================================================" );
+		LOGGER.info("""
+				
+				=========================================================
+				                                                          
+				    This is the AMQP Sample with confirms/returns -       
+				                                                          
+				    Please enter some text and press return. The entered  
+				    Message will be sent to the configured RabbitMQ Queue,
+				    then again immediately retrieved from the Message     
+				    Broker and ultimately printed to the command line.    
+				    Send 'fail' to demonstrate a return because the       
+				    message couldn't be routed to a queue.                
+				    Send 'nack' to demonstrate a NACK because the         
+				    exchange doesn't exist, causing the channel to be     
+				    closed in error by the broker.                        
+				                                                          
+				=========================================================""");
 
 	}
 }

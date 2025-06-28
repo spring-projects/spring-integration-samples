@@ -6,17 +6,14 @@
  * You may obtain a copy of the License at
  *
  *      https://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
  */
 
 package org.springframework.integration.samples.tcpclientserver;
 
 import java.util.Scanner;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -49,6 +46,8 @@ import org.springframework.integration.ip.util.TestingUtilities;
  */
 public final class Main {
 
+	private static final Log LOGGER = LogFactory.getLog(Main.class);
+
 	/**
 	 * Prevent instantiation.
 	 */
@@ -64,7 +63,7 @@ public final class Main {
 
 		final Scanner scanner = new Scanner(System.in);
 
-		System.out.println("""
+		LOGGER.info("""
 
 				=========================================================
 				                                                        \s
@@ -76,26 +75,26 @@ public final class Main {
 				                                                        \s
 				=========================================================""");
 
-		final ConfigurableApplicationContext context = Main.setupContext();
+		final ConfigurableApplicationContext context = setupContext();
 		final SimpleGateway gateway = context.getBean(SimpleGateway.class);
 		final AbstractServerConnectionFactory crLfServer = context.getBean(AbstractServerConnectionFactory.class);
 		final AbstractClientConnectionFactory client = context.getBean(AbstractClientConnectionFactory.class);
 		final AbstractEndpoint outGateway = context.getBean("outGateway", AbstractEndpoint.class);
 
-		System.out.print("Waiting for server to accept connections...");
+		LOGGER.info("Waiting for server to accept connections...");
 		TestingUtilities.waitListening(crLfServer, 10000L);
 		client.setPort(crLfServer.getPort());
 		outGateway.start();
-		System.out.println("running.\n\n");
+		LOGGER.info("running.\n\n");
 
-		System.out.println("Please enter some text and press <enter>: ");
-		System.out.println("\tNote:");
-		System.out.println("\t- Entering FAIL will create an exception");
-		System.out.println("\t- Entering q will quit the application");
-		System.out.print("\n");
-		System.out.println("\t--> Please also check out the other samples, " +
+		LOGGER.info("Please enter some text and press <enter>: ");
+		LOGGER.info("\tNote:");
+		LOGGER.info("\t- Entering FAIL will create an exception");
+		LOGGER.info("\t- Entering q will quit the application");
+		LOGGER.info("\n");
+		LOGGER.info("\t--> Please also check out the other samples, " +
 				"that are provided as JUnit tests.");
-		System.out.println("\t--> You can also connect to the server on port '" + crLfServer.getPort() + "' using Telnet.\n\n");
+		LOGGER.info("\t--> You can also connect to the server on port '" + crLfServer.getPort() + "' using Telnet.\n\n");
 
 		while (true) {
 
@@ -106,12 +105,13 @@ public final class Main {
 			}
 			else {
 				final String result = gateway.send(input);
-				System.out.println(result);
+				LOGGER.info(result);
 			}
 		}
 
-		System.out.println("Exiting application...bye.");
+		LOGGER.info("Exiting application...bye.");
 		context.close();
+		scanner.close();
 		System.exit(0);
 
 	}

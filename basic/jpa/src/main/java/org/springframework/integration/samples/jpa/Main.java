@@ -6,19 +6,17 @@
  * You may obtain a copy of the License at
  *
  *      https://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
  */
-
 package org.springframework.integration.samples.jpa;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 import org.springframework.boot.WebApplicationType;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -44,6 +42,8 @@ import org.springframework.util.StringUtils;
 @ImportResource("spring-integration-context.xml")
 public class Main {
 
+	private static final Log LOGGER = LogFactory.getLog(Main.class);
+
 	private static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd' 'HH:mm:ss");
 
 	/**
@@ -55,14 +55,16 @@ public class Main {
 
 		final Scanner scanner = new Scanner(System.in);
 
-		System.out.println("\n========================================================="
-				+ "\n                                                         "
-				+ "\n    Welcome to the Spring Integration JPA Sample!        "
-				+ "\n                                                         "
-				+ "\n    For more information please visit:                   "
-				+ "\n    https://www.springsource.org/spring-integration/                    "
-				+ "\n                                                         "
-				+ "\n=========================================================");
+		System.out.println("""
+
+				=========================================================
+				                                                         
+				    Welcome to the Spring Integration JPA Sample!        
+				                                                         
+				    For more information please visit:                   
+				    https://www.springsource.org/spring-integration/                    
+				                                                         
+				=========================================================""");
 
 		ConfigurableApplicationContext context = new SpringApplicationBuilder(Main.class)
 				.web(WebApplicationType.NONE)
@@ -70,33 +72,35 @@ public class Main {
 
 		final PersonService personService = context.getBean(PersonService.class);
 
-		System.out.println("Please enter a choice and press <enter>: ");
-		System.out.println("\t1. List all people");
-		System.out.println("\t2. Create a new person");
-		System.out.println("\tq. Quit the application");
-		System.out.print("Enter you choice: ");
+		System.out.println("""
+				Please enter a choice and press <enter>: 
+				\t1. List all people
+				\t2. Create a new person
+				\tq. Quit the application
+				Enter you choice: """);
 
 		while (true) {
 			final String input = scanner.nextLine();
 
-			if ("1".equals(input.trim())) {
+			if("1".equals(input.trim())) {
 				findPeople(personService);
 			}
-			else if ("2".equals(input.trim())) {
+			else if("2".equals(input.trim())) {
 				createPersonDetails(scanner, personService);
 			}
-			else if ("q".equals(input.trim())) {
+			else if("q".equals(input.trim())) {
 				break;
 			}
 			else {
 				System.out.println("Invalid choice\n\n");
 			}
 
-			System.out.println("Please enter a choice and press <enter>: ");
-			System.out.println("\t1. List all people");
-			System.out.println("\t2. Create a new person");
-			System.out.println("\tq. Quit the application");
-			System.out.print("Enter you choice: ");
+			System.out.println("""
+				Please enter a choice and press <enter>: 
+				\t1. List all people
+				\t2. Create a new person
+				\tq. Quit the application
+				Enter you choice: """);
 		}
 
 		System.out.println("Exiting application...bye.");
@@ -137,8 +141,9 @@ public class Main {
 
 	private static void findPeople(final PersonService service) {
 
-		System.out.println("ID            NAME         CREATED");
-		System.out.println("==================================");
+		System.out.println("""
+				ID            NAME         CREATED
+				==================================""");
 
 		final List<Person> people = service.findPeople();
 
