@@ -118,7 +118,7 @@ subprojects { subproject ->
 							url = linkIssue
 						}
 						withXml {
-							asNode().appendNode('properties')appendNode('java.version', java.sourceCompatibility)
+							asNode().appendNode('properties')appendNode('java.version', '17')
 							if (subproject.plugins.hasPlugin('org.akhikhl.gretty')) {
 								asNode().appendNode('packaging', 'war')
 								def plugins = asNode().build?.find()?.plugins?.find()
@@ -212,11 +212,11 @@ subprojects { subproject ->
 		}
 
 		ext {
-			artemisVersion = '2.33.0'
+			artemisVersion = '2.41.0'
 			aspectjVersion = '1.9.22.1'
 			commonsDigesterVersion = '2.1'
 			commonsDbcpVersion = '2.12.0'
-			commonsFileUploadVersion = '1.5'
+			commonsFileUploadVersion = '1.6.0'
 			commonsIoVersion = '2.16.1'
 			commonsLangVersion = '3.12.0'
 			commonsPoolVersion = '2.11.1'
