@@ -15,54 +15,51 @@
  */
 package org.springframework.integration.samples.testing.chain;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import org.junit.jupiter.api.Test;
 
-import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.messaging.Message;
-import org.springframework.messaging.MessageChannel;
 import org.springframework.integration.channel.QueueChannel;
 import org.springframework.integration.support.MessageBuilder;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.messaging.Message;
+import org.springframework.messaging.MessageChannel;
+import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * 
+ *
  * Shows how to test a chain of endpoints that use SpEL expressions. 
  * The chain has direct input and output channels. The chain would
  * be a fragment of a larger flow. Since the output channel is direct,
  * it has no subscribers outside the context of a larger flow. So, 
  * in this test case, we bridge it to a {@link QueueChannel} to
  * facilitate easy testing.
- * 
+ *
  * @author Gary Russell
+ * @author Artem Bilan
+ *
  * @since 2.0.2
  *
  */
-@ContextConfiguration	// default context name is <ClassName>-context.xml
-@RunWith(SpringJUnit4ClassRunner.class)
+@SpringJUnitConfig
 public class SpelChainTests {
-	
+
 	@Autowired
 	MessageChannel inputChannel;
-	
+
 	@Autowired
 	QueueChannel testChannel;
-	
+
 	@Test
 	public void testTrueHeader() {
 		String payload = "XXXABCXXX";
 		Message<String> message = MessageBuilder.withPayload(payload).build();
 		inputChannel.send(message);
 		Message<?> outMessage = testChannel.receive(0);
-		assertNotNull("Expected an output message", outMessage);
+		assertThat(outMessage).isNotNull();
 		Object myHeader = outMessage.getHeaders().get("myHeader");
-		assertNotNull("Expecter myHeader header", myHeader);
-		assertEquals("Expected myHeader==true", Boolean.TRUE, myHeader);
-		assertEquals("Expected lower case message", payload.toLowerCase(), outMessage.getPayload());
+		assertThat(myHeader).isEqualTo(Boolean.TRUE);
+		assertThat(outMessage.getPayload()).isEqualTo(payload.toLowerCase());
 	}
 
 	@Test
@@ -71,11 +68,10 @@ public class SpelChainTests {
 		Message<String> message = MessageBuilder.withPayload(payload).build();
 		inputChannel.send(message);
 		Message<?> outMessage = testChannel.receive(0);
-		assertNotNull("Expected an output message", outMessage);
+		assertThat(outMessage).isNotNull();
 		Object myHeader = outMessage.getHeaders().get("myHeader");
-		assertNotNull("Expecter myHeader header", myHeader);
-		assertEquals("Expected myHeader==false", Boolean.FALSE, myHeader);
-		assertEquals("Expected lower case message", payload.toLowerCase(), outMessage.getPayload());
+		assertThat(myHeader).isEqualTo(Boolean.FALSE);
+		assertThat(outMessage.getPayload()).isEqualTo(payload.toLowerCase());
 	}
 
 }

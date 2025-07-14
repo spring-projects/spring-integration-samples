@@ -13,42 +13,40 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.springframework.integration.samples.loanbroker.loanshark.biz;
 
-
-import static org.junit.Assert.assertEquals;
-
-import org.junit.Ignore;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.integration.samples.loanbroker.loanshark.domain.LoanShark;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.annotation.DirtiesContext;
+import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 import org.springframework.transaction.annotation.Transactional;
 
-
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * @author Gary Russell
- *
+ * @author Artem Bilan
  */
-@ContextConfiguration(locations="classpath:META-INF/spring/applicationContext.xml")
-@RunWith(SpringJUnit4ClassRunner.class)
+@SpringJUnitConfig(locations = "classpath:META-INF/spring/applicationContext.xml")
+@DirtiesContext
+@Transactional
+@Disabled("Not clear what is going on with @Configurable")
 public class AccumulatorTests {
 
 	@Autowired
 	Accumulator accumulator;
 
 	@Test
-	@Transactional
-	@Ignore
 	public void test() {
 		accumulator.accumulate(new SharkQuote("fred", 6.0d));
 		accumulator.accumulate(new SharkQuote("fred", 6.2d));
 		LoanShark shark = (LoanShark) LoanShark.findLoanSharksByName("fred").getSingleResult();
-		assertEquals(Long.valueOf(2), shark.getCounter());
-		assertEquals(Double.valueOf(6.1), shark.getAverageRate());
+		assertThat(shark.getCounter()).isEqualTo(2);
+		assertThat(shark.getAverageRate()).isEqualTo(6.1);
 	}
+
 }

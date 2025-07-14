@@ -15,41 +15,36 @@
  */
 package org.springframework.integration.samples.testing.filter;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
-import static org.springframework.integration.test.matcher.PayloadMatcher.hasPayload;
+import org.assertj.core.api.HamcrestCondition;
+import org.junit.jupiter.api.Test;
 
-import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.messaging.Message;
-import org.springframework.messaging.MessageChannel;
 import org.springframework.integration.channel.QueueChannel;
 import org.springframework.integration.support.MessageBuilder;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.messaging.Message;
+import org.springframework.messaging.MessageChannel;
+import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.springframework.integration.test.matcher.PayloadMatcher.hasPayload;
 
 /**
- *
  * Shows how to test a filter.
  * The filter has direct input and output channels. The filter configuration would
  * be a fragment of a larger flow. Since the output channel is direct,
  * it has no subscribers outside the context of a larger flow. So,
  * in this test case, we bridge it to a {@link QueueChannel} to
  * facilitate easy testing.
- *
+ * <p>
  * Similarly, we bridge the discard channel which is configured on the second
  * filter instance.
  *
  * @author Gary Russell
+ * @author Artem Bilan
+ *
  * @since 2.0.2
  */
-@ContextConfiguration	// default context name is <ClassName>-context.xml
-@RunWith(SpringJUnit4ClassRunner.class)
+@SpringJUnitConfig
 public class PetFilterTests {
 
 	@Autowired
@@ -70,19 +65,19 @@ public class PetFilterTests {
 	@Test
 	public void unitTestClassCat() {
 		String payload = "CAT:Fluffy";
-		assertFalse(new PetFilter().dogsOnly(payload));
+		assertThat(new PetFilter().dogsOnly(payload)).isFalse();
 	}
 
 	@Test
 	public void unitTestClassDog() {
 		String payload = "DOG:Fido";
-		assertTrue(new PetFilter().dogsOnly(payload));
+		assertThat(new PetFilter().dogsOnly(payload)).isTrue();
 	}
 
 	@Test
 	public void unitTestClassLizard() {
 		String payload = "LIZARD:Scaly";
-		assertFalse(new PetFilter().dogsOnly(payload));
+		assertThat(new PetFilter().dogsOnly(payload)).isFalse();
 	}
 
 	@Test
@@ -91,7 +86,7 @@ public class PetFilterTests {
 		Message<String> message = MessageBuilder.withPayload(payload).build();
 		inputChannel.send(message);
 		Message<?> outMessage = testChannel.receive(0);
-		assertNull("Expected no output message", outMessage);
+		assertThat(outMessage).isNull();
 	}
 
 	@Test
@@ -100,8 +95,7 @@ public class PetFilterTests {
 		Message<String> message = MessageBuilder.withPayload(payload).build();
 		inputChannel.send(message);
 		Message<?> outMessage = testChannel.receive(0);
-		assertNotNull("Expected an output message", outMessage);
-		assertThat(outMessage, hasPayload(payload));
+		assertThat(outMessage).is(new HamcrestCondition<>(hasPayload(payload)));
 	}
 
 	@Test
@@ -110,7 +104,7 @@ public class PetFilterTests {
 		Message<String> message = MessageBuilder.withPayload(payload).build();
 		inputChannel.send(message);
 		Message<?> outMessage = testChannel.receive(0);
-		assertNull("Expected no output message", outMessage);
+		assertThat(outMessage).isNull();
 	}
 
 	@Test
@@ -119,10 +113,9 @@ public class PetFilterTests {
 		Message<String> message = MessageBuilder.withPayload(payload).build();
 		inputChannel2.send(message);
 		Message<?> outMessage = testChannel2.receive(0);
-		assertNull("Expected no output message", outMessage);
+		assertThat(outMessage).isNull();
 		outMessage = testDiscardChannel2.receive(0);
-		assertNotNull("Expected discard message", outMessage);
-		assertThat(outMessage, hasPayload(payload));
+		assertThat(outMessage).is(new HamcrestCondition<>(hasPayload(payload)));
 	}
 
 	@Test
@@ -131,10 +124,9 @@ public class PetFilterTests {
 		Message<String> message = MessageBuilder.withPayload(payload).build();
 		inputChannel2.send(message);
 		Message<?> outMessage = testChannel.receive(0);
-		assertNotNull("Expected an output message", outMessage);
-		assertThat(outMessage, hasPayload(payload));
+		assertThat(outMessage).is(new HamcrestCondition<>(hasPayload(payload)));
 		outMessage = testDiscardChannel2.receive(0);
-		assertNull("Expected no discard message", outMessage);
+		assertThat(outMessage).isNull();
 	}
 
 	@Test
@@ -143,9 +135,9 @@ public class PetFilterTests {
 		Message<String> message = MessageBuilder.withPayload(payload).build();
 		inputChannel2.send(message);
 		Message<?> outMessage = testChannel.receive(0);
-		assertNull("Expected no output message", outMessage);
+		assertThat(outMessage).isNull();
 		outMessage = testDiscardChannel2.receive(0);
-		assertNotNull("Expected discard message", outMessage);
-		assertThat(outMessage, hasPayload(payload));
+		assertThat(outMessage).is(new HamcrestCondition<>(hasPayload(payload)));
 	}
+
 }

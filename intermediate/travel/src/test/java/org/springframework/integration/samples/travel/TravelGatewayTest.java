@@ -17,14 +17,13 @@ package org.springframework.integration.samples.travel;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.junit.Assert;
-import org.junit.Ignore;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * This test will test the weather service (does not require an API key).
@@ -34,11 +33,10 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
  * @since 2.2
  *
  */
-@ContextConfiguration({
-	"classpath:META-INF/spring/integration-context.xml",
-	"classpath:META-INF/spring/integration-ws-context.xml"})
-@RunWith(SpringJUnit4ClassRunner.class)
-@Ignore("The target WeatherWS is unreliable (INTSAMPLES-145), so uncomment if you'd like to test the real interaction")
+@SpringJUnitConfig(locations = {
+		"classpath:META-INF/spring/integration-context.xml",
+		"classpath:META-INF/spring/integration-ws-context.xml"})
+@Disabled("The target WeatherWS is unreliable (INTSAMPLES-145), so uncomment if you'd like to test the real interaction")
 public class TravelGatewayTest {
 
 	private static final Log LOGGER = LogFactory.getLog(TravelGatewayTest.class);
@@ -50,7 +48,7 @@ public class TravelGatewayTest {
 	public void testGetWeatherByCity() {
 		final String weatherInformation = travelGateway.getWeatherByCity(City.ATLANTA);
 		LOGGER.info("Weather information for Atlanta:\n\n" + weatherInformation + "\n\n");
-		Assert.assertNotNull(weatherInformation);
+		assertThat(weatherInformation).isNotNull();
 	}
 
 }

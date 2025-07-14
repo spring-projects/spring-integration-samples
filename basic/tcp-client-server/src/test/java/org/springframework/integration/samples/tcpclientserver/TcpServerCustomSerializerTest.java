@@ -16,9 +16,6 @@
 
 package org.springframework.integration.samples.tcpclientserver;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
-
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
@@ -29,9 +26,8 @@ import java.net.Socket;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -42,8 +38,10 @@ import org.springframework.messaging.Message;
 import org.springframework.messaging.MessageChannel;
 import org.springframework.messaging.SubscribableChannel;
 import org.springframework.test.annotation.DirtiesContext;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.fail;
 
 /**
  * Some use cases may dictate you needing to create your own stream handling serializers
@@ -57,8 +55,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
  * @author Artem Bilan
  *
  */
-@RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration("/META-INF/spring/integration/tcpServerCustomSerialize-context.xml")
+@SpringJUnitConfig(locations = "/META-INF/spring/integration/tcpServerCustomSerialize-context.xml")
 @DirtiesContext
 public class TcpServerCustomSerializerTest {
 
@@ -71,7 +68,7 @@ public class TcpServerCustomSerializerTest {
 	@Autowired
 	AbstractServerConnectionFactory serverConnectionFactory;
 
-	@Before
+	@BeforeEach
 	public void setup() {
 		TestingUtilities.waitListening(this.serverConnectionFactory, 10000L);
 	}
@@ -92,9 +89,9 @@ public class TcpServerCustomSerializerTest {
 				// we assert during the processing of the messaging that the
 				// payload is just the content we wanted to send without the
 				// framing bytes (STX/ETX)
-				assertEquals(123, payload.getNumber());
-				assertEquals("PINGPONG02", payload.getSender());
-				assertEquals("You got it to work!", payload.getMessage());
+				assertThat(payload.getNumber()).isEqualTo(123);
+				assertThat(payload.getSender()).isEqualTo("PINGPONG02");
+				assertThat(payload.getMessage()).isEqualTo("You got it to work!");
 				return requestMessage;
 			}
 		});
@@ -121,7 +118,7 @@ public class TcpServerCustomSerializerTest {
 			}
 
 			String response = str.toString();
-			assertEquals(sourceMessage, response);
+			assertThat(response).isEqualTo(sourceMessage);
 
 		}
 		catch (IOException e) {

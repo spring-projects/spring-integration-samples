@@ -16,18 +16,10 @@
 
 package org.springframework.integration.samples.mqtt;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.verify;
-import static org.springframework.integration.test.mock.MockIntegration.messageArgumentCaptor;
-import static org.springframework.integration.test.mock.MockIntegration.mockMessageHandler;
-
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
-import org.junit.ClassRule;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,7 +30,14 @@ import org.springframework.integration.test.context.SpringIntegrationTest;
 import org.springframework.messaging.Message;
 import org.springframework.messaging.MessageHandler;
 import org.springframework.messaging.support.GenericMessage;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.context.DynamicPropertyRegistry;
+import org.springframework.test.context.DynamicPropertySource;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.verify;
+import static org.springframework.integration.test.mock.MockIntegration.messageArgumentCaptor;
+import static org.springframework.integration.test.mock.MockIntegration.mockMessageHandler;
 
 /**
  * @author Gary Russell
@@ -46,19 +45,21 @@ import org.springframework.test.context.junit4.SpringRunner;
  * @since 5.2
  *
  */
-@RunWith(SpringRunner.class)
 @SpringBootTest
 @SpringIntegrationTest
-public class ApplicationTest {
-
-	@ClassRule
-	public static final BrokerRunning brokerRunning = BrokerRunning.isRunning(1883);
+public class ApplicationTest implements MosquittoContainerTest {
 
 	@Autowired
 	private MockIntegrationContext mockIntegrationContext;
 
 	@Autowired
 	private IntegrationFlow mqttOutFlow;
+
+	@DynamicPropertySource
+	static void mqttDbProperties(DynamicPropertyRegistry registry) {
+		registry.add("mqtt.url", MosquittoContainerTest::mqttUrl);
+	}
+
 
 	@Test
 	public void test() throws InterruptedException {

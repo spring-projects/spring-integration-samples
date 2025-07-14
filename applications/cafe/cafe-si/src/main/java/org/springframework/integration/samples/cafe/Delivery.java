@@ -16,33 +16,36 @@
 
 package org.springframework.integration.samples.cafe;
 
+import java.io.Serial;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * @author Marius Bogoevici
  * @author Tom McCuch
  * @author Gunnar Hillert
+ * @author Artem Bilan
  */
-public class Delivery implements Serializable{
+public class Delivery implements Serializable {
 
+	@Serial
 	private static final long serialVersionUID = 1L;
 
 	private static final String SEPARATOR = "-----------------------";
 
-	private List<Drink> deliveredDrinks;
+	private ArrayList<Drink> deliveredDrinks;
 
 	private int orderNumber;
 
 	// Default constructor required by Jackson Java JSON-processor
-	public Delivery() {}
-
-	public Delivery(List<Drink> deliveredDrinks) {
-		assert(deliveredDrinks.size() > 0);
-		this.deliveredDrinks = deliveredDrinks;
-		this.orderNumber = deliveredDrinks.get(0).getOrderNumber();
+	public Delivery() {
 	}
 
+	public Delivery(List<Drink> deliveredDrinks) {
+		this.deliveredDrinks = new ArrayList<>(deliveredDrinks);
+		this.orderNumber = deliveredDrinks.get(0).getOrderNumber();
+	}
 
 	public int getOrderNumber() {
 		return orderNumber;
@@ -57,13 +60,13 @@ public class Delivery implements Serializable{
 	}
 
 	public void setDeliveredDrinks(List<Drink> deliveredDrinks) {
-		this.deliveredDrinks = deliveredDrinks;
+		this.deliveredDrinks = new ArrayList<>(deliveredDrinks);
 	}
 
 	@Override
 	public String toString() {
-		StringBuffer buffer = new StringBuffer(SEPARATOR + "\n");
-		buffer.append("Order #" + getOrderNumber() + "\n");
+		StringBuilder buffer = new StringBuilder(SEPARATOR + "\n");
+		buffer.append("Order #").append(getOrderNumber()).append("\n");
 		for (Drink drink : getDeliveredDrinks()) {
 			buffer.append(drink);
 			buffer.append("\n");

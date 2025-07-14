@@ -16,6 +16,7 @@
 
 package org.springframework.integration.samples.cafe;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -25,18 +26,21 @@ import java.util.List;
  * @author Marius Bogoevici
  * @author Tom McCuch
  * @author Gunnar Hillert
+ * @author Artem Bilan
  */
-public class Order implements Serializable{
+public class Order implements Serializable {
 
+	@Serial
 	private static final long serialVersionUID = 1L;
 
-	private List<OrderItem> orderItems = new ArrayList<OrderItem>();
+	private ArrayList<OrderItem> orderItems = new ArrayList<>();
 
 	/** the order number used for tracking */
 	private int number;
 
 	// Default constructor required by Jackson Java JSON-processor
-	public Order() {}
+	public Order() {
+	}
 
 	public Order(int number) {
 		this.number = number;
@@ -59,6 +63,7 @@ public class Order implements Serializable{
 	}
 
 	public void setItems(List<OrderItem> orderItems) {
-		this.orderItems = orderItems;
+		this.orderItems = new ArrayList<>(orderItems);
 	}
+
 }

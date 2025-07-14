@@ -16,10 +16,7 @@
 
 package org.springframework.integration.samples.jpa;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-
-import java.util.Calendar;
+import java.time.LocalDate;
 import java.util.List;
 
 import org.junit.jupiter.api.Test;
@@ -28,6 +25,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.integration.samples.jpa.domain.Person;
 import org.springframework.integration.samples.jpa.service.PersonService;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 /**
  *
@@ -44,9 +44,7 @@ public class JpaTests {
 	@Test
 	public void insertPersonRecord() {
 		Person person = new Person();
-		Calendar createdDateTime = Calendar.getInstance();
-		createdDateTime.set(1980, Calendar.JANUARY, 1);
-		person.setCreatedDateTime(createdDateTime.getTime());
+		person.setCreatedDateTime(LocalDate.of(1980, 1, 1));
 		person.setName("Name Of The Person");
 
 		this.personService.createPerson(person);

@@ -45,6 +45,8 @@ import org.springframework.messaging.MessageChannel;
 import org.springframework.messaging.MessageHandler;
 import org.springframework.messaging.simp.SimpMessageHeaderAccessor;
 import org.springframework.messaging.support.GenericMessage;
+import org.springframework.web.socket.server.HandshakeHandler;
+import org.springframework.web.socket.server.support.DefaultHandshakeHandler;
 
 /**
  * @author Artem Bilan
@@ -63,14 +65,19 @@ public class Application {
 	}
 
 	@Bean
-	public ServerWebSocketContainer serverWebSocketContainer() {
-		return new ServerWebSocketContainer("/time").withSockJs();
+	public DefaultHandshakeHandler handshakeHandler() {
+		return new DefaultHandshakeHandler();
+	}
+
+	@Bean
+	public ServerWebSocketContainer serverWebSocketContainer(HandshakeHandler handshakeHandler) {
+		return new ServerWebSocketContainer("/time").setHandshakeHandler(handshakeHandler).withSockJs();
 	}
 
 	@Bean
 	@InboundChannelAdapter(value = "splitChannel", poller = @Poller(fixedDelay = "1000", maxMessagesPerPoll = "1"))
-	public MessageSource<?> webSocketSessionsMessageSource() {
-		return () -> new GenericMessage<>(serverWebSocketContainer().getSessions().keySet().iterator());
+	public MessageSource<?> webSocketSessionsMessageSource(ServerWebSocketContainer serverWebSocketContainer) {
+		return () -> new GenericMessage<>(serverWebSocketContainer.getSessions().keySet().iterator());
 	}
 
 	@Bean
@@ -120,8 +127,8 @@ public class Application {
 
 	@Bean
 	@ServiceActivator(inputChannel = "sendTimeChannel")
-	public MessageHandler webSocketOutboundAdapter() {
-		return new WebSocketOutboundMessageHandler(serverWebSocketContainer());
+	public MessageHandler webSocketOutboundAdapter(ServerWebSocketContainer serverWebSocketContainer) {
+		return new WebSocketOutboundMessageHandler(serverWebSocketContainer);
 	}
 
 	@Bean

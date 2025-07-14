@@ -16,23 +16,17 @@
 
 package org.springframework.integration.samples.advance.testing.jms;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-import static org.mockito.ArgumentMatchers.isNull;
-import static org.mockito.BDDMockito.willAnswer;
-import static org.mockito.BDDMockito.willReturn;
-import static org.mockito.Mockito.mock;
-
 import java.io.IOException;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicReference;
 
+import jakarta.jms.JMSException;
+import jakarta.jms.TextMessage;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.mockito.stubbing.Answer;
 
@@ -49,10 +43,13 @@ import org.springframework.messaging.SubscribableChannel;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.annotation.DirtiesContext.ClassMode;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 
-import jakarta.jms.JMSException;
-import jakarta.jms.TextMessage;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.ArgumentMatchers.isNull;
+import static org.mockito.BDDMockito.willAnswer;
+import static org.mockito.BDDMockito.willReturn;
+import static org.mockito.Mockito.mock;
 
 /**
  * @author David Turanski
@@ -60,7 +57,7 @@ import jakarta.jms.TextMessage;
  * @author Gary Russell
  * @author Artem Bilan
  */
-@RunWith(SpringJUnit4ClassRunner.class)
+@SpringJUnitConfig
 @ContextConfiguration
 @DirtiesContext(classMode = ClassMode.AFTER_EACH_TEST_METHOD)
 public class JmsMockTests {
@@ -87,8 +84,7 @@ public class JmsMockTests {
 	@Qualifier("invalidMessageChannel")
 	private SubscribableChannel invalidMessageChannel;
 
-
-	@Before
+	@BeforeEach
 	public void setup() throws JMSException {
 		Mockito.reset(this.mockJmsTemplate);
 		TextMessage message = mock(TextMessage.class);
@@ -99,7 +95,6 @@ public class JmsMockTests {
 		willReturn(message)
 				.given(this.mockJmsTemplate).receiveSelected(isNull());
 
-
 		willAnswer((Answer<String>) invocation -> testMessageHolder.get())
 				.given(message).getText();
 	}
@@ -107,10 +102,6 @@ public class JmsMockTests {
 	/**
 	 * This test verifies that a message received on a polling JMS inbound channel adapter is
 	 * routed to the designated channel and that the message payload is as expected
-	 *
-	 * @throws JMSException
-	 * @throws InterruptedException
-	 * @throws IOException
 	 */
 	@Test
 	public void testReceiveMessage() throws JMSException, InterruptedException, IOException {
@@ -120,20 +111,16 @@ public class JmsMockTests {
 
 					@Override
 					protected void verifyMessage(Message<?> message) {
-						assertEquals("hello", message.getPayload());
+						assertThat(message.getPayload()).isEqualTo("hello");
 					}
 				}
 		);
-		assertTrue("message not sent to expected output channel", sent);
+		assertThat(sent).as("message not sent to expected output channel").isTrue();
 	}
 
 	/**
 	 * This test verifies that a message received on a polling JMS inbound channel adapter is
 	 * routed to the errorChannel and that the message payload is the expected exception
-	 *
-	 * @throws JMSException
-	 * @throws IOException
-	 * @throws InterruptedException
 	 */
 	@Test
 	public void testReceiveInvalidMessage() throws JMSException, IOException, InterruptedException {
@@ -142,12 +129,12 @@ public class JmsMockTests {
 
 					@Override
 					protected void verifyMessage(Message<?> message) {
-						assertEquals("invalid payload", message.getPayload());
+						assertThat(message.getPayload()).isEqualTo("invalid payload");
 					}
 
 				}
 		);
-		assertTrue("message not sent to expected output channel", sent);
+		assertThat(sent).as("message not sent to expected output channel").isTrue();
 	}
 
 	/**
@@ -157,14 +144,12 @@ public class JmsMockTests {
 	 * @param expectedOutputChannel The expected output channel
 	 * @param handler An instance of CountDownHandler to handle (verify) the output message
 	 * @return true if the message was received on the expected channel
-	 * @throws JMSException
-	 * @throws InterruptedException
 	 */
 	protected boolean verifyJmsMessageReceivedOnOutputChannel(Object obj, SubscribableChannel expectedOutputChannel,
 			CountDownHandler handler) throws InterruptedException {
+
 		return verifyJmsMessageOnOutputChannel(obj, expectedOutputChannel, handler, 10000);
 	}
-
 
 	/**
 	 * Provide a message via a mock JMS template and wait for the specified timeout to receive the message
@@ -176,8 +161,6 @@ public class JmsMockTests {
 	 * to process the entire flow. Only set if the default is
 	 * not long enough
 	 * @return true if the message was received on the expected channel
-	 * @throws JMSException
-	 * @throws InterruptedException
 	 */
 	protected boolean verifyJmsMessageOnOutputChannel(Object obj, SubscribableChannel expectedOutputChannel,
 			CountDownHandler handler, int timeoutMillisec) throws InterruptedException {
@@ -194,7 +177,6 @@ public class JmsMockTests {
 		this.testMessageHolder.set((String) obj);
 		CountDownLatch latch = new CountDownLatch(1);
 		handler.setLatch(latch);
-
 
 		expectedOutputChannel.subscribe(handler);
 
@@ -213,7 +195,7 @@ public class JmsMockTests {
 	/*
 	 * A MessageHandler that uses a CountDownLatch to synchronize with the calling thread
 	 */
-	private abstract class CountDownHandler implements MessageHandler {
+	private abstract static class CountDownHandler implements MessageHandler {
 
 		CountDownLatch latch;
 

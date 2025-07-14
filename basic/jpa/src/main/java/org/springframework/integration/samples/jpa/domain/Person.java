@@ -16,7 +16,7 @@
 
 package org.springframework.integration.samples.jpa.domain;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -24,8 +24,6 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-import jakarta.persistence.Temporal;
-import jakarta.persistence.TemporalType;
 
 /**
  * A simple POJO representing a Person.
@@ -44,17 +42,16 @@ public class Person {
 
 	private String name;
 
-	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "CREATED_DATE_TIME")
-	private Date createdDateTime;
+	private LocalDate createdDateTime;
 
 	public Person() {
-		this.createdDateTime = new Date();
+		this.createdDateTime = LocalDate.now();
 	}
 
 	public Person(String name) {
 		this.name = name;
-		this.createdDateTime = new Date();
+		this.createdDateTime = LocalDate.now();
 	}
 
 	public int getId() {
@@ -73,11 +70,11 @@ public class Person {
 		this.name = name;
 	}
 
-	public Date getCreatedDateTime() {
+	public LocalDate getCreatedDateTime() {
 		return createdDateTime;
 	}
 
-	public void setCreatedDateTime(Date createdDateTime) {
+	public void setCreatedDateTime(LocalDate createdDateTime) {
 		this.createdDateTime = createdDateTime;
 	}
 
@@ -102,14 +99,9 @@ public class Person {
 		}
 		Person other = (Person) obj;
 		if (name == null) {
-			if (other.name != null) {
-				return false;
-			}
+			return other.name == null;
 		}
-		else if (!name.equals(other.name)) {
-			return false;
-		}
-		return true;
+		else return name.equals(other.name);
 	}
 
 }

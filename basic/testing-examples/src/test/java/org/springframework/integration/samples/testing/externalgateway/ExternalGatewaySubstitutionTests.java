@@ -15,42 +15,38 @@
  */
 package org.springframework.integration.samples.testing.externalgateway;
 
-import static org.junit.Assert.assertEquals;
-
 import java.util.Collections;
-import java.util.Iterator;
 import java.util.List;
 
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.junit.jupiter.api.Test;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Shows how to stub-out external outbound-gateways with service activators
  * enabling isolated and repeatable testing.
- * 
+ *
  * @author Gary Russell
+ * @author Artem Bilan
+ *
  * @since 2.0.2
  *
  */
-@ContextConfiguration // default context name is <ClassName>-context.xml
-@RunWith(SpringJUnit4ClassRunner.class)
+@SpringJUnitConfig
 public class ExternalGatewaySubstitutionTests {
-	
+
 	@Autowired
 	WeatherAndTraffic weatherAndTraffic;
-	
+
 	@Test
 	public void doTest() {
-		List<String> results = weatherAndTraffic.getByZip("12345");
-		assertEquals(2, results.size());
+		List<String> results = this.weatherAndTraffic.getByZip("12345");
 		Collections.sort(results);
-		Iterator<String> result = results.iterator();
-		assertEquals("Dummy traffic for zip:12345", result.next());
-		assertEquals("Dummy weather for zip:12345", result.next());
+		assertThat(results)
+				.containsExactly("Dummy traffic for zip:12345", "Dummy weather for zip:12345");
 	}
 
 }

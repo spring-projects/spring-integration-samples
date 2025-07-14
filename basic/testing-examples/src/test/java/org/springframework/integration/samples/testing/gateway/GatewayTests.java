@@ -15,20 +15,18 @@
  */
 package org.springframework.integration.samples.testing.gateway;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.junit.Assert.assertNotNull;
-import static org.springframework.integration.test.matcher.HeaderMatcher.hasHeader;
-import static org.springframework.integration.test.matcher.PayloadMatcher.hasPayload;
+import org.assertj.core.api.HamcrestCondition;
+import org.junit.jupiter.api.Test;
 
-import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.messaging.Message;
 import org.springframework.integration.channel.QueueChannel;
 import org.springframework.integration.file.FileHeaders;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.messaging.Message;
+import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.springframework.integration.test.matcher.HeaderMatcher.hasHeader;
+import static org.springframework.integration.test.matcher.PayloadMatcher.hasPayload;
 
 /**
  *
@@ -41,11 +39,12 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
  * facilitate easy testing.
  *
  * @author Gary Russell
+ * @author Artem Bilan
+ *
  * @since 2.0.2
  *
  */
-@ContextConfiguration	// default context name is <ClassName>-context.xml
-@RunWith(SpringJUnit4ClassRunner.class)
+@SpringJUnitConfig
 public class GatewayTests {
 
 	@Autowired
@@ -60,9 +59,10 @@ public class GatewayTests {
 		String fileName = "abc.txt";
 		gateway.process(payload, fileName);
 		Message<?> inMessage = testChannel.receive(0);
-		assertNotNull("Expected a message", inMessage);
-		assertThat(inMessage, hasPayload(payload));
-		assertThat(inMessage, hasHeader("configuredHeader", "abc"));
-		assertThat(inMessage, hasHeader(FileHeaders.FILENAME, fileName));
+		assertThat(inMessage)
+				.is(new HamcrestCondition<>(hasPayload(payload)))
+				.is(new HamcrestCondition<>(hasHeader("configuredHeader", "abc")))
+				.is(new HamcrestCondition<>(hasHeader(FileHeaders.FILENAME, fileName)));
 	}
+
 }

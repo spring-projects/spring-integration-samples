@@ -68,7 +68,6 @@ class TcpAsyncBiDirectionalApplicationTests {
 		this.serverIn.addInterceptor(new ChannelInterceptor() {
 
 			@Override
-			@Nullable
 			public Message<?> preSend(Message<?> message, MessageChannel channel) {
 				serverLatch.countDown();
 				return message;
@@ -78,7 +77,6 @@ class TcpAsyncBiDirectionalApplicationTests {
 		this.client1In.addInterceptor(new ChannelInterceptor() {
 
 			@Override
-			@Nullable
 			public Message<?> preSend(Message<?> message, MessageChannel channel) {
 				client1Latch.countDown();
 				return message;
@@ -88,7 +86,6 @@ class TcpAsyncBiDirectionalApplicationTests {
 		this.client2In.addInterceptor(new ChannelInterceptor() {
 
 			@Override
-			@Nullable
 			public Message<?> preSend(Message<?> message, MessageChannel channel) {
 				client2Latch.countDown();
 				return message;

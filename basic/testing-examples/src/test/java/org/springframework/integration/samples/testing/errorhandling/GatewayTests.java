@@ -15,24 +15,19 @@
  */
 package org.springframework.integration.samples.testing.errorhandling;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
+import org.junit.jupiter.api.Test;
 
-import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.messaging.Message;
-import org.springframework.messaging.MessageHandlingException;
-import org.springframework.messaging.MessagingException;
 import org.springframework.integration.channel.QueueChannel;
 import org.springframework.integration.samples.testing.gateway.VoidGateway;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.messaging.Message;
+import org.springframework.messaging.MessageHandlingException;
+import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * 
+ *
  * Shows how to test a gateway to ensure the message injected
  * into the Spring Integration flow is what we expected.
  * The gateway uses a direct input channel. The configuration would
@@ -40,30 +35,34 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
  * it has no subscribers outside the context of a larger flow. So, 
  * in this test case, we bridge it to a {@link QueueChannel} to
  * facilitate easy testing.
- * 
+ *
  * @author Gary Russell
+ * @author Artem Bilan
+ *
  * @since 2.0.2
  *
  */
-@ContextConfiguration	// default context name is <ClassName>-context.xml
-@RunWith(SpringJUnit4ClassRunner.class)
+@SpringJUnitConfig
 public class GatewayTests {
-	
+
 	@Autowired
 	QueueChannel testChannel;
-	
+
 	@Autowired
 	VoidGateway gateway;
-	
+
 	@Test
 	public void testTrueHeader() {
 		String payload = "XXXABCXXX";
 		String fileName = "abc.txt";
 		gateway.process(payload, fileName);
 		Message<?> errorMessage = testChannel.receive(0);
-		assertNotNull("Expected an error message", errorMessage);
-		assertEquals(payload, ((MessagingException) errorMessage.getPayload()).getFailedMessage().getPayload());
-		Throwable cause = ((MessagingException) errorMessage.getPayload()).getCause();
-		assertTrue("Expected exception, got:" + cause, cause instanceof MessageHandlingException);
+		assertThat(errorMessage)
+				.extracting("payload.failedMessage.payload")
+				.isEqualTo(payload);
+		assertThat(errorMessage)
+				.extracting("payload.cause")
+				.isInstanceOf(MessageHandlingException.class);
 	}
+
 }

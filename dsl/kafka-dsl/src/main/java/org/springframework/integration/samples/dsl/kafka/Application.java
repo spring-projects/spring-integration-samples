@@ -24,7 +24,7 @@ import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.WebApplicationType;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.autoconfigure.kafka.KafkaProperties;
+import org.springframework.boot.kafka.autoconfigure.KafkaProperties;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.ConfigurableApplicationContext;
@@ -137,7 +137,7 @@ public class Application {
 	private KafkaProperties kafkaProperties;
 
 	public void addAnotherListenerForTopics(String... topics) {
-		Map<String, Object> consumerProperties = kafkaProperties.buildConsumerProperties(null);
+		Map<String, Object> consumerProperties = kafkaProperties.buildConsumerProperties();
 		// change the group id, so we don't revoke the other partitions.
 		consumerProperties.put(ConsumerConfig.GROUP_ID_CONFIG,
 				consumerProperties.get(ConsumerConfig.GROUP_ID_CONFIG) + "x");

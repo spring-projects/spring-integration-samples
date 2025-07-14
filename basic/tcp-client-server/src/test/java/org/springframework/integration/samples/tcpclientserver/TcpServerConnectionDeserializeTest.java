@@ -16,13 +16,10 @@
 
 package org.springframework.integration.samples.tcpclientserver;
 
-import static org.junit.Assert.assertEquals;
-
 import java.io.StringWriter;
 
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -37,8 +34,9 @@ import org.springframework.messaging.Message;
 import org.springframework.messaging.MessageChannel;
 import org.springframework.messaging.SubscribableChannel;
 import org.springframework.test.annotation.DirtiesContext;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Shows an example of using the Stx/Etx stream framing serializers that are included with
@@ -52,8 +50,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
  * @author Gunnar Hillert
  * @author Artem Bilan
  */
-@RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration("/META-INF/spring/integration/tcpServerConnectionDeserialize-context.xml")
+@SpringJUnitConfig(locations = "/META-INF/spring/integration/tcpServerConnectionDeserialize-context.xml")
 @DirtiesContext
 @SpringIntegrationTest(noAutoStartup = "outGateway")
 public class TcpServerConnectionDeserializeTest {
@@ -74,8 +71,7 @@ public class TcpServerConnectionDeserializeTest {
 	@Autowired
 	AbstractEndpoint outGateway;
 
-
-	@Before
+	@BeforeEach
 	public void setup() {
 		if (!this.outGateway.isRunning()) {
 			TestingUtilities.waitListening(this.crLfServer, 10000L);
@@ -100,7 +96,7 @@ public class TcpServerConnectionDeserializeTest {
 				// we assert during the processing of the messaging that the
 				// payload is just the content we wanted to send without the
 				// framing bytes (STX/ETX)
-				assertEquals("Hello World!", new String(payload));
+				assertThat(payload).asString().isEqualTo("Hello World!");
 				return requestMessage;
 			}
 		});
@@ -108,15 +104,13 @@ public class TcpServerConnectionDeserializeTest {
 		String sourceMessage = wrapWithStxEtx("Hello World!");
 		String result = gw.send(sourceMessage);
 		System.out.println(result);
-		assertEquals("Hello World!", result);
+		assertThat(result).isEqualTo("Hello World!");
 	}
 
 	/**
 	 * Show, explicitly, how the stream would look if you had to manually create it.
-	 *
 	 * See more about TCP synchronous communication for more about framing the stream
 	 * with STX/ETX:  https://en.wikipedia.org/wiki/Binary_Synchronous_Communications
-	 *
 	 * @param content
 	 * @return a string that is wrapped with the STX/ETX framing bytes
 	 */

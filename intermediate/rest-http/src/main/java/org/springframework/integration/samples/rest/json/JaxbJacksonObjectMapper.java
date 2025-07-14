@@ -41,6 +41,7 @@ public class JaxbJacksonObjectMapper extends ObjectMapper {
 	 * Annotation introspector to use for serialization process
 	 * is configured separately for serialization and deserialization purposes
 	 */
+	@SuppressWarnings("this-escape")
 	public JaxbJacksonObjectMapper() {
 		  final AnnotationIntrospector introspector
 		      = new JacksonAnnotationIntrospector();

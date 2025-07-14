@@ -1,15 +1,20 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<beans xmlns="http://www.springframework.org/schema/beans" xmlns:aop="http://www.springframework.org/schema/aop" xmlns:context="http://www.springframework.org/schema/context" xmlns:jee="http://www.springframework.org/schema/jee" xmlns:tx="http://www.springframework.org/schema/tx" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.springframework.org/schema/aop https://www.springframework.org/schema/aop/spring-aop.xsd   http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd   http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd   http://www.springframework.org/schema/jee https://www.springframework.org/schema/jee/spring-jee.xsd   http://www.springframework.org/schema/tx https://www.springframework.org/schema/tx/spring-tx.xsd">
+<beans xmlns="http://www.springframework.org/schema/beans"
+	   xmlns:context="http://www.springframework.org/schema/context"
+	   xmlns:tx="http://www.springframework.org/schema/tx"
+	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   xsi:schemaLocation="http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd   http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd       http://www.springframework.org/schema/tx https://www.springframework.org/schema/tx/spring-tx.xsd">
+
 	<import resource="integrationContext.xml"/>
-    <!--
+	<!--
 		This will automatically locate any and all property files you have
 		within your classpath, provided they fall under the META-INF/spring
 		directory. The located property files are parsed and their values can
 		then be used within application context files in the form of
 		${propertyKey}.
 	-->
-    <context:property-placeholder location="classpath*:META-INF/spring/*.properties"/>
-    <!--
+	<context:property-placeholder location="classpath*:META-INF/spring/*.properties"/>
+	<!--
 		Turn on AspectJ @Configurable support. As a result, any time you
 		instantiate an object, Spring will attempt to perform dependency
 		injection on that object. This occurs for instantiation via the "new"
@@ -22,8 +27,8 @@
 		method). Roo applications use this useful feature in a number of
 		areas, such as @PersistenceContext injection into entities.
 	-->
-    <context:spring-configured/>
-    <!--
+	<context:spring-configured/>
+	<!--
 		This declaration will cause Spring to locate every @Component,
 		@Repository and @Service in your application. In practical terms this
 		allows you to write a POJO and then simply annotate the new POJO as an
@@ -44,22 +49,31 @@
 		The most commonly used annotation is @Autowired, which instructs Spring to
 		dependency inject an object into your class.
 	-->
-    <context:component-scan base-package="org.springframework.integration.samples.loanbroker.loanshark">
-        <context:exclude-filter expression=".*_Roo_.*" type="regex"/>
-        <context:exclude-filter expression=".*TestAccumulator.*" type="regex"/>
-        <context:exclude-filter expression="org.springframework.stereotype.Controller" type="annotation"/>
-    </context:component-scan>
-    <bean class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close" id="dataSource">
-        <property name="driverClassName" value="${database.driverClassName}"/>
-        <property name="url" value="${database.url}"/>
-        <property name="username" value="${database.username}"/>
-        <property name="password" value="${database.password}"/>
-    </bean>
-    <bean class="org.springframework.orm.jpa.JpaTransactionManager" id="transactionManager">
-        <property name="entityManagerFactory" ref="entityManagerFactory"/>
-    </bean>
-    <tx:annotation-driven mode="aspectj" transaction-manager="transactionManager"/>
-    <bean class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean" id="entityManagerFactory">
-        <property name="dataSource" ref="dataSource"/>
-    </bean>
+	<context:component-scan base-package="org.springframework.integration.samples.loanbroker.loanshark">
+		<context:exclude-filter expression=".*_Roo_.*" type="regex"/>
+		<context:exclude-filter expression=".*TestAccumulator.*" type="regex"/>
+		<context:exclude-filter expression="org.springframework.stereotype.Controller" type="annotation"/>
+	</context:component-scan>
+
+	<bean class="org.apache.commons.dbcp2.BasicDataSource" destroy-method="close" id="dataSource">
+		<property name="driverClassName" value="${database.driverClassName}"/>
+		<property name="url" value="${database.url}"/>
+		<property name="username" value="${database.username}"/>
+		<property name="password" value="${database.password}"/>
+	</bean>
+
+	<bean class="org.springframework.orm.jpa.JpaTransactionManager" id="transactionManager">
+		<property name="entityManagerFactory" ref="entityManagerFactory"/>
+	</bean>
+
+	<tx:annotation-driven mode="aspectj" transaction-manager="transactionManager"/>
+
+	<bean class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean" id="entityManagerFactory">
+		<property name="dataSource" ref="dataSource"/>
+		<property name="persistenceUnitName" value="persistenceUnit"/>
+		<property name="jpaVendorAdapter">
+			<bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter"/>
+		</property>
+	</bean>
+
 </beans>

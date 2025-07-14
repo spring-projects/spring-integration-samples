@@ -13,27 +13,25 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.springframework.integration.samples.testing.aggregator;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.springframework.integration.test.matcher.PayloadMatcher.hasPayload;
+package org.springframework.integration.samples.testing.aggregator;
 
 import java.util.List;
 
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.assertj.core.api.HamcrestCondition;
+import org.junit.jupiter.api.Test;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.messaging.Message;
-import org.springframework.messaging.MessageChannel;
 import org.springframework.integration.channel.QueueChannel;
 import org.springframework.integration.samples.testing.splitter.CommaDelimitedSplitter;
 import org.springframework.integration.support.MessageBuilder;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.messaging.Message;
+import org.springframework.messaging.MessageChannel;
+import org.springframework.test.annotation.DirtiesContext;
+import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.springframework.integration.test.matcher.PayloadMatcher.hasPayload;
 
 /**
  *
@@ -46,11 +44,13 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
  * facilitate easy testing.
  *
  * @author Gary Russell
+ * @author Artem Bilan
+ *
  * @since 2.0.2
  *
  */
-@ContextConfiguration	// default context name is <ClassName>-context.xml
-@RunWith(SpringJUnit4ClassRunner.class)
+@SpringJUnitConfig
+@DirtiesContext
 public class CommaDelimitedAggregatorTests {
 
 	@Autowired
@@ -63,64 +63,62 @@ public class CommaDelimitedAggregatorTests {
 	public void unitTestClass3() {
 		List<String> splits = new CommaDelimitedSplitter().split("   a    , b,    c ");
 		String out = new CommaDelimitedAggregator().aggregate(splits);
-		assertEquals("a,b,c", out);
+		assertThat(out).isEqualTo("a,b,c");
 	}
 
 	@Test
 	public void unitTestClass2() {
 		List<String> splits = new CommaDelimitedSplitter().split("   a    ,,    c ");
 		String out = new CommaDelimitedAggregator().aggregate(splits);
-		assertEquals("a,c", out);
+		assertThat(out).isEqualTo("a,c");
 	}
 
 	@Test
 	public void unitTestClass0() {
 		List<String> splits = new CommaDelimitedSplitter().split(",,, ,,    ,,  ,,");
 		String out = new CommaDelimitedAggregator().aggregate(splits);
-		assertNull(out);
+		assertThat(out).isNull();
 	}
 
 	@Test
 	public void testOne() {
 		inputChannel.send(MessageBuilder.withPayload("   a   ").build());
 		Message<?> outMessage = testChannel.receive(0);
-		assertNotNull(outMessage);
-		assertThat(outMessage, hasPayload("A"));
+		assertThat(outMessage).is(new HamcrestCondition<>(hasPayload("A")));
 		outMessage = testChannel.receive(0);
-		assertNull("Only one message expected", outMessage);
+		assertThat(outMessage).isNull();
 	}
 
 	@Test
 	public void testTwo() {
 		inputChannel.send(MessageBuilder.withPayload("   a ,z  ").build());
 		Message<?> outMessage = testChannel.receive(0);
-		assertNotNull(outMessage);
-		assertThat(outMessage, hasPayload("A,Z"));
+		assertThat(outMessage).is(new HamcrestCondition<>(hasPayload("A,Z")));
 		outMessage = testChannel.receive(0);
-		assertNull("Only one message expected", outMessage);
+		assertThat(outMessage).isNull();
 	}
 
 	@Test
 	public void testSkipEmpty() {
 		inputChannel.send(MessageBuilder.withPayload("   a ,,z  ").build());
 		Message<?> outMessage = testChannel.receive(0);
-		assertNotNull(outMessage);
-		assertThat(outMessage, hasPayload("A,Z"));
+		assertThat(outMessage).is(new HamcrestCondition<>(hasPayload("A,Z")));
 		outMessage = testChannel.receive(0);
-		assertNull("Only one message expected", outMessage);
+		assertThat(outMessage).isNull();
 	}
 
 	@Test
 	public void testNone() {
 		inputChannel.send(MessageBuilder.withPayload("  ,, ,,, ,,,,, ,,,,,,,  ").build());
 		Message<?> outMessage = testChannel.receive(0);
-		assertNull("No messages expected", outMessage);
+		assertThat(outMessage).isNull();
 	}
 
 	@Test
 	public void testEmpty() {
 		inputChannel.send(MessageBuilder.withPayload("").build());
 		Message<?> outMessage = testChannel.receive(0);
-		assertNull("No messages expected", outMessage);
+		assertThat(outMessage).isNull();
 	}
+
 }

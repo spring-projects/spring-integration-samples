@@ -20,6 +20,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.eclipse.paho.client.mqttv3.MqttConnectOptions;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
@@ -53,34 +54,35 @@ public class Application {
 	 */
 	public static void main(final String... args) {
 
-		LOGGER.info("\n========================================================="
-				+ "\n                                                         "
-				+ "\n          Welcome to Spring Integration!                 "
-				+ "\n                                                         "
-				+ "\n    For more information please visit:                   "
-				+ "\n    https://spring.io/projects/spring-integration        "
-				+ "\n                                                         "
-				+ "\n=========================================================");
+		LOGGER.info("""
+				=========================================================\
+				          Welcome to Spring Integration!                 \
+				
+				    For more information please visit:                   \
+				
+				    https://spring.io/projects/spring-integration        \
+				                                                         \
+				=========================================================""");
 
-		LOGGER.info("\n========================================================="
-				+ "\n                                                          "
-				+ "\n    This is the MQTT Sample -                             "
-				+ "\n                                                          "
-				+ "\n    Please enter some text and press return. The entered  "
-				+ "\n    Message will be sent to the configured MQTT topic,    "
-				+ "\n    then again immediately retrieved from the Message     "
-				+ "\n    Broker and ultimately printed to the command line.    "
-				+ "\n                                                          "
-				+ "\n=========================================================");
+		LOGGER.info("""
+				=========================================================\
+				    This is the MQTT Sample -                             \
+				
+				    Please enter some text and press return. The entered  \
+				    Message will be sent to the configured MQTT topic,    \
+				    then again immediately retrieved from the Message     \
+				    Broker and ultimately printed to the command line.    \
+				
+				=========================================================""");
 
 		SpringApplication.run(Application.class, args);
 	}
 
 	@Bean
-	public MqttPahoClientFactory mqttClientFactory() {
+	public MqttPahoClientFactory mqttClientFactory(@Value("${mqtt.url}") String mqttUrl) {
 		DefaultMqttPahoClientFactory factory = new DefaultMqttPahoClientFactory();
 		MqttConnectOptions options = new MqttConnectOptions();
-		options.setServerURIs(new String[]{ "tcp://localhost:1883" });
+		options.setServerURIs(new String[] {mqttUrl});
 		options.setUserName("guest");
 		options.setPassword("guest".toCharArray());
 		factory.setConnectionOptions(options);
@@ -90,17 +92,17 @@ public class Application {
 	// publisher
 
 	@Bean
-	public IntegrationFlow mqttOutFlow() {
+	public IntegrationFlow mqttOutFlow(MessageHandler mqttOutbound) {
 		return IntegrationFlow.from(CharacterStreamReadingMessageSource.stdin(),
 						e -> e.poller(Pollers.fixedDelay(1000)))
 				.transform(p -> p + " sent to MQTT")
-				.handle(mqttOutbound())
+				.handle(mqttOutbound)
 				.get();
 	}
 
 	@Bean
-	public MessageHandler mqttOutbound() {
-		MqttPahoMessageHandler messageHandler = new MqttPahoMessageHandler("siSamplePublisher", mqttClientFactory());
+	public MessageHandler mqttOutbound(MqttPahoClientFactory mqttClientFactory) {
+		MqttPahoMessageHandler messageHandler = new MqttPahoMessageHandler("siSamplePublisher", mqttClientFactory);
 		messageHandler.setAsync(true);
 		messageHandler.setDefaultTopic("siSampleTopic");
 		return messageHandler;
@@ -109,8 +111,8 @@ public class Application {
 	// consumer
 
 	@Bean
-	public IntegrationFlow mqttInFlow() {
-		return IntegrationFlow.from(mqttInbound())
+	public IntegrationFlow mqttInFlow(MessageProducerSupport mqttInbound) {
+		return IntegrationFlow.from(mqttInbound)
 				.transform(p -> p + ", received from MQTT")
 				.handle(logger())
 				.get();
@@ -123,9 +125,9 @@ public class Application {
 	}
 
 	@Bean
-	public MessageProducerSupport mqttInbound() {
+	public MessageProducerSupport mqttInbound(MqttPahoClientFactory mqttClientFactory) {
 		MqttPahoMessageDrivenChannelAdapter adapter = new MqttPahoMessageDrivenChannelAdapter("siSampleConsumer",
-				mqttClientFactory(), "siSampleTopic");
+				mqttClientFactory, "siSampleTopic");
 		adapter.setCompletionTimeout(5000);
 		adapter.setConverter(new DefaultPahoMessageConverter());
 		adapter.setQos(1);

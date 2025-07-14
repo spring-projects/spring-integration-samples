@@ -16,10 +16,7 @@
 
 package org.springframework.integration.samples.async.gateway;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.greaterThanOrEqualTo;
-import static org.junit.Assert.assertTrue;
-
+import java.util.Objects;
 import java.util.Random;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
@@ -27,8 +24,6 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.junit.Test;
-import org.junit.runner.RunWith;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -43,18 +38,22 @@ import org.springframework.integration.annotation.ServiceActivator;
 import org.springframework.integration.config.EnableIntegration;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 
+import org.junit.jupiter.api.Test;
 import reactor.core.publisher.Mono;
 import reactor.core.scheduler.Schedulers;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * @author Oleg Zhurakousky
  * @author Gary Russell
+ * @author Artem Bilan
  *
  */
 @ContextConfiguration(classes = MonoGatewayTests.TestConfig.class)
-@RunWith(SpringJUnit4ClassRunner.class)
+@SpringJUnitConfig
 @DirtiesContext
 public class MonoGatewayTests {
 
@@ -80,7 +79,7 @@ public class MonoGatewayTests {
 			final int number = numbers[i];
 			gateway.multiplyByTwo(number)
 					.subscribeOn(Schedulers.boundedElastic())
-					.filter(p -> p != null)
+					.filter(Objects::nonNull)
 					.doOnNext(result1 -> {
 						logger.info("Result of multiplication of " + number + " by 2 is " + result1);
 						latch.countDown();
@@ -90,8 +89,8 @@ public class MonoGatewayTests {
 						logger.error("Unexpected exception for " + number, t);
 					}).subscribe();
 		}
-		assertTrue(latch.await(60, TimeUnit.SECONDS));
-		assertThat(failures.get(), greaterThanOrEqualTo(0));
+		assertThat(latch.await(60, TimeUnit.SECONDS)).isTrue();
+		assertThat(failures.get()).isGreaterThanOrEqualTo(0);
 		logger.info("Finished");
 	}
 

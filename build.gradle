@@ -6,7 +6,7 @@ buildscript {
 		maven { url 'https://repo.spring.io/snapshot' }
 	}
 	dependencies {
-		classpath 'io.spring.gradle:dependency-management-plugin:1.1.5'
+		classpath 'io.spring.gradle:dependency-management-plugin:1.1.7'
 		classpath "org.springframework.boot:spring-boot-gradle-plugin:$springBootVersion"
 		classpath 'org.gretty:gretty:4.0.3'
 	}
@@ -30,7 +30,6 @@ allprojects {
 	group = 'org.springframework.integration.samples'
 
 	repositories {
-		mavenLocal()
 		mavenCentral()
 		maven { url 'https://repo.spring.io/milestone' }
 		maven { url 'https://repo.spring.io/snapshot' }
@@ -213,52 +212,52 @@ subprojects { subproject ->
 
 		ext {
 			artemisVersion = '2.41.0'
-			aspectjVersion = '1.9.22.1'
+			aspectjVersion = '1.9.24'
 			commonsDigesterVersion = '2.1'
-			commonsDbcpVersion = '2.12.0'
+			commonsDbcpVersion = '2.13.0'
 			commonsFileUploadVersion = '1.6.0'
-			commonsIoVersion = '2.16.1'
-			commonsLangVersion = '3.12.0'
-			commonsPoolVersion = '2.11.1'
-			c3p0Version = '0.9.5.5'
+			commonsIoVersion = '2.19.0'
+			commonsLangVersion = '3.18.0'
+			commonsPoolVersion = '2.12.1'
+			c3p0Version = '0.11.2'
 			derbyVersion = '10.16.1.1'
 			hamcrestVersion = '2.2'
-			hibernateVersion = '6.5.2.Final'
-			hibernateValidatorVersion = '8.0.0.Final'
-			ftpServerVersion = '1.2.0'
-			flexjsonVersion = '2.0'
-			graalvmVersion = '24.0.2'
-			groovyVersion = '4.0.23'
-			hsqldbVersion = '2.7.3'
-			h2Version = '2.2.224'
-			jacksonVersion = '2.18.0'
+			hibernateVersion = '7.0.4.Final'
+			hibernateValidatorVersion = '9.0.1.Final'
+			ftpServerVersion = '1.2.1'
+			flexjsonVersion = '3.3'
+			graalvmVersion = '24.2.1'
+			groovyVersion = '4.0.27'
+			hsqldbVersion = '2.7.4'
+			h2Version = '2.3.232'
+			jacksonVersion = '2.19.1'
+			jackson3Version = '3.0.0-rc5'
 			jaxbVersion = '4.0.5'
-			jodaTimeVersion = '1.6'
-			jtaVersion = '2.0.0'
-			jtdsVersion = '1.2.6'
+			jodaTimeVersion = '2.14.0'
+			jtaVersion = '2.0.1'
+			jtdsVersion = '1.3.1'
 			jmsApiVersion = '3.1.0'
-			jrubyVersion = '9.4.7.0'
-			jpaApiVersion = '3.1.0'
+			jrubyVersion = '10.0.0.1'
+			jpaApiVersion = '3.2.0'
 			jstlVersion = '1.2'
 			junitVersion = '4.13.2'
-			junitJupiterVersion = '5.11.1'
-			log4jVersion = '2.23.1'
+			junitJupiterVersion = '5.12.2'
+			log4jVersion = '2.24.3'
 			mailVersion = '2.0.3'
-			mockitoVersion = '5.12.0'
-			mongoDriverVersion = '5.1.1'
-			openJpaVersion = '2.4.0'
-			oracleDriverVersion = '23.3.0.23.09'
-			postgresVersion = '42.7.3'
-			slf4jVersion = '1.7.30'
-			springCloudVersion = '2024.0.0'
-			springIntegrationVersion = '6.5.0-SNAPSHOT'
+			mockitoVersion = '5.18.0'
+			mongoDriverVersion = '5.5.1'
+			oracleDriverVersion = '23.8.0.25.04'
+			postgresVersion = '42.7.7'
+			slf4jVersion = '2.0.17'
+			springCloudVersion = '2025.0.0'
+			springIntegrationVersion = '7.0.0-SNAPSHOT'
 			set('spring-integration.version', "$springIntegrationVersion")
 			springIntegrationSocialTwiterVersion = '1.0.1.BUILD-SNAPSHOT'
 			springIntegrationSplunkVersion = '1.2.0.BUILD-SNAPSHOT'
-			springVersion = '6.2.1'
-			springSecurityVersion = '6.5.0-SNAPSHOT'
+			springVersion = '7.0.0-SNAPSHOT'
+			springSecurityVersion = '7.0.0-SNAPSHOT'
 			springWebFlowVersion = '3.0.0'
-			testcontainersVersion = '1.19.8'
+			testcontainersVersion = '1.21.3'
 			tilesJspVersion = '2.2.1'
 		}
 
@@ -271,6 +270,7 @@ subprojects { subproject ->
 				mavenBom "org.springframework.integration:spring-integration-bom:$springIntegrationVersion"
 				mavenBom "org.springframework:spring-framework-bom:$springVersion"
 				mavenBom "com.fasterxml.jackson:jackson-bom:$jacksonVersion"
+				mavenBom "tools.jackson:jackson-bom:$jackson3Version"
 				mavenBom "org.junit:junit-bom:$junitJupiterVersion"
 			}
 		}
@@ -441,12 +441,14 @@ project('loanshark') {
 		api "jakarta.transaction:jakarta.transaction-api:$jtaVersion"
 		api "org.hsqldb:hsqldb:$hsqldbVersion"
 		api "net.sf.flexjson:flexjson:$flexjsonVersion"
-		api "org.hibernate:hibernate-validator:$hibernateValidatorVersion"
+		api "org.hibernate.validator:hibernate-validator:$hibernateValidatorVersion"
 		api "jakarta.persistence:jakarta.persistence-api:$jpaApiVersion"
 		api "org.hibernate.orm:hibernate-core:$hibernateVersion"
 		api "org.springframework.webflow:spring-js-resources:$springWebFlowVersion"
 		api "org.slf4j:slf4j-api:$slf4jVersion"
 
+
+		runtimeOnly 'org.glassfish.expressly:expressly:6.0.0'
 		runtimeOnly "org.apache.logging.log4j:log4j-core:$log4jVersion"
 		runtimeOnly "org.slf4j:slf4j-log4j12:$slf4jVersion"
 		runtimeOnly "org.slf4j:jcl-over-slf4j:$slf4jVersion"
@@ -642,6 +644,7 @@ project('kafka') {
 
 	dependencies {
 		api 'org.springframework.boot:spring-boot-starter-integration'
+		api 'org.springframework.boot:spring-boot-kafka'
 		api('org.springframework.integration:spring-integration-kafka') {
 			exclude group: 'org.slf4j'
 		}
@@ -675,6 +678,7 @@ project('mqtt') {
 
 		testImplementation 'org.springframework.boot:spring-boot-starter-test'
 		testImplementation "org.springframework.integration:spring-integration-test"
+		testImplementation "org.testcontainers:junit-jupiter:$testcontainersVersion"
 	}
 
 	springBoot {
@@ -1387,6 +1391,7 @@ project('web-sockets') {
 
 	dependencies {
 		api 'org.springframework.boot:spring-boot-starter-websocket'
+		api 'org.springframework.boot:spring-boot-integration'
 		api "org.springframework.integration:spring-integration-websocket"
 
 		testImplementation 'org.springframework.boot:spring-boot-starter-test'
@@ -1431,6 +1436,7 @@ project('kafka-dsl') {
 
 	dependencies {
 		api 'org.springframework.boot:spring-boot-starter-integration'
+		api 'org.springframework.boot:spring-boot-kafka'
 		api 'org.springframework.integration:spring-integration-core'
 		api 'org.springframework.integration:spring-integration-kafka'
 		api "org.apache.logging.log4j:log4j-core:$log4jVersion"
@@ -1458,6 +1464,7 @@ project('file-split-ftp') {
 
 	dependencies {
 		api 'org.springframework.boot:spring-boot-starter-web'
+		api 'org.springframework.boot:spring-boot-starter-mail'
 		api 'org.springframework.boot:spring-boot-starter-integration'
 		api 'org.springframework.integration:spring-integration-ftp'
 		api 'org.springframework.integration:spring-integration-http'

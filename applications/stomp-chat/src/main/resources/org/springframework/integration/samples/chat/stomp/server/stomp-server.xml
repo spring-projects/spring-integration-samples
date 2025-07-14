@@ -38,7 +38,9 @@
 
 	<bean id="stompSubProtocolHandler" class="org.springframework.web.socket.messaging.StompSubProtocolHandler"/>
 
-	<int-websocket:server-container id="serverWebSocketContainer" path="/chat">
+	<bean id="handshakeHandler" class="org.springframework.web.socket.server.support.DefaultHandshakeHandler"/>
+
+	<int-websocket:server-container id="serverWebSocketContainer" path="/chat" handshake-handler="handshakeHandler">
 		<int-websocket:sockjs heartbeat-time="10000"/>
 	</int-websocket:server-container>
 

@@ -16,23 +16,16 @@
 
 package org.springframework.integration.samples.websocket.standard;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.greaterThanOrEqualTo;
-import static org.hamcrest.Matchers.instanceOf;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
-
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.util.Date;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
 
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.web.server.LocalServerPort;
+import org.springframework.boot.web.server.test.LocalServerPort;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.integration.channel.DirectChannel;
@@ -40,14 +33,16 @@ import org.springframework.integration.samples.websocket.standard.server.Applica
 import org.springframework.messaging.Message;
 import org.springframework.messaging.MessageChannel;
 import org.springframework.messaging.support.ChannelInterceptor;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.fail;
 
 /**
  * @author Artem Bilan
  * @author Gary Russell
+ *
  * @since 3.0
  */
-@RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT, classes = Application.class)
 public class ApplicationTests {
 
@@ -68,7 +63,7 @@ public class ApplicationTests {
 			@Override
 			public void postSend(Message<?> message, MessageChannel channel, boolean sent) {
 				Object payload = message.getPayload();
-				assertThat(payload, instanceOf(String.class));
+				assertThat(payload).isInstanceOf(String.class);
 				Date date = null;
 				try {
 					date = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.DEFAULT).parse((String) payload);
@@ -76,12 +71,12 @@ public class ApplicationTests {
 				catch (ParseException e) {
 					fail("fail to parse date");
 				}
-				assertThat(new Date().compareTo(date), greaterThanOrEqualTo(0));
+				assertThat(date).isBefore(new Date());
 				stopLatch.countDown();
 			}
 
 		});
-		assertTrue(stopLatch.await(10, TimeUnit.SECONDS));
+		assertThat(stopLatch.await(10, TimeUnit.SECONDS)).isTrue();
 		ctx.close();
 	}
 

@@ -13,23 +13,21 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.springframework.integration.samples.testing.router;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.springframework.integration.test.matcher.PayloadMatcher.hasPayload;
+import org.assertj.core.api.HamcrestCondition;
+import org.junit.jupiter.api.Test;
 
-import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.messaging.Message;
-import org.springframework.messaging.MessageChannel;
 import org.springframework.integration.channel.QueueChannel;
 import org.springframework.integration.support.MessageBuilder;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.messaging.Message;
+import org.springframework.messaging.MessageChannel;
+import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.springframework.integration.test.matcher.PayloadMatcher.hasPayload;
 
 /**
  *
@@ -41,10 +39,11 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
  * facilitate easy testing.
  *
  * @author Gary Russell
+ * @author Artem Bilan
+ *
  * @since 2.0.2
  */
-@ContextConfiguration	// default context name is <ClassName>-context.xml
-@RunWith(SpringJUnit4ClassRunner.class)
+@SpringJUnitConfig
 public class PetRouterTests {
 
 	@Autowired
@@ -62,19 +61,19 @@ public class PetRouterTests {
 	@Test
 	public void unitTestClassCat() {
 		String payload = "CAT:Fluffy";
-		assertEquals("felineChannel", new PetRouter().route(payload));
+		assertThat(new PetRouter().route(payload)).isEqualTo("felineChannel");
 	}
 
 	@Test
 	public void unitTestClassDog() {
 		String payload = "DOG:Fido";
-		assertEquals("canineChannel", new PetRouter().route(payload));
+		assertThat(new PetRouter().route(payload)).isEqualTo("canineChannel");
 	}
 
 	@Test
 	public void unitTestClassLizard() {
 		String payload = "LIZARD:Scaly";
-		assertEquals("unknownPetTypeChannel", new PetRouter().route(payload));
+		assertThat(new PetRouter().route(payload)).isEqualTo("unknownPetTypeChannel");
 	}
 
 	@Test
@@ -83,8 +82,7 @@ public class PetRouterTests {
 		Message<String> message = MessageBuilder.withPayload(payload).build();
 		inputChannel.send(message);
 		Message<?> outMessage = testFelineChannel.receive(0);
-		assertNotNull("Expected an output message", outMessage);
-		assertThat(outMessage, hasPayload(payload));
+		assertThat(outMessage).is(new HamcrestCondition<>(hasPayload(payload)));
 	}
 
 	@Test
@@ -93,8 +91,7 @@ public class PetRouterTests {
 		Message<String> message = MessageBuilder.withPayload(payload).build();
 		inputChannel.send(message);
 		Message<?> outMessage = testCanineChannel.receive(0);
-		assertNotNull("Expected an output message", outMessage);
-		assertThat(outMessage, hasPayload(payload));
+		assertThat(outMessage).is(new HamcrestCondition<>(hasPayload(payload)));
 	}
 
 	@Test
@@ -103,7 +100,7 @@ public class PetRouterTests {
 		Message<String> message = MessageBuilder.withPayload(payload).build();
 		inputChannel.send(message);
 		Message<?> outMessage = testUnknownPetTypeChannel.receive(0);
-		assertNotNull("Expected an output message", outMessage);
-		assertThat(outMessage, hasPayload(payload));
+		assertThat(outMessage).is(new HamcrestCondition<>(hasPayload(payload)));
 	}
+
 }

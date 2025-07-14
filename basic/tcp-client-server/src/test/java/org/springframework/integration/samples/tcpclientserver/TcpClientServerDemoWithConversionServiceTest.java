@@ -16,11 +16,8 @@
 
 package org.springframework.integration.samples.tcpclientserver;
 
-import static org.junit.Assert.assertEquals;
-
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.integration.endpoint.AbstractEndpoint;
@@ -29,9 +26,9 @@ import org.springframework.integration.ip.tcp.connection.AbstractServerConnectio
 import org.springframework.integration.ip.util.TestingUtilities;
 import org.springframework.integration.test.context.SpringIntegrationTest;
 import org.springframework.test.annotation.DirtiesContext;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Demonstrates the use of a gateway as an entry point into the integration flow.
@@ -39,7 +36,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
  * to the inbound gateway. In turn the inbound gateway sends the message to an
  * echo service and the echoed response comes back over tcp and is returned to
  * the test case for verification.
- *
+ * <p>
  * This version shows how the conversion service can be used
  * instead of explicit transformers to convert the byte array payloads to
  * Strings.
@@ -49,8 +46,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
  * @author Artme Bilan
  *
  */
-@ContextConfiguration("/META-INF/spring/integration/tcpClientServerDemo-conversion-context.xml")
-@RunWith(SpringJUnit4ClassRunner.class)
+@SpringJUnitConfig(locations = "/META-INF/spring/integration/tcpClientServerDemo-conversion-context.xml")
 @DirtiesContext
 @SpringIntegrationTest(noAutoStartup = "outGateway")
 public class TcpClientServerDemoWithConversionServiceTest {
@@ -67,7 +63,7 @@ public class TcpClientServerDemoWithConversionServiceTest {
 	@Autowired
 	AbstractEndpoint outGateway;
 
-	@Before
+	@BeforeEach
 	public void setup() {
 		if (!this.outGateway.isRunning()) {
 			TestingUtilities.waitListening(this.crLfServer, 10000L);
@@ -80,21 +76,21 @@ public class TcpClientServerDemoWithConversionServiceTest {
 	public void testHappyDay() {
 		String result = gw.send("Hello world!");
 		System.out.println(result);
-		assertEquals("echo:Hello world!", result);
+		assertThat(result).isEqualTo("echo:Hello world!");
 	}
 
 	@Test
 	public void testZeroLength() {
 		String result = gw.send("");
 		System.out.println(result);
-		assertEquals("echo:", result);
+		assertThat(result).isEqualTo("echo:");
 	}
 
 	@Test
 	public void testFail() {
 		String result = gw.send("FAIL");
 		System.out.println(result);
-		assertEquals("FAIL:Failure Demonstration", result);
+		assertThat(result).isEqualTo("FAIL:Failure Demonstration");
 	}
 
 }

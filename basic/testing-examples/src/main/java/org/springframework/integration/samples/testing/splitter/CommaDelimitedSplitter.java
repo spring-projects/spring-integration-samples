@@ -33,10 +33,10 @@ public class CommaDelimitedSplitter {
 	@Splitter
 	public List<String> split(String input) {
 		String[] splits = input.split(",");
-		List<String> list = new ArrayList<String>();
+		List<String> list = new ArrayList<>();
 		for (String split : splits) {
 			String trimmed = split.trim();
-			if (trimmed.length() > 0) {
+			if (!trimmed.isEmpty()) {
 				list.add(trimmed);
 			}
 		}

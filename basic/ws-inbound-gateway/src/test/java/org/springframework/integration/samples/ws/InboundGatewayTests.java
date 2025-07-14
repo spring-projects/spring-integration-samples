@@ -16,11 +16,6 @@
 
 package org.springframework.integration.samples.ws;
 
-import static org.hamcrest.CoreMatchers.equalTo;
-import static org.hamcrest.CoreMatchers.instanceOf;
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.MatcherAssert.assertThat;
-
 import java.io.StringReader;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -29,30 +24,31 @@ import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 
-import org.hamcrest.CoreMatchers;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.xml.sax.InputSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.integration.ws.SimpleWebServiceInboundGateway;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.annotation.DirtiesContext;
+import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 import org.springframework.ws.context.DefaultMessageContext;
 import org.springframework.ws.context.MessageContext;
 import org.springframework.ws.pox.dom.DomPoxMessage;
 import org.springframework.ws.pox.dom.DomPoxMessageFactory;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 /**
  * Out-of-container tests for ws:inbound-gateway message processing.
  *
- * @author Chris Beams
  * @author Mark Fisher
+ * @author Chris Beams
+ * @author Artem Bilan
  */
-@ContextConfiguration("/META-INF/spring/integration/inbound-gateway-config.xml")
-@RunWith(SpringJUnit4ClassRunner.class)
+@SpringJUnitConfig(locations = "/META-INF/spring/integration/inbound-gateway-config.xml")
+@DirtiesContext
 public class InboundGatewayTests {
 
 	@Autowired
@@ -78,9 +74,10 @@ public class InboundGatewayTests {
 		MessageContext messageContext = new DefaultMessageContext(request, messageFactory);
 		gateway.invoke(messageContext);
 		Object reply = messageContext.getResponse().getPayloadSource();
-		assertThat(reply, is(instanceOf(DOMSource.class)));
+		assertThat(reply).isInstanceOf(DOMSource.class);
 		DOMSource replySource = (DOMSource) reply;
 		Element element = (Element) replySource.getNode().getFirstChild();
-		assertThat(element.getTagName(), equalTo("echoResponse"));
+		assertThat(element.getTagName()).isEqualTo("echoResponse");
 	}
+
 }
