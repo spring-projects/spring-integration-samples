@@ -16,41 +16,42 @@
 
 package org.springframework.integration.samples;
 
-import org.junit.Assert;
-import org.junit.Ignore;
-import org.junit.Test;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
+
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.integration.service.StringConversionService;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 /**
  * Verify that the Spring Integration Application Context starts successfully.
  */
-@Ignore
+@Disabled
 public class StringConversionServiceTest {
 
 	@Test
-	public void testStartupOfSpringIntegrationContext() throws Exception{
+	public void testStartupOfSpringIntegrationContext() throws Exception {
 		new ClassPathXmlApplicationContext("/META-INF/spring/integration/spring-integration-context.xml",
-												  StringConversionServiceTest.class);
+				StringConversionServiceTest.class);
 		Thread.sleep(2000);
 	}
 
 	@Test
 	public void testConvertStringToUpperCase() {
 		final ApplicationContext context
-			= new ClassPathXmlApplicationContext("/META-INF/spring/integration/spring-integration-context.xml",
-												  StringConversionServiceTest.class);
+				= new ClassPathXmlApplicationContext("/META-INF/spring/integration/spring-integration-context.xml",
+				StringConversionServiceTest.class);
 
 		final StringConversionService service = context.getBean(StringConversionService.class);
 
 		final String stringToConvert = "I love Spring Integration";
-		final String expectedResult  = "I LOVE SPRING INTEGRATION";
+		final String expectedResult = "I LOVE SPRING INTEGRATION";
 
 		final String convertedString = service.convertToUpperCase(stringToConvert);
 
-		Assert.assertEquals("Expecting that the string is converted to upper case.",
-				expectedResult, convertedString);
+		assertThat(convertedString).isEqualTo(expectedResult);
 
 	}
 

@@ -45,7 +45,7 @@
 	<int:splitter id="splitter" input-channel="toSplitter" output-channel="toGet"/>
 
 	<int-ftp:outbound-gateway id="gatewayGET"
-		local-directory="#{ T(org.springframework.integration.samples.ftp.TestSuite).LOCAL_FTP_TEMP_DIR}/gatewayGET"
+		local-directory="#{ T(org.springframework.integration.samples.ftp.BaseFtpTest).LOCAL_FTP_TEMP_DIR}/gatewayGET"
 		session-factory="ftpSessionFactory"
 		request-channel="toGet"
 		reply-channel="toRemoveChannel"

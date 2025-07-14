@@ -16,7 +16,8 @@
 
 package org.springframework.integration.samples.errorhandling;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 /**
@@ -29,9 +30,11 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
  * @author Iwein Fuld
  */
 public class PartyDemoTest {
+
 	@Test
-	public void runPartyDemoTest() throws Exception{
+	public void runPartyDemoTest() throws Exception {
 		new ClassPathXmlApplicationContext("/META-INF/spring/integration/errorHandlingDemo.xml", PartyDemoTest.class);
 		Thread.sleep(5000);
 	}
+
 }

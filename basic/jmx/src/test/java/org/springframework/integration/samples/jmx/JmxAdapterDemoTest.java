@@ -16,7 +16,7 @@
 
 package org.springframework.integration.samples.jmx;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 

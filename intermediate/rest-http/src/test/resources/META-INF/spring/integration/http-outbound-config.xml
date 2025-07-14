@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:int="http://www.springframework.org/schema/integration"
-	xmlns:int-http="http://www.springframework.org/schema/integration/http"
-	xmlns:oxm="http://www.springframework.org/schema/oxm"
-	xmlns:context="http://www.springframework.org/schema/context"
-	xsi:schemaLocation="http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
-		http://www.springframework.org/schema/integration https://www.springframework.org/schema/integration/spring-integration.xsd
-		http://www.springframework.org/schema/integration/http https://www.springframework.org/schema/integration/http/spring-integration-http.xsd
+	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   xmlns:oxm="http://www.springframework.org/schema/oxm"
+	   xmlns:context="http://www.springframework.org/schema/context"
+	   xsi:schemaLocation="http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
+
+
 		http://www.springframework.org/schema/oxm https://www.springframework.org/schema/oxm/spring-oxm.xsd
 		http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd">
 
@@ -19,8 +18,8 @@
 					<property name="marshaller" ref="marshaller"/>
 					<property name="unmarshaller" ref="marshaller"/>
 				</bean>
-				<bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
-					<property name="objectMapper" ref="jaxbJacksonObjectMapper"/>
+				<bean class="org.springframework.http.converter.json.JacksonJsonHttpMessageConverter">
+					<constructor-arg ref="objectMapper"/>
 				</bean>
 			</list>
 		</property>
@@ -28,8 +27,8 @@
 
 	<context:component-scan base-package="org.springframework.integration.samples.rest"/>
 
-	<oxm:jaxb2-marshaller id="marshaller" context-path="org.springframework.integration.samples.rest.domain" />
+	<oxm:jaxb2-marshaller id="marshaller" context-path="org.springframework.integration.samples.rest.domain"/>
 
-	<bean id="jaxbJacksonObjectMapper" class="org.springframework.integration.samples.rest.json.JaxbJacksonObjectMapper"/>
+	<bean id="objectMapper" class="tools.jackson.databind.ObjectMapper"/>
 
 </beans>

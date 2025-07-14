@@ -13,19 +13,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.springframework.integration.samples.splitteraggregator;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
-
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.integration.samples.splitteraggregator.support.TestUtils;
 import org.springframework.test.annotation.DirtiesContext;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Integration tests for the Scatter-Gather
@@ -35,8 +33,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
  * @author Artem Bilan
  *
  */
-@RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration({"classpath:META-INF/spring/integration/spring-integration-context.xml"})
+@SpringJUnitConfig(locations = "classpath:META-INF/spring/integration/spring-integration-context.xml")
 @DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
 public class TestSplitterAggregator {
 
@@ -55,7 +52,7 @@ public class TestSplitterAggregator {
 	@Test
 	public void testSearch() {
 		CompositeResult result = searchRequestor.search(TestUtils.getCompositeCriteria());
-		assertEquals(2, result.getResults().size());
+		assertThat(result.getResults()).hasSize(2);
 	}
 
 	/**
@@ -65,7 +62,7 @@ public class TestSplitterAggregator {
 	public void testSearchNoSearchA() {
 		searchA.setExecutionTime(6000L);
 		CompositeResult result = searchRequestor.search(TestUtils.getCompositeCriteria());
-		assertEquals(1, result.getResults().size());
+		assertThat(result.getResults()).hasSize(1);
 	}
 
 	/**
@@ -76,7 +73,7 @@ public class TestSplitterAggregator {
 		searchA.setExecutionTime(6000L);
 		searchB.setExecutionTime(6000L);
 		CompositeResult result = searchRequestor.search(TestUtils.getCompositeCriteria());
-		assertNull(result);
+		assertThat(result).isNull();
 	}
 
 }

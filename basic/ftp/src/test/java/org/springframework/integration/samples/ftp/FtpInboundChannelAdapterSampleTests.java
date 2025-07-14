@@ -16,10 +16,7 @@
 
 package org.springframework.integration.samples.ftp;
 
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -28,18 +25,21 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.messaging.Message;
 import org.springframework.messaging.PollableChannel;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 /**
  *
  * @author Oleg Zhurakousky
  * @author Gunnar Hillert
+ * @author Artem Bilan
  *
  */
-public class FtpInboundChannelAdapterSample {
+public class FtpInboundChannelAdapterSampleTests extends BaseFtpTest {
 
-	private static final Logger LOGGER = LoggerFactory.getLogger(FtpInboundChannelAdapterSample.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(FtpInboundChannelAdapterSampleTests.class);
 
 	@Test
-	public void runDemo() throws Exception{
+	public void runDemo() {
 		ConfigurableApplicationContext ctx =
 			new ClassPathXmlApplicationContext("META-INF/spring/integration/FtpInboundChannelAdapterSample-context.xml");
 
@@ -49,13 +49,13 @@ public class FtpInboundChannelAdapterSample {
 		Message<?> message2 = ftpChannel.receive(10000);
 		Message<?> message3 = ftpChannel.receive(1000);
 
-		LOGGER.info(String.format("Received first file message: %s.", message1));
-		LOGGER.info(String.format("Received second file message: %s.", message2));
-		LOGGER.info(String.format("Received nothing else: %s.", message3));
+		LOGGER.info("Received first file message: {}.", message1);
+		LOGGER.info("Received second file message: {}.", message2);
+		LOGGER.info("Received nothing else: {}.", message3);
 
-		assertNotNull(message1);
-		assertNotNull(message2);
-		assertNull("Was NOT expecting a third message.", message3);
+		assertThat(message1).isNotNull();
+		assertThat(message2).isNotNull();
+		assertThat(message3).isNull();
 
 		ctx.close();
 	}

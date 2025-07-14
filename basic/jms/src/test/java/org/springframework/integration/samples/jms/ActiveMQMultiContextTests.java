@@ -65,8 +65,8 @@ public abstract class ActiveMQMultiContextTests {
 						.addAcceptorConfiguration(new TransportConfiguration(InVMAcceptorFactory.class.getName()))
 						.addAddressSetting("#",
 								new AddressSettings()
-										.setDeadLetterAddress(SimpleString.toSimpleString("dla"))
-										.setExpiryAddress(SimpleString.toSimpleString("expiry")));
+										.setDeadLetterAddress(SimpleString.of("dla"))
+										.setExpiryAddress(SimpleString.of("expiry")));
 		broker.setConfiguration(configuration).start();
 		connectionFactory.setCacheConsumers(false);
 	}

@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.springframework.integration.samples.ftp;
+package org.springframework.integration.samples.dynamicftp;
 
 import java.util.HashMap;
 import java.util.LinkedHashMap;

@@ -16,30 +16,29 @@
 
 package org.springframework.integration.samples.feed;
 
-import org.junit.Test;
+import com.rometools.rome.feed.synd.SyndEntry;
+import org.junit.jupiter.api.Test;
 
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.messaging.Message;
 import org.springframework.messaging.PollableChannel;
 
-import com.rometools.rome.feed.synd.SyndEntry;
-
 /**
  * @author Oleg Zhurakousky
  *
  */
-public class FeedInboundChannelAdapterSample {
+public class FeedInboundChannelAdapterSampleTests {
 
 	@SuppressWarnings("unchecked")
 	@Test
-	public void runDemo(){
+	public void runDemo() {
 		ConfigurableApplicationContext ac =
-			new ClassPathXmlApplicationContext("META-INF/spring/integration/FeedInboundChannelAdapterSample-context.xml");
+				new ClassPathXmlApplicationContext("META-INF/spring/integration/FeedInboundChannelAdapterSample-context.xml");
 		PollableChannel feedChannel = ac.getBean("feedChannel", PollableChannel.class);
 		for (int i = 0; i < 10; i++) {
 			Message<SyndEntry> message = (Message<SyndEntry>) feedChannel.receive(1000);
-			if (message != null){
+			if (message != null) {
 				SyndEntry entry = message.getPayload();
 				System.out.println(entry.getPublishedDate() + " - " + entry.getTitle());
 			}

@@ -16,25 +16,25 @@
 
 package org.springframework.integration.samples.jms;
 
-import org.junit.Assert;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import org.springframework.context.support.GenericXmlApplicationContext;
-import org.springframework.messaging.Message;
-import org.springframework.messaging.MessageChannel;
 import org.springframework.integration.channel.QueueChannel;
 import org.springframework.integration.support.MessageBuilder;
+import org.springframework.messaging.Message;
+import org.springframework.messaging.MessageChannel;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * @author Gunnar Hillert
  */
-public class GatewayDemoTest  extends ActiveMQMultiContextTests {
+public class GatewayDemoTest extends ActiveMQMultiContextTests {
 
 	private final static String[] configFilesGatewayDemo = {
-		"/META-INF/spring/integration/common.xml",
-		"/META-INF/spring/integration/inboundGateway.xml",
-		"/META-INF/spring/integration/outboundGateway.xml"
+			"/META-INF/spring/integration/common.xml",
+			"/META-INF/spring/integration/inboundGateway.xml",
+			"/META-INF/spring/integration/outboundGateway.xml"
 	};
 
 	@Test
@@ -52,10 +52,10 @@ public class GatewayDemoTest  extends ActiveMQMultiContextTests {
 
 		@SuppressWarnings("unchecked")
 		Message<String> reply = (Message<String>) queueChannel.receive(20000);
-		Assertions.assertNotNull(reply);
+		assertThat(reply).isNotNull();
 		String out = reply.getPayload();
 
-		Assertions.assertEquals("JMS response: JMS TEST", out);
+		assertThat(out).isEqualTo("JMS response: JMS TEST");
 
 		applicationContext.close();
 	}

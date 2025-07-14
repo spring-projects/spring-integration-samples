@@ -16,22 +16,20 @@
 
 package org.springframework.integration.samples.chat.stomp.server;
 
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
 
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 /**
  * @author Artem Bilan
+ *
  * @since 3.0
  */
-@RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT, classes = Application.class)
 public class ApplicationTests {
 
 	@Test
-	public void testWebSockets() throws InterruptedException {
+	public void testWebSockets() {
 
 	}
 

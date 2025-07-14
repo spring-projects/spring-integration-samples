@@ -16,32 +16,34 @@
 
 package org.springframework.integration;
 
-import static org.junit.Assert.assertEquals;
-
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.integration.service.CoffeeService;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 /**
  * @author Gunnar Hillert
+ * @author Artem Bilan
+ *
  * @since 2.1
  */
 public class CoffeeServiceFindCoffeeTest {
 
-    @Test
-    public void testFindCoffee() {
-        final ApplicationContext context
-            = new ClassPathXmlApplicationContext("/META-INF/spring/integration/spring-integration-context.xml",
-                                                  CoffeeServiceFindCoffeeTest.class);
+	@Test
+	public void testFindCoffee() {
+		final ApplicationContext context
+				= new ClassPathXmlApplicationContext("/META-INF/spring/integration/spring-integration-context.xml",
+				CoffeeServiceFindCoffeeTest.class);
 
-        final CoffeeService service = context.getBean(CoffeeService.class);
+		final CoffeeService service = context.getBean(CoffeeService.class);
 
-        String description = service.findCoffeeBeverage(3);
+		String description = service.findCoffeeBeverage(3);
 
-        assertEquals("Mmmmh, chocolate.", description);
+		assertThat(description).isEqualTo("Mmmmh, chocolate.");
 
-    }
+	}
 
 }

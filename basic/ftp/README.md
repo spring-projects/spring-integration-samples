@@ -17,13 +17,13 @@ The samples work out of the box using an embedded Apache FTP Server. Simply exec
 
 and the samples are build as well as executed. The samples are part of a JUnit test suite:
 
-    org.springframework.integration.samples.ftp.TestSuite.java
+    org.springframework.integration.samples.ftp.BaseFtpTest.java
 
 which comprises the following tests that correspond to the scenarios outlined above:
 
-* org.springframework.integration.samples.ftp.FtpOutboundChannelAdapterSample.class, 
-* org.springframework.integration.samples.ftp.FtpInboundChannelAdapterSample.class,
-* org.springframework.integration.samples.ftp.FtpOutboundGatewaySample.class
+* org.springframework.integration.samples.ftp.FtpOutboundChannelAdapterSampleTests.class, 
+* org.springframework.integration.samples.ftp.FtpInboundChannelAdapterSampleTests.class,
+* org.springframework.integration.samples.ftp.FtpOutboundGatewaySampleTests.class
 
 Keep in mind that the tests are meant to be executed in sequence. 
 

@@ -52,7 +52,7 @@ public class EmployeeSearchService {
 	public Message<EmployeeList> getEmployee(Message<?> inMessage){
 
 		EmployeeList employeeList = new EmployeeList();
-		Map<String, Object> responseHeaderMap = new HashMap<String, Object>();
+		Map<String, Object> responseHeaderMap = new HashMap<>();
 
 		try{
 			MessageHeaders headers = inMessage.getHeaders();

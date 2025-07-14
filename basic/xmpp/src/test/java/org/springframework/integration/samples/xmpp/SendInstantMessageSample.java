@@ -15,7 +15,7 @@
  */
 package org.springframework.integration.samples.xmpp;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -30,11 +30,12 @@ import org.springframework.messaging.support.GenericMessage;
 public class SendInstantMessageSample {
 
 	@Test
-	public void runDemo() throws Exception{
+	public void runDemo() {
 		ApplicationContext context = new ClassPathXmlApplicationContext("META-INF/spring/integration/SendInstantMessageSample-context.xml");
-		
+
 		MessageChannel toUserChannel = context.getBean("toUserChannel", MessageChannel.class);
-		Message<String> message = new GenericMessage<String>("Hello from Spring Integration XMPP");
+		Message<String> message = new GenericMessage<>("Hello from Spring Integration XMPP");
 		toUserChannel.send(message);
 	}
+
 }

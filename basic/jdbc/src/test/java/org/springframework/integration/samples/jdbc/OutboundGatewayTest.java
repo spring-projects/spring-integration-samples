@@ -19,13 +19,14 @@ import java.util.Calendar;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.integration.samples.jdbc.domain.Gender;
 import org.springframework.integration.samples.jdbc.domain.Person;
 import org.springframework.integration.samples.jdbc.service.PersonService;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * The test class for jdbc outbound gateway
@@ -45,12 +46,12 @@ public class OutboundGatewayTest {
 		logger.info("Creating person Instance");
 		Person person = new Person();
 		Calendar dateOfBirth = Calendar.getInstance();
-		dateOfBirth.set(1980, 0, 1);
+		dateOfBirth.set(1980, Calendar.JANUARY, 1);
 		person.setDateOfBirth(dateOfBirth.getTime());
 		person.setName("Name Of The Person");
 		person.setGender(Gender.MALE);
 		person = service.createPerson(person);
-		Assert.assertNotNull("Expected a non null instance of Person, got null", person);
+		assertThat(person).isNotNull();
 		logger.info("\n\tGenerated person with id: " + person.getPersonId() + ", with name: " + person.getName());
 		context.close();
 	}

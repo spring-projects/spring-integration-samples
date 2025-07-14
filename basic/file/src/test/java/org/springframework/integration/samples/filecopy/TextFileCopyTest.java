@@ -16,7 +16,8 @@
 
 package org.springframework.integration.samples.filecopy;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
@@ -31,7 +32,9 @@ public class TextFileCopyTest {
 
 	@Test
 	public void testTextBasedCopy() throws Exception{
-		ApplicationContext context = new ClassPathXmlApplicationContext("/META-INF/spring/integration/fileCopyDemo-text.xml", TextFileCopyTest.class);
+		ApplicationContext context =
+				new ClassPathXmlApplicationContext("/META-INF/spring/integration/fileCopyDemo-text.xml",
+						TextFileCopyTest.class);
 		FileCopyDemoCommon.displayDirectories(context);
 		Thread.sleep(5000);
 	}

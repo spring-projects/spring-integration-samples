@@ -50,9 +50,9 @@
 		</property>
 		<property name="defaultViews">
 			<list>
-				<bean
-					class="org.springframework.integration.samples.rest.json.view.ExtendedMappingJacksonJsonView" >
-					<property name="objectMapper" ref="jaxbJacksonObjectMapper"/>
+				<bean class="org.springframework.web.servlet.view.json.JacksonJsonView">
+					<constructor-arg ref="objectMapper" />
+					<property name="extractValueFromSingleKeyModel" value="true"/>
 				</bean>
 				<bean class="org.springframework.web.servlet.view.xml.MarshallingView">
 					<constructor-arg ref="marshaller"/>
@@ -71,6 +71,6 @@
 					requires-reply="true"
 					send-timeout="60000"/>
 
-	<bean id="jaxbJacksonObjectMapper" class="org.springframework.integration.samples.rest.json.JaxbJacksonObjectMapper"/>
+	<bean id="objectMapper" class="tools.jackson.databind.ObjectMapper"/>
 
 </beans>

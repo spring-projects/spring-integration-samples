@@ -17,7 +17,6 @@
 package org.springframework.integration.samples.ftp;
 
 import java.io.File;
-import java.io.IOException;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.ftpserver.FtpServer;
@@ -25,12 +24,9 @@ import org.apache.ftpserver.FtpServerFactory;
 import org.apache.ftpserver.ftplet.FtpException;
 import org.apache.ftpserver.listener.Listener;
 import org.apache.ftpserver.listener.ListenerFactory;
-import org.junit.AfterClass;
-import org.junit.BeforeClass;
-import org.junit.ClassRule;
-import org.junit.rules.TemporaryFolder;
-import org.junit.runner.RunWith;
-import org.junit.runners.Suite;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.io.TempDir;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -44,15 +40,9 @@ import org.springframework.integration.samples.ftp.support.TestUserManager;
  * @author Gunnar Hillert
  *
  */
-@RunWith(Suite.class)
-@Suite.SuiteClasses({
-		FtpOutboundChannelAdapterSample.class,
-		FtpInboundChannelAdapterSample.class,
-		FtpOutboundGatewaySample.class
-})
-public class TestSuite {
+public abstract class BaseFtpTest {
 
-	private static final Logger LOGGER = LoggerFactory.getLogger(TestSuite.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(BaseFtpTest.class);
 
 	public static final String FTP_ROOT_DIR = "target" + File.separator + "ftproot";
 
@@ -60,13 +50,13 @@ public class TestSuite {
 
 	public static final String SERVER_PORT_SYSTEM_PROPERTY = "availableServerPort";
 
-	@ClassRule
-	public static final TemporaryFolder temporaryFolder = new TemporaryFolder();
+	@TempDir
+	public static File temporaryFolder;
 
 	public static FtpServer server;
 
-	@BeforeClass
-	public static void setupFtpServer() throws FtpException, IOException {
+	@BeforeAll
+	public static void setupFtpServer() throws FtpException {
 
 		Integer availableServerSocket;
 
@@ -100,7 +90,7 @@ public class TestSuite {
 		System.setProperty(SERVER_PORT_SYSTEM_PROPERTY, availableServerSocket.toString());
 	}
 
-	@AfterClass
+	@AfterAll
 	public static void shutDown() {
 		server.stop();
 		FileUtils.deleteQuietly(new File(FTP_ROOT_DIR));

@@ -16,12 +16,12 @@
 
 package org.springframework.integration.samples.enricher.service;
 
-import static org.junit.Assert.assertEquals;
-
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.integration.samples.enricher.domain.User;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Verify that the Spring Integration Application Context starts successfully.
@@ -47,16 +47,15 @@ public class UserServiceTest {
 		User user = new User("foo", null, null);
 		final User fullUser = service.findUser(user);
 
-		assertEquals("foo", fullUser.getUsername());
-		assertEquals("foo@springintegration.org", fullUser.getEmail());
-		assertEquals("secret", fullUser.getPassword());
+		assertThat(fullUser.getUsername()).isEqualTo("foo");
+		assertThat(fullUser.getEmail()).isEqualTo("foo@springintegration.org");
+		assertThat(fullUser.getPassword()).isEqualTo("secret");
 		context.close();
 
 	}
 
 	@Test
 	public void testExecuteFindUserByUsername() {
-
 		final ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(
 				"/META-INF/spring/integration/spring-integration-context.xml", UserServiceTest.class);
 
@@ -65,9 +64,9 @@ public class UserServiceTest {
 		User user = new User("foo", null, null);
 		final User fullUser = service.findUserByUsername(user);
 
-		assertEquals("foo", fullUser.getUsername());
-		assertEquals("foo@springintegration.org", fullUser.getEmail());
-		assertEquals("secret", fullUser.getPassword());
+		assertThat(fullUser.getUsername()).isEqualTo("foo");
+		assertThat(fullUser.getEmail()).isEqualTo("foo@springintegration.org");
+		assertThat(fullUser.getPassword()).isEqualTo("secret");
 		context.close();
 
 	}

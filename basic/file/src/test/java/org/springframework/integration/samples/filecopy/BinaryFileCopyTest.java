@@ -16,7 +16,8 @@
 
 package org.springframework.integration.samples.filecopy;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
@@ -32,7 +33,9 @@ public class BinaryFileCopyTest {
 
 	@Test
 	public void testBinaryCopy() throws Exception{
-		ApplicationContext context = new ClassPathXmlApplicationContext("/META-INF/spring/integration/fileCopyDemo-binary.xml", BinaryFileCopyTest.class);
+		ApplicationContext context =
+				new ClassPathXmlApplicationContext("/META-INF/spring/integration/fileCopyDemo-binary.xml",
+						BinaryFileCopyTest.class);
 		FileCopyDemoCommon.displayDirectories(context);
 		Thread.sleep(5000);
 	}

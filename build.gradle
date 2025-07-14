@@ -117,7 +117,7 @@ subprojects { subproject ->
 							url = linkIssue
 						}
 						withXml {
-							asNode().appendNode('properties')appendNode('java.version', '17')
+							asNode().appendNode('properties').appendNode('java.version', '17')
 							if (subproject.plugins.hasPlugin('org.akhikhl.gretty')) {
 								asNode().appendNode('packaging', 'war')
 								def plugins = asNode().build?.find()?.plugins?.find()
@@ -240,7 +240,6 @@ subprojects { subproject ->
 			jrubyVersion = '10.0.0.1'
 			jpaApiVersion = '3.2.0'
 			jstlVersion = '1.2'
-			junitVersion = '4.13.2'
 			junitJupiterVersion = '5.12.2'
 			log4jVersion = '2.24.3'
 			mailVersion = '2.0.3'
@@ -277,9 +276,6 @@ subprojects { subproject ->
 
 		// dependencies that are common across all java projects
 		dependencies {
-			testImplementation("junit:junit:$junitVersion") {
-				exclude group: 'org.hamcrest'
-			}
 			testImplementation "org.hamcrest:hamcrest-library:$hamcrestVersion"
 			testImplementation("org.mockito:mockito-core:$mockitoVersion") {
 				exclude group: 'org.hamcrest'
@@ -287,8 +283,6 @@ subprojects { subproject ->
 			testImplementation 'org.junit.jupiter:junit-jupiter-api'
 			testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine'
 			testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
-			// To support JUnit 4 tests
-			testRuntimeOnly 'org.junit.vintage:junit-vintage-engine'
 			testImplementation 'org.springframework.integration:spring-integration-test'
 		}
 
@@ -1184,7 +1178,7 @@ project('rest-http') {
 		api 'org.springframework:spring-jdbc'
 		api 'org.springframework:spring-context'
 		api 'org.springframework:spring-aop'
-		api 'com.fasterxml.jackson.core:jackson-databind'
+		api 'tools.jackson.core:jackson-databind'
 		api "org.springframework.security:spring-security-web:$springSecurityVersion"
 		api "org.springframework.security:spring-security-config:$springSecurityVersion"
 		api "org.apache.logging.log4j:log4j-core:$log4jVersion"
@@ -1473,7 +1467,7 @@ project('file-split-ftp') {
 
 		testImplementation 'org.springframework.boot:spring-boot-starter-test'
 		testImplementation 'org.springframework.integration:spring-integration-test'
-		testImplementation ('com.icegreen:greenmail:2.1.0-alpha-3') {
+		testImplementation('com.icegreen:greenmail:2.1.0-alpha-3') {
 			exclude group: 'com.sun.mail'
 			exclude group: 'jakarta.activation'
 		}

@@ -16,21 +16,22 @@
 
 package org.springframework.integration.samples.ftp;
 
-import static org.junit.Assert.assertTrue;
-
 import java.io.File;
 import java.io.InputStream;
+
 import org.apache.commons.io.FileUtils;
-import org.junit.After;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.integration.support.MessageBuilder;
 import org.springframework.messaging.Message;
 import org.springframework.messaging.MessageChannel;
-import org.springframework.integration.support.MessageBuilder;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  *
@@ -38,17 +39,17 @@ import org.springframework.integration.support.MessageBuilder;
  * @author Gunnar Hillert
  *
  */
-public class FtpOutboundChannelAdapterSample {
+public class FtpOutboundChannelAdapterSampleTest extends BaseFtpTest {
 
-	private static final Logger LOGGER = LoggerFactory.getLogger(FtpOutboundChannelAdapterSample.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(FtpOutboundChannelAdapterSampleTest.class);
 
 	private final File baseFolder = new File("target" + File.separator + "toSend");
 
 	@Test
-	public void runDemo() throws Exception{
+	public void runDemo() throws Exception {
 
 		ConfigurableApplicationContext ctx =
-			new ClassPathXmlApplicationContext("META-INF/spring/integration/FtpOutboundChannelAdapterSample-context.xml");
+				new ClassPathXmlApplicationContext("META-INF/spring/integration/FtpOutboundChannelAdapterSample-context.xml");
 
 		MessageChannel ftpChannel = ctx.getBean("ftpChannel", MessageChannel.class);
 
@@ -57,14 +58,14 @@ public class FtpOutboundChannelAdapterSample {
 		final File fileToSendA = new File(baseFolder, "a.txt");
 		final File fileToSendB = new File(baseFolder, "b.txt");
 
-		final InputStream inputStreamA = FtpOutboundChannelAdapterSample.class.getResourceAsStream("/test-files/a.txt");
-		final InputStream inputStreamB = FtpOutboundChannelAdapterSample.class.getResourceAsStream("/test-files/b.txt");
+		final InputStream inputStreamA = FtpOutboundChannelAdapterSampleTest.class.getResourceAsStream("/test-files/a.txt");
+		final InputStream inputStreamB = FtpOutboundChannelAdapterSampleTest.class.getResourceAsStream("/test-files/b.txt");
 
 		FileUtils.copyInputStreamToFile(inputStreamA, fileToSendA);
 		FileUtils.copyInputStreamToFile(inputStreamB, fileToSendB);
 
-		assertTrue(fileToSendA.exists());
-		assertTrue(fileToSendB.exists());
+		assertThat(fileToSendA).exists();
+		assertThat(fileToSendB).exists();
 
 		final Message<File> messageA = MessageBuilder.withPayload(fileToSendA).build();
 		final Message<File> messageB = MessageBuilder.withPayload(fileToSendB).build();
@@ -74,14 +75,14 @@ public class FtpOutboundChannelAdapterSample {
 
 		Thread.sleep(2000);
 
-		assertTrue(new File(TestSuite.FTP_ROOT_DIR + File.separator + "a.txt").exists());
-		assertTrue(new File(TestSuite.FTP_ROOT_DIR + File.separator + "b.txt").exists());
+		assertThat(new File(BaseFtpTest.FTP_ROOT_DIR + File.separator + "a.txt")).exists();
+		assertThat(new File(BaseFtpTest.FTP_ROOT_DIR + File.separator + "b.txt")).exists();
 
 		LOGGER.info("Successfully transferred file 'a.txt' and 'b.txt' to a remote FTP location.");
 		ctx.close();
 	}
 
-	@After
+	@AfterEach
 	public void cleanup() {
 		FileUtils.deleteQuietly(baseFolder);
 	}

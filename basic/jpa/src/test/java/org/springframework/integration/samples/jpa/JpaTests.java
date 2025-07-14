@@ -26,8 +26,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.integration.samples.jpa.domain.Person;
 import org.springframework.integration.samples.jpa.service.PersonService;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  *
@@ -49,9 +48,8 @@ public class JpaTests {
 
 		this.personService.createPerson(person);
 		List<Person> people = this.personService.findPeople();
-		assertNotNull(people);
-		assertEquals(2, people.size());
-		assertEquals(person.getName(), people.get(1).getName());
+		assertThat(people).hasSize(2);
+		assertThat(people.get(1).getName()).isEqualTo(person.getName());
 	}
 
 }

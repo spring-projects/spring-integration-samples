@@ -13,12 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.springframework.integration.samples.ftp;
+package org.springframework.integration.samples.dynamicftp;
 
-import static org.junit.Assert.*;
+import org.junit.jupiter.api.Test;
 
-import org.junit.Test;
+import org.springframework.integration.samples.dynamicftp.DynamicFtpChannelResolver;
 import org.springframework.messaging.MessageChannel;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * @author Gary Russell
@@ -28,18 +30,17 @@ import org.springframework.messaging.MessageChannel;
 public class DynamicFtpChannelResolverTests {
 
 	/**
-	 * Test method for {@link org.springframework.integration.samples.ftp.DynamicFtpChannelResolver#resolve(java.lang.String)}.
+	 * Test method for {@link DynamicFtpChannelResolver#resolve(java.lang.String)}.
 	 */
 	@Test
 	public void testResolve() {
 		DynamicFtpChannelResolver dynamicFtpChannelResolver = new DynamicFtpChannelResolver();
 		MessageChannel channel1 = dynamicFtpChannelResolver.resolve("customer1");
-		assertNotNull(channel1);
+		assertThat(channel1).isNotNull();
 		MessageChannel channel2 = dynamicFtpChannelResolver.resolve("customer2");
-		assertNotNull(channel2);
-		assertNotSame(channel1, channel2);
+		assertThat(channel1).isNotSameAs(channel2);
 		MessageChannel channel1a = dynamicFtpChannelResolver.resolve("customer1");
-		assertSame(channel1, channel1a);
+		assertThat(channel1).isSameAs(channel1a);
 	}
 
 }

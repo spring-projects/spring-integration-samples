@@ -7,7 +7,7 @@
 		http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd">
 
-	<bean id="channelResolver" class="org.springframework.integration.samples.ftp.DynamicFtpChannelResolver" />
+	<bean id="channelResolver" class="org.springframework.integration.samples.dynamicftp.DynamicFtpChannelResolver" />
 
 	<int:channel id="toDynRouter" />
 

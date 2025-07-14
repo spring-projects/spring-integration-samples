@@ -15,7 +15,7 @@
  */
 package org.springframework.integration.samples.twitter;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
@@ -26,9 +26,10 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 public class TwitterSearchSample {
 
 	@Test
-	public void runDemo() throws Exception{
+	public void runDemo() throws Exception {
 		new ClassPathXmlApplicationContext("META-INF/spring/integration/TwitterSearch-context.xml");
 
 		Thread.sleep(5000);
 	}
+
 }

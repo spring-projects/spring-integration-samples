@@ -15,20 +15,20 @@
  */
 package org.springframework.integration.samples.ftp;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-
 import java.io.File;
 import java.util.List;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 /**
  * Demonstrates use of the outbound gateway to use ls, get and rm.
- *
- * The previous Test {@link FtpOutboundChannelAdapterSample} was uploading 2 test
+ * <p>
+ * The previous Test {@link FtpOutboundChannelAdapterSampleTest} was uploading 2 test
  * files:
  *
  * <ul>
@@ -36,7 +36,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
  *     <li>b.txt</li>
  * </ul>
  *
- * This test will now retrieves those 2 files and removes them. Instead of just
+ * This test will now retrieve those 2 files and removes them. Instead of just
  * polling the file, the files are instead retrieved and deleted using explicit
  * FTP commands (LS and RM)
  *
@@ -44,7 +44,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
  * @since 2.1
  *
  */
-public class FtpOutboundGatewaySample {
+public class FtpOutboundGatewaySampleTests extends BaseFtpTest {
 
 
 	@Test
@@ -58,13 +58,13 @@ public class FtpOutboundGatewaySample {
 		List<Boolean> rmResults = toFtpFlow.lsGetAndRmFiles("/");
 
 		//Check everything went as expected, and clean up
-		assertEquals("Was expecting the collection 'rmResults' to contain 2 elements.", 2, rmResults.size());
+		assertThat(rmResults).hasSize(2);
 
 		for (Boolean result : rmResults) {
-			assertTrue(result);
+			assertThat(result).isTrue();
 		}
 
-		assertTrue("Expected FTP remote directory to be empty",  new File(TestSuite.FTP_ROOT_DIR).delete());
+		assertThat(new File(BaseFtpTest.FTP_ROOT_DIR).delete()).isTrue();
 
 		ctx.close();
 	}

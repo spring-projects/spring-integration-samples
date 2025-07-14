@@ -15,7 +15,7 @@
  */
 package org.springframework.integration.samples.twitter;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -30,12 +30,13 @@ import org.springframework.messaging.support.GenericMessage;
 public class TwitterSendUpdatesSample {
 
 	@Test
-	public void runDemo() throws Exception{
-		ApplicationContext context = 
-			new ClassPathXmlApplicationContext("META-INF/spring/integration/TwitterSendUpdates-context.xml");
-		
+	public void runDemo() {
+		ApplicationContext context =
+				new ClassPathXmlApplicationContext("META-INF/spring/integration/TwitterSendUpdates-context.xml");
+
 		MessageChannel twitterOutChannel = context.getBean("twitterOut", MessageChannel.class);
 		Message<String> twitterUpdate = new GenericMessage<String>("Testing new Twitter samples for #springintegration");
 		twitterOutChannel.send(twitterUpdate);
 	}
+
 }

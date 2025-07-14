@@ -16,10 +16,6 @@
 
 package org.springframework.integration.samples.sftp;
 
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
-
 import java.io.File;
 
 import org.apache.sshd.sftp.client.SftpClient;
@@ -34,12 +30,14 @@ import org.springframework.integration.file.remote.session.SessionFactory;
 import org.springframework.messaging.Message;
 import org.springframework.messaging.PollableChannel;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 /**
  * @author Oleg Zhurakousky
  * @author Gary Russell
  *
  */
-public class SftpInboundReceiveSample {
+public class SftpInboundReceiveSampleTests {
 
 	@Test
 	public void runDemo() {
@@ -62,20 +60,20 @@ public class SftpInboundReceiveSample {
 			adapter.start();
 
 			Message<?> received = localFileChannel.receive();
-			assertNotNull("Expected file", received);
+			assertThat(received).isNotNull();
 			System.out.println("Received first file message: " + received);
 			received = localFileChannel.receive();
-			assertNotNull("Expected file", received);
+			assertThat(received).isNotNull();
 			System.out.println("Received second file message: " + received);
 			received = localFileChannel.receive(1000);
-			assertNull("Expected null", received);
+			assertThat(received).isNull();
 			System.out.println("No third file was received as expected");
 		}
 		finally {
 			SftpTestUtils.cleanUp(template, file1, file2, file3);
 			context.close();
-			assertTrue("Could note delete retrieved file", new File("local-dir", file1).delete());
-			assertTrue("Could note delete retrieved file", new File("local-dir", file2).delete());
+			assertThat(new File("local-dir", file1).delete()).isTrue();
+			assertThat(new File("local-dir", file2).delete()).isTrue();
 		}
 	}
 

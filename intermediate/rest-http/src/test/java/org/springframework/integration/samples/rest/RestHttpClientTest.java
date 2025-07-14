@@ -24,11 +24,11 @@ import java.util.Map;
 
 import javax.xml.transform.stream.StreamResult;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import tools.jackson.databind.ObjectMapper;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
@@ -39,6 +39,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.http.client.ClientHttpRequest;
 import org.springframework.integration.samples.rest.domain.EmployeeList;
 import org.springframework.oxm.jaxb.Jaxb2Marshaller;
+import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 import org.springframework.web.client.HttpMessageConverterExtractor;
 import org.springframework.web.client.RestTemplate;
@@ -54,6 +55,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @author Artem Bilan
  */
 @SpringJUnitConfig(locations = "classpath*:META-INF/spring/integration/http-outbound-config.xml")
+@DirtiesContext
 public class RestHttpClientTest {
 
 	@Autowired
@@ -67,7 +69,7 @@ public class RestHttpClientTest {
 	private Jaxb2Marshaller marshaller;
 
 	@Autowired
-	private ObjectMapper jaxbJacksonObjectMapper;
+	private ObjectMapper objectMapper;
 
 	@BeforeEach
 	public void setUp() {
@@ -124,7 +126,7 @@ public class RestHttpClientTest {
 		logger.info("Return Status Message :" + httpResponse.getHeaders().get("X-Return-Status-Msg"));
 		assertThat(httpResponse.getStatusCode()).isEqualTo(HttpStatus.OK);
 		ByteArrayOutputStream out = new ByteArrayOutputStream();
-		jaxbJacksonObjectMapper.writeValue(out, httpResponse.getBody());
+		objectMapper.writeValue(out, httpResponse.getBody());
 		logger.info(out.toString());
 	}
 

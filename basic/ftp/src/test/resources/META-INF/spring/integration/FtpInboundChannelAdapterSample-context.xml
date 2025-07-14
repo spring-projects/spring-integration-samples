@@ -25,7 +25,7 @@
 				auto-create-local-directory="true"
 				delete-remote-files="false"
 				remote-directory="/"
-				local-directory="#{ T(org.springframework.integration.samples.ftp.TestSuite).LOCAL_FTP_TEMP_DIR}/ftpInbound">
+				local-directory="#{ T(org.springframework.integration.samples.ftp.BaseFtpTest).LOCAL_FTP_TEMP_DIR}/ftpInbound">
 			<int:poller fixed-rate="1000"/>
 	</int-ftp:inbound-channel-adapter>
 

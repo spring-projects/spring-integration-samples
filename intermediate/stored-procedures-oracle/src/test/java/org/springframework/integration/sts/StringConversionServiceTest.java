@@ -16,8 +16,8 @@
 
 package org.springframework.integration.sts;
 
-import org.junit.Ignore;
-import org.junit.Test;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
 
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -26,7 +26,7 @@ import org.springframework.integration.service.StringConversionService;
 /**
  * Verify that the Spring Integration Application Context starts successfully.
  */
-@Ignore
+@Disabled
 public class StringConversionServiceTest {
 
     @Test

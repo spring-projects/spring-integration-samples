@@ -16,23 +16,22 @@
 
 package org.springframework.integration.samples.ws;
 
-import static org.hamcrest.CoreMatchers.equalTo;
-import static org.hamcrest.MatcherAssert.assertThat;
-
 import javax.xml.transform.Source;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import org.springframework.ws.client.core.WebServiceTemplate;
 import org.springframework.xml.transform.StringResult;
 import org.springframework.xml.transform.StringSource;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 /**
  * System tests ensuring the Spring WS MessageDispatcherServlet is correctly
  * set up and configured to delegate incoming requests to our ws:inbound-gateway.
- *
+ * <p>
  * Use 'mvn package' to create a war file for this project, then deploy before
  * attempting to run this test.
  *
@@ -42,7 +41,9 @@ import org.springframework.xml.transform.StringSource;
 public class InContainerTests {
 
 	private static final Log logger = LogFactory.getLog(InContainerTests.class);
+
 	private static final String WS_URI = "http://localhost:8080/ws-inbound-gateway/echoservice";
+
 	private final WebServiceTemplate template = new WebServiceTemplate();
 
 	@Test
@@ -50,12 +51,13 @@ public class InContainerTests {
 		StringResult result = new StringResult();
 		Source payload = new StringSource(
 				"<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
-				"<echoRequest xmlns=\"http://www.springframework.org/spring-ws/samples/echo\">hello</echoRequest>");
+						"<echoRequest xmlns=\"http://www.springframework.org/spring-ws/samples/echo\">hello</echoRequest>");
 
 		template.sendSourceAndReceiveToResult(WS_URI, payload, result);
-		logger.info("RESULT: " + result.toString());
-		assertThat(result.toString(), equalTo(
+		logger.info("RESULT: " + result);
+		assertThat(result.toString()).isEqualTo(
 				"<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
-				"<echoResponse xmlns=\"http://www.springframework.org/spring-ws/samples/echo\">hello</echoResponse>"));
+						"<echoResponse xmlns=\"http://www.springframework.org/spring-ws/samples/echo\">hello</echoResponse>");
 	}
+
 }

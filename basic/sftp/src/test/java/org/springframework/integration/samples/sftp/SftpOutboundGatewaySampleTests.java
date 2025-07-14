@@ -16,9 +16,6 @@
 
 package org.springframework.integration.samples.sftp;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-
 import java.io.File;
 import java.util.List;
 
@@ -31,16 +28,19 @@ import org.springframework.integration.file.remote.RemoteFileTemplate;
 import org.springframework.integration.file.remote.session.CachingSessionFactory;
 import org.springframework.integration.file.remote.session.SessionFactory;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 /**
  * Demonstrates use of the outbound gateway to use ls, get and rm.
  * Creates a temporary directory with 2 files; retrieves and removes them.
  *
  * @author Gary Russell
+ * @author Artem Bilan
  *
  * @since 2.1
  *
  */
-public class SftpOutboundGatewaySample {
+public class SftpOutboundGatewaySampleTests {
 
 	@Test
 	public void testLsGetRm() {
@@ -65,19 +65,18 @@ public class SftpOutboundGatewaySample {
 			// execute the flow (ls, get, rm, aggregate results)
 			List<Boolean> rmResults = toFtpFlow.lsGetAndRmFiles("si.sftp.sample");
 
-
 			//Check everything went as expected, and clean up
-			assertEquals(2, rmResults.size());
+			assertThat(rmResults).hasSize(2);
 			for (Boolean result : rmResults) {
-				assertTrue(result);
+				assertThat(result).isTrue();
 			}
 
 		}
 		finally {
 			SftpTestUtils.cleanUp(template, file1, file2);
 			ctx.close();
-			assertTrue("Could note delete retrieved file", new File(tmpDir, file1).delete());
-			assertTrue("Could note delete retrieved file", new File(tmpDir, file2).delete());
+			assertThat(new File(tmpDir, file1).delete()).isTrue();
+			assertThat(new File(tmpDir, file2).delete()).isTrue();
 		}
 	}
 

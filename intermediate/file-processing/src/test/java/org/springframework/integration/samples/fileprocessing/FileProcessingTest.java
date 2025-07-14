@@ -22,8 +22,8 @@ import java.io.FileWriter;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -35,13 +35,15 @@ import org.springframework.messaging.PollableChannel;
  *
  */
 public class FileProcessingTest {
+
 	private final int fileCount = 5;
+
 	private final Log logger = LogFactory.getLog(FileProcessingTest.class);
 
-	@Before
-	public void createDirectory(){
+	@BeforeEach
+	public void createDirectory() {
 		File directory = new File("input");
-		if (directory.exists()){
+		if (directory.exists()) {
 			directory.delete();
 		}
 		directory.mkdir();
@@ -54,8 +56,8 @@ public class FileProcessingTest {
 		for (int i = 0; i < fileCount; i++) {
 			File file = new File("input/file_" + i + ".txt");
 			BufferedWriter out = new BufferedWriter(new FileWriter(file));
-		    out.write("hello " + i);
-		    out.close();
+			out.write("hello " + i);
+			out.close();
 		}
 		logger.info("Populated directory with files");
 		Thread.sleep(2000);
@@ -67,6 +69,7 @@ public class FileProcessingTest {
 		}
 		ac.stop();
 	}
+
 	@Test
 	public void testConcurrentFileProcessing() throws Exception {
 		logger.info("\n\n#### Starting Concurrent processing test #### ");
@@ -74,8 +77,8 @@ public class FileProcessingTest {
 		for (int i = 0; i < fileCount; i++) {
 			File file = new File("input/file_" + i + ".txt");
 			BufferedWriter out = new BufferedWriter(new FileWriter(file));
-		    out.write("hello " + i);
-		    out.close();
+			out.write("hello " + i);
+			out.close();
 		}
 		logger.info("Populated directory with files");
 		Thread.sleep(2000);
@@ -87,4 +90,5 @@ public class FileProcessingTest {
 		}
 		ac.close();
 	}
+
 }

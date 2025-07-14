@@ -16,8 +16,6 @@
 
 package org.springframework.integration.samples.tcpclientserver;
 
-import static org.junit.Assert.assertEquals;
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -48,6 +46,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Demonstrates the use of a gateway as an entry point into the integration flow.
@@ -94,7 +93,7 @@ public class TcpClientServerAnnotationDemoTest {
 	@Test
 	public void testHappyDay() {
 		String result = gw.viaTcp("Hello world!");
-		assertEquals("HELLO WORLD!", result);
+		assertThat(result).isEqualTo("HELLO WORLD!");
 	}
 
 	@EnableIntegration
