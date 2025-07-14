@@ -5,12 +5,9 @@ on:
   push:
     branches:
       - main
-      - 6.1.x
 
 env:
-  GRADLE_ENTERPRISE_CACHE_USERNAME: ${{ secrets.GRADLE_ENTERPRISE_CACHE_USER }}
-  GRADLE_ENTERPRISE_CACHE_PASSWORD: ${{ secrets.GRADLE_ENTERPRISE_CACHE_PASSWORD }}
-  GRADLE_ENTERPRISE_ACCESS_KEY: ${{ secrets.GRADLE_ENTERPRISE_SECRET_ACCESS_KEY }}
+  DEVELOCITY_ACCESS_KEY: ${{ secrets.DEVELOCITY_ACCESS_KEY }}
 
 jobs:
   build_snapshot:
@@ -24,6 +21,8 @@ jobs:
 
       - name: Set up Gradle
         uses: spring-io/spring-gradle-build-action@v2
+        with:
+          java-version: 24
 
       - name: Build
         run: ./gradlew check
