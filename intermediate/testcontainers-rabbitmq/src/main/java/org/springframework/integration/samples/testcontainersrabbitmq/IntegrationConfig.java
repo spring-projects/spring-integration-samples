@@ -1,5 +1,5 @@
 /*
- * Copyright 2002-2020 the original author or authors.
+ * Copyright 2002-2025 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,15 +16,15 @@
 
 package org.springframework.integration.samples.testcontainersrabbitmq;
 
+import tools.jackson.databind.json.JsonMapper;
+
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
-import org.springframework.amqp.support.converter.Jackson2JsonMessageConverter;
+import org.springframework.amqp.support.converter.JacksonJsonMessageConverter;
 import org.springframework.amqp.support.converter.MessageConverter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.integration.amqp.dsl.Amqp;
 import org.springframework.integration.dsl.IntegrationFlow;
-
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Configuration
 public class IntegrationConfig {
@@ -39,8 +39,8 @@ public class IntegrationConfig {
 	}
 
 	@Bean
-	public MessageConverter jsonMessageConverter(ObjectMapper objectMapper) {
-		return new Jackson2JsonMessageConverter(objectMapper);
+	public MessageConverter jsonMessageConverter(JsonMapper jsonMapper) {
+		return new JacksonJsonMessageConverter(jsonMapper);
 	}
 
 }

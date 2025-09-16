@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 the original author or authors.
+ * Copyright 2014-2025 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -108,7 +108,12 @@ public class Application {
 	@Bean
 	@Transformer(inputChannel = "transformChannel", outputChannel = "sendTimeChannel")
 	public AbstractPayloadTransformer<?, ?> transformer() {
-		return new AbstractPayloadTransformer<Object, Object>() {
+		return new AbstractPayloadTransformer<>() {
+
+			@Override
+			public String getComponentType() {
+				return "user-transformer";
+			}
 
 			@Override
 			protected Object transformPayload(Object payload) {
