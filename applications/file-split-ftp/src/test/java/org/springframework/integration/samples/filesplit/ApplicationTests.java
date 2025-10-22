@@ -132,7 +132,7 @@ public class ApplicationTests {
 	 */
 	private MimeMessage runTest(boolean fail) throws Exception {
 		File in = new File("/tmp/in/", "foo");
-		in.createNewFile();
+		in.mkdirs();
 		FileOutputStream fos = new FileOutputStream(in);
 		fos.write("*002,foo,bar\n*006,baz,qux\n*009,fiz,buz\n".getBytes());
 		fos.close();
