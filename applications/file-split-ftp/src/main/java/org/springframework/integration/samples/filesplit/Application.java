@@ -68,7 +68,7 @@ public class Application {
 		return IntegrationFlow.from(
 						Files.inboundAdapter(new File("/tmp/in"))
 								.preventDuplicates(false)
-								.patternFilter("*.txt"), e -> e.poller(Pollers.fixedDelay(5000)
+								.patternFilter("*.txt"), e -> e.poller(Pollers.fixedDelay(1000)
 										.errorChannel("tfrErrors.input"))
 								.id("fileInboundChannelAdapter"))
 				.handle(Files.splitter(true, true))
