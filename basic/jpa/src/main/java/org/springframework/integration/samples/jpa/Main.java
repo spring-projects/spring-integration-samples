@@ -22,7 +22,6 @@ import java.util.Scanner;
 
 import org.springframework.boot.WebApplicationType;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.data.jpa.autoconfigure.JpaRepositoriesAutoConfiguration;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.ImportResource;
@@ -40,7 +39,7 @@ import org.springframework.util.StringUtils;
  * @version 1.0
  *
  */
-@SpringBootApplication(exclude = JpaRepositoriesAutoConfiguration.class)
+@SpringBootApplication
 @ImportResource("spring-integration-context.xml")
 public class Main {
 

@@ -30,7 +30,7 @@ import org.w3c.dom.Element;
 import org.xml.sax.InputSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.integration.ws.SimpleWebServiceInboundGateway;
+import org.springframework.integration.ws.inbound.SimpleWebServiceInboundGateway;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 import org.springframework.ws.context.DefaultMessageContext;
