@@ -6,6 +6,13 @@ on:
     branches:
       - main
 
+schedule:
+  - cron: '0 5 * * *'
+
+concurrency:
+  group: group-snapshot-for-${{ github.ref }}
+  cancel-in-progress: true
+
 env:
   DEVELOCITY_ACCESS_KEY: ${{ secrets.DEVELOCITY_ACCESS_KEY }}
 
@@ -15,14 +22,14 @@ jobs:
     name: CI Build SNAPSHOT for ${{ github.ref_name }}
     steps:
 
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
         with:
           show-progress: false
 
       - name: Set up Gradle
         uses: spring-io/spring-gradle-build-action@v2
         with:
-          java-version: 24
+          java-version: 25
 
       - name: Build
         run: ./gradlew check

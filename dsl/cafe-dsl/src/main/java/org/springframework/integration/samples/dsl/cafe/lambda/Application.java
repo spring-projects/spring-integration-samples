@@ -36,7 +36,7 @@ import org.springframework.integration.samples.cafe.DrinkType;
 import org.springframework.integration.samples.cafe.Order;
 import org.springframework.integration.samples.cafe.OrderItem;
 import org.springframework.integration.scheduling.PollerMetadata;
-import org.springframework.integration.stream.CharacterStreamWritingMessageHandler;
+import org.springframework.integration.stream.outbound.CharacterStreamWritingMessageHandler;
 
 /**
  * @author Artem Bilan

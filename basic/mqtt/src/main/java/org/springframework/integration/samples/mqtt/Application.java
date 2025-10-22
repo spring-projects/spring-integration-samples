@@ -33,7 +33,7 @@ import org.springframework.integration.mqtt.core.MqttPahoClientFactory;
 import org.springframework.integration.mqtt.inbound.MqttPahoMessageDrivenChannelAdapter;
 import org.springframework.integration.mqtt.outbound.MqttPahoMessageHandler;
 import org.springframework.integration.mqtt.support.DefaultPahoMessageConverter;
-import org.springframework.integration.stream.CharacterStreamReadingMessageSource;
+import org.springframework.integration.stream.inbound.CharacterStreamReadingMessageSource;
 import org.springframework.messaging.MessageHandler;
 
 /**

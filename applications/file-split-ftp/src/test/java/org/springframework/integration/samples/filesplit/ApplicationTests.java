@@ -131,9 +131,7 @@ public class ApplicationTests {
 	 * Verify the email was sent.
 	 */
 	private MimeMessage runTest(boolean fail) throws Exception {
-		File inDir = new File("/tmp/in/");
-		inDir.mkdirs();
-		File in = new File(inDir, "foo");
+		File in = new File("/tmp/in/", "foo");
 		FileOutputStream fos = new FileOutputStream(in);
 		fos.write("*002,foo,bar\n*006,baz,qux\n*009,fiz,buz\n".getBytes());
 		fos.close();
