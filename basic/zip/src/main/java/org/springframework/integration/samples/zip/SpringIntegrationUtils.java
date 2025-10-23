@@ -26,8 +26,8 @@ import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.DirectFieldAccessor;
 import org.springframework.context.ApplicationContext;
 import org.springframework.expression.Expression;
-import org.springframework.integration.file.FileReadingMessageSource;
-import org.springframework.integration.file.FileWritingMessageHandler;
+import org.springframework.integration.file.inbound.FileReadingMessageSource;
+import org.springframework.integration.file.outbound.FileWritingMessageHandler;
 
 /**
  * Displays the names of the input and output directories.
@@ -56,7 +56,7 @@ public final class SpringIntegrationUtils {
 		List<String> inputDirectories = new ArrayList<>();
 
 		for (FileReadingMessageSource source : fileReadingMessageSources.values()) {
-			final File inDir = (File) new DirectFieldAccessor(source).getPropertyValue("directory");
+			final File inDir = (File) new DirectFieldAccessor(source).getPropertyValue("directoryExpression.value");
 			inputDirectories.add(inDir.getAbsolutePath());
 		}
 

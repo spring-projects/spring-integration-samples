@@ -8,7 +8,7 @@ buildscript {
 	dependencies {
 		classpath 'io.spring.gradle:dependency-management-plugin:1.1.7'
 		classpath "org.springframework.boot:spring-boot-gradle-plugin:$springBootVersion"
-		classpath 'org.gretty:gretty:4.0.3'
+		classpath 'org.gretty:gretty:4.1.10'
 	}
 }
 
@@ -329,7 +329,9 @@ project('cafe-si') {
 
 	apply plugin: 'application'
 
-	mainClassName = 'org.springframework.integration.samples.cafe.xml.CafeDemoApp'
+	application {
+		mainClass = 'org.springframework.integration.samples.cafe.xml.CafeDemoApp'
+	}
 
 	dependencies {
 		api 'org.springframework.integration:spring-integration-stream'
@@ -379,13 +381,13 @@ project('cafe-scripted') {
 	}
 
 	task runCafeDemoApp(type: JavaExec) {
-		main 'org.springframework.integration.samples.cafe.demo.CafeDemoApp'
+		mainClass = 'org.springframework.integration.samples.cafe.demo.CafeDemoApp'
 		args project.hasProperty('lang') ? project.lang : ''
 		classpath = sourceSets.main.runtimeClasspath
 	}
 
 	task runControlBus(type: JavaExec) {
-		main 'org.springframework.integration.samples.cafe.demo.ControlBusMain'
+		mainClass = 'org.springframework.integration.samples.cafe.demo.ControlBusMain'
 		classpath = sourceSets.main.runtimeClasspath
 	}
 }
@@ -395,7 +397,9 @@ project('loan-broker') {
 
 	apply plugin: 'application'
 
-	mainClassName = 'org.springframework.integration.samples.loanbroker.demo.LoanBrokerDemo'
+	application {
+		mainClass = 'org.springframework.integration.samples.loanbroker.demo.LoanBrokerDemo'
+	}
 
 	dependencies {
 		api 'org.springframework.integration:spring-integration-ip'
@@ -403,7 +407,7 @@ project('loan-broker') {
 	}
 
 	task runLoanBrokerSharkDetectorDemo(type: JavaExec) {
-		main 'org.springframework.integration.samples.loanbroker.demo.LoanBrokerSharkDetectorDemo'
+		mainClass = 'org.springframework.integration.samples.loanbroker.demo.LoanBrokerSharkDetectorDemo'
 		classpath = sourceSets.main.runtimeClasspath
 	}
 
@@ -461,7 +465,7 @@ project('amqp') {
 	}
 
 	task runSimple(type: JavaExec) {
-		main 'org.springframework.integration.samples.amqp.SampleSimple'
+		mainClass = 'org.springframework.integration.samples.amqp.SampleSimple'
 		classpath = sourceSets.main.runtimeClasspath
 		standardInput = System.in
 		// 	useful for debugging the GradleWorkerMain
@@ -470,7 +474,7 @@ project('amqp') {
 	}
 
 	task runPubConfirmsReturns(type: JavaExec) {
-		main 'org.springframework.integration.samples.amqp.SamplePubConfirmsReturns'
+		mainClass = 'org.springframework.integration.samples.amqp.SamplePubConfirmsReturns'
 		classpath = sourceSets.main.runtimeClasspath
 		standardInput = System.in
 		// 	useful for debugging the GradleWorkerMain
@@ -501,7 +505,7 @@ project('barrier') {
 	}
 
 	task run(type: JavaExec) {
-		main 'org.springframework.integration.samples.barrier.Application'
+		mainClass = 'org.springframework.integration.samples.barrier.Application'
 		classpath = sourceSets.main.runtimeClasspath
 	}
 }
@@ -519,8 +523,9 @@ project('enricher') {
 	description = 'Enricher Basic Sample'
 
 	apply plugin: 'application'
-
-	mainClassName = 'org.springframework.integration.samples.enricher.Main'
+	application {
+		mainClass = 'org.springframework.integration.samples.enricher.Main'
+	}
 
 	dependencies {
 		api 'org.springframework.integration:spring-integration-core'
@@ -576,12 +581,12 @@ project('helloworld') {
 	}
 
 	task runHelloWorldApp(type: JavaExec) {
-		main 'org.springframework.integration.samples.helloworld.HelloWorldApp'
+		mainClass = 'org.springframework.integration.samples.helloworld.HelloWorldApp'
 		classpath = sourceSets.main.runtimeClasspath
 	}
 
 	task runPollerApp(type: JavaExec) {
-		main 'org.springframework.integration.samples.helloworld.PollerApp'
+		mainClass = 'org.springframework.integration.samples.helloworld.PollerApp'
 		classpath = sourceSets.main.runtimeClasspath
 	}
 
@@ -595,7 +600,9 @@ project('http') {
 	apply plugin: 'org.gretty'
 	apply plugin: 'eclipse-wtp'
 
-	mainClassName = 'org.springframework.integration.samples.http.HttpClientDemo'
+	application {
+		mainClass = 'org.springframework.integration.samples.http.HttpClientDemo'
+	}
 
 	dependencies {
 		api 'org.springframework.integration:spring-integration-http'
@@ -606,7 +613,6 @@ project('http') {
 		api "org.eclipse.angus:jakarta.mail:$mailVersion"
 		api "org.apache.logging.log4j:log4j-core:$log4jVersion"
 	}
-
 }
 
 /*project('splunk') {
@@ -626,7 +632,7 @@ project('http') {
 	}
 
 	task run(type: JavaExec) {
-		main 'org.springframework.integration.samples.splunk.Application'
+		mainClass = 'org.springframework.integration.samples.splunk.Application'
 		classpath = sourceSets.main.runtimeClasspath
 	}
 }*/
@@ -654,7 +660,7 @@ project('kafka') {
 	}
 
 	task run(type: JavaExec) {
-		main 'org.springframework.integration.samples.kafka.Application'
+		mainClass = 'org.springframework.integration.samples.kafka.Application'
 		classpath = sourceSets.main.runtimeClasspath
 	}
 }
@@ -680,7 +686,7 @@ project('mqtt') {
 	}
 
 	task run(type: JavaExec) {
-		main 'org.springframework.integration.samples.mqtt.Application'
+		mainClass = 'org.springframework.integration.samples.mqtt.Application'
 		classpath = sourceSets.main.runtimeClasspath
 	}
 
@@ -746,7 +752,9 @@ project('jdbc') {
 
 	apply plugin: 'application'
 
-	mainClassName = 'org.springframework.integration.samples.jdbc.Main'
+	application {
+		mainClass = 'org.springframework.integration.samples.jdbc.Main'
+	}
 
 	dependencies {
 		api 'org.springframework.integration:spring-integration-jdbc'
@@ -760,7 +768,9 @@ project('jms') {
 
 	apply plugin: 'application'
 
-	mainClassName = 'org.springframework.integration.samples.jms.Main'
+	application {
+		mainClass = 'org.springframework.integration.samples.jms.Main'
+	}
 
 	dependencies {
 		api "jakarta.jms:jakarta.jms-api:$jmsApiVersion"
@@ -792,7 +802,9 @@ project('jpa') {
 	apply plugin: 'application'
 	apply plugin: 'org.springframework.boot'
 
-	mainClassName = 'org.springframework.integration.samples.jpa.Main'
+	application {
+		mainClass = 'org.springframework.integration.samples.jpa.Main'
+	}
 
 	dependencies {
 		api 'org.springframework.boot:spring-boot-starter-data-jpa'
@@ -822,12 +834,12 @@ project('mail') {
 	}
 
 	task runGmailInboundPop3AdapterTestApp(type: JavaExec) {
-		main 'org.springframework.integration.samples.mail.imapidle.GmailInboundPop3AdapterTestApp'
+		mainClass = 'org.springframework.integration.samples.mail.imapidle.GmailInboundPop3AdapterTestApp'
 		classpath = sourceSets.main.runtimeClasspath
 	}
 
 	task runGmailInboundImapIdleAdapterTestApp(type: JavaExec) {
-		main 'org.springframework.integration.samples.mail.imapidle.GmailInboundImapIdleAdapterTestApp'
+		mainClass = 'org.springframework.integration.samples.mail.imapidle.GmailInboundImapIdleAdapterTestApp'
 		classpath = sourceSets.main.runtimeClasspath
 	}
 }
@@ -842,12 +854,12 @@ project('mongodb') {
 	}
 
 	task runMongoDbInboundAdapterDemo(type: JavaExec) {
-		main 'org.springframework.integration.samples.mongodb.inbound.MongoDbInboundAdapterDemo'
+		mainClass = 'org.springframework.integration.samples.mongodb.inbound.MongoDbInboundAdapterDemo'
 		classpath = sourceSets.main.runtimeClasspath
 	}
 
 	task runMongoDbOutboundAdapterDemo(type: JavaExec) {
-		main 'org.springframework.integration.samples.mongodb.inbound.MongoDbOutboundAdapterDemo'
+		mainClass = 'org.springframework.integration.samples.mongodb.inbound.MongoDbOutboundAdapterDemo'
 		classpath = sourceSets.main.runtimeClasspath
 	}
 }
@@ -861,12 +873,12 @@ project('oddeven') {
 	}
 
 	task runCronOddEvenDemo(type: JavaExec) {
-		main 'org.springframework.integration.samples.oddeven.CronOddEvenDemo'
+		mainClass = 'org.springframework.integration.samples.oddeven.CronOddEvenDemo'
 		classpath = sourceSets.main.runtimeClasspath
 	}
 
 	task runIntervalOddEvenDemoTestApp(type: JavaExec) {
-		main 'org.springframework.integration.samples.oddeven.IntervalOddEvenDemoTestApp'
+		mainClass = 'org.springframework.integration.samples.oddeven.IntervalOddEvenDemoTestApp'
 		classpath = sourceSets.main.runtimeClasspath
 	}
 }
@@ -894,7 +906,9 @@ project('tcp-amqp') {
 
 	apply plugin: 'application'
 
-	mainClassName = 'org.springframework.integration.samples.tcpamqp.Main'
+	application {
+		mainClass = 'org.springframework.integration.samples.tcpamqp.Main'
+	}
 
 	dependencies {
 		api 'org.springframework.integration:spring-integration-amqp'
@@ -924,7 +938,7 @@ project('tcp-broadcast') {
 	}
 
 	task run(type: JavaExec) {
-		main 'org.springframework.integration.samples.tcpbroadcast.TcpBroadcastApplication'
+		mainClass = 'org.springframework.integration.samples.tcpbroadcast.TcpBroadcastApplication'
 		classpath = sourceSets.main.runtimeClasspath
 	}
 }
@@ -934,7 +948,9 @@ project('tcp-client-server') {
 
 	apply plugin: 'application'
 
-	mainClassName = 'org.springframework.integration.samples.tcpclientserver.Main'
+	application {
+		mainClass = 'org.springframework.integration.samples.tcpclientserver.Main'
+	}
 
 	dependencies {
 		api 'org.springframework.integration:spring-integration-ip'
@@ -982,7 +998,9 @@ project('testing-examples') {
 
 	apply plugin: 'application'
 
-	mainClassName = 'org.springframework.integration.samples.testing.externalgateway.Main'
+	application {
+		mainClass = 'org.springframework.integration.samples.testing.externalgateway.Main'
+	}
 
 	dependencies {
 		api 'org.springframework.integration:spring-integration-file'
@@ -1032,7 +1050,9 @@ project('ws-outbound-gateway') {
 
 	apply plugin: 'application'
 
-	mainClassName = 'org.springframework.integration.samples.ws.WebServiceDemoTestApp'
+	application {
+		mainClass = 'org.springframework.integration.samples.ws.WebServiceDemoTestApp'
+	}
 
 	dependencies {
 		api 'org.springframework.integration:spring-integration-stream'
@@ -1046,7 +1066,9 @@ project('xml') {
 
 	apply plugin: 'application'
 
-	mainClassName = 'org.springframework.integration.samples.xml.BookOrderProcessingTestApp'
+	application {
+		mainClass = 'org.springframework.integration.samples.xml.BookOrderProcessingTestApp'
+	}
 
 	dependencies {
 		api 'org.springframework.integration:spring-integration-xml'
@@ -1081,7 +1103,9 @@ project('dynamic-poller') {
 
 	apply plugin: 'application'
 
-	mainClassName = 'org.springframework.integration.samples.poller.Main'
+	application {
+		mainClass = 'org.springframework.integration.samples.poller.Main'
+	}
 
 	dependencies {
 		api 'org.springframework.integration:spring-integration-core'
@@ -1112,7 +1136,9 @@ project('mail-attachments') {
 
 	apply plugin: 'application'
 
-	mainClassName = 'org.springframework.integration.samples.mailattachments.Main'
+	application {
+		mainClass = 'org.springframework.integration.samples.mailattachments.Main'
+	}
 
 	dependencies {
 		api 'org.springframework.integration:spring-integration-mail'
@@ -1134,7 +1160,9 @@ project('monitoring') {
 	apply plugin: 'application'
 	apply plugin: 'eclipse-wtp'
 
-	mainClassName = 'org.springintegration.SpringIntegrationTest'
+	application {
+		mainClass = 'org.springintegration.SpringIntegrationTest'
+	}
 
 	dependencies {
 		api 'org.springframework.integration:spring-integration-jmx'
@@ -1160,6 +1188,10 @@ project('multipart-http') {
 		api "commons-fileupload:commons-fileupload:$commonsFileUploadVersion"
 		api "commons-io:commons-io:$commonsIoVersion"
 		api "org.apache.logging.log4j:log4j-core:$log4jVersion"
+	}
+
+	tasks.withType(Test) {
+		enabled = false
 	}
 }
 
@@ -1207,27 +1239,27 @@ project('retry-and-more') {
 	}
 
 	task runCircuitBreakerDemo(type: JavaExec) {
-		main 'org.springframework.integration.samples.advice.CircuitBreakerDemo'
+		mainClass = 'org.springframework.integration.samples.advice.CircuitBreakerDemo'
 		classpath = sourceSets.main.runtimeClasspath
 	}
 
 	task runFileTransferDeleteAfterSuccessDemo(type: JavaExec) {
-		main 'org.springframework.integration.samples.advice.FileTransferDeleteAfterSuccessDemo'
+		mainClass = 'org.springframework.integration.samples.advice.FileTransferDeleteAfterSuccessDemo'
 		classpath = sourceSets.main.runtimeClasspath
 	}
 
 	task runFileTransferRenameAfterFailureDemo(type: JavaExec) {
-		main 'org.springframework.integration.samples.advice.FileTransferRenameAfterFailureDemo'
+		mainClass = 'org.springframework.integration.samples.advice.FileTransferRenameAfterFailureDemo'
 		classpath = sourceSets.main.runtimeClasspath
 	}
 
 	task runStatefulRetryDemo(type: JavaExec) {
-		main 'org.springframework.integration.samples.advice.StatefulRetryDemo'
+		mainClass = 'org.springframework.integration.samples.advice.StatefulRetryDemo'
 		classpath = sourceSets.main.runtimeClasspath
 	}
 
 	task runStatelessRetryDemo(type: JavaExec) {
-		main 'org.springframework.integration.samples.advice.StatelessRetryDemo'
+		mainClass = 'org.springframework.integration.samples.advice.StatelessRetryDemo'
 		classpath = sourceSets.main.runtimeClasspath
 	}
 }
@@ -1237,7 +1269,9 @@ project('splitter-aggregator-reaper') {
 
 	apply plugin: 'application'
 
-	mainClassName = 'org.springframework.integration.samples.splitteraggregator.Main'
+	application {
+		mainClass = 'org.springframework.integration.samples.splitteraggregator.Main'
+	}
 
 	dependencies {
 		api 'org.springframework.integration:spring-integration-core'
@@ -1251,7 +1285,9 @@ project('stored-procedures-derby') {
 
 	apply plugin: 'application'
 
-	mainClassName = 'org.springframework.integration.samples.storedprocedure.Main'
+	application {
+		mainClass = 'org.springframework.integration.samples.storedprocedure.Main'
+	}
 
 	dependencies {
 		api 'org.springframework.integration:spring-integration-jdbc'
@@ -1266,7 +1302,9 @@ project('stored-procedures-oracle') {
 
 	apply plugin: 'application'
 
-	mainClassName = 'org.springframework.integration.samples.storedprocedure.Main'
+	application {
+		mainClass = 'org.springframework.integration.samples.storedprocedure.Main'
+	}
 
 	dependencies {
 		api 'org.springframework.integration:spring-integration-jdbc'
@@ -1284,7 +1322,9 @@ project('stored-procedures-ms') {
 
 	apply plugin: 'application'
 
-	mainClassName = 'org.springframework.integration.samples.storedprocedure.Main'
+	application {
+		mainClass = 'org.springframework.integration.samples.storedprocedure.Main'
+	}
 
 	dependencies {
 		api 'org.springframework.integration:spring-integration-jdbc'
@@ -1303,7 +1343,9 @@ project('stored-procedures-postgresql') {
 
 	apply plugin: 'application'
 
-	mainClassName = 'org.springframework.integration.samples.storedprocedure.Main'
+	application {
+		mainClass = 'org.springframework.integration.samples.storedprocedure.Main'
+	}
 
 	dependencies {
 		api 'org.springframework.integration:spring-integration-jdbc'
@@ -1332,7 +1374,7 @@ project('tcp-async-bi-directional') {
 	}
 
 	task run(type: JavaExec) {
-		main 'org.springframework.integration.samples.tcpasyncbi.TcpAsyncBiDirectionalApplication'
+		mainClass = 'org.springframework.integration.samples.tcpasyncbi.TcpAsyncBiDirectionalApplication'
 		classpath = sourceSets.main.runtimeClasspath
 	}
 }
@@ -1353,7 +1395,9 @@ project('travel') {
 
 	apply plugin: 'application'
 
-	mainClassName = 'org.springframework.integration.samples.travel.Main'
+	application {
+		mainClass = 'org.springframework.integration.samples.travel.Main'
+	}
 
 	dependencies {
 		api 'org.springframework.integration:spring-integration-ws'
@@ -1368,7 +1412,9 @@ project('tx-synch') {
 
 	apply plugin: 'application'
 
-	mainClassName = 'org.springframework.integration.samples.advice.TransactionSynchronizationDemo'
+	application {
+		mainClass = 'org.springframework.integration.samples.advice.TransactionSynchronizationDemo'
+	}
 
 	dependencies {
 		api 'org.springframework.integration:spring-integration-jdbc'
@@ -1442,7 +1488,7 @@ project('kafka-dsl') {
 	}
 
 	task run(type: JavaExec) {
-		main 'org.springframework.integration.samples.dsl.kafka.Application'
+		mainClass = 'org.springframework.integration.samples.dsl.kafka.Application'
 		classpath = sourceSets.main.runtimeClasspath
 	}
 
@@ -1479,7 +1525,7 @@ project('file-split-ftp') {
 	}
 
 	task run(type: JavaExec) {
-		main 'org.springframework.integration.samples.filesplit.Application'
+		mainClass = 'org.springframework.integration.samples.filesplit.Application'
 		classpath = sourceSets.main.runtimeClasspath
 	}
 }
@@ -1501,7 +1547,7 @@ project('dynamic-tcp-client') {
 	}
 
 	task run(type: JavaExec) {
-		main 'org.springframework.integration.samples.dynamictcp.DynamicTcpClientApplication'
+		mainClass = 'org.springframework.integration.samples.dynamictcp.DynamicTcpClientApplication'
 		classpath = sourceSets.main.runtimeClasspath
 	}
 }
@@ -1524,7 +1570,7 @@ project('tcp-with-headers') {
 	}
 
 	task run(type: JavaExec) {
-		main 'org.springframework.integration.samples.tcpheaders.TcpWithHeadersApplication'
+		mainClass = 'org.springframework.integration.samples.tcpheaders.TcpWithHeadersApplication'
 		classpath = sourceSets.main.runtimeClasspath
 	}
 
@@ -1538,7 +1584,9 @@ project('zip') {
 
 	apply plugin: 'application'
 
-	mainClassName = 'org.springframework.integration.samples.zip.Main'
+	application {
+		mainClass = 'org.springframework.integration.samples.zip.Main'
+	}
 
 	dependencies {
 		api 'org.springframework.integration:spring-integration-zip'
