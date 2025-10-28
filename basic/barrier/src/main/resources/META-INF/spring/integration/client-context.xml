@@ -5,7 +5,8 @@
 	xmlns:int-http="http://www.springframework.org/schema/integration/http"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/integration https://www.springframework.org/schema/integration/spring-integration.xsd
-		http://www.springframework.org/schema/integration/http https://www.springframework.org/schema/integration/http/spring-integration-http.xsd">
+		http://www.springframework.org/schema/integration/http https://www.springframework.org/schema/integration/http/spring-integration-http.xsd"
+	   	profile="xml-config">
 
 	<int:gateway id="requestGateway" 
 					service-interface="org.springframework.integration.samples.barrier.RequestGateway"
@@ -13,12 +14,12 @@
 	
 	<int:channel id="requestChannel"/>
 
-	<int-http:outbound-gateway request-channel="requestChannel" 
+	<int-http:outbound-gateway request-channel="requestChannel"
 					url="#{url}"
 					http-method="POST"
 					expected-response-type="java.lang.String"/>
 
-	<beans profile="default">
+	<beans>
 		<bean id="url" class="java.lang.String">
 			<constructor-arg value="http://localhost:8080/postGateway" />
 		</bean>

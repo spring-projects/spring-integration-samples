@@ -18,6 +18,7 @@ package org.springframework.integration.samples.barrier2;
 
 import java.util.Arrays;
 
+import org.springframework.boot.SpringApplication;
 import org.springframework.boot.WebApplicationType;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
@@ -26,6 +27,8 @@ import org.springframework.context.annotation.ImportResource;
 
 /**
  * @author Gary Russell
+ * @author Glenn Renfro
+ *
  * @since 4.2
  */
 @SpringBootApplication
@@ -41,7 +44,7 @@ public class ErrorHandlingApplication {
 			gateway.process(Arrays.asList(2, 0, 2, 0, 2), "foo");
 		}
 		catch (Exception e) {
-			System.err.println(e.toString());
+			System.err.println(e);
 		}
 		test.close();
 	}

@@ -2,9 +2,8 @@ Barrier Sample
 ==============
 
 This example demonstrates the use of a process barrier component to suspend a thread until some asynchronous operation
-completes. The first example uses an **HTTP Inbound Gateway**, splits the request, sends the splits to rabbitmq and then
-waits for
-the publisher confirms. Finally, the results are returned to the caller.
+completes. The first example uses an **HTTP Inbound Gateway**, splits the request, sends the splits to RabbitMQ and then
+waits for the publisher confirms. Finally, the results are returned to the caller.
 
 The sample is a Spring Boot application that loads 2 contexts:
 
@@ -19,19 +18,35 @@ http -> splitter -> amqp
 
 amqp(Acks) -> aggregator -> barrier (release)
 
-qmqp(inbound) -> nullChannel
+amqp(inbound) -> nullChannel
 ```
 
 The last flow drains the messages and allows the auto-delete queue to be removed when the application is closed.
 
+## Configuration Options
+
+This sample supports both **XML-based** and **Java-based** Spring Integration configurations. You can select which configuration to use by setting the active profile in `application.properties`:
+
+* `spring.profiles.active=xml-config` - Uses XML configuration files from `META-INF/spring/integration/`
+* `spring.profiles.active=java-config` - Uses Java `@Configuration` classes from the `configuration` package
+
 ## Running the sample
 
+### Using Maven
+
+    $ mvn spring-boot:run
+
+Or with a specific profile:
+
+    $ mvn spring-boot:run -Dspring-boot.run.arguments=--spring.profiles.active=java-config
+
+### Using Gradle
 
     $ gradlew :barrier:run
 
 This will package the application and run it using the [Gradle Application Plugin](https://www.gradle.org/docs/current/userguide/application_plugin.html)
 
-#### Using an IDE such as SpringSource Tool Suite™ (STS)
+### Using an IDE such as SpringSource Tool Suite™ (STS)
 
 In STS (Eclipse), go to package **org.springframework.integration.samples.barrier**, right-click **Application** and select **Run as** --> **Java Application** (or Spring Boot Application).
 
@@ -52,8 +67,14 @@ An aggregator is used to aggregate the results; if there are no errors, the resu
 errors occurred, an exception is sent to release the barrier; this is thrown to the caller and has all the consolidated
 results in a property.
 
+#### Running the Error Handling Example
+
 You can run this example from an IDE, such as STS using the technique above; in this case, the class is
-**ErrorHandlingApplication** in the **org.springframework.integration.samples.barrier** package.
+**ErrorHandlingApplication** in the **org.springframework.integration.samples.barrier2** package.
+
+Or using Maven:
+
+    $ mvn spring-boot:run -Dspring-boot.run.main-class=org.springframework.integration.samples.barrier2.ErrorHandlingApplication
 
 It sends a list of integers to the flow:
 

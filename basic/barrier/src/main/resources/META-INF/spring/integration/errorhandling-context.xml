@@ -2,22 +2,18 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns:int="http://www.springframework.org/schema/integration"
-	xmlns:rabbit="http://www.springframework.org/schema/rabbit"
 	xmlns:task="http://www.springframework.org/schema/task"
 	xsi:schemaLocation="http://www.springframework.org/schema/task https://www.springframework.org/schema/task/spring-task-4.2.xsd
 		http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
-		http://www.springframework.org/schema/rabbit https://www.springframework.org/schema/rabbit/spring-rabbit.xsd
-		http://www.springframework.org/schema/integration https://www.springframework.org/schema/integration/spring-integration.xsd">
+		http://www.springframework.org/schema/integration https://www.springframework.org/schema/integration/spring-integration.xsd"
+	   profile="xml-config">
 
-	<int:gateway default-request-channel="processChannel"
-				service-interface="org.springframework.integration.samples.barrier2.Gateway"
-				default-payload-expression="#args[0]">
-		<int:default-header name="barrierCorrelation" expression="#args[1]" />
-	</int:gateway>
+	<int:gateway service-interface="org.springframework.integration.samples.barrier2.Gateway"
+			default-request-channel="processChannel" />
 
 	<int:publish-subscribe-channel id="processChannel" />
 
-	<int:splitter input-channel="processChannel" output-channel="process" order="1" />
+	<int:splitter input-channel="processChannel" output-channel="process" order="1"/>
 
 	<int:channel id="process">
 		<int:queue />
@@ -33,7 +29,7 @@
 	<!-- Suspend the calling thread until the aggregation is complete -->
 
 	<int:barrier id="barrier" input-channel="processChannel" order="2"
-		correlation-strategy-expression="headers['barrierCorrelation']"
+		correlation-strategy-expression="headers.get('barrierCorrelation')"
 		timeout="10000" />
 
 	<!-- Aggregate the results and send the result to the barrier release channel -->
@@ -55,5 +51,6 @@
 			<int:header name="sequenceNumber" expression="payload.failedMessage.headers.sequenceNumber" />
 		</int:header-enricher>
 	</int:chain>
+	<int:channel id="aggregatorChannel" />
 
 </beans>

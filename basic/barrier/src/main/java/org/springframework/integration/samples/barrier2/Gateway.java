@@ -17,13 +17,19 @@ package org.springframework.integration.samples.barrier2;
 
 import java.util.Collection;
 
+import org.springframework.messaging.handler.annotation.Header;
+import org.springframework.messaging.handler.annotation.Payload;
+
 /**
  * @author Gary Russell
+ * @author Glenn Renfro
+ * 
  * @since 4.2
  *
  */
 public interface Gateway {
 
-	public void process(Collection<Integer> numbers, String correlationId);
+	void process(@Payload Collection<Integer> numbers,
+			@Header("barrierCorrelation") String correlationId);
 
 }

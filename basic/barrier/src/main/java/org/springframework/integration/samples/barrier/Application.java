@@ -25,9 +25,12 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.ImportResource;
+import org.springframework.core.env.Environment;
 
 /**
  * @author Gary Russell
+ * @author Glenn Renfro
+ *
  * @since 4.2
  */
 @SpringBootApplication
@@ -37,11 +40,22 @@ public class Application {
 	public static void main(String[] args) {
 		ConfigurableApplicationContext server = SpringApplication.run(Application.class, args);
 
-		runClient(args);
-		server.close();
+		Environment env = server.getEnvironment();
+
+		// Get configurationType via profile
+		String configurationType = env.getProperty("spring.profiles.active");
+		System.out.println("Configuration-Type: " + configurationType);
+		if (configurationType == null || configurationType.equals("xml-config")) {
+			runClientWithXMLConfig(args);
+		}
+		else {
+			RequestGateway requestGateway = server.getBean("requestGateway", RequestGateway.class);
+			echoMessage(requestGateway);
+		}
+		System.exit(0);
 	}
 
-	static void runClient(String[] args) {
+	static void runClientWithXMLConfig(String[] args) {
 		SpringApplication application = new SpringApplicationBuilder()
 				.web(WebApplicationType.NONE)
 				.bannerMode(Mode.OFF)
@@ -52,11 +66,15 @@ public class Application {
 		ConfigurableApplicationContext client = application.run(args);
 
 		RequestGateway requestGateway = client.getBean("requestGateway", RequestGateway.class);
+		echoMessage(requestGateway);
+		client.close();
+	}
+
+	private static void echoMessage(RequestGateway requestGateway) {
 		String request = "A,B,C";
 		System.out.println("\n\n++++++++++++ Sending: " + request + " ++++++++++++\n");
 		String reply = requestGateway.echo(request);
 		System.out.println("\n\n++++++++++++ Replied with: " + reply + " ++++++++++++\n");
-		client.close();
 	}
 
 

@@ -15,12 +15,16 @@
  */
 package org.springframework.integration.samples.barrier;
 
+import org.springframework.integration.annotation.MessagingGateway;
 
 /**
  * @author Oleg Zhurakousky
  * @author Gunnar Hillert
+ * @author Glenn Renfro
  *
  */
+
+@MessagingGateway(defaultRequestChannel = "requestChannel")
 public interface RequestGateway {
 
 	String echo(String request);
