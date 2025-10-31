@@ -7,14 +7,14 @@
 
 	<int:channel id="controlChannel"/>
 	
-	<int:channel id="adapterOutputChanel">
+	<int:channel id="adapterOutputChannel">
 		<int:queue/>
 	</int:channel>
 
 	<int:control-bus input-channel="controlChannel"/>
 	
 	<int:inbound-channel-adapter id="inboundAdapter"
-							     channel="adapterOutputChanel" 
+							     channel="adapterOutputChannel"
 								 expression="'Hello'"
 								 auto-startup="false">
 		<int:poller fixed-rate="1000"/>
