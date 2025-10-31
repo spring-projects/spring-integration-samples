@@ -532,6 +532,9 @@ project('enricher') {
 		api "com.h2database:h2:$h2Version"
 		api "org.apache.logging.log4j:log4j-core:$log4jVersion"
 	}
+	run {
+		standardInput = System.in
+	}
 }
 
 project('feed') {

@@ -1,5 +1,5 @@
 /*
- * Copyright 2002-2010 the original author or authors.
+ * Copyright 2011-present the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,18 +18,30 @@ package org.springframework.integration.samples.enricher.service;
 
 import org.junit.jupiter.api.Test;
 
+import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.integration.samples.enricher.domain.User;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * Verify that the Spring Integration Application Context starts successfully.
+ * Verify that the Spring Integration Application Context starts successfully
+ * with both Java and XML configurations.
+ * 
+ * @author Glenn Renfro
  */
 public class UserServiceTest {
 
 	@Test
-	public void testStartupOfSpringIntegrationContext() throws Exception {
+	public void testStartupOfSpringIntegrationContextWithJavaConfig() throws Exception {
+		AnnotationConfigApplicationContext context = createJavaConfigContext();
+		Thread.sleep(2000);
+		context.close();
+	}
+
+	@Test
+	public void testStartupOfSpringIntegrationContextWithXmlConfig() throws Exception {
 		final ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(
 				"/META-INF/spring/integration/spring-integration-context.xml", UserServiceTest.class);
 		Thread.sleep(2000);
@@ -37,11 +49,40 @@ public class UserServiceTest {
 	}
 
 	@Test
-	public void testExecuteFindUser() {
+	public void testExecuteFindUserWithJavaConfig() {
+		AnnotationConfigApplicationContext context = createJavaConfigContext();
 
+		runFindUserTest(context);
+		context.close();
+	}
+
+	@Test
+	public void testExecuteFindUserWithXmlConfig() {
 		final ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(
 				"/META-INF/spring/integration/spring-integration-context.xml", UserServiceTest.class);
 
+		runFindUserTest(context);
+		context.close();
+	}
+
+	@Test
+	public void testExecuteFindUserByUsernameWithJavaConfig() {
+		AnnotationConfigApplicationContext context = createJavaConfigContext();
+
+		runFindUserByUsernameTest(context);
+		context.close();
+	}
+
+	@Test
+	public void testExecuteFindUserByUsernameWithXmlConfig() {
+		final ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(
+				"/META-INF/spring/integration/spring-integration-context.xml", UserServiceTest.class);
+
+		runFindUserByUsernameTest(context);
+		context.close();
+	}
+
+	private void runFindUserTest(ConfigurableApplicationContext context) {
 		final UserService service = context.getBean(UserService.class);
 
 		User user = new User("foo", null, null);
@@ -50,15 +91,9 @@ public class UserServiceTest {
 		assertThat(fullUser.getUsername()).isEqualTo("foo");
 		assertThat(fullUser.getEmail()).isEqualTo("foo@springintegration.org");
 		assertThat(fullUser.getPassword()).isEqualTo("secret");
-		context.close();
-
 	}
 
-	@Test
-	public void testExecuteFindUserByUsername() {
-		final ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(
-				"/META-INF/spring/integration/spring-integration-context.xml", UserServiceTest.class);
-
+	private void runFindUserByUsernameTest(ConfigurableApplicationContext context) {
 		final UserService service = context.getBean(UserService.class);
 
 		User user = new User("foo", null, null);
@@ -67,8 +102,14 @@ public class UserServiceTest {
 		assertThat(fullUser.getUsername()).isEqualTo("foo");
 		assertThat(fullUser.getEmail()).isEqualTo("foo@springintegration.org");
 		assertThat(fullUser.getPassword()).isEqualTo("secret");
-		context.close();
-
 	}
 
+
+	private AnnotationConfigApplicationContext createJavaConfigContext() {
+		AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext();
+		context.getEnvironment().setActiveProfiles("java-config");
+		context.scan("org.springframework.integration.samples.enricher.config");
+		context.refresh();
+		return context;
+	}
 }

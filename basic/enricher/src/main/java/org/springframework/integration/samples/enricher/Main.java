@@ -1,5 +1,5 @@
 /*
- * Copyright 2002-2017 the original author or authors.
+ * Copyright 2011-present the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,17 +22,27 @@ import java.util.Scanner;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.core.env.StandardEnvironment;
 import org.springframework.integration.samples.enricher.domain.User;
 import org.springframework.integration.samples.enricher.service.UserService;
 
 
 /**
  * Starts the Spring Context and will initialize the Spring Integration routes.
+ * <p>
+ * This application supports both Java-based and XML-based Spring Integration
+ * configurations. The configuration mode is selected via Spring profiles:
+ * <ul>
+ *   <li>java-config (default) - Uses Java configuration classes</li>
+ *   <li>xml-config - Uses XML configuration files</li>
+ * </ul>
  *
  * @author Gunnar Hillert
  * @author Gary Russell
+ * @author Glenn Renfro
  * @version 1.0
  *
  */
@@ -62,8 +72,23 @@ public final class Main {
 				  + EMPTY_LINE
 				  + LINE_SEPARATOR );
 
-		final AbstractApplicationContext context =
-				new ClassPathXmlApplicationContext("classpath:META-INF/spring/integration/*-context.xml");
+		// Determine which profile to use
+		String profile = System.getProperty("spring.profiles.active", "java-config");
+		
+		final AbstractApplicationContext context;
+		
+		if ("xml-config".equals(profile)) {
+			LOGGER.info("\n\n    Using XML-based configuration\n\n");
+			context = new ClassPathXmlApplicationContext("classpath:META-INF/spring/integration/*-context.xml");
+		} else {
+			LOGGER.info("\n\n    Using Java-based configuration\n\n");
+			AnnotationConfigApplicationContext annotationContext = new AnnotationConfigApplicationContext();
+			annotationContext.setEnvironment(new StandardEnvironment());
+			annotationContext.getEnvironment().setActiveProfiles("java-config");
+			annotationContext.scan("org.springframework.integration.samples.enricher.config");
+			annotationContext.refresh();
+			context = annotationContext;
+		}
 
 		context.registerShutdownHook();
 
