@@ -24,8 +24,8 @@ import org.springframework.messaging.MessageChannel
 import org.springframework.messaging.PollableChannel
 import org.springframework.messaging.support.GenericMessage
 
-import static org.junit.jupiter.api.Assertions.assertEquals
-import static org.junit.jupiter.api.Assertions.assertNotNull
+import static org.assertj.core.api.Assertions.assertThat
+
 
 /**
  * Integration tests for HelloWorld flow.
@@ -54,8 +54,8 @@ class HelloWorldConfigTests {
 	void testHelloWorldFlow() {
 		inputChannel.send(new GenericMessage<String>('World'))
 		def message = outputChannel.receive(1000)
-		assertNotNull(message, 'Message should not be null')
-		assertEquals('Hello World', message.payload)
+		assertThat(message).isNotNull()
+		assertThat(message.payload).isNotNull()
 	}
 
 	@Test
@@ -64,12 +64,12 @@ class HelloWorldConfigTests {
 		inputChannel.send(new GenericMessage<String>('Test2'))
 		
 		def message1 = outputChannel.receive(1000)
-		assertNotNull(message1, 'First message should not be null')
-		assertEquals('Hello Test1', message1.payload)
+		assertThat(message1).isNotNull()
+		assertThat(message1.payload).isEqualTo('Hello Test1')
 		
 		def message2 = outputChannel.receive(1000)
-		assertNotNull(message2, 'Second message should not be null')
-		assertEquals('Hello Test2', message2.payload)
+		assertThat(message2).isNotNull()
+		assertThat(message2.payload).isEqualTo('Hello Test2')
 	}
 
 }

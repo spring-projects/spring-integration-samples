@@ -18,7 +18,8 @@ package org.springframework.integration.samples.helloworld
 
 import org.junit.jupiter.api.Test
 
-import static org.junit.jupiter.api.Assertions.assertEquals
+import static org.assertj.core.api.Assertions.assertThat
+
 
 /**
  * Unit tests for HelloService.
@@ -31,7 +32,7 @@ class HelloServiceTests {
 	void testSayHello() {
 		def service = new HelloService()
 		def result = service.sayHello('World')
-		assertEquals('Hello World', result)
+		assertThat(result).isEqualTo('Hello World')
 	}
 
 }
