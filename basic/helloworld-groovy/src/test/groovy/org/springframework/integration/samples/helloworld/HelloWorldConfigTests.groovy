@@ -16,39 +16,29 @@
 
 package org.springframework.integration.samples.helloworld
 
-import org.junit.jupiter.api.AfterEach
-import org.junit.jupiter.api.BeforeEach
+
 import org.junit.jupiter.api.Test
-import org.springframework.context.annotation.AnnotationConfigApplicationContext
+import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.messaging.MessageChannel
 import org.springframework.messaging.PollableChannel
 import org.springframework.messaging.support.GenericMessage
+import org.springframework.test.context.junit.jupiter.SpringJUnitConfig
 
 import static org.assertj.core.api.Assertions.assertThat
-
 
 /**
  * Integration tests for HelloWorld flow.
  *
  * @author Glenn Renfro
  */
+@SpringJUnitConfig(HelloWorldConfig.class)
 class HelloWorldConfigTests {
 
-	AnnotationConfigApplicationContext context
+	@Autowired
 	MessageChannel inputChannel
+
+	@Autowired
 	PollableChannel outputChannel
-
-	@BeforeEach
-	void setup() {
-		context = new AnnotationConfigApplicationContext(HelloWorldConfig)
-		inputChannel = context.getBean('inputChannel', MessageChannel)
-		outputChannel = context.getBean('outputChannel', PollableChannel)
-	}
-
-	@AfterEach
-	void cleanup() {
-		context?.close()
-	}
 
 	@Test
 	void testHelloWorldFlow() {
