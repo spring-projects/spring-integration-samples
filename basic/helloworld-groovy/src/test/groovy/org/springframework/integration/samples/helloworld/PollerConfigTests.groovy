@@ -19,12 +19,12 @@ package org.springframework.integration.samples.helloworld
 import org.apache.logging.log4j.LogManager
 import org.apache.logging.log4j.core.LoggerContext
 import org.apache.logging.log4j.core.test.appender.ListAppender
-import org.junit.jupiter.api.AfterEach
-import org.junit.jupiter.api.BeforeEach
+import org.junit.jupiter.api.AfterAll
+import org.junit.jupiter.api.BeforeAll
 import org.junit.jupiter.api.Test
-
-import org.springframework.context.annotation.AnnotationConfigApplicationContext
+import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.integration.dsl.IntegrationFlow
+import org.springframework.test.context.junit.jupiter.SpringJUnitConfig
 
 import java.time.Duration
 
@@ -37,34 +37,31 @@ import static org.awaitility.Awaitility.await
  *
  * @author Glenn Renfro
  */
+@SpringJUnitConfig(PollerConfig.class)
 class PollerConfigTests {
 
-	AnnotationConfigApplicationContext context
+	@Autowired
 	IntegrationFlow pollerFlow
-	ListAppender listAppender
 
+	static ListAppender listAppender
 
-	@BeforeEach
-	void setup() {
-		// Setup Log4j2 ListAppender to capture logs
+	@BeforeAll
+	static void setupLogger() {
 		LoggerContext loggerContext = (LoggerContext) LogManager.getContext(false)
 		listAppender = new ListAppender('TestAppender')
 		listAppender.start()
 		loggerContext.getConfiguration().addAppender(listAppender)
 		loggerContext.getRootLogger().addAppender(listAppender)
 		loggerContext.updateLoggers()
-
-		context = new AnnotationConfigApplicationContext(PollerConfig)
-		pollerFlow = context.getBean('pollerFlow', IntegrationFlow)
 	}
 
-	@AfterEach
-	void cleanup() {
-		context?.close()
+	@AfterAll
+	static void cleanupLogger() {
 		LoggerContext loggerContext = (LoggerContext) LogManager.getContext(false)
 		loggerContext.getRootLogger().removeAppender(listAppender)
 		listAppender.stop()
 	}
+
 
 	@Test
 	void testPollerFlowBeanExists() {
@@ -81,15 +78,11 @@ class PollerConfigTests {
 
 	@Test
 	void testPollerIsActiveAndRunning() {
-		assertThat(context.isActive()).isTrue()
-		assertThat(context.isRunning()).isTrue()
-
 		// Poll until we get the expected log event
 		await()
 				.atMost(Duration.ofSeconds(5))
 				.until(() -> !listAppender.getEvents().isEmpty())
 
-		assertThat(context.isRunning()).isTrue()
 		assertThat(listAppender.getEvents().get(0).toString())
 				.contains('org.springframework.integration.samples.helloworld Level=INFO Message=GenericMessage [payload=')
 	}

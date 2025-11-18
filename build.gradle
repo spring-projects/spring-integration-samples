@@ -604,7 +604,6 @@ project('helloworld-groovy') {
 	apply plugin: 'groovy'
 
 	dependencies {
-		api 'org.springframework.integration:spring-integration-core'
 		api "org.apache.logging.log4j:log4j-core:$log4jVersion"
 		api "org.springframework.integration:spring-integration-groovy"
 		testImplementation "org.apache.logging.log4j:log4j-core-test:$log4jVersion"
