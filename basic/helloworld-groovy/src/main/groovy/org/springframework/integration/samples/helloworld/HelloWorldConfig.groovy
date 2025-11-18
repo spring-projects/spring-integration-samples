@@ -52,7 +52,7 @@ class HelloWorldConfig {
 	}
 
 	@Bean
-	IntegrationFlow helloWorldFlow(@Qualifier('inputChannel') MessageChannel input,
+	helloWorldFlow(@Qualifier('inputChannel') MessageChannel input,
 	                                @Qualifier('outputChannel') MessageChannel output,
 	                                HelloService service) {
 		integrationFlow(input) {

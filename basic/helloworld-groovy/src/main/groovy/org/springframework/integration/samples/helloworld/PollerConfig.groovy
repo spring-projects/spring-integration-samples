@@ -18,13 +18,11 @@ package org.springframework.integration.samples.helloworld
 
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
+import org.springframework.integration.channel.NullChannel
 import org.springframework.integration.config.EnableIntegration
 import org.springframework.integration.dsl.Pollers
 import org.springframework.integration.handler.LoggingHandler
-import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor
 import static org.springframework.integration.groovy.dsl.IntegrationGroovyDsl.integrationFlow
-
-import java.util.concurrent.Executor
 
 /**
  * Configuration for the Poller integration flow using the Groovy DSL.
@@ -42,20 +40,8 @@ class PollerConfig {
 				{ e -> e.poller(Pollers.fixedDelay(20000).maxMessagesPerPoll(2)) })
 				{
 					log LoggingHandler.Level.INFO, 'org.springframework.integration.samples.helloworld'
-					channel { queue 'loggerChannel' }
+					channel(new NullChannel())
 				}
-	}
-
-	@Bean
-	Executor executor() {
-		new ThreadPoolTaskExecutor().with {
-			corePoolSize = 5
-			maxPoolSize = 20
-			queueCapacity = 20
-			threadNamePrefix = 'executor-'
-			initialize()
-			it
-		}
 	}
 }
 

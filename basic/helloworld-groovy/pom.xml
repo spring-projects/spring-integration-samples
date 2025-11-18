@@ -42,7 +42,7 @@
       </roles>
     </developer>
     <developer>
-      <id>glennrenfro</id>
+      <id>cppwfs</id>
       <name>Glenn Renfro</name>
       <email>glenn.renfro@gmail.com</email>
       <roles>
@@ -79,9 +79,28 @@
     <dependency>
       <groupId>org.apache.logging.log4j</groupId>
       <artifactId>log4j-core</artifactId>
-      <version>2.24.3</version>
+      <version>${log4j.version}</version>
       <scope>compile</scope>
     </dependency>
+    <dependency>
+      <groupId>org.apache.logging.log4j</groupId>
+      <artifactId>log4j-core-test</artifactId>
+      <version>${log4j.version}</version> <!-- Replace with your Log4j 2 version -->
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.awaitility</groupId>
+      <artifactId>awaitility</artifactId>
+      <version>4.3.0</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.assertj</groupId>
+      <artifactId>assertj-core</artifactId>
+      <version>3.27.6</version>
+      <scope>test</scope>
+    </dependency>
+
     <dependency>
       <groupId>org.hamcrest</groupId>
       <artifactId>hamcrest-library</artifactId>
@@ -102,6 +121,11 @@
     <dependency>
       <groupId>org.springframework.integration</groupId>
       <artifactId>spring-integration-test</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-test</artifactId>
       <scope>test</scope>
     </dependency>
     <dependency>
@@ -157,6 +181,7 @@
   <properties>
     <java.version>17</java.version>
     <groovy.version>4.0.24</groovy.version>
+    <log4j.version>2.24.3</log4j.version>
   </properties>
   <build>
     <plugins>

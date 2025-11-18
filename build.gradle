@@ -112,7 +112,7 @@ subprojects { subproject ->
 								roles = ['project founder and lead emeritus']
 							}
 							developer {
-								id = 'glennrenfro'
+								id = 'cppwfs'
 								name = 'Glenn Renfro'
 								email = 'glenn.renfro@broadcom.com'
 								roles = ['project committer']
@@ -606,8 +606,8 @@ project('helloworld-groovy') {
 	dependencies {
 		api 'org.springframework.integration:spring-integration-core'
 		api "org.apache.logging.log4j:log4j-core:$log4jVersion"
-		implementation "org.apache.groovy:groovy:$groovyVersion"
 		api "org.springframework.integration:spring-integration-groovy"
+		testImplementation "org.apache.logging.log4j:log4j-core-test:$log4jVersion"
 	}
 
 	tasks.register ('runHelloWorldApp', JavaExec) {
