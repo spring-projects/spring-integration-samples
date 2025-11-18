@@ -111,6 +111,12 @@ subprojects { subproject ->
 								email = 'mark.ryan.fisher@gmail.com'
 								roles = ['project founder and lead emeritus']
 							}
+							developer {
+								id = 'glennrenfro'
+								name = 'Glenn Renfro'
+								email = 'glenn.renfro@broadcom.com'
+								roles = ['project committer']
+							}
 						}
 						issueManagement {
 							system = 'GitHub'
@@ -586,6 +592,30 @@ project('helloworld') {
 	}
 
 	task runPollerApp(type: JavaExec) {
+		mainClass = 'org.springframework.integration.samples.helloworld.PollerApp'
+		classpath = sourceSets.main.runtimeClasspath
+	}
+
+}
+
+project('helloworld-groovy') {
+	description = 'Hello World Sample for Groovy Developers'
+
+	apply plugin: 'groovy'
+
+	dependencies {
+		api 'org.springframework.integration:spring-integration-core'
+		api "org.apache.logging.log4j:log4j-core:$log4jVersion"
+		implementation "org.apache.groovy:groovy:$groovyVersion"
+		api "org.springframework.integration:spring-integration-groovy"
+	}
+
+	tasks.register ('runHelloWorldApp', JavaExec) {
+		mainClass = 'org.springframework.integration.samples.helloworld.HelloWorldApp'
+		classpath = sourceSets.main.runtimeClasspath
+	}
+
+	tasks.register ('runPollerApp', JavaExec) {
 		mainClass = 'org.springframework.integration.samples.helloworld.PollerApp'
 		classpath = sourceSets.main.runtimeClasspath
 	}
