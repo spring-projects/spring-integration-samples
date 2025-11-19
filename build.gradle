@@ -2,8 +2,8 @@ buildscript {
 	repositories {
 		mavenCentral()
 		gradlePluginPortal()
-		maven { url 'https://repo.spring.io/milestone' }
-		maven { url 'https://repo.spring.io/snapshot' }
+		maven { url = 'https://repo.spring.io/milestone' }
+		maven { url = 'https://repo.spring.io/snapshot' }
 	}
 	dependencies {
 		classpath 'io.spring.gradle:dependency-management-plugin:1.1.7'
@@ -31,8 +31,8 @@ allprojects {
 
 	repositories {
 		mavenCentral()
-		maven { url 'https://repo.spring.io/milestone' }
-		maven { url 'https://repo.spring.io/snapshot' }
+		maven { url = 'https://repo.spring.io/milestone' }
+		maven { url = 'https://repo.spring.io/snapshot' }
 //		maven { url 'https://repo.spring.io/libs-staging-local' }
 	}
 
@@ -65,7 +65,9 @@ subprojects { subproject ->
 			}
 		}
 
-		task generatePom(dependsOn: 'generatePomFileForMavenJavaPublication')
+		tasks.register('generatePom') {
+			dependsOn('generatePomFileForMavenJavaPublication')
+		}
 
 		publishing {
 			publications {
@@ -303,7 +305,7 @@ subprojects { subproject ->
 		}
 	}
 
-	task cleanTarget(type: Delete) {
+	tasks.register('cleanTarget', Delete) {
 		delete 'target'
 	}
 
@@ -386,13 +388,13 @@ project('cafe-scripted') {
 		api "org.apache.logging.log4j:log4j-core:$log4jVersion"
 	}
 
-	task runCafeDemoApp(type: JavaExec) {
+	tasks.register('runCafeDemoApp', JavaExec) {
 		mainClass = 'org.springframework.integration.samples.cafe.demo.CafeDemoApp'
 		args project.hasProperty('lang') ? project.lang : ''
 		classpath = sourceSets.main.runtimeClasspath
 	}
 
-	task runControlBus(type: JavaExec) {
+	tasks.register('runControlBus', JavaExec) {
 		mainClass = 'org.springframework.integration.samples.cafe.demo.ControlBusMain'
 		classpath = sourceSets.main.runtimeClasspath
 	}
@@ -412,7 +414,7 @@ project('loan-broker') {
 		api "org.apache.logging.log4j:log4j-core:$log4jVersion"
 	}
 
-	task runLoanBrokerSharkDetectorDemo(type: JavaExec) {
+	tasks.register('runLoanBrokerSharkDetectorDemo', JavaExec) {
 		mainClass = 'org.springframework.integration.samples.loanbroker.demo.LoanBrokerSharkDetectorDemo'
 		classpath = sourceSets.main.runtimeClasspath
 	}
@@ -470,7 +472,7 @@ project('amqp') {
 		runtimeOnly "org.slf4j:slf4j-jcl:$slf4jVersion"
 	}
 
-	task runSimple(type: JavaExec) {
+	tasks.register('runSimple', JavaExec) {
 		mainClass = 'org.springframework.integration.samples.amqp.SampleSimple'
 		classpath = sourceSets.main.runtimeClasspath
 		standardInput = System.in
@@ -479,7 +481,7 @@ project('amqp') {
 
 	}
 
-	task runPubConfirmsReturns(type: JavaExec) {
+	tasks.register('runPubConfirmsReturns', JavaExec) {
 		mainClass = 'org.springframework.integration.samples.amqp.SamplePubConfirmsReturns'
 		classpath = sourceSets.main.runtimeClasspath
 		standardInput = System.in
@@ -510,7 +512,7 @@ project('barrier') {
 		mainClass = 'org.springframework.integration.samples.barrier.Application'
 	}
 
-	task run(type: JavaExec) {
+	tasks.register('run', JavaExec) {
 		mainClass = 'org.springframework.integration.samples.barrier.Application'
 		classpath = sourceSets.main.runtimeClasspath
 	}
@@ -586,12 +588,12 @@ project('helloworld') {
 		api "org.apache.logging.log4j:log4j-core:$log4jVersion"
 	}
 
-	task runHelloWorldApp(type: JavaExec) {
+	tasks.register('runHelloWorldApp', JavaExec) {
 		mainClass = 'org.springframework.integration.samples.helloworld.HelloWorldApp'
 		classpath = sourceSets.main.runtimeClasspath
 	}
 
-	task runPollerApp(type: JavaExec) {
+	tasks.register('runPollerApp', JavaExec) {
 		mainClass = 'org.springframework.integration.samples.helloworld.PollerApp'
 		classpath = sourceSets.main.runtimeClasspath
 	}
@@ -688,7 +690,7 @@ project('kafka') {
 		mainClass = 'org.springframework.integration.samples.kafka.Application'
 	}
 
-	task run(type: JavaExec) {
+	tasks.register('run', JavaExec) {
 		mainClass = 'org.springframework.integration.samples.kafka.Application'
 		classpath = sourceSets.main.runtimeClasspath
 	}
@@ -714,7 +716,7 @@ project('mqtt') {
 		mainClass = 'org.springframework.integration.samples.mqtt.Application'
 	}
 
-	task run(type: JavaExec) {
+	tasks.register('run', JavaExec) {
 		mainClass = 'org.springframework.integration.samples.mqtt.Application'
 		classpath = sourceSets.main.runtimeClasspath
 	}
@@ -862,12 +864,12 @@ project('mail') {
 		api "org.apache.logging.log4j:log4j-core:$log4jVersion"
 	}
 
-	task runGmailInboundPop3AdapterTestApp(type: JavaExec) {
+	tasks.register('runGmailInboundPop3AdapterTestApp', JavaExec) {
 		mainClass = 'org.springframework.integration.samples.mail.imapidle.GmailInboundPop3AdapterTestApp'
 		classpath = sourceSets.main.runtimeClasspath
 	}
 
-	task runGmailInboundImapIdleAdapterTestApp(type: JavaExec) {
+	tasks.register('runGmailInboundImapIdleAdapterTestApp', JavaExec) {
 		mainClass = 'org.springframework.integration.samples.mail.imapidle.GmailInboundImapIdleAdapterTestApp'
 		classpath = sourceSets.main.runtimeClasspath
 	}
@@ -882,12 +884,12 @@ project('mongodb') {
 		api "org.mongodb:mongodb-driver-sync:$mongoDriverVersion"
 	}
 
-	task runMongoDbInboundAdapterDemo(type: JavaExec) {
+	tasks.register('runMongoDbInboundAdapterDemo', JavaExec) {
 		mainClass = 'org.springframework.integration.samples.mongodb.inbound.MongoDbInboundAdapterDemo'
 		classpath = sourceSets.main.runtimeClasspath
 	}
 
-	task runMongoDbOutboundAdapterDemo(type: JavaExec) {
+	tasks.register('runMongoDbOutboundAdapterDemo', JavaExec) {
 		mainClass = 'org.springframework.integration.samples.mongodb.inbound.MongoDbOutboundAdapterDemo'
 		classpath = sourceSets.main.runtimeClasspath
 	}
@@ -901,12 +903,12 @@ project('oddeven') {
 		api "org.apache.logging.log4j:log4j-core:$log4jVersion"
 	}
 
-	task runCronOddEvenDemo(type: JavaExec) {
+	tasks.register('runCronOddEvenDemo', JavaExec) {
 		mainClass = 'org.springframework.integration.samples.oddeven.CronOddEvenDemo'
 		classpath = sourceSets.main.runtimeClasspath
 	}
 
-	task runIntervalOddEvenDemoTestApp(type: JavaExec) {
+	tasks.register('runIntervalOddEvenDemoTestApp', JavaExec) {
 		mainClass = 'org.springframework.integration.samples.oddeven.IntervalOddEvenDemoTestApp'
 		classpath = sourceSets.main.runtimeClasspath
 	}
@@ -966,7 +968,7 @@ project('tcp-broadcast') {
 		mainClass = 'org.springframework.integration.samples.tcpbroadcast.TcpBroadcastApplication'
 	}
 
-	task run(type: JavaExec) {
+	tasks.register('run', JavaExec) {
 		mainClass = 'org.springframework.integration.samples.tcpbroadcast.TcpBroadcastApplication'
 		classpath = sourceSets.main.runtimeClasspath
 	}
@@ -1267,27 +1269,27 @@ project('retry-and-more') {
 		api "org.apache.logging.log4j:log4j-core:$log4jVersion"
 	}
 
-	task runCircuitBreakerDemo(type: JavaExec) {
+	tasks.register('runCircuitBreakerDemo', JavaExec) {
 		mainClass = 'org.springframework.integration.samples.advice.CircuitBreakerDemo'
 		classpath = sourceSets.main.runtimeClasspath
 	}
 
-	task runFileTransferDeleteAfterSuccessDemo(type: JavaExec) {
+	tasks.register('runFileTransferDeleteAfterSuccessDemo', JavaExec) {
 		mainClass = 'org.springframework.integration.samples.advice.FileTransferDeleteAfterSuccessDemo'
 		classpath = sourceSets.main.runtimeClasspath
 	}
 
-	task runFileTransferRenameAfterFailureDemo(type: JavaExec) {
+	tasks.register('runFileTransferRenameAfterFailureDemo', JavaExec) {
 		mainClass = 'org.springframework.integration.samples.advice.FileTransferRenameAfterFailureDemo'
 		classpath = sourceSets.main.runtimeClasspath
 	}
 
-	task runStatefulRetryDemo(type: JavaExec) {
+	tasks.register('runStatefulRetryDemo', JavaExec) {
 		mainClass = 'org.springframework.integration.samples.advice.StatefulRetryDemo'
 		classpath = sourceSets.main.runtimeClasspath
 	}
 
-	task runStatelessRetryDemo(type: JavaExec) {
+	tasks.register('runStatelessRetryDemo', JavaExec) {
 		mainClass = 'org.springframework.integration.samples.advice.StatelessRetryDemo'
 		classpath = sourceSets.main.runtimeClasspath
 	}
@@ -1402,7 +1404,7 @@ project('tcp-async-bi-directional') {
 		mainClass = 'org.springframework.integration.samples.tcpasyncbi.TcpAsyncBiDirectionalApplication'
 	}
 
-	task run(type: JavaExec) {
+	tasks.register('run', JavaExec) {
 		mainClass = 'org.springframework.integration.samples.tcpasyncbi.TcpAsyncBiDirectionalApplication'
 		classpath = sourceSets.main.runtimeClasspath
 	}
@@ -1516,7 +1518,7 @@ project('kafka-dsl') {
 		mainClass = 'org.springframework.integration.samples.dsl.kafka.Application'
 	}
 
-	task run(type: JavaExec) {
+	tasks.register('run', JavaExec) {
 		mainClass = 'org.springframework.integration.samples.dsl.kafka.Application'
 		classpath = sourceSets.main.runtimeClasspath
 	}
@@ -1553,7 +1555,7 @@ project('file-split-ftp') {
 		mainClass = 'org.springframework.integration.samples.filesplit.Application'
 	}
 
-	task run(type: JavaExec) {
+	tasks.register('run', JavaExec) {
 		mainClass = 'org.springframework.integration.samples.filesplit.Application'
 		classpath = sourceSets.main.runtimeClasspath
 	}
@@ -1575,7 +1577,7 @@ project('dynamic-tcp-client') {
 		mainClass = 'org.springframework.integration.samples.dynamictcp.DynamicTcpClientApplication'
 	}
 
-	task run(type: JavaExec) {
+	tasks.register('run', JavaExec) {
 		mainClass = 'org.springframework.integration.samples.dynamictcp.DynamicTcpClientApplication'
 		classpath = sourceSets.main.runtimeClasspath
 	}
@@ -1598,7 +1600,7 @@ project('tcp-with-headers') {
 		mainClass = 'org.springframework.integration.samples.tcpheaders.TcpWithHeadersApplication'
 	}
 
-	task run(type: JavaExec) {
+	tasks.register('run', JavaExec) {
 		mainClass = 'org.springframework.integration.samples.tcpheaders.TcpWithHeadersApplication'
 		classpath = sourceSets.main.runtimeClasspath
 	}
