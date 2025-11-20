@@ -6,8 +6,9 @@
 		</Console>
 	</Appenders>
 	<Loggers>
-		<Logger name="org.springframework" level="info"/>
-		<Root level="info">
+		<Logger name="org.springframework" level="warn"/>
+		<Logger name="org.springframework.integration.samples.helloworld" level="info"/>
+		<Root level="warn">
 			<AppenderRef ref="Console"/>
 		</Root>
 	</Loggers>

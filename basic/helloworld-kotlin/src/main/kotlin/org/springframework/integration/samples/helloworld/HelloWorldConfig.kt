@@ -31,7 +31,7 @@ import org.springframework.messaging.MessageChannel
  */
 @Configuration(proxyBeanMethods = false)
 @EnableIntegration
-open class HelloWorldConfig {
+class HelloWorldConfig {
 
     /**
      * Creates the input channel for inbound messages.
@@ -43,19 +43,19 @@ open class HelloWorldConfig {
      * @return A [DirectChannel] instance for synchronous inbound message delivery
      */
     @Bean
-    open fun inputChannel() = DirectChannel()
+    fun inputChannel() = DirectChannel()
 
     /**
      * Creates the output channel for outbound messages.
      *
-     * A [QueueChannel] with capacity of 10 messages provides asynchronous,
+     * A [QueueChannel] with default capacity provides asynchronous,
      * buffered message delivery. Results from the integration flow are queued
      * and available for downstream consumption.
      *
-     * @return A [QueueChannel] instance with capacity of 10 messages
+     * @return A [QueueChannel] instance with default capacity.
      */
     @Bean
-    open fun outputChannel() = QueueChannel(10)
+    fun outputChannel() = QueueChannel()
 
     /**
      * Creates the Hello World business service.
@@ -66,7 +66,7 @@ open class HelloWorldConfig {
      * @return A [HelloService] instance
      */
     @Bean
-    open fun helloService() = HelloService()
+    fun helloService() = HelloService()
 
     /**
      * Defines the main integration flow for message processing.
@@ -77,7 +77,7 @@ open class HelloWorldConfig {
      * @return An IntegrationFlow representing the complete message flow
      */
     @Bean
-    open fun helloWorldFlow(inputChannel: MessageChannel, outputChannel: MessageChannel, helloService: HelloService) =
+    fun helloWorldFlow(inputChannel: MessageChannel, outputChannel: MessageChannel, helloService: HelloService) =
         integrationFlow(inputChannel) {
             handle(helloService, "sayHello")
             channel(outputChannel)

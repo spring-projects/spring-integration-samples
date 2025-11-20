@@ -21,7 +21,6 @@ import org.springframework.context.annotation.Configuration
 import org.springframework.integration.channel.NullChannel
 import org.springframework.integration.config.EnableIntegration
 import org.springframework.integration.dsl.integrationFlow
-import org.springframework.integration.endpoint.MessageProcessorMessageSource
 import org.springframework.integration.handler.LoggingHandler
 
 /**
@@ -32,7 +31,7 @@ import org.springframework.integration.handler.LoggingHandler
  */
 @Configuration(proxyBeanMethods = false)
 @EnableIntegration
-open class PollerConfig {
+class PollerConfig {
 
     /**
      * Defines a polling-based integration flow for periodic message generation.
@@ -45,9 +44,9 @@ open class PollerConfig {
      * @return An IntegrationFlow that periodically generates and logs timestamps, then discards them.
      */
     @Bean
-    open fun pollerFlow() =
+    fun pollerFlow() =
         integrationFlow(
-            MessageProcessorMessageSource { System.currentTimeMillis() },
+            { System.currentTimeMillis() },
                     { poller { it.fixedDelay(20000).maxMessagesPerPoll(2) } }) {
                 log(LoggingHandler.Level.INFO, "org.springframework.integration.samples.helloworld")
                 channel(NullChannel())

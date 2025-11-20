@@ -43,7 +43,7 @@ class HelloWorldConfig {
 
 	@Bean
 	MessageChannel outputChannel() {
-		new QueueChannel(10)
+		new QueueChannel()
 	}
 
 	@Bean
