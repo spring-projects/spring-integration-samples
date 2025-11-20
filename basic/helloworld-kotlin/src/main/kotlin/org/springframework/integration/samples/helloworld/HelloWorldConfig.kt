@@ -21,7 +21,6 @@ import org.springframework.context.annotation.Configuration
 import org.springframework.integration.channel.DirectChannel
 import org.springframework.integration.channel.QueueChannel
 import org.springframework.integration.config.EnableIntegration
-import org.springframework.integration.dsl.IntegrationFlow
 import org.springframework.integration.dsl.integrationFlow
 import org.springframework.messaging.MessageChannel
 
@@ -30,24 +29,57 @@ import org.springframework.messaging.MessageChannel
  *
  * @author Glenn Renfro
  */
-@Configuration
+@Configuration(proxyBeanMethods = false)
 @EnableIntegration
 open class HelloWorldConfig {
 
+    /**
+     * Creates the input channel for inbound messages.
+     *
+     * A [DirectChannel] is used for synchronous, immediate message delivery.
+     * Messages arriving on this channel are processed on the sender's thread
+     * without any buffering or queuing.
+     *
+     * @return A [DirectChannel] instance for synchronous inbound message delivery
+     */
     @Bean
     open fun inputChannel() = DirectChannel()
 
+    /**
+     * Creates the output channel for outbound messages.
+     *
+     * A [QueueChannel] with capacity of 10 messages provides asynchronous,
+     * buffered message delivery. Results from the integration flow are queued
+     * and available for downstream consumption.
+     *
+     * @return A [QueueChannel] instance with capacity of 10 messages
+     */
     @Bean
     open fun outputChannel() = QueueChannel(10)
 
+    /**
+     * Creates the Hello World business service.
+     *
+     * [HelloService] implements the core greeting logic that transforms
+     * input messages into personalized greeting responses.
+     *
+     * @return A [HelloService] instance
+     */
     @Bean
     open fun helloService() = HelloService()
 
+    /**
+     * Defines the main integration flow for message processing.
+     *
+     * @param inputChannel The synchronous input channel receiving messages
+     * @param outputChannel The asynchronous output channel for results
+     * @param helloService The service implementing the greeting logic
+     * @return An IntegrationFlow representing the complete message flow
+     */
     @Bean
-    open fun helloWorldFlow(inputChannel: MessageChannel,
-                            outputChannel: MessageChannel) = integrationFlow(inputChannel) {
-            handle(helloService(), "sayHello")
+    open fun helloWorldFlow(inputChannel: MessageChannel, outputChannel: MessageChannel, helloService: HelloService) =
+        integrationFlow(inputChannel) {
+            handle(helloService, "sayHello")
             channel(outputChannel)
         }
-
 }

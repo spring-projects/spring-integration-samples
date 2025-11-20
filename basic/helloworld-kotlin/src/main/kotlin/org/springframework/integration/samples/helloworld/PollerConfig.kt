@@ -18,8 +18,10 @@ package org.springframework.integration.samples.helloworld
 
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
+import org.springframework.integration.channel.NullChannel
 import org.springframework.integration.config.EnableIntegration
-import org.springframework.integration.dsl.IntegrationFlow
+import org.springframework.integration.dsl.integrationFlow
+import org.springframework.integration.endpoint.MessageProcessorMessageSource
 import org.springframework.integration.handler.LoggingHandler
 
 /**
@@ -28,17 +30,26 @@ import org.springframework.integration.handler.LoggingHandler
  *
  * @author Glenn Renfro
  */
-@Configuration
+@Configuration(proxyBeanMethods = false)
 @EnableIntegration
 open class PollerConfig {
 
+    /**
+     * Defines a polling-based integration flow for periodic message generation.
+     *
+     * This flow demonstrates a time-triggered, scheduled message processing pattern.
+     * A message source generates timestamps at fixed intervals, logs the values,
+     * and discards them via the null channel. This is useful for monitoring,
+     * health checks, or triggering periodic processing logic.
+     *
+     * @return An IntegrationFlow that periodically generates and logs timestamps, then discards them.
+     */
     @Bean
     open fun pollerFlow() =
-        IntegrationFlow.fromSupplier({ System.currentTimeMillis() }) { e ->
-            e.poller { p ->
-                p.fixedDelay(20000).maxMessagesPerPoll(2)
+        integrationFlow(
+            MessageProcessorMessageSource { System.currentTimeMillis() },
+                    { poller { it.fixedDelay(20000).maxMessagesPerPoll(2) } }) {
+                log(LoggingHandler.Level.INFO, "org.springframework.integration.samples.helloworld")
+                channel(NullChannel())
             }
-        }
-            .log(LoggingHandler.Level.INFO, "org.springframework.integration.samples.helloworld")
-            .nullChannel()
 }
