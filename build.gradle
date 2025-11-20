@@ -9,6 +9,7 @@ buildscript {
 		classpath 'io.spring.gradle:dependency-management-plugin:1.1.7'
 		classpath "org.springframework.boot:spring-boot-gradle-plugin:$springBootVersion"
 		classpath 'org.gretty:gretty:4.1.10'
+		classpath 'org.jetbrains.kotlin:kotlin-gradle-plugin:2.2.21'
 	}
 }
 
@@ -212,6 +213,13 @@ subprojects { subproject ->
 			targetCompatibility = JavaVersion.VERSION_17
 		}
 
+		tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).all {
+			kotlinOptions {
+				jvmTarget = '17'
+			}
+		}
+
+
 		compileTestJava {
 			sourceCompatibility = JavaVersion.VERSION_17
 			targetCompatibility = JavaVersion.VERSION_17
@@ -221,6 +229,8 @@ subprojects { subproject ->
 		ext {
 			artemisVersion = '2.41.0'
 			aspectjVersion = '1.9.24'
+			assertjVersion = '3.27.6'
+			awaitilityVersion = '4.2.2'
 			commonsDigesterVersion = '2.1'
 			commonsDbcpVersion = '2.13.0'
 			commonsFileUploadVersion = '1.6.0'
@@ -609,7 +619,34 @@ project('helloworld-groovy') {
 		api "org.apache.logging.log4j:log4j-core:$log4jVersion"
 		api "org.springframework.integration:spring-integration-groovy"
 		testImplementation "org.apache.logging.log4j:log4j-core-test:$log4jVersion"
+		testImplementation "org.awaitility:awaitility:$awaitilityVersion"
+		testImplementation("org.assertj:assertj-core:$assertjVersion")	}
+
+	tasks.register ('runHelloWorldApp', JavaExec) {
+		mainClass = 'org.springframework.integration.samples.helloworld.HelloWorldApp'
+		classpath = sourceSets.main.runtimeClasspath
 	}
+
+	tasks.register ('runPollerApp', JavaExec) {
+		mainClass = 'org.springframework.integration.samples.helloworld.PollerApp'
+		classpath = sourceSets.main.runtimeClasspath
+	}
+
+}
+
+project('helloworld-kotlin') {
+	description = 'Hello World Sample for Kotlin Developers'
+
+	apply plugin: 'org.jetbrains.kotlin.jvm'
+
+	dependencies {
+		api "org.apache.logging.log4j:log4j-core:$log4jVersion"
+		api "org.springframework.integration:spring-integration-core"
+		api "org.jetbrains.kotlin:kotlin-stdlib"
+		api "org.jetbrains.kotlin:kotlin-reflect"
+		testImplementation "org.apache.logging.log4j:log4j-core-test:$log4jVersion"
+		testImplementation "org.awaitility:awaitility:$awaitilityVersion"
+		testImplementation("org.assertj:assertj-core:$assertjVersion")	}
 
 	tasks.register ('runHelloWorldApp', JavaExec) {
 		mainClass = 'org.springframework.integration.samples.helloworld.HelloWorldApp'
