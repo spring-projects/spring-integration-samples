@@ -26,6 +26,7 @@ import org.junit.jupiter.api.BeforeAll
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.integration.dsl.IntegrationFlow
+import org.springframework.test.annotation.DirtiesContext
 import org.springframework.test.context.junit.jupiter.SpringJUnitConfig
 import java.time.Duration
 
@@ -37,6 +38,7 @@ import java.time.Duration
  * @author Glenn Renfro
  */
 @SpringJUnitConfig(PollerConfig::class)
+@DirtiesContext
 class PollerConfigTests {
 
     @Autowired
