@@ -23,7 +23,6 @@ apply plugin: 'base'
 apply plugin: 'idea'
 
 ext {
-	kotlinVersion = '2.2.21'
 	linkHomepage = 'https://projects.spring.io/spring-integration'
 	linkCi = 'https://build.spring.io/browse/INTSAMPLES'
 	linkIssue = 'https://github.com/spring-projects/spring-integration-samples/issues'
