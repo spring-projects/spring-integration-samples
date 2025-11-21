@@ -1,4 +1,7 @@
 buildscript {
+	ext {
+		kotlinVersion = '2.2.21'
+	}
 	repositories {
 		mavenCentral()
 		gradlePluginPortal()
@@ -9,6 +12,8 @@ buildscript {
 		classpath 'io.spring.gradle:dependency-management-plugin:1.1.7'
 		classpath "org.springframework.boot:spring-boot-gradle-plugin:$springBootVersion"
 		classpath 'org.gretty:gretty:4.1.10'
+		classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion"
+		classpath "org.jetbrains.kotlin:kotlin-allopen:$kotlinVersion"
 	}
 }
 
@@ -177,6 +182,55 @@ subprojects { subproject ->
 										}
 							}
 
+							if (subproject.plugins.hasPlugin('kotlin')) {
+								def plugins = asNode().build?.find()?.plugins?.find()
+								if (!plugins) {
+									plugins = asNode().appendNode('build').with {
+										appendNode('sourceDirectory', '${project.basedir}/src/main/kotlin')
+										appendNode('testSourceDirectory', '${project.basedir}/src/test/kotlin')
+										appendNode('plugins')
+									}
+								}
+
+								plugins.appendNode('plugin')
+										.with {
+											appendNode('groupId', 'org.jetbrains.kotlin')
+											appendNode('artifactId', 'kotlin-maven-plugin')
+											appendNode('version', property('kotlinVersion'))
+											appendNode('configuration').with {
+												appendNode('args').with {
+													appendNode('arg', '-Xjsr305=strict')
+												}
+												appendNode('compilerPlugins').with {
+													appendNode('plugin', 'spring')
+												}
+											}
+											appendNode('executions').with {
+												appendNode('execution').with {
+													appendNode('id', 'compile')
+													appendNode('phase', 'compile')
+													appendNode('goals').with {
+														appendNode('goal', 'compile')
+													}
+												}
+												appendNode('execution').with {
+													appendNode('id', 'test-compile')
+													appendNode('phase', 'test-compile')
+													appendNode('goals').with {
+														appendNode('goal', 'test-compile')
+													}
+												}
+											}
+											appendNode('dependencies').with {
+												appendNode('dependency').with {
+													appendNode('groupId', 'org.jetbrains.kotlin')
+													appendNode('artifactId', 'kotlin-maven-allopen')
+													appendNode('version', property('kotlinVersion'))
+												}
+											}
+										}
+							}
+
 							def pomDeps = asNode().dependencies.find()
 							if (!pomDeps) {
 								pomDeps = asNode().appendNode('dependencies')
@@ -212,6 +266,13 @@ subprojects { subproject ->
 			targetCompatibility = JavaVersion.VERSION_17
 		}
 
+		tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).all {
+			kotlinOptions {
+				jvmTarget = '17'
+			}
+		}
+
+
 		compileTestJava {
 			sourceCompatibility = JavaVersion.VERSION_17
 			targetCompatibility = JavaVersion.VERSION_17
@@ -221,6 +282,8 @@ subprojects { subproject ->
 		ext {
 			artemisVersion = '2.41.0'
 			aspectjVersion = '1.9.24'
+			assertjVersion = '3.27.6'
+			awaitilityVersion = '4.2.2'
 			commonsDigesterVersion = '2.1'
 			commonsDbcpVersion = '2.13.0'
 			commonsFileUploadVersion = '1.6.0'
@@ -609,6 +672,35 @@ project('helloworld-groovy') {
 		api "org.apache.logging.log4j:log4j-core:$log4jVersion"
 		api "org.springframework.integration:spring-integration-groovy"
 		testImplementation "org.apache.logging.log4j:log4j-core-test:$log4jVersion"
+		testImplementation "org.awaitility:awaitility:$awaitilityVersion"
+	}
+
+	tasks.register ('runHelloWorldApp', JavaExec) {
+		mainClass = 'org.springframework.integration.samples.helloworld.HelloWorldApp'
+		classpath = sourceSets.main.runtimeClasspath
+	}
+
+	tasks.register ('runPollerApp', JavaExec) {
+		mainClass = 'org.springframework.integration.samples.helloworld.PollerApp'
+		classpath = sourceSets.main.runtimeClasspath
+	}
+
+}
+
+project('helloworld-kotlin') {
+	description = 'Hello World Sample for Kotlin Developers'
+
+	apply plugin: 'kotlin'
+	apply plugin: 'kotlin-spring'
+
+	dependencies {
+		api "org.apache.logging.log4j:log4j-core:$log4jVersion"
+		api "org.springframework.integration:spring-integration-core"
+		api "org.jetbrains.kotlin:kotlin-stdlib"
+		api "org.jetbrains.kotlin:kotlin-reflect"
+		testImplementation "org.apache.logging.log4j:log4j-core-test:$log4jVersion"
+		testImplementation "org.awaitility:awaitility:$awaitilityVersion"
+		testImplementation("org.assertj:assertj-core:$assertjVersion")
 	}
 
 	tasks.register ('runHelloWorldApp', JavaExec) {

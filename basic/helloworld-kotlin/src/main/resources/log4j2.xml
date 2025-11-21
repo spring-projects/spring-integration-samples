@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration>
+	<Appenders>
+		<Console name="Console" target="SYSTEM_OUT">
+			<PatternLayout pattern="[%t][%c] %m%n"/>
+		</Console>
+	</Appenders>
+	<Loggers>
+		<Logger name="org.springframework" level="warn"/>
+		<Logger name="org.springframework.integration.samples.helloworld" level="info"/>
+		<Root level="warn">
+			<AppenderRef ref="Console"/>
+		</Root>
+	</Loggers>
+</Configuration>
