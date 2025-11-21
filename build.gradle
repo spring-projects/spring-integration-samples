@@ -1,4 +1,7 @@
 buildscript {
+	ext {
+		kotlinVersion = '2.2.21'
+	}
 	repositories {
 		mavenCentral()
 		gradlePluginPortal()
@@ -9,8 +12,8 @@ buildscript {
 		classpath 'io.spring.gradle:dependency-management-plugin:1.1.7'
 		classpath "org.springframework.boot:spring-boot-gradle-plugin:$springBootVersion"
 		classpath 'org.gretty:gretty:4.1.10'
-		classpath 'org.jetbrains.kotlin:kotlin-gradle-plugin:2.2.21'
-		classpath 'org.jetbrains.kotlin:kotlin-allopen:2.2.21'
+		classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion"
+		classpath "org.jetbrains.kotlin:kotlin-allopen:$kotlinVersion"
 	}
 }
 
@@ -20,6 +23,7 @@ apply plugin: 'base'
 apply plugin: 'idea'
 
 ext {
+	kotlinVersion = '2.2.21'
 	linkHomepage = 'https://projects.spring.io/spring-integration'
 	linkCi = 'https://build.spring.io/browse/INTSAMPLES'
 	linkIssue = 'https://github.com/spring-projects/spring-integration-samples/issues'
@@ -179,8 +183,7 @@ subprojects { subproject ->
 										}
 							}
 
-							if (subproject.plugins.hasPlugin('org.jetbrains.kotlin.jvm')) {
-								def kotlinVersion = '2.2.21'
+							if (subproject.plugins.hasPlugin('kotlin')) {
 								def plugins = asNode().build?.find()?.plugins?.find()
 								if (!plugins) {
 									plugins = asNode().appendNode('build').with {
@@ -194,7 +197,7 @@ subprojects { subproject ->
 										.with {
 											appendNode('groupId', 'org.jetbrains.kotlin')
 											appendNode('artifactId', 'kotlin-maven-plugin')
-											appendNode('version', kotlinVersion)
+											appendNode('version', property('kotlinVersion'))
 											appendNode('configuration').with {
 												appendNode('args').with {
 													appendNode('arg', '-Xjsr305=strict')
@@ -223,7 +226,7 @@ subprojects { subproject ->
 												appendNode('dependency').with {
 													appendNode('groupId', 'org.jetbrains.kotlin')
 													appendNode('artifactId', 'kotlin-maven-allopen')
-													appendNode('version', kotlinVersion)
+													appendNode('version', property('kotlinVersion'))
 												}
 											}
 										}
@@ -671,7 +674,6 @@ project('helloworld-groovy') {
 		api "org.springframework.integration:spring-integration-groovy"
 		testImplementation "org.apache.logging.log4j:log4j-core-test:$log4jVersion"
 		testImplementation "org.awaitility:awaitility:$awaitilityVersion"
-		testImplementation("org.assertj:assertj-core:$assertjVersion")
 	}
 
 	tasks.register ('runHelloWorldApp', JavaExec) {
