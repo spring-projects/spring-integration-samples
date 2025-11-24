@@ -28,6 +28,6 @@ import org.springframework.messaging.handler.annotation.Header;
  */
 public interface VoidGateway {
 
-	public void process(String thing, @Header(FileHeaders.FILENAME) String fileName);
+	void process(String thing, @Header(FileHeaders.FILENAME) String fileName);
 
 }

@@ -54,7 +54,7 @@ public final class Main {
 				  + "\n    For more information please visit:                   "
 				  + "\n    https://www.springsource.org/spring-integration       "
 				  + "\n"
-				  + HORIZONTAL_LINE );
+				  + HORIZONTAL_LINE);
 
 		final AbstractApplicationContext context =
 				new ClassPathXmlApplicationContext("classpath:META-INF/spring/integration/*-context.xml");
@@ -67,13 +67,13 @@ public final class Main {
 				  + "\n"
 				  + "\n    Please press 'q + Enter' to quit the application.    "
 				  + "\n"
-				  + HORIZONTAL_LINE );
+				  + HORIZONTAL_LINE);
 
 		while (true) {
 
 			final String input = scanner.nextLine();
 
-			if("q".equals(input.trim())) {
+			if ("q".equals(input.trim())) {
 				break;
 			}
 

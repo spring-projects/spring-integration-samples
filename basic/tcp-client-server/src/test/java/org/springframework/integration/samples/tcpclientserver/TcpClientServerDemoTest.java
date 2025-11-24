@@ -75,21 +75,18 @@ public class TcpClientServerDemoTest {
 	@Test
 	public void testHappyDay() {
 		String result = gw.send("Hello world!");
-		System.out.println(result);
 		assertThat(result).isEqualTo("echo:Hello world!");
 	}
 
 	@Test
 	public void testZeroLength() {
 		String result = gw.send("");
-		System.out.println(result);
 		assertThat(result).isEqualTo("echo:");
 	}
 
 	@Test
 	public void testFail() {
 		String result = gw.send("FAIL");
-		System.out.println(result);
 		assertThat(result).isEqualTo("FAIL:Failure Demonstration");
 	}
 

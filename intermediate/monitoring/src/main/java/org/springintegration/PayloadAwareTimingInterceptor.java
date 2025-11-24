@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.springintegration;
 
 import java.util.Map;
@@ -118,15 +119,15 @@ public class PayloadAwareTimingInterceptor implements ChannelInterceptor {
 		private long lastTime;
 
 		public long getCount() {
-			return count;
+			return this.count;
 		}
 
 		public long getLastTime() {
-			return lastTime;
+			return this.lastTime;
 		}
 
 		public float getAverage() {
-			return average;
+			return this.average;
 		}
 
 		public synchronized void add(long time) {
@@ -138,7 +139,7 @@ public class PayloadAwareTimingInterceptor implements ChannelInterceptor {
 
 		@Override
 		public String toString() {
-			return "Stats [count=" + count + ", average=" + average + ", lastTime=" + lastTime + "]";
+			return "Stats [count=" + this.count + ", average=" + this.average + ", lastTime=" + this.lastTime + "]";
 		}
 
 	}

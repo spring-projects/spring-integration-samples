@@ -13,15 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.springframework.integration.samples.cafe.xml;
+
+import java.io.IOException;
 
 import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.integration.samples.cafe.Cafe;
 import org.springframework.integration.samples.cafe.DrinkType;
 import org.springframework.integration.samples.cafe.Order;
-
-import java.io.IOException;
 
 /**
  * Main class for sending orders that will be handled in separate, distributed
@@ -30,7 +31,10 @@ import java.io.IOException;
  *
  * @author Christian Posta
  */
-public class CafeDemoAppActiveMQ {
+public final class CafeDemoAppActiveMQ {
+
+	private CafeDemoAppActiveMQ() {
+	}
 
 	/**
 	 * Place some orders.
@@ -38,7 +42,7 @@ public class CafeDemoAppActiveMQ {
 	 * @param context spring context
 	 * @param count the number of standard orders
 	 */
-	public static void order(AbstractApplicationContext context, int count){
+	public static void order(AbstractApplicationContext context, int count) {
 		Cafe cafe = (Cafe) context.getBean("cafe");
 		for (int i = 1; i <= count; i++) {
 			Order order = new Order(i);

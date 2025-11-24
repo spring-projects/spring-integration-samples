@@ -13,13 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.springframework.integration.samples.splitteraggregator;
 
 /**
  * The result for a search query.
- * 
+ *
  * @author Christopher Hunt
- * 
+ *
  */
 public class Result {
 }

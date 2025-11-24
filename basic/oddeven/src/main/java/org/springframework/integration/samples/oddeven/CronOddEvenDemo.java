@@ -32,7 +32,10 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
  *
  * @author Mark Fisher
  */
-public class CronOddEvenDemo {
+public final class CronOddEvenDemo {
+
+	private CronOddEvenDemo() {
+	}
 
 	public static void main(String[] args) {
 		new ClassPathXmlApplicationContext("/META-INF/spring/integration/cronOddEvenDemo.xml", CronOddEvenDemo.class);

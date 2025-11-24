@@ -16,6 +16,9 @@
 
 package org.springframework.integration.samples.si4demo.springone.g;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.WebApplicationType;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
@@ -40,6 +43,8 @@ import org.springframework.integration.samples.si4demo.springone.GMailProperties
 @EnableAutoConfiguration
 public class GIMAP {
 
+	private static final Log LOGGER = LogFactory.getLog(GIMAP.class);
+
 	@Autowired
 	GMailProperties gmail;
 
@@ -48,7 +53,7 @@ public class GIMAP {
 				new SpringApplicationBuilder(GIMAP.class)
 						.web(WebApplicationType.NONE)
 						.run(args);
-		System.out.println("Hit Enter to terminate");
+		LOGGER.info("Hit Enter to terminate");
 		System.in.read();
 		ctx.close();
 	}
@@ -57,9 +62,9 @@ public class GIMAP {
 	IntegrationFlow imapIdle() {
 		return IntegrationFlow.from(Mail.imapIdleAdapter(
 								"imaps://"
-										+ gmail.getUser().replaceAll("@", "%40")
+										+ this.gmail.getUser().replaceAll("@", "%40")
 										+ ":"
-										+ gmail.getPassword()
+										+ this.gmail.getPassword()
 										+ "@imap.gmail.com:993/INBOX")
 						.id("imapIn")
 						.autoStartup(true)

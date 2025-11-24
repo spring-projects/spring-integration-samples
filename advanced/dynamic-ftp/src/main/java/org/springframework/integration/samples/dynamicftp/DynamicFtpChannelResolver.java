@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.springframework.integration.samples.dynamicftp;
 
 import java.util.HashMap;
@@ -45,40 +46,38 @@ public class DynamicFtpChannelResolver {
 	public static final int MAX_CACHE_SIZE = 2;
 
 	private final LinkedHashMap<String, MessageChannel> channels =
-				new LinkedHashMap<String, MessageChannel>() {
-					
-					private static final long serialVersionUID = 1L;
+			new LinkedHashMap<String, MessageChannel>() {
 
-					@Override
-					protected boolean removeEldestEntry(
-							Entry<String, MessageChannel> eldest) {
-						//This returning true means the least recently used
-						//channel and its application context will be closed and removed
-						boolean remove = size() > MAX_CACHE_SIZE;
-						if(remove) {
-							MessageChannel channel = eldest.getValue();
-							ConfigurableApplicationContext ctx = contexts.get(channel);
-							if(ctx != null) { //shouldn't be null ideally
-								ctx.close();
-								contexts.remove(channel);
-							}
+				private static final long serialVersionUID = 1L;
+
+				@Override
+				protected boolean removeEldestEntry(
+						Entry<String, MessageChannel> eldest) {
+					//This returning true means the least recently used
+					//channel and its application context will be closed and removed
+					boolean remove = size() > MAX_CACHE_SIZE;
+					if (remove) {
+						MessageChannel channel = eldest.getValue();
+						ConfigurableApplicationContext ctx = DynamicFtpChannelResolver.this.contexts.get(channel);
+						if (ctx != null) { //shouldn't be null ideally
+							ctx.close();
+							DynamicFtpChannelResolver.this.contexts.remove(channel);
 						}
-						return remove;
 					}
-					
-				};
+					return remove;
+				}
+
+			};
 
 	private final Map<MessageChannel, ConfigurableApplicationContext> contexts =
-				new HashMap<MessageChannel, ConfigurableApplicationContext>();
-
-
+			new HashMap<>();
 
 	/**
 	 * Resolve a customer to a channel, where each customer gets a private
 	 * application context and the channel is the inbound channel to that
 	 * application context.
 	 *
-	 * @param customer
+	 * @param customer the customer identifier
 	 * @return a channel
 	 */
 	public MessageChannel resolve(String customer) {
@@ -109,8 +108,8 @@ public class DynamicFtpChannelResolver {
 	 * Use Spring 3.1. environment support to set properties for the
 	 * customer-specific application context.
 	 *
-	 * @param ctx
-	 * @param customer
+	 * @param ctx the application context
+	 * @param customer the customer identifier
 	 */
 	private void setEnvironmentForCustomer(ConfigurableApplicationContext ctx,
 			String customer) {

@@ -30,12 +30,13 @@ public final class Main {
 	/**
 	 * Prevent instantiation.
 	 */
-	private Main() {}
+	private Main() {
+	}
 
 	/**
 	 * @param args Not used.
 	 */
-	public static void main(String... args) throws Exception{
+	public static void main(String... args) throws Exception {
 
 		final GenericXmlApplicationContext context = new GenericXmlApplicationContext();
 
@@ -60,7 +61,7 @@ public final class Main {
 						+ "\n    For more information please visit:                   "
 						+ "\n    https://www.springsource.org/spring-integration/                    "
 						+ "\n                                                         "
-						+ "\n=========================================================" );
+						+ "\n=========================================================");
 
 		System.out.println("Please select the city, for which you would like to get traffic and weather information:");
 
@@ -73,7 +74,7 @@ public final class Main {
 		while (true) {
 			final String input = scanner.nextLine();
 
-			if("q".equals(input.trim())) {
+			if ("q".equals(input.trim())) {
 				System.out.println("Exiting application...bye.");
 				break;
 			}
@@ -86,7 +87,7 @@ public final class Main {
 
 				System.out.println("\n========================================================="
 								+ "\n    Weather:"
-								+ "\n=========================================================" );
+								+ "\n=========================================================");
 				System.out.println(weatherReply);
 
 				if (mapQuestApiKeyDefined) {
@@ -94,7 +95,7 @@ public final class Main {
 
 					System.out.println("\n========================================================="
 									+ "\n    Traffic:"
-									+ "\n=========================================================" );
+									+ "\n=========================================================");
 					System.out.println(trafficReply);
 				}
 				else {
@@ -104,7 +105,7 @@ public final class Main {
 
 				System.out.println("\n========================================================="
 								+ "\n    Done."
-								+ "\n=========================================================" );
+								+ "\n=========================================================");
 				System.out.print("Enter your choice: ");
 			}
 		}

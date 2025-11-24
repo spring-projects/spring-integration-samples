@@ -40,7 +40,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  */
 public class InContainerTests {
 
-	private static final Log logger = LogFactory.getLog(InContainerTests.class);
+	private static final Log LOGGER = LogFactory.getLog(InContainerTests.class);
 
 	private static final String WS_URI = "http://localhost:8080/ws-inbound-gateway/echoservice";
 
@@ -54,7 +54,7 @@ public class InContainerTests {
 						"<echoRequest xmlns=\"http://www.springframework.org/spring-ws/samples/echo\">hello</echoRequest>");
 
 		template.sendSourceAndReceiveToResult(WS_URI, payload, result);
-		logger.info("RESULT: " + result);
+		LOGGER.info("RESULT: " + result);
 		assertThat(result.toString()).isEqualTo(
 				"<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
 						"<echoResponse xmlns=\"http://www.springframework.org/spring-ws/samples/echo\">hello</echoResponse>");

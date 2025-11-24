@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.springframework.integration.model;
 
 /**
@@ -24,7 +25,9 @@ package org.springframework.integration.model;
 public class CoffeeBeverage {
 
 	private Integer id;
+
 	private String name;
+
 	private String description;
 
 	/** Default Constructor */
@@ -33,9 +36,9 @@ public class CoffeeBeverage {
 	}
 
 	/**
-	 * @param id
-	 * @param name
-	 * @param description
+	 * @param id the beverage id
+	 * @param name the beverage name
+	 * @param description the beverage description
 	 */
 	public CoffeeBeverage(Integer id, String name, String description) {
 		super();
@@ -102,7 +105,8 @@ public class CoffeeBeverage {
 				return false;
 			}
 
-		} else if (!this.description.equals(other.description)) {
+		}
+		else if (!this.description.equals(other.description)) {
 			return false;
 		}
 
@@ -112,7 +116,8 @@ public class CoffeeBeverage {
 				return false;
 			}
 
-		} else if (!this.name.equals(other.name)) {
+		}
+		else if (!this.name.equals(other.name)) {
 			return false;
 		}
 

@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.springframework.integration.samples.ftp;
 
 import java.util.List;
@@ -22,7 +23,8 @@ import java.util.List;
  * @since 2.1
  *
  */
-public interface ToFtpFlowGateway {
+interface ToFtpFlowGateway {
 
-	public List<Boolean> lsGetAndRmFiles(String dir);
+	List<Boolean> lsGetAndRmFiles(String dir);
+
 }

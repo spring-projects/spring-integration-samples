@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.springframework.integration.samples.enricher.service.impl;
 
 import org.apache.commons.logging.Log;
@@ -41,8 +42,8 @@ public class SystemService {
 		LOGGER.info(String.format("Calling method 'findUser' with parameter %s", user));
 
 		final User fullUser = new User(user.getUsername(),
-									   "secret",
-									   user.getUsername() + "@springintegration.org");
+				"secret",
+				user.getUsername() + "@springintegration.org");
 		return fullUser;
 	}
 

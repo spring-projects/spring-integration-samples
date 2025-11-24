@@ -1,5 +1,5 @@
 /*
- * Copyright 2015 the original author or authors.
+ * Copyright 2015-present the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,27 +18,22 @@ package org.springframework.integration.samples.zip;
 
 import org.junit.jupiter.api.Test;
 
-import org.springframework.context.ApplicationContext;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-import org.springframework.integration.samples.zip.SpringIntegrationUtils;
-
 /**
  * Verify that the Spring Integration Application Context starts successfully.
- *
  * @author Gunnar Hillert
  * @author Artem Bilan
- *
  * @since 6.4
  */
 public class SpringIntegrationProjectStartupTest {
 
 	@Test
-	public void testStartupOfSpringIntegrationContext() throws Exception{
-		try(ConfigurableApplicationContext context
-			= new ClassPathXmlApplicationContext("/META-INF/spring/integration/spring-integration-context.xml",
-												  SpringIntegrationProjectStartupTest.class)) {
+	public void testStartupOfSpringIntegrationContext() throws Exception {
+		try (ConfigurableApplicationContext context = new ClassPathXmlApplicationContext(
+				"/META-INF/spring/integration/spring-integration-context.xml",
+				SpringIntegrationProjectStartupTest.class)) {
 			SpringIntegrationUtils.displayDirectories(context);
 			Thread.sleep(2000);
 		}

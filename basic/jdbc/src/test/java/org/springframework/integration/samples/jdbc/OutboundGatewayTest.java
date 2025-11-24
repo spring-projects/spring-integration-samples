@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.springframework.integration.samples.jdbc;
 
 import java.util.Calendar;
@@ -36,14 +37,14 @@ import static org.assertj.core.api.Assertions.assertThat;
  */
 public class OutboundGatewayTest {
 
-	private final Log logger = LogFactory.getLog(OutboundGatewayTest.class);
+	private static final Log LOGGER = LogFactory.getLog(OutboundGatewayTest.class);
 
 	@Test
 	public void insertPersonRecord() {
 		ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(
 				"/META-INF/spring/integration/spring-integration-context.xml");
 		PersonService service = context.getBean(PersonService.class);
-		logger.info("Creating person Instance");
+		LOGGER.info("Creating person Instance");
 		Person person = new Person();
 		Calendar dateOfBirth = Calendar.getInstance();
 		dateOfBirth.set(1980, Calendar.JANUARY, 1);
@@ -52,7 +53,7 @@ public class OutboundGatewayTest {
 		person.setGender(Gender.MALE);
 		person = service.createPerson(person);
 		assertThat(person).isNotNull();
-		logger.info("\n\tGenerated person with id: " + person.getPersonId() + ", with name: " + person.getName());
+		LOGGER.info("\n\tGenerated person with id: " + person.getPersonId() + ", with name: " + person.getName());
 		context.close();
 	}
 

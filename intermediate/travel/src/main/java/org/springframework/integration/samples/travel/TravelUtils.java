@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.springframework.integration.samples.travel;
 
 import java.io.StringWriter;
@@ -45,9 +46,9 @@ public final class TravelUtils {
 	 *
 	 * @param result The XML to prettify
 	 * @return Prettified XML
-	 * @throws Exception
+	 * @throws Exception if transformation fails
 	 */
-	public static String formatXml(String result) throws Exception{
+	public static String formatXml(String result) throws Exception {
 		Transformer transformer = TransformerFactory.newInstance().newTransformer();
 		transformer.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, "yes");
 		transformer.setOutputProperty(OutputKeys.ENCODING, "UTF-8");

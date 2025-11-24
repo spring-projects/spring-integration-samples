@@ -27,12 +27,15 @@ import org.apache.commons.logging.LogFactory;
  *
  */
 public class FileProcessor {
-	private final Random random = new Random();
-	private final Log logger = LogFactory.getLog(FileProcessor.class);
 
-	public File process(File file) throws Exception{
-		Thread.sleep(random.nextInt(10)*500);
-		logger.info("Processing File: " + file);
+	private final Random random = new Random();
+
+	private static final Log LOGGER = LogFactory.getLog(FileProcessor.class);
+
+	public File process(File file) throws Exception {
+		Thread.sleep(this.random.nextInt(10) * 500);
+		LOGGER.info("Processing File: " + file);
 		return file;
 	}
+
 }

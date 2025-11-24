@@ -13,11 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.springframework.integration.samples.travel;
 
 public class WeatherRequestTransformer {
 
-	public String transform(City city){
+	public String transform(City city) {
 		return "<weat:GetCityWeatherByZIP xmlns:weat=\"https://ws.cdyne.com/WeatherWS/\">" +
 				"	<weat:ZIP>" + city.getPostalCode() + "</weat:ZIP>" +
 				"</weat:GetCityWeatherByZIP>";

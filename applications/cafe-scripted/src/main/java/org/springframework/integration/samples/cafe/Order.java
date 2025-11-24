@@ -38,7 +38,7 @@ public class Order {
 	}
 
 	public int getNumber() {
-		return number;
+		return this.number;
 	}
 
 	public List<OrderItem> getItems() {
@@ -46,7 +46,7 @@ public class Order {
 	}
 
 	public String toString() {
-		return "Order number " + number;
+		return "Order number " + this.number;
 	}
 
 }

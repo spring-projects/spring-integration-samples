@@ -27,7 +27,10 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
  * @since 2.0.2
  *
  */
-public class Main {
+public final class Main {
+
+	private Main() {
+	}
 
 	public static void main(String[] args) throws Exception {
 		AbstractApplicationContext context = new ClassPathXmlApplicationContext(

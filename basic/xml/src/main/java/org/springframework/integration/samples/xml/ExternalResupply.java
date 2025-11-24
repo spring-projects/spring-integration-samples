@@ -25,10 +25,10 @@ import org.w3c.dom.Document;
  * @author Gary Russell
  */
 public class ExternalResupply {
-	private static final Log logger = LogFactory.getLog(ExternalResupply.class);
+	private static final Log LOGGER = LogFactory.getLog(ExternalResupply.class);
 
 	public void orderResupply(Document resupplyOrder) {
-		logger.info("Placing resupply order: \n" + XmlUtil.docAsString(resupplyOrder));
+		LOGGER.info("Placing resupply order: \n" + XmlUtil.docAsString(resupplyOrder));
 	}
 
 }

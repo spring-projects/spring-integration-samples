@@ -32,7 +32,10 @@ import org.springframework.context.annotation.ImportResource;
  */
 @SpringBootApplication
 @ImportResource("/META-INF/spring/integration/server-context.xml")
-public class Application {
+public final class Application {
+
+	private Application() {
+	}
 
 	public static void main(String[] args) {
 		ConfigurableApplicationContext server = SpringApplication.run(Application.class, args);
@@ -58,6 +61,5 @@ public class Application {
 		System.out.println("\n\n++++++++++++ Replied with: " + reply + " ++++++++++++\n");
 		client.close();
 	}
-
 
 }

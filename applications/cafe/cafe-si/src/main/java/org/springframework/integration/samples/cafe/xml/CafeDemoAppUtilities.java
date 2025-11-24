@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.springframework.integration.samples.cafe.xml;
 
 import org.springframework.context.support.AbstractApplicationContext;
@@ -23,12 +24,16 @@ import org.springframework.context.support.GenericXmlApplicationContext;
  * @author Gunnar Hillert
  *
  */
-public class CafeDemoAppUtilities {
+public final class CafeDemoAppUtilities {
 
 	/** spring profile for running locally */
-	public static final String DEV = "dev";
+	static final String DEV = "dev";
+
 	/** spring profile for running in cloud foundry */
-	public static final String CLOUD = "cloud";
+	static final String CLOUD = "cloud";
+
+	private CafeDemoAppUtilities() {
+	}
 
 	/**
 	 *

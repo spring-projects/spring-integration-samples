@@ -13,14 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.springframework.integration.samples.loanbroker.loanshark.domain;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-
-import org.springframework.beans.factory.annotation.Configurable;
-import org.springframework.transaction.annotation.Transactional;
 
 import flexjson.JSONDeserializer;
 import flexjson.JSONSerializer;
@@ -34,9 +32,24 @@ import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.Query;
 import jakarta.persistence.Version;
 
+import org.springframework.beans.factory.annotation.Configurable;
+import org.springframework.transaction.annotation.Transactional;
+
 @Configurable
 @Entity
 public class LoanShark {
+
+	@PersistenceContext
+	transient EntityManager entityManager;
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name = "id")
+	private Long id;
+
+	@Version
+	@Column(name = "version")
+	private Integer version;
 
 	private String name;
 
@@ -59,18 +72,6 @@ public class LoanShark {
 	public static Collection<LoanShark> fromJsonArrayToLoanSharks(String json) {
 		return new JSONDeserializer<List<LoanShark>>().use(null, ArrayList.class).use("values", LoanShark.class).deserialize(json);
 	}
-
-	@PersistenceContext
-	transient EntityManager entityManager;
-
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name = "id")
-	private Long id;
-
-	@Version
-	@Column(name = "version")
-	private Integer version;
 
 	public Long getId() {
 		return this.id;
@@ -103,7 +104,8 @@ public class LoanShark {
 		}
 		if (this.entityManager.contains(this)) {
 			this.entityManager.remove(this);
-		} else {
+		}
+		else {
 			LoanShark attached = this.entityManager.find(this.getClass(), this.id);
 			this.entityManager.remove(attached);
 		}
@@ -145,7 +147,9 @@ public class LoanShark {
 	}
 
 	public static LoanShark findLoanShark(Long id) {
-		if (id == null) return null;
+		if (id == null) {
+			return null;
+		}
 		return entityManager().find(LoanShark.class, id);
 	}
 
@@ -188,13 +192,15 @@ public class LoanShark {
 		return q;
 	}
 
+	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
-		sb.append("Id: ").append(getId()).append(", ");
-		sb.append("Version: ").append(getVersion()).append(", ");
-		sb.append("Name: ").append(getName()).append(", ");
-		sb.append("Counter: ").append(getCounter()).append(", ");
-		sb.append("AverageRate: ").append(getAverageRate());
+		sb.append("Id: ").append(this.getId()).append(", ");
+		sb.append("Version: ").append(this.getVersion()).append(", ");
+		sb.append("Name: ").append(this.getName()).append(", ");
+		sb.append("Counter: ").append(this.getCounter()).append(", ");
+		sb.append("AverageRate: ").append(this.getAverageRate());
 		return sb.toString();
 	}
+
 }

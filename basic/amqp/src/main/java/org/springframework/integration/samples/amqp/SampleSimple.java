@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.springframework.integration.samples.amqp;
 
 import org.apache.commons.logging.Log;
@@ -43,13 +44,13 @@ public final class SampleSimple {
 	public static void main(final String... args) {
 
 		LOGGER.info("\n========================================================="
-				  + "\n                                                         "
-				  + "\n          Welcome to Spring Integration!                 "
-				  + "\n                                                         "
-				  + "\n    For more information please visit:                   "
-				  + "\n    https://www.springsource.org/spring-integration       "
-				  + "\n                                                         "
-				  + "\n=========================================================" );
+				+ "\n                                                         "
+				+ "\n          Welcome to Spring Integration!                 "
+				+ "\n                                                         "
+				+ "\n    For more information please visit:                   "
+				+ "\n    https://www.springsource.org/spring-integration       "
+				+ "\n                                                         "
+				+ "\n=========================================================");
 
 		@SuppressWarnings("resource")
 		final AbstractApplicationContext context =
@@ -58,15 +59,15 @@ public final class SampleSimple {
 		context.registerShutdownHook();
 
 		LOGGER.info("\n========================================================="
-				  + "\n                                                          "
-				  + "\n    This is the AMQP Sample -                             "
-				  + "\n                                                          "
-				  + "\n    Please enter some text and press return. The entered  "
-				  + "\n    Message will be sent to the configured RabbitMQ Queue,"
-				  + "\n    then again immediately retrieved from the Message     "
-				  + "\n    Broker and ultimately printed to the command line.    "
-				  + "\n                                                          "
-				  + "\n=========================================================" );
+				+ "\n                                                          "
+				+ "\n    This is the AMQP Sample -                             "
+				+ "\n                                                          "
+				+ "\n    Please enter some text and press return. The entered  "
+				+ "\n    Message will be sent to the configured RabbitMQ Queue,"
+				+ "\n    then again immediately retrieved from the Message     "
+				+ "\n    Broker and ultimately printed to the command line.    "
+				+ "\n                                                          "
+				+ "\n=========================================================");
 
 	}
 }

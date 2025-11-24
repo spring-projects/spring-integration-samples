@@ -1,5 +1,5 @@
 /*
- * Copyright 2014 the original author or authors.
+ * Copyright 2014-present the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,7 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.springframework.integration.samples.si4demo.springone.c;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
@@ -36,17 +40,22 @@ import org.springframework.messaging.MessageHandler;
  * @author Gary Russell
  *
  */
-public class CNoXML {
+public final class CNoXML {
+
+	private static final Log LOGGER = LogFactory.getLog(CNoXML.class);
+
+	private CNoXML() {
+	}
 
 	public static void main(String[] args) throws Exception {
 		ConfigurableApplicationContext ctx =
 				new AnnotationConfigApplicationContext(CConfig.class);
-		System.out.println(ctx.getBean(FooService.class).foo("foo"));
+		LOGGER.info(ctx.getBean(FooService.class).foo("foo"));
 		ctx.close();
 	}
 
-	@MessagingGateway(defaultRequestChannel="foo")
-	public static interface FooService {
+	@MessagingGateway(defaultRequestChannel = "foo")
+	public interface FooService {
 
 		String foo(String request);
 
@@ -62,7 +71,7 @@ public class CNoXML {
 			return new DirectChannel();
 		}
 
-		@Transformer(inputChannel="foo")
+		@Transformer(inputChannel = "foo")
 		@Bean
 		public MessageHandler transform() {
 			MessageTransformingHandler transformingHandler = new MessageTransformingHandler(new MethodInvokingTransformer(helpers(), "duplicate"));
@@ -75,7 +84,7 @@ public class CNoXML {
 			return new DirectChannel();
 		}
 
-		@ServiceActivator(inputChannel="bar")
+		@ServiceActivator(inputChannel = "bar")
 		@Bean
 		public MessageHandler service() {
 			return new ServiceActivatingHandler(new MethodInvokingTransformer(helpers(), "upper"));

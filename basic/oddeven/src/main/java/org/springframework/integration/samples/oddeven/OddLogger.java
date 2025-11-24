@@ -34,11 +34,12 @@ import org.springframework.integration.annotation.ServiceActivator;
  */
 @MessageEndpoint
 public class OddLogger {
-	private static final Log logger = LogFactory.getLog(OddLogger.class);
+
+	private static final Log LOGGER = LogFactory.getLog(OddLogger.class);
 
 	@ServiceActivator
 	public void log(int i) {
-		logger.info("odd:  " + i + " at " + new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").format(new Date()));
+		LOGGER.info("odd:  " + i + " at " + new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").format(new Date()));
 	}
 
 }

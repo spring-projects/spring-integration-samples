@@ -16,8 +16,6 @@
 
 package org.springframework.integration.samples.tcpasyncbi;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
@@ -29,11 +27,12 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.integration.channel.AbstractMessageChannel;
 import org.springframework.integration.endpoint.SourcePollingChannelAdapter;
 import org.springframework.integration.test.context.SpringIntegrationTest;
-import org.springframework.lang.Nullable;
 import org.springframework.messaging.Message;
 import org.springframework.messaging.MessageChannel;
 import org.springframework.messaging.support.ChannelInterceptor;
 import org.springframework.test.annotation.DirtiesContext;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
 @SpringIntegrationTest(noAutoStartup = { "client1Adapter", "client2Adapter" })

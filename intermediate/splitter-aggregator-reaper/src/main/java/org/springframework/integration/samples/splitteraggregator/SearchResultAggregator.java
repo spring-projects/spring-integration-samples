@@ -13,15 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.springframework.integration.samples.splitteraggregator;
 
 import java.util.Collection;
 
 /**
  * Aggregate a collection of results into a composite result object.
- * 
+ *
  * @author Christopher Hunt
- * 
+ *
  */
 public class SearchResultAggregator {
 	public Result aggregate(Collection<Result> results) {

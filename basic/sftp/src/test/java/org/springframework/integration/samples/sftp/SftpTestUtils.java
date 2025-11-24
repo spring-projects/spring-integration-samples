@@ -16,9 +16,6 @@
 
 package org.springframework.integration.samples.sftp;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.containsString;
-
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 
@@ -26,6 +23,8 @@ import org.apache.sshd.sftp.client.SftpClient;
 
 import org.springframework.integration.file.remote.RemoteFileTemplate;
 import org.springframework.integration.file.remote.SessionCallback;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * @author Gary Russell
@@ -36,6 +35,9 @@ import org.springframework.integration.file.remote.SessionCallback;
  */
 public class SftpTestUtils {
 
+	private SftpTestUtils() {
+	}
+
 	public static void createTestFiles(RemoteFileTemplate<SftpClient.DirEntry> template, final String... fileNames) {
 		if (template != null) {
 			final ByteArrayInputStream stream = new ByteArrayInputStream("foo".getBytes());
@@ -44,7 +46,7 @@ public class SftpTestUtils {
 					session.mkdir("si.sftp.sample");
 				}
 				catch (Exception e) {
-					assertThat(e.getMessage(), containsString("failed to create"));
+					assertThat(e.getMessage()).contains("failed to create");
 				}
 				for (int i = 0; i < fileNames.length; i++) {
 					stream.reset();

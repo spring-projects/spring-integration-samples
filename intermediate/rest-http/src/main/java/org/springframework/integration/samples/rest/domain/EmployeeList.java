@@ -27,24 +27,23 @@ import jakarta.xml.bind.annotation.XmlType;
 
 /**
  * EmployeeList.java: EmployeeList Domain class
- *
  * @author Vigil Bose
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
-    "employee",
-    "returnStatus",
-    "returnStatusMsg"
+		"employee",
+		"returnStatus",
+		"returnStatusMsg"
 })
 @XmlRootElement(name = "EmployeeList")
 public class EmployeeList {
-	
+
 	@XmlElement(name = "Employee", required = true)
 	private List<Employee> employee;
-	
+
 	@XmlElement(name = "returnStatus", required = true)
 	private String returnStatus;
-	
+
 	@XmlElement(name = "returnStatusMsg", required = true)
 	private String returnStatusMsg;
 
@@ -52,17 +51,17 @@ public class EmployeeList {
 	 * @return the employee
 	 */
 	public List<Employee> getEmployee() {
-		if (employee == null){
-			employee = new ArrayList<Employee>();
+		if (this.employee == null) {
+			this.employee = new ArrayList<Employee>();
 		}
-		return employee;
+		return this.employee;
 	}
 
 	/**
 	 * @return the returnStatus
 	 */
 	public String getReturnStatus() {
-		return returnStatus;
+		return this.returnStatus;
 	}
 
 	/**
@@ -76,7 +75,7 @@ public class EmployeeList {
 	 * @return the returnStatusMsg
 	 */
 	public String getReturnStatusMsg() {
-		return returnStatusMsg;
+		return this.returnStatusMsg;
 	}
 
 	/**
@@ -85,4 +84,5 @@ public class EmployeeList {
 	public void setReturnStatusMsg(String returnStatusMsg) {
 		this.returnStatusMsg = returnStatusMsg;
 	}
+
 }

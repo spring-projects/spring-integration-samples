@@ -1,4 +1,5 @@
-/* Copyright 2002-present the original author or authors.
+/*
+ * Copyright 2002-present the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -31,14 +32,17 @@ import org.springframework.integration.annotation.MessageEndpoint;
  */
 @MessageEndpoint
 public class PartyHost {
-	private final Log logger = LogFactory.getLog(PartyHost.class);
+
+	private static final Log LOGGER = LogFactory.getLog(PartyHost.class);
+
 	private final AtomicInteger counter = new AtomicInteger(0);
 
 	public Invitation nextInvitation() {
-		return new Invitation(counter.incrementAndGet());
+		return new Invitation(this.counter.incrementAndGet());
 	}
 
 	public void onInvitationFailed(Invitation inv) {
-		logger.info("Host received failure notification for: " + inv);
+		LOGGER.info("Host received failure notification for: " + inv);
 	}
+
 }

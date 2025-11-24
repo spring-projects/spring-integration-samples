@@ -1,18 +1,19 @@
 /*
- * Copyright 2010 the original author or authors
+ * Copyright 2010-present the original author or authors.
  *
- *     Licensed under the Apache License, Version 2.0 (the "License");
- *     you may not use this file except in compliance with the License.
- *     You may obtain a copy of the License at
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
  *
- *         https://www.apache.org/licenses/LICENSE-2.0
+ *      https://www.apache.org/licenses/LICENSE-2.0
  *
- *     Unless required by applicable law or agreed to in writing, software
- *     distributed under the License is distributed on an "AS IS" BASIS,
- *     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *     See the License for the specific language governing permissions and
- *     limitations under the License.
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
+
 package org.springframework.integration.samples.testing.externalgateway;
 
 import java.io.IOException;
@@ -37,8 +38,8 @@ import org.springframework.oxm.XmlMappingException;
 import org.springframework.xml.transform.StringResult;
 import org.springframework.xml.transform.StringSource;
 import org.springframework.xml.xpath.XPathExpressionFactory;
+
 /**
- *
  * @author Oleg Zhurakousky
  * @author Mark Fisher
  * @since SpringOne2GX - 2010, Chicago
@@ -56,30 +57,31 @@ public class WeatherMarshaller implements Marshaller, Unmarshaller, Initializing
 		//this.writeXml(((DOMSource)source).getNode().getOwnerDocument());
 		DOMResult result = null;
 		try {
-			Transformer transformer = transformerFactory.newTransformer();
+			Transformer transformer = WeatherMarshaller.transformerFactory.newTransformer();
 			result = new DOMResult();
 			transformer.transform(source, result);
-		} catch (Exception e) {
+		}
+		catch (Exception e) {
 			throw new MarshallingFailureException("Failed to unmarshal SOAP Response", e);
 		}
 		Weather weather = new Weather();
 		String expression = XPATH_PREFIX + "p:City";
-		String city = XPathExpressionFactory.createXPathExpression(expression, namespacePrefixes).evaluateAsString(result.getNode());
+		String city = XPathExpressionFactory.createXPathExpression(expression, this.namespacePrefixes).evaluateAsString(result.getNode());
 		weather.setCity(city);
 		expression = XPATH_PREFIX + "p:State";
-		String state = XPathExpressionFactory.createXPathExpression(expression, namespacePrefixes).evaluateAsString(result.getNode());
+		String state = XPathExpressionFactory.createXPathExpression(expression, this.namespacePrefixes).evaluateAsString(result.getNode());
 		weather.setState(state);
 		expression = XPATH_PREFIX + "p:Temperature";
-		String temperature = XPathExpressionFactory.createXPathExpression(expression, namespacePrefixes).evaluateAsString(result.getNode());
+		String temperature = XPathExpressionFactory.createXPathExpression(expression, this.namespacePrefixes).evaluateAsString(result.getNode());
 		weather.setTemperature(temperature);
 		expression = XPATH_PREFIX + "p:Description";
-		String description = XPathExpressionFactory.createXPathExpression(expression, namespacePrefixes).evaluateAsString(result.getNode());
+		String description = XPathExpressionFactory.createXPathExpression(expression, this.namespacePrefixes).evaluateAsString(result.getNode());
 		weather.setDescription(description);
 		return weather;
 	}
 
 	public boolean supports(Class<?> clazz) {
-		System.out.println("Suppors");
+		// Supports check not implemented
 		return false;
 	}
 
@@ -89,10 +91,12 @@ public class WeatherMarshaller implements Marshaller, Unmarshaller, Initializing
 							"	<weat:ZIP>" + zip + "</weat:ZIP>" +
 							"</weat:GetCityWeatherByZIP>";
 		try {
-			Transformer transformer = transformerFactory.newTransformer();
+			Transformer transformer = WeatherMarshaller.transformerFactory.newTransformer();
 			transformer.transform(new StringSource(xmlString), result);
-		} catch (Exception e) {
-			e.printStackTrace();
+		}
+		catch (Exception e) {
+			// Error during marshalling
+			throw new MarshallingFailureException("Failed to marshal", e);
 		}
 	}
 
@@ -104,19 +108,22 @@ public class WeatherMarshaller implements Marshaller, Unmarshaller, Initializing
 		try {
 			StringResult streamResult = new StringResult();
 			transformer.transform(new DOMSource(document), streamResult);
-		} catch (Exception ex) {
+		}
+		catch (Exception ex) {
 			throw new IllegalStateException(ex);
 		}
 	}
+
 	public static final Transformer createIndentingTransformer() {
 		Transformer xformer;
 		try {
-			xformer = transformerFactory.newTransformer();
+			xformer = WeatherMarshaller.transformerFactory.newTransformer();
 			xformer.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, "yes");
 			xformer.setOutputProperty(OutputKeys.ENCODING, "UTF-8");
 			xformer.setOutputProperty(OutputKeys.INDENT, "yes");
 			xformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", String.valueOf(2));
-		} catch (Exception ex) {
+		}
+		catch (Exception ex) {
 			throw new IllegalStateException(ex);
 		}
 		xformer.setOutputProperty(OutputKeys.INDENT, "yes");
@@ -125,6 +132,7 @@ public class WeatherMarshaller implements Marshaller, Unmarshaller, Initializing
 	}
 
 	public void afterPropertiesSet() throws Exception {
-		namespacePrefixes.put("p", "https://ws.cdyne.com/WeatherWS/");
+		this.namespacePrefixes.put("p", "https://ws.cdyne.com/WeatherWS/");
 	}
+
 }

@@ -16,8 +16,6 @@
 
 package org.springframework.integration.samples.async.gateway;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
 import java.util.Random;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CountDownLatch;
@@ -46,6 +44,8 @@ import org.springframework.messaging.MessageChannel;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 /**
  * @author Oleg Zhurakousky
  * @author Gary Russell
@@ -56,7 +56,7 @@ import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 @DirtiesContext
 public class CompletableFutureTest {
 
-	private static final Log logger = LogFactory.getLog(CompletableFutureTest.class);
+	private static final Log LOGGER = LogFactory.getLog(CompletableFutureTest.class);
 
 	@Autowired
 	private MathGateway gateway;
@@ -80,18 +80,18 @@ public class CompletableFutureTest {
 
 			result.whenComplete((integer, throwable) -> {
 				if (throwable == null) {
-					logger.info("Result of multiplication of " + number + " by 2 is " + result);
+					LOGGER.info("Result of multiplication of " + number + " by 2 is " + result);
 				}
 				else {
 					failures.incrementAndGet();
-					logger.error("Unexpected exception for " + number, throwable);
+					LOGGER.error("Unexpected exception for " + number, throwable);
 				}
 				latch.countDown();
 			});
 		}
 		assertThat(latch.await(60, TimeUnit.SECONDS)).isTrue();
 		assertThat(failures.get()).isEqualTo(0);
-		logger.info("Finished");
+		LOGGER.info("Finished");
 	}
 
 	@Configuration

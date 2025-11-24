@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.springframework.integration.samples.splitteraggregator;
 
 import java.util.Collection;
@@ -22,9 +23,9 @@ import org.springframework.integration.samples.splitteraggregator.support.Compos
 
 /**
  * Given CompositeCriteria, return a collection of the individual criterion.
- * 
+ *
  * @author Christopher Hunt
- * 
+ *
  */
 public class SearchRequestSplitter {
 

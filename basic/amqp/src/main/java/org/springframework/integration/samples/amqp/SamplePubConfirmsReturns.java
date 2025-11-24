@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.springframework.integration.samples.amqp;
 
 import org.apache.commons.logging.Log;
@@ -42,13 +43,13 @@ public final class SamplePubConfirmsReturns {
 	public static void main(final String... args) {
 
 		LOGGER.info("\n========================================================="
-				  + "\n                                                         "
-				  + "\n          Welcome to Spring Integration!                 "
-				  + "\n                                                         "
-				  + "\n    For more information please visit:                   "
-				  + "\n    https://www.springsource.org/spring-integration       "
-				  + "\n                                                         "
-				  + "\n=========================================================" );
+				+ "\n                                                         "
+				+ "\n          Welcome to Spring Integration!                 "
+				+ "\n                                                         "
+				+ "\n    For more information please visit:                   "
+				+ "\n    https://www.springsource.org/spring-integration       "
+				+ "\n                                                         "
+				+ "\n=========================================================");
 
 		@SuppressWarnings("resource")
 		final AbstractApplicationContext context =
@@ -57,20 +58,20 @@ public final class SamplePubConfirmsReturns {
 		context.registerShutdownHook();
 
 		LOGGER.info("\n========================================================="
-				  + "\n                                                          "
-				  + "\n    This is the AMQP Sample with confirms/returns -       "
-				  + "\n                                                          "
-				  + "\n    Please enter some text and press return. The entered  "
-				  + "\n    Message will be sent to the configured RabbitMQ Queue,"
-				  + "\n    then again immediately retrieved from the Message     "
-				  + "\n    Broker and ultimately printed to the command line.    "
-				  + "\n    Send 'fail' to demonstrate a return because the       "
-				  + "\n    message couldn't be routed to a queue.                "
-				  + "\n    Send 'nack' to demonstrate a NACK because the         "
-				  + "\n    exchange doesn't exist, causing the channel to be     "
-				  + "\n    closed in error by the broker.                        "
-				  + "\n                                                          "
-				  + "\n=========================================================" );
+				+ "\n                                                          "
+				+ "\n    This is the AMQP Sample with confirms/returns -       "
+				+ "\n                                                          "
+				+ "\n    Please enter some text and press return. The entered  "
+				+ "\n    Message will be sent to the configured RabbitMQ Queue,"
+				+ "\n    then again immediately retrieved from the Message     "
+				+ "\n    Broker and ultimately printed to the command line.    "
+				+ "\n    Send 'fail' to demonstrate a return because the       "
+				+ "\n    message couldn't be routed to a queue.                "
+				+ "\n    Send 'nack' to demonstrate a NACK because the         "
+				+ "\n    exchange doesn't exist, causing the channel to be     "
+				+ "\n    closed in error by the broker.                        "
+				+ "\n                                                          "
+				+ "\n=========================================================");
 
 	}
 }

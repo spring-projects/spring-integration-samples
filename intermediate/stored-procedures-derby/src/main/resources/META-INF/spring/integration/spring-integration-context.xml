@@ -35,7 +35,7 @@
     <int-jdbc:stored-proc-outbound-gateway id="outbound-gateway-storedproc-find-all" data-source="dataSource"
                                            request-channel="findAllProcedureRequestChannel" expect-single-result="true"
                                            stored-procedure-name="FIND_ALL_COFFEE_BEVERAGES">
-        <int-jdbc:returning-resultset name="coffeeBeverages" row-mapper="org.springframework.integration.samples.storedprocedure.support.CoffeBeverageMapper"/>
+        <int-jdbc:returning-resultset name="coffeeBeverages" row-mapper="org.springframework.integration.samples.storedprocedure.support.CoffeeBeverageMapper"/>
     </int-jdbc:stored-proc-outbound-gateway>
 
 </beans>

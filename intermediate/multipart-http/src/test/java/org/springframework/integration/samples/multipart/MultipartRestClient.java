@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.springframework.integration.samples.multipart;
 
 import org.apache.commons.logging.Log;
@@ -29,33 +30,37 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
+
 /**
  * @author Oleg Zhurakousky
  * @author Gary Russell
  *
  */
-public class MultipartRestClient {
+public final class MultipartRestClient {
 
-	private static final Log logger = LogFactory.getLog(MultipartRestClient.class);
+	private MultipartRestClient() {
+	}
+
+	private static final Log LOGGER = LogFactory.getLog(MultipartRestClient.class);
 
 	private static final String URI = "http://localhost:8080/multipart-http/inboundAdapter.htm";
 
 	private static final String RESOURCE_PATH = "org/springframework/integration/samples/multipart/spring09_logo.png";
 
-	public static void main(String[] args) throws Exception{
+	public static void main(String[] args) throws Exception {
 		RestTemplate template = new RestTemplate();
 		Resource s2logo = new ClassPathResource(RESOURCE_PATH);
 		MultiValueMap<String, Object> multipartMap = new LinkedMultiValueMap<String, Object>();
 		multipartMap.add("company", "SpringSource");
 		multipartMap.add("company-logo", s2logo);
-		logger.info("Created multipart request: " + multipartMap);
+		LOGGER.info("Created multipart request: " + multipartMap);
 		HttpHeaders headers = new HttpHeaders();
 		headers.setContentType(new MediaType("multipart", "form-data"));
 		HttpEntity<Object> request = new HttpEntity<Object>(multipartMap, headers);
-		logger.info("Posting request to: " + URI);
+		LOGGER.info("Posting request to: " + URI);
 		ResponseEntity<?> httpResponse = template.exchange(URI, HttpMethod.POST, request, Object.class);
-		if (!httpResponse.getStatusCode().equals(HttpStatus.OK)){
-			logger.error("Problems with the request. Http status: " + httpResponse.getStatusCode());
+		if (!httpResponse.getStatusCode().equals(HttpStatus.OK)) {
+			LOGGER.error("Problems with the request. Http status: " + httpResponse.getStatusCode());
 		}
 	}
 }

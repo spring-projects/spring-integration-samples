@@ -1,5 +1,5 @@
 /*
- * Copyright 2015 the original author or authors.
+ * Copyright 2015-present the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.springframework.integration.samples.barrier2;
 
 import java.util.Collection;
@@ -45,12 +46,12 @@ public class Aggregator {
 		}
 
 		public Collection<Object> getResults() {
-			return results;
+			return this.results;
 		}
 
 		@Override
 		public String toString() {
-			return "ConsolidatedResultsException\n[results=\n" + results.toString().replaceAll(", ", "\n") + "\n]";
+			return "ConsolidatedResultsException\n[results=\n" + this.results.toString().replaceAll(", ", "\n") + "\n]";
 		}
 
 	}

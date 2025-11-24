@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 the original author or authors.
+ * Copyright 2018-present the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -56,15 +56,6 @@ public class DynamicTcpClientApplication {
 		context.close();
 	}
 
-	// Client side
-
-	@MessagingGateway(defaultRequestChannel = "toTcp.input")
-	public interface ToTCP {
-
-		public void send(String data, @Header("host") String host, @Header("port") int port);
-
-	}
-
 	@Bean
 	public IntegrationFlow toTcp() {
 		return f -> f.route(new TcpRouter());
@@ -103,9 +94,18 @@ public class DynamicTcpClientApplication {
 		return new QueueChannel();
 	}
 
+	// Client side
+
+	@MessagingGateway(defaultRequestChannel = "toTcp.input")
+	public interface ToTCP {
+
+		void send(String data, @Header("host") String host, @Header("port") int port);
+
+	}
+
 	public static class TcpRouter extends AbstractMessageRouter {
 
-		private final static int MAX_CACHED = 10; // When this is exceeded, we remove the LRU.
+		private static final int MAX_CACHED = 10; // When this is exceeded, we remove the LRU.
 
 		@SuppressWarnings("serial")
 		private final LinkedHashMap<String, MessageChannel> subFlows =

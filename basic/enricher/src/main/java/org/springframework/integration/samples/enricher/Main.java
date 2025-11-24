@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.springframework.integration.samples.enricher;
 
 import java.util.HashMap;
@@ -26,7 +27,6 @@ import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.integration.samples.enricher.domain.User;
 import org.springframework.integration.samples.enricher.service.UserService;
-
 
 /**
  * Starts the Spring Context and will initialize the Spring Integration routes.
@@ -54,13 +54,13 @@ public final class Main {
 	public static void main(final String... args) {
 
 		LOGGER.info(LINE_SEPARATOR
-				  + EMPTY_LINE
-				  + "\n          Welcome to Spring Integration!                 "
-				  + EMPTY_LINE
-				  + "\n    For more information please visit:                   "
-				  + "\n    https://www.springsource.org/spring-integration       "
-				  + EMPTY_LINE
-				  + LINE_SEPARATOR );
+			+ EMPTY_LINE
+			+ "\n          Welcome to Spring Integration!                 "
+			+ EMPTY_LINE
+			+ "\n    For more information please visit:                   "
+			+ "\n    https://www.springsource.org/spring-integration       "
+			+ EMPTY_LINE
+			+ LINE_SEPARATOR);
 
 		final AbstractApplicationContext context =
 				new ClassPathXmlApplicationContext("classpath:META-INF/spring/integration/*-context.xml");
@@ -72,25 +72,25 @@ public final class Main {
 		final UserService service = context.getBean(UserService.class);
 
 		LOGGER.info(LINE_SEPARATOR
-				  + EMPTY_LINE
-				  + "\n    Please press 'q + Enter' to quit the application.                     "
-				  + EMPTY_LINE
-				  + LINE_SEPARATOR
-				  + EMPTY_LINE
-				  + "\n    This example illustrates the usage of the Content Enricher.           "
-				  + EMPTY_LINE
-				  + "\n    Usage: Please enter 1 or 2 or 3 + Enter                               "
-				  + EMPTY_LINE
-				  + "\n    3 different message flows are triggered. For sample 1+2 a             "
-				  + "\n    user object containing only the username is passed in.                "
-				  + "\n    For sample 3 a Map with the 'username' key is passed in and enriched  "
-				  + "\n    with the user object using the 'user' key.                            "
-				  + EMPTY_LINE
-				  + "\n    1: In the Enricher, pass the full User object to the request channel. "
-				  + "\n    2: In the Enricher, pass only the username to the request channel.    "
-				  + "\n    3: In the Enricher, pass only the username to the request channel.    "
-				  + EMPTY_LINE
-				  + LINE_SEPARATOR);
+			+ EMPTY_LINE
+			+ "\n    Please press 'q + Enter' to quit the application.                     "
+			+ EMPTY_LINE
+			+ LINE_SEPARATOR
+			+ EMPTY_LINE
+			+ "\n    This example illustrates the usage of the Content Enricher.           "
+			+ EMPTY_LINE
+			+ "\n    Usage: Please enter 1 or 2 or 3 + Enter                               "
+			+ EMPTY_LINE
+			+ "\n    3 different message flows are triggered. For sample 1+2 a             "
+			+ "\n    user object containing only the username is passed in.                "
+			+ "\n    For sample 3 a Map with the 'username' key is passed in and enriched  "
+			+ "\n    with the user object using the 'user' key.                            "
+			+ EMPTY_LINE
+			+ "\n    1: In the Enricher, pass the full User object to the request channel. "
+			+ "\n    2: In the Enricher, pass only the username to the request channel.    "
+			+ "\n    3: In the Enricher, pass only the username to the request channel.    "
+			+ EMPTY_LINE
+			+ LINE_SEPARATOR);
 
 		while (!scanner.hasNext("q")) {
 
@@ -103,12 +103,14 @@ public final class Main {
 				final User fullUser = service.findUser(user);
 				printUserInformation(fullUser);
 
-			} else if ("2".equals(input)) {
+			}
+			else if ("2".equals(input)) {
 
 				final User fullUser = service.findUserByUsername(user);
 				printUserInformation(fullUser);
 
-			} else if ("3".equals(input)) {
+			}
+			else if ("3".equals(input)) {
 
 				final Map<String, Object> userData = new HashMap<String, Object>();
 				userData.put("username", "foo_map");
@@ -119,7 +121,8 @@ public final class Main {
 
 				printUserInformation(fullUser);
 
-			} else {
+			}
+			else {
 				LOGGER.info("\n\n    Please enter '1', '2', or '3' <enter>:\n\n");
 			}
 
@@ -138,7 +141,8 @@ public final class Main {
 			LOGGER.info(String.format("\n\n    User found - Username: '%s',  Email: '%s', Password: '%s'.\n\n",
 					user.getUsername(), user.getEmail(), user.getPassword()));
 
-		} else {
+		}
+		else {
 			LOGGER.info("\n\n    No User found for username: 'foo'.\n\n");
 		}
 

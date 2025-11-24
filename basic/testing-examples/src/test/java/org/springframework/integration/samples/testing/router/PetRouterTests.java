@@ -22,12 +22,12 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.integration.channel.QueueChannel;
 import org.springframework.integration.support.MessageBuilder;
+import org.springframework.integration.test.matcher.PayloadMatcher;
 import org.springframework.messaging.Message;
 import org.springframework.messaging.MessageChannel;
 import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.springframework.integration.test.matcher.PayloadMatcher.hasPayload;
 
 /**
  *
@@ -82,7 +82,7 @@ public class PetRouterTests {
 		Message<String> message = MessageBuilder.withPayload(payload).build();
 		inputChannel.send(message);
 		Message<?> outMessage = testFelineChannel.receive(0);
-		assertThat(outMessage).is(new HamcrestCondition<>(hasPayload(payload)));
+		assertThat(outMessage).is(new HamcrestCondition<>(PayloadMatcher.hasPayload(payload)));
 	}
 
 	@Test
@@ -91,7 +91,7 @@ public class PetRouterTests {
 		Message<String> message = MessageBuilder.withPayload(payload).build();
 		inputChannel.send(message);
 		Message<?> outMessage = testCanineChannel.receive(0);
-		assertThat(outMessage).is(new HamcrestCondition<>(hasPayload(payload)));
+		assertThat(outMessage).is(new HamcrestCondition<>(PayloadMatcher.hasPayload(payload)));
 	}
 
 	@Test
@@ -100,7 +100,7 @@ public class PetRouterTests {
 		Message<String> message = MessageBuilder.withPayload(payload).build();
 		inputChannel.send(message);
 		Message<?> outMessage = testUnknownPetTypeChannel.receive(0);
-		assertThat(outMessage).is(new HamcrestCondition<>(hasPayload(payload)));
+		assertThat(outMessage).is(new HamcrestCondition<>(PayloadMatcher.hasPayload(payload)));
 	}
 
 }

@@ -22,17 +22,22 @@ import java.util.Date;
  * @author Oleg Zhurakousky
  * @author Gary Russell
  */
-public class LoanQuote implements Comparable<LoanQuote>{
+public class LoanQuote implements Comparable<LoanQuote> {
 
 	private String lender;
+
 	private Date quoteDate;
+
 	private Date expirationDate;
+
 	private double amount;
+
 	private int term;
+
 	private float rate;
 
 	public String getLender() {
-		return lender;
+		return this.lender;
 	}
 
 	public void setLender(String lender) {
@@ -40,7 +45,7 @@ public class LoanQuote implements Comparable<LoanQuote>{
 	}
 
 	public Date getQuoteDate() {
-		return quoteDate;
+		return this.quoteDate;
 	}
 
 	public void setQuoteDate(Date quoteDate) {
@@ -48,7 +53,7 @@ public class LoanQuote implements Comparable<LoanQuote>{
 	}
 
 	public Date getExpirationDate() {
-		return expirationDate;
+		return this.expirationDate;
 	}
 
 	public void setExpirationDate(Date expirationDate) {
@@ -56,7 +61,7 @@ public class LoanQuote implements Comparable<LoanQuote>{
 	}
 
 	public double getAmount() {
-		return amount;
+		return this.amount;
 	}
 
 	public void setAmount(double amount) {
@@ -64,7 +69,7 @@ public class LoanQuote implements Comparable<LoanQuote>{
 	}
 
 	public int getTerm() {
-		return term;
+		return this.term;
 	}
 
 	public void setTerm(int term) {
@@ -72,7 +77,7 @@ public class LoanQuote implements Comparable<LoanQuote>{
 	}
 
 	public float getRate() {
-		return rate;
+		return this.rate;
 	}
 
 	public void setRate(float rate) {
@@ -81,7 +86,7 @@ public class LoanQuote implements Comparable<LoanQuote>{
 
 	@Override
 	public int compareTo(LoanQuote other) {
-		if (this.rate > other.rate) { //NOSONAR
+		if (this.rate > other.rate) {
 			return 1;
 		}
 		else if (this.rate < other.rate) {

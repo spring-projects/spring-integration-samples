@@ -33,7 +33,7 @@ import com.splunk.Service;
  */
 public class SplunkWatcher extends TestWatcher {
 
-	private static final Log logger = LogFactory.getLog(SplunkWatcher.class);
+	private static final Log LOGGER = LogFactory.getLog(SplunkWatcher.class);
 
 	private final int port;
 
@@ -57,7 +57,7 @@ public class SplunkWatcher extends TestWatcher {
 			System.setProperty("splunk.port", "" + this.port);
 		}
 		catch (Exception e) {
-			logger.warn(
+			LOGGER.warn(
 					"Not executing tests because basic connectivity test failed");
 			Assume.assumeNoException(e);
 		}

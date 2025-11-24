@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.springframework.integration.samples.testing.aggregator;
 
 import java.util.List;
@@ -20,9 +21,8 @@ import java.util.List;
 import org.springframework.integration.annotation.Aggregator;
 
 /**
- * 
  * Aggregates messages into a comma-delimited list.
- * 
+ *
  * @author Gary Russell
  * @since 2.0.2
  *

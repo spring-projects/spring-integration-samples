@@ -30,7 +30,10 @@ import org.springframework.messaging.core.DestinationResolver;
  *
  * @author Marius Bogoevici
  */
-public class WebServiceDemoTestApp {
+public final class WebServiceDemoTestApp {
+
+	private WebServiceDemoTestApp() {
+	}
 
 	public static void main(String[] args) {
 		ClassPathXmlApplicationContext context =

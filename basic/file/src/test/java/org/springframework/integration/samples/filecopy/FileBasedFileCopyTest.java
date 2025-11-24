@@ -30,7 +30,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 public class FileBasedFileCopyTest {
 
 	@Test
-	public void testFileBasedCopy() throws Exception{
+	public void testFileBasedCopy() throws Exception {
 		ApplicationContext context =
 				new ClassPathXmlApplicationContext("/META-INF/spring/integration/fileCopyDemo-file.xml",
 						FileBasedFileCopyTest.class);

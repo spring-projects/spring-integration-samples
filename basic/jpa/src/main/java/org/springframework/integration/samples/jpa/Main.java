@@ -41,9 +41,12 @@ import org.springframework.util.StringUtils;
  */
 @SpringBootApplication
 @ImportResource("spring-integration-context.xml")
-public class Main {
+public final class Main {
 
 	private static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd' 'HH:mm:ss");
+
+	private Main() {
+	}
 
 	/**
 	 * Load the Spring Integration Application Context
@@ -52,6 +55,7 @@ public class Main {
 	 */
 	public static void main(final String... args) {
 
+		@SuppressWarnings("resource")
 		final Scanner scanner = new Scanner(System.in);
 
 		System.out.println("\n========================================================="
@@ -144,7 +148,7 @@ public class Main {
 		if (people != null && !people.isEmpty()) {
 			for (Person person : people) {
 				System.out.print(String.format("%d, %s, ", person.getId(), person.getName()));
-				System.out.println(DATE_FORMAT.format(person.getCreatedDateTime()));//NOSONAR
+				System.out.println(DATE_FORMAT.format(person.getCreatedDateTime()));
 			}
 		}
 		else {

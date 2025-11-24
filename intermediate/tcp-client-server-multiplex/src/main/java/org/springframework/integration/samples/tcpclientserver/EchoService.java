@@ -34,7 +34,7 @@ public class EchoService {
 		if ("FAIL".equals(input)) {
 			throw new RuntimeException("Failure Demonstration");
 		}
-		else if(input.startsWith("TIMEOUT_TEST")) {
+		else if (input.startsWith("TIMEOUT_TEST")) {
 			Thread.sleep(50000);
 		}
 

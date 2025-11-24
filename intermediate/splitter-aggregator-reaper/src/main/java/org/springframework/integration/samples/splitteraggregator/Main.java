@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.springframework.integration.samples.splitteraggregator;
 
 import java.util.Scanner;
@@ -23,7 +24,6 @@ import org.apache.commons.logging.LogFactory;
 import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.integration.samples.splitteraggregator.support.TestUtils;
-
 
 /**
  * Starts the Spring Context and will initialize the Spring Integration routes.
@@ -37,7 +37,8 @@ public final class Main {
 
 	private static final Log LOGGER = LogFactory.getLog(Main.class);
 
-	private Main() { }
+	private Main() {
+	}
 
 	/**
 	 * Load the Spring Integration Application Context
@@ -53,7 +54,7 @@ public final class Main {
 				  + "\n    For more information please visit:                   "
 				  + "\n    https://www.springsource.org/spring-integration       "
 				  + "\n                                                         "
-				  + "\n=========================================================" );
+				  + "\n=========================================================");
 
 		final AbstractApplicationContext context =
 				new ClassPathXmlApplicationContext("classpath:META-INF/spring/integration/*-context.xml");
@@ -77,24 +78,28 @@ public final class Main {
 		while (true) {
 			final String input = scanner.nextLine();
 
-			if("1".equals(input.trim())) {
+			if ("1".equals(input.trim())) {
 				searchA.setExecutionTime(1000L);
 				searchB.setExecutionTime(1000L);
 				final CompositeResult result = searchRequestor.search(TestUtils.getCompositeCriteria());
 				System.out.println("Number of Search Results: " + result.getResults().size());
-			} else if("2".equals(input.trim())) {
+			}
+			else if ("2".equals(input.trim())) {
 				searchA.setExecutionTime(6000L);
 				searchB.setExecutionTime(1000L);
 				final CompositeResult result = searchRequestor.search(TestUtils.getCompositeCriteria());
 				System.out.println("Number of Search Results: " + result.getResults().size());
-			} else if("3".equals(input.trim())) {
+			}
+			else if ("3".equals(input.trim())) {
 				searchA.setExecutionTime(6000L);
 				searchB.setExecutionTime(6000L);
 				final CompositeResult result = searchRequestor.search(TestUtils.getCompositeCriteria());
 				System.out.println("Result is null: " + (result == null));
-			} else if("q".equals(input.trim())) {
+			}
+			else if ("q".equals(input.trim())) {
 				break;
-			} else {
+			}
+			else {
 				System.out.println("Invalid choice\n\n");
 			}
 

@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.springframework.integration.samples.cafe.xml;
 
 import java.io.IOException;
@@ -27,8 +28,10 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
  *
  * @author Christian Posta
  */
-public class CafeDemoAppBaristaColdActiveMQ {
+public final class CafeDemoAppBaristaColdActiveMQ {
 
+	private CafeDemoAppBaristaColdActiveMQ() {
+	}
 
 	public static void main(String[] args) throws InterruptedException, IOException {
 		AbstractApplicationContext context = new ClassPathXmlApplicationContext(

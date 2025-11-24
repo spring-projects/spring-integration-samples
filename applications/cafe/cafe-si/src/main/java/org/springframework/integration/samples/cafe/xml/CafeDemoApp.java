@@ -35,7 +35,10 @@ import org.springframework.integration.samples.cafe.Order;
  * @author Marius Bogoevici
  * @author Oleg Zhurakousky
  */
-public class CafeDemoApp {
+public final class CafeDemoApp {
+
+	private CafeDemoApp() {
+	}
 
 	public static void main(String[] args) {
 		AbstractApplicationContext context =

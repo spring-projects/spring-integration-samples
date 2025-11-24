@@ -37,14 +37,14 @@ import org.springframework.messaging.support.GenericMessage
  */
 class HelloWorldApp {
 
-	private static final Log logger = LogFactory.getLog(HelloWorldApp)
+	private static final Log LOGGER = LogFactory.getLog(HelloWorldApp)
 
 	static void main(String[] args) {
 		def context = new AnnotationConfigApplicationContext(HelloWorldConfig)
 		def inputChannel = context.getBean('inputChannel', MessageChannel)
 		def outputChannel = context.getBean('outputChannel', PollableChannel)
 		inputChannel.send(new GenericMessage<String>('World'))
-		logger.info("==> HelloWorldDemo: ${outputChannel.receive(0).payload}")
+		LOGGER.info("==> HelloWorldDemo: ${outputChannel.receive(0).payload}")
 		context.close()
 	}
 

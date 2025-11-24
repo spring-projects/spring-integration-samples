@@ -24,20 +24,19 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 /**
  * Demonstrating the file copy scenario using text-based source and target.
  * See the 'fileCopyDemo-text.xml' configuration file for details.
- * 
  * @author Mark Fisher
  * @author Marius Bogoevici
  */
 public class TextFileCopyTest {
 
 	@Test
-	public void testTextBasedCopy() throws Exception{
+	public void testTextBasedCopy() throws Exception {
 		ApplicationContext context =
 				new ClassPathXmlApplicationContext("/META-INF/spring/integration/fileCopyDemo-text.xml",
 						TextFileCopyTest.class);
 		FileCopyDemoCommon.displayDirectories(context);
 		Thread.sleep(5000);
 	}
-	
+
 }
 

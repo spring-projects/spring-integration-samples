@@ -123,12 +123,10 @@ public class Application {
 		};
 	}
 
-
 	@Bean
 	public MessageChannel sendTimeChannel() {
 		return new PublishSubscribeChannel();
 	}
-
 
 	@Bean
 	@ServiceActivator(inputChannel = "sendTimeChannel")

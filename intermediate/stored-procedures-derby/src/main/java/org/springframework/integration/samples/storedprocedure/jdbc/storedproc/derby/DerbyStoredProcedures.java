@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.springframework.integration.samples.storedprocedure.jdbc.storedproc.derby;
 
 import java.sql.Connection;
@@ -37,8 +38,8 @@ public final class DerbyStoredProcedures {
 
 	public static void findCoffee(int coffeeId, String[] coffeeDescription)
 			throws SQLException {
-		Connection connection = null; // NOSONAR JdbcUtils
-		PreparedStatement statement = null; // NOSONAR JdbcUtils
+		Connection connection = null;
+		PreparedStatement statement = null;
 
 		try {
 			connection = DriverManager.getConnection("jdbc:default:connection");
@@ -46,7 +47,7 @@ public final class DerbyStoredProcedures {
 			statement = connection.prepareStatement(sql);
 			statement.setLong(1, coffeeId);
 
-			ResultSet resultset = statement.executeQuery(); // NOSONAR JdbcUtils
+			ResultSet resultset = statement.executeQuery();
 			resultset.next();
 			coffeeDescription[0] = resultset.getString("COFFEE_DESCRIPTION");
 
@@ -61,13 +62,13 @@ public final class DerbyStoredProcedures {
 	public static void findAllCoffeeBeverages(ResultSet[] coffeeBeverages)
 			throws SQLException {
 
-		Connection connection = null; // NOSONAR JdbcUtils
+		Connection connection = null;
 		PreparedStatement statement = null;
 
 		try {
 			connection = DriverManager.getConnection("jdbc:default:connection");
 			String sql = "SELECT * FROM COFFEE_BEVERAGES";
-			statement = connection.prepareStatement(sql);//NOSONAR see below
+			statement = connection.prepareStatement(sql);
 			coffeeBeverages[0] = statement.executeQuery();
 		}
 		finally {

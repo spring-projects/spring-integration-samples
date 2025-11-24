@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.springframework.integration.samples.multipart;
 
 import java.util.HashMap;
@@ -25,27 +26,32 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpStatus;
+
 /**
  * @author Oleg Zhurakousky
  * @author Gary Russell
  *
  */
-public class MultipartClientForHttpOutboundClient {
+public final class MultipartClientForHttpOutboundClient {
 
-	private static final Log logger = LogFactory.getLog(MultipartClientForHttpOutboundClient.class);
+	private MultipartClientForHttpOutboundClient() {
+	}
+
+	private static final Log LOGGER = LogFactory.getLog(MultipartClientForHttpOutboundClient.class);
+
 	private static final String RESOURCE_PATH = "org/springframework/integration/samples/multipart/spring09_logo.png";
 
-	public static void main(String[] args) throws Exception{
+	public static void main(String[] args) throws Exception {
 		ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(
 				"/META-INF/spring/integration/http-outbound-config.xml");
 		Resource s2logo = new ClassPathResource(RESOURCE_PATH);
 		Map<String, Object> multipartMap = new HashMap<String, Object>();
 		multipartMap.put("company", new String[]{"SpringSource", "VMWare"});
 		multipartMap.put("company-logo", s2logo);
-		logger.info("Created multipart request: " + multipartMap);
+		LOGGER.info("Created multipart request: " + multipartMap);
 		MultipartRequestGateway requestGateway = context.getBean("requestGateway", MultipartRequestGateway.class);
 		HttpStatus reply = requestGateway.postMultipartRequest(multipartMap);
-		System.out.println("Replied with HttpStatus code: " + reply);
+		LOGGER.info("Replied with HttpStatus code: " + reply);
 		context.close();
 	}
 

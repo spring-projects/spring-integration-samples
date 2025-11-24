@@ -13,11 +13,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.springframework.integration.samples.helloworld;
 
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-public class PollerApp {
+public final class PollerApp {
+
+	private PollerApp() {
+	}
 
 	/**
 	 * Simple application that polls the current system time 2 times every
@@ -30,7 +34,7 @@ public class PollerApp {
 	 * @param args Not used.
 	 */
 	@SuppressWarnings("resource")
-	public static void main(String[] args) throws Exception{
+	public static void main(String[] args) throws Exception {
 		new ClassPathXmlApplicationContext("META-INF/spring/integration/delay.xml");
 	}
 

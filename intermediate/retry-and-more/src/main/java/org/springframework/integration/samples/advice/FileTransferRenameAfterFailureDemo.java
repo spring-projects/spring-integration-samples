@@ -13,9 +13,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.springframework.integration.samples.advice;
 
-import static org.mockito.Mockito.when;
+package org.springframework.integration.samples.advice;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -26,24 +25,29 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.integration.endpoint.SourcePollingChannelAdapter;
 import org.springframework.integration.file.remote.session.SessionFactory;
 
+import static org.mockito.Mockito.when;
+
 /**
  * @author Gary Russell
  * @since 2.2
  *
  */
-public class FileTransferRenameAfterFailureDemo {
+public final class FileTransferRenameAfterFailureDemo {
 
 	private static final Log LOGGER = LogFactory.getLog(FileTransferRenameAfterFailureDemo.class);
 
+	private FileTransferRenameAfterFailureDemo() {
+	}
+
 	public static void main(String[] args) throws Exception {
 		LOGGER.info("\n========================================================="
-				  + "\n                                                         "
-				  + "\n          Welcome to Spring Integration!                 "
-				  + "\n                                                         "
-				  + "\n    For more information please visit:                   "
-				  + "\n    https://www.springsource.org/spring-integration       "
-				  + "\n                                                         "
-				  + "\n=========================================================" );
+				+ "\n                                                         "
+				+ "\n          Welcome to Spring Integration!                 "
+				+ "\n                                                         "
+				+ "\n    For more information please visit:                   "
+				+ "\n    https://www.springsource.org/spring-integration       "
+				+ "\n                                                         "
+				+ "\n=========================================================");
 
 		final AbstractApplicationContext context =
 				new ClassPathXmlApplicationContext("classpath:META-INF/spring/integration/expression-advice-context.xml");
@@ -58,21 +62,22 @@ public class FileTransferRenameAfterFailureDemo {
 		fileInbound.start();
 
 		LOGGER.info("\n========================================================="
-				  + "\n                                                          "
-				  + "\n    This is the Expression Advice Sample -                "
-				  + "\n                                                          "
-				  + "\n    Press 'Enter' to terminate.                           "
-				  + "\n                                                          "
-				  + "\n    Place a file in "+ System.getProperty("java.io.tmpdir") +"/adviceDemo ending   "
-				  + "\n    with .txt                                             "
-				  + "\n    The demo simulates a file transfer failure followed   "
-				  + "\n    by the Advice renaming the file; the result of the    "
-				  + "\n    rename is logged.                                     "
-				  + "\n                                                          "
-				  + "\n=========================================================" );
+				+ "\n                                                          "
+				+ "\n    This is the Expression Advice Sample -                "
+				+ "\n                                                          "
+				+ "\n    Press 'Enter' to terminate.                           "
+				+ "\n                                                          "
+				+ "\n    Place a file in " + System.getProperty("java.io.tmpdir") + "/adviceDemo ending   "
+				+ "\n    with .txt                                             "
+				+ "\n    The demo simulates a file transfer failure followed   "
+				+ "\n    by the Advice renaming the file; the result of the    "
+				+ "\n    rename is logged.                                     "
+				+ "\n                                                          "
+				+ "\n=========================================================");
 
 		System.in.read();
 		context.close();
 		System.exit(0);
 	}
+
 }

@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.springframework.integration.samples.loanbroker.loanshark.biz;
 
 import org.springframework.dao.DataAccessException;
@@ -34,7 +35,9 @@ public class Accumulator {
 		try {
 			shark = (LoanShark) LoanShark.findLoanSharksByName(
 					quote.getSharkName()).getSingleResult();
-		} catch (DataAccessException dae) {}
+		}
+		catch (DataAccessException dae) {
+		}
 		if (shark == null) {
 			shark = new LoanShark();
 			shark.setName(quote.getSharkName());
@@ -42,7 +45,7 @@ public class Accumulator {
 			shark.setAverageRate(0.0d);
 			shark.persist();
 		}
-		Double current = shark.getCounter() * shark.getAverageRate();
+		double current = shark.getCounter() * shark.getAverageRate();
 		shark.setCounter(shark.getCounter().longValue() + 1);
 		shark.setAverageRate((current + quote.getSharkRate()) / shark.getCounter());
 	}

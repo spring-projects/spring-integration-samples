@@ -37,15 +37,15 @@ public class CustomOrder {
 	}
 
 	public int getNumber() {
-		return number;
+		return this.number;
 	}
 
 	public String getSender() {
-		return sender;
+		return this.sender;
 	}
 
 	public String getMessage() {
-		return message;
+		return this.message;
 	}
 
 	public void setMessage(String message) {

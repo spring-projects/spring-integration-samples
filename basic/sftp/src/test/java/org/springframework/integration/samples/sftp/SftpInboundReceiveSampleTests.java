@@ -18,6 +18,8 @@ package org.springframework.integration.samples.sftp;
 
 import java.io.File;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.apache.sshd.sftp.client.SftpClient;
 import org.junit.jupiter.api.Test;
 
@@ -38,6 +40,8 @@ import static org.assertj.core.api.Assertions.assertThat;
  *
  */
 public class SftpInboundReceiveSampleTests {
+
+	private static final Log LOGGER = LogFactory.getLog(SftpInboundReceiveSampleTests.class);
 
 	@Test
 	public void runDemo() {
@@ -61,13 +65,13 @@ public class SftpInboundReceiveSampleTests {
 
 			Message<?> received = localFileChannel.receive();
 			assertThat(received).isNotNull();
-			System.out.println("Received first file message: " + received);
+			LOGGER.info("Received first file message: " + received);
 			received = localFileChannel.receive();
 			assertThat(received).isNotNull();
-			System.out.println("Received second file message: " + received);
+			LOGGER.info("Received second file message: " + received);
 			received = localFileChannel.receive(1000);
 			assertThat(received).isNull();
-			System.out.println("No third file was received as expected");
+			LOGGER.info("No third file was received as expected");
 		}
 		finally {
 			SftpTestUtils.cleanUp(template, file1, file2, file3);

@@ -40,16 +40,19 @@ import org.springframework.messaging.support.GenericMessage;
  * @author Oleg Zhurakousky
  * @author Gary Russell
  */
-public class HelloWorldApp {
+public final class HelloWorldApp {
 
-	private static final Log logger = LogFactory.getLog(HelloWorldApp.class);
+	private HelloWorldApp() {
+	}
+
+	private static final Log LOGGER = LogFactory.getLog(HelloWorldApp.class);
 
 	public static void main(String[] args) {
 		AbstractApplicationContext context = new ClassPathXmlApplicationContext("/META-INF/spring/integration/helloWorldDemo.xml", HelloWorldApp.class);
 		MessageChannel inputChannel = context.getBean("inputChannel", MessageChannel.class);
 		PollableChannel outputChannel = context.getBean("outputChannel", PollableChannel.class);
 		inputChannel.send(new GenericMessage<String>("World"));
-		logger.info("==> HelloWorldDemo: " + outputChannel.receive(0).getPayload());
+		LOGGER.info("==> HelloWorldDemo: " + outputChannel.receive(0).getPayload());
 		context.close();
 	}
 

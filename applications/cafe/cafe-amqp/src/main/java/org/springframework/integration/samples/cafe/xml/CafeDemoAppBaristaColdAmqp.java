@@ -36,13 +36,16 @@ import org.springframework.context.support.AbstractApplicationContext;
  *
  * @author Tom McCuch
  */
-public class CafeDemoAppBaristaColdAmqp {
+public final class CafeDemoAppBaristaColdAmqp {
+
+	private CafeDemoAppBaristaColdAmqp() {
+	}
 
 	public static void main(String[] args) {
 		AbstractApplicationContext context =
 			CafeDemoAppUtilities.loadProfileContext(
 				"/META-INF/spring/integration/amqp/cafeDemo-amqp-baristaCold-xml.xml",
-				CafeDemoAppBaristaColdAmqp.class,CafeDemoAppUtilities.DEV);
+				CafeDemoAppBaristaColdAmqp.class, CafeDemoAppUtilities.DEV);
 
 		System.out.println("Press Enter/Return in the console to exit the Barista Cold App");
 

@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.springframework.integration.samples.async.gateway;
 
 import java.util.HashMap;
@@ -39,7 +40,7 @@ import org.springframework.context.support.FileSystemXmlApplicationContext;
  */
 public class AsyncGatewayTest {
 
-	private static Log logger = LogFactory.getLog(AsyncGatewayTest.class);
+	private static final Log LOGGER = LogFactory.getLog(AsyncGatewayTest.class);
 
 	private static ExecutorService executor = Executors.newFixedThreadPool(100);
 
@@ -62,19 +63,19 @@ public class AsyncGatewayTest {
 				int[] result = processFuture(resultEntry);
 
 				if (result[1] == -1) {
-					logger.info("Multiplying " + result[0] + " should be easy. You should be able to multiply any number < 100 by 2 in your head");
+					LOGGER.info("Multiplying " + result[0] + " should be easy. You should be able to multiply any number < 100 by 2 in your head");
 				}
 				else if (result[1] == -2) {
-					logger.info("Multiplication of " + result[0] + " by 2 is can not be accomplished in " + timeout + " seconds");
+					LOGGER.info("Multiplication of " + result[0] + " by 2 is can not be accomplished in " + timeout + " seconds");
 				}
 				else {
-					logger.info("Result of multiplication of " + result[0] + " by 2 is " + result[1]);
+					LOGGER.info("Result of multiplication of " + result[0] + " by 2 is " + result[1]);
 				}
 			});
 		}
 		executor.shutdown();
 		executor.awaitTermination(60, TimeUnit.SECONDS);
-		logger.info("Finished");
+		LOGGER.info("Finished");
 		ac.close();
 	}
 
@@ -92,8 +93,7 @@ public class AsyncGatewayTest {
 			return new int[] {originalNumber, -2};
 		}
 		catch (Exception ex) {
-			System.out.println();
-			// ignore
+			LOGGER.debug("");
 		}
 		return null;
 	}

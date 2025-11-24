@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.springframework.integration.samples.splitteraggregator;
 
 import org.springframework.integration.samples.splitteraggregator.support.CompositeCriteria;
@@ -20,9 +21,9 @@ import org.springframework.integration.samples.splitteraggregator.support.Compos
 /**
  * A service interface responsible for performing a search and returning a
  * result synchronously.
- * 
+ *
  * @author Christopher Hunt
- * 
+ *
  */
 public interface SearchRequestor {
 

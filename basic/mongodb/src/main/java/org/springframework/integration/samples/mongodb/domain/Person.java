@@ -13,7 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.springframework.integration.samples.mongodb.domain;
+
 /**
 *
 * @author Oleg Zhurakousky
@@ -27,7 +29,7 @@ public class Person {
 	private Address address;
 
 	public String getFname() {
-		return fname;
+		return this.fname;
 	}
 
 	public void setFname(String fname) {
@@ -35,7 +37,7 @@ public class Person {
 	}
 
 	public String getLname() {
-		return lname;
+		return this.lname;
 	}
 
 	public void setLname(String lname) {
@@ -43,7 +45,7 @@ public class Person {
 	}
 
 	public Address getAddress() {
-		return address;
+		return this.address;
 	}
 
 	public void setAddress(Address address) {

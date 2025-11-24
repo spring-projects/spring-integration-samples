@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.springframework.integration.samples.testing.gateway;
 
 import org.assertj.core.api.HamcrestCondition;
@@ -21,12 +22,12 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.integration.channel.QueueChannel;
 import org.springframework.integration.file.FileHeaders;
+import org.springframework.integration.test.matcher.HeaderMatcher;
+import org.springframework.integration.test.matcher.PayloadMatcher;
 import org.springframework.messaging.Message;
 import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.springframework.integration.test.matcher.HeaderMatcher.hasHeader;
-import static org.springframework.integration.test.matcher.PayloadMatcher.hasPayload;
 
 /**
  *
@@ -60,9 +61,9 @@ public class GatewayTests {
 		gateway.process(payload, fileName);
 		Message<?> inMessage = testChannel.receive(0);
 		assertThat(inMessage)
-				.is(new HamcrestCondition<>(hasPayload(payload)))
-				.is(new HamcrestCondition<>(hasHeader("configuredHeader", "abc")))
-				.is(new HamcrestCondition<>(hasHeader(FileHeaders.FILENAME, fileName)));
+				.is(new HamcrestCondition<>(PayloadMatcher.hasPayload(payload)))
+				.is(new HamcrestCondition<>(HeaderMatcher.hasHeader("configuredHeader", "abc")))
+				.is(new HamcrestCondition<>(HeaderMatcher.hasHeader(FileHeaders.FILENAME, fileName)));
 	}
 
 }

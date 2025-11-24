@@ -1,5 +1,5 @@
 /*
- * Copyright 2014 the original author or authors.
+ * Copyright 2014-present the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,7 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.springframework.integration.samples.si4demo.springone.a;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -23,18 +27,24 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
  * @author Gary Russell
  *
  */
-public class AXML {
+public final class AXML {
+
+	private static final Log LOGGER = LogFactory.getLog(AXML.class);
+
+	private AXML() {
+	}
 
 	public static void main(String[] args) throws Exception {
 		ConfigurableApplicationContext ctx =
 				new ClassPathXmlApplicationContext("AXML-context.xml");
-		System.out.println(ctx.getBean(FooService.class).foo("foo"));
+		LOGGER.info(ctx.getBean(FooService.class).foo("foo"));
 		ctx.close();
 	}
 
-	public static interface FooService {
+	public interface FooService {
 
 		String foo(String request);
 
 	}
+
 }

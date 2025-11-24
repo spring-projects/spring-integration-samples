@@ -30,7 +30,7 @@ import org.springframework.integration.samples.loanbroker.domain.LoanRequest;
  */
 public class CreditBureauStub {
 
-	private static final Log logger = LogFactory.getLog(CreditBureauStub.class);
+	private static final Log LOGGER = LogFactory.getLog(CreditBureauStub.class);
 
 	/**
 	 * @param loanRequest the loan request
@@ -38,7 +38,7 @@ public class CreditBureauStub {
 	 */
 	public CreditReport getCreditReport(LoanRequest loanRequest) {
 		int creditScore = 600 + new Random().nextInt(250);
-		logger.info("Credit Score: " + creditScore);
+		LOGGER.info("Credit Score: " + creditScore);
 		return new CreditReport(creditScore);
 	}
 

@@ -55,7 +55,7 @@ public class Person {
 	}
 
 	public int getId() {
-		return id;
+		return this.id;
 	}
 
 	public void setId(int id) {
@@ -63,7 +63,7 @@ public class Person {
 	}
 
 	public String getName() {
-		return name;
+		return this.name;
 	}
 
 	public void setName(String name) {
@@ -71,7 +71,7 @@ public class Person {
 	}
 
 	public LocalDate getCreatedDateTime() {
-		return createdDateTime;
+		return this.createdDateTime;
 	}
 
 	public void setCreatedDateTime(LocalDate createdDateTime) {
@@ -82,7 +82,7 @@ public class Person {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((name == null) ? 0 : name.hashCode());
+		result = prime * result + ((this.name == null) ? 0 : this.name.hashCode());
 		return result;
 	}
 
@@ -98,10 +98,12 @@ public class Person {
 			return false;
 		}
 		Person other = (Person) obj;
-		if (name == null) {
+		if (this.name == null) {
 			return other.name == null;
 		}
-		else return name.equals(other.name);
+		else {
+			return this.name.equals(other.name);
+		}
 	}
 
 }

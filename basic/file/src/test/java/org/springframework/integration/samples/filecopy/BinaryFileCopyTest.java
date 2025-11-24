@@ -26,13 +26,12 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
  * See the 'fileCopyDemo-binary.xml' configuration file for details. Notice
  * that the transformer is configured to delete the source File after it
  * extracts the content as a byte array.
- * 
  * @author Marius Bogoevici
  */
 public class BinaryFileCopyTest {
 
 	@Test
-	public void testBinaryCopy() throws Exception{
+	public void testBinaryCopy() throws Exception {
 		ApplicationContext context =
 				new ClassPathXmlApplicationContext("/META-INF/spring/integration/fileCopyDemo-binary.xml",
 						BinaryFileCopyTest.class);

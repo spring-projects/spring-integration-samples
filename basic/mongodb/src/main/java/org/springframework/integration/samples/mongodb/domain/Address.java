@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.springframework.integration.samples.mongodb.domain;
 
 /**
@@ -30,7 +31,7 @@ public class Address {
 	private String state;
 
 	public String getState() {
-		return state;
+		return this.state;
 	}
 
 	public void setState(String state) {
@@ -38,7 +39,7 @@ public class Address {
 	}
 
 	public String getStreet() {
-		return street;
+		return this.street;
 	}
 
 	public void setStreet(String street) {
@@ -46,7 +47,7 @@ public class Address {
 	}
 
 	public String getCity() {
-		return city;
+		return this.city;
 	}
 
 	public void setCity(String city) {
@@ -54,7 +55,7 @@ public class Address {
 	}
 
 	public String getZip() {
-		return zip;
+		return this.zip;
 	}
 
 	public void setZip(String zip) {

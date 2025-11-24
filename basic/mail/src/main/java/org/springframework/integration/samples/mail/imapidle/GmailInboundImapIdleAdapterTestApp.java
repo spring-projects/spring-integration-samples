@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.springframework.integration.samples.mail.imapidle;
 
 import org.apache.commons.logging.Log;
@@ -29,11 +30,14 @@ import org.springframework.messaging.MessagingException;
  * @author Gary Russell
  *
  */
-public class GmailInboundImapIdleAdapterTestApp {
-	private static final Log logger = LogFactory.getLog(GmailInboundImapIdleAdapterTestApp.class);
+public final class GmailInboundImapIdleAdapterTestApp {
 
+	private static final Log LOGGER = LogFactory.getLog(GmailInboundImapIdleAdapterTestApp.class);
 
-	public static void main (String[] args) throws Exception {
+	private GmailInboundImapIdleAdapterTestApp() {
+	}
+
+	public static void main(String[] args) throws Exception {
 		@SuppressWarnings("resource")
 		ClassPathXmlApplicationContext ac = new ClassPathXmlApplicationContext(
 				"/META-INF/spring/integration/gmail-imap-idle-config.xml");
@@ -41,7 +45,7 @@ public class GmailInboundImapIdleAdapterTestApp {
 		inputChannel.subscribe(new MessageHandler() {
 			@Override
 			public void handleMessage(Message<?> message) throws MessagingException {
-				logger.info("Message: " + message);
+				LOGGER.info("Message: " + message);
 			}
 		});
 	}

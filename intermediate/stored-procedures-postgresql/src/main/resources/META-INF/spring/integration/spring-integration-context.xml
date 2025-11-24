@@ -46,17 +46,17 @@
 		request-channel="findAllProcedureRequestChannel" expect-single-result="true"
 		stored-procedure-name="FIND_ALL_COFFEE_BEVERAGES">
 		<int-jdbc:returning-resultset name="ref"
-			row-mapper="coffeBeverageMapper" />
+			row-mapper="coffeeBeverageMapper" />
 	</int-jdbc:stored-proc-outbound-gateway>
 
 	<int-jdbc:stored-proc-inbound-channel-adapter data-source="dataSource" ignore-column-meta-data="true"
 		channel="loggit" expect-single-result="true" stored-procedure-name="FIND_ALL_COFFEE_BEVERAGES">
-		<int-jdbc:returning-resultset name="ref" row-mapper="coffeBeverageMapper"/>
+		<int-jdbc:returning-resultset name="ref" row-mapper="coffeeBeverageMapper"/>
 	</int-jdbc:stored-proc-inbound-channel-adapter>
 
 	<int:logging-channel-adapter id="loggit" log-full-message="true"/>
 
-	<bean id="coffeBeverageMapper" class="org.springframework.integration.samples.storedprocedure.support.CoffeBeverageMapper"/>
+	<bean id="coffeeBeverageMapper" class="org.springframework.integration.samples.storedprocedure.support.CoffeeBeverageMapper"/>
 
 	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
 		<property name="dataSource" ref="dataSource"/>

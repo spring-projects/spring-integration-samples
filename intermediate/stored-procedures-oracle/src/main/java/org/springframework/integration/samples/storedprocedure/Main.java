@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.springframework.integration.samples.storedprocedure;
 
 import java.util.List;
@@ -26,7 +27,6 @@ import org.springframework.integration.model.CoffeeBeverage;
 import org.springframework.integration.service.CoffeeService;
 import org.springframework.integration.service.StringConversionService;
 
-
 /**
  * Starts the Spring Context and will initialize the Spring Integration routes.
  *
@@ -39,7 +39,8 @@ public final class Main {
 
 	private static final Log LOGGER = LogFactory.getLog(Main.class);
 
-	private Main() { }
+	private Main() {
+	}
 
 	/**
 	 * Load the Spring Integration Application Context
@@ -58,7 +59,7 @@ public final class Main {
 				  + "\n    For more information please visit:                   "
 				  + "\n    https://www.springsource.org/spring-integration       "
 				  + "\n                                                         "
-				  + "\n=========================================================" );
+				  + "\n=========================================================");
 
 		while (true) {
 
@@ -69,15 +70,18 @@ public final class Main {
 
 			final String input = scanner.nextLine();
 
-			if("1".equals(input.trim())) {
+			if ("1".equals(input.trim())) {
 				executeSample1();
 				continue;
-			} else if("2".equals(input.trim())) {
+			}
+			else if ("2".equals(input.trim())) {
 				executeSample2();
 				continue;
-			} else if("q".equals(input.trim())) {
+			}
+			else if ("q".equals(input.trim())) {
 				break;
-			} else {
+			}
+			else {
 				System.out.println("Invalid choice\n\n");
 				System.out.print("Enter you choice: ");
 			}
@@ -158,7 +162,8 @@ public final class Main {
 																coffeeBeverage.getName()));
 				}
 
-			} else {
+			}
+			else {
 				System.out.println("Retrieving coffee information...");
 				String coffeeDescription = service.findCoffeeBeverage(Integer.valueOf(input));
 

@@ -24,6 +24,9 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.junit.jupiter.api.Test;
+import reactor.core.publisher.Mono;
+import reactor.core.scheduler.Schedulers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -40,10 +43,6 @@ import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 
-import org.junit.jupiter.api.Test;
-import reactor.core.publisher.Mono;
-import reactor.core.scheduler.Schedulers;
-
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
@@ -57,7 +56,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 @DirtiesContext
 public class MonoGatewayTests {
 
-	private static final Log logger = LogFactory.getLog(MonoGatewayTests.class);
+	private static final Log LOGGER = LogFactory.getLog(MonoGatewayTests.class);
 
 	@Autowired
 	private MathGateway gateway;
@@ -81,17 +80,17 @@ public class MonoGatewayTests {
 					.subscribeOn(Schedulers.boundedElastic())
 					.filter(Objects::nonNull)
 					.doOnNext(result1 -> {
-						logger.info("Result of multiplication of " + number + " by 2 is " + result1);
+						LOGGER.info("Result of multiplication of " + number + " by 2 is " + result1);
 						latch.countDown();
 					})
 					.doOnError(t -> {
 						failures.incrementAndGet();
-						logger.error("Unexpected exception for " + number, t);
+						LOGGER.error("Unexpected exception for " + number, t);
 					}).subscribe();
 		}
 		assertThat(latch.await(60, TimeUnit.SECONDS)).isTrue();
 		assertThat(failures.get()).isGreaterThanOrEqualTo(0);
-		logger.info("Finished");
+		LOGGER.info("Finished");
 	}
 
 	@Configuration

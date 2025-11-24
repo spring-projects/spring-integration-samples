@@ -21,7 +21,7 @@ import java.io.Serializable;
 /**
  * @author Mark Fisher
  */
-public enum DrinkType implements Serializable{
+public enum DrinkType implements Serializable {
 
 	ESPRESSO,
 	LATTE,
