@@ -24,12 +24,12 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.integration.channel.QueueChannel;
 import org.springframework.integration.support.MessageBuilder;
+import org.springframework.integration.test.matcher.PayloadMatcher;
 import org.springframework.messaging.Message;
 import org.springframework.messaging.MessageChannel;
 import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.springframework.integration.test.matcher.PayloadMatcher.hasPayload;
 
 /**
  * Shows how to test a custom splitter. Unit test for the class and
@@ -77,7 +77,7 @@ public class CommaDelimitedSplitterTests {
 	public void testOne() {
 		inputChannel.send(MessageBuilder.withPayload("   a   ").build());
 		Message<?> outMessage = testChannel.receive(0);
-		assertThat(outMessage).is(new HamcrestCondition<>(hasPayload("a")));
+		assertThat(outMessage).is(new HamcrestCondition<>(PayloadMatcher.hasPayload("a")));
 		outMessage = testChannel.receive(0);
 		assertThat(outMessage).isNull();
 	}
@@ -86,9 +86,9 @@ public class CommaDelimitedSplitterTests {
 	public void testTwo() {
 		inputChannel.send(MessageBuilder.withPayload("   a ,z  ").build());
 		Message<?> outMessage = testChannel.receive(0);
-		assertThat(outMessage).is(new HamcrestCondition<>(hasPayload("a")));
+		assertThat(outMessage).is(new HamcrestCondition<>(PayloadMatcher.hasPayload("a")));
 		outMessage = testChannel.receive(0);
-		assertThat(outMessage).is(new HamcrestCondition<>(hasPayload("z")));
+		assertThat(outMessage).is(new HamcrestCondition<>(PayloadMatcher.hasPayload("z")));
 		outMessage = testChannel.receive(0);
 		assertThat(outMessage).isNull();
 	}
@@ -97,9 +97,9 @@ public class CommaDelimitedSplitterTests {
 	public void testSkipEmpty() {
 		inputChannel.send(MessageBuilder.withPayload("   a ,,z  ").build());
 		Message<?> outMessage = testChannel.receive(0);
-		assertThat(outMessage).is(new HamcrestCondition<>(hasPayload("a")));
+		assertThat(outMessage).is(new HamcrestCondition<>(PayloadMatcher.hasPayload("a")));
 		outMessage = testChannel.receive(0);
-		assertThat(outMessage).is(new HamcrestCondition<>(hasPayload("z")));
+		assertThat(outMessage).is(new HamcrestCondition<>(PayloadMatcher.hasPayload("z")));
 		outMessage = testChannel.receive(0);
 		assertThat(outMessage).isNull();
 	}

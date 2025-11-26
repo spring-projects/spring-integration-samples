@@ -39,7 +39,7 @@ public interface PersonService {
 	 * Find the person by the person name, the name search is case insensitive, however the
 	 * spaces are not ignored
 	 *
-	 * @param name
+	 * @param name the name
 	 * @return the matching {@link Person} record
 	 */
 	List<Person> findPersonByName(String name);

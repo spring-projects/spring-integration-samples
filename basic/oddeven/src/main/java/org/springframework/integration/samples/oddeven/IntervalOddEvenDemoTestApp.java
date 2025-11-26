@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.springframework.integration.samples.oddeven;
 
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -28,7 +29,10 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
  *
  * @author Mark Fisher
  */
-public class IntervalOddEvenDemoTestApp {
+public final class IntervalOddEvenDemoTestApp {
+
+	private IntervalOddEvenDemoTestApp() {
+	}
 
 	public static void main(String[] args) {
 		new ClassPathXmlApplicationContext("/META-INF/spring/integration/intervalOddEvenDemo.xml", IntervalOddEvenDemoTestApp.class);

@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.springframework.integration.samples.ftp.support;
 
 import java.util.Arrays;
@@ -36,39 +37,43 @@ import org.apache.ftpserver.usermanager.impl.WritePermission;
  *
  */
 public class TestUserManager extends AbstractUserManager {
+
 	private final BaseUser testUser;
+
 	private final BaseUser anonUser;
 
 	private static final String TEST_USERNAME = "demo";
+
 	private static final String TEST_PASSWORD = "demo";
 
 	public TestUserManager(String homeDirectory) {
 		super("admin", new ClearTextPasswordEncryptor());
 
-		testUser = new BaseUser();
-		testUser.setAuthorities(Arrays.asList(new Authority[] {new ConcurrentLoginPermission(1, 1), new WritePermission()}));
-		testUser.setEnabled(true);
-		testUser.setHomeDirectory(homeDirectory);
-		testUser.setMaxIdleTime(10000);
-		testUser.setName(TEST_USERNAME);
-		testUser.setPassword(TEST_PASSWORD);
+		this.testUser = new BaseUser();
+		this.testUser.setAuthorities(Arrays.asList(new Authority[] {new ConcurrentLoginPermission(1, 1), new WritePermission()}));
+		this.testUser.setEnabled(true);
+		this.testUser.setHomeDirectory(homeDirectory);
+		this.testUser.setMaxIdleTime(10000);
+		this.testUser.setName(TEST_USERNAME);
+		this.testUser.setPassword(TEST_PASSWORD);
 
-		anonUser = new BaseUser(testUser);
-		anonUser.setName("anonymous");
+		this.anonUser = new BaseUser(this.testUser);
+		this.anonUser.setName("anonymous");
 	}
 
 	public User getUserByName(String username) throws FtpException {
-		if(TEST_USERNAME.equals(username)) {
-			return testUser;
-		} else if(anonUser.getName().equals(username)) {
-			return anonUser;
+		if (TEST_USERNAME.equals(username)) {
+			return this.testUser;
+		}
+		else if (this.anonUser.getName().equals(username)) {
+			return this.anonUser;
 		}
 
 		return null;
 	}
 
 	public String[] getAllUserNames() throws FtpException {
-		return new String[] {TEST_USERNAME, anonUser.getName()};
+		return new String[] {TEST_USERNAME, this.anonUser.getName()};
 	}
 
 	public void delete(String username) throws FtpException {
@@ -80,22 +85,23 @@ public class TestUserManager extends AbstractUserManager {
 	}
 
 	public boolean doesExist(String username) throws FtpException {
-		return (TEST_USERNAME.equals(username) || anonUser.getName().equals(username)) ? true : false;
+		return TEST_USERNAME.equals(username) || this.anonUser.getName().equals(username);
 	}
 
 	public User authenticate(Authentication authentication) throws AuthenticationFailedException {
-		if(UsernamePasswordAuthentication.class.isAssignableFrom(authentication.getClass())) {
+		if (UsernamePasswordAuthentication.class.isAssignableFrom(authentication.getClass())) {
 			UsernamePasswordAuthentication upAuth = (UsernamePasswordAuthentication) authentication;
 
-			if(TEST_USERNAME.equals(upAuth.getUsername()) && TEST_PASSWORD.equals(upAuth.getPassword())) {
-				return testUser;
+			if (TEST_USERNAME.equals(upAuth.getUsername()) && TEST_PASSWORD.equals(upAuth.getPassword())) {
+				return this.testUser;
 			}
 
-			if(anonUser.getName().equals(upAuth.getUsername())) {
-				return anonUser;
+			if (this.anonUser.getName().equals(upAuth.getUsername())) {
+				return this.anonUser;
 			}
-		} else if(AnonymousAuthentication.class.isAssignableFrom(authentication.getClass())) {
-			return anonUser;
+		}
+		else if (AnonymousAuthentication.class.isAssignableFrom(authentication.getClass())) {
+			return this.anonUser;
 		}
 
 		return null;

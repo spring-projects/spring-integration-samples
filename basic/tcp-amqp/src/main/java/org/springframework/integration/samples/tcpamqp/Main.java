@@ -17,6 +17,7 @@ package org.springframework.integration.samples.tcpamqp;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
 import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
@@ -47,7 +48,7 @@ public final class Main {
 				  + "\n	For more information please visit:				   "
 				  + "\n	https://www.springsource.org/spring-integration	   "
 				  + "\n														 "
-				  + "\n=========================================================" );
+				  + "\n=========================================================");
 
 		final AbstractApplicationContext context =
 				new ClassPathXmlApplicationContext("classpath:META-INF/spring/integration/*-context.xml");
@@ -64,7 +65,7 @@ public final class Main {
 				  + "\n														  "
 				  + "\n	Press Enter in this console to terminate			  "
 				  + "\n														  "
-				  + "\n=========================================================" );
+				  + "\n=========================================================");
 
 		System.in.read();
 		context.close();

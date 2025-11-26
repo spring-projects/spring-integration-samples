@@ -20,17 +20,17 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import org.springframework.context.support.GenericXmlApplicationContext;
-import org.springframework.messaging.Message;
-import org.springframework.messaging.MessageChannel;
 import org.springframework.integration.channel.QueueChannel;
 import org.springframework.integration.support.MessageBuilder;
+import org.springframework.messaging.Message;
+import org.springframework.messaging.MessageChannel;
 
 /**
  * @author Gunnar Hillert
  */
 public class ChannelAdapterDemoTest extends ActiveMQMultiContextTests {
 
-	private final static String[] configFilesChannelAdapterDemo = {
+	private static final String[] configFilesChannelAdapterDemo = {
 		"/META-INF/spring/integration/common.xml",
 		"/META-INF/spring/integration/inboundChannelAdapter.xml",
 		"/META-INF/spring/integration/outboundChannelAdapter.xml"

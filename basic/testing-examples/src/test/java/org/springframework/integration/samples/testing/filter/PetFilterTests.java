@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.springframework.integration.samples.testing.filter;
 
 import org.assertj.core.api.HamcrestCondition;
@@ -21,12 +22,12 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.integration.channel.QueueChannel;
 import org.springframework.integration.support.MessageBuilder;
+import org.springframework.integration.test.matcher.PayloadMatcher;
 import org.springframework.messaging.Message;
 import org.springframework.messaging.MessageChannel;
 import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.springframework.integration.test.matcher.PayloadMatcher.hasPayload;
 
 /**
  * Shows how to test a filter.
@@ -95,7 +96,7 @@ public class PetFilterTests {
 		Message<String> message = MessageBuilder.withPayload(payload).build();
 		inputChannel.send(message);
 		Message<?> outMessage = testChannel.receive(0);
-		assertThat(outMessage).is(new HamcrestCondition<>(hasPayload(payload)));
+		assertThat(outMessage).is(new HamcrestCondition<>(PayloadMatcher.hasPayload(payload)));
 	}
 
 	@Test
@@ -115,7 +116,7 @@ public class PetFilterTests {
 		Message<?> outMessage = testChannel2.receive(0);
 		assertThat(outMessage).isNull();
 		outMessage = testDiscardChannel2.receive(0);
-		assertThat(outMessage).is(new HamcrestCondition<>(hasPayload(payload)));
+		assertThat(outMessage).is(new HamcrestCondition<>(PayloadMatcher.hasPayload(payload)));
 	}
 
 	@Test
@@ -124,7 +125,7 @@ public class PetFilterTests {
 		Message<String> message = MessageBuilder.withPayload(payload).build();
 		inputChannel2.send(message);
 		Message<?> outMessage = testChannel.receive(0);
-		assertThat(outMessage).is(new HamcrestCondition<>(hasPayload(payload)));
+		assertThat(outMessage).is(new HamcrestCondition<>(PayloadMatcher.hasPayload(payload)));
 		outMessage = testDiscardChannel2.receive(0);
 		assertThat(outMessage).isNull();
 	}
@@ -137,7 +138,7 @@ public class PetFilterTests {
 		Message<?> outMessage = testChannel.receive(0);
 		assertThat(outMessage).isNull();
 		outMessage = testDiscardChannel2.receive(0);
-		assertThat(outMessage).is(new HamcrestCondition<>(hasPayload(payload)));
+		assertThat(outMessage).is(new HamcrestCondition<>(PayloadMatcher.hasPayload(payload)));
 	}
 
 }

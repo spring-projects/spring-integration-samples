@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.springframework.integration.samples.splitteraggregator;
 
 import java.util.ArrayList;
@@ -20,14 +21,14 @@ import java.util.Collection;
 
 /**
  * A result that can contain other results.
- * 
+ *
  * @author Christopher Hunt
- * 
+ *
  */
 public class CompositeResult extends Result {
 	private final Collection<Result> results = new ArrayList<Result>();
 
 	public Collection<Result> getResults() {
-		return results;
+		return this.results;
 	}
 }

@@ -29,30 +29,25 @@ import org.springframework.integration.service.StringConversionService;
 @Disabled
 public class StringConversionServiceTest {
 
-    @Test
-    public void testStartupOfSpringIntegrationContext() throws Exception{
-        final ApplicationContext context
-            = new ClassPathXmlApplicationContext("/META-INF/spring/integration/spring-integration-context.xml",
-                                                  StringConversionServiceTest.class);
-        Thread.sleep(2000);
-    }
+	@Test
+	public void testStartupOfSpringIntegrationContext() throws Exception {
+		final ApplicationContext context
+				= new ClassPathXmlApplicationContext("/META-INF/spring/integration/spring-integration-context.xml",
+				StringConversionServiceTest.class);
+		Thread.sleep(2000);
+	}
 
-    @Test
-    public void testConvertStringToUpperCase() {
-        final ApplicationContext context
-            = new ClassPathXmlApplicationContext("/META-INF/spring/integration/spring-integration-context.xml",
-                                                  StringConversionServiceTest.class);
+	@Test
+	public void testConvertStringToUpperCase() {
+		final ApplicationContext context
+				= new ClassPathXmlApplicationContext("/META-INF/spring/integration/spring-integration-context.xml",
+				StringConversionServiceTest.class);
 
-        final StringConversionService service = context.getBean(StringConversionService.class);
+		final StringConversionService service = context.getBean(StringConversionService.class);
 
-        final String stringToConvert = "I love Spring Integration";
-        final String expectedResult  = "I LOVE SPRING INTEGRATION";
+		final String stringToConvert = "I love Spring Integration";
+		final String expectedResult = "I LOVE SPRING INTEGRATION";
 
-      //  final String convertedString = service.convertToUpperCase(stringToConvert);
-
-      //  assertEquals("Expecting that the string is converted to upper case.",
-      //dd                expectedResult, convertedString);
-
-    }
+	}
 
 }

@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.springframework.integration.samples.testing.chain;
 
 import org.junit.jupiter.api.Test;
@@ -28,10 +29,10 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  *
- * Shows how to test a chain of endpoints that use SpEL expressions. 
+ * Shows how to test a chain of endpoints that use SpEL expressions.
  * The chain has direct input and output channels. The chain would
  * be a fragment of a larger flow. Since the output channel is direct,
- * it has no subscribers outside the context of a larger flow. So, 
+ * it has no subscribers outside the context of a larger flow. So,
  * in this test case, we bridge it to a {@link QueueChannel} to
  * facilitate easy testing.
  *

@@ -47,6 +47,8 @@ subprojects { subproject ->
 
 	apply plugin: 'eclipse'
 	apply plugin: 'idea'
+	apply plugin: 'checkstyle'
+
 
 	eclipse {
 		project {
@@ -259,6 +261,11 @@ subprojects { subproject ->
 					}
 				}
 			}
+		}
+
+		checkstyle {
+			configDirectory.set(rootProject.file('src/checkstyle'))
+			toolVersion = project.hasProperty('checkstyleVersion') ? project.checkstyleVersion : '12.1.2'
 		}
 
 		compileJava {

@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.springframework.integration.samples.controlbus;
 
 import org.apache.commons.logging.Log;
@@ -32,19 +33,19 @@ import org.springframework.messaging.support.GenericMessage;
  */
 public class ControlBusDemoTest {
 
-	private static Log logger = LogFactory.getLog(ControlBusDemoTest.class);
+	private static final Log LOGGER = LogFactory.getLog(ControlBusDemoTest.class);
 
 	@Test
-	public void demoControlBus(){
+	public void demoControlBus() {
 		ConfigurableApplicationContext ac = new ClassPathXmlApplicationContext(
 				"/META-INF/spring/integration/ControlBusDemo-context.xml");
 		MessageChannel controlChannel = ac.getBean("controlChannel", MessageChannel.class);
 		PollableChannel adapterOutputChanel = ac.getBean("adapterOutputChanel", PollableChannel.class);
-		logger.info("Received before adapter started: " + adapterOutputChanel.receive(1000));
+		LOGGER.info("Received before adapter started: " + adapterOutputChanel.receive(1000));
 		controlChannel.send(new GenericMessage<String>("@inboundAdapter.start()"));
-		logger.info("Received before adapter started: " + adapterOutputChanel.receive(1000));
+		LOGGER.info("Received before adapter started: " + adapterOutputChanel.receive(1000));
 		controlChannel.send(new GenericMessage<String>("@inboundAdapter.stop()"));
-		logger.info("Received after adapter stopped: " + adapterOutputChanel.receive(1000));
+		LOGGER.info("Received after adapter stopped: " + adapterOutputChanel.receive(1000));
 		ac.close();
 	}
 }

@@ -18,6 +18,8 @@ package org.springframework.integration.samples.sftp;
 
 import java.io.File;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.apache.sshd.sftp.client.SftpClient;
 import org.junit.jupiter.api.Test;
 
@@ -38,6 +40,8 @@ import org.springframework.util.Assert;
  *
  */
 public class SftpOutboundTransferSampleTests {
+
+	private static final Log LOGGER = LogFactory.getLog(SftpOutboundTransferSampleTests.class);
 
 	@Test
 	public void testOutbound() throws Exception {
@@ -67,8 +71,8 @@ public class SftpOutboundTransferSampleTests {
 			Assert.isTrue(SftpTestUtils.fileExists(template, destinationFileName),
 					String.format("File '%s' does not exist.", destinationFileName));
 
-			System.out.printf("Successfully transferred '%s' file to a " +
-					"remote location under the name '%s'%n", sourceFileName, destinationFileName);
+			LOGGER.info(String.format("Successfully transferred '%s' file to a " +
+					"remote location under the name '%s'", sourceFileName, destinationFileName));
 		}
 		finally {
 			SftpTestUtils.cleanUp(template, destinationFileName);

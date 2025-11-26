@@ -23,7 +23,10 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
  * @author Artem Bilan
  * @since 3.0
  */
-public class Application {
+public final class Application {
+
+	private Application() {
+	}
 
 	public static void main(String[] args) throws Exception {
 		ConfigurableApplicationContext ctx = new ClassPathXmlApplicationContext("client-context.xml", Application.class);

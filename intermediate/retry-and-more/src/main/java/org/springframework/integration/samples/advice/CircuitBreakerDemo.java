@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.springframework.integration.samples.advice;
 
 import org.apache.commons.logging.Log;
@@ -26,19 +27,22 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
  * @since 2.2
  *
  */
-public class CircuitBreakerDemo {
+public final class CircuitBreakerDemo {
 
 	private static final Log LOGGER = LogFactory.getLog(CircuitBreakerDemo.class);
 
+	private CircuitBreakerDemo() {
+	}
+
 	public static void main(String[] args) throws Exception {
 		LOGGER.info("\n========================================================="
-				  + "\n                                                         "
-				  + "\n          Welcome to Spring Integration!                 "
-				  + "\n                                                         "
-				  + "\n    For more information please visit:                   "
-				  + "\n    https://www.springsource.org/spring-integration       "
-				  + "\n                                                         "
-				  + "\n=========================================================" );
+				+ "\n                                                         "
+				+ "\n          Welcome to Spring Integration!                 "
+				+ "\n                                                         "
+				+ "\n    For more information please visit:                   "
+				+ "\n    https://www.springsource.org/spring-integration       "
+				+ "\n                                                         "
+				+ "\n=========================================================");
 
 		final AbstractApplicationContext context =
 				new ClassPathXmlApplicationContext("classpath:META-INF/spring/integration/circuit-breaker-advice-context.xml");
@@ -46,16 +50,16 @@ public class CircuitBreakerDemo {
 		context.registerShutdownHook();
 
 		LOGGER.info("\n========================================================="
-				  + "\n                                                          "
-				  + "\n    This is the Circuit Breaker Sample -                  "
-				  + "\n                                                          "
-				  + "\n    Please enter some text and press return a few times.  "
-				  + "\n    Service will succeed only in the last quarter         "
-				  + "\n    minute. Breaker will open after 2 failures and        "
-				  + "\n    will go half-open after 15 seconds.                   "
-				  + "\n    Demo will terminate in 2 minutes.                     "
-				  + "\n                                                          "
-				  + "\n=========================================================" );
+				+ "\n                                                          "
+				+ "\n    This is the Circuit Breaker Sample -                  "
+				+ "\n                                                          "
+				+ "\n    Please enter some text and press return a few times.  "
+				+ "\n    Service will succeed only in the last quarter         "
+				+ "\n    minute. Breaker will open after 2 failures and        "
+				+ "\n    will go half-open after 15 seconds.                   "
+				+ "\n    Demo will terminate in 2 minutes.                     "
+				+ "\n                                                          "
+				+ "\n=========================================================");
 
 		Thread.sleep(120000);
 		context.close();

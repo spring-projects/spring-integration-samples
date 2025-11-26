@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.springframework.integration.samples.mongodb.outbound;
 
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -29,7 +30,9 @@ import org.springframework.messaging.support.GenericMessage;
 public class MongoDbOutboundAdapterDemo {
 
 	/**
-	 * @param args
+	 * The main method to run the demo.
+	 * @param args command line arguments
+	 * @throws Exception if an error occurs
 	 */
 	public static void main(String[] args) throws Exception {
 		DemoUtils.prepareMongoFactory(); // will clean up MongoDB
@@ -59,7 +62,7 @@ public class MongoDbOutboundAdapterDemo {
 		messageChannel.send(new GenericMessage<String>("John, Dow, Palo Alto, 3401 Hillview Ave, 94304, CA"));
 	}
 
-	private Person createPersonA(){
+	private Person createPersonA() {
 		Address address = new Address();
 		address.setCity("Palo Alto");
 		address.setStreet("3401 Hillview Ave");
@@ -74,7 +77,7 @@ public class MongoDbOutboundAdapterDemo {
 		return person;
 	}
 
-	private Person createPersonB(){
+	private Person createPersonB() {
 		Address address = new Address();
 		address.setCity("San Francisco");
 		address.setStreet("123 Main st");
@@ -89,7 +92,7 @@ public class MongoDbOutboundAdapterDemo {
 		return person;
 	}
 
-	private Person createPersonC(){
+	private Person createPersonC() {
 		Address address = new Address();
 		address.setCity("Philadelphia");
 		address.setStreet("2323 Market st");

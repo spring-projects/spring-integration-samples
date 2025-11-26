@@ -24,7 +24,10 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
  *
  * @author Gary Russell
  */
-public class SpringIntegrationTest {
+public final class SpringIntegrationTest {
+
+	private SpringIntegrationTest() {
+	}
 
 	public static void main(String[] args) throws Exception {
 

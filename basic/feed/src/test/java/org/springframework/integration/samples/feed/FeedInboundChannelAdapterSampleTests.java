@@ -17,6 +17,8 @@
 package org.springframework.integration.samples.feed;
 
 import com.rometools.rome.feed.synd.SyndEntry;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.junit.jupiter.api.Test;
 
 import org.springframework.context.ConfigurableApplicationContext;
@@ -30,6 +32,8 @@ import org.springframework.messaging.PollableChannel;
  */
 public class FeedInboundChannelAdapterSampleTests {
 
+	private static final Log LOGGER = LogFactory.getLog(FeedInboundChannelAdapterSampleTests.class);
+
 	@SuppressWarnings("unchecked")
 	@Test
 	public void runDemo() {
@@ -40,7 +44,7 @@ public class FeedInboundChannelAdapterSampleTests {
 			Message<SyndEntry> message = (Message<SyndEntry>) feedChannel.receive(1000);
 			if (message != null) {
 				SyndEntry entry = message.getPayload();
-				System.out.println(entry.getPublishedDate() + " - " + entry.getTitle());
+				LOGGER.info(entry.getPublishedDate() + " - " + entry.getTitle());
 			}
 			else {
 				break;

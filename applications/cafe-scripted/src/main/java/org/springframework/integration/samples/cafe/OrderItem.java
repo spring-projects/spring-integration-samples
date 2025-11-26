@@ -22,41 +22,39 @@ package org.springframework.integration.samples.cafe;
  */
 public class OrderItem {
 
-    private DrinkType type;
+	private DrinkType type;
 
-    private int shots = 1;
+	private int shots = 1;
 
-    private boolean iced = false;
+	private boolean iced = false;
 
 	private final Order order;
 
-
 	public OrderItem(Order order, DrinkType type, int shots, boolean iced) {
-        this.order = order;
+		this.order = order;
 		this.type = type;
-        this.shots = shots;
-        this.iced = iced;
-    }
-
+		this.shots = shots;
+		this.iced = iced;
+	}
 
 	public Order getOrder() {
 		return this.order;
 	}
 
 	public boolean isIced() {
-        return this.iced;
-    }
+		return this.iced;
+	}
 
-    public int getShots() {
-        return shots;
-    }
+	public int getShots() {
+		return this.shots;
+	}
 
-    public DrinkType getDrinkType() {
-        return this.type;
-    }
+	public DrinkType getDrinkType() {
+		return this.type;
+	}
 
-    public String toString() {
-        return ((this.iced) ? "iced " : "hot ") + " order:"  + this.order.getNumber() + " " +this.shots + " shot " + this.type;
-    }
+	public String toString() {
+		return ((this.iced) ? "iced " : "hot ") + " order:" + this.order.getNumber() + " " + this.shots + " shot " + this.type;
+	}
 
 }

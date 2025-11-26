@@ -51,9 +51,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @SpringBootApplication
-public class TcpBroadcastApplication {
+public final class TcpBroadcastApplication {
 
 	private static final int PORT = 1234;
+
+	private TcpBroadcastApplication() {
+	}
+
+	public static void main(String[] args) {
+		SpringApplication.run(TcpBroadcastApplication.class, args);
+	}
 
 	@Configuration
 	public static class Config {
@@ -169,7 +176,7 @@ public class TcpBroadcastApplication {
 		private AbstractServerConnectionFactory server;
 
 		public void send(String what) {
-			this.server.getOpenConnectionIds().forEach(cid -> sender.send(what, cid));
+			this.server.getOpenConnectionIds().forEach(cid -> this.sender.send(what, cid));
 		}
 
 	}
@@ -190,7 +197,7 @@ public class TcpBroadcastApplication {
 				socket.getOutputStream().write("hello\r\n".getBytes());
 				InputStream is = socket.getInputStream();
 				while (true) {
-					System.out.println(new String(deserializer.deserialize(is)) + " from client# " + instance);
+					System.out.println(new String(deserializer.deserialize(is)) + " from client# " + this.instance);
 				}
 			}
 			catch (IOException e) {
@@ -206,10 +213,6 @@ public class TcpBroadcastApplication {
 			}
 		}
 
-	}
-
-	public static void main(String[] args) {
-		SpringApplication.run(TcpBroadcastApplication.class, args);
 	}
 
 }

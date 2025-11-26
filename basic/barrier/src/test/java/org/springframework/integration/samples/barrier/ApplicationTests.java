@@ -16,8 +16,6 @@
 
 package org.springframework.integration.samples.barrier;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
 import java.util.Collections;
 
 import org.junit.jupiter.api.Test;
@@ -30,6 +28,8 @@ import org.springframework.integration.channel.QueueChannel;
 import org.springframework.messaging.MessageChannel;
 import org.springframework.messaging.MessageHeaders;
 import org.springframework.messaging.support.GenericMessage;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * @author Gary Russell

@@ -53,7 +53,7 @@ import org.springframework.core.serializer.Serializer;
  */
 public class CustomSerializerDeserializer implements Serializer<CustomOrder>, Deserializer<CustomOrder> {
 
-	protected final Log logger = LogFactory.getLog(this.getClass());
+	protected static final Log LOGGER = LogFactory.getLog(CustomSerializerDeserializer.class);
 
 	private static final int ORDER_NUMBER_LENGTH = 3;
 
@@ -64,9 +64,9 @@ public class CustomSerializerDeserializer implements Serializer<CustomOrder>, De
 	/**
 	 * Convert a CustomOrder object into a byte-stream
 	 *
-	 * @param object
-	 * @param outputStream
-	 * @throws IOException
+	 * @param object the custom order to serialize
+	 * @param outputStream the output stream to write to
+	 * @throws IOException if an I/O error occurs
 	 */
 	public void serialize(CustomOrder object, OutputStream outputStream) throws IOException {
 		byte[] number = Integer.toString(object.getNumber()).getBytes();
@@ -90,9 +90,9 @@ public class CustomSerializerDeserializer implements Serializer<CustomOrder>, De
 	/**
 	 * Convert a raw byte stream into a CustomOrder
 	 *
-	 * @param inputStream
-	 * @return
-	 * @throws IOException
+	 * @param inputStream the input stream to read from
+	 * @return the deserialized CustomOrder
+	 * @throws IOException if an I/O error occurs
 	 */
 	public CustomOrder deserialize(InputStream inputStream) throws IOException {
 		int orderNumber = parseOrderNumber(inputStream);
@@ -140,12 +140,12 @@ public class CustomSerializerDeserializer implements Serializer<CustomOrder>, De
 	 * {@link org.springframework.integration.ip.tcp.serializer.AbstractByteArraySerializer} class
 	 * which has this method
 	 *
-	 * @param bite
-	 * @throws IOException
+	 * @param bite the byte to check
+	 * @throws IOException if the socket was closed
 	 */
 	protected void checkClosure(int bite) throws IOException {
 		if (bite < 0) {
-			logger.debug("Socket closed during message assembly");
+			LOGGER.debug("Socket closed during message assembly");
 			throw new IOException("Socket closed during message assembly");
 		}
 	}

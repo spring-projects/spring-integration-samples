@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.springframework.integration.samples.tcpclientserver;
 
 import java.io.UnsupportedEncodingException;
@@ -34,7 +35,8 @@ public class ByteArrayToStringConverter implements Converter<byte[], String> {
 	public String convert(byte[] bytes) {
 		try {
 			return new String(bytes, this.charSet);
-		} catch (UnsupportedEncodingException e) {
+		}
+		catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
 			return new String(bytes);
 		}
@@ -44,7 +46,7 @@ public class ByteArrayToStringConverter implements Converter<byte[], String> {
 	 * @return the charSet
 	 */
 	public String getCharSet() {
-		return charSet;
+		return this.charSet;
 	}
 
 	/**

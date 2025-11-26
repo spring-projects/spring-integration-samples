@@ -16,6 +16,9 @@
 
 package org.springframework.integration.samples.si4demo.springone.d;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 import org.springframework.boot.WebApplicationType;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.builder.SpringApplicationBuilder;
@@ -43,20 +46,15 @@ import org.springframework.messaging.MessageHandler;
 @IntegrationComponentScan
 public class DBoot {
 
+	private static final Log LOGGER = LogFactory.getLog(DBoot.class);
+
 	public static void main(String[] args) throws Exception {
 		ConfigurableApplicationContext ctx =
 				new SpringApplicationBuilder(DBoot.class)
 					.web(WebApplicationType.NONE)
 					.run(args);
-		System.out.println(ctx.getBean(FooService.class).foo("foo"));
+		LOGGER.info(ctx.getBean(FooService.class).foo("foo"));
 		ctx.close();
-	}
-
-	@MessagingGateway(defaultRequestChannel="foo")
-	public static interface FooService {
-
-		String foo(String request);
-
 	}
 
 	@Bean
@@ -64,7 +62,7 @@ public class DBoot {
 		return new DirectChannel();
 	}
 
-	@Transformer(inputChannel="foo")
+	@Transformer(inputChannel = "foo")
 	@Bean
 	public MessageHandler transform() {
 		MessageTransformingHandler transformingHandler = new MessageTransformingHandler(new MethodInvokingTransformer(helpers(), "duplicate"));
@@ -77,7 +75,7 @@ public class DBoot {
 		return new DirectChannel();
 	}
 
-	@ServiceActivator(inputChannel="bar")
+	@ServiceActivator(inputChannel = "bar")
 	@Bean
 	public MessageHandler service() {
 		return new ServiceActivatingHandler(new MethodInvokingTransformer(helpers(), "upper"));
@@ -86,6 +84,13 @@ public class DBoot {
 	@Bean
 	public MyHelpers helpers() {
 		return new MyHelpers();
+	}
+
+	@MessagingGateway(defaultRequestChannel = "foo")
+	public interface FooService {
+
+		String foo(String request);
+
 	}
 
 	public static class MyHelpers {

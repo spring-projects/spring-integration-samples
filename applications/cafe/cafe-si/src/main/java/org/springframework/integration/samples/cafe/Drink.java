@@ -23,7 +23,7 @@ import java.io.Serializable;
  * @author Tom McCuch
  * @author Gunnar Hillert
  */
-public class Drink implements Serializable{
+public class Drink implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
@@ -36,7 +36,8 @@ public class Drink implements Serializable{
 	private int orderNumber;
 
 	// Default constructor required by Jackson Java JSON-processor
-	public Drink() {}
+	public Drink() {
+	}
 
 	public Drink(int orderNumber, DrinkType drinkType, boolean iced, int shots) {
 		this.orderNumber = orderNumber;
@@ -45,9 +46,8 @@ public class Drink implements Serializable{
 		this.shots = shots;
 	}
 
-
 	public int getOrderNumber() {
-		return orderNumber;
+		return this.orderNumber;
 	}
 
 	public void setOrderNumber(int orderNumber) {
@@ -80,7 +80,7 @@ public class Drink implements Serializable{
 
 	@Override
 	public String toString() {
-		return (iced?"Iced":"Hot")  + " " + drinkType.toString() + ", " + shots + " shots.";
+		return (this.iced ? "Iced" : "Hot") + " " + this.drinkType.toString() + ", " + this.shots + " shots.";
 	}
 
 }

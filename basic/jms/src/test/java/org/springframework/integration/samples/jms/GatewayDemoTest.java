@@ -31,7 +31,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  */
 public class GatewayDemoTest extends ActiveMQMultiContextTests {
 
-	private final static String[] configFilesGatewayDemo = {
+	private static final String[] configFilesGatewayDemo = {
 			"/META-INF/spring/integration/common.xml",
 			"/META-INF/spring/integration/inboundGateway.xml",
 			"/META-INF/spring/integration/outboundGateway.xml"

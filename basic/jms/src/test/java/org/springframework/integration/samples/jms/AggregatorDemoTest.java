@@ -36,7 +36,7 @@ import org.springframework.messaging.MessageChannel;
  */
 public class AggregatorDemoTest extends ActiveMQMultiContextTests {
 
-	private final static String[] configFilesGatewayDemo = {
+	private static final String[] configFilesGatewayDemo = {
 		"/META-INF/spring/integration/common.xml",
 		"/META-INF/spring/integration/aggregation.xml"
 	};

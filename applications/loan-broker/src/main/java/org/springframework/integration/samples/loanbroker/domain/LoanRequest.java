@@ -22,6 +22,7 @@ package org.springframework.integration.samples.loanbroker.domain;
 public class LoanRequest {
 
 	private Customer customer;
+
 	private float loanAmount;
 
 	public void setCustomer(Customer customer) {
@@ -29,7 +30,7 @@ public class LoanRequest {
 	}
 
 	public Customer getCustomer() {
-		return customer;
+		return this.customer;
 	}
 
 	public void setLoanAmount(float loanAmount) {
@@ -37,7 +38,7 @@ public class LoanRequest {
 	}
 
 	public float getLoanAmount() {
-		return loanAmount;
+		return this.loanAmount;
 	}
 
 }

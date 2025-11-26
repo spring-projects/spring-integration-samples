@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.springframework.integration.samples.advice;
 
 import org.apache.commons.logging.Log;
@@ -26,19 +27,22 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
  * @since 2.2
  *
  */
-public class TransactionSynchronizationDemo {
+public final class TransactionSynchronizationDemo {
+
+	private TransactionSynchronizationDemo() {
+	}
 
 	private static final Log LOGGER = LogFactory.getLog(TransactionSynchronizationDemo.class);
 
 	public static void main(String[] args) throws Exception {
 		LOGGER.info("\n========================================================="
-				  + "\n                                                         "
-				  + "\n          Welcome to Spring Integration!                 "
-				  + "\n                                                         "
-				  + "\n    For more information please visit:                   "
-				  + "\n    https://www.springsource.org/spring-integration       "
-				  + "\n                                                         "
-				  + "\n=========================================================" );
+				+  "\n                                                         "
+				+  "\n          Welcome to Spring Integration!                 "
+				+  "\n                                                         "
+				+  "\n    For more information please visit:                   "
+				+  "\n    https://www.springsource.org/spring-integration       "
+				+  "\n                                                         "
+				+  "\n=========================================================");
 
 		final AbstractApplicationContext context =
 				new ClassPathXmlApplicationContext("classpath:META-INF/spring/integration/transaction-synch-context.xml");
@@ -46,18 +50,18 @@ public class TransactionSynchronizationDemo {
 		context.registerShutdownHook();
 
 		LOGGER.info("\n========================================================="
-				  + "\n                                                          "
-				  + "\n    This is the Transaction Synchronization Sample -      "
-				  + "\n                                                          "
-				  + "\n    Press 'Enter' to terminate.                           "
-				  + "\n                                                          "
-				  + "\n    Place a file in " + System.getProperty("java.io.tmpdir") + "/txSynchDemo ending  "
-				  + "\n    with .txt                                             "
-				  + "\n    If the first line begins with 'fail' the transaction  "
-				  + "\n    transaction will be rolled back.The result of the     "
-				  + "\n    expression evaluation is logged.                                            "
-				  + "\n                                                          "
-				  + "\n=========================================================" );
+				+  "\n                                                          "
+				+  "\n    This is the Transaction Synchronization Sample -      "
+				+  "\n                                                          "
+				+  "\n    Press 'Enter' to terminate.                           "
+				+  "\n                                                          "
+				+  "\n    Place a file in " + System.getProperty("java.io.tmpdir") + "/txSynchDemo ending  "
+				+  "\n    with .txt                                             "
+				+  "\n    If the first line begins with 'fail' the transaction  "
+				+  "\n    transaction will be rolled back.The result of the     "
+				+  "\n    expression evaluation is logged.                                            "
+				+  "\n                                                          "
+				+  "\n=========================================================");
 		System.out.println(System.getProperty("java.io.tmpdir") + "/txSynchDemo");
 		System.in.read();
 		context.close();

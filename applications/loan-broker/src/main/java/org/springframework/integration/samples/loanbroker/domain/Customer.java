@@ -22,11 +22,13 @@ package org.springframework.integration.samples.loanbroker.domain;
 public class Customer {
 
 	private String firstName;
+
 	private String lastName;
+
 	private Address address;
 
 	public String getFirstName() {
-		return firstName;
+		return this.firstName;
 	}
 
 	public void setFirstName(String firstName) {
@@ -34,7 +36,7 @@ public class Customer {
 	}
 
 	public String getLastName() {
-		return lastName;
+		return this.lastName;
 	}
 
 	public void setLastName(String lastName) {
@@ -42,11 +44,11 @@ public class Customer {
 	}
 
 	public Address getAddress() {
-		return address;
+		return this.address;
 	}
 
 	public void setAddress(Address address) {
 		this.address = address;
-	} 
+	}
 
 }

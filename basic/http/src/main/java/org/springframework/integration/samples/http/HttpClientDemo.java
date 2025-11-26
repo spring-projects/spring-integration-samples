@@ -1,5 +1,5 @@
 /*
- * Copyright 2002-207 the original author or authors.
+ * Copyright 2002-present the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.springframework.integration.samples.http;
 
 import org.apache.commons.logging.Log;
@@ -20,21 +21,25 @@ import org.apache.commons.logging.LogFactory;
 
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+
 /**
  * @author Oleg Zhurakousky
  * @author Gary Russell
  *
  */
-public class HttpClientDemo {
+public final class HttpClientDemo {
 
-	private static final Log logger = LogFactory.getLog(HttpClientDemo.class);
+	private HttpClientDemo() {
+	}
+
+	private static final Log LOGGER = LogFactory.getLog(HttpClientDemo.class);
 
 	public static void main(String[] args) {
 		ConfigurableApplicationContext context = new ClassPathXmlApplicationContext(
 				"/META-INF/spring/integration/http-outbound-config.xml");
 		RequestGateway requestGateway = context.getBean("requestGateway", RequestGateway.class);
 		String reply = requestGateway.echo("Hello");
-		logger.info("\n\n++++++++++++ Replied with: " + reply + " ++++++++++++\n");
+		LOGGER.info("\n\n++++++++++++ Replied with: " + reply + " ++++++++++++\n");
 		context.close();
 	}
 

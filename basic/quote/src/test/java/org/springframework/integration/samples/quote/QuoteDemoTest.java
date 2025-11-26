@@ -25,14 +25,14 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
  * outbound Channel Adapter that writes to stdout. Between them
  * is an annotated Service Activator. See QuoteService and the
  * 'quoteDemo.xml' configuration file for more detail.
- * 
+ *
  * @author Mark Fisher
  */
 public class QuoteDemoTest {
 
 	@Test
-	public  void testDemo()  throws Exception{
-		ClassPathXmlApplicationContext context = 
+	public  void testDemo()  throws Exception {
+		ClassPathXmlApplicationContext context =
 			new ClassPathXmlApplicationContext("/META-INF/spring/integration/quoteDemo.xml", QuoteDemoTest.class);
 		Thread.sleep(5000);
 		context.close();

@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.springframework.integration.samples.multipart;
 
 import java.util.LinkedList;
@@ -28,21 +29,23 @@ import org.springframework.util.LinkedMultiValueMap;
  *
  */
 public class MultipartReceiver {
-	private static final Log logger = LogFactory.getLog(MultipartReceiver.class);
+	private static final Log LOGGER = LogFactory.getLog(MultipartReceiver.class);
 
 	@SuppressWarnings("rawtypes")
-	public void receive(LinkedMultiValueMap<String, Object> multipartRequest){
-		logger.info("Successfully received multipart request: " + multipartRequest);
+	public void receive(LinkedMultiValueMap<String, Object> multipartRequest) {
+		LOGGER.info("Successfully received multipart request: " + multipartRequest);
 		for (String elementName : multipartRequest.keySet()) {
-			if (elementName.equals("company")){
-				LinkedList value =  (LinkedList)multipartRequest.get("company");
+			if (elementName.equals("company")) {
+				LinkedList value = (LinkedList) multipartRequest.get("company");
 				String[] multiValues = (String[]) value.get(0);
 				for (String companyName : multiValues) {
-					logger.info(elementName + " - " + companyName);
+					LOGGER.info(elementName + " - " + companyName);
 				}
-			} else if (elementName.equals("company-logo")){
-				logger.info(elementName + " - as UploadedMultipartFile: "
-						+ ((UploadedMultipartFile) multipartRequest.getFirst("company-logo")).getOriginalFilename());
+			}
+			else if (elementName.equals("company-logo")) {
+				LOGGER.info(elementName + " - as UploadedMultipartFile: "
+						+ ((UploadedMultipartFile) multipartRequest.getFirst("company-logo")).
+						getOriginalFilename());
 			}
 		}
 	}

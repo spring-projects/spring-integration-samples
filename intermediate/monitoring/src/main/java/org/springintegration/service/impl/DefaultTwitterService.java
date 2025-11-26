@@ -1,18 +1,19 @@
 /*
- * Copyright 2002-present the original author or authors
+ * Copyright 2002-present the original author or authors.
  *
- *	 Licensed under the Apache License, Version 2.0 (the "License");
- *	 you may not use this file except in compliance with the License.
- *	 You may obtain a copy of the License at
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
  *
- *		 https://www.apache.org/licenses/LICENSE-2.0
+ *      https://www.apache.org/licenses/LICENSE-2.0
  *
- *	 Unless required by applicable law or agreed to in writing, software
- *	 distributed under the License is distributed on an "AS IS" BASIS,
- *	 WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *	 See the License for the specific language governing permissions and
- *	 limitations under the License.
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
+
 package org.springintegration.service.impl;
 
 import java.util.Collection;
@@ -51,24 +52,25 @@ public class DefaultTwitterService implements TwitterService {
 
 	private long totalTweets;
 
-	@Autowired(required=false)
+	@Autowired(required = false)
 	@Qualifier("dummyTwitter")
 	private SourcePollingChannelAdapter dummyTwitter;
 
-	@Autowired(required=false)
+	@Autowired(required = false)
 	private IntegrationMBeanExporter exporter;
+
 	/**
 	 * Constructor that initializes the 'twitterMessages' Map as a simple LRU
 	 * cache. @See https://blogs.oracle.com/swinger/entry/collections_trick_i_lru_cache
 	 */
 	public DefaultTwitterService() {
 
-		twitterMessages = new LinkedHashMap<Long, TwitterMessage>( 10, 0.75f, true ) {
+		this.twitterMessages = new LinkedHashMap<Long, TwitterMessage>(10, 0.75f, true) {
 
 			private static final long serialVersionUID = 1L;
 
 			@Override
-			protected boolean removeEldestEntry( java.util.Map.Entry<Long, TwitterMessage> entry ) {
+			protected boolean removeEldestEntry(java.util.Map.Entry<Long, TwitterMessage> entry) {
 				return size() > 10;
 			}
 
@@ -76,20 +78,19 @@ public class DefaultTwitterService implements TwitterService {
 
 	}
 
-
 	/**
 	 * @return the totalTweets
 	 */
-	@ManagedMetric(metricType=MetricType.COUNTER)
+	@ManagedMetric(metricType = MetricType.COUNTER)
 	public long getTotalTweets() {
-		return totalTweets;
+		return this.totalTweets;
 	}
 
 
 	/** {@inheritDoc} */
 	@Override
 	public Collection<TwitterMessage> getTwitterMessages() {
-		return twitterMessages.values();
+		return this.twitterMessages.values();
 	}
 
 	/** {@inheritDoc} */
@@ -118,7 +119,6 @@ public class DefaultTwitterService implements TwitterService {
 		}
 	}
 
-
 	@Override
 	public void shutdown() {
 		Message<String> operation = MessageBuilder.withPayload("@integrationMBeanExporter.stopActiveComponents(false, 20000)").build();
@@ -128,12 +128,11 @@ public class DefaultTwitterService implements TwitterService {
 		}
 	}
 
-
 	/**
 	 * Called by Spring Integration to populate a simple LRU cache.
 	 *
-	 * @param tweet - The Spring Integration tweet object.
-	 * @throws InterruptedException
+	 * @param tweet the Spring Integration tweet object.
+	 * @throws Exception if an error occurs
 	 */
 	public void addTwitterMessages(Tweet tweet) throws Exception {
 		if ("SomeUser".equals(tweet.getFromUser())) {

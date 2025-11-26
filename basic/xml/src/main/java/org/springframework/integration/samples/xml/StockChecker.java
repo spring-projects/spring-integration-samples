@@ -32,7 +32,7 @@ public class StockChecker {
 	}
 
 	public Document checkStockLevel(Document doc) {
-		String isbn = isbnSelectingXPath.evaluateAsString(doc);
+		String isbn = this.isbnSelectingXPath.evaluateAsString(doc);
 		boolean inStock = false;
 
 		// we only carry stock of one book currently

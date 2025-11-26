@@ -13,10 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.springframework.integration.samples.advice;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 
@@ -30,19 +32,19 @@ public class ConditionalService {
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
 
-	private final Log logger = LogFactory.getLog(this.getClass());
+	private static final Log LOGGER = LogFactory.getLog(ConditionalService.class);
 
 	/**
 	 * If this service receives a payload 'fail.*' it throws an Exception.
-	 * @param payload
+	 * @param payload the payload to process
 	 */
 	public void failIfTextIsFail(String payload) {
 		this.jdbcTemplate.update("insert into FOO values(?)", payload);
 		if (payload.startsWith("fail")) {
-			logger.info("Service failure for " + payload);
+			LOGGER.info("Service failure for " + payload);
 			throw new RuntimeException("Forced Exception");
 		}
-		logger.info("Service success for " + payload);
+		LOGGER.info("Service success for " + payload);
 	}
 
 }

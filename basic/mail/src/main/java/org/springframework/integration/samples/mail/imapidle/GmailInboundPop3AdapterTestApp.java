@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.springframework.integration.samples.mail.imapidle;
 
 import org.apache.commons.logging.Log;
@@ -30,18 +31,21 @@ import org.springframework.messaging.MessagingException;
  * @author Gary Russell
  *
  */
-public class GmailInboundPop3AdapterTestApp {
+public final class GmailInboundPop3AdapterTestApp {
 
-	private static final Log logger = LogFactory.getLog(GmailInboundPop3AdapterTestApp.class);
+	private static final Log LOGGER = LogFactory.getLog(GmailInboundPop3AdapterTestApp.class);
 
-	public static void main (String[] args) throws Exception {
+	private GmailInboundPop3AdapterTestApp() {
+	}
+
+	public static void main(String[] args) throws Exception {
 		@SuppressWarnings("resource")
 		ApplicationContext ac = new ClassPathXmlApplicationContext("/META-INF/spring/integration/gmail-pop3-config.xml");
 		DirectChannel inputChannel = ac.getBean("receiveChannel", DirectChannel.class);
 		inputChannel.subscribe(new MessageHandler() {
 			@Override
 			public void handleMessage(Message<?> message) throws MessagingException {
-				logger.info("Message: " + message);
+				LOGGER.info("Message: " + message);
 			}
 		});
 	}

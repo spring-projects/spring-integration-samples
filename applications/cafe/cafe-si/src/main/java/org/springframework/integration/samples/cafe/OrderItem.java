@@ -38,7 +38,8 @@ public class OrderItem implements Serializable {
 	private int orderNumber;
 
 	// Default constructor required by Jackson Java JSON-processor
-	public OrderItem() {}
+	public OrderItem() {
+	}
 
 	public OrderItem(int orderNumber, DrinkType type, int shots, boolean iced) {
 		this.orderNumber = orderNumber;
@@ -64,7 +65,7 @@ public class OrderItem implements Serializable {
 	}
 
 	public int getShots() {
-		return shots;
+		return this.shots;
 	}
 
 	public void setShots(int shots) {

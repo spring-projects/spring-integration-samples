@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.springframework.integration.samples.storedprocedure;
 
 import java.util.List;
@@ -26,7 +27,6 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.integration.model.CoffeeBeverage;
 import org.springframework.integration.service.CoffeeService;
 
-
 /**
  * Starts the Spring Context and will initialize the Spring Integration routes.
  *
@@ -35,14 +35,16 @@ import org.springframework.integration.service.CoffeeService;
  * @since 2.2
  *
  */
-public class Main {
+public final class Main {
 
 	private static final Log LOGGER = LogFactory.getLog(Main.class);
 
-	private static final String LINE    = "\n=========================================================";
+	private static final String LINE = "\n=========================================================";
+
 	private static final String NEWLINE = "\n";
 
-	private Main() { }
+	private Main() {
+	}
 
 	/**
 	 * Load the Spring Integration Application Context
@@ -58,7 +60,7 @@ public class Main {
 				+ "\n    For more information please visit:                   "
 				+ "\n    https://www.springsource.org/spring-integration       "
 				+ NEWLINE
-				+ LINE );
+				+ LINE);
 
 		final AbstractApplicationContext context =
 			new ClassPathXmlApplicationContext("classpath:META-INF/spring/integration/*-context.xml");
@@ -90,7 +92,8 @@ public class Main {
 																coffeeBeverage.getName()));
 				}
 
-			} else {
+			}
+			else {
 				System.out.println("Retrieving coffee information...");
 				String coffeeDescription = service.findCoffeeBeverage(Integer.valueOf(input));
 

@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.springframework.integration.service.impl;
 
 import java.util.Date;
@@ -27,7 +28,6 @@ import org.springframework.social.twitter.api.Tweet;
 public class DummyTwitter {
 
 	private long id;
-
 
 	@SuppressWarnings("deprecation")
 	public Tweet getTweet() {

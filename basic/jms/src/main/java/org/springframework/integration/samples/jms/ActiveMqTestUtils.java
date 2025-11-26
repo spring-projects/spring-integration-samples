@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.springframework.integration.samples.jms;
 
 import java.io.File;
@@ -26,7 +27,10 @@ import org.apache.commons.logging.LogFactory;
  * @author Gary Russell
  *
  */
-public class ActiveMqTestUtils {
+public final class ActiveMqTestUtils {
+
+	private ActiveMqTestUtils() {
+	}
 
 	private static final Log LOGGER = LogFactory.getLog(ActiveMqTestUtils.class);
 
@@ -36,11 +40,11 @@ public class ActiveMqTestUtils {
 		deleteDir(activeMqTempDir);
 	}
 
-	private static void deleteDir(File directory){
-		if (directory.exists()){
+	private static void deleteDir(File directory) {
+		if (directory.exists()) {
 			String[] children = directory.list();
-			if (children != null){
-				for (int i=0; i < children.length; i++) {
+			if (children != null) {
+				for (int i = 0; i < children.length; i++) {
 					deleteDir(new File(directory, children[i]));
 				}
 			}

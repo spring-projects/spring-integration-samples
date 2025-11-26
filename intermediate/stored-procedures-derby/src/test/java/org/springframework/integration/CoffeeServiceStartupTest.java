@@ -18,7 +18,6 @@ package org.springframework.integration;
 
 import org.junit.jupiter.api.Test;
 
-import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 /**
@@ -26,12 +25,11 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
  */
 public class CoffeeServiceStartupTest {
 
-    @Test
-    public void testStartupOfSpringIntegrationContext() throws Exception{
-        final ApplicationContext context
-            = new ClassPathXmlApplicationContext("/META-INF/spring/integration/spring-integration-context.xml",
-                                                  CoffeeServiceStartupTest.class);
-        Thread.sleep(2000);
-    }
+	@Test
+	public void testStartupOfSpringIntegrationContext() throws Exception {
+		new ClassPathXmlApplicationContext("/META-INF/spring/integration/spring-integration-context.xml",
+				CoffeeServiceStartupTest.class);
+		Thread.sleep(2000);
+	}
 
 }

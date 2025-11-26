@@ -24,7 +24,7 @@ import org.springframework.jmx.export.annotation.ManagedResource;
 
 /**
  * A managed resource implementation to expose the total deliveries via the Control Bus
- * 
+ *
  * @author Marius Bogoevici
  * @author David Turanski
  */
@@ -34,7 +34,7 @@ public class Waiter {
 	private final AtomicInteger totalDeliveries = new AtomicInteger();
 
 	public Delivery prepareDelivery(List<Drink> drinks) {
-		totalDeliveries.getAndIncrement();
+		this.totalDeliveries.getAndIncrement();
 		return new Delivery(drinks);
 	}
 

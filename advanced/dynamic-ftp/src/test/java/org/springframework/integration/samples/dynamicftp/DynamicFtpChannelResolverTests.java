@@ -13,11 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.springframework.integration.samples.dynamicftp;
 
 import org.junit.jupiter.api.Test;
 
-import org.springframework.integration.samples.dynamicftp.DynamicFtpChannelResolver;
 import org.springframework.messaging.MessageChannel;
 
 import static org.assertj.core.api.Assertions.assertThat;

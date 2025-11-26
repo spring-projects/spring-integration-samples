@@ -13,12 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.springframework.integration.service;
 
 import java.util.Collection;
 
 import org.springframework.integration.model.TwitterMessage;
-
 
 /**
  * Provides some basic methods for controlling the flow of Twitter messages.

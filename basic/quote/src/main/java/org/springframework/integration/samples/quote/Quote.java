@@ -33,7 +33,7 @@ public class Quote {
 	}
 
 	public String toString() {
-		return ticker + ": " + price;
+		return this.ticker + ": " + this.price;
 	}
 
 }

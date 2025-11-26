@@ -63,7 +63,7 @@ public class RestHttpClientTest {
 
 	private HttpMessageConverterExtractor<EmployeeList> responseExtractor;
 
-	private static final Log logger = LogFactory.getLog(RestHttpClientTest.class);
+	private static final Log LOGGER = LogFactory.getLog(RestHttpClientTest.class);
 
 	@Autowired
 	private Jaxb2Marshaller marshaller;
@@ -94,13 +94,13 @@ public class RestHttpClientTest {
 					headers.add("Accept", "application/xml");
 				}, responseExtractor, employeeSearchMap);
 
-		logger.info("The employee list size :" + employeeList.getEmployee().size());
+		LOGGER.info("The employee list size :" + employeeList.getEmployee().size());
 
 		StringWriter sw = new StringWriter();
 		StreamResult sr = new StreamResult(sw);
 
 		marshaller.marshal(employeeList, sr);
-		logger.info(sr.getWriter().toString());
+		LOGGER.info(sr.getWriter().toString());
 		assertThat(employeeList.getEmployee()).hasSizeGreaterThan(0);
 	}
 
@@ -122,12 +122,12 @@ public class RestHttpClientTest {
 
 		ResponseEntity<?> httpResponse = restTemplate
 				.exchange(fullUrl, HttpMethod.GET, request, EmployeeList.class, employeeSearchMap);
-		logger.info("Return Status :" + httpResponse.getHeaders().get("X-Return-Status"));
-		logger.info("Return Status Message :" + httpResponse.getHeaders().get("X-Return-Status-Msg"));
+		LOGGER.info("Return Status :" + httpResponse.getHeaders().get("X-Return-Status"));
+		LOGGER.info("Return Status Message :" + httpResponse.getHeaders().get("X-Return-Status-Msg"));
 		assertThat(httpResponse.getStatusCode()).isEqualTo(HttpStatus.OK);
 		ByteArrayOutputStream out = new ByteArrayOutputStream();
 		objectMapper.writeValue(out, httpResponse.getBody());
-		logger.info(out.toString());
+		LOGGER.info(out.toString());
 	}
 
 	private HttpHeaders getHttpHeadersWithUserCredentials(ClientHttpRequest request) {

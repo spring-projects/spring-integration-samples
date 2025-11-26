@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.springframework.integration.samples.jdbc.domain;
 
 import java.sql.ResultSet;
@@ -21,7 +22,7 @@ import java.sql.SQLException;
 import org.springframework.jdbc.core.RowMapper;
 
 /**
- * The result set mapper that will map the {@link ResultSet} to the {@link Person} instance 
+ * The result set mapper that will map the {@link ResultSet} to the {@link Person} instance
  * @author Amol Nayak
  *
  */
@@ -29,7 +30,7 @@ public class PersonMapper implements RowMapper<Person> {
 
 	/* (non-Javadoc)
 	 * @see org.springframework.jdbc.core.RowMapper#mapRow(java.sql.ResultSet, int)
-	 */	
+	 */
 	public Person mapRow(ResultSet rs, int rowNum) throws SQLException {
 		Person person = new Person();
 		person.setPersonId(rs.getInt("id"));
@@ -38,4 +39,5 @@ public class PersonMapper implements RowMapper<Person> {
 		person.setDateOfBirth(rs.getDate("dateOfBirth"));
 		return person;
 	}
+
 }

@@ -32,7 +32,7 @@ public class Counter {
 	private final AtomicInteger count = new AtomicInteger();
 
 	public int next() {
-		int nextNumber = count.incrementAndGet();
+		int nextNumber = this.count.incrementAndGet();
 		return (nextNumber % 5 == 0) ? -nextNumber : nextNumber;
 	}
 

@@ -30,9 +30,9 @@ import org.springframework.integration.annotation.ServiceActivator;
 @MessageEndpoint
 public class QuoteService {
 
-	@ServiceActivator(inputChannel="tickers", outputChannel="quotes")
+	@ServiceActivator(inputChannel = "tickers", outputChannel = "quotes")
 	public Quote lookupQuote(String ticker) {
-		BigDecimal price = new BigDecimal(new Random().nextDouble() * 100);//NOSONAR
+		BigDecimal price = new BigDecimal(new Random().nextDouble() * 100);
 		return new Quote(ticker, price.setScale(2, RoundingMode.HALF_EVEN));
 	}
 

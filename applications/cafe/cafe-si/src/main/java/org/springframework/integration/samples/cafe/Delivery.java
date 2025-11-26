@@ -48,7 +48,7 @@ public class Delivery implements Serializable {
 	}
 
 	public int getOrderNumber() {
-		return orderNumber;
+		return this.orderNumber;
 	}
 
 	public void setOrderNumber(int orderNumber) {
@@ -56,7 +56,7 @@ public class Delivery implements Serializable {
 	}
 
 	public List<Drink> getDeliveredDrinks() {
-		return deliveredDrinks;
+		return this.deliveredDrinks;
 	}
 
 	public void setDeliveredDrinks(List<Drink> deliveredDrinks) {

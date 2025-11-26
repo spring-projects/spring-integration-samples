@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.springframework.integration.samples.testing.router;
 
 import org.springframework.integration.annotation.Router;
@@ -23,7 +24,7 @@ import org.springframework.integration.annotation.Router;
  *
  */
 public class PetRouter {
-	
+
 	@Router
 	public String route(String input) {
 		if (input.toLowerCase().contains("cat")) {

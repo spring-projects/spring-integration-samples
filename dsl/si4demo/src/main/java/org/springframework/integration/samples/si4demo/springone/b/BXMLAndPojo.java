@@ -1,5 +1,5 @@
 /*
- * Copyright 2014 the original author or authors.
+ * Copyright 2014-present the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,7 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.springframework.integration.samples.si4demo.springone.b;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -26,16 +30,21 @@ import org.springframework.integration.annotation.Transformer;
  * @author Gary Russell
  *
  */
-public class BXMLAndPojo {
+public final class BXMLAndPojo {
+
+	private static final Log LOGGER = LogFactory.getLog(BXMLAndPojo.class);
+
+	private BXMLAndPojo() {
+	}
 
 	public static void main(String[] args) throws Exception {
 		ConfigurableApplicationContext ctx =
 				new ClassPathXmlApplicationContext("BXMLAndPojo-context.xml");
-		System.out.println(ctx.getBean(FooService.class).foo("foo"));
+		LOGGER.info(ctx.getBean(FooService.class).foo("foo"));
 		ctx.close();
 	}
 
-	public static interface FooService {
+	public interface FooService {
 
 		String foo(String request);
 
@@ -44,12 +53,12 @@ public class BXMLAndPojo {
 	@MessageEndpoint
 	public static class MyComponents {
 
-		@Transformer(inputChannel="foo", outputChannel="bar")
+		@Transformer(inputChannel = "foo", outputChannel = "bar")
 		public String transform(String foo) {
 			return foo + foo;
 		}
 
-		@ServiceActivator(inputChannel="bar")
+		@ServiceActivator(inputChannel = "bar")
 		public String service(String foo) {
 			return foo.toUpperCase();
 		}

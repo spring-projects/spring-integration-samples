@@ -31,7 +31,10 @@ import org.springframework.integration.file.outbound.FileWritingMessageHandler;
  * @author Mark Fisher
  * @author Gary Russell
  */
-public class FileCopyDemoCommon {
+public final class FileCopyDemoCommon {
+
+	private FileCopyDemoCommon() {
+	}
 
 	public static void displayDirectories(ApplicationContext context) {
 		File inDir = (File) new DirectFieldAccessor(context.getBean(FileReadingMessageSource.class)).getPropertyValue("directoryExpression.value");

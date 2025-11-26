@@ -16,6 +16,9 @@
 
 package org.springframework.integration.samples.si4demo.springone.f;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.WebApplicationType;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
@@ -44,6 +47,8 @@ import org.springframework.messaging.MessageChannel;
 @IntegrationComponentScan
 public class FMail {
 
+	private static final Log LOGGER = LogFactory.getLog(FMail.class);
+
 	@Autowired
 	GMailProperties gmail;
 
@@ -52,15 +57,8 @@ public class FMail {
 				new SpringApplicationBuilder(FMail.class)
 						.web(WebApplicationType.NONE)
 						.run(args);
-		System.out.println(ctx.getBean(FooService.class).foo("foo"));
+		LOGGER.info(ctx.getBean(FooService.class).foo("foo"));
 		ctx.close();
-	}
-
-	@MessagingGateway(defaultRequestChannel = "foo.input")
-	public static interface FooService {
-
-		String foo(String request);
-
 	}
 
 	@Bean
@@ -94,11 +92,18 @@ public class FMail {
 				.handle(Mail.outboundAdapter("smtp.gmail.com")
 								.port(465)
 								.protocol("smtps")
-								.credentials(gmail.getUser(), gmail.getPassword())
+								.credentials(this.gmail.getUser(), this.gmail.getPassword())
 								.javaMailProperties(p ->
-										p.put("mail.debug", "false"))
-						, e -> e.id("smtpOut"))
+										p.put("mail.debug", "false")),
+						e -> e.id("smtpOut"))
 				.get();
+	}
+
+	@MessagingGateway(defaultRequestChannel = "foo.input")
+	public interface FooService {
+
+		String foo(String request);
+
 	}
 
 }

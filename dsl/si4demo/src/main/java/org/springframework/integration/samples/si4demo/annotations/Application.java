@@ -153,10 +153,10 @@ public class Application {
 
 	@Bean
 	public Twitter twitter() {
-		return new TwitterTemplate(env.getProperty("twitter.oauth.consumerKey"),
-				env.getProperty("twitter.oauth.consumerSecret"),
-				env.getProperty("twitter.oauth.accessToken"),
-				env.getProperty("twitter.oauth.accessTokenSecret"));
+		return new TwitterTemplate(this.env.getProperty("twitter.oauth.consumerKey"),
+				this.env.getProperty("twitter.oauth.consumerSecret"),
+				this.env.getProperty("twitter.oauth.accessToken"),
+				this.env.getProperty("twitter.oauth.accessTokenSecret"));
 	}
 
 }

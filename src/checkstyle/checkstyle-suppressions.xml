@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<!DOCTYPE suppressions PUBLIC
+		"-//Checkstyle//DTD SuppressionFilter Configuration 1.2//EN"
+		"https://checkstyle.org/dtds/suppressions_1_2.dtd">
+<suppressions>
+	<suppress files="package-info\.java" checks=".*"/>
+	<suppress files="AvroTestClass.*" checks=".*"/>
+	<suppress files="[\\/]test[\\/]" checks="RequireThis"/>
+	<suppress files="[\\/]test[\\/]" checks="FinalClass"/>
+	<suppress files="[\\/]test[\\/]" checks="InnerTypeLast"/>
+	<suppress files="CachingSessionFactory" checks="FinalClass"/> <!-- Tests spy -->
+	<suppress files="[\\/]test[\\/]" checks="Javadoc*"/>
+	<suppress files="[\\/]test[\\/]" checks="EqualsHashCode"/>
+	<suppress files="[\\/]test[\\/]" checks="Atclause*"/>
+	<suppress files="[\\/]test[\\/]" checks="InterfaceIsType"/>
+	<suppress files="org[\\/]springframework[\\/]integration[\\/]transformer[\\/]proto" checks=".*"/>
+	<!-- Allow System.out in main methods for demo/sample applications and tests -->
+	<suppress files="Application\.java" checks="Regexp"/>
+	<suppress files="Main\.java" checks="Regexp"/>
+	<suppress files="CafeDemo.*\.java" checks="Regexp"/>
+	<suppress files="FileCopyDemoCommon\.java" checks="Regexp"/>
+	<suppress files="Handler\.java" checks="Regexp"/>
+	<suppress files="PollerApp\.java" checks="Regexp"/>
+	<suppress files="HelloWorldApp\.java" checks="Regexp"/>
+	<suppress files="SftpTestUtils\.java" checks="Regexp"/>
+	<suppress files="TransactionSynchronizationDemo\.java" checks="Regexp"/>
+	<suppress files="SpringIntegrationTest\.java" checks="Regexp"/>
+</suppressions>

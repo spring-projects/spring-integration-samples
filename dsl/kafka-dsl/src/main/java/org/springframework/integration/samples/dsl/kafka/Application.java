@@ -24,9 +24,9 @@ import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.WebApplicationType;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.kafka.autoconfigure.KafkaProperties;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.boot.kafka.autoconfigure.KafkaProperties;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.integration.annotation.Gateway;
@@ -90,16 +90,11 @@ public class Application {
 	@Autowired
 	private KafkaAppProperties properties;
 
-	@MessagingGateway
-	public interface KafkaGateway {
+	@Autowired
+	private IntegrationFlowContext flowContext;
 
-		@Gateway(requestChannel = "toKafka.input")
-		void sendToKafka(String payload, @Header(KafkaHeaders.TOPIC) String topic);
-
-		@Gateway(replyChannel = "fromKafka", replyTimeout = 10000)
-		Message<?> receiveFromKafka();
-
-	}
+	@Autowired
+	private KafkaProperties kafkaProperties;
 
 	@Bean
 	public IntegrationFlow toKafka(KafkaTemplate<?, ?> kafkaTemplate) {
@@ -130,14 +125,8 @@ public class Application {
 		return new NewTopic(properties.getNewTopic(), 1, (short) 1);
 	}
 
-	@Autowired
-	private IntegrationFlowContext flowContext;
-
-	@Autowired
-	private KafkaProperties kafkaProperties;
-
 	public void addAnotherListenerForTopics(String... topics) {
-		Map<String, Object> consumerProperties = kafkaProperties.buildConsumerProperties();
+		Map<String, Object> consumerProperties = this.kafkaProperties.buildConsumerProperties();
 		// change the group id, so we don't revoke the other partitions.
 		consumerProperties.put(ConsumerConfig.GROUP_ID_CONFIG,
 				consumerProperties.get(ConsumerConfig.GROUP_ID_CONFIG) + "x");
@@ -148,6 +137,17 @@ public class Application {
 						.channel("fromKafka")
 						.get();
 		this.flowContext.registration(flow).register();
+	}
+
+	@MessagingGateway
+	public interface KafkaGateway {
+
+		@Gateway(requestChannel = "toKafka.input")
+		void sendToKafka(String payload, @Header(KafkaHeaders.TOPIC) String topic);
+
+		@Gateway(replyChannel = "fromKafka", replyTimeout = 10000)
+		Message<?> receiveFromKafka();
+
 	}
 
 }

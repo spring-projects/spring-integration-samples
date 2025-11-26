@@ -62,14 +62,14 @@ public class EmailFragment {
 	 * file attachments etc.
 	 */
 	public Object getData() {
-		return data;
+		return this.data;
 	}
 
 	/**
 	 * The file name to create for the respective {@link EmailFragment}.
 	 */
 	public String getFilename() {
-		return filename;
+		return this.filename;
 	}
 
 	/**
@@ -86,9 +86,9 @@ public class EmailFragment {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result
-				+ ((directory == null) ? 0 : directory.hashCode());
+				+ ((this.directory == null) ? 0 : this.directory.hashCode());
 		result = prime * result
-				+ ((filename == null) ? 0 : filename.hashCode());
+				+ ((this.filename == null) ? 0 : this.filename.hashCode());
 		return result;
 	}
 
@@ -104,20 +104,20 @@ public class EmailFragment {
 			return false;
 		}
 		EmailFragment other = (EmailFragment) obj;
-		if (directory == null) {
+		if (this.directory == null) {
 			if (other.directory != null) {
 				return false;
 			}
 		}
-		else if (!directory.equals(other.directory)) {
+		else if (!this.directory.equals(other.directory)) {
 			return false;
 		}
-		if (filename == null) {
+		if (this.filename == null) {
 			if (other.filename != null) {
 				return false;
 			}
 		}
-		else if (!filename.equals(other.filename)) {
+		else if (!this.filename.equals(other.filename)) {
 			return false;
 		}
 		return true;
@@ -125,8 +125,8 @@ public class EmailFragment {
 
 	@Override
 	public String toString() {
-		return "EmailFragment [filename=" + filename + ", directory="
-				+ directory + "]";
+		return "EmailFragment [filename=" + this.filename + ", directory="
+				+ this.directory + "]";
 	}
 
 }

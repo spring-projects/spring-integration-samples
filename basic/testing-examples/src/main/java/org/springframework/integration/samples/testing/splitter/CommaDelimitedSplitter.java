@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.springframework.integration.samples.testing.splitter;
 
 import java.util.ArrayList;
@@ -21,15 +22,15 @@ import java.util.List;
 import org.springframework.integration.annotation.Splitter;
 
 /**
- * Splits a message containing a comma-delimited list into 
+ * Splits a message containing a comma-delimited list into
  * a list of strings. Empty elements are dropped.
- * 
+ *
  * @author Gary Russell
  * @since 2.0.2
  *
  */
 public class CommaDelimitedSplitter {
-	
+
 	@Splitter
 	public List<String> split(String input) {
 		String[] splits = input.split(",");

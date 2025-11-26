@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.springframework.integration.samples.splitteraggregator;
 
 import org.apache.commons.logging.Log;
@@ -35,17 +36,18 @@ public class SearchB {
 
 	public Result search(CriteriaB criteria) {
 
-		LOGGER.info(String.format("This search will take %sms.", executionTime));
+		LOGGER.info(String.format("This search will take %sms.", this.executionTime));
 
 		try {
-			Thread.sleep(executionTime);
-		} catch (InterruptedException e) {
+			Thread.sleep(this.executionTime);
+		}
+		catch (InterruptedException e) {
 		}
 		return new Result();
 	}
 
 	public long getExecutionTime() {
-		return executionTime;
+		return this.executionTime;
 	}
 
 	public void setExecutionTime(long executionTime) {

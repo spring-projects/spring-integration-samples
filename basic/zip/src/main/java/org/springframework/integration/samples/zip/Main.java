@@ -24,7 +24,6 @@ import org.apache.commons.logging.LogFactory;
 import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-
 /**
  * Starts the Spring Context and will initialize the Spring Integration routes.
  *
@@ -51,21 +50,21 @@ public final class Main {
 
 		if (LOGGER.isInfoEnabled()) {
 			LOGGER.info("""
-					
+				
 					=========================================================\
-					
+				
 					                                                         \
-					
+				
 					    Welcome to the Spring Integration Zip Sample         \
-					
+				
 					                                                         \
-					
+				
 					    For more information please visit:                   \
-					
+				
 					    https://www.springsource.org/spring-integration       \
-					
+				
 					                                                         \
-					
+				
 					=========================================================""");
 		}
 
@@ -80,15 +79,15 @@ public final class Main {
 
 		if (LOGGER.isInfoEnabled()) {
 			LOGGER.info("""
-					
+				
 					=========================================================\
-					
+				
 					                                                         \
-					
+				
 					    Please press 'q + Enter' to quit the application.    \
-					
+				
 					                                                         \
-					
+				
 					=========================================================""");
 		}
 

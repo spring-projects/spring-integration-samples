@@ -18,6 +18,9 @@ package org.springframework.integration.samples.si4demo.dsl;
 
 import java.util.Scanner;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
@@ -76,20 +79,15 @@ import org.springframework.social.twitter.api.impl.TwitterTemplate;
 @EnableAutoConfiguration
 public class Application {
 
+	private static final Log LOGGER = LogFactory.getLog(Application.class);
+
 	public static void main(String[] args) throws Exception {
 		ConfigurableApplicationContext ctx = SpringApplication.run(Application.class, args);
 		Scanner scanner = new Scanner(System.in);
 		String hashTag = scanner.nextLine();
-		System.out.println(ctx.getBean(Gateway.class).sendReceive(hashTag));
+		LOGGER.info(ctx.getBean(Gateway.class).sendReceive(hashTag));
 		scanner.close();
 		ctx.close();
-	}
-
-	@MessagingGateway(defaultRequestChannel = "requestChannel")
-	public interface Gateway {
-
-		String sendReceive(String in);
-
 	}
 
 	@Autowired
@@ -152,10 +150,17 @@ public class Application {
 
 	@Bean
 	public Twitter twitter() {
-		return new TwitterTemplate(env.getProperty("twitter.oauth.consumerKey"),
-				env.getProperty("twitter.oauth.consumerSecret"),
-				env.getProperty("twitter.oauth.accessToken"),
-				env.getProperty("twitter.oauth.accessTokenSecret"));
+		return new TwitterTemplate(this.env.getProperty("twitter.oauth.consumerKey"),
+				this.env.getProperty("twitter.oauth.consumerSecret"),
+				this.env.getProperty("twitter.oauth.accessToken"),
+				this.env.getProperty("twitter.oauth.accessTokenSecret"));
+	}
+
+	@MessagingGateway(defaultRequestChannel = "requestChannel")
+	public interface Gateway {
+
+		String sendReceive(String in);
+
 	}
 
 }

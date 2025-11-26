@@ -42,13 +42,16 @@ import org.springframework.context.support.AbstractApplicationContext;
  *
  * @author Tom McCuch
  */
-public class CafeDemoAppOperationsAmqp {
+public final class CafeDemoAppOperationsAmqp {
+
+	private CafeDemoAppOperationsAmqp() {
+	}
 
 	public static void main(String[] args) {
 		AbstractApplicationContext context =
 				CafeDemoAppUtilities.loadProfileContext(
 					"/META-INF/spring/integration/amqp/cafeDemo-amqp-operations-xml.xml",
-					CafeDemoAppOperationsAmqp.class,CafeDemoAppUtilities.DEV);
+					CafeDemoAppOperationsAmqp.class, CafeDemoAppUtilities.DEV);
 		System.out.println("Press Enter/Return in the console to exit the Cafe Operations App");
 
 		try {

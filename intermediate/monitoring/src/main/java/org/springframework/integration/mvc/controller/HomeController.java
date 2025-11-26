@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.springframework.integration.mvc.controller;
 
 import java.util.Collection;
@@ -34,7 +35,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 public class HomeController {
 
-	private static final Log logger = LogFactory.getLog(HomeController.class);
+	private static final Log LOGGER = LogFactory.getLog(HomeController.class);
 
 	@Autowired
 	private TwitterService twitterService;
@@ -42,29 +43,29 @@ public class HomeController {
 	/**
 	 * Simply selects the home view to render by returning its name.
 	 */
-	@RequestMapping(value="/")
-	public String home(Model model, @RequestParam(required=false) String startTwitter,
-									@RequestParam(required=false) String stopTwitter,
-									@RequestParam(required=false) String shutdown) {
+	@RequestMapping("/")
+	public String home(Model model, @RequestParam(required = false) String startTwitter,
+			@RequestParam(required = false) String stopTwitter,
+			@RequestParam(required = false) String shutdown) {
 
 		if (startTwitter != null) {
-			twitterService.startTwitterAdapter();
+			this.twitterService.startTwitterAdapter();
 			return "redirect:/";
 		}
 
 		if (stopTwitter != null) {
-			twitterService.stopTwitterAdapter();
+			this.twitterService.stopTwitterAdapter();
 			return "redirect:/";
 		}
 
 		if (shutdown != null) {
-			twitterService.shutdown();
+			this.twitterService.shutdown();
 			return "redirect:/";
 		}
 
-		final Collection<TwitterMessage> twitterMessages = twitterService.getTwitterMessages();
+		final Collection<TwitterMessage> twitterMessages = this.twitterService.getTwitterMessages();
 
-		logger.info("Retrieved " + twitterMessages.size() + " Twitter messages.");
+		LOGGER.info("Retrieved " + twitterMessages.size() + " Twitter messages.");
 
 		model.addAttribute("twitterMessages", twitterMessages);
 
@@ -74,12 +75,12 @@ public class HomeController {
 	/**
 	 * Simply selects the home view to render by returning its name.
 	 */
-	@RequestMapping(value="/ajax")
+	@RequestMapping("/ajax")
 	public String ajaxCall(Model model) {
 
-		final Collection<TwitterMessage> twitterMessages = twitterService.getTwitterMessages();
+		final Collection<TwitterMessage> twitterMessages = this.twitterService.getTwitterMessages();
 
-		logger.info("Retrieved " + twitterMessages.size() + " Twitter messages.");
+		LOGGER.info("Retrieved " + twitterMessages.size() + " Twitter messages.");
 		model.addAttribute("twitterMessages", twitterMessages);
 
 		return "twitterMessages";

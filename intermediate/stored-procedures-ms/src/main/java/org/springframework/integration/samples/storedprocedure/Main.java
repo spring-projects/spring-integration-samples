@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.springframework.integration.samples.storedprocedure;
 
 import java.util.Scanner;
@@ -23,7 +24,6 @@ import org.apache.commons.logging.LogFactory;
 import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.integration.service.StringConversionService;
-
 
 /**
  * Starts the Spring Context and will initialize the Spring Integration routes.
@@ -37,7 +37,8 @@ public final class Main {
 
 	private static final Log LOGGER = LogFactory.getLog(Main.class);
 
-	private Main() { }
+	private Main() {
+	}
 
 	/**
 	 * Load the Spring Integration Application Context
@@ -53,7 +54,7 @@ public final class Main {
 				  + "\n    For more information please visit:                   "
 				  + "\n    https://www.springsource.org/spring-integration       "
 				  + "\n                                                         "
-				  + "\n=========================================================" );
+				  + "\n=========================================================");
 
 		final AbstractApplicationContext context =
 				new ClassPathXmlApplicationContext("classpath:META-INF/spring/integration/*-context.xml");
@@ -68,7 +69,7 @@ public final class Main {
 				  + "\n                                                         "
 				  + "\n    Please press 'q + Enter' to quit the application.    "
 				  + "\n                                                         "
-				  + "\n=========================================================" );
+				  + "\n=========================================================");
 
 		System.out.print("Please enter a string and press <enter>: ");
 

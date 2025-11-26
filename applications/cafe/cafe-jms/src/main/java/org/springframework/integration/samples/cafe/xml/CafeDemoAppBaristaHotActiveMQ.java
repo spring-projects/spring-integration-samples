@@ -13,12 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.springframework.integration.samples.cafe.xml;
+
+import java.io.IOException;
 
 import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
-
-import java.io.IOException;
 
 /**
  * Main class for starting up the distributed task of handling/creating the Hot¡
@@ -27,8 +28,10 @@ import java.io.IOException;
  *
  * @author Christian Posta
  */
-public class CafeDemoAppBaristaHotActiveMQ {
+public final class CafeDemoAppBaristaHotActiveMQ {
 
+	private CafeDemoAppBaristaHotActiveMQ() {
+	}
 
 	public static void main(String[] args) throws InterruptedException, IOException {
 		AbstractApplicationContext context = new ClassPathXmlApplicationContext(

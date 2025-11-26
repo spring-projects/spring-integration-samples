@@ -33,7 +33,7 @@ import org.springframework.integration.samples.loanbroker.domain.LoanRequest;
  */
 public class LoanBrokerDemo {
 
-	private static final Log logger = LogFactory.getLog(LoanBrokerDemo.class);
+	private static final Log LOGGER = LogFactory.getLog(LoanBrokerDemo.class);
 
 	public static void main(String[] args) {
 		new LoanBrokerDemo().runDemo();
@@ -46,12 +46,12 @@ public class LoanBrokerDemo {
 		LoanRequest loanRequest = new LoanRequest();
 		loanRequest.setCustomer(new Customer());
 		LoanQuote loan = broker.getBestLoanQuote(loanRequest);
-		logger.info("********* Best Quote *********\n" + loan);
-		System.out.println("==============================");
+		LOGGER.info("********* Best Quote *********\n" + loan);
+		LOGGER.info("==============================");
 		List<LoanQuote> loanQuotes = broker.getAllLoanQuotes(loanRequest);
-		logger.info("********* All Quotes *********");
+		LOGGER.info("********* All Quotes *********");
 		for (LoanQuote loanQuote : loanQuotes) {
-			logger.info(loanQuote);
+			LOGGER.info(loanQuote);
 		}
 		context.close();
 	}

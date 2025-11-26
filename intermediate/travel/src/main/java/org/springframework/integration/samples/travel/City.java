@@ -13,8 +13,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.springframework.integration.samples.travel;
 
+package org.springframework.integration.samples.travel;
 
 /**
  * Enumeration that contains relevant information for various American cities,
@@ -28,15 +28,20 @@ package org.springframework.integration.samples.travel;
 public enum City {
 
 	ATLANTA(1, "Atlanta", "30334", "34.026784,-85.010794,33.471015,-83.765405"),
+
 	BOSTON(2, "Boston", "02201", "42.636182,-71.651862,42.080413,-70.467446"),
+
 	SAN_FRANCISCO(3, "San Francisco", "94102", "38.052886,-123.009856,37.497117,-121.82544");
 
 	private final Integer id;
+
 	private final String name;
+
 	private final String boundingBox;
+
 	private final String postalCode;
 
-	private City(Integer id, String name, String postalCode, String boundingBox) {
+	City(Integer id, String name, String postalCode, String boundingBox) {
 		this.id = id;
 		this.name = name;
 		this.boundingBox = boundingBox;
@@ -44,19 +49,19 @@ public enum City {
 	}
 
 	public String getBoundingBox() {
-		return boundingBox;
+		return this.boundingBox;
 	}
 
 	public String getPostalCode() {
-		return postalCode;
+		return this.postalCode;
 	}
 
 	public Integer getId() {
-		return id;
+		return this.id;
 	}
 
 	public String getName() {
-		return name;
+		return this.name;
 	}
 
 	public static City getCityForId(Integer id) {

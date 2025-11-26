@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.springframework.integration.samples.mongodb.inbound;
 
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -27,7 +28,9 @@ import org.springframework.integration.samples.mongodb.util.DemoUtils;
 public class MongoDbInboundAdapterDemo {
 
 	/**
-	 * @param args
+	 * The main method to run the demo.
+	 * @param args command line arguments
+	 * @throws Exception if an error occurs
 	 */
 	public static void main(String[] args) throws Exception {
 		DemoUtils.prepareMongoFactory(); // will clean up MongoDb

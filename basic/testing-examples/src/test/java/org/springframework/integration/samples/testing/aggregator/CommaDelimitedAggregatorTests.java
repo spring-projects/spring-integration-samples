@@ -25,13 +25,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.integration.channel.QueueChannel;
 import org.springframework.integration.samples.testing.splitter.CommaDelimitedSplitter;
 import org.springframework.integration.support.MessageBuilder;
+import org.springframework.integration.test.matcher.PayloadMatcher;
 import org.springframework.messaging.Message;
 import org.springframework.messaging.MessageChannel;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.springframework.integration.test.matcher.PayloadMatcher.hasPayload;
 
 /**
  *
@@ -84,7 +84,7 @@ public class CommaDelimitedAggregatorTests {
 	public void testOne() {
 		inputChannel.send(MessageBuilder.withPayload("   a   ").build());
 		Message<?> outMessage = testChannel.receive(0);
-		assertThat(outMessage).is(new HamcrestCondition<>(hasPayload("A")));
+		assertThat(outMessage).is(new HamcrestCondition<>(PayloadMatcher.hasPayload("A")));
 		outMessage = testChannel.receive(0);
 		assertThat(outMessage).isNull();
 	}
@@ -93,7 +93,7 @@ public class CommaDelimitedAggregatorTests {
 	public void testTwo() {
 		inputChannel.send(MessageBuilder.withPayload("   a ,z  ").build());
 		Message<?> outMessage = testChannel.receive(0);
-		assertThat(outMessage).is(new HamcrestCondition<>(hasPayload("A,Z")));
+		assertThat(outMessage).is(new HamcrestCondition<>(PayloadMatcher.hasPayload("A,Z")));
 		outMessage = testChannel.receive(0);
 		assertThat(outMessage).isNull();
 	}
@@ -102,7 +102,7 @@ public class CommaDelimitedAggregatorTests {
 	public void testSkipEmpty() {
 		inputChannel.send(MessageBuilder.withPayload("   a ,,z  ").build());
 		Message<?> outMessage = testChannel.receive(0);
-		assertThat(outMessage).is(new HamcrestCondition<>(hasPayload("A,Z")));
+		assertThat(outMessage).is(new HamcrestCondition<>(PayloadMatcher.hasPayload("A,Z")));
 		outMessage = testChannel.receive(0);
 		assertThat(outMessage).isNull();
 	}

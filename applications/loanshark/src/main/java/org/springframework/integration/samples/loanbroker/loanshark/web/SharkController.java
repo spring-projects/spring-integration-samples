@@ -13,7 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.springframework.integration.samples.loanbroker.loanshark.web;
+
+import jakarta.validation.Valid;
 
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.core.convert.support.GenericConversionService;
@@ -31,8 +34,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-
-import jakarta.validation.Valid;
 
 @RequestMapping("/loansharks")
 @Controller
@@ -68,7 +69,8 @@ public class SharkController {
 			model.addAttribute("loansharks", LoanShark.findLoanSharkEntries(page == null ? 0 : (page.intValue() - 1) * sizeNo, sizeNo));
 			float nrOfPages = (float) LoanShark.countLoanSharks() / sizeNo;
 			model.addAttribute("maxPages", (int) ((nrOfPages > (int) nrOfPages || nrOfPages == 0.0) ? nrOfPages + 1 : nrOfPages));
-		} else {
+		}
+		else {
 			model.addAttribute("loansharks", LoanShark.findAllLoanSharks());
 		}
 		return "loansharks/list";
@@ -145,9 +147,10 @@ public class SharkController {
 
 	@RequestMapping(value = "/jsonArray", method = RequestMethod.POST, headers = "Accept=application/json")
 	public ResponseEntity<String> createFromJsonArray(@RequestBody String json) {
-		for (LoanShark loanshark: LoanShark.fromJsonArrayToLoanSharks(json)) {
+		for (LoanShark loanshark : LoanShark.fromJsonArrayToLoanSharks(json)) {
 			loanshark.persist();
 		}
 		return new ResponseEntity<String>("LoanShark created", HttpStatus.CREATED);
 	}
+
 }

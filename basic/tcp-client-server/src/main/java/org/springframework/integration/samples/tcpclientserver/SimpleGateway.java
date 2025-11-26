@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.springframework.integration.samples.tcpclientserver;
 
 /**
@@ -21,6 +22,6 @@ package org.springframework.integration.samples.tcpclientserver;
  */
 public interface SimpleGateway {
 
-	public String send(String text);
+	String send(String text);
 
 }

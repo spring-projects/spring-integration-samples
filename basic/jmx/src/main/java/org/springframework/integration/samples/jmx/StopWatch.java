@@ -56,7 +56,7 @@ public class StopWatch implements InitializingBean {
 	public void start() {
 		this.scheduler.initialize();
 		this.future =
-				this.scheduler.scheduleAtFixedRate(seconds::incrementAndGet, Duration.ofSeconds(1));
+				this.scheduler.scheduleAtFixedRate(this.seconds::incrementAndGet, Duration.ofSeconds(1));
 	}
 
 	@ManagedOperation

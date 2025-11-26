@@ -1,4 +1,5 @@
-/* Copyright 2002-present the original author or authors.
+/*
+ * Copyright 2002-present the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -29,10 +30,11 @@ import org.springframework.integration.annotation.MessageEndpoint;
  */
 @MessageEndpoint
 public class PartyGuest {
-	private final Log logger = LogFactory.getLog(PartyGuest.class);
+
+	private static final Log LOGGER = LogFactory.getLog(PartyGuest.class);
 
 	public void onInvitation(Invitation invitation) {
-		logger.info("Guest is throwing exception");
+		LOGGER.info("Guest is throwing exception");
 		throw new RuntimeException("Wrong address");
 	}
 

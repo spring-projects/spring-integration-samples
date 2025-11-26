@@ -30,18 +30,18 @@ public class Delivery {
 	private final int orderNumber;
 
 	public Delivery(List<Drink> deliveredDrinks) {
-		assert(deliveredDrinks.size() > 0);
-        this.deliveredDrinks = deliveredDrinks;
+		assert (deliveredDrinks.size() > 0);
+		this.deliveredDrinks = deliveredDrinks;
 		this.orderNumber = deliveredDrinks.get(0).getOrderNumber();
-    }
+	}
 
-    public int getOrderNumber() {
-		return orderNumber;
+	public int getOrderNumber() {
+		return this.orderNumber;
 	}
 
 	public List<Drink> getDeliveredDrinks() {
-        return deliveredDrinks;
-    }
+		return this.deliveredDrinks;
+	}
 
 	@Override
 	public String toString() {

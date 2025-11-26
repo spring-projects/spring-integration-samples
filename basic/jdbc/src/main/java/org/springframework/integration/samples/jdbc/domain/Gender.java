@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.springframework.integration.samples.jdbc.domain;
 
 import java.util.EnumSet;
@@ -26,17 +27,18 @@ import java.util.Map;
  */
 public enum Gender {
 
-	MALE("M"),FEMALE("F");
+	MALE("M"), FEMALE("F");
+
 	private static final Map<String, Gender> map;
 
 	private final String identifier;
 
-	private Gender(String identifier) {
+	Gender(String identifier) {
 		this.identifier = identifier;
 	}
 
 	public String getIdentifier() {
-		return identifier;
+		return this.identifier;
 	}
 
 	public static Gender getGenderByIdentifier(String identifier) {
@@ -45,8 +47,9 @@ public enum Gender {
 
 	static {
 		map = new HashMap<String, Gender>();
-		for(Gender gender:EnumSet.allOf(Gender.class)) {
+		for (Gender gender : EnumSet.allOf(Gender.class)) {
 			map.put(gender.getIdentifier(), gender);
 		}
 	}
+
 }

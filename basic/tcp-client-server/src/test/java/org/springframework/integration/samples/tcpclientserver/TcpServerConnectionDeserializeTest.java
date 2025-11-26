@@ -103,7 +103,6 @@ public class TcpServerConnectionDeserializeTest {
 
 		String sourceMessage = wrapWithStxEtx("Hello World!");
 		String result = gw.send(sourceMessage);
-		System.out.println(result);
 		assertThat(result).isEqualTo("Hello World!");
 	}
 

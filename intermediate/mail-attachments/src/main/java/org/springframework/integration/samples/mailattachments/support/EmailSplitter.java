@@ -13,15 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.springframework.integration.samples.mailattachments.support;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import org.springframework.messaging.Message;
 import org.springframework.integration.annotation.Splitter;
 import org.springframework.integration.file.FileHeaders;
 import org.springframework.integration.support.MessageBuilder;
+import org.springframework.messaging.Message;
 
 /**
  * Splits a {@link List} of {@link EmailFragment}s into individual Spring Integration

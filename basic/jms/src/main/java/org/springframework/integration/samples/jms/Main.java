@@ -33,21 +33,24 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
  * @author Gunnar Hillert
  * @author Gary Russell
  */
-public class Main {
+public final class Main {
 
-	private final static String[] configFilesGatewayDemo = {
+	private Main() {
+	}
+
+	private static final String[] configFilesGatewayDemo = {
 		"/META-INF/spring/integration/common.xml",
 		"/META-INF/spring/integration/inboundGateway.xml",
 		"/META-INF/spring/integration/outboundGateway.xml"
 	};
 
-	private final static String[] configFilesChannelAdapterDemo = {
+	private static final String[] configFilesChannelAdapterDemo = {
 		"/META-INF/spring/integration/common.xml",
 		"/META-INF/spring/integration/inboundChannelAdapter.xml",
 		"/META-INF/spring/integration/outboundChannelAdapter.xml"
 	};
 
-	private final static String[] configFilesAggregationDemo = {
+	private static final String[] configFilesAggregationDemo = {
 		"/META-INF/spring/integration/common.xml",
 		"/META-INF/spring/integration/aggregation.xml"
 	};
@@ -63,7 +66,7 @@ public class Main {
 				+ "\n    For more information please visit:                   "
 				+ "\n    https://www.springsource.org/spring-integration/                    "
 				+ "\n                                                         "
-				+ "\n=========================================================" );
+				+ "\n=========================================================");
 
 		ActiveMqTestUtils.prepare();
 
@@ -75,17 +78,17 @@ public class Main {
 		while (true) {
 			final String input = scanner.nextLine();
 
-			if("1".equals(input.trim())) {
+			if ("1".equals(input.trim())) {
 				System.out.println("    Loading Channel Adapter Demo...");
 				new ClassPathXmlApplicationContext(configFilesChannelAdapterDemo, Main.class);
 				break;
 			}
-			else if("2".equals(input.trim())) {
+			else if ("2".equals(input.trim())) {
 				System.out.println("    Loading Gateway Demo...");
 				new ClassPathXmlApplicationContext(configFilesGatewayDemo, Main.class);
 				break;
 			}
-			else if("3".equals(input.trim())) {
+			else if ("3".equals(input.trim())) {
 				System.out.println("    Loading Aggregation Demo...");
 				new ClassPathXmlApplicationContext(configFilesAggregationDemo, Main.class);
 				break;

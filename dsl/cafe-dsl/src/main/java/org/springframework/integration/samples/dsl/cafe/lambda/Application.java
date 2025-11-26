@@ -61,14 +61,6 @@ public class Application {
 		ctx.close();
 	}
 
-	@MessagingGateway
-	public interface Cafe {
-
-		@Gateway(requestChannel = "orders.input")
-		void placeOrder(Order order);
-
-	}
-
 	private final AtomicInteger hotDrinkCounter = new AtomicInteger();
 
 	private final AtomicInteger coldDrinkCounter = new AtomicInteger();
@@ -136,6 +128,14 @@ public class Application {
 				Thread.currentThread().interrupt();
 			}
 		}
+	}
+
+	@MessagingGateway
+	public interface Cafe {
+
+		@Gateway(requestChannel = "orders.input")
+		void placeOrder(Order order);
+
 	}
 
 }

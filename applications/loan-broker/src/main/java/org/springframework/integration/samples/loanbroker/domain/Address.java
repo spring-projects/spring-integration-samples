@@ -22,38 +22,41 @@ package org.springframework.integration.samples.loanbroker.domain;
 public class Address {
 
 	private String street;
+
 	private String zip;
+
 	private String city;
+
 	private String state;
 
 	public String getStreet() {
-		return street;
+		return this.street;
 	}
-	
+
 	public void setStreet(String street) {
 		this.street = street;
 	}
-	
+
 	public String getZip() {
-		return zip;
+		return this.zip;
 	}
-	
+
 	public void setZip(String zip) {
 		this.zip = zip;
 	}
-	
+
 	public String getCity() {
-		return city;
+		return this.city;
 	}
-	
+
 	public void setCity(String city) {
 		this.city = city;
 	}
-	
+
 	public String getState() {
-		return state;
+		return this.state;
 	}
-	
+
 	public void setState(String state) {
 		this.state = state;
 	}

@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.springframework.integration.samples.loanbroker.loanshark.biz;
 
 /**
@@ -20,40 +21,47 @@ package org.springframework.integration.samples.loanbroker.loanshark.biz;
  *
  */
 public class SharkQuote {
+
 	private String sharkName;
+
 	private Double sharkRate;
-	
+
 	/**
-	 * @param sharkName
-	 * @param sharkRate
+	 * @param sharkName the name of the shark
+	 * @param sharkRate the shark rate
 	 */
 	public SharkQuote(String sharkName, double sharkRate) {
 		super();
 		this.sharkName = sharkName;
 		this.sharkRate = sharkRate;
 	}
+
 	/**
 	 * @return the sharkName
 	 */
 	public String getSharkName() {
-		return sharkName;
+		return this.sharkName;
 	}
+
 	/**
 	 * @param sharkName the sharkName to set
 	 */
 	public void setSharkName(String sharkName) {
 		this.sharkName = sharkName;
 	}
+
 	/**
 	 * @return the sharkRate
 	 */
 	public Double getSharkRate() {
-		return sharkRate;
+		return this.sharkRate;
 	}
+
 	/**
 	 * @param sharkRate the sharkRate to set
 	 */
 	public void setSharkRate(Double sharkRate) {
 		this.sharkRate = sharkRate;
 	}
+
 }

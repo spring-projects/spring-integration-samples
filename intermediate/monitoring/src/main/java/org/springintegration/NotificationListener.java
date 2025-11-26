@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.springintegration;
 
 import org.springframework.context.ConfigurableApplicationContext;
@@ -26,7 +27,10 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
  * @since 2.2
  *
  */
-public class NotificationListener {
+public final class NotificationListener {
+
+	private NotificationListener() {
+	}
 
 	public static void main(String[] args) throws Exception {
 		ConfigurableApplicationContext ctx =
@@ -40,7 +44,10 @@ public class NotificationListener {
 		ctx.close();
 	}
 
-	public static interface Gateway {
+	public interface Gateway {
+
 		void send(char command);
+
 	}
+
 }

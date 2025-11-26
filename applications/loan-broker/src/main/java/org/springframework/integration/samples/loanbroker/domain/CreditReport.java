@@ -22,6 +22,7 @@ package org.springframework.integration.samples.loanbroker.domain;
 public class CreditReport {
 
 	private final int score;
+
 	private volatile String history;
 
 	public CreditReport(int score) {

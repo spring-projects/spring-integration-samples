@@ -37,23 +37,25 @@ import org.springframework.util.StringUtils;
  * @author Oleg Zhurakousky
  * @author David Turanski
  */
-public class CafeDemoApp {
+public final class CafeDemoApp {
 
+	private CafeDemoApp() {
+	}
 
 	public static void main(String[] args) {
 
-		List<String> languages = Arrays.asList(new String[]{"groovy","ruby","python"});
+		List<String> languages = Arrays.asList(new String[] {"groovy", "ruby", "python"});
 		if (args.length != 1) {
 			usage();
 		}
 		String lang = args[0];
 
-		if (!StringUtils.hasText(lang)){
+		if (!StringUtils.hasText(lang)) {
 			usage();
 		}
 
 		lang = lang.toLowerCase();
-		if (!languages.contains(lang)){
+		if (!languages.contains(lang)) {
 			usage();
 		}
 
@@ -67,7 +69,6 @@ public class CafeDemoApp {
 		ctx.setConfigLocation("/META-INF/spring/integration/cafeDemo.xml");
 		ctx.refresh();
 	}
-
 
 	private static void usage() {
 		System.out.println("missing or invalid command line argument [groovy,ruby,python]");

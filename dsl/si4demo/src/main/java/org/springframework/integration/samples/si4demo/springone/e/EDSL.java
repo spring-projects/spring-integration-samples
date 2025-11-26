@@ -16,6 +16,9 @@
 
 package org.springframework.integration.samples.si4demo.springone.e;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 import org.springframework.boot.WebApplicationType;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.builder.SpringApplicationBuilder;
@@ -38,20 +41,15 @@ import org.springframework.messaging.MessageChannel;
 @IntegrationComponentScan
 public class EDSL {
 
+	private static final Log LOGGER = LogFactory.getLog(EDSL.class);
+
 	public static void main(String[] args) throws Exception {
 		ConfigurableApplicationContext ctx =
 				new SpringApplicationBuilder(EDSL.class)
 						.web(WebApplicationType.NONE)
 						.run(args);
-		System.out.println(ctx.getBean(FooService.class).foo("foo"));
+		LOGGER.info(ctx.getBean(FooService.class).foo("foo"));
 		ctx.close();
-	}
-
-	@MessagingGateway(defaultRequestChannel = "foo")
-	public static interface FooService {
-
-		String foo(String request);
-
 	}
 
 	@Bean
@@ -65,6 +63,13 @@ public class EDSL {
 				.transform("payload + payload")
 				.handle(String.class, (p, h) -> p.toUpperCase())
 				.get();
+	}
+
+	@MessagingGateway(defaultRequestChannel = "foo")
+	public interface FooService {
+
+		String foo(String request);
+
 	}
 
 }

@@ -27,7 +27,10 @@ import org.springframework.xml.transform.StringResult;
 /**
  * @author Jonas Partner
  */
-public class XmlUtil {
+public final class XmlUtil {
+
+	private XmlUtil() {
+	}
 
 	public static String docAsString(Document doc) {
 		try {

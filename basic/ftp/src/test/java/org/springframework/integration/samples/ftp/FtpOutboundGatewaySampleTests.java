@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.springframework.integration.samples.ftp;
 
 import java.io.File;
@@ -45,7 +46,6 @@ import static org.assertj.core.api.Assertions.assertThat;
  *
  */
 public class FtpOutboundGatewaySampleTests extends BaseFtpTest {
-
 
 	@Test
 	public void testLsGetRm() throws Exception {

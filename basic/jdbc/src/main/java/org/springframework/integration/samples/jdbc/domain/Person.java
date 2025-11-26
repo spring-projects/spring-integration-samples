@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.springframework.integration.samples.jdbc.domain;
 
 import java.util.Date;
@@ -25,57 +26,63 @@ import java.util.Date;
 public class Person {
 
 	private int personId;
+
 	private String name;
+
 	private Gender gender;
+
 	private Date dateOfBirth;
-	
-	
-	
+
 	/**
-	 * Sets the person id
-	 * @return
+	 * Gets the person id.
+	 * @return the person id
 	 */
 	public int getPersonId() {
-		return personId;
+		return this.personId;
 	}
+
 	/**
-	 * Get the person Id
-	 * @param personId
+	 * Sets the person Id.
+	 * @param personId the person id
 	 */
 	public void setPersonId(int personId) {
 		this.personId = personId;
 	}
-	
+
 	/**
-	 * Gets the name of the person
-	 * @return
+	 * Gets the name of the person.
+	 * @return the name
 	 */
 	public String getName() {
-		return name;
+		return this.name;
 	}
+
 	public void setName(String name) {
 		this.name = name;
 	}
-	
+
 	/**
-	 * Gets the gender of the person 
-	 * @return
+	 * Gets the gender of the person.
+	 * @return the gender
 	 */
 	public Gender getGender() {
-		return gender;
+		return this.gender;
 	}
+
 	public void setGender(Gender gender) {
 		this.gender = gender;
 	}
-	
+
 	/**
-	 * Gets the date of birth of the person
-	 * @return
+	 * Gets the date of birth of the person.
+	 * @return the date of birth
 	 */
 	public Date getDateOfBirth() {
-		return dateOfBirth;
+		return this.dateOfBirth;
 	}
+
 	public void setDateOfBirth(Date dateOfBirth) {
 		this.dateOfBirth = dateOfBirth;
-	}	
+	}
+
 }

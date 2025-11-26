@@ -29,7 +29,10 @@ import org.springframework.context.annotation.ImportResource;
 @Configuration
 @EnableAutoConfiguration
 @ImportResource("classpath:org/springframework/integration/samples/chat/stomp/server/stomp-server.xml")
-public class Application {
+public final class Application {
+
+	private Application() {
+	}
 
 	public static void main(String[] args) throws Exception {
 		ConfigurableApplicationContext ctx = SpringApplication.run(Application.class, args);

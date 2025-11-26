@@ -34,11 +34,12 @@ import org.springframework.integration.annotation.ServiceActivator;
  */
 @MessageEndpoint
 public class EvenLogger {
-	private static final Log logger = LogFactory.getLog(EvenLogger.class);
+
+	private static final Log LOGGER = LogFactory.getLog(EvenLogger.class);
 
 	@ServiceActivator
 	public void log(int i) {
-		logger.info("even: " + i + " at " + new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").format(new Date()));
+		LOGGER.info("even: " + i + " at " + new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").format(new Date()));
 	}
 
 }

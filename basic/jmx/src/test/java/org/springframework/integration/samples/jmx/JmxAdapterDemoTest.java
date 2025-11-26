@@ -28,7 +28,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 public class JmxAdapterDemoTest {
 
 	@Test
-	public void testJmxAdapterDemo() throws Exception{
+	public void testJmxAdapterDemo() throws Exception {
 		ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(
 				"/META-INF/spring/integration/JmxAdapterDemo-context.xml", JmxAdapterDemoTest.class);
 		Thread.sleep(20000);

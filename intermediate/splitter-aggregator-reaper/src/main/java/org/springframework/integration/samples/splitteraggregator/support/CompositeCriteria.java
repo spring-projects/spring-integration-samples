@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.springframework.integration.samples.splitteraggregator.support;
 
 import java.util.ArrayList;
@@ -20,15 +21,15 @@ import java.util.Collection;
 
 /**
  * Criteria that contains other criteria.
- * 
+ *
  * @author Christopher Hunt
- * 
+ *
  */
 public class CompositeCriteria extends AbstractCriteria {
 
 	private final Collection<AbstractCriteria> criteria = new ArrayList<AbstractCriteria>();
 
 	public Collection<AbstractCriteria> getCriteria() {
-		return criteria;
+		return this.criteria;
 	}
 }

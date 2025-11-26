@@ -36,7 +36,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class Barista {
 
-	private static final Log logger = LogFactory.getLog(Barista.class);
+	private static final Log LOGGER = LogFactory.getLog(Barista.class);
 
 	private long hotDrinkDelay = 5000;
 
@@ -46,7 +46,6 @@ public class Barista {
 
 	private final AtomicInteger coldDrinkCounter = new AtomicInteger();
 
-
 	public void setHotDrinkDelay(long hotDrinkDelay) {
 		this.hotDrinkDelay = hotDrinkDelay;
 	}
@@ -55,31 +54,33 @@ public class Barista {
 		this.coldDrinkDelay = coldDrinkDelay;
 	}
 
-	@ServiceActivator(inputChannel="hotDrinkBarista", outputChannel="preparedDrinks")
+	@ServiceActivator(inputChannel = "hotDrinkBarista", outputChannel = "preparedDrinks")
 	public Drink prepareHotDrink(OrderItem orderItem) {
 		try {
 			Thread.sleep(this.hotDrinkDelay);
-			logger.info(Thread.currentThread().getName()
-					+ " prepared hot drink #" + hotDrinkCounter.incrementAndGet() + " for order #"
+			LOGGER.info(Thread.currentThread().getName()
+					+ " prepared hot drink #" + this.hotDrinkCounter.incrementAndGet() + " for order #"
 					+ orderItem.getOrderNumber() + ": " + orderItem);
 			return new Drink(orderItem.getOrderNumber(), orderItem.getDrinkType(), orderItem.isIced(),
 					orderItem.getShots());
-		} catch (InterruptedException e) {
+		}
+		catch (InterruptedException e) {
 			Thread.currentThread().interrupt();
 			return null;
 		}
 	}
 
-	@ServiceActivator(inputChannel="coldDrinkBarista", outputChannel="preparedDrinks")
+	@ServiceActivator(inputChannel = "coldDrinkBarista", outputChannel = "preparedDrinks")
 	public Drink prepareColdDrink(OrderItem orderItem) {
 		try {
 			Thread.sleep(this.coldDrinkDelay);
-			logger.info(Thread.currentThread().getName()
-					+ " prepared cold drink #" + coldDrinkCounter.incrementAndGet() + " for order #"
+			LOGGER.info(Thread.currentThread().getName()
+					+ " prepared cold drink #" + this.coldDrinkCounter.incrementAndGet() + " for order #"
 					+ orderItem.getOrderNumber() + ": " + orderItem);
 			return new Drink(orderItem.getOrderNumber(), orderItem.getDrinkType(), orderItem.isIced(),
 					orderItem.getShots());
-		} catch (InterruptedException e) {
+		}
+		catch (InterruptedException e) {
 			Thread.currentThread().interrupt();
 			return null;
 		}

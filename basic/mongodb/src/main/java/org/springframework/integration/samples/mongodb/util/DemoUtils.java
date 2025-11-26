@@ -16,17 +16,20 @@
 
 package org.springframework.integration.samples.mongodb.util;
 
+import com.mongodb.client.MongoClients;
+
 import org.springframework.data.mongodb.MongoDatabaseFactory;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.SimpleMongoClientDatabaseFactory;
-
-import com.mongodb.client.MongoClients;
 
 /**
  *
  * @author Oleg Zhurakousky
  */
-public class DemoUtils {
+public final class DemoUtils {
+
+	private DemoUtils() {
+	}
 
 	public static MongoDatabaseFactory prepareMongoFactory(String... additionalCollectionToDrop) throws Exception {
 		MongoDatabaseFactory mongoDbFactory = new SimpleMongoClientDatabaseFactory(MongoClients.create(), "test");
