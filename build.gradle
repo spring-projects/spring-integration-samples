@@ -319,7 +319,7 @@ subprojects { subproject ->
 			jpaApiVersion = '3.2.0'
 			jstlVersion = '1.2'
 			junitJupiterVersion = '6.0.0'
-			log4jVersion = '2.24.3'
+			log4jVersion = '2.25.3'
 			mailVersion = '2.0.3'
 			mockitoVersion = '5.18.0'
 			mongoDriverVersion = '5.5.1'

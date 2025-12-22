@@ -41,6 +41,14 @@
         <role>project founder and lead emeritus</role>
       </roles>
     </developer>
+    <developer>
+      <id>cppwfs</id>
+      <name>Glenn Renfro</name>
+      <email>glenn.renfro@broadcom.com</email>
+      <roles>
+        <role>project committer</role>
+      </roles>
+    </developer>
   </developers>
   <scm>
     <connection>scm:git:scm:git:git://github.com/spring-projects/spring-integration-samples.git</connection>
@@ -60,7 +68,7 @@
     <dependency>
       <groupId>org.apache.logging.log4j</groupId>
       <artifactId>log4j-slf4j2-impl</artifactId>
-      <version>2.24.3</version>
+      <version>2.25.3</version>
       <scope>compile</scope>
     </dependency>
     <dependency>
@@ -101,21 +109,21 @@
       <dependency>
         <groupId>org.junit</groupId>
         <artifactId>junit-bom</artifactId>
-        <version>5.12.2</version>
+        <version>6.0.0</version>
         <scope>import</scope>
         <type>pom</type>
       </dependency>
       <dependency>
         <groupId>tools.jackson</groupId>
         <artifactId>jackson-bom</artifactId>
-        <version>3.0.0-rc5</version>
+        <version>3.0.0-rc9</version>
         <scope>import</scope>
         <type>pom</type>
       </dependency>
       <dependency>
         <groupId>com.fasterxml.jackson</groupId>
         <artifactId>jackson-bom</artifactId>
-        <version>2.19.1</version>
+        <version>2.20.0</version>
         <scope>import</scope>
         <type>pom</type>
       </dependency>
