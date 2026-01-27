@@ -1,6 +1,6 @@
 buildscript {
 	ext {
-		kotlinVersion = '2.2.21'
+		kotlinVersion = '2.3.0'
 	}
 	repositories {
 		mavenCentral()
@@ -265,7 +265,7 @@ subprojects { subproject ->
 
 		checkstyle {
 			configDirectory.set(rootProject.file('src/checkstyle'))
-			toolVersion = project.hasProperty('checkstyleVersion') ? project.checkstyleVersion : '12.1.2'
+			toolVersion = project.hasProperty('checkstyleVersion') ? project.checkstyleVersion : '13.0.0'
 		}
 
 		compileJava {
@@ -287,54 +287,54 @@ subprojects { subproject ->
 		}
 
 		ext {
-			artemisVersion = '2.41.0'
-			aspectjVersion = '1.9.24'
-			assertjVersion = '3.27.6'
-			awaitilityVersion = '4.2.2'
+			artemisVersion = '2.44.0'
+			aspectjVersion = '1.9.25.1'
+			assertjVersion = '3.27.7'
+			awaitilityVersion = '4.3.0'
 			commonsDigesterVersion = '2.1'
-			commonsDbcpVersion = '2.13.0'
+			commonsDbcpVersion = '2.14.0'
 			commonsFileUploadVersion = '1.6.0'
-			commonsIoVersion = '2.19.0'
+			commonsIoVersion = '2.21.0'
 			commonsLangVersion = '3.18.0'
 			commonsPoolVersion = '2.12.1'
 			c3p0Version = '0.11.2'
 			derbyVersion = '10.16.1.1'
 			hamcrestVersion = '2.2'
-			hibernateVersion = '7.0.4.Final'
+			hibernateVersion = '7.2.1.Final'
 			hibernateValidatorVersion = '9.0.1.Final'
 			ftpServerVersion = '1.2.1'
 			flexjsonVersion = '3.3'
-			graalvmVersion = '24.2.1'
-			groovyVersion = '4.0.27'
+			graalvmVersion = '25.0.2'
+			groovyVersion = '5.0.3'
 			hsqldbVersion = '2.7.4'
-			h2Version = '2.3.232'
-			jacksonVersion = '2.20.0'
-			jackson3Version = '3.0.0-rc9'
+			h2Version = '2.4.240'
+			jacksonVersion = '2.21.0'
+			jackson3Version = '3.0.3'
 			jaxbVersion = '4.0.5'
 			jodaTimeVersion = '2.14.0'
 			jtaVersion = '2.0.1'
 			jtdsVersion = '1.3.1'
 			jmsApiVersion = '3.1.0'
-			jrubyVersion = '9.4.13.0'
+			jrubyVersion = '10.0.2.0'
 			jpaApiVersion = '3.2.0'
 			jstlVersion = '1.2'
-			junitJupiterVersion = '6.0.0'
+			junitJupiterVersion = '6.0.2'
 			log4jVersion = '2.25.3'
-			mailVersion = '2.0.3'
-			mockitoVersion = '5.18.0'
-			mongoDriverVersion = '5.5.1'
-			oracleDriverVersion = '23.8.0.25.04'
-			postgresVersion = '42.7.7'
+			mailVersion = '2.0.5'
+			mockitoVersion = '5.21.0'
+			mongoDriverVersion = '5.6.2'
+			oracleDriverVersion = '23.26.0.0.0'
+			postgresVersion = '42.7.9'
 			slf4jVersion = '2.0.17'
-			springCloudVersion = '2025.0.0'
-			springIntegrationVersion = '7.0.0-SNAPSHOT'
+			springCloudVersion = '2025.1.0'
+			springIntegrationVersion = '7.1.0-SNAPSHOT'
 			set('spring-integration.version', "$springIntegrationVersion")
 			springIntegrationSocialTwiterVersion = '1.0.1.BUILD-SNAPSHOT'
 			springIntegrationSplunkVersion = '1.2.0.BUILD-SNAPSHOT'
-			springVersion = '7.0.0-SNAPSHOT'
-			springSecurityVersion = '7.0.0-SNAPSHOT'
+			springVersion = '7.0.3'
+			springSecurityVersion = '7.1.0-SNAPSHOT'
 			springWebFlowVersion = '3.0.0'
-			testcontainersVersion = '1.21.3'
+			testcontainersVersion = '2.0.3'
 			tilesJspVersion = '2.2.1'
 		}
 
@@ -808,7 +808,7 @@ project('mqtt') {
 
 		testImplementation 'org.springframework.boot:spring-boot-starter-test'
 		testImplementation "org.springframework.integration:spring-integration-test"
-		testImplementation "org.testcontainers:junit-jupiter:$testcontainersVersion"
+		testImplementation "org.testcontainers:testcontainers-junit-jupiter:$testcontainersVersion"
 	}
 
 	springBoot {
@@ -1111,7 +1111,7 @@ project('testcontainers-rabbitmq') {
 		testImplementation 'org.springframework.amqp:spring-rabbit-test'
 		testImplementation 'org.springframework.cloud:spring-cloud-starter'
 
-		testImplementation "org.testcontainers:junit-jupiter:$testcontainersVersion"
+		testImplementation "org.testcontainers:testcontainers-junit-jupiter:$testcontainersVersion"
 		testImplementation 'com.playtika.testcontainers:embedded-rabbitmq:2.0.19'
 
 	}
