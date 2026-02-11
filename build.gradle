@@ -14,6 +14,7 @@ buildscript {
 		classpath 'org.gretty:gretty:4.1.10'
 		classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion"
 		classpath "org.jetbrains.kotlin:kotlin-allopen:$kotlinVersion"
+		classpath "com.google.protobuf:protobuf-gradle-plugin:$protobufPluginVersion"
 	}
 }
 
@@ -30,6 +31,8 @@ ext {
 	linkScmConnection = 'scm:git:git://github.com/spring-projects/spring-integration-samples.git'
 	linkScmDevConnection = 'scm:git:ssh://git@github.com:spring-projects/spring-integration-samples.git'
 }
+
+
 
 allprojects {
 	group = 'org.springframework.integration.samples'
@@ -825,6 +828,131 @@ project('mqtt') {
 	}
 
 }
+
+project('grpc-server') {
+	description = 'gRPC Server Basic Sample'
+
+	apply plugin: 'org.springframework.boot'
+	apply plugin: 'com.google.protobuf'
+
+	dependencies {
+		implementation 'org.springframework.boot:spring-boot-starter-integration'
+		implementation "org.springframework.integration:spring-integration-grpc:7.1.0-SNAPSHOT"
+		implementation 'org.springframework.grpc:spring-grpc-spring-boot-starter:1.0.2'
+
+		api("io.grpc:grpc-stub:$grpcVersion")
+		implementation("io.grpc:grpc-protobuf:$grpcVersion")
+		implementation ("io.grpc:grpc-services:$grpcVersion")
+		implementation("com.google.protobuf:protobuf-java:$protobufVersion")
+
+
+		//Test
+		testImplementation 'org.springframework.boot:spring-boot-starter-test'
+		testImplementation 'org.springframework.integration:spring-integration-test'
+		testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+	}
+
+
+	protobuf {
+		protoc {
+			artifact = "com.google.protobuf:protoc:$protobufVersion"
+		}
+		plugins {
+			grpc {
+				artifact = "io.grpc:protoc-gen-grpc-java:$grpcVersion"
+			}
+		}
+		generateProtoTasks {
+			all()*.plugins {
+				grpc {
+					option '@generated=omit'
+				}
+			}
+		}
+	}
+
+	// Exclude generated protobuf/grpc code from checkstyle
+	checkstyleMain {
+		exclude '**/proto/**'
+	}
+
+	springBoot {
+		mainClass = 'org.springframework.integration.samples.grpc.Application'
+	}
+
+	tasks.register('run', JavaExec) {
+		mainClass = 'org.springframework.integration.samples.grpc.Application'
+		classpath = sourceSets.main.runtimeClasspath
+	}
+
+	tasks.withType(JavaExec) {
+		standardInput = System.in
+	}
+
+}
+
+
+project('grpc-client') {
+	description = 'gRPC client Basic Sample'
+
+	apply plugin: 'org.springframework.boot'
+	apply plugin: 'com.google.protobuf'
+
+	dependencies {
+		implementation 'org.springframework.boot:spring-boot-starter-integration'
+		implementation "org.springframework.integration:spring-integration-grpc:7.1.0-SNAPSHOT"
+		implementation 'org.springframework.grpc:spring-grpc-spring-boot-starter:1.0.2'
+
+		api("io.grpc:grpc-stub:$grpcVersion")
+		implementation("io.grpc:grpc-protobuf:$grpcVersion")
+		implementation("com.google.protobuf:protobuf-java:$protobufVersion")
+
+
+		//Test
+		testImplementation 'org.springframework.boot:spring-boot-starter-test'
+		testImplementation 'org.springframework.integration:spring-integration-test'
+		testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+	}
+
+
+	protobuf {
+		protoc {
+			artifact = "com.google.protobuf:protoc:$protobufVersion"
+		}
+		plugins {
+			grpc {
+				artifact = "io.grpc:protoc-gen-grpc-java:$grpcVersion"
+			}
+		}
+		generateProtoTasks {
+			all()*.plugins {
+				grpc {
+					option '@generated=omit'
+				}
+			}
+		}
+	}
+
+	// Exclude generated protobuf/grpc code from checkstyle
+	checkstyleMain {
+		exclude '**/proto/**'
+	}
+
+	springBoot {
+		mainClass = 'org.springframework.integration.samples.grpc.Application'
+	}
+
+	tasks.register('run', JavaExec) {
+		mainClass = 'org.springframework.integration.samples.grpc.Application'
+		classpath = sourceSets.main.runtimeClasspath
+	}
+
+	tasks.withType(JavaExec) {
+		standardInput = System.in
+	}
+
+}
+
 
 project('si4demo') {
 	description = 'Java Configuration/DSL Sample'
