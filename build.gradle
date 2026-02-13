@@ -14,7 +14,7 @@ buildscript {
 		classpath 'org.gretty:gretty:4.1.10'
 		classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion"
 		classpath "org.jetbrains.kotlin:kotlin-allopen:$kotlinVersion"
-		classpath "com.google.protobuf:protobuf-gradle-plugin:$protobufPluginVersion"
+		classpath "com.google.protobuf:protobuf-gradle-plugin:0.9.4"
 	}
 }
 
@@ -309,6 +309,7 @@ subprojects { subproject ->
 			flexjsonVersion = '3.3'
 			graalvmVersion = '25.0.2'
 			groovyVersion = '5.0.3'
+			grpcVersion = '1.78.0'
 			hsqldbVersion = '2.7.4'
 			h2Version = '2.4.240'
 			jacksonVersion = '2.21.0'
@@ -645,7 +646,6 @@ project('ftp') {
 		runtimeOnly "org.slf4j:slf4j-log4j12:$slf4jVersion"
 
 		testImplementation "org.apache.logging.log4j:log4j-core:$log4jVersion"
-		testImplementation 'org.springframework.integration:spring-integration-test'
 	}
 
 	test {
@@ -810,7 +810,6 @@ project('mqtt') {
 		api 'org.eclipse.paho:org.eclipse.paho.client.mqttv3:1.2.5'
 
 		testImplementation 'org.springframework.boot:spring-boot-starter-test'
-		testImplementation "org.springframework.integration:spring-integration-test"
 		testImplementation "org.testcontainers:testcontainers-junit-jupiter:$testcontainersVersion"
 	}
 
@@ -837,19 +836,13 @@ project('grpc-server') {
 
 	dependencies {
 		implementation 'org.springframework.boot:spring-boot-starter-integration'
-		implementation "org.springframework.integration:spring-integration-grpc:7.1.0-SNAPSHOT"
+		implementation "org.springframework.integration:spring-integration-grpc:$springIntegrationVersion"
 		implementation 'org.springframework.grpc:spring-grpc-spring-boot-starter:1.0.2'
 
-		api("io.grpc:grpc-stub:$grpcVersion")
-		implementation("io.grpc:grpc-protobuf:$grpcVersion")
-		implementation ("io.grpc:grpc-services:$grpcVersion")
 		implementation("com.google.protobuf:protobuf-java:$protobufVersion")
-
 
 		//Test
 		testImplementation 'org.springframework.boot:spring-boot-starter-test'
-		testImplementation 'org.springframework.integration:spring-integration-test'
-		testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 	}
 
 
@@ -900,18 +893,13 @@ project('grpc-client') {
 
 	dependencies {
 		implementation 'org.springframework.boot:spring-boot-starter-integration'
-		implementation "org.springframework.integration:spring-integration-grpc:7.1.0-SNAPSHOT"
+		implementation "org.springframework.integration:spring-integration-grpc:$springIntegrationVersion"
 		implementation 'org.springframework.grpc:spring-grpc-spring-boot-starter:1.0.2'
 
-		api("io.grpc:grpc-stub:$grpcVersion")
-		implementation("io.grpc:grpc-protobuf:$grpcVersion")
 		implementation("com.google.protobuf:protobuf-java:$protobufVersion")
-
 
 		//Test
 		testImplementation 'org.springframework.boot:spring-boot-starter-test'
-		testImplementation 'org.springframework.integration:spring-integration-test'
-		testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 	}
 
 
@@ -1039,8 +1027,6 @@ project('jms') {
 		}
 		api "org.apache.activemq:artemis-jakarta-client:$artemisVersion"
 		api "org.apache.logging.log4j:log4j-core:$log4jVersion"
-
-		testImplementation 'org.springframework.integration:spring-integration-test'
 	}
 }
 
@@ -1213,7 +1199,6 @@ project('tcp-client-server') {
 	dependencies {
 		api 'org.springframework.integration:spring-integration-ip'
 		api "org.apache.commons:commons-lang3:$commonsLangVersion"
-		api 'org.springframework.integration:spring-integration-test'
 		api "org.apache.logging.log4j:log4j-core:$log4jVersion"
 	}
 }
@@ -1235,7 +1220,6 @@ project('testcontainers-rabbitmq') {
 		testImplementation('org.springframework.boot:spring-boot-starter-test') {
 			exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
 		}
-		testImplementation 'org.springframework.integration:spring-integration-test'
 		testImplementation 'org.springframework.amqp:spring-rabbit-test'
 		testImplementation 'org.springframework.cloud:spring-cloud-starter'
 
@@ -1266,8 +1250,6 @@ project('testing-examples') {
 		api 'org.springframework.integration:spring-integration-ws'
 		api 'org.springframework:spring-webmvc'
 		api "org.apache.logging.log4j:log4j-core:$log4jVersion"
-
-		testImplementation 'org.springframework.integration:spring-integration-test'
 	}
 }
 
@@ -1404,8 +1386,6 @@ project('mail-attachments') {
 		api "org.eclipse.angus:jakarta.mail:$mailVersion"
 		api "commons-io:commons-io:$commonsIoVersion"
 		api "org.apache.logging.log4j:log4j-core:$log4jVersion"
-
-		testImplementation 'org.springframework.integration:spring-integration-test'
 
 	}
 }
@@ -1624,7 +1604,6 @@ project('tcp-async-bi-directional') {
 		api "org.springframework.integration:spring-integration-ip"
 
 		testImplementation 'org.springframework.boot:spring-boot-starter-test'
-		testImplementation "org.springframework.integration:spring-integration-test"
 	}
 
 	springBoot {
@@ -1643,8 +1622,6 @@ project('tcp-client-server-multiplex') {
 	dependencies {
 		api 'org.springframework.integration:spring-integration-ip'
 		api "org.apache.logging.log4j:log4j-core:$log4jVersion"
-
-		testImplementation 'org.springframework.integration:spring-integration-test'
 	}
 }
 
@@ -1770,7 +1747,6 @@ project('file-split-ftp') {
 		api "org.eclipse.angus:jakarta.mail:$mailVersion"
 
 		testImplementation 'org.springframework.boot:spring-boot-starter-test'
-		testImplementation 'org.springframework.integration:spring-integration-test'
 		testImplementation('com.icegreen:greenmail:2.1.0-alpha-3') {
 			exclude group: 'com.sun.mail'
 			exclude group: 'jakarta.activation'
