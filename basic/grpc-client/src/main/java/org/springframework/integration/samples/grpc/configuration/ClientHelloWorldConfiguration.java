@@ -191,14 +191,8 @@ class ClientHelloWorldConfiguration {
 			FluxMessageChannel grpcStreamOutputChannel) {
 		//TODO: Need advice, there has to be a better way than what I have below (or is this a bug in the
 		// GrpcOutboundGateway?
-		GrpcOutboundGateway gateway = new GrpcOutboundGateway(managedChannel, HelloWorldServiceGrpc.class) {
-			@Override
-			protected boolean shouldSplitOutput(Iterable<?> reply) {
-				return false;
-			}
-		};
+		GrpcOutboundGateway gateway = new GrpcOutboundGateway(managedChannel, HelloWorldServiceGrpc.class);
 		gateway.setMethodName("StreamSayHello");
-		gateway.setAsync(true);
 
 		return IntegrationFlow.from(grpcInputChannelStreamResponse)
 				.handle(gateway)
