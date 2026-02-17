@@ -30,20 +30,18 @@ import org.junit.jupiter.api.Test;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.grpc.server.lifecycle.GrpcServerLifecycle;
 import org.springframework.integration.grpc.proto.HelloReply;
 import org.springframework.integration.grpc.proto.HelloRequest;
 import org.springframework.integration.grpc.proto.HelloWorldServiceGrpc;
 import org.springframework.test.context.TestPropertySource;
-import org.springframework.test.util.ReflectionTestUtils;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * @author Glenn Renfro
  */
-@SpringBootTest(webEnvironment = WebEnvironment.NONE)
+@SpringBootTest
 @TestPropertySource(properties = "spring.grpc.server.port=0")
 class GrpcServerTests {
 
@@ -60,8 +58,7 @@ class GrpcServerTests {
 
 	@BeforeEach
 	void setUp() {
-		Object server = ReflectionTestUtils.getField(this.grpcServerLifecycle, "server");
-		this.grpcServerPort = ReflectionTestUtils.invokeMethod(server, "getPort");
+		this.grpcServerPort = this.grpcServerLifecycle.getPort();
 
 		this.channel = ManagedChannelBuilder.forAddress("localhost", this.grpcServerPort)
 				.usePlaintext()
