@@ -315,7 +315,7 @@ subprojects { subproject ->
 			jtaVersion = '2.0.1'
 			jtdsVersion = '1.3.1'
 			jmsApiVersion = '3.1.0'
-			jrubyVersion = '10.0.2.0'
+			jrubyVersion = '10.0.3.0'
 			jpaApiVersion = '3.2.0'
 			jstlVersion = '1.2'
 			junitJupiterVersion = '6.0.2'
