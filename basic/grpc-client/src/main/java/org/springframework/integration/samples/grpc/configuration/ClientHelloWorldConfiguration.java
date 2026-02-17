@@ -189,8 +189,6 @@ class ClientHelloWorldConfiguration {
 	IntegrationFlow grpcOutboundFlowStreamResponse(ManagedChannel managedChannel,
 			MessageChannel grpcInputChannelStreamResponse,
 			FluxMessageChannel grpcStreamOutputChannel) {
-		//TODO: Need advice, there has to be a better way than what I have below (or is this a bug in the
-		// GrpcOutboundGateway?
 		GrpcOutboundGateway gateway = new GrpcOutboundGateway(managedChannel, HelloWorldServiceGrpc.class);
 		gateway.setMethodName("StreamSayHello");
 

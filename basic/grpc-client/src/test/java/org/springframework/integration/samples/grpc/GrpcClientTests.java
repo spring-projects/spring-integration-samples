@@ -34,7 +34,6 @@ import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Primary;
 import org.springframework.integration.channel.FluxMessageChannel;
 import org.springframework.integration.channel.QueueChannel;
 import org.springframework.integration.grpc.proto.HelloReply;
@@ -51,10 +50,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 /**
  * @author Glenn Renfro
  */
-@SpringBootTest(properties = {
-		"spring.main.web-application-type=none",
-		"spring.main.allow-bean-definition-overriding=true"
-})
+@SpringBootTest
 class GrpcClientTests {
 
 	private static Server mockGrpcServer;
@@ -173,7 +169,6 @@ class GrpcClientTests {
 	private static class GrpcClientTestConfiguration {
 
 		@Bean
-		@Primary
 		public ApplicationRunner grpcClientSingleResponse() {
 			return args -> {
 				// No-op for tests
@@ -181,7 +176,6 @@ class GrpcClientTests {
 		}
 
 		@Bean
-		@Primary
 		public ApplicationRunner grpcClientStreamResponse() {
 			return args -> {
 				// No-op for tests
