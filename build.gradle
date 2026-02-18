@@ -844,6 +844,7 @@ project('grpc-server') {
 
 		//Test
 		testImplementation 'org.springframework.boot:spring-boot-starter-test'
+		testImplementation 'io.projectreactor:reactor-test'
 	}
 
 
@@ -901,6 +902,7 @@ project('grpc-client') {
 
 		//Test
 		testImplementation 'org.springframework.boot:spring-boot-starter-test'
+		testImplementation 'io.grpc:grpc-inprocess:1.79.0'
 	}
 
 

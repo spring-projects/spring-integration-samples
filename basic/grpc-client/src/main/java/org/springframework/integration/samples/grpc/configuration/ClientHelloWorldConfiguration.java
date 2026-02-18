@@ -20,24 +20,27 @@ import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
 import io.grpc.ManagedChannel;
-import io.grpc.ManagedChannelBuilder;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import reactor.core.publisher.Flux;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Lazy;
+import org.springframework.grpc.client.GrpcChannelFactory;
 import org.springframework.integration.channel.DirectChannel;
 import org.springframework.integration.channel.FluxMessageChannel;
 import org.springframework.integration.channel.QueueChannel;
+import org.springframework.integration.config.EnableIntegration;
 import org.springframework.integration.dsl.IntegrationFlow;
 import org.springframework.integration.grpc.dsl.Grpc;
-import org.springframework.integration.grpc.outbound.GrpcOutboundGateway;
-import org.springframework.integration.grpc.proto.HelloReply;
-import org.springframework.integration.grpc.proto.HelloRequest;
-import org.springframework.integration.grpc.proto.HelloWorldServiceGrpc;
+import org.springframework.integration.samples.grpc.proto.HelloReply;
+import org.springframework.integration.samples.grpc.proto.HelloRequest;
+import org.springframework.integration.samples.grpc.proto.HelloWorldServiceGrpc;
 import org.springframework.integration.support.MessageBuilder;
 import org.springframework.messaging.Message;
 import org.springframework.messaging.MessageChannel;
@@ -50,28 +53,23 @@ import org.springframework.messaging.MessageChannel;
  * @author Glenn Renfro
  */
 @Configuration
+@EnableIntegration
 class ClientHelloWorldConfiguration {
 
 	private static final Log LOG = LogFactory.getLog(ClientHelloWorldConfiguration.class);
 
 	/**
 	 * Creates a managed gRPC channel for communication with the server.
-	 *
-	 * @param host the gRPC server host (default: localhost)
-	 * @param port the gRPC server port (default: 9090)
+	 * @param factory used to create the managed channel
 	 * @return the configured managed channel
 	 */
-	@Bean(destroyMethod = "shutdownNow")
-	ManagedChannel managedChannel(@Value("${grpc.server.host:localhost}") String host,
-			@Value("${grpc.server.port:9090}") int port) {
-		return ManagedChannelBuilder.forAddress(host, port)
-				.usePlaintext()
-				.build();
+	@Bean
+	ManagedChannel managedChannel(GrpcChannelFactory factory) {
+		return factory.createChannel("local");
 	}
 
 	/**
 	 * Creates a message channel for single response gRPC requests.
-	 *
 	 * @return the direct message channel
 	 */
 	@Bean
@@ -79,19 +77,9 @@ class ClientHelloWorldConfiguration {
 		return new DirectChannel();
 	}
 
-	/**
-	 * Creates a message channel for streaming response gRPC requests.
-	 *
-	 * @return the direct message channel
-	 */
-	@Bean
-	MessageChannel grpcInputChannelStreamResponse() {
-		return new DirectChannel();
-	}
 
 	/**
 	 * Creates a FluxMessageChannel for output.
-	 *
 	 * @return the flux message channel
 	 */
 	@Bean
@@ -101,14 +89,15 @@ class ClientHelloWorldConfiguration {
 
 	/**
 	 * Creates an application runner that sends a single gRPC request and receives a single response.
-	 *
 	 * @param grpcInputChannelSingleResponse the message channel for single response requests
 	 * @param replyTimeout the time in milliseconds to await for the response.  Defaults to 10,000 milliseconds.
 	 * @return the application runner
 	 */
 	@Bean
-	ApplicationRunner grpcClientSingleResponse(MessageChannel grpcInputChannelSingleResponse,
+	ApplicationRunner grpcClientSingleResponse(@Autowired @Qualifier("grpcOutboundFlowSingleResponse.input") @Lazy
+			MessageChannel grpcInputChannelSingleResponse,
 			@Value("${grpc.client.single.reply.timeout:10000}") long replyTimeout) {
+
 		return args -> {
 			HelloRequest request = HelloRequest.newBuilder().setName("Jack").build();
 			QueueChannel replyChannel = new QueueChannel();
@@ -131,22 +120,20 @@ class ClientHelloWorldConfiguration {
 	 *
 	 * @param grpcInputChannelStreamResponse the message channel for streaming response requests
 	 * @param grpcStreamOutputChannel channel that contains the responses
-	 * @param replyTimeout the time in seconds to await for the response.  Defaults to 1 second.
+	 * @param replyTimeout the time in seconds to await for the response.  Defaults to 1000 milliseconds.
 	 * @return the application runner
 	 */
 	@Bean
-	ApplicationRunner grpcClientStreamResponse(MessageChannel grpcInputChannelStreamResponse,
+	ApplicationRunner grpcClientStreamResponse(@Autowired @Qualifier("grpcOutboundFlowStreamResponse.input")
+			@Lazy MessageChannel grpcInputChannelStreamResponse,
 			FluxMessageChannel grpcStreamOutputChannel,
-			@Value("${grpc.client.stream.reply.timeout:1}") int replyTimeout) {
+			@Value("${grpc.client.stream.reply.timeout:1000}") int replyTimeout) {
+
 		return args -> {
 			CountDownLatch latch = new CountDownLatch(1);
+			HelloRequest request = HelloRequest.newBuilder().setName("Jack").build();
 
 			Flux.from(grpcStreamOutputChannel)
-					.doOnSubscribe(subscription -> {
-						HelloRequest request = HelloRequest.newBuilder().setName("Jack").build();
-						Message<?> requestMessage = MessageBuilder.withPayload(request).build();
-						grpcInputChannelStreamResponse.send(requestMessage);
-					})
 					.map(message -> (HelloReply) message.getPayload())
 					.map(HelloReply::getMessage)
 					.doOnNext(msg -> LOG.info("Stream received reply: " + msg))
@@ -157,7 +144,13 @@ class ClientHelloWorldConfiguration {
 					})
 					.subscribe();
 
-			latch.await(replyTimeout, TimeUnit.SECONDS);
+			Message<?> requestMessage = MessageBuilder
+					.withPayload(request)
+					.setReplyChannel(grpcStreamOutputChannel)
+					.build();
+			grpcInputChannelStreamResponse.send(requestMessage);
+
+			latch.await(replyTimeout, TimeUnit.MILLISECONDS);
 		};
 	}
 
@@ -171,31 +164,26 @@ class ClientHelloWorldConfiguration {
 	@Bean
 	IntegrationFlow grpcOutboundFlowSingleResponse(ManagedChannel managedChannel,
 			MessageChannel grpcInputChannelSingleResponse) {
-		return IntegrationFlow.from(grpcInputChannelSingleResponse)
+		return flow -> flow
 				.handle(Grpc.outboundGateway(managedChannel, HelloWorldServiceGrpc.class)
-						.methodName("SayHello"))
-				.get();
+						.methodName("SayHello"));
 	}
 
 	/**
 	 * Creates an integration flow for outbound gRPC requests with streaming responses.
 	 *
 	 * @param managedChannel the gRPC managed channel
-	 * @param grpcInputChannelStreamResponse the input message channel
 	 * @param grpcStreamOutputChannel channel containing the results
 	 * @return the integration flow
 	 */
 	@Bean
 	IntegrationFlow grpcOutboundFlowStreamResponse(ManagedChannel managedChannel,
-			MessageChannel grpcInputChannelStreamResponse,
 			FluxMessageChannel grpcStreamOutputChannel) {
-		GrpcOutboundGateway gateway = new GrpcOutboundGateway(managedChannel, HelloWorldServiceGrpc.class);
-		gateway.setMethodName("StreamSayHello");
 
-		return IntegrationFlow.from(grpcInputChannelStreamResponse)
-				.handle(gateway)
-				.channel(grpcStreamOutputChannel)
-				.get();
+		return flow -> flow
+				.handle(Grpc.outboundGateway(managedChannel, HelloWorldServiceGrpc.class)
+						.methodName("StreamSayHello"))
+				.channel(grpcStreamOutputChannel);
 	}
 
 }

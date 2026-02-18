@@ -16,25 +16,24 @@
 
 package org.springframework.integration.samples.grpc;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.concurrent.CountDownLatch;
-import java.util.concurrent.TimeUnit;
-
-import io.grpc.ManagedChannel;
-import io.grpc.ManagedChannelBuilder;
-import io.grpc.stub.StreamObserver;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import reactor.core.publisher.Flux;
+import reactor.test.StepVerifier;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.grpc.server.lifecycle.GrpcServerLifecycle;
-import org.springframework.integration.grpc.proto.HelloReply;
-import org.springframework.integration.grpc.proto.HelloRequest;
-import org.springframework.integration.grpc.proto.HelloWorldServiceGrpc;
-import org.springframework.test.context.TestPropertySource;
+import org.springframework.boot.test.context.TestConfiguration;
+import org.springframework.context.annotation.Bean;
+import org.springframework.integration.channel.QueueChannel;
+import org.springframework.integration.grpc.GrpcHeaders;
+import org.springframework.integration.grpc.inbound.GrpcInboundGateway;
+import org.springframework.integration.samples.grpc.proto.HelloReply;
+import org.springframework.integration.samples.grpc.proto.HelloRequest;
+import org.springframework.integration.support.MessageBuilder;
+import org.springframework.messaging.Message;
+import org.springframework.messaging.MessageChannel;
+import org.springframework.messaging.PollableChannel;
+import org.springframework.test.annotation.DirtiesContext;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -42,80 +41,75 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @author Glenn Renfro
  */
 @SpringBootTest
-@TestPropertySource(properties = "spring.grpc.server.port=0")
+@DirtiesContext
 class GrpcServerTests {
 
 	@Autowired
-	private GrpcServerLifecycle grpcServerLifecycle;
+	private GrpcInboundGateway helloWorldService;
 
-	private int grpcServerPort;
+	@Autowired
+	private MessageChannel grpcIntegrationFlowInputChannel;
 
-	private ManagedChannel channel;
+	@Autowired
+	private PollableChannel replyChannel;
 
-	private HelloWorldServiceGrpc.HelloWorldServiceBlockingStub blockingStub;
-
-	private HelloWorldServiceGrpc.HelloWorldServiceStub asyncStub;
-
-	@BeforeEach
-	void setUp() {
-		this.grpcServerPort = this.grpcServerLifecycle.getPort();
-
-		this.channel = ManagedChannelBuilder.forAddress("localhost", this.grpcServerPort)
-				.usePlaintext()
+	@Test
+	void testSayHelloMethodRoutingAndTransformation() {
+		HelloRequest request = HelloRequest.newBuilder()
+				.setName("Direct Test")
 				.build();
-		this.blockingStub = HelloWorldServiceGrpc.newBlockingStub(this.channel);
-		this.asyncStub = HelloWorldServiceGrpc.newStub(this.channel);
+
+		Message<?> requestMessage = MessageBuilder.withPayload(request)
+				.setHeader(GrpcHeaders.SERVICE_METHOD, "SayHello")
+				.setReplyChannel(this.replyChannel)
+				.build();
+
+		this.grpcIntegrationFlowInputChannel.send(requestMessage);
+
+		Message<?> reply = this.replyChannel.receive(5000);
+
+		assertThat(reply.getPayload()).isInstanceOfSatisfying(HelloReply.class,
+				req -> assertThat(req.getMessage()).isEqualTo("Hello Direct Test"));
 	}
 
-	@AfterEach
-	void tearDown() throws InterruptedException {
-		if (this.channel != null) {
-			this.channel.shutdown().awaitTermination(5, TimeUnit.SECONDS);
+	@Test
+	void testStreamSayHelloMethodRoutingAndTransformation() {
+		HelloRequest request = HelloRequest.newBuilder()
+				.setName("Stream Test")
+				.build();
+
+		Message<?> requestMessage = MessageBuilder.withPayload(request)
+				.setHeader(GrpcHeaders.SERVICE_METHOD, "StreamSayHello")
+				.setReplyChannel(this.replyChannel)
+				.build();
+
+		this.grpcIntegrationFlowInputChannel.send(requestMessage);
+
+		Message<?> reply = this.replyChannel.receive(5000);
+
+		assertThat(reply.getPayload()).isInstanceOfSatisfying(Flux.class,
+				replyResult -> StepVerifier.create((Flux<HelloReply>) replyResult)
+						.consumeNextWith(r -> assertThat(r.getMessage()).isEqualTo("Hello Stream Test"))
+						.consumeNextWith(r -> assertThat(r.getMessage()).isEqualTo("Hello again!"))
+						.verifyComplete());
+	}
+
+	/**
+	 * Test configuration that provides access to the integration flow's input channel.
+	 * This allows tests to send messages directly to the flow, bypassing the gRPC protocol layer.
+	 */
+	@TestConfiguration
+	static class TestChannelConfig {
+		@Bean
+		MessageChannel grpcIntegrationFlowInputChannel(GrpcInboundGateway helloWorldService) {
+			return helloWorldService.getRequestChannel();
 		}
-	}
 
-	@Test
-	void testSayHelloBlockingCall() {
-		HelloRequest request = HelloRequest.newBuilder()
-				.setName("Integration Test")
-				.build();
+		@Bean
+		PollableChannel replyChannel() {
+			return new QueueChannel();
+		}
 
-		HelloReply response = this.blockingStub.sayHello(request);
-
-		assertThat(response).isNotNull().extracting(HelloReply::getMessage).isEqualTo("Hello Integration Test");
-	}
-
-	@Test
-	void testStreamSayHello() throws InterruptedException {
-		HelloRequest request = HelloRequest.newBuilder()
-				.setName("Streaming Test")
-				.build();
-
-		List<HelloReply> responses = new ArrayList<>();
-		CountDownLatch latch = new CountDownLatch(1);
-
-		StreamObserver<HelloReply> responseObserver = new StreamObserver<HelloReply>() {
-			@Override
-			public void onNext(HelloReply value) {
-				responses.add(value);
-			}
-
-			@Override
-			public void onError(Throwable t) {
-				latch.countDown();
-			}
-
-			@Override
-			public void onCompleted() {
-				latch.countDown();
-			}
-		};
-
-		this.asyncStub.streamSayHello(request, responseObserver);
-
-		assertThat(latch.await(5, TimeUnit.SECONDS)).isTrue();
-		assertThat(responses).hasSize(2).extracting(HelloReply::getMessage)
-				.containsExactly("Hello Streaming Test", "Hello again!");
 	}
 
 }

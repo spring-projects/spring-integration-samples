@@ -23,9 +23,9 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.integration.dsl.IntegrationFlow;
 import org.springframework.integration.grpc.GrpcHeaders;
 import org.springframework.integration.grpc.inbound.GrpcInboundGateway;
-import org.springframework.integration.grpc.proto.HelloReply;
-import org.springframework.integration.grpc.proto.HelloRequest;
-import org.springframework.integration.grpc.proto.HelloWorldServiceGrpc;
+import org.springframework.integration.samples.grpc.proto.HelloReply;
+import org.springframework.integration.samples.grpc.proto.HelloRequest;
+import org.springframework.integration.samples.grpc.proto.HelloWorldServiceGrpc;
 import org.springframework.messaging.Message;
 
 /**

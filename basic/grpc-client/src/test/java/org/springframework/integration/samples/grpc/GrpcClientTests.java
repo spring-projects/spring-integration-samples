@@ -22,28 +22,36 @@ import java.util.List;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
+import io.grpc.BindableService;
+import io.grpc.ManagedChannel;
 import io.grpc.Server;
-import io.grpc.ServerBuilder;
-import io.grpc.stub.StreamObserver;
-import org.junit.jupiter.api.AfterAll;
+import io.grpc.inprocess.InProcessChannelBuilder;
+import io.grpc.inprocess.InProcessServerBuilder;
 import org.junit.jupiter.api.Test;
 import reactor.core.publisher.Flux;
 
+import org.springframework.beans.BeansException;
+import org.springframework.beans.factory.DisposableBean;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.ApplicationRunner;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.config.BeanPostProcessor;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Primary;
+import org.springframework.context.event.ContextRefreshedEvent;
+import org.springframework.context.event.EventListener;
 import org.springframework.integration.channel.FluxMessageChannel;
 import org.springframework.integration.channel.QueueChannel;
-import org.springframework.integration.grpc.proto.HelloReply;
-import org.springframework.integration.grpc.proto.HelloRequest;
-import org.springframework.integration.grpc.proto.HelloWorldServiceGrpc;
+import org.springframework.integration.dsl.IntegrationFlow;
+import org.springframework.integration.grpc.GrpcHeaders;
+import org.springframework.integration.grpc.inbound.GrpcInboundGateway;
+import org.springframework.integration.samples.grpc.proto.HelloReply;
+import org.springframework.integration.samples.grpc.proto.HelloRequest;
+import org.springframework.integration.samples.grpc.proto.HelloWorldServiceGrpc;
 import org.springframework.integration.support.MessageBuilder;
 import org.springframework.messaging.Message;
 import org.springframework.messaging.MessageChannel;
-import org.springframework.test.context.DynamicPropertyRegistry;
-import org.springframework.test.context.DynamicPropertySource;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -53,38 +61,16 @@ import static org.assertj.core.api.Assertions.assertThat;
 @SpringBootTest
 class GrpcClientTests {
 
-	private static Server mockGrpcServer;
-
-	private static int serverPort;
-
 	@Autowired
+	@Qualifier("grpcOutboundFlowSingleResponse.input")
 	private MessageChannel grpcInputChannelSingleResponse;
 
 	@Autowired
+	@Qualifier("grpcOutboundFlowStreamResponse.input")
 	private MessageChannel grpcInputChannelStreamResponse;
 
 	@Autowired
 	private FluxMessageChannel grpcStreamOutputChannel;
-
-	@DynamicPropertySource
-	static void grpcServerProperties(DynamicPropertyRegistry registry) throws IOException {
-		mockGrpcServer = ServerBuilder.forPort(0)
-				.addService(new MockHelloWorldService())
-				.build()
-				.start();
-
-		serverPort = mockGrpcServer.getPort();
-
-		registry.add("grpc.server.host", () -> "localhost");
-		registry.add("grpc.server.port", () -> serverPort);
-	}
-
-	@AfterAll
-	static void tearDown() {
-		if (mockGrpcServer != null) {
-			mockGrpcServer.shutdownNow();
-		}
-	}
 
 	@Test
 	void shouldSendSingleRequestAndReceiveSingleResponse() {
@@ -136,51 +122,106 @@ class GrpcClientTests {
 	}
 
 	/**
-	 * Mock gRPC service implementation for testing.
+	 *
+	 * Sets up an in-process gRPC server for testing.
 	 */
-	private static class MockHelloWorldService extends HelloWorldServiceGrpc.HelloWorldServiceImplBase {
-
-		@Override
-		public void sayHello(HelloRequest request, StreamObserver<HelloReply> responseObserver) {
-			HelloReply reply = HelloReply.newBuilder()
-					.setMessage("Hello " + request.getName())
-					.build();
-			responseObserver.onNext(reply);
-			responseObserver.onCompleted();
-		}
-
-		@Override
-		public void streamSayHello(HelloRequest request, StreamObserver<HelloReply> responseObserver) {
-			HelloReply reply1 = HelloReply.newBuilder()
-					.setMessage("Hello " + request.getName())
-					.build();
-			HelloReply reply2 = HelloReply.newBuilder()
-					.setMessage("Hello again!")
-					.build();
-
-			responseObserver.onNext(reply1);
-			responseObserver.onNext(reply2);
-			responseObserver.onCompleted();
-		}
-
-	}
-
 	@TestConfiguration
-	private static class GrpcClientTestConfiguration {
+	static class TestGrpcServerConfig implements DisposableBean {
 
+		final String serverName = InProcessServerBuilder.generateName();
+
+		final InProcessServerBuilder serverBuilder = InProcessServerBuilder.forName(this.serverName);
+
+		volatile Server server;
+
+		/**
+		 * Creates an in-process gRPC channel for testing.
+		 * This channel connects to the in-process server.
+		 * @return the managed channel
+		 */
 		@Bean
-		public ApplicationRunner grpcClientSingleResponse() {
-			return args -> {
-				// No-op for tests
+		@Primary
+		ManagedChannel testManagedChannel() {
+			return InProcessChannelBuilder.forName(this.serverName).directExecutor().build();
+		}
+
+		/**
+		 * Bean post processor that automatically registers any BindableService beans
+		 * with the in-process gRPC server.
+		 * @return the bean post processor
+		 */
+		@Bean
+		BeanPostProcessor bindGrpcServicesPostProcessor() {
+			return new BeanPostProcessor() {
+
+				@Override
+				public Object postProcessAfterInitialization(Object bean, String beanName) throws BeansException {
+					if (bean instanceof BindableService bindableService) {
+						TestGrpcServerConfig.this.serverBuilder.addService(bindableService);
+					}
+					return bean;
+				}
+
 			};
 		}
 
+		/**
+		 * Starts the in-process gRPC server when the application context is refreshed.
+		 */
+		@EventListener(ContextRefreshedEvent.class)
+		void startServer() throws IOException {
+			this.server = this.serverBuilder.build().start();
+		}
+
+		@Override
+		public void destroy() {
+			if (this.server != null) {
+				this.server.shutdownNow();
+			}
+		}
+
+		/**
+		 * Creates the gRPC inbound gateway for the HelloWorld service.
+		 * @return the configured gRPC inbound gateway
+		 */
 		@Bean
-		public ApplicationRunner grpcClientStreamResponse() {
-			return args -> {
-				// No-op for tests
-			};
+		GrpcInboundGateway helloWorldService() {
+			return new GrpcInboundGateway(HelloWorldServiceGrpc.HelloWorldServiceImplBase.class);
+		}
+
+		/**
+		 * Creates the main integration flow for handling incoming gRPC requests.
+		 * @param helloWorldService the gRPC inbound gateway
+		 * @return the integration flow
+		 */
+		@Bean
+		IntegrationFlow grpcServerIntegrationFlow(GrpcInboundGateway helloWorldService) {
+			return IntegrationFlow.from(helloWorldService)
+					.route(Message.class, message ->
+									message.getHeaders().get(GrpcHeaders.SERVICE_METHOD, String.class),
+							router -> router
+									.subFlowMapping("SayHello", flow -> flow
+											.transform(this::requestReply))
+									.subFlowMapping("StreamSayHello", flow -> flow
+											.transform(this::streamReply))
+					)
+					.get();
+		}
+
+		private HelloReply requestReply(HelloRequest helloRequest) {
+			return newHelloReply("Hello " + helloRequest.getName());
+		}
+
+		private Flux<HelloReply> streamReply(HelloRequest helloRequest) {
+			return Flux.just(
+					newHelloReply("Hello " + helloRequest.getName()),
+					newHelloReply("Hello again!"));
+		}
+
+		private static HelloReply newHelloReply(String message) {
+			return HelloReply.newBuilder().setMessage(message).build();
 		}
 
 	}
+
 }

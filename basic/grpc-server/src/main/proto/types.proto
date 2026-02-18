@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package integration.grpc.hello;
 
-option java_package = "org.springframework.integration.grpc.proto";
+option java_package = "org.springframework.integration.samples.grpc.proto";
 
 option java_multiple_files = true;
 
