@@ -23,14 +23,15 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.integration.dsl.IntegrationFlow;
 import org.springframework.integration.grpc.GrpcHeaders;
 import org.springframework.integration.grpc.inbound.GrpcInboundGateway;
-import org.springframework.integration.grpc.proto.HelloReply;
-import org.springframework.integration.grpc.proto.HelloRequest;
-import org.springframework.integration.grpc.proto.HelloWorldServiceGrpc;
+import org.springframework.integration.samples.grpc.proto.HelloReply;
+import org.springframework.integration.samples.grpc.proto.HelloRequest;
+import org.springframework.integration.samples.grpc.proto.HelloWorldServiceGrpc;
 import org.springframework.messaging.Message;
 
 /**
- * Configuration class for the gRPC server sample.
- * Configures the gRPC inbound gateway and integration flows for handling
+ * Configure the gRPC server sample.
+ * <p>
+ * Defines the gRPC inbound gateway and integration flows for handling
  * gRPC service methods for single request/response and request/streaming responses.
  *
  * @author Glenn Renfro
@@ -39,9 +40,9 @@ import org.springframework.messaging.Message;
 class ServerHelloWorldConfiguration {
 
 	/**
-	 * Creates the main integration flow for handling incoming gRPC requests.
-	 * Routes requests to different sub-flows based on the service method name.
-	 *
+	 * Create the main integration flow for handling incoming gRPC requests.
+	 * <p>
+	 * Route requests to different sub-flows based on the service method name.
 	 * @param helloWorldService the gRPC inbound gateway
 	 * @return the integration flow
 	 */
@@ -76,8 +77,7 @@ class ServerHelloWorldConfiguration {
 	}
 
 	/**
-	 * Creates the gRPC inbound gateway for the HelloWorld service.
-	 *
+	 * Create the gRPC inbound gateway for the HelloWorld service.
 	 * @return the configured gRPC inbound gateway
 	 */
 	@Bean

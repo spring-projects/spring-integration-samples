@@ -20,9 +20,9 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 /**
- * Main application class for the gRPC client sample.
- * This Spring Boot application demonstrates how to use Spring Integration
- * with gRPC for client-side communication.
+ * Run the gRPC client sample application.
+ * <p>
+ * Demonstrates how to use Spring Integration with gRPC for client-side communication.
  *
  * @author Glenn Renfro
  */
@@ -33,8 +33,7 @@ public final class Application {
 	}
 
 	/**
-	 * Main entry point for the gRPC client application.
-	 *
+	 * Start the gRPC client application.
 	 * @param args command line arguments
 	 */
 	public static void main(String[] args) {
