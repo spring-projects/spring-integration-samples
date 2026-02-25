@@ -74,7 +74,7 @@
     <dependency>
       <groupId>com.mchange</groupId>
       <artifactId>c3p0</artifactId>
-      <version>0.11.2</version>
+      <version>0.12.0</version>
       <scope>compile</scope>
     </dependency>
     <dependency>
@@ -142,7 +142,7 @@
       <dependency>
         <groupId>org.springframework</groupId>
         <artifactId>spring-framework-bom</artifactId>
-        <version>7.0.3</version>
+        <version>7.0.5</version>
         <scope>import</scope>
         <type>pom</type>
       </dependency>
