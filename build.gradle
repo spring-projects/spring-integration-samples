@@ -14,6 +14,7 @@ buildscript {
 		classpath 'org.gretty:gretty:4.1.10'
 		classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion"
 		classpath "org.jetbrains.kotlin:kotlin-allopen:$kotlinVersion"
+		classpath "com.google.protobuf:protobuf-gradle-plugin:0.9.4"
 	}
 }
 
@@ -30,6 +31,8 @@ ext {
 	linkScmConnection = 'scm:git:git://github.com/spring-projects/spring-integration-samples.git'
 	linkScmDevConnection = 'scm:git:ssh://git@github.com:spring-projects/spring-integration-samples.git'
 }
+
+
 
 allprojects {
 	group = 'org.springframework.integration.samples'
@@ -306,6 +309,7 @@ subprojects { subproject ->
 			flexjsonVersion = '3.3'
 			graalvmVersion = '25.0.2'
 			groovyVersion = '5.0.3'
+			grpcVersion = '1.78.0'
 			hsqldbVersion = '2.7.4'
 			h2Version = '2.4.240'
 			jacksonVersion = '2.21.0'
@@ -325,6 +329,7 @@ subprojects { subproject ->
 			mongoDriverVersion = '5.6.2'
 			oracleDriverVersion = '23.26.0.0.0'
 			postgresVersion = '42.7.9'
+			protobufVersion = '4.29.4'
 			slf4jVersion = '2.0.17'
 			springCloudVersion = '2025.1.0'
 			springIntegrationVersion = '7.1.0-SNAPSHOT'
@@ -642,7 +647,6 @@ project('ftp') {
 		runtimeOnly "org.slf4j:slf4j-log4j12:$slf4jVersion"
 
 		testImplementation "org.apache.logging.log4j:log4j-core:$log4jVersion"
-		testImplementation 'org.springframework.integration:spring-integration-test'
 	}
 
 	test {
@@ -807,7 +811,6 @@ project('mqtt') {
 		api 'org.eclipse.paho:org.eclipse.paho.client.mqttv3:1.2.5'
 
 		testImplementation 'org.springframework.boot:spring-boot-starter-test'
-		testImplementation "org.springframework.integration:spring-integration-test"
 		testImplementation "org.testcontainers:testcontainers-junit-jupiter:$testcontainersVersion"
 	}
 
@@ -825,6 +828,122 @@ project('mqtt') {
 	}
 
 }
+
+project('grpc-server') {
+	description = 'gRPC Server Basic Sample'
+
+	apply plugin: 'org.springframework.boot'
+	apply plugin: 'com.google.protobuf'
+
+	dependencies {
+		implementation 'org.springframework.boot:spring-boot-starter-integration'
+		implementation "org.springframework.integration:spring-integration-grpc:$springIntegrationVersion"
+		implementation 'org.springframework.grpc:spring-grpc-spring-boot-starter:1.0.2'
+
+		implementation("com.google.protobuf:protobuf-java:$protobufVersion")
+
+		//Test
+		testImplementation 'org.springframework.boot:spring-boot-starter-test'
+		testImplementation 'io.projectreactor:reactor-test'
+	}
+
+
+	protobuf {
+		protoc {
+			artifact = "com.google.protobuf:protoc:$protobufVersion"
+		}
+		plugins {
+			grpc {
+				artifact = "io.grpc:protoc-gen-grpc-java:$grpcVersion"
+			}
+		}
+		generateProtoTasks {
+			all()*.plugins {
+				grpc {
+					option '@generated=omit'
+				}
+			}
+		}
+	}
+
+	// Exclude generated protobuf/grpc code from checkstyle
+	checkstyleMain {
+		exclude '**/proto/**'
+	}
+
+	springBoot {
+		mainClass = 'org.springframework.integration.samples.grpc.Application'
+	}
+
+	tasks.register('run', JavaExec) {
+		mainClass = 'org.springframework.integration.samples.grpc.Application'
+		classpath = sourceSets.main.runtimeClasspath
+	}
+
+	tasks.withType(JavaExec) {
+		standardInput = System.in
+	}
+
+}
+
+
+project('grpc-client') {
+	description = 'gRPC client Basic Sample'
+
+	apply plugin: 'org.springframework.boot'
+	apply plugin: 'com.google.protobuf'
+
+	dependencies {
+		implementation 'org.springframework.boot:spring-boot-starter-integration'
+		implementation "org.springframework.integration:spring-integration-grpc:$springIntegrationVersion"
+		implementation 'org.springframework.grpc:spring-grpc-spring-boot-starter:1.0.2'
+
+		implementation("com.google.protobuf:protobuf-java:$protobufVersion")
+
+		//Test
+		testImplementation 'org.springframework.boot:spring-boot-starter-test'
+		testImplementation 'io.grpc:grpc-inprocess:1.79.0'
+	}
+
+
+	protobuf {
+		protoc {
+			artifact = "com.google.protobuf:protoc:$protobufVersion"
+		}
+		plugins {
+			grpc {
+				artifact = "io.grpc:protoc-gen-grpc-java:$grpcVersion"
+			}
+		}
+		generateProtoTasks {
+			all()*.plugins {
+				grpc {
+					option '@generated=omit'
+				}
+			}
+		}
+	}
+
+	// Exclude generated protobuf/grpc code from checkstyle
+	checkstyleMain {
+		exclude '**/proto/**'
+	}
+
+	springBoot {
+		mainClass = 'org.springframework.integration.samples.grpc.Application'
+	}
+
+	tasks.register('run', JavaExec) {
+		mainClass = 'org.springframework.integration.samples.grpc.Application'
+		classpath = sourceSets.main.runtimeClasspath
+	}
+
+	tasks.withType(JavaExec) {
+		standardInput = System.in
+	}
+
+}
+
 
 project('si4demo') {
 	description = 'Java Configuration/DSL Sample'
@@ -911,8 +1030,6 @@ project('jms') {
 		}
 		api "org.apache.activemq:artemis-jakarta-client:$artemisVersion"
 		api "org.apache.logging.log4j:log4j-core:$log4jVersion"
-
-		testImplementation 'org.springframework.integration:spring-integration-test'
 	}
 }
 
@@ -1085,7 +1202,6 @@ project('tcp-client-server') {
 	dependencies {
 		api 'org.springframework.integration:spring-integration-ip'
 		api "org.apache.commons:commons-lang3:$commonsLangVersion"
-		api 'org.springframework.integration:spring-integration-test'
 		api "org.apache.logging.log4j:log4j-core:$log4jVersion"
 	}
 }
@@ -1107,7 +1223,6 @@ project('testcontainers-rabbitmq') {
 		testImplementation('org.springframework.boot:spring-boot-starter-test') {
 			exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
 		}
-		testImplementation 'org.springframework.integration:spring-integration-test'
 		testImplementation 'org.springframework.amqp:spring-rabbit-test'
 		testImplementation 'org.springframework.cloud:spring-cloud-starter'
 
@@ -1138,8 +1253,6 @@ project('testing-examples') {
 		api 'org.springframework.integration:spring-integration-ws'
 		api 'org.springframework:spring-webmvc'
 		api "org.apache.logging.log4j:log4j-core:$log4jVersion"
-
-		testImplementation 'org.springframework.integration:spring-integration-test'
 	}
 }
 
@@ -1276,8 +1389,6 @@ project('mail-attachments') {
 		api "org.eclipse.angus:jakarta.mail:$mailVersion"
 		api "commons-io:commons-io:$commonsIoVersion"
 		api "org.apache.logging.log4j:log4j-core:$log4jVersion"
-
-		testImplementation 'org.springframework.integration:spring-integration-test'
 
 	}
 }
@@ -1496,7 +1607,6 @@ project('tcp-async-bi-directional') {
 		api "org.springframework.integration:spring-integration-ip"
 
 		testImplementation 'org.springframework.boot:spring-boot-starter-test'
-		testImplementation "org.springframework.integration:spring-integration-test"
 	}
 
 	springBoot {
@@ -1515,8 +1625,6 @@ project('tcp-client-server-multiplex') {
 	dependencies {
 		api 'org.springframework.integration:spring-integration-ip'
 		api "org.apache.logging.log4j:log4j-core:$log4jVersion"
-
-		testImplementation 'org.springframework.integration:spring-integration-test'
 	}
 }
 
@@ -1642,7 +1750,6 @@ project('file-split-ftp') {
 		api "org.eclipse.angus:jakarta.mail:$mailVersion"
 
 		testImplementation 'org.springframework.boot:spring-boot-starter-test'
-		testImplementation 'org.springframework.integration:spring-integration-test'
 		testImplementation('com.icegreen:greenmail:2.1.0-alpha-3') {
 			exclude group: 'com.sun.mail'
 			exclude group: 'jakarta.activation'
