@@ -1627,6 +1627,32 @@ project('kafka-dsl') {
 	}
 }
 
+project('synchronous-udp-multicast') {
+	description = 'Java DSL synchronous UDP multicast'
+
+	apply plugin: 'org.springframework.boot'
+
+	dependencies {
+		compile 'org.springframework.boot:spring-boot-starter-web'
+		compile 'org.springframework.boot:spring-boot-starter-integration'
+		compile 'org.springframework.integration:spring-integration-ip'
+		compile 'org.springframework.integration:spring-integration-http'
+		testCompile 'org.springframework.boot:spring-boot-starter-test'
+	}
+	bootRun {
+		main = 'org.springframework.integration.samples.dsl.synchronous.multicast.Application'
+	}
+
+	task run(type: JavaExec) {
+		main 'org.springframework.integration.samples.dsl.synchronous.multicast.Application'
+		classpath = sourceSets.main.runtimeClasspath
+	}
+
+	tasks.withType(JavaExec) {
+		standardInput = System.in
+	}
+}
+
 project('file-split-ftp') {
 	description = 'File Split FTP'
 
