@@ -25,4 +25,5 @@
 	<suppress files="SftpTestUtils\.java" checks="Regexp"/>
 	<suppress files="TransactionSynchronizationDemo\.java" checks="Regexp"/>
 	<suppress files="SpringIntegrationTest\.java" checks="Regexp"/>
+	<suppress checks="HideUtilityClassConstructor" files="Application\.java"/>
 </suppressions>
