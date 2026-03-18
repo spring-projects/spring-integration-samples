@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.springframework.integration.samples;
+package org.springframework.integration.samples.grpc.client;
 
 import java.time.Duration;
 

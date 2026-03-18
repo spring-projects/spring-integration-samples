@@ -14,7 +14,7 @@ buildscript {
 		classpath 'org.gretty:gretty:4.1.10'
 		classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion"
 		classpath "org.jetbrains.kotlin:kotlin-allopen:$kotlinVersion"
-		classpath "com.google.protobuf:protobuf-gradle-plugin:0.9.4"
+		classpath "com.google.protobuf:protobuf-gradle-plugin:0.9.6"
 	}
 }
 
@@ -893,8 +893,6 @@ project('grpc-client') {
 		implementation "org.springframework.integration:spring-integration-grpc:$springIntegrationVersion"
 
 		implementation("com.google.protobuf:protobuf-java:$protobufVersion")
-		implementation("io.grpc:grpc-netty:$grpcVersion")
-		implementation("io.grpc:grpc-inprocess:$grpcVersion")
 
 		//Test
 		testImplementation 'org.springframework.boot:spring-boot-starter-test'
@@ -937,9 +935,6 @@ project('grpc-client') {
 		classpath = sourceSets.main.runtimeClasspath
 	}
 
-	tasks.withType(JavaExec) {
-		standardInput = System.in
-	}
 }
 
 project('jdbc') {

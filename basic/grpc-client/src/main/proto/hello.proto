@@ -1,7 +1,7 @@
 syntax = "proto3";
 
 option java_multiple_files = true;
-option java_package = "org.springframework.integration.samples";
+option java_package = "org.springframework.integration.samples.grpc.client";
 option java_outer_classname = "HelloWorldProto";
 
 // The greeting service definition.
