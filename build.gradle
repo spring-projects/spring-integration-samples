@@ -570,7 +570,8 @@ project('barrier') {
 	dependencies {
 		api 'org.springframework.boot:spring-boot-starter-web'
 		api 'org.springframework.boot:spring-boot-starter-integration'
-		api 'org.springframework.boot:spring-boot-starter-amqp'
+//		TODO remove the version when boot bom is updated
+		api 'org.springframework.boot:spring-boot-starter-rabbitmq:4.1.0-SNAPSHOT'
 		api 'org.springframework.integration:spring-integration-amqp'
 		api 'org.springframework.integration:spring-integration-http'
 
