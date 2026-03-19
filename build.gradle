@@ -890,7 +890,7 @@ project('grpc-client') {
 	dependencies {
 		implementation 'org.springframework.boot:spring-boot-starter-integration'
 		implementation "org.springframework.grpc:spring-grpc-client-spring-boot-starter:$springGrpc"
-		implementation "org.springframework.integration:spring-integration-grpc:$springIntegrationVersion"
+		implementation "org.springframework.integration:spring-integration-grpc"
 
 		implementation("com.google.protobuf:protobuf-java:$protobufVersion")
 
