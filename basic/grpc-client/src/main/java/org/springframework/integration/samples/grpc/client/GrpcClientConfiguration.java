@@ -16,6 +16,8 @@
 
 package org.springframework.integration.samples.grpc.client;
 
+import java.util.Collections;
+
 import io.grpc.ManagedChannel;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -30,6 +32,7 @@ import org.springframework.grpc.client.GrpcChannelFactory;
 import org.springframework.integration.channel.FluxMessageChannel;
 import org.springframework.integration.core.MessagingTemplate;
 import org.springframework.integration.dsl.IntegrationFlow;
+import org.springframework.integration.grpc.GrpcHeaders;
 import org.springframework.integration.grpc.dsl.Grpc;
 import org.springframework.integration.support.MessageBuilder;
 import org.springframework.messaging.Message;
@@ -47,7 +50,7 @@ public class GrpcClientConfiguration {
 
 	@Bean
 	ManagedChannel managedChannel(GrpcChannelFactory factory) {
-		return factory.createChannel("local");
+		return factory.createChannel("spring-integration");
 	}
 
 	/**
@@ -58,8 +61,7 @@ public class GrpcClientConfiguration {
 	@Bean
 	IntegrationFlow grpcOutboundFlowSingleResponse(ManagedChannel managedChannel) {
 		return flow -> flow
-				.handle(Grpc.outboundGateway(managedChannel, SimpleGrpc.class)
-						.methodName("SayHello"));
+				.handle(Grpc.outboundGateway(managedChannel, SimpleGrpc.class));
 	}
 
 	/**
@@ -70,8 +72,7 @@ public class GrpcClientConfiguration {
 	@Bean
 	IntegrationFlow grpcOutboundFlowStreamResponse(ManagedChannel managedChannel) {
 		return flow -> flow
-				.handle(Grpc.outboundGateway(managedChannel, SimpleGrpc.class)
-						.methodName("StreamHello"));
+				.handle(Grpc.outboundGateway(managedChannel, SimpleGrpc.class));
 	}
 
 	/**
@@ -86,6 +87,7 @@ public class GrpcClientConfiguration {
 		return args -> {
 			HelloReply reply = new MessagingTemplate().convertSendAndReceive(grpcInputChannelSingleResponse,
 					HelloRequest.newBuilder().setName("Jack").build(),
+					Collections.singletonMap(GrpcHeaders.SERVICE_METHOD, "SayHello"),
 					HelloReply.class);
 
 			LOGGER.info("Single response reply: " + (reply != null ? reply.getMessage() : "No reply received"));
@@ -115,6 +117,7 @@ public class GrpcClientConfiguration {
 				Message<?> requestMessage = MessageBuilder
 						.withPayload(HelloRequest.newBuilder().setName("Jane").build())
 						.setReplyChannel(grpcStreamOutputChannel)
+						.setHeader(GrpcHeaders.SERVICE_METHOD, "StreamHello")
 						.build();
 				grpcInputChannel.send(requestMessage);
 		};

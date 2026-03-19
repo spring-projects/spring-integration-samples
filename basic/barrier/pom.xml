@@ -73,8 +73,7 @@
     </dependency>
     <dependency>
       <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-starter-rabbitmq</artifactId>
-      <version>4.1.0-SNAPSHOT</version>
+      <artifactId>spring-boot-starter-amqp</artifactId>
       <scope>compile</scope>
     </dependency>
     <dependency>

@@ -353,6 +353,7 @@ subprojects { subproject ->
 				mavenBom "com.fasterxml.jackson:jackson-bom:$jacksonVersion"
 				mavenBom "tools.jackson:jackson-bom:$jackson3Version"
 				mavenBom "org.junit:junit-bom:$junitJupiterVersion"
+				mavenBom "org.springframework.grpc:spring-grpc-dependencies:$springGrpc"
 			}
 		}
 
@@ -889,14 +890,14 @@ project('grpc-client') {
 
 	dependencies {
 		implementation 'org.springframework.boot:spring-boot-starter-integration'
-		implementation "org.springframework.grpc:spring-grpc-client-spring-boot-starter:$springGrpc"
-		implementation "org.springframework.integration:spring-integration-grpc"
+		implementation "org.springframework.grpc:spring-grpc-client-spring-boot-starter"
+		implementation 'org.springframework.integration:spring-integration-grpc'
 
 		implementation("com.google.protobuf:protobuf-java:$protobufVersion")
 
 		//Test
 		testImplementation 'org.springframework.boot:spring-boot-starter-test'
-		testImplementation "org.springframework.grpc:spring-grpc-test:$springGrpc"
+		testImplementation "org.springframework.grpc:spring-grpc-test"
 	}
 
 
