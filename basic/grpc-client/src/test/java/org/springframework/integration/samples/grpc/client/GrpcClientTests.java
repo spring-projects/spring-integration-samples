@@ -26,8 +26,6 @@ import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.boot.test.system.CapturedOutput;
 import org.springframework.boot.test.system.OutputCaptureExtension;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Primary;
-import org.springframework.grpc.server.NettyGrpcServerFactory;
 import org.springframework.test.annotation.DirtiesContext;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -98,17 +96,6 @@ public class GrpcClientTests {
 				}
 			};
 		}
-
-		/**
-		 * Override the Netty server factory to return null, preventing Netty server creation.
-		 * @return null to disable Netty server
-		 */
-		@Bean
-		@Primary
-		NettyGrpcServerFactory nettyGrpcServerFactory() {
-			return null;
-		}
-
 	}
 
 }
