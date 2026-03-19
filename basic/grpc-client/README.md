@@ -29,7 +29,7 @@ This will start the Spring Boot application using the [Spring Boot Gradle Plugin
 The application expects a gRPC server to be available. By default, it connects to `localhost:9090`. You can configure the server address in `application.properties`:
 
 ```properties
-spring.grpc.client.channels.local.address=static://localhost:9090
+spring.grpc.client.channels.spring-integration.address=static://localhost:9090
 ```
 
 ## Output

@@ -16,8 +16,6 @@
 
 package org.springframework.integration.samples.grpc.client;
 
-import java.util.Collections;
-
 import io.grpc.ManagedChannel;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -55,17 +53,21 @@ public class GrpcClientConfiguration {
 
 	/**
 	 * Create an integration flow for outbound gRPC requests with single responses.
+	 * This flow specifies the method name to be used.
 	 * @param managedChannel the gRPC managed channel
 	 * @return the integration flow
 	 */
 	@Bean
 	IntegrationFlow grpcOutboundFlowSingleResponse(ManagedChannel managedChannel) {
 		return flow -> flow
-				.handle(Grpc.outboundGateway(managedChannel, SimpleGrpc.class));
+				.handle(Grpc.outboundGateway(managedChannel, SimpleGrpc.class)
+						.methodName("SayHello"));
 	}
 
 	/**
 	 * Create an integration flow for outbound gRPC requests with streaming responses.
+	 * This flow does not specify the method name to be used, this means that the method
+	 * name is extracted from the message headers.
 	 * @param managedChannel the gRPC managed channel
 	 * @return the integration flow
 	 */
@@ -87,7 +89,6 @@ public class GrpcClientConfiguration {
 		return args -> {
 			HelloReply reply = new MessagingTemplate().convertSendAndReceive(grpcInputChannelSingleResponse,
 					HelloRequest.newBuilder().setName("Jack").build(),
-					Collections.singletonMap(GrpcHeaders.SERVICE_METHOD, "SayHello"),
 					HelloReply.class);
 
 			LOGGER.info("Single response reply: " + (reply != null ? reply.getMessage() : "No reply received"));
