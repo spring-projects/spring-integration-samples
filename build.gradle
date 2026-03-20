@@ -330,7 +330,7 @@ subprojects { subproject ->
 			protobufVersion = '4.29.4'
 			slf4jVersion = '2.0.17'
 			springCloudVersion = '2025.1.0'
-			springGrpc = '1.0.2'
+			springGrpc = '1.1.0-SNAPSHOT'
 			springIntegrationVersion = '7.1.0-SNAPSHOT'
 			set('spring-integration.version', "$springIntegrationVersion")
 			springIntegrationSocialTwiterVersion = '1.0.1.BUILD-SNAPSHOT'
@@ -889,14 +889,12 @@ project('grpc-client') {
 	dependencies {
 		implementation platform("org.springframework.grpc:spring-grpc-dependencies:$springGrpc")
 		implementation 'org.springframework.boot:spring-boot-starter-integration'
-		implementation "org.springframework.grpc:spring-grpc-client-spring-boot-starter"
+		implementation "org.springframework.boot:spring-boot-starter-grpc-client"
 		implementation 'org.springframework.integration:spring-integration-grpc'
-
-		implementation("com.google.protobuf:protobuf-java:$protobufVersion")
 
 		//Test
 		testImplementation 'org.springframework.boot:spring-boot-starter-test'
-		testImplementation "org.springframework.grpc:spring-grpc-test"
+		testImplementation "org.springframework.boot:spring-boot-starter-grpc-test"
 
 		configurations {
 			testRuntimeOnly.exclude group: 'io.grpc', module: 'grpc-netty'
