@@ -887,7 +887,7 @@ project('grpc-client') {
 
 	dependencies {
 		implementation 'org.springframework.boot:spring-boot-starter-integration'
-		implementation "org.springframework.boot:spring-boot-starter-grpc-client"
+		implementation 'org.springframework.boot:spring-boot-starter-grpc-client'
 		implementation 'org.springframework.integration:spring-integration-grpc'
 
 		//Test
@@ -934,6 +934,61 @@ project('grpc-client') {
 		classpath = sourceSets.main.runtimeClasspath
 	}
 
+}
+
+project('grpc-server') {
+	description = 'gRPC server Basic Sample'
+
+	apply plugin: 'org.springframework.boot'
+	apply plugin: 'com.google.protobuf'
+
+	dependencies {
+		implementation 'org.springframework.boot:spring-boot-starter-integration'
+		implementation 'org.springframework.boot:spring-boot-starter-grpc-server'
+		implementation 'org.springframework.integration:spring-integration-grpc'
+
+		//Test
+		testImplementation "org.springframework.boot:spring-boot-starter-grpc-test"
+
+		configurations {
+			testRuntimeOnly.exclude group: 'io.grpc', module: 'grpc-netty'
+		}
+	}
+
+	protobuf {
+		protoc {
+			artifact = "com.google.protobuf:protoc:$protobufVersion"
+		}
+		plugins {
+			grpc {
+				artifact = "io.grpc:protoc-gen-grpc-java:$grpcVersion"
+			}
+		}
+		generateProtoTasks {
+			all()*.plugins {
+				grpc {
+					option '@generated=omit'
+				}
+			}
+		}
+	}
+// Exclude generated protobuf/grpc code from checkstyle
+	checkstyleMain {
+		source = fileTree('src/main/java')
+	}
+
+	checkstyleTest {
+		source = fileTree('src/test/java')
+	}
+
+	springBoot {
+		mainClass = 'org.springframework.integration.samples.grpc.server.Application'
+	}
+
+	tasks.register('run', JavaExec) {
+		mainClass = 'org.springframework.integration.samples.grpc.server.Application'
+		classpath = sourceSets.main.runtimeClasspath
+	}
 }
 
 project('jdbc') {
