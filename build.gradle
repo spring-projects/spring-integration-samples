@@ -900,7 +900,6 @@ project('grpc-client') {
 		testImplementation "org.springframework.grpc:spring-grpc-test"
 
 		configurations {
-			testImplementation.exclude group: 'io.grpc', module: 'grpc-netty'
 			testRuntimeOnly.exclude group: 'io.grpc', module: 'grpc-netty'
 		}
 	}
