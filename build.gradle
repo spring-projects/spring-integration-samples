@@ -353,7 +353,6 @@ subprojects { subproject ->
 				mavenBom "com.fasterxml.jackson:jackson-bom:$jacksonVersion"
 				mavenBom "tools.jackson:jackson-bom:$jackson3Version"
 				mavenBom "org.junit:junit-bom:$junitJupiterVersion"
-				mavenBom "org.springframework.grpc:spring-grpc-dependencies:$springGrpc"
 			}
 		}
 
@@ -575,8 +574,7 @@ project('barrier') {
 	dependencies {
 		api 'org.springframework.boot:spring-boot-starter-web'
 		api 'org.springframework.boot:spring-boot-starter-integration'
-//		TODO remove the version when boot bom is updated
-		api 'org.springframework.boot:spring-boot-starter-rabbitmq:4.1.0-SNAPSHOT'
+		api 'org.springframework.boot:spring-boot-starter-amqp'
 		api 'org.springframework.integration:spring-integration-amqp'
 		api 'org.springframework.integration:spring-integration-http'
 
@@ -889,6 +887,7 @@ project('grpc-client') {
 	apply plugin: 'com.google.protobuf'
 
 	dependencies {
+		implementation platform("org.springframework.grpc:spring-grpc-dependencies:$springGrpc")
 		implementation 'org.springframework.boot:spring-boot-starter-integration'
 		implementation "org.springframework.grpc:spring-grpc-client-spring-boot-starter"
 		implementation 'org.springframework.integration:spring-integration-grpc'
