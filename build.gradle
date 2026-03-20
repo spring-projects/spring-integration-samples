@@ -14,6 +14,7 @@ buildscript {
 		classpath 'org.gretty:gretty:4.1.10'
 		classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion"
 		classpath "org.jetbrains.kotlin:kotlin-allopen:$kotlinVersion"
+		classpath "com.google.protobuf:protobuf-gradle-plugin:0.9.6"
 	}
 }
 
@@ -306,6 +307,7 @@ subprojects { subproject ->
 			flexjsonVersion = '3.3'
 			graalvmVersion = '25.0.2'
 			groovyVersion = '5.0.3'
+			grpcVersion = '1.79.0'
 			hsqldbVersion = '2.7.4'
 			h2Version = '2.4.240'
 			jacksonVersion = '2.21.0'
@@ -325,8 +327,10 @@ subprojects { subproject ->
 			mongoDriverVersion = '5.6.2'
 			oracleDriverVersion = '23.26.0.0.0'
 			postgresVersion = '42.7.9'
+			protobufVersion = '4.29.4'
 			slf4jVersion = '2.0.17'
 			springCloudVersion = '2025.1.0'
+			springGrpc = '1.0.2'
 			springIntegrationVersion = '7.1.0-SNAPSHOT'
 			set('spring-integration.version', "$springIntegrationVersion")
 			springIntegrationSocialTwiterVersion = '1.0.1.BUILD-SNAPSHOT'
@@ -349,6 +353,7 @@ subprojects { subproject ->
 				mavenBom "com.fasterxml.jackson:jackson-bom:$jacksonVersion"
 				mavenBom "tools.jackson:jackson-bom:$jackson3Version"
 				mavenBom "org.junit:junit-bom:$junitJupiterVersion"
+				mavenBom "org.springframework.grpc:spring-grpc-dependencies:$springGrpc"
 			}
 		}
 
@@ -877,6 +882,65 @@ project('cafe-dsl') {
 	}
 }
 
+project('grpc-client') {
+	description = 'gRPC client Basic Sample'
+
+	apply plugin: 'org.springframework.boot'
+	apply plugin: 'com.google.protobuf'
+
+	dependencies {
+		implementation 'org.springframework.boot:spring-boot-starter-integration'
+		implementation "org.springframework.grpc:spring-grpc-client-spring-boot-starter"
+		implementation 'org.springframework.integration:spring-integration-grpc'
+
+		implementation("com.google.protobuf:protobuf-java:$protobufVersion")
+
+		//Test
+		testImplementation 'org.springframework.boot:spring-boot-starter-test'
+		testImplementation "org.springframework.grpc:spring-grpc-test"
+
+		configurations {
+			testRuntimeOnly.exclude group: 'io.grpc', module: 'grpc-netty'
+		}
+	}
+
+
+	protobuf {
+		protoc {
+			artifact = "com.google.protobuf:protoc:$protobufVersion"
+		}
+		plugins {
+			grpc {
+				artifact = "io.grpc:protoc-gen-grpc-java:$grpcVersion"
+			}
+		}
+		generateProtoTasks {
+			all()*.plugins {
+				grpc {
+					option '@generated=omit'
+				}
+			}
+		}
+	}
+	// Exclude generated protobuf/grpc code from checkstyle
+	checkstyleMain {
+		source = fileTree('src/main/java')
+	}
+
+	checkstyleTest {
+		source = fileTree('src/test/java')
+	}
+
+	springBoot {
+		mainClass = 'org.springframework.integration.samples.Application'
+	}
+
+	tasks.register('run', JavaExec) {
+		mainClass = 'org.springframework.integration.samples.Application'
+		classpath = sourceSets.main.runtimeClasspath
+	}
+
+}
 
 project('jdbc') {
 	description = 'JDBC Basic Sample'
