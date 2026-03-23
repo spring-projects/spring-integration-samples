@@ -330,7 +330,6 @@ subprojects { subproject ->
 			protobufVersion = '4.29.4'
 			slf4jVersion = '2.0.17'
 			springCloudVersion = '2025.1.0'
-			springGrpc = '1.1.0-SNAPSHOT'
 			springIntegrationVersion = '7.1.0-SNAPSHOT'
 			set('spring-integration.version', "$springIntegrationVersion")
 			springIntegrationSocialTwiterVersion = '1.0.1.BUILD-SNAPSHOT'

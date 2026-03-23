@@ -47,12 +47,10 @@ public class GrpcClientConfiguration {
 
 	private static final Log LOGGER = LogFactory.getLog(GrpcClientConfiguration.class);
 
-	@Value("${spring.grpc.client.channels.spring-integration.address}")
-	private String grpcServerAddress;
-
 	@Bean
-	ManagedChannel managedChannel(GrpcChannelFactory factory) {
-		return factory.createChannel(this.grpcServerAddress);
+	ManagedChannel managedChannel(GrpcChannelFactory factory, @Value("${spring.grpc.client.channels" +
+			".spring-integration.address}") String grpcServerAddress) {
+		return factory.createChannel(grpcServerAddress);
 	}
 
 	/**
