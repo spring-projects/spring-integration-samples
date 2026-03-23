@@ -37,8 +37,6 @@ import static org.awaitility.Awaitility.await;
  * @author Glenn Renfro
  */
 @SpringBootTest(properties = {
-		"spring.grpc.test.inprocess.enabled=true",
-		"spring.grpc.test.inprocess.exclusive=true",
 		"spring.grpc.server.inprocess.name=test",
 		"spring.grpc.client.channels.spring-integration.address=in-process:test"
 })

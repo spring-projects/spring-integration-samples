@@ -887,13 +887,11 @@ project('grpc-client') {
 	apply plugin: 'com.google.protobuf'
 
 	dependencies {
-		implementation platform("org.springframework.grpc:spring-grpc-dependencies:$springGrpc")
 		implementation 'org.springframework.boot:spring-boot-starter-integration'
 		implementation "org.springframework.boot:spring-boot-starter-grpc-client"
 		implementation 'org.springframework.integration:spring-integration-grpc'
 
 		//Test
-		testImplementation 'org.springframework.boot:spring-boot-starter-test'
 		testImplementation "org.springframework.boot:spring-boot-starter-grpc-test"
 
 		configurations {
