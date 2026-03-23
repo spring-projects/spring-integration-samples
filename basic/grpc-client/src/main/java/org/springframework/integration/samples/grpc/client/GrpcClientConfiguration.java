@@ -48,8 +48,8 @@ public class GrpcClientConfiguration {
 	private static final Log LOGGER = LogFactory.getLog(GrpcClientConfiguration.class);
 
 	@Bean
-	ManagedChannel managedChannel(GrpcChannelFactory factory, @Value("${spring.grpc.client.channels" +
-			".spring-integration.address}") String grpcServerAddress) {
+	ManagedChannel managedChannel(GrpcChannelFactory factory,
+			@Value("${spring.grpc.client.channels.spring-integration.address}") String grpcServerAddress) {
 		return factory.createChannel(grpcServerAddress);
 	}
 
