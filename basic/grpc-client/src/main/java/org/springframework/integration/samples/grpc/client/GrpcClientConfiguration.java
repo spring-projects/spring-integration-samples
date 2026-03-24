@@ -23,6 +23,7 @@ import reactor.core.publisher.Flux;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -47,8 +48,9 @@ public class GrpcClientConfiguration {
 	private static final Log LOGGER = LogFactory.getLog(GrpcClientConfiguration.class);
 
 	@Bean
-	ManagedChannel managedChannel(GrpcChannelFactory factory) {
-		return factory.createChannel("spring-integration");
+	ManagedChannel managedChannel(GrpcChannelFactory factory,
+			@Value("${spring.grpc.client.channels.spring-integration.address}") String grpcServerAddress) {
+		return factory.createChannel(grpcServerAddress);
 	}
 
 	/**
