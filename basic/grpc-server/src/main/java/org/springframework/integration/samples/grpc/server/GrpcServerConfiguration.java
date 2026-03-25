@@ -26,9 +26,9 @@ import org.springframework.integration.grpc.inbound.GrpcInboundGateway;
 import org.springframework.messaging.Message;
 
 /**
- * Configure {@link org.springframework.integration.grpc.inbound.GrpcInboundGateway}.
+ * Configures {@link GrpcInboundGateway}.
  * <p>
- * Demonstrate various gRPC communication patterns:
+ * Demonstrates various gRPC communication patterns:
  * <ul>
  * <li>Unary RPC (SayHello)</li>
  * <li>Server streaming RPC (StreamHello)</li>

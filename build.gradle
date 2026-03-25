@@ -892,7 +892,7 @@ project('grpc-client') {
 
 		//Test
 		testImplementation ('org.springframework.boot:spring-boot-starter-grpc-test') {
-			exclude group: 'io.grpc', module: 'grpc-netty'
+			exclude group: 'io.grpc', module: 'grpc-netty' //TODO Review this exclusion prior to 7.1.0 release
 		}
 	}
 
@@ -947,7 +947,7 @@ project('grpc-server') {
 
 		//Test
 		testImplementation ('org.springframework.boot:spring-boot-starter-grpc-test') {
-			exclude group: 'io.grpc', module: 'grpc-netty'
+			exclude group: 'io.grpc', module: 'grpc-netty' //TODO Review this exclusion prior to 7.1.0 release
 		}
 	}
 
