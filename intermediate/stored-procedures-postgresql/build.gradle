@@ -1,0 +1,15 @@
+description = 'PostgreSQL Stored Procedures Sample'
+
+apply plugin: 'application'
+
+application {
+	mainClass = 'org.springframework.integration.samples.storedprocedure.Main'
+}
+
+dependencies {
+	api 'org.springframework.integration:spring-integration-jdbc'
+	api "org.postgresql:postgresql:$postgresVersion"
+	api "org.apache.commons:commons-dbcp2:$commonsDbcpVersion"
+	api "org.apache.commons:commons-pool2:$commonsPoolVersion"
+	api "org.apache.logging.log4j:log4j-core:$log4jVersion"
+}

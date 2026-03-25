@@ -1,0 +1,12 @@
+description = 'Splitter-Aggregator-Reaper Sample'
+
+apply plugin: 'application'
+
+application {
+	mainClass = 'org.springframework.integration.samples.splitteraggregator.Main'
+}
+
+dependencies {
+	api 'org.springframework.integration:spring-integration-core'
+	api "org.apache.logging.log4j:log4j-core:$log4jVersion"
+}

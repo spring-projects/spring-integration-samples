@@ -1,0 +1,38 @@
+description = 'Retry and More Sample'
+
+dependencies {
+	api 'org.springframework.integration:spring-integration-stream'
+	api 'org.springframework.integration:spring-integration-amqp'
+	api 'org.springframework.integration:spring-integration-ftp'
+	api 'org.springframework.integration:spring-integration-file'
+	api("org.mockito:mockito-core:$mockitoVersion") {
+		exclude group: 'org.hamcrest'
+	}
+	api "org.hamcrest:hamcrest-library:$hamcrestVersion"
+	api "org.apache.logging.log4j:log4j-core:$log4jVersion"
+}
+
+tasks.register('runCircuitBreakerDemo', JavaExec) {
+	mainClass = 'org.springframework.integration.samples.advice.CircuitBreakerDemo'
+	classpath = sourceSets.main.runtimeClasspath
+}
+
+tasks.register('runFileTransferDeleteAfterSuccessDemo', JavaExec) {
+	mainClass = 'org.springframework.integration.samples.advice.FileTransferDeleteAfterSuccessDemo'
+	classpath = sourceSets.main.runtimeClasspath
+}
+
+tasks.register('runFileTransferRenameAfterFailureDemo', JavaExec) {
+	mainClass = 'org.springframework.integration.samples.advice.FileTransferRenameAfterFailureDemo'
+	classpath = sourceSets.main.runtimeClasspath
+}
+
+tasks.register('runStatefulRetryDemo', JavaExec) {
+	mainClass = 'org.springframework.integration.samples.advice.StatefulRetryDemo'
+	classpath = sourceSets.main.runtimeClasspath
+}
+
+tasks.register('runStatelessRetryDemo', JavaExec) {
+	mainClass = 'org.springframework.integration.samples.advice.StatelessRetryDemo'
+	classpath = sourceSets.main.runtimeClasspath
+}

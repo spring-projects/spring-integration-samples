@@ -1,0 +1,25 @@
+plugins {
+	id 'org.springframework.boot'
+}
+
+description = 'Barrier Sample'
+
+dependencies {
+	api 'org.springframework.boot:spring-boot-starter-web'
+	api 'org.springframework.boot:spring-boot-starter-integration'
+	api 'org.springframework.boot:spring-boot-starter-amqp'
+	api 'org.springframework.integration:spring-integration-amqp'
+	api 'org.springframework.integration:spring-integration-http'
+
+	testImplementation 'org.springframework.amqp:spring-rabbit-junit'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+}
+
+springBoot {
+	mainClass = 'org.springframework.integration.samples.barrier.Application'
+}
+
+tasks.register('run', JavaExec) {
+	mainClass = 'org.springframework.integration.samples.barrier.Application'
+	classpath = sourceSets.main.runtimeClasspath
+}

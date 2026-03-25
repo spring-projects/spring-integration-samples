@@ -1,0 +1,19 @@
+description = 'Dynamic TCP Client'
+
+apply plugin: 'org.springframework.boot'
+
+dependencies {
+	api 'org.springframework.boot:spring-boot-starter-integration'
+	api 'org.springframework.integration:spring-integration-ip'
+
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+}
+
+springBoot {
+	mainClass = 'org.springframework.integration.samples.dynamictcp.DynamicTcpClientApplication'
+}
+
+tasks.register('run', JavaExec) {
+	mainClass = 'org.springframework.integration.samples.dynamictcp.DynamicTcpClientApplication'
+	classpath = sourceSets.main.runtimeClasspath
+}

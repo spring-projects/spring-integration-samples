@@ -1,0 +1,17 @@
+description = 'MongoDb Basic Sample'
+
+dependencies {
+	api 'org.springframework.integration:spring-integration-mongodb'
+	api "org.apache.logging.log4j:log4j-core:$log4jVersion"
+	api "org.mongodb:mongodb-driver-sync:$mongoDriverVersion"
+}
+
+tasks.register('runMongoDbInboundAdapterDemo', JavaExec) {
+	mainClass = 'org.springframework.integration.samples.mongodb.inbound.MongoDbInboundAdapterDemo'
+	classpath = sourceSets.main.runtimeClasspath
+}
+
+tasks.register('runMongoDbOutboundAdapterDemo', JavaExec) {
+	mainClass = 'org.springframework.integration.samples.mongodb.inbound.MongoDbOutboundAdapterDemo'
+	classpath = sourceSets.main.runtimeClasspath
+}

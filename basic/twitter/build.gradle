@@ -1,0 +1,10 @@
+description = 'Twitter Basic Sample'
+
+dependencies {
+	api "org.springframework.integration:spring-integration-social-twitter:$springIntegrationSocialTwiterVersion"
+	api "org.apache.logging.log4j:log4j-core:$log4jVersion"
+}
+
+test {
+	exclude '**/*Sample*'
+}

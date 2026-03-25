@@ -1,0 +1,6 @@
+description = 'Error Handling Sample'
+
+dependencies {
+	api 'org.springframework.integration:spring-integration-stream'
+	api "org.apache.logging.log4j:log4j-core:$log4jVersion"
+}

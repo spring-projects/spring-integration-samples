@@ -1,0 +1,12 @@
+description = 'Cafe - With JMS Message Broker'
+
+dependencies {
+	api project(':cafe-si')
+	api("org.apache.activemq:artemis-server:$artemisVersion") {
+		exclude group: 'org.jboss.logmanager'
+	}
+	api "org.apache.activemq:artemis-jakarta-client:$artemisVersion"
+	api 'org.springframework.integration:spring-integration-jms'
+	api "jakarta.jms:jakarta.jms-api:$jmsApiVersion"
+	api "org.apache.logging.log4j:log4j-core:$log4jVersion"
+}

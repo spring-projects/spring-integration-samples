@@ -1,0 +1,16 @@
+description = 'Zip Channel Adapters Sample'
+
+apply plugin: 'application'
+
+application {
+	mainClass = 'org.springframework.integration.samples.zip.Main'
+}
+
+dependencies {
+	api 'org.springframework.integration:spring-integration-zip'
+	api "org.apache.logging.log4j:log4j-slf4j2-impl:$log4jVersion"
+}
+
+tasks.withType(JavaExec) {
+	standardInput = System.in
+}

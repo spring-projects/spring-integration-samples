@@ -1,0 +1,18 @@
+description = 'Mail Attachment Sample'
+
+apply plugin: 'application'
+
+application {
+	mainClass = 'org.springframework.integration.samples.mailattachments.Main'
+}
+
+dependencies {
+	api 'org.springframework.integration:spring-integration-mail'
+	api 'org.springframework.integration:spring-integration-file'
+	api "org.eclipse.angus:jakarta.mail:$mailVersion"
+	api "commons-io:commons-io:$commonsIoVersion"
+	api "org.apache.logging.log4j:log4j-core:$log4jVersion"
+
+	testImplementation 'org.springframework.integration:spring-integration-test'
+
+}

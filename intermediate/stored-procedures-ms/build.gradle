@@ -1,0 +1,18 @@
+description = 'MS SQLServer Stored Procedures Sample'
+
+apply plugin: 'application'
+
+application {
+	mainClass = 'org.springframework.integration.samples.storedprocedure.Main'
+}
+
+dependencies {
+	api 'org.springframework.integration:spring-integration-jdbc'
+	api "net.sourceforge.jtds:jtds:$jtdsVersion"
+	api "com.mchange:c3p0:$c3p0Version"
+	api "org.apache.logging.log4j:log4j-core:$log4jVersion"
+}
+
+test {
+	exclude '**/StringConversionServiceTest*'
+}

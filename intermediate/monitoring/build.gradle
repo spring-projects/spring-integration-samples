@@ -1,0 +1,19 @@
+description = 'Monitoring Application'
+
+apply plugin: 'war'
+apply plugin: 'org.gretty'
+apply plugin: 'application'
+apply plugin: 'eclipse-wtp'
+
+application {
+	mainClass = 'org.springintegration.SpringIntegrationTest'
+}
+
+dependencies {
+	api 'org.springframework.integration:spring-integration-jmx'
+	api "org.springframework.integration:spring-integration-social-twitter:$springIntegrationSocialTwiterVersion"
+	api 'org.springframework.integration:spring-integration-groovy'
+	api 'org.springframework:spring-webmvc'
+	api "javax.servlet:jstl:$jstlVersion"
+	api "org.apache.logging.log4j:log4j-core:$log4jVersion"
+}

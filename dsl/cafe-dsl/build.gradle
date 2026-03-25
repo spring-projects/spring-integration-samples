@@ -1,0 +1,20 @@
+description = 'Java DSL Cafe Sample'
+
+apply plugin: 'org.springframework.boot'
+
+dependencies {
+	api project(":cafe-si")
+	api 'org.springframework.boot:spring-boot-starter-integration'
+	api 'org.springframework.integration:spring-integration-core'
+	api 'org.springframework.integration:spring-integration-stream'
+
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+}
+
+springBoot {
+	mainClass = 'org.springframework.integration.samples.dsl.cafe.lambda.Application'
+}
+
+tasks.withType(JavaExec) {
+	standardInput = System.in
+}

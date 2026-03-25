@@ -1,0 +1,17 @@
+description = 'FTP Basic Sample'
+
+dependencies {
+	api 'org.springframework.integration:spring-integration-ftp'
+	api "commons-io:commons-io:$commonsIoVersion"
+	api "org.apache.ftpserver:ftpserver-core:$ftpServerVersion"
+	api "org.slf4j:slf4j-api:$slf4jVersion"
+
+	runtimeOnly "org.slf4j:slf4j-log4j12:$slf4jVersion"
+
+	testImplementation "org.apache.logging.log4j:log4j-core:$log4jVersion"
+	testImplementation 'org.springframework.integration:spring-integration-test'
+}
+
+test {
+	include '**/TestSuite*'
+}

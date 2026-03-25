@@ -1,0 +1,14 @@
+description = 'Transaction Synchronization Sample'
+
+apply plugin: 'application'
+
+application {
+	mainClass = 'org.springframework.integration.samples.advice.TransactionSynchronizationDemo'
+}
+
+dependencies {
+	api 'org.springframework.integration:spring-integration-jdbc'
+	api 'org.springframework.integration:spring-integration-file'
+	api "com.h2database:h2:$h2Version"
+	api "org.apache.logging.log4j:log4j-core:$log4jVersion"
+}

@@ -1,0 +1,37 @@
+description = 'Loan Shark Sample'
+
+apply plugin: 'war'
+apply plugin: 'org.gretty'
+apply plugin: 'eclipse-wtp'
+
+dependencies {
+	api 'org.springframework.integration:spring-integration-ip'
+	api 'org.springframework:spring-webmvc'
+	api 'org.springframework:spring-orm'
+	api 'org.springframework:spring-aop'
+	api 'org.springframework:spring-aspects'
+	api "org.aspectj:aspectjtools:$aspectjVersion"
+	api 'org.springframework:spring-jdbc'
+	api 'org.springframework:spring-tx'
+	api 'org.springframework:spring-context'
+	api "commons-fileupload:commons-fileupload:$commonsFileUploadVersion"
+	api "org.apache.commons:commons-dbcp2:$commonsDbcpVersion"
+	api "commons-digester:commons-digester:$commonsDigesterVersion"
+	api "org.apache.commons:commons-pool2:$commonsPoolVersion"
+	api "org.apache.tiles:tiles-jsp:$tilesJspVersion"
+	api "joda-time:joda-time:$jodaTimeVersion"
+	api "jakarta.transaction:jakarta.transaction-api:$jtaVersion"
+	api "org.hsqldb:hsqldb:$hsqldbVersion"
+	api "net.sf.flexjson:flexjson:$flexjsonVersion"
+	api "org.hibernate.validator:hibernate-validator:$hibernateValidatorVersion"
+	api "jakarta.persistence:jakarta.persistence-api:$jpaApiVersion"
+	api "org.hibernate.orm:hibernate-core:$hibernateVersion"
+	api "org.springframework.webflow:spring-js-resources:$springWebFlowVersion"
+	api "org.slf4j:slf4j-api:$slf4jVersion"
+
+
+	runtimeOnly 'org.glassfish.expressly:expressly:6.0.0'
+	runtimeOnly "org.apache.logging.log4j:log4j-core:$log4jVersion"
+	runtimeOnly "org.slf4j:slf4j-log4j12:$slf4jVersion"
+	runtimeOnly "org.slf4j:jcl-over-slf4j:$slf4jVersion"
+}

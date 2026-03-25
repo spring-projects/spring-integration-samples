@@ -1,0 +1,26 @@
+description = 'AMQP Basic Sample'
+
+dependencies {
+	api 'org.springframework.integration:spring-integration-stream'
+	api 'org.springframework.integration:spring-integration-amqp'
+	api "org.apache.logging.log4j:log4j-core:$log4jVersion"
+	runtimeOnly "org.slf4j:slf4j-jcl:$slf4jVersion"
+}
+
+tasks.register('runSimple', JavaExec) {
+	mainClass = 'org.springframework.integration.samples.amqp.SampleSimple'
+	classpath = sourceSets.main.runtimeClasspath
+	standardInput = System.in
+	// 	useful for debugging the GradleWorkerMain
+	//		jvmArgs "-agentlib:jdwp=transport=dt_socket,server=y,suspend=y,address=8000"
+
+}
+
+tasks.register('runPubConfirmsReturns', JavaExec) {
+	mainClass = 'org.springframework.integration.samples.amqp.SamplePubConfirmsReturns'
+	classpath = sourceSets.main.runtimeClasspath
+	standardInput = System.in
+	// 	useful for debugging the GradleWorkerMain
+	//		jvmArgs "-agentlib:jdwp=transport=dt_socket,server=y,suspend=y,address=8000"
+
+}

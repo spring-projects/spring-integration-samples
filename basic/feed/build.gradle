@@ -1,0 +1,6 @@
+description = 'Feed (RSS/ATOM) Basic Sample'
+
+dependencies {
+	api 'org.springframework.integration:spring-integration-feed'
+	api "org.apache.logging.log4j:log4j-core:$log4jVersion"
+}

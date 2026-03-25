@@ -1,0 +1,10 @@
+description = 'XMPP Basic Sample'
+
+dependencies {
+	api 'org.springframework.integration:spring-integration-xmpp'
+	api "org.apache.logging.log4j:log4j-core:$log4jVersion"
+}
+
+test {
+	exclude '**/*Sample*'
+}
