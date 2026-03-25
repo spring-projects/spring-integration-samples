@@ -14,9 +14,21 @@ The sample uses a simple greeting service defined in a Protocol Buffers (protobu
 
 ### Command Line Using Gradle
 
+To start the gRPC server application using Spring Boot run the following:
+
     $ gradlew :grpc-server:bootRun
 
-This will start the gRPC server application using Spring Boot.
+To test the gRPC server application run the gRPC client sample using Spring Boot run as follows:
+    
+    $ gradlew :grpc-client:bootRun
+
+You should see output that looks like the following:
+
+```log
+2026-03-25T11:10:18.538-04:00  INFO 91646 --- [           main] o.s.i.s.g.c.GrpcClientConfiguration      : Single response reply: Hello Jack
+2026-03-25T11:10:18.544-04:00  INFO 91646 --- [ault-executor-0] o.s.i.s.g.c.GrpcClientConfiguration      : Stream received reply: Hello Stream Jane
+2026-03-25T11:10:18.545-04:00  INFO 91646 --- [ault-executor-0] o.s.i.s.g.c.GrpcClientConfiguration      : Stream received reply: Hello again!
+```
 
 ## Testing the sample
 

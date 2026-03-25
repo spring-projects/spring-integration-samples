@@ -39,8 +39,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @author Glenn Renfro
  */
 @SpringBootTest({
-		"spring.grpc.server.inprocess.name=test",
-		"spring.grpc.client.channels.spring-integration.address=in-process:test"
+		"spring.grpc.server.inprocess.name=test"
 })
 @ImportGrpcClients(
 		types = {
@@ -88,8 +87,9 @@ class GrpcServerTests {
 
 		assertThat(replyLatch.await(10_000, TimeUnit.MILLISECONDS)).isTrue();
 
-		assertThat(replies.get(0)).extracting(HelloReply::getMessage).isEqualTo("Hello Stream Jane");
-		assertThat(replies.get(1)).extracting(HelloReply::getMessage).isEqualTo("Hello again!");
+		assertThat(replies)
+				.extracting(HelloReply::getMessage)
+				.containsOnly("Hello Stream Jane", "Hello again!");
 	}
 
 	/**

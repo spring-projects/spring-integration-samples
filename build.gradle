@@ -891,10 +891,8 @@ project('grpc-client') {
 		implementation 'org.springframework.integration:spring-integration-grpc'
 
 		//Test
-		testImplementation "org.springframework.boot:spring-boot-starter-grpc-test"
-
-		configurations {
-			testRuntimeOnly.exclude group: 'io.grpc', module: 'grpc-netty'
+		testImplementation ('org.springframework.boot:spring-boot-starter-grpc-test') {
+			exclude group: 'io.grpc', module: 'grpc-netty'
 		}
 	}
 
@@ -926,11 +924,11 @@ project('grpc-client') {
 	}
 
 	springBoot {
-		mainClass = 'org.springframework.integration.samples.Application'
+		mainClass = 'org.springframework.integration.samples.grpc.client.Application'
 	}
 
 	tasks.register('run', JavaExec) {
-		mainClass = 'org.springframework.integration.samples.Application'
+		mainClass = 'org.springframework.integration.samples.grpc.client.Application'
 		classpath = sourceSets.main.runtimeClasspath
 	}
 
@@ -948,10 +946,8 @@ project('grpc-server') {
 		implementation 'org.springframework.integration:spring-integration-grpc'
 
 		//Test
-		testImplementation "org.springframework.boot:spring-boot-starter-grpc-test"
-
-		configurations {
-			testRuntimeOnly.exclude group: 'io.grpc', module: 'grpc-netty'
+		testImplementation ('org.springframework.boot:spring-boot-starter-grpc-test') {
+			exclude group: 'io.grpc', module: 'grpc-netty'
 		}
 	}
 

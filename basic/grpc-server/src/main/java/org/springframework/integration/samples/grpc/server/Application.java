@@ -20,7 +20,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 /**
- * Demonstrate Spring Integration's
+ * The Spring Boot application to demonstrate Spring Integration's
  * {@link org.springframework.integration.grpc.inbound.GrpcInboundGateway} support.
  *
  * @author Glenn Renfro
