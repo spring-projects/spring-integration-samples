@@ -1,0 +1,24 @@
+description = 'Spring Integration Rest HTTP Path Usage Demo'
+
+apply plugin: 'war'
+apply plugin: 'org.gretty'
+apply plugin: 'eclipse-wtp'
+
+dependencies {
+	api 'org.springframework.integration:spring-integration-http'
+	api 'org.springframework:spring-webmvc'
+	api 'org.springframework:spring-oxm'
+	api 'org.springframework:spring-tx'
+	api 'org.springframework:spring-jdbc'
+	api 'org.springframework:spring-context'
+	api 'org.springframework:spring-aop'
+	api 'tools.jackson.core:jackson-databind'
+	api "org.springframework.security:spring-security-web:$springSecurityVersion"
+	api "org.springframework.security:spring-security-config:$springSecurityVersion"
+	api "org.apache.logging.log4j:log4j-core:$log4jVersion"
+	api "com.sun.xml.bind:jaxb-impl:$jaxbVersion"
+}
+
+test {
+	exclude '**/RestHttpClientTest*'
+}

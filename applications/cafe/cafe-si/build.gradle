@@ -1,0 +1,15 @@
+plugins {
+	id 'application'
+}
+
+description = 'Cafe - Pure Spring Integration'
+
+application {
+	mainClass = 'org.springframework.integration.samples.cafe.xml.CafeDemoApp'
+}
+
+dependencies {
+	api 'org.springframework.integration:spring-integration-stream'
+	api 'com.fasterxml.jackson.core:jackson-databind'
+	api "org.apache.logging.log4j:log4j-core:$log4jVersion"
+}

@@ -1,0 +1,8 @@
+description = 'Advanced Testing Examples'
+
+dependencies {
+	api "jakarta.jms:jakarta.jms-api:$jmsApiVersion"
+	api 'org.springframework.integration:spring-integration-jms'
+	api 'org.springframework.integration:spring-integration-groovy'
+	api "org.apache.logging.log4j:log4j-core:$log4jVersion"
+}

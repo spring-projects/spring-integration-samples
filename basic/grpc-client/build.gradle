@@ -1,0 +1,51 @@
+plugins {
+	id 'org.springframework.boot'
+	id 'com.google.protobuf'
+}
+
+description = 'gRPC client Basic Sample'
+
+dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter-integration'
+	implementation "org.springframework.boot:spring-boot-starter-grpc-client"
+	implementation 'org.springframework.integration:spring-integration-grpc'
+
+	//Test
+	testImplementation "org.springframework.boot:spring-boot-starter-grpc-test"
+}
+
+protobuf {
+	protoc {
+		artifact = "com.google.protobuf:protoc:$protobufVersion"
+	}
+	plugins {
+		grpc {
+			artifact = "io.grpc:protoc-gen-grpc-java:$grpcVersion"
+		}
+	}
+	generateProtoTasks {
+		all()*.plugins {
+			grpc {
+				option '@generated=omit'
+			}
+		}
+	}
+}
+
+// Exclude generated protobuf/grpc code from checkstyle
+checkstyleMain {
+	source = fileTree('src/main/java')
+}
+
+checkstyleTest {
+	source = fileTree('src/test/java')
+}
+
+springBoot {
+	mainClass = 'org.springframework.integration.samples.Application'
+}
+
+tasks.register('run', JavaExec) {
+	mainClass = 'org.springframework.integration.samples.Application'
+	classpath = sourceSets.main.runtimeClasspath
+}

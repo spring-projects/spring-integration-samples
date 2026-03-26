@@ -1,0 +1,7 @@
+description = 'Cafe - With AMQP Message Broker'
+
+dependencies {
+	api project(':cafe-si')
+	api 'org.springframework.integration:spring-integration-amqp'
+	api "org.apache.logging.log4j:log4j-core:$log4jVersion"
+}

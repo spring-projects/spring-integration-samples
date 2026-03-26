@@ -1,0 +1,24 @@
+description = 'Hello World Sample for Kotlin Developers'
+
+apply plugin: 'kotlin'
+apply plugin: 'kotlin-spring'
+
+dependencies {
+	api "org.apache.logging.log4j:log4j-core:$log4jVersion"
+	api "org.springframework.integration:spring-integration-core"
+	api "org.jetbrains.kotlin:kotlin-stdlib"
+	api "org.jetbrains.kotlin:kotlin-reflect"
+	testImplementation "org.apache.logging.log4j:log4j-core-test:$log4jVersion"
+	testImplementation "org.awaitility:awaitility:$awaitilityVersion"
+	testImplementation("org.assertj:assertj-core:$assertjVersion")
+}
+
+tasks.register ('runHelloWorldApp', JavaExec) {
+	mainClass = 'org.springframework.integration.samples.helloworld.HelloWorldApp'
+	classpath = sourceSets.main.runtimeClasspath
+}
+
+tasks.register ('runPollerApp', JavaExec) {
+	mainClass = 'org.springframework.integration.samples.helloworld.PollerApp'
+	classpath = sourceSets.main.runtimeClasspath
+}

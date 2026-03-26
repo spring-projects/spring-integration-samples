@@ -1,0 +1,24 @@
+description = 'Cafe Sample (Scripted Implementation)'
+
+dependencies {
+	api 'org.springframework.integration:spring-integration-stream'
+	api 'org.springframework.integration:spring-integration-groovy'
+	api 'org.springframework.integration:spring-integration-jmx'
+	api 'org.springframework.integration:spring-integration-rsocket'
+	api "org.jruby:jruby-complete:$jrubyVersion"
+	api "org.graalvm.sdk:graal-sdk:$graalvmVersion"
+	api "org.graalvm.polyglot:python:$graalvmVersion"
+	api "org.apache.groovy:groovy-jsr223:$groovyVersion"
+	api "org.apache.logging.log4j:log4j-core:$log4jVersion"
+}
+
+tasks.register('runCafeDemoApp', JavaExec) {
+	mainClass = 'org.springframework.integration.samples.cafe.demo.CafeDemoApp'
+	args project.hasProperty('lang') ? project.lang : ''
+	classpath = sourceSets.main.runtimeClasspath
+}
+
+tasks.register('runControlBus', JavaExec) {
+	mainClass = 'org.springframework.integration.samples.cafe.demo.ControlBusMain'
+	classpath = sourceSets.main.runtimeClasspath
+}

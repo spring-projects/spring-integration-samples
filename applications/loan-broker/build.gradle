@@ -1,0 +1,17 @@
+description = 'Loan Broker Sample'
+
+apply plugin: 'application'
+
+application {
+	mainClass = 'org.springframework.integration.samples.loanbroker.demo.LoanBrokerDemo'
+}
+
+dependencies {
+	api 'org.springframework.integration:spring-integration-ip'
+	api "org.apache.logging.log4j:log4j-core:$log4jVersion"
+}
+
+tasks.register('runLoanBrokerSharkDetectorDemo', JavaExec) {
+	mainClass = 'org.springframework.integration.samples.loanbroker.demo.LoanBrokerSharkDetectorDemo'
+	classpath = sourceSets.main.runtimeClasspath
+}

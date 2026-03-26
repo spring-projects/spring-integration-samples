@@ -1,0 +1,16 @@
+description = 'TCP-AMQP Basic Sample'
+
+apply plugin: 'application'
+
+application {
+	mainClass = 'org.springframework.integration.samples.tcpamqp.Main'
+}
+
+dependencies {
+	api 'org.springframework.integration:spring-integration-amqp'
+	api 'org.springframework.integration:spring-integration-ip'
+	api "org.slf4j:slf4j-api:$slf4jVersion"
+
+	runtimeOnly "org.apache.logging.log4j:log4j-core:$log4jVersion"
+	runtimeOnly "org.slf4j:slf4j-log4j12:$slf4jVersion"
+}

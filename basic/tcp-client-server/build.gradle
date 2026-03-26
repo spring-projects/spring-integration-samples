@@ -1,0 +1,14 @@
+description = 'TCP Client Server Sample'
+
+apply plugin: 'application'
+
+application {
+	mainClass = 'org.springframework.integration.samples.tcpclientserver.Main'
+}
+
+dependencies {
+	api 'org.springframework.integration:spring-integration-ip'
+	api "org.apache.commons:commons-lang3:$commonsLangVersion"
+	api 'org.springframework.integration:spring-integration-test'
+	api "org.apache.logging.log4j:log4j-core:$log4jVersion"
+}

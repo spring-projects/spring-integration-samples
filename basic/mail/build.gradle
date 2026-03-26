@@ -1,0 +1,18 @@
+description = 'Mail (IMAP + POP3) Sample'
+
+dependencies {
+	api 'org.springframework.integration:spring-integration-mail'
+	api 'org.springframework:spring-context'
+	api "org.eclipse.angus:jakarta.mail:$mailVersion"
+	api "org.apache.logging.log4j:log4j-core:$log4jVersion"
+}
+
+tasks.register('runGmailInboundPop3AdapterTestApp', JavaExec) {
+	mainClass = 'org.springframework.integration.samples.mail.imapidle.GmailInboundPop3AdapterTestApp'
+	classpath = sourceSets.main.runtimeClasspath
+}
+
+tasks.register('runGmailInboundImapIdleAdapterTestApp', JavaExec) {
+	mainClass = 'org.springframework.integration.samples.mail.imapidle.GmailInboundImapIdleAdapterTestApp'
+	classpath = sourceSets.main.runtimeClasspath
+}

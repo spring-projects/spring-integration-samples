@@ -1,0 +1,23 @@
+description = 'JPA Basic Sample'
+
+apply plugin: 'application'
+apply plugin: 'org.springframework.boot'
+
+application {
+	mainClass = 'org.springframework.integration.samples.jpa.Main'
+}
+
+dependencies {
+	api 'org.springframework.boot:spring-boot-starter-data-jpa'
+	api 'org.springframework.integration:spring-integration-jpa'
+	api "com.h2database:h2:$h2Version"
+
+	runtimeOnly 'org.springframework:spring-instrument'
+	runtimeOnly "jakarta.persistence:jakarta.persistence-api:$jpaApiVersion"
+
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+}
+
+tasks.withType(JavaExec) {
+	standardInput = System.in
+}

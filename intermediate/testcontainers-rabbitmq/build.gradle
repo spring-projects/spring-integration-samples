@@ -1,0 +1,30 @@
+description = 'Testcontainers RabbitMQ Sample'
+
+apply plugin: 'org.springframework.boot'
+
+springBoot {
+	mainClass = 'org.springframework.integration.samples.testcontainersrabbitmq.TestcontainersRabbitmqApplication'
+}
+
+dependencies {
+	api 'org.springframework.boot:spring-boot-starter-integration'
+	api 'org.springframework.integration:spring-integration-amqp'
+	api 'org.springframework.boot:spring-boot-starter-json'
+
+	testImplementation('org.springframework.boot:spring-boot-starter-test') {
+		exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
+	}
+	testImplementation 'org.springframework.integration:spring-integration-test'
+	testImplementation 'org.springframework.amqp:spring-rabbit-test'
+	testImplementation 'org.springframework.cloud:spring-cloud-starter'
+
+	testImplementation "org.testcontainers:testcontainers-junit-jupiter:$testcontainersVersion"
+	testImplementation 'com.playtika.testcontainers:embedded-rabbitmq:2.0.19'
+
+}
+
+dependencyManagement {
+	imports {
+		mavenBom "org.springframework.cloud:spring-cloud-dependencies:$springCloudVersion"
+	}
+}

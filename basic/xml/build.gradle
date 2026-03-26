@@ -1,0 +1,12 @@
+description = 'XML Sample'
+
+apply plugin: 'application'
+
+application {
+	mainClass = 'org.springframework.integration.samples.xml.BookOrderProcessingTestApp'
+}
+
+dependencies {
+	api 'org.springframework.integration:spring-integration-xml'
+	api "org.apache.logging.log4j:log4j-core:$log4jVersion"
+}

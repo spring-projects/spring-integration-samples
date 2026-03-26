@@ -1,0 +1,16 @@
+description = 'Odd-Even Sample'
+
+dependencies {
+	api 'org.springframework.integration:spring-integration-core'
+	api "org.apache.logging.log4j:log4j-core:$log4jVersion"
+}
+
+tasks.register('runCronOddEvenDemo', JavaExec) {
+	mainClass = 'org.springframework.integration.samples.oddeven.CronOddEvenDemo'
+	classpath = sourceSets.main.runtimeClasspath
+}
+
+tasks.register('runIntervalOddEvenDemoTestApp', JavaExec) {
+	mainClass = 'org.springframework.integration.samples.oddeven.IntervalOddEvenDemoTestApp'
+	classpath = sourceSets.main.runtimeClasspath
+}

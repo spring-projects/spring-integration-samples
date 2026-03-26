@@ -1,0 +1,15 @@
+plugins {
+	id 'application'
+}
+
+description = 'Enricher Basic Sample'
+
+application {
+	mainClass = 'org.springframework.integration.samples.enricher.Main'
+}
+
+dependencies {
+	api 'org.springframework.integration:spring-integration-core'
+	api "com.h2database:h2:$h2Version"
+	api "org.apache.logging.log4j:log4j-core:$log4jVersion"
+}

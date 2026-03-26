@@ -1,0 +1,7 @@
+description = 'JMX Basic Sample'
+
+dependencies {
+	api 'org.springframework.integration:spring-integration-jmx'
+	api 'org.springframework.integration:spring-integration-stream'
+	api "org.apache.logging.log4j:log4j-core:$log4jVersion"
+}

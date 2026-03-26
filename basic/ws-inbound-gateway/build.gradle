@@ -1,0 +1,16 @@
+description = 'WS Inbound Gateway Sample'
+
+apply plugin: 'war'
+apply plugin: 'org.gretty'
+apply plugin: 'eclipse-wtp'
+
+dependencies {
+	api 'org.springframework.integration:spring-integration-xml'
+	api 'org.springframework.integration:spring-integration-ws'
+	api 'org.springframework:spring-webmvc'
+	api "org.apache.logging.log4j:log4j-core:$log4jVersion"
+}
+
+test {
+	exclude '**/InContainerTests*'
+}
