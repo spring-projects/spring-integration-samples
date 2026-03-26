@@ -21,6 +21,7 @@ import java.time.Duration;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 
+import org.springframework.boot.grpc.test.autoconfigure.AutoConfigureTestGrpcTransport;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.boot.test.system.CapturedOutput;
@@ -36,12 +37,10 @@ import static org.awaitility.Awaitility.await;
  *
  * @author Glenn Renfro
  */
-@SpringBootTest(properties = {
-		"spring.grpc.server.inprocess.name=test",
-		"spring.grpc.client.channels.spring-integration.address=in-process:test"
-})
+@SpringBootTest
 @DirtiesContext
 @ExtendWith(OutputCaptureExtension.class)
+@AutoConfigureTestGrpcTransport
 public class GrpcClientTests {
 
 	/**

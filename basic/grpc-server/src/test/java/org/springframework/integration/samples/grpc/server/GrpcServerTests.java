@@ -28,6 +28,7 @@ import org.apache.commons.logging.LogFactory;
 import org.junit.jupiter.api.Test;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.grpc.test.autoconfigure.AutoConfigureTestGrpcTransport;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.grpc.client.ImportGrpcClients;
 
@@ -38,16 +39,13 @@ import static org.assertj.core.api.Assertions.assertThat;
  *
  * @author Glenn Renfro
  */
-@SpringBootTest({
-		"spring.grpc.server.inprocess.name=test"
-})
+@SpringBootTest
 @ImportGrpcClients(
 		types = {
 				SimpleGrpc.SimpleBlockingStub.class,
 				SimpleGrpc.SimpleStub.class
-		},
-		target = "in-process:test"
-)
+		})
+@AutoConfigureTestGrpcTransport
 class GrpcServerTests {
 
 	private static final Log LOGGER = LogFactory.getLog(GrpcServerTests.class);
