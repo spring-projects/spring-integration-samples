@@ -39,16 +39,12 @@ import static org.assertj.core.api.Assertions.assertThat;
  *
  * @author Glenn Renfro
  */
-@SpringBootTest({
-		"spring.grpc.server.inprocess.name=test"
-})
+@SpringBootTest
 @ImportGrpcClients(
 		types = {
 				SimpleGrpc.SimpleBlockingStub.class,
 				SimpleGrpc.SimpleStub.class
-		},
-		target = "in-process:test"
-)
+		})
 @AutoConfigureTestGrpcTransport
 class GrpcServerTests {
 

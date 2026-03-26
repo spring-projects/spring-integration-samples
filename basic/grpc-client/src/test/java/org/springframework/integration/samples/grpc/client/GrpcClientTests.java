@@ -37,11 +37,7 @@ import static org.awaitility.Awaitility.await;
  *
  * @author Glenn Renfro
  */
-@SpringBootTest(properties = {
-		"spring.grpc.server.inprocess.name=test",
-		"spring.grpc.client.channels.spring-integration.address=in-process:test"
-
-})
+@SpringBootTest
 @DirtiesContext
 @ExtendWith(OutputCaptureExtension.class)
 @AutoConfigureTestGrpcTransport
