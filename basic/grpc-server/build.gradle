@@ -11,7 +11,7 @@ dependencies {
 	implementation 'org.springframework.integration:spring-integration-grpc'
 
 	//Test
-	testImplementation ('org.springframework.boot:spring-boot-starter-grpc-test')
+	testImplementation ('org.springframework.boot:spring-boot-starter-grpc-server-test')
 }
 
 protobuf {
