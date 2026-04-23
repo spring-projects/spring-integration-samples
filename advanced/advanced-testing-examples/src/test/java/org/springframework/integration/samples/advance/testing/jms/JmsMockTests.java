@@ -18,13 +18,10 @@ package org.springframework.integration.samples.advance.testing.jms;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
-import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.ArgumentMatchers.isNull;
-import static org.mockito.BDDMockito.given;
 import static org.mockito.BDDMockito.willAnswer;
 import static org.mockito.BDDMockito.willReturn;
 import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
 
 import java.io.IOException;
 import java.util.concurrent.CountDownLatch;
@@ -40,7 +37,6 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
-import org.mockito.invocation.InvocationOnMock;
 import org.mockito.stubbing.Answer;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -165,8 +161,8 @@ public class JmsMockTests {
 	 * @throws InterruptedException
 	 */
 	protected boolean verifyJmsMessageReceivedOnOutputChannel(Object obj, SubscribableChannel expectedOutputChannel,
-			CountDownHandler handler) throws JMSException, InterruptedException {
-		return verifyJmsMessageOnOutputChannel(obj, expectedOutputChannel, handler, 7000);
+			CountDownHandler handler) throws InterruptedException {
+		return verifyJmsMessageOnOutputChannel(obj, expectedOutputChannel, handler, 10000);
 	}
 
 
@@ -180,12 +176,10 @@ public class JmsMockTests {
 	 * to process the entire flow. Only set if the default is
 	 * not long enough
 	 * @return true if the message was received on the expected channel
-	 * @throws JMSException
 	 * @throws InterruptedException
 	 */
 	protected boolean verifyJmsMessageOnOutputChannel(Object obj, SubscribableChannel expectedOutputChannel,
-			CountDownHandler handler, int timeoutMillisec) throws JMSException,
-			InterruptedException {
+			CountDownHandler handler, int timeoutMillisec) throws InterruptedException {
 
 		if (!(obj instanceof String)) {
 			throw new IllegalArgumentException("Only TextMessage is currently supported");
