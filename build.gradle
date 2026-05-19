@@ -216,6 +216,8 @@ subprojects { subproject ->
 
 		ext {
 			activeMqVersion = '5.17.5'
+			byteBuddyVersion = '1.17.5'
+			set('byte-buddy.version', byteBuddyVersion)
 			apacheSshdVersion = '2.7.0'
 			aspectjVersion = '1.9.7'
 			commonsDigesterVersion = '2.0'
