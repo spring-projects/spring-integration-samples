@@ -705,6 +705,8 @@ project('mqtt5') {
 
 		testImplementation 'org.springframework.boot:spring-boot-starter-test'
 		testImplementation "org.springframework.integration:spring-integration-test"
+		testImplementation "org.testcontainers:testcontainers:$testcontainersVersion"
+		testImplementation "org.testcontainers:junit-jupiter:$testcontainersVersion"
 	}
 
 	springBoot {
