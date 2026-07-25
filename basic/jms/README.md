@@ -18,7 +18,7 @@ It also shows an example of using Spring profiles to modify the configuration fo
 
 The Stdout and Stdin Channel Adapters will allow you to interact with JMS via the console. It uses an embedded ActiveMQ broker.
 
-To run the sample, simply execute the **Main** class located in the the *org.springframework.integration.samples.jms*
+To run the sample, simply execute the **Main** class located in the *org.springframework.integration.samples.jms*
  package either from your favorite IDE or by using Gradle. When using Gradle you can start the sample by executing:
 
        $ gradlew :jms:run

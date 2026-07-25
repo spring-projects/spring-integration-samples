@@ -37,7 +37,7 @@ The following are used to configure the *Gateway*:
 
 * The request and reply channels
 * The data source for the database
-* The the update/insert statement to be executed.
+* The update/insert statement to be executed.
 * Optional request SQL Parameter source factory
 * The select query to be executed after the insert is done
 * Optional reply SQL Parameter source factory

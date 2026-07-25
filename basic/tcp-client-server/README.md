@@ -1,7 +1,7 @@
 TCP Sample
 ==========
 
-This is the place to get started with the Samples for *Spring Integration's* support for the the [Transmission Control Protocol][] (TCP). The sample demonstrates a simple message flow represented by the diagram below:
+This is the place to get started with the Samples for *Spring Integration's* support for the [Transmission Control Protocol][] (TCP). The sample demonstrates a simple message flow represented by the diagram below:
 
     Gateway (SimpleGateway) -> Channel -> TcpOutboundGateway -> <==Socket==> -> TcpInboundGateway -> Channel -> ServiceActivator (EchoService)
 

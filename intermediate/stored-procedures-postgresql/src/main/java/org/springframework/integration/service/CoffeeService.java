@@ -36,7 +36,7 @@ public interface CoffeeService {
 	 * Find the description for a provided coffee beverage.
 	 *
 	 * @param input of the coffee beverage
-	 * @return The the description of the coffee beverage
+	 * @return The description of the coffee beverage
 	 */
 	String findCoffeeBeverage(Integer input);
 
