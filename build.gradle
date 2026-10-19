@@ -1,6 +1,6 @@
 buildscript {
 	ext {
-		kotlinVersion = '2.3.0'
+		kotlinVersion = '2.4.21'
 	}
 	repositories {
 		mavenCentral()
@@ -14,7 +14,7 @@ buildscript {
 		classpath 'org.gretty:gretty:4.1.10'
 		classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion"
 		classpath "org.jetbrains.kotlin:kotlin-allopen:$kotlinVersion"
-		classpath "com.google.protobuf:protobuf-gradle-plugin:0.9.6"
+		classpath "com.google.protobuf:protobuf-gradle-plugin:0.10.0"
 	}
 }
 
@@ -133,7 +133,10 @@ subprojects { subproject ->
 							url = linkIssue
 						}
 						withXml {
-							asNode().appendNode('properties').appendNode('java.version', '17')
+							asNode().appendNode('properties').with {
+								appendNode('java.version', '17')
+								appendNode('maven.compiler.release', '17')
+							}
 							if (subproject.plugins.hasPlugin('org.akhikhl.gretty')) {
 								asNode().appendNode('packaging', 'war')
 								def plugins = asNode().build?.find()?.plugins?.find()
@@ -160,7 +163,28 @@ subprojects { subproject ->
 										.with {
 											appendNode('groupId', 'org.springframework.boot')
 											appendNode('artifactId', 'spring-boot-maven-plugin')
+											def mainClass = subproject.springBoot.mainClass.orNull
+											if (mainClass) {
+												appendNode('configuration').appendNode('mainClass', mainClass)
+											}
 										}
+
+								if (subproject.plugins.hasPlugin('com.google.protobuf')) {
+									plugins.appendNode('plugin').with {
+										appendNode('groupId', 'io.github.ascopes')
+										appendNode('artifactId', 'protobuf-maven-plugin')
+										appendNode('configuration').with {
+											appendNode('protoc', property('protobufVersion'))
+											appendNode('sourceDirectories').appendNode('sourceDirectory', 'src/main/proto')
+											appendNode('plugins').appendNode('plugin', [kind: 'binary-maven']).with {
+												appendNode('groupId', 'io.grpc')
+												appendNode('artifactId', 'protoc-gen-grpc-java')
+												appendNode('version', property('grpcVersion'))
+												appendNode('options', '@generated=omit')
+											}
+										}
+									}
+								}
 
 								asNode().appendNode('parent').with {
 									appendNode('groupId', 'org.springframework.boot')
@@ -238,7 +262,9 @@ subprojects { subproject ->
 							if (!pomDeps) {
 								pomDeps = asNode().appendNode('dependencies')
 							}
-							subproject.configurations.testImplementation.dependencies.each { dep ->
+							subproject.configurations.testImplementation.dependencies.findAll { dep ->
+								!pomDeps.dependency.any { it.groupId.text() == dep.group && it.artifactId.text() == dep.name }
+							}.each { dep ->
 								pomDeps.appendNode('dependency').with {
 									appendNode('groupId', dep.group)
 									appendNode('artifactId', dep.name)
@@ -248,7 +274,9 @@ subprojects { subproject ->
 									appendNode('scope', 'test')
 								}
 							}
-							subproject.configurations.testRuntimeOnly.dependencies.each { dep ->
+							subproject.configurations.testRuntimeOnly.dependencies.findAll { dep ->
+								!pomDeps.dependency.any { it.groupId.text() == dep.group && it.artifactId.text() == dep.name }
+							}.each { dep ->
 								pomDeps.appendNode('dependency').with {
 									appendNode('groupId', dep.group)
 									appendNode('artifactId', dep.name)
@@ -288,57 +316,62 @@ subprojects { subproject ->
 		}
 
 		ext {
-			artemisVersion = '2.52.0'
+			artemisVersion = '2.57.0'
 			aspectjVersion = '1.9.25.1'
 			assertjVersion = '3.27.7'
 			awaitilityVersion = '4.3.0'
 			commonsDigesterVersion = '2.1'
 			commonsDbcpVersion = '2.14.0'
 			commonsFileUploadVersion = '1.6.0'
-			commonsIoVersion = '2.21.0'
-			commonsLangVersion = '3.18.0'
-			commonsPoolVersion = '2.12.1'
-			c3p0Version = '0.14.0'
+			commonsIoVersion = '2.22.0'
+			commonsLangVersion = '3.21.0'
+			commonsPoolVersion = '2.13.1'
+			c3p0Version = '0.14.2'
 			derbyVersion = '10.16.1.1'
 			hamcrestVersion = '2.2'
-			hibernateVersion = '7.2.1.Final'
-			hibernateValidatorVersion = '9.0.1.Final'
+			hibernateVersion = '7.4.13.Final'
+			hibernateValidatorVersion = '9.1.5.Final'
 			ftpServerVersion = '1.2.1'
 			flexjsonVersion = '3.3'
-			graalvmVersion = '25.0.2'
-			groovyVersion = '5.0.3'
-			grpcVersion = '1.79.0'
+			graalvmVersion = '25.0.4'
+			groovyVersion = '5.1.3'
+			grpcVersion = '1.85.0'
 			hsqldbVersion = '2.7.4'
-			h2Version = '2.4.240'
-			jacksonVersion = '2.21.0'
-			jackson3Version = '3.0.3'
-			jaxbVersion = '4.0.5'
-			jodaTimeVersion = '2.14.0'
+			h2Version = '2.5.252'
+			jacksonVersion = '2.22.4'
+			jackson3Version = '3.2.4'
+			jaxbVersion = '4.0.9'
+			jodaTimeVersion = '2.15.0'
 			jtaVersion = '2.0.1'
 			jtdsVersion = '1.3.1'
 			jmsApiVersion = '3.1.0'
-			jrubyVersion = '9.4.14.0'
+			jrubyVersion = '9.4.15.0'
 			jpaApiVersion = '3.2.0'
 			jstlVersion = '1.2'
-			junitJupiterVersion = '6.0.2'
-			log4jVersion = '2.25.4'
+			junitJupiterVersion = '6.1.3'
+			log4jVersion = '2.26.1'
 			mailVersion = '2.0.5'
-			mockitoVersion = '5.21.0'
-			mongoDriverVersion = '5.6.2'
-			oracleDriverVersion = '23.26.0.0.0'
-			postgresVersion = '42.7.12'
-			protobufVersion = '4.29.4'
-			slf4jVersion = '2.0.17'
-			springCloudVersion = '2025.1.0'
-			springIntegrationVersion = '7.1.0-SNAPSHOT'
+			mockitoVersion = '5.24.0'
+			mongoDriverVersion = '5.13.0'
+			oracleDriverVersion = '23.26.3.0.0'
+			postgresVersion = '42.7.14'
+			protobufVersion = '4.36.2'
+			slf4jVersion = '2.0.20'
+			springCloudVersion = '2026.0.0-SNAPSHOT'
+			springIntegrationVersion = '7.2.0-SNAPSHOT'
 			set('spring-integration.version', "$springIntegrationVersion")
 			springIntegrationSocialTwiterVersion = '1.0.1.BUILD-SNAPSHOT'
 			springIntegrationSplunkVersion = '1.2.0.BUILD-SNAPSHOT'
-			springVersion = '7.0.5'
-			springSecurityVersion = '7.1.0-SNAPSHOT'
-			springWebFlowVersion = '3.0.0'
-			testcontainersVersion = '2.0.3'
-			tilesJspVersion = '2.2.1'
+			springVersion = '7.1.0-SNAPSHOT'
+			springSecurityVersion = '7.2.0-SNAPSHOT'
+			springWebFlowVersion = '4.0.2-SNAPSHOT'
+			testcontainersVersion = '2.0.5'
+			tilesJspVersion = '2.2.2'
+
+			// Align Spring Boot dependency management with the framework and code generators.
+			set('spring-framework.version', "$springVersion")
+			set('protobuf-java.version', "$protobufVersion")
+			set('grpc-java.version', "$grpcVersion")
 		}
 
 		sourceSets.each {

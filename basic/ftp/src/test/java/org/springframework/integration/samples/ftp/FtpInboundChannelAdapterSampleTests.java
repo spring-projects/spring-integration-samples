@@ -16,6 +16,8 @@
 
 package org.springframework.integration.samples.ftp;
 
+import java.io.IOException;
+
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -39,7 +41,8 @@ public class FtpInboundChannelAdapterSampleTests extends BaseFtpTest {
 	private static final Logger LOGGER = LoggerFactory.getLogger(FtpInboundChannelAdapterSampleTests.class);
 
 	@Test
-	public void runDemo() {
+	public void runDemo() throws IOException {
+		prepareFtpFiles();
 		ConfigurableApplicationContext ctx =
 			new ClassPathXmlApplicationContext("META-INF/spring/integration/FtpInboundChannelAdapterSample-context.xml");
 

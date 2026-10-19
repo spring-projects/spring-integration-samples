@@ -24,6 +24,13 @@ qmqp(inbound) -> nullChannel
 
 The last flow drains the messages and allows the auto-delete queue to be removed when the application is closed.
 
+## Running the test
+
+Run `./gradlew :barrier:test` from the repository root, or `mvn test` from this sample's directory.
+The test uses Testcontainers to start and stop a temporary RabbitMQ container.
+A running Docker daemon is required; if Docker is unavailable, the test is skipped.
+The first run downloads the RabbitMQ image.
+
 ## Running the sample
 
 
