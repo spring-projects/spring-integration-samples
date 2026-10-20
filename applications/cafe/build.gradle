@@ -1,0 +1,30 @@
+description = 'Cafe Samples'
+
+apply plugin: 'maven-publish'
+
+publishing {
+	publications {
+		mavenJava(MavenPublication) {
+			pom {
+				name = project.description
+				packaging = 'pom'
+				withXml {
+					asNode().appendNode('modules').with {
+						appendNode('module', 'cafe-si')
+						appendNode('module', 'cafe-amqp')
+						appendNode('module', 'cafe-jms')
+						appendNode('module', '../../dsl/cafe-dsl')
+					}
+				}
+			}
+		}
+	}
+}
+
+tasks.named('generatePomFileForMavenJavaPublication') {
+	destination = file('pom.xml')
+}
+
+tasks.register('generatePom') {
+	dependsOn('generatePomFileForMavenJavaPublication')
+}

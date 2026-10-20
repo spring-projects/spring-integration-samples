@@ -12,6 +12,15 @@ dependencies {
 	api "org.apache.logging.log4j:log4j-core:$log4jVersion"
 }
 
+publishing.publications.named('mavenJava') {
+	pom.withXml {
+		// GraalPy is a POM dependency that supplies the Python runtime transitively.
+		asNode().dependencies.dependency.find {
+			it.groupId.text() == 'org.graalvm.polyglot' && it.artifactId.text() == 'python'
+		}.appendNode('type', 'pom')
+	}
+}
+
 tasks.register('runCafeDemoApp', JavaExec) {
 	mainClass = 'org.springframework.integration.samples.cafe.demo.CafeDemoApp'
 	args project.hasProperty('lang') ? project.lang : ''

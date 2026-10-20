@@ -17,6 +17,7 @@
 package org.springframework.integration.samples.ftp;
 
 import java.io.File;
+import java.io.IOException;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.ftpserver.FtpServer;
@@ -95,6 +96,13 @@ public abstract class BaseFtpTest {
 		server.stop();
 		FileUtils.deleteQuietly(new File(FTP_ROOT_DIR));
 		FileUtils.deleteQuietly(new File(LOCAL_FTP_TEMP_DIR));
+	}
+
+	protected void prepareFtpFiles() throws IOException {
+		for (String filename : new String[] { "a.txt", "b.txt" }) {
+			FileUtils.copyInputStreamToFile(BaseFtpTest.class.getResourceAsStream("/test-files/" + filename),
+					new File(FTP_ROOT_DIR, filename));
+		}
 	}
 
 }

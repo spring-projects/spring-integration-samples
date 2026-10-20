@@ -4,7 +4,7 @@ dependencies {
 	api 'org.springframework.integration:spring-integration-stream'
 	api 'org.springframework.integration:spring-integration-amqp'
 	api "org.apache.logging.log4j:log4j-core:$log4jVersion"
-	runtimeOnly "org.slf4j:slf4j-jcl:$slf4jVersion"
+	runtimeOnly "org.apache.logging.log4j:log4j-slf4j2-impl:$log4jVersion"
 }
 
 tasks.register('runSimple', JavaExec) {

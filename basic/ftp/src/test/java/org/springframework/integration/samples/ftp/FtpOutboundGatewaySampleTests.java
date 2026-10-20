@@ -29,8 +29,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 /**
  * Demonstrates use of the outbound gateway to use ls, get and rm.
  * <p>
- * The previous Test {@link FtpOutboundChannelAdapterSampleTest} was uploading 2 test
- * files:
+ * This test prepares two files on the embedded FTP server:
  *
  * <ul>
  *     <li>a.txt</li>
@@ -49,6 +48,7 @@ public class FtpOutboundGatewaySampleTests extends BaseFtpTest {
 
 	@Test
 	public void testLsGetRm() throws Exception {
+		prepareFtpFiles();
 		ConfigurableApplicationContext ctx = new ClassPathXmlApplicationContext(
 				"classpath:/META-INF/spring/integration/FtpOutboundGatewaySample-context.xml");
 

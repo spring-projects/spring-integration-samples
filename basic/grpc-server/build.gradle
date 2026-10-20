@@ -6,9 +6,9 @@ plugins {
 description = 'gRPC server Basic Sample'
 
 dependencies {
-	implementation 'org.springframework.boot:spring-boot-starter-integration'
-	implementation 'org.springframework.boot:spring-boot-starter-grpc-server'
-	implementation 'org.springframework.integration:spring-integration-grpc'
+	api 'org.springframework.boot:spring-boot-starter-integration'
+	api 'org.springframework.boot:spring-boot-starter-grpc-server'
+	api 'org.springframework.integration:spring-integration-grpc'
 
 	//Test
 	testImplementation ('org.springframework.boot:spring-boot-starter-grpc-server-test')
